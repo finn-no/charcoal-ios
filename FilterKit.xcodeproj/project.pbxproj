@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		55C1023B208F22700018D54F /* BottomsheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */; };
 		55C1023C208F22700018D54F /* BottomsheetInteractiveDismissalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */; };
+		55C1023E208F231D0018D54F /* BottomsheetTransitioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1023D208F231D0018D54F /* BottomsheetTransitioningAnimator.swift */; };
 		9BE09FF7208E1B410000632B /* FilterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE09FED208E1B400000632B /* FilterKit.framework */; };
 		9BE09FFC208E1B410000632B /* FilterKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE09FFB208E1B410000632B /* FilterKitTests.swift */; };
 		9BE09FFE208E1B410000632B /* FilterKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BE09FF0208E1B400000632B /* FilterKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomsheetPresentationController.swift; sourceTree = "<group>"; };
 		55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomsheetInteractiveDismissalController.swift; sourceTree = "<group>"; };
+		55C1023D208F231D0018D54F /* BottomsheetTransitioningAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomsheetTransitioningAnimator.swift; sourceTree = "<group>"; };
 		9BE09FED208E1B400000632B /* FilterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FilterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE09FF0208E1B400000632B /* FilterKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterKit.h; sourceTree = "<group>"; };
 		9BE09FF1208E1B400000632B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		9BE09FEF208E1B400000632B /* FilterKit */ = {
 			isa = PBXGroup;
 			children = (
+				55C1023D208F231D0018D54F /* BottomsheetTransitioningAnimator.swift */,
 				55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */,
 				55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */,
 				9BE09FF0208E1B400000632B /* FilterKit.h */,
@@ -203,6 +206,7 @@
 			files = (
 				55C1023B208F22700018D54F /* BottomsheetPresentationController.swift in Sources */,
 				55C1023C208F22700018D54F /* BottomsheetInteractiveDismissalController.swift in Sources */,
+				55C1023E208F231D0018D54F /* BottomsheetTransitioningAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,6 @@
       location = "group:Demo/Demo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:FilterKit.xcodeproj">
+      location = "group:FilterKit/FilterKit.xcodeproj">
    </FileRef>
 </Workspace>

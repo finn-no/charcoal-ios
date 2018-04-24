@@ -53,8 +53,8 @@
 		9BE09FE3208E1B400000632B = {
 			isa = PBXGroup;
 			children = (
-				9BE09FEF208E1B400000632B /* FilterKit */,
-				9BE09FFA208E1B410000632B /* FilterKitTests */,
+				9BE09FEF208E1B400000632B /* Sources */,
+				9BE09FFA208E1B410000632B /* UnitTests */,
 				9BE09FEE208E1B400000632B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,22 +68,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9BE09FEF208E1B400000632B /* FilterKit */ = {
+		9BE09FEF208E1B400000632B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				9BE09FF0208E1B400000632B /* FilterKit.h */,
 				9BE09FF1208E1B400000632B /* Info.plist */,
 			);
-			path = FilterKit;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		9BE09FFA208E1B410000632B /* FilterKitTests */ = {
+		9BE09FFA208E1B410000632B /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				9BE09FFB208E1B410000632B /* FilterKitTests.swift */,
 				9BE09FFD208E1B410000632B /* Info.plist */,
 			);
-			path = FilterKitTests;
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,7 +345,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = FilterKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -370,7 +370,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = FilterKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

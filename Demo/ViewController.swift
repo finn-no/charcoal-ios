@@ -1,7 +1,10 @@
+//
+//  Copyright © FINN.no AS, Inc. All rights reserved.
+//
+
 import UIKit
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -9,10 +12,4 @@ class ViewController: UIViewController {
         label.text = "Hello World"
         view.addSubview(label)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
-

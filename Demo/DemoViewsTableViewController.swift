@@ -81,7 +81,7 @@ extension DemoViewsTableViewController {
 
 extension DemoViewsTableViewController {
     func presentViewControllerWithDismissGesture(_ viewController: UIViewController) {
-        self.present(viewController, animated: true) {
+        present(viewController, animated: true) {
             let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(self.closeCurrentlyPresentedViewController))
             dismissGesture.numberOfTapsRequired = 2
             viewController.view.addGestureRecognizer(dismissGesture)

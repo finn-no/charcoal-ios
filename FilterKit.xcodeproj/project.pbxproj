@@ -58,6 +58,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55C10241208F23E50018D54F /* Bottomsheet */ = {
+			isa = PBXGroup;
+			children = (
+				55C1023F208F23B00018D54F /* BottomsheetTransitioningDelegate.swift */,
+				55C1023D208F231D0018D54F /* BottomsheetTransitioningAnimator.swift */,
+				55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */,
+				55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */,
+			);
+			path = Bottomsheet;
+			sourceTree = "<group>";
+		};
 		9BE09FE3208E1B400000632B = {
 			isa = PBXGroup;
 			children = (
@@ -79,10 +90,7 @@
 		9BE09FEF208E1B400000632B /* FilterKit */ = {
 			isa = PBXGroup;
 			children = (
-				55C1023F208F23B00018D54F /* BottomsheetTransitioningDelegate.swift */,
-				55C1023D208F231D0018D54F /* BottomsheetTransitioningAnimator.swift */,
-				55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */,
-				55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */,
+				55C10241208F23E50018D54F /* Bottomsheet */,
 				9BE09FF0208E1B400000632B /* FilterKit.h */,
 				9BE09FF1208E1B400000632B /* Info.plist */,
 			);

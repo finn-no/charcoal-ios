@@ -16,6 +16,16 @@ final public class BottomsheetPresentationController: UIPresentationController {
         return view
     }()
     
+    private lazy var swipeBar: UIView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = BottomsheetPresentationController.swipeBarSize.height / 2
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    private static let swipeBarSize = CGSize(width: 134, height: 5)
+    
     private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(self, action: #selector(handlePanGesture(sender:)))
@@ -58,16 +68,16 @@ final public class BottomsheetPresentationController: UIPresentationController {
         
         presentedView.translatesAutoresizingMaskIntoConstraints = false
         
-        let topAnchorContraint: NSLayoutConstraint
+        let presentedViewTopAnchor: NSLayoutConstraint
         if let presentedViewTopAnchorConstraint = presentedViewTopAnchorConstraint {
-            topAnchorContraint = presentedViewTopAnchorConstraint
+            presentedViewTopAnchor = presentedViewTopAnchorConstraint
         } else {
-            let constant = rect(for: currentContentSizeMode, in: containerView.frame).origin.y
-            topAnchorContraint = presentedView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: constant)
+            let constant = frameOfPresentedViewInContainerView.origin.y
+            presentedViewTopAnchor = presentedView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: constant)
         }
         
         NSLayoutConstraint.activate([
-            topAnchorContraint,
+            presentedViewTopAnchor,
             presentedView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             presentedView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             presentedView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
@@ -75,24 +85,45 @@ final public class BottomsheetPresentationController: UIPresentationController {
             dimmingView.topAnchor.constraint(equalTo: containerView.topAnchor),
             dimmingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             dimmingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            dimmingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+            dimmingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            
+            swipeBar.bottomAnchor.constraint(equalTo: presentedView.topAnchor, constant: -.mediumSpacing),
+            swipeBar.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            swipeBar.widthAnchor.constraint(equalToConstant: BottomsheetPresentationController.swipeBarSize.width),
+            swipeBar.heightAnchor.constraint(equalToConstant: BottomsheetPresentationController.swipeBarSize.height),
             ])
         
-        self.presentedViewTopAnchorConstraint = topAnchorContraint
+        self.presentedViewTopAnchorConstraint = presentedViewTopAnchor
     }
     
     public override func presentationTransitionWillBegin() {
-        containerView?.addSubview(dimmingView)
+        guard let containerView = containerView else {
+            return
+        }
+
+        containerView.addSubview(dimmingView)
+        containerView.addSubview(swipeBar)
+        
+        let finalFrame = frameOfPresentedViewInContainerView
+        let swipeBarSize = BottomsheetPresentationController.swipeBarSize
+        let swipeBarFinalOrigin = CGPoint(x: (finalFrame.width/2) - (swipeBarSize.width/2) , y: finalFrame.origin.y - (.mediumSpacing + swipeBarSize.height))
+        let dismissalTransitionRect = self.dismissalTransitionRect(in: containerView.frame)
+        let offSceenTransform = CGAffineTransform(translationX: 0, y: dismissalTransitionRect.height)
+        
+        swipeBar.frame = CGRect(origin: swipeBarFinalOrigin, size: swipeBarSize)
+        swipeBar.transform = offSceenTransform
         dimmingView.alpha = 0.0
         
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
+            self?.swipeBar.transform = .identity
             self?.dimmingView.alpha = 1.0
-        }, completion: nil)
+            }, completion: nil)
     }
     
     public override func presentationTransitionDidEnd(_ completed: Bool) {
         guard completed else {
             dimmingView.removeFromSuperview()
+            swipeBar.removeFromSuperview()
             return
         }
         
@@ -103,22 +134,31 @@ final public class BottomsheetPresentationController: UIPresentationController {
         containerView.addGestureRecognizer(panGestureRecognizer)
         
         self.interactiveDismissalController = BottomsheetInteractiveDismissalController(containerView: containerView, presentedView: presentedView, dismissalTransitioningRect: dismissalTransitionRect(in: containerView.frame), dismissalPercentageThreshold: dismisalThresholdInPercentage)
-        
         interactiveDismissalController?.dismissalDidBegin = dismissPresentedViewController
     }
     
     public override func dismissalTransitionWillBegin() {
+        guard let containerView = containerView else {
+            return
+        }
+        
+        let dismissalTransitionRect = self.dismissalTransitionRect(in: containerView.frame)
+        let offSceenTransform = CGAffineTransform(translationX: 0, y: dismissalTransitionRect.height)
+        
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
+            self?.swipeBar.transform = offSceenTransform
             self?.dimmingView.alpha = 0.0
         }, completion: nil)
     }
     
     public override func dismissalTransitionDidEnd(_ completed: Bool) {
         guard completed else {
+            containerView?.layoutIfNeeded()
             return
         }
         
         dimmingView.removeFromSuperview()
+        swipeBar.removeFromSuperview()
     }
 }
 
@@ -186,10 +226,11 @@ private extension BottomsheetPresentationController {
     }
     
     func dismissalTransitionRect(in rect: CGRect, dismissalThreshold: CGFloat = 0.0) -> CGRect {
-        let compactSizeRect = self.rect(for: .compact, in: rect)
+        let swipeBarOffset = -(.mediumSpacing + BottomsheetPresentationController.swipeBarSize.height)
+        let compactSizeRect = self.rect(for: .compact, in: rect).offsetBy(dx: 0, dy: swipeBarOffset)
         let thresholdInPoints = compactSizeRect.height * dismissalThreshold
         
-        return CGRect(x: compactSizeRect.origin.x, y: compactSizeRect.origin.y + thresholdInPoints, width: compactSizeRect.width, height: compactSizeRect.height - thresholdInPoints)
+        return CGRect(x: compactSizeRect.origin.x, y: compactSizeRect.origin.y + thresholdInPoints, width: compactSizeRect.width, height: (compactSizeRect.height) - thresholdInPoints)
     }
 }
 

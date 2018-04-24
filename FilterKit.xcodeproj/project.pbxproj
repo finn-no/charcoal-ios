@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55C1023B208F22700018D54F /* BottomsheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */; };
+		55C1023C208F22700018D54F /* BottomsheetInteractiveDismissalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */; };
 		9BE09FF7208E1B410000632B /* FilterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE09FED208E1B400000632B /* FilterKit.framework */; };
 		9BE09FFC208E1B410000632B /* FilterKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE09FFB208E1B410000632B /* FilterKitTests.swift */; };
 		9BE09FFE208E1B410000632B /* FilterKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BE09FF0208E1B400000632B /* FilterKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,6 +25,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomsheetPresentationController.swift; sourceTree = "<group>"; };
+		55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomsheetInteractiveDismissalController.swift; sourceTree = "<group>"; };
 		9BE09FED208E1B400000632B /* FilterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FilterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE09FF0208E1B400000632B /* FilterKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterKit.h; sourceTree = "<group>"; };
 		9BE09FF1208E1B400000632B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 		9BE09FEF208E1B400000632B /* FilterKit */ = {
 			isa = PBXGroup;
 			children = (
+				55C1023A208F226F0018D54F /* BottomsheetInteractiveDismissalController.swift */,
+				55C10239208F226F0018D54F /* BottomsheetPresentationController.swift */,
 				9BE09FF0208E1B400000632B /* FilterKit.h */,
 				9BE09FF1208E1B400000632B /* Info.plist */,
 			);
@@ -148,6 +154,7 @@
 				TargetAttributes = {
 					9BE09FEC208E1B400000632B = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 					9BE09FF5208E1B410000632B = {
 						CreatedOnToolsVersion = 9.3;
@@ -194,6 +201,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C1023B208F22700018D54F /* BottomsheetPresentationController.swift in Sources */,
+				55C1023C208F22700018D54F /* BottomsheetInteractiveDismissalController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +348,7 @@
 		9BE0A002208E1B410000632B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -356,6 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +375,7 @@
 		9BE0A003208E1B410000632B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -389,6 +401,7 @@
 		9BE0A005208E1B410000632B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FilterKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,6 +419,7 @@
 		9BE0A006208E1B410000632B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FilterKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

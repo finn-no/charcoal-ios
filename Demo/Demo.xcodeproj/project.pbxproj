@@ -61,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		550A1FAA208F709900D0B892 /* Fullscreen */ = {
+			isa = PBXGroup;
+			children = (
+				55C10260208F2C2B0018D54F /* BottomsheetDemoViewController.swift */,
+			);
+			path = Fullscreen;
+			sourceTree = "<group>";
+		};
 		9BE0A007208E1CFF0000632B = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +95,7 @@
 				9BE0A01A208E1D010000632B /* Assets.xcassets */,
 				9BE0A01C208E1D010000632B /* LaunchScreen.storyboard */,
 				9BE0A01F208E1D010000632B /* Info.plist */,
-				55C10260208F2C2B0018D54F /* BottomsheetDemoViewController.swift */,
+				550A1FAA208F709900D0B892 /* Fullscreen */,
 				9BE0A036208F23010000632B /* Demo.swift */,
 				9BE0A038208F24120000632B /* DemoViewsTableViewController.swift */,
 			);

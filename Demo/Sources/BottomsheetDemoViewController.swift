@@ -1,10 +1,7 @@
 //
-//  BottomsheetDemoViewController.swift
-//  Demo
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
-//  Created by Holmsen, Henrik on 24/04/2018.
-//  Copyright © 2018 FINN.no. All rights reserved.
-//
+
 
 import UIKit
 import FilterKit

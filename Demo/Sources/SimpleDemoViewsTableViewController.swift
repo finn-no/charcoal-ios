@@ -7,7 +7,7 @@ import FilterKit
 
 // MARK: - DemoViewsTableViewController
 
-class DemoViewsTableViewController: UITableViewController {
+class SimpleDemoViewsTableViewController: UITableViewController {
     init() {
         super.init(style: .grouped)
     }
@@ -38,14 +38,14 @@ class DemoViewsTableViewController: UITableViewController {
 
 // MARK: - UITableViewDelegate
 
-extension DemoViewsTableViewController {
+extension SimpleDemoViewsTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Demo.all.count
+        return SimpleDemo.all.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-        cell.textLabel?.text = Demo.all[indexPath.row].title
+        cell.textLabel?.text = SimpleDemo.all[indexPath.row].title
         cell.textLabel?.font = UIFont.title3
         cell.textLabel?.textColor = UIColor.milk
         cell.selectionStyle = .none
@@ -56,7 +56,7 @@ extension DemoViewsTableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let demo = Demo.all[indexPath.row]
+        let demo = SimpleDemo.all[indexPath.row]
         present(demo)
     }
 
@@ -72,7 +72,7 @@ extension String {
 }
 
 extension DemoViewsTableViewController {
-    func present(_ demo: Demo) {
+    func present(_ demo: SimpleDemo) {
         switch demo {
         case .bottomsheet:
             let viewcontroller = BottomsheetDemoViewController()

@@ -1,21 +1,17 @@
 //
-//  Demo.swift
-//  Demo
-//
-//  Created by Holmsen, Henrik on 24/04/2018.
-//  Copyright © 2018 FINN.no. All rights reserved.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
 import Foundation
 
-enum Demo: String {
+enum SimpleDemo: String {
     case bottomsheet
     
     var title: String {
         return rawValue.capitalizingFirstLetter
     }
     
-    static var all: [Demo] {
+    static var all: [SimpleDemo] {
         return [
             .bottomsheet
         ]

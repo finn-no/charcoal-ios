@@ -13,6 +13,8 @@
 		9BE0A01B208E1D010000632B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0A01A208E1D010000632B /* Assets.xcassets */; };
 		9BE0A01E208E1D010000632B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0A01C208E1D010000632B /* LaunchScreen.storyboard */; };
 		9BE0A027208E1D3F0000632B /* FilterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE0A026208E1D3F0000632B /* FilterKit.framework */; };
+		9BE0A037208F23010000632B /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A036208F23010000632B /* Demo.swift */; };
+		9BE0A039208F24120000632B /* DemoViewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A038208F24120000632B /* DemoViewsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		9BE0A01D208E1D010000632B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BE0A01F208E1D010000632B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BE0A026208E1D3F0000632B /* FilterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FilterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BE0A036208F23010000632B /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
+		9BE0A038208F24120000632B /* DemoViewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +45,7 @@
 		9BE0A007208E1CFF0000632B = {
 			isa = PBXGroup;
 			children = (
-				9BE0A012208E1CFF0000632B /* Demo */,
+				9BE0A012208E1CFF0000632B /* Sources */,
 				9BE0A011208E1CFF0000632B /* Products */,
 				9BE0A025208E1D3F0000632B /* Frameworks */,
 			);
@@ -55,7 +59,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9BE0A012208E1CFF0000632B /* Demo */ = {
+		9BE0A012208E1CFF0000632B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				9BE0A013208E1CFF0000632B /* AppDelegate.swift */,
@@ -64,8 +68,10 @@
 				9BE0A01A208E1D010000632B /* Assets.xcassets */,
 				9BE0A01C208E1D010000632B /* LaunchScreen.storyboard */,
 				9BE0A01F208E1D010000632B /* Info.plist */,
+				9BE0A036208F23010000632B /* Demo.swift */,
+				9BE0A038208F24120000632B /* DemoViewsTableViewController.swift */,
 			);
-			path = Demo;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		9BE0A025208E1D3F0000632B /* Frameworks */ = {
@@ -149,6 +155,8 @@
 			files = (
 				9BE0A016208E1CFF0000632B /* ViewController.swift in Sources */,
 				9BE0A014208E1CFF0000632B /* AppDelegate.swift in Sources */,
+				9BE0A037208F23010000632B /* Demo.swift in Sources */,
+				9BE0A039208F24120000632B /* DemoViewsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +302,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D34XZHQLE3;
-				INFOPLIST_FILE = Demo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -313,7 +321,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D34XZHQLE3;
-				INFOPLIST_FILE = Demo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

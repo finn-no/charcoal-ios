@@ -18,6 +18,8 @@
 		9BE0A01B208E1D010000632B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0A01A208E1D010000632B /* Assets.xcassets */; };
 		9BE0A01E208E1D010000632B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0A01C208E1D010000632B /* LaunchScreen.storyboard */; };
 		9BE0A027208E1D3F0000632B /* FilterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE0A026208E1D3F0000632B /* FilterKit.framework */; };
+		9BE0A037208F23010000632B /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A036208F23010000632B /* Demo.swift */; };
+		9BE0A039208F24120000632B /* DemoViewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A038208F24120000632B /* DemoViewsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +48,8 @@
 		9BE0A01D208E1D010000632B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BE0A01F208E1D010000632B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BE0A026208E1D3F0000632B /* FilterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FilterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BE0A036208F23010000632B /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
+		9BE0A038208F24120000632B /* DemoViewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				9BE0A01F208E1D010000632B /* Info.plist */,
 				55C10242208F25A60018D54F /* SimpleDemo.swift */,
 				55C10260208F2C2B0018D54F /* BottomsheetDemoViewController.swift */,
+				9BE0A036208F23010000632B /* Demo.swift */,
+				9BE0A038208F24120000632B /* DemoViewsTableViewController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -179,6 +185,8 @@
 				9BE0A014208E1CFF0000632B /* AppDelegate.swift in Sources */,
 				55C10243208F25A60018D54F /* SimpleDemo.swift in Sources */,
 				55C10245208F27580018D54F /* SimpleDemoViewsTableViewController.swift in Sources */,
+				9BE0A037208F23010000632B /* Demo.swift in Sources */,
+				9BE0A039208F24120000632B /* DemoViewsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,8 +331,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Demo/Info.plist;
+				DEVELOPMENT_TEAM = D34XZHQLE3;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -342,8 +350,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Demo/Info.plist;
+				DEVELOPMENT_TEAM = D34XZHQLE3;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

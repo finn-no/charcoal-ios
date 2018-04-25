@@ -7,6 +7,16 @@ import UIKit
 public final class BotomsheetTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     private let animationController: BottomsheetTransitioningAnimator
     private var presentationController: BottomsheetPresentationController?
+    
+    private weak var _presentationControllerDelegate: BottomsheetPresentationControllerDelegate?
+    public var presentationControllerDelegate: BottomsheetPresentationControllerDelegate? {
+        get {
+            return presentationController?.delegate as? BottomsheetPresentationControllerDelegate
+        }
+        set(delegate) {
+            self._presentationControllerDelegate = delegate
+        }
+    }
 
     public init(for viewController: UIViewController) {
         animationController = BottomsheetTransitioningAnimator()
@@ -32,6 +42,7 @@ public final class BotomsheetTransitioningDelegate: NSObject, UIViewControllerTr
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         guard let presentationController = presentationController else {
             self.presentationController = BottomsheetPresentationController(presentedViewController: presented, presenting: presenting)
+            self.presentationController?.delegate = _presentationControllerDelegate
             return self.presentationController
         }
 

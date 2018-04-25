@@ -4,6 +4,18 @@
 
 import UIKit
 
+public protocol BottomsheetPresentationControllerDelegate: UIAdaptivePresentationControllerDelegate {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, willTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode)
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, didTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode)
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomsheetPresentationController.ContentSizeMode) -> Bool
+}
+
+public extension BottomsheetPresentationControllerDelegate {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, willTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode) {}
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, didTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode) {}
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, shouldBeginTransitionFrom contentSizeMode: BottomsheetPresentationController.ContentSizeMode) -> Bool { return true }
+}
+
 public final class BottomsheetPresentationController: UIPresentationController {
     private lazy var dimmingView: UIView = {
         let view = UIView(frame: .zero)
@@ -37,7 +49,7 @@ public final class BottomsheetPresentationController: UIPresentationController {
     /// The percentage of the tranisitioning threshold. Value between 0.0 and 1.0
     public var transitionThresholdInPercentage: CGFloat = 0.25
     /// The percentage of the dismissal threshold. Value between 0.0 and 1.0
-    public var dismisalThresholdInPercentage: CGFloat = 0.3
+    public var dismisalThresholdInPercentage: CGFloat = 0.5
     /// The current content size mode of the bottomsheet
     public private(set) var currentContentSizeMode: ContentSizeMode
     /// The interaction controller for dismissal
@@ -117,6 +129,8 @@ public final class BottomsheetPresentationController: UIPresentationController {
             self?.swipeBar.transform = .identity
             self?.dimmingView.alpha = 1.0
         }, completion: nil)
+        
+        (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, willTranstionFromContentSizeMode: currentContentSizeMode, to: currentContentSizeMode)
     }
 
     public override func presentationTransitionDidEnd(_ completed: Bool) {
@@ -134,6 +148,8 @@ public final class BottomsheetPresentationController: UIPresentationController {
 
         interactiveDismissalController = BottomsheetInteractiveDismissalController(containerView: containerView, presentedView: presentedView, dismissalTransitioningRect: dismissalTransitionRect(in: containerView.frame), dismissalPercentageThreshold: dismisalThresholdInPercentage)
         interactiveDismissalController?.dismissalDidBegin = dismissPresentedViewController
+        
+        (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, didTranstionFromContentSizeMode: currentContentSizeMode, to: currentContentSizeMode)
     }
 
     public override func dismissalTransitionWillBegin() {
@@ -181,15 +197,32 @@ public extension BottomsheetPresentationController {
 
 private extension BottomsheetPresentationController {
     func transition(to contentSizeMode: ContentSizeMode) {
-        currentContentSizeMode = contentSizeMode
+        guard let containerView = containerView else {
+            return
+        }
+        
+        let fromContentSizeMode = currentContentSizeMode
+        let newContentSizeMode = contentSizeMode
 
-        presentedViewTopAnchorConstraint?.constant = frameOfPresentedViewInContainerView.origin.y
+        presentedViewTopAnchorConstraint?.constant = rect(for: newContentSizeMode, in: containerView.frame).origin.y
 
         let animations: (() -> Void) = { [weak self] in
             self?.containerView?.layoutIfNeeded()
         }
-
-        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1.0, options: [.curveEaseInOut], animations: animations, completion: nil)
+        
+        let completion: ((Bool) -> Void) = { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.currentContentSizeMode = newContentSizeMode
+            
+            (strongSelf.delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(strongSelf, didTranstionFromContentSizeMode: fromContentSizeMode, to: newContentSizeMode)
+        }
+        
+        (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, willTranstionFromContentSizeMode: fromContentSizeMode, to: newContentSizeMode)
+        
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1.0, options: [.curveEaseInOut], animations: animations, completion: completion)
     }
 }
 
@@ -303,38 +336,15 @@ private extension BottomsheetPresentationController {
 
 extension BottomsheetPresentationController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer === panGestureRecognizer {
-            if let otherPanGestureRecognizer = otherGestureRecognizer as? UIPanGestureRecognizer, let scrollView = otherPanGestureRecognizer.view as? UIScrollView {
-                return panGestureRecognizer(panGestureRecognizer, shouldRecognizeSimultaneouslyWith: otherPanGestureRecognizer, forScrollView: scrollView)
-            }
-        }
-
         return true
     }
-
-    private func panGestureRecognizer(_ panGestureRecognizer: UIPanGestureRecognizer, shouldRecognizeSimultaneouslyWith otherPanGestureRecognizer: UIPanGestureRecognizer, forScrollView scrollView: UIScrollView) -> Bool {
-        let panDirection = verticalPanDirection(from: panGestureRecognizer.translation(in: panGestureRecognizer.view).y)
-
-        switch (currentContentSizeMode, panDirection) {
-        case (.compact, .up):
-            scrollView.isScrollEnabled = false
-            return true
-        case (.compact, .down):
-            scrollView.isScrollEnabled = false
-            return true
-        case (.expanded, .down):
-            let isScrollViewScrolledToTop = scrollView.contentOffset.y == 0
-
-            if isScrollViewScrolledToTop {
-                scrollView.isScrollEnabled = false
-                return true
-            } else {
-                scrollView.isScrollEnabled = true
-                return false
-            }
-        case (.expanded, .up):
-            scrollView.isScrollEnabled = true
-            return false
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer === panGestureRecognizer {
+            let translation = panGestureRecognizer.translation(in: containerView)
+            return (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, shouldBeginTransitionWithTranslation: translation, from: currentContentSizeMode) ?? true
         }
+        
+        return true
     }
 }

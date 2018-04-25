@@ -13,6 +13,7 @@ class BottomsheetDemoViewController: UITableViewController {
     convenience init() {
         self.init(nibName: nil, bundle: nil)
         transitioningDelegate = bottomsheetTransitioningDelegate
+        title = "Filtrer søket"
     }
 
     override func viewDidLoad() {
@@ -27,5 +28,12 @@ class BottomsheetDemoViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
         cell.textLabel?.text = "Filter \(indexPath.row + 1)"
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sublevelViewController = BottomsheetDemoViewController()
+        sublevelViewController.title = "Filter \(indexPath.row + 1)"
+        
+        navigationController?.pushViewController(sublevelViewController, animated: true)
     }
 }

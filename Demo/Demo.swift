@@ -104,7 +104,11 @@ enum FullscreenViews: String {
     var viewController: UIViewController {
         switch self {
         case .bottomsheet:
-            return BottomsheetDemoViewController()
+            let bottomSheetDemoViewController = BottomsheetDemoViewController()
+            let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
+            navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
+            navigationController.modalPresentationStyle = .custom
+            return navigationController
         }
     }
 

@@ -4,14 +4,14 @@
 
 import UIKit
 
-public final class BotomsheetTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
-    private let animationController: BottomsheetTransitioningAnimator
-    private var presentationController: BottomsheetPresentationController?
+public final class BotomSheetTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+    private let animationController: BottomSheetTransitioningAnimator
+    private var presentationController: BottomSheetPresentationController?
     
-    private weak var _presentationControllerDelegate: BottomsheetPresentationControllerDelegate?
-    public var presentationControllerDelegate: BottomsheetPresentationControllerDelegate? {
+    private weak var _presentationControllerDelegate: BottomSheetPresentationControllerDelegate?
+    public var presentationControllerDelegate: BottomSheetPresentationControllerDelegate? {
         get {
-            return presentationController?.delegate as? BottomsheetPresentationControllerDelegate
+            return presentationController?.delegate as? BottomSheetPresentationControllerDelegate
         }
         set(delegate) {
             self._presentationControllerDelegate = delegate
@@ -19,7 +19,7 @@ public final class BotomsheetTransitioningDelegate: NSObject, UIViewControllerTr
     }
 
     public init(for viewController: UIViewController) {
-        animationController = BottomsheetTransitioningAnimator()
+        animationController = BottomSheetTransitioningAnimator()
         super.init()
 
         viewController.modalPresentationStyle = .custom
@@ -41,7 +41,7 @@ public final class BotomsheetTransitioningDelegate: NSObject, UIViewControllerTr
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         guard let presentationController = presentationController else {
-            self.presentationController = BottomsheetPresentationController(presentedViewController: presented, presenting: presenting)
+            self.presentationController = BottomSheetPresentationController(presentedViewController: presented, presenting: presenting)
             self.presentationController?.delegate = _presentationControllerDelegate
             return self.presentationController
         }

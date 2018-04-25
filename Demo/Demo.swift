@@ -99,12 +99,12 @@ enum ComponentViews: String {
 }
 
 enum FullscreenViews: String {
-    case bottomsheet
+    case bottomSheet
 
     var viewController: UIViewController {
         switch self {
-        case .bottomsheet:
-            let bottomSheetDemoViewController = BottomsheetDemoViewController()
+        case .bottomSheet:
+            let bottomSheetDemoViewController = BottomSheetDemoViewController()
             let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
             navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
             navigationController.modalPresentationStyle = .custom
@@ -114,7 +114,7 @@ enum FullscreenViews: String {
 
     static var all: [FullscreenViews] {
         return [
-            .bottomsheet,
+            .bottomSheet,
         ]
     }
 }

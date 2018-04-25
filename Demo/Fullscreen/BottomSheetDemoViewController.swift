@@ -5,9 +5,9 @@
 import FilterKit
 import UIKit
 
-class BottomsheetDemoViewController: UITableViewController {
-    lazy var bottomsheetTransitioningDelegate: BotomsheetTransitioningDelegate = {
-        let delegate = BotomsheetTransitioningDelegate(for: self)
+class BottomSheetDemoViewController: UITableViewController {
+    lazy var bottomsheetTransitioningDelegate: BotomSheetTransitioningDelegate = {
+        let delegate = BotomSheetTransitioningDelegate(for: self)
         delegate.presentationControllerDelegate = self
         return delegate
     }()
@@ -33,15 +33,15 @@ class BottomsheetDemoViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let sublevelViewController = BottomsheetDemoViewController()
+        let sublevelViewController = BottomSheetDemoViewController()
         sublevelViewController.title = "Filter \(indexPath.row + 1)"
         
         navigationController?.pushViewController(sublevelViewController, animated: true)
     }
 }
 
-extension BottomsheetDemoViewController: BottomsheetPresentationControllerDelegate {
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomsheetPresentationController.ContentSizeMode) -> Bool {
+extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelegate {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomSheetPresentationController.ContentSizeMode) -> Bool {
         switch contentSizeMode {
         case .expanded:
             let isDownwardTranslation = translation.y > 0.0
@@ -57,7 +57,7 @@ extension BottomsheetDemoViewController: BottomsheetPresentationControllerDelega
     }
     
     
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, willTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode) {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
         switch (current, new) {
         case (_, .compact):
             tableView.isScrollEnabled = false

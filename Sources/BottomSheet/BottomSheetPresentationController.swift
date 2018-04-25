@@ -4,19 +4,19 @@
 
 import UIKit
 
-public protocol BottomsheetPresentationControllerDelegate: UIAdaptivePresentationControllerDelegate {
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, willTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode)
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, didTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode)
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomsheetPresentationController.ContentSizeMode) -> Bool
+public protocol BottomSheetPresentationControllerDelegate: UIAdaptivePresentationControllerDelegate {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode)
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, didTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode)
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomSheetPresentationController.ContentSizeMode) -> Bool
 }
 
-public extension BottomsheetPresentationControllerDelegate {
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, willTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode) {}
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, didTranstionFromContentSizeMode current: BottomsheetPresentationController.ContentSizeMode, to new: BottomsheetPresentationController.ContentSizeMode) {}
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomsheetPresentationController, shouldBeginTransitionFrom contentSizeMode: BottomsheetPresentationController.ContentSizeMode) -> Bool { return true }
+public extension BottomSheetPresentationControllerDelegate {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {}
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, didTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {}
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, shouldBeginTransitionFrom contentSizeMode: BottomSheetPresentationController.ContentSizeMode) -> Bool { return true }
 }
 
-public final class BottomsheetPresentationController: UIPresentationController {
+public final class BottomSheetPresentationController: UIPresentationController {
     private lazy var dimmingView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ public final class BottomsheetPresentationController: UIPresentationController {
     private lazy var swipeBar: UIView = {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = BottomsheetPresentationController.swipeBarSize.height / 2
+        view.layer.cornerRadius = BottomSheetPresentationController.swipeBarSize.height / 2
         view.layer.masksToBounds = true
         return view
     }()
@@ -53,7 +53,7 @@ public final class BottomsheetPresentationController: UIPresentationController {
     /// The current content size mode of the bottomsheet
     public private(set) var currentContentSizeMode: ContentSizeMode
     /// The interaction controller for dismissal
-    public private(set) var interactiveDismissalController: BottomsheetInteractiveDismissalController?
+    public private(set) var interactiveDismissalController: BottomSheetInteractiveDismissalController?
 
     public override var presentationStyle: UIModalPresentationStyle {
         return .overCurrentContext
@@ -100,8 +100,8 @@ public final class BottomsheetPresentationController: UIPresentationController {
 
             swipeBar.bottomAnchor.constraint(equalTo: presentedView.topAnchor, constant: -.mediumSpacing),
             swipeBar.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            swipeBar.widthAnchor.constraint(equalToConstant: BottomsheetPresentationController.swipeBarSize.width),
-            swipeBar.heightAnchor.constraint(equalToConstant: BottomsheetPresentationController.swipeBarSize.height),
+            swipeBar.widthAnchor.constraint(equalToConstant: BottomSheetPresentationController.swipeBarSize.width),
+            swipeBar.heightAnchor.constraint(equalToConstant: BottomSheetPresentationController.swipeBarSize.height),
         ])
 
         presentedViewTopAnchorConstraint = presentedViewTopAnchor
@@ -116,7 +116,7 @@ public final class BottomsheetPresentationController: UIPresentationController {
         containerView.addSubview(swipeBar)
 
         let finalFrame = frameOfPresentedViewInContainerView
-        let swipeBarSize = BottomsheetPresentationController.swipeBarSize
+        let swipeBarSize = BottomSheetPresentationController.swipeBarSize
         let swipeBarFinalOrigin = CGPoint(x: (finalFrame.width / 2) - (swipeBarSize.width / 2), y: finalFrame.origin.y - (.mediumSpacing + swipeBarSize.height))
         let dismissalTransitionRect = self.dismissalTransitionRect(in: containerView.frame)
         let offSceenTransform = CGAffineTransform(translationX: 0, y: dismissalTransitionRect.height)
@@ -130,7 +130,7 @@ public final class BottomsheetPresentationController: UIPresentationController {
             self?.dimmingView.alpha = 1.0
         }, completion: nil)
         
-        (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, willTranstionFromContentSizeMode: currentContentSizeMode, to: currentContentSizeMode)
+        (delegate as? BottomSheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, willTranstionFromContentSizeMode: currentContentSizeMode, to: currentContentSizeMode)
     }
 
     public override func presentationTransitionDidEnd(_ completed: Bool) {
@@ -146,10 +146,10 @@ public final class BottomsheetPresentationController: UIPresentationController {
 
         containerView.addGestureRecognizer(panGestureRecognizer)
 
-        interactiveDismissalController = BottomsheetInteractiveDismissalController(containerView: containerView, presentedView: presentedView, dismissalTransitioningRect: dismissalTransitionRect(in: containerView.frame), dismissalPercentageThreshold: dismisalThresholdInPercentage)
+        interactiveDismissalController = BottomSheetInteractiveDismissalController(containerView: containerView, presentedView: presentedView, dismissalTransitioningRect: dismissalTransitionRect(in: containerView.frame), dismissalPercentageThreshold: dismisalThresholdInPercentage)
         interactiveDismissalController?.dismissalDidBegin = dismissPresentedViewController
         
-        (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, didTranstionFromContentSizeMode: currentContentSizeMode, to: currentContentSizeMode)
+        (delegate as? BottomSheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, didTranstionFromContentSizeMode: currentContentSizeMode, to: currentContentSizeMode)
     }
 
     public override func dismissalTransitionWillBegin() {
@@ -178,7 +178,7 @@ public final class BottomsheetPresentationController: UIPresentationController {
 
 // MARK: - ContentSizeMode
 
-public extension BottomsheetPresentationController {
+public extension BottomSheetPresentationController {
     enum ContentSizeMode {
         case compact, expanded
 
@@ -195,7 +195,7 @@ public extension BottomsheetPresentationController {
 
 // MARK: - Transitions
 
-private extension BottomsheetPresentationController {
+private extension BottomSheetPresentationController {
     func transition(to contentSizeMode: ContentSizeMode) {
         guard let containerView = containerView else {
             return
@@ -217,10 +217,10 @@ private extension BottomsheetPresentationController {
             
             strongSelf.currentContentSizeMode = newContentSizeMode
             
-            (strongSelf.delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(strongSelf, didTranstionFromContentSizeMode: fromContentSizeMode, to: newContentSizeMode)
+            (strongSelf.delegate as? BottomSheetPresentationControllerDelegate)?.bottomsheetPresentationController(strongSelf, didTranstionFromContentSizeMode: fromContentSizeMode, to: newContentSizeMode)
         }
         
-        (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, willTranstionFromContentSizeMode: fromContentSizeMode, to: newContentSizeMode)
+        (delegate as? BottomSheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, willTranstionFromContentSizeMode: fromContentSizeMode, to: newContentSizeMode)
         
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1.0, options: [.curveEaseInOut], animations: animations, completion: completion)
     }
@@ -228,7 +228,7 @@ private extension BottomsheetPresentationController {
 
 // MARK: - Helpers
 
-private extension BottomsheetPresentationController {
+private extension BottomSheetPresentationController {
     func rect(for contentSizeMode: ContentSizeMode, in rect: CGRect) -> CGRect {
         let origin = CGPoint(x: 0, y: rect.height * (1.0 - contentSizeMode.percentageOfSizeInSuperview))
         let size = CGSize(width: rect.width, height: rect.height - origin.y)
@@ -258,7 +258,7 @@ private extension BottomsheetPresentationController {
     }
 
     func dismissalTransitionRect(in rect: CGRect, dismissalThreshold: CGFloat = 0.0) -> CGRect {
-        let swipeBarOffset = -(.mediumSpacing + BottomsheetPresentationController.swipeBarSize.height)
+        let swipeBarOffset = -(.mediumSpacing + BottomSheetPresentationController.swipeBarSize.height)
         let compactSizeRect = self.rect(for: .compact, in: rect).offsetBy(dx: 0, dy: swipeBarOffset)
         let thresholdInPoints = compactSizeRect.height * dismissalThreshold
 
@@ -268,7 +268,7 @@ private extension BottomsheetPresentationController {
 
 // MARK: - Gestures
 
-private extension BottomsheetPresentationController {
+private extension BottomSheetPresentationController {
     enum VerticalPanDirection {
         case up, down
     }
@@ -334,7 +334,7 @@ private extension BottomsheetPresentationController {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension BottomsheetPresentationController: UIGestureRecognizerDelegate {
+extension BottomSheetPresentationController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
@@ -342,7 +342,7 @@ extension BottomsheetPresentationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer === panGestureRecognizer {
             let translation = panGestureRecognizer.translation(in: containerView)
-            return (delegate as? BottomsheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, shouldBeginTransitionWithTranslation: translation, from: currentContentSizeMode) ?? true
+            return (delegate as? BottomSheetPresentationControllerDelegate)?.bottomsheetPresentationController(self, shouldBeginTransitionWithTranslation: translation, from: currentContentSizeMode) ?? true
         }
         
         return true

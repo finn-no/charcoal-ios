@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class BottomsheetInteractiveDismissalController: UIPercentDrivenInteractiveTransition {
+public final class BottomSheetInteractiveDismissalController: UIPercentDrivenInteractiveTransition {
     let dismissalTransitioningRect: CGRect
     let dismissalPercentageThreshold: CGFloat
     let containerView: UIView

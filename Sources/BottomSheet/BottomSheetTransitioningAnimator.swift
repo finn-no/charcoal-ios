@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class BottomsheetTransitioningAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+public final class BottomSheetTransitioningAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     public enum TransitionType {
         case presentation, dismissal
     }
@@ -34,7 +34,7 @@ public final class BottomsheetTransitioningAnimator: NSObject, UIViewControllerA
     }
 }
 
-private extension BottomsheetTransitioningAnimator {
+private extension BottomSheetTransitioningAnimator {
     func animatePresentationTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let presentedViewController = transitionContext.viewController(forKey: .to), let presentingViewController = transitionContext.viewController(forKey: .from) else {
             transitionContext.completeTransition(false)

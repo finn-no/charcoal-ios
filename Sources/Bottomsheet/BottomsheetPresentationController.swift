@@ -137,12 +137,11 @@ public final class BottomsheetPresentationController: UIPresentationController {
     }
 
     public override func dismissalTransitionWillBegin() {
-        guard let containerView = containerView else {
+        guard let containerView = containerView, let presentedView = presentedView else {
             return
         }
 
-        let dismissalTransitionRect = self.dismissalTransitionRect(in: containerView.frame)
-        let offSceenTransform = CGAffineTransform(translationX: 0, y: dismissalTransitionRect.height)
+        let offSceenTransform = CGAffineTransform(translationX: 0, y: containerView.frame.maxY - presentedView.frame.origin.y)
 
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             self?.swipeBar.transform = offSceenTransform

@@ -47,6 +47,7 @@ extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelega
             let isDownwardTranslation = translation.y > 0.0
             
             if isDownwardTranslation {
+                tableView.isScrollEnabled = !tableView.isScrolledToTop
                 return tableView.isScrolledToTop
             } else {
                 return false

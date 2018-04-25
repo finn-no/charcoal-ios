@@ -4,25 +4,23 @@
 
 import UIKit
 
-final public class BottomsheetInteractiveDismissalController: UIPercentDrivenInteractiveTransition {
-    
+public final class BottomsheetInteractiveDismissalController: UIPercentDrivenInteractiveTransition {
     let dismissalTransitioningRect: CGRect
     let dismissalPercentageThreshold: CGFloat
     let containerView: UIView
     let presentedView: UIView
-    
+
     public lazy var gestureRecognizer: UIPanGestureRecognizer = {
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(self, action: #selector(viewPanned(sender:)))
         return panGestureRecognizer
     }()
-    
+
     public var dismissalDidBegin: (() -> Void)?
     public private(set) var isDismissing = false
-    
+
     var initialDismissalTranslation: CGFloat = 0.0
-    
-    
+
     init(containerView: UIView, presentedView: UIView, dismissalTransitioningRect: CGRect, dismissalPercentageThreshold: CGFloat) {
         self.containerView = containerView
         self.presentedView = presentedView
@@ -31,15 +29,15 @@ final public class BottomsheetInteractiveDismissalController: UIPercentDrivenInt
         super.init()
         self.containerView.addGestureRecognizer(gestureRecognizer)
     }
-    
+
     @objc func viewPanned(sender: UIPanGestureRecognizer) {
         let translationY = sender.translation(in: containerView).y
         let dismissalPercentage = (translationY - initialDismissalTranslation) / dismissalTransitioningRect.height
-        
+
         switch sender.state {
         case .began, .possible:
             let startPoint = CGPoint(x: presentedView.frame.origin.x, y: presentedView.frame.origin.y + translationY)
-            
+
             if dismissalTransitioningRect.contains(startPoint) && isDismissing == false {
                 initialDismissalTranslation = translationY
                 dismissalDidBegin?()
@@ -47,7 +45,7 @@ final public class BottomsheetInteractiveDismissalController: UIPercentDrivenInt
             }
         case .changed:
             let currentPoint = presentedView.frame.origin
-            
+
             if dismissalTransitioningRect.contains(currentPoint) && isDismissing == false {
                 initialDismissalTranslation = translationY
                 dismissalDidBegin?()
@@ -69,7 +67,7 @@ final public class BottomsheetInteractiveDismissalController: UIPercentDrivenInt
             } else {
                 cancel()
             }
-            
+
             isDismissing = false
         }
     }

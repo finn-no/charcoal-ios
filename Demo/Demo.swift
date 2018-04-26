@@ -99,18 +99,28 @@ enum ComponentViews: String {
 }
 
 enum FullscreenViews: String {
-    case helloWorld
+    case bottomSheet
 
     var viewController: UIViewController {
         switch self {
-        case .helloWorld:
-            return ViewController(nibName: nil, bundle: nil)
+        case .bottomSheet:
+            let bottomSheetDemoViewController = BottomSheetDemoViewController()
+            let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
+            navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
+            navigationController.modalPresentationStyle = .custom
+            return navigationController
         }
     }
 
     static var all: [FullscreenViews] {
         return [
-            .helloWorld,
+            .bottomSheet,
         ]
+    }
+}
+
+extension String {
+    var capitalizingFirstLetter: String {
+        return prefix(1).uppercased() + dropFirst()
     }
 }

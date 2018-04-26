@@ -34,7 +34,7 @@ class DemoViewsTableViewController: UITableViewController {
 
     private func setup() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.backgroundColor = UIColor.white
+        tableView.backgroundColor = UIColor.secondaryBlue
         tableView.delegate = self
         tableView.separatorStyle = .none
     }
@@ -55,6 +55,8 @@ extension DemoViewsTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = Sections.formattedName(for: indexPath)
+        cell.textLabel?.font = UIFont.title3
+        cell.textLabel?.textColor = UIColor.milk
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
 
@@ -77,15 +79,9 @@ extension DemoViewsTableViewController {
     }
 }
 
-extension String {
-    var capitalizingFirstLetter: String {
-        return prefix(1).uppercased() + dropFirst()
-    }
-}
-
 extension DemoViewsTableViewController {
     func presentViewControllerWithDismissGesture(_ viewController: UIViewController) {
-        self.present(viewController, animated: true) {
+        present(viewController, animated: true) {
             let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(self.closeCurrentlyPresentedViewController))
             dismissGesture.numberOfTapsRequired = 2
             viewController.view.addGestureRecognizer(dismissGesture)

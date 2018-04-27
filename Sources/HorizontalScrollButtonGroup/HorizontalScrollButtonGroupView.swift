@@ -59,15 +59,15 @@ public final class HorizontalScrollButtonGroupView: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupButtonsContainer()
+        setup()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupButtonsContainer()
+        setup()
     }
     
-    func setupButtonsContainer() {
+    func setup() {
         backgroundColor = .clear
         
         addSubview(scrollView)

@@ -152,12 +152,12 @@
 			isa = PBXGroup;
 			children = (
 				44ECE661208F7FA20017AC82 /* FilterKit.h */,
+				44ECE662208F7FA20017AC82 /* Info.plist */,
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				44ECE693208F80320017AC82 /* BottomSheet */,
 				44ECE699208F80320017AC82 /* Finnivers */,
+				55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
-				44ECE662208F7FA20017AC82 /* Info.plist */,
-				55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroup.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -165,15 +165,15 @@
 		44ECE66C208F7FD00017AC82 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				44ECE679208F7FD20017AC82 /* Info.plist */,
 				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
 				44ECE6A7208F816D0017AC82 /* Demo.swift */,
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
-				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
+				55646DB520933D56006AA2DA /* Components */,
+				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
-				44ECE679208F7FD20017AC82 /* Info.plist */,
-				55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -249,6 +249,30 @@
 				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */ = {
+			isa = PBXGroup;
+			children = (
+				55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroup.swift */,
+			);
+			path = HorizontalScrollButtonGroup;
+			sourceTree = "<group>";
+		};
+		55646DB420933D4C006AA2DA /* HorizontalScrollButtonGroup */ = {
+			isa = PBXGroup;
+			children = (
+				55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */,
+			);
+			path = HorizontalScrollButtonGroup;
+			sourceTree = "<group>";
+		};
+		55646DB520933D56006AA2DA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				55646DB420933D4C006AA2DA /* HorizontalScrollButtonGroup */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

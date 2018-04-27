@@ -82,18 +82,18 @@ enum Sections: String {
 }
 
 enum ComponentViews: String {
-    case helloWorld
+    case horizontalScrollButtonGroupDemoView
 
     var viewController: UIViewController {
         switch self {
-        case .helloWorld:
-            return ViewController(nibName: nil, bundle: nil)
+        case .horizontalScrollButtonGroupDemoView:
+            return ViewController<HorizontalScrollButtonGroupDemoView>()
         }
     }
 
     static var all: [ComponentViews] {
         return [
-            .helloWorld,
+            .horizontalScrollButtonGroupDemoView,
         ]
     }
 }

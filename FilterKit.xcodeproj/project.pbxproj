@@ -32,6 +32,7 @@
 		44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */; };
 		44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */; };
 		55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroup.swift */; };
+		55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Regular.ttf"; sourceTree = "<group>"; };
 		44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Bold.ttf"; sourceTree = "<group>"; };
 		55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroup.swift; sourceTree = "<group>"; };
+		55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupDemoView.swift; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +173,7 @@
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
+				55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,

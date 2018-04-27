@@ -17,15 +17,15 @@ final class HorizontalScrollButtonGroupDemoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupDemoView()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupDemoView()
+        setup()
     }
 
-    func setupDemoView() {
+    func setup() {
         addSubview(demoView)
         
         NSLayoutConstraint.activate([

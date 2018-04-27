@@ -4,16 +4,16 @@
 
 import Foundation
 
-public protocol HorizontalScrollButtonGroupDataSource: AnyObject {
-    func horizontalScrollButtonGroup(_ horizontalScrollButtonGroup: HorizontalScrollButtonGroup, titleForButtonAtIndex index: Int) -> String?
-    func numberOfButtons(_ horizontalScrollButtonGroup: HorizontalScrollButtonGroup) -> Int
+public protocol HorizontalScrollButtonGroupViewDataSource: AnyObject {
+    func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, titleForButtonAtIndex index: Int) -> String?
+    func numberOfButtons(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView) -> Int
 }
 
-public protocol HorizontalScrollButtonGroupDelegate: AnyObject {
-    func horizontalScrollButtonGroup(_ horizontalScrollButtonGroup: HorizontalScrollButtonGroup, didTapButton button: UIButton, atIndex index: Int)
+public protocol HorizontalScrollButtonGroupViewDelegate: AnyObject {
+    func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int)
 }
 
-public final class HorizontalScrollButtonGroup: UIView {
+public final class HorizontalScrollButtonGroupView: UIView {
     
     public static var defaultButtonHeight: CGFloat = 38
     static var defaultButtonBorderWidth: CGFloat = 1.5
@@ -46,16 +46,16 @@ public final class HorizontalScrollButtonGroup: UIView {
     }()
     
     private lazy var buttonImage: UIImage! = {
-        return UIImage(named: "arrowDown", in: Bundle(for: HorizontalScrollButtonGroup.self), compatibleWith: nil)!
+        return UIImage(named: "arrowDown", in: Bundle(for: HorizontalScrollButtonGroupView.self), compatibleWith: nil)!
     }()
     
-    public weak var dataSource: HorizontalScrollButtonGroupDataSource? {
+    public weak var dataSource: HorizontalScrollButtonGroupViewDataSource? {
         didSet {
             self.reload()
         }
     }
     
-    public weak var delegate: HorizontalScrollButtonGroupDelegate?
+    public weak var delegate: HorizontalScrollButtonGroupViewDelegate?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,7 +96,7 @@ public final class HorizontalScrollButtonGroup: UIView {
 
 
 // MARK: - PUBLIC
-public extension HorizontalScrollButtonGroup {
+public extension HorizontalScrollButtonGroupView {
     func reload() {
         layoutButtonGroup()
     }
@@ -121,7 +121,7 @@ public extension HorizontalScrollButtonGroup {
         
         button.isSelected = selected
         button.setAttributedTitle(attributedTitle, for: state)
-        button.layer.borderWidth = showsBorder ? HorizontalScrollButtonGroup.defaultButtonBorderWidth : 0.0
+        button.layer.borderWidth = showsBorder ? HorizontalScrollButtonGroupView.defaultButtonBorderWidth : 0.0
     }
     
     func rectForButton(at index: Int, convertedToRectInView view: UIView? = nil) -> CGRect? {
@@ -149,7 +149,7 @@ public extension HorizontalScrollButtonGroup {
 
 
 // MARK: - BUTTONS (PRIVATE)
-private extension HorizontalScrollButtonGroup {
+private extension HorizontalScrollButtonGroupView {
     func layoutButtonGroup() {
         removeAllButtons()
         
@@ -158,7 +158,7 @@ private extension HorizontalScrollButtonGroup {
         }
         
         let rangeOfButtons = 0 ..< dataSource.numberOfButtons(self)
-        let buttonTitlesToDisplay = rangeOfButtons.map { dataSource.horizontalScrollButtonGroup(self, titleForButtonAtIndex: $0)}
+        let buttonTitlesToDisplay = rangeOfButtons.map { dataSource.horizontalScrollButtonGroupView(self, titleForButtonAtIndex: $0)}
         
         buttonTitlesToDisplay.forEach { layoutButton(with: $0) }
     }
@@ -219,9 +219,9 @@ private extension HorizontalScrollButtonGroup {
         button.contentEdgeInsets = UIEdgeInsets(top: .mediumSpacing, left: .mediumSpacing, bottom: .mediumSpacing, right: .mediumSpacing)
         button.semanticContentAttribute = .forceRightToLeft
        
-        button.layer.borderWidth = HorizontalScrollButtonGroup.defaultButtonBorderWidth
+        button.layer.borderWidth = HorizontalScrollButtonGroupView.defaultButtonBorderWidth
         button.layer.borderColor = .stone
-        button.layer.cornerRadius = HorizontalScrollButtonGroup.defaultButtonHeight / 2
+        button.layer.cornerRadius = HorizontalScrollButtonGroupView.defaultButtonHeight / 2
         
         let image = buttonImage.withRenderingMode(.alwaysTemplate)
         button.imageView?.tintColor = .stone
@@ -239,7 +239,7 @@ private extension HorizontalScrollButtonGroup {
             return .zero
         }
         
-        let boundingRectSize = CGSize(width: CGFloat.infinity, height: HorizontalScrollButtonGroup.defaultButtonHeight)
+        let boundingRectSize = CGSize(width: CGFloat.infinity, height: HorizontalScrollButtonGroupView.defaultButtonHeight)
         let rect = attributedTitle.boundingRect(with: boundingRectSize, options: .usesLineFragmentOrigin, context: nil)
         let verticalSpacings: CGFloat = .mediumSpacing + .mediumSpacing + 18 + .mediumSpacing
         let size = CGSize(width: rect.width + verticalSpacings, height: rect.height)
@@ -248,13 +248,13 @@ private extension HorizontalScrollButtonGroup {
     }
 }
 
-private extension HorizontalScrollButtonGroup {
+private extension HorizontalScrollButtonGroupView {
     @objc func buttonTapped(sender: UIButton, forEvent: UIEvent) {
         guard let buttonIndex = stackView.arrangedSubviews.index(of: sender) else {
             assertionFailure("No index for \(sender)")
             return
         }
         
-        delegate?.horizontalScrollButtonGroup(self, didTapButton: sender, atIndex: buttonIndex)
+        delegate?.horizontalScrollButtonGroupView(self, didTapButton: sender, atIndex: buttonIndex)
     }
 }

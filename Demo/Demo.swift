@@ -87,7 +87,7 @@ enum ComponentViews: String {
     var viewController: UIViewController {
         switch self {
         case .horizontalScrollButtonGroupDemoView:
-            return ViewController<HorizontalScrollButtonGroupDemoView>()
+            return ViewController<HorizontalScrollButtonGroupViewDemoView>()
         }
     }
 

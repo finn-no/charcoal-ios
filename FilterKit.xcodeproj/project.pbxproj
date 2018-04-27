@@ -31,8 +31,8 @@
 		44ECE6B6208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */; };
 		44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */; };
 		44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */; };
-		55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroup.swift */; };
-		55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */; };
+		55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */; };
+		55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -95,8 +95,8 @@
 		44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Medium.ttf"; sourceTree = "<group>"; };
 		44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Regular.ttf"; sourceTree = "<group>"; };
 		44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Bold.ttf"; sourceTree = "<group>"; };
-		55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroup.swift; sourceTree = "<group>"; };
-		55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupDemoView.swift; sourceTree = "<group>"; };
+		55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupView.swift; sourceTree = "<group>"; };
+		55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupViewDemoView.swift; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,7 +254,7 @@
 		55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */ = {
 			isa = PBXGroup;
 			children = (
-				55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroup.swift */,
+				55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */,
 			);
 			path = HorizontalScrollButtonGroup;
 			sourceTree = "<group>";
@@ -262,7 +262,7 @@
 		55646DB420933D4C006AA2DA /* HorizontalScrollButtonGroup */ = {
 			isa = PBXGroup;
 			children = (
-				55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift */,
+				55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */,
 			);
 			path = HorizontalScrollButtonGroup;
 			sourceTree = "<group>";
@@ -426,7 +426,7 @@
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				44ECE6A4208F80320017AC82 /* Font.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,
-				55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroup.swift in Sources */,
+				55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */,
 				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
@@ -438,7 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupDemoView.swift in Sources */,
+				55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,

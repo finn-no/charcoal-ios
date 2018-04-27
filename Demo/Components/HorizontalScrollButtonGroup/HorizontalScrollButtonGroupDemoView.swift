@@ -1,8 +1,4 @@
 //
-//  HorizontalScrollButtonGroupDemoView.swift
-//  Demo
-//
-//  Created by Holmsen, Henrik on 26/04/2018.
 //  Copyright © 2018 FINN.no. All rights reserved.
 //
 

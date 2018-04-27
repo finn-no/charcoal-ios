@@ -246,9 +246,7 @@ private extension HorizontalScrollButtonGroupView {
         
         return size
     }
-}
-
-private extension HorizontalScrollButtonGroupView {
+    
     @objc func buttonTapped(sender: UIButton, forEvent: UIEvent) {
         guard let buttonIndex = stackView.arrangedSubviews.index(of: sender) else {
             assertionFailure("No index for \(sender)")

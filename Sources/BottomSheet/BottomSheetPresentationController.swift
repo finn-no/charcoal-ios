@@ -185,7 +185,7 @@ public extension BottomSheetPresentationController {
         var percentageOfSizeInSuperview: CGFloat {
             switch self {
             case .compact:
-                return 0.4
+                return 0.5
             case .expanded:
                 return 0.9
             }

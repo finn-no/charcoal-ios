@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class BotomSheetTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+public final class BottomSheetTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     private let animationController: BottomSheetTransitioningAnimator
     private var presentationController: BottomSheetPresentationController?
     

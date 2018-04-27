@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import FilterKit
 
 enum Sections: String {
     case components
@@ -82,24 +83,9 @@ enum Sections: String {
 }
 
 enum ComponentViews: String {
-    case horizontalScrollButtonGroupDemoView
-
-    var viewController: UIViewController {
-        switch self {
-        case .horizontalScrollButtonGroupDemoView:
-            return ViewController<HorizontalScrollButtonGroupViewDemoView>()
-        }
-    }
-
-    static var all: [ComponentViews] {
-        return [
-            .horizontalScrollButtonGroupDemoView,
-        ]
-    }
-}
-
-enum FullscreenViews: String {
     case bottomSheet
+    case rootFilters
+    case horizontalScrollButtonGroupDemoView
 
     var viewController: UIViewController {
         switch self {
@@ -109,12 +95,45 @@ enum FullscreenViews: String {
             navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
             navigationController.modalPresentationStyle = .custom
             return navigationController
+
+        case .rootFilters:
+            let rootFilterHelper = DemoFilterRootViewControllerHelper.createHelperForDemo()
+            let demoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
+            let navigationController = UINavigationController(rootViewController: demoViewController)
+            return navigationController
+
+        case .horizontalScrollButtonGroupDemoView:
+            return ViewController<HorizontalScrollButtonGroupViewDemoView>()
+        }
+    }
+
+    static var all: [ComponentViews] {
+        return [
+            .bottomSheet,
+            .rootFilters
+            .horizontalScrollButtonGroupDemoView,
+        ]
+    }
+}
+
+enum FullscreenViews: String {
+    case fullDemo
+
+    var viewController: UIViewController {
+        switch self {
+        case .fullDemo:
+            let rootFilterHelper = DemoFilterRootViewControllerHelper.createHelperForDemo()
+            let bottomSheetDemoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
+            let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
+            navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
+            navigationController.modalPresentationStyle = .custom
+            return navigationController
         }
     }
 
     static var all: [FullscreenViews] {
         return [
-            .bottomSheet,
+            .fullDemo
         ]
     }
 }

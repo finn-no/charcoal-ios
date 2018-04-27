@@ -223,9 +223,11 @@ private extension HorizontalScrollButtonGroup {
         button.layer.borderColor = .stone
         button.layer.cornerRadius = HorizontalScrollButtonGroup.defaultButtonHeight / 2
         
-        button.setImage(buttonImage, for: .normal)
-        button.setImage(buttonImage, for: .highlighted)
-        button.setImage(buttonImage, for: .selected)
+        let image = buttonImage.withRenderingMode(.alwaysTemplate)
+        button.imageView?.tintColor = .stone
+        button.setImage(image, for: .normal)
+        button.setImage(image, for: .highlighted)
+        button.setImage(image, for: .selected)
         button.imageView?.contentMode = .scaleAspectFit
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: .mediumSpacing, bottom: 0, right: 0)
         

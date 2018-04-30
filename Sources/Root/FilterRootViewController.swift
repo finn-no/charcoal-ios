@@ -67,7 +67,7 @@ public class FilterRootViewController: UIViewController {
         view.backgroundColor = .milk
         tableView.register(SearchQueryCell.self, forCellReuseIdentifier: SearchQueryCell.reuseIdentifier)
         tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseIdentifier)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(PreferencesCell.self, forCellReuseIdentifier: PreferencesCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 
@@ -112,20 +112,8 @@ public class FilterRootViewController: UIViewController {
             }
             return cell
         case .preference:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = nil
-            cell.accessoryType = .none
-            if let preferencesView = filterDataSource.preferencesView {
-                cell.contentView.clipsToBounds = false
-                preferencesView.translatesAutoresizingMaskIntoConstraints = false
-                cell.contentView.addSubview(preferencesView)
-                NSLayoutConstraint.activate([
-                    preferencesView.topAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.topAnchor),
-                    preferencesView.bottomAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.bottomAnchor),
-                    preferencesView.leadingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.leadingAnchor),
-                    preferencesView.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor)
-                    ])
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
+            cell.horizontalScrollButtonGroupView = filterDataSource.preferencesView
             return cell
         }
     }

@@ -54,6 +54,4 @@ extension HorizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupVi
         print("Button at index \(index) with title \(HorizontalScrollButtonGroupViewDemoView.titles[index]) was tapped")
         horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
     }
-    
-
 }

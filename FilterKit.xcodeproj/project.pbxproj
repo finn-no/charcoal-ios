@@ -43,6 +43,7 @@
 		9BE0A061209200410000632B /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A05F2091FFA50000632B /* FilterCell.swift */; };
 		9BE0A063209345E90000632B /* FilterRootViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A062209345E90000632B /* FilterRootViewControllerDelegate.swift */; };
 		9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */; };
+		9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A069209724D70000632B /* PreferencesCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,7 @@
 		9BE0A05F2091FFA50000632B /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		9BE0A062209345E90000632B /* FilterRootViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRootViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomButtonView.swift; sourceTree = "<group>"; };
+		9BE0A069209724D70000632B /* PreferencesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		44ECE66C208F7FD00017AC82 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				55646DB520933D56006AA2DA /* Components */,
 				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				9BE0A0502091CED70000632B /* Root */,
 				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
@@ -193,7 +196,6 @@
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
-				55646DB520933D56006AA2DA /* Components */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
 			);
@@ -300,12 +302,11 @@
 		9BE0A0402091BE750000632B /* Root */ = {
 			isa = PBXGroup;
 			children = (
+				9BE0A068209724AF0000632B /* Cells */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
-				9BE0A05F2091FFA50000632B /* FilterCell.swift */,
 				9BE0A0452091BE750000632B /* FilterRootViewController.swift */,
 				9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */,
 				9BE0A062209345E90000632B /* FilterRootViewControllerDelegate.swift */,
-				9BE0A0532091D2130000632B /* SearchQueryCell.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -332,6 +333,16 @@
 				9BE0A0562091D26E0000632B /* Identifiable.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		9BE0A068209724AF0000632B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9BE0A05F2091FFA50000632B /* FilterCell.swift */,
+				9BE0A069209724D70000632B /* PreferencesCell.swift */,
+				9BE0A0532091D2130000632B /* SearchQueryCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,6 +504,7 @@
 				55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */,
 				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,
+				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,

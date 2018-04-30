@@ -110,8 +110,8 @@ enum ComponentViews: String {
     static var all: [ComponentViews] {
         return [
             .bottomSheet,
-            .rootFilters
-            .horizontalScrollButtonGroupDemoView,
+            .rootFilters,
+            .horizontalScrollButtonGroupDemoView
         ]
     }
 }

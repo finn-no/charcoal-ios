@@ -10,6 +10,13 @@ struct DemoFilterInfo: FilterInfo {
 }
 
 class DemoFilterRootViewControllerHelper: FilterRootViewControllerDataSource {
+    lazy var horizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDemoView? = {
+        return HorizontalScrollButtonGroupViewDemoView(frame: .zero)
+    }()
+    lazy var preferencesView: HorizontalScrollButtonGroupView? = {
+        return horizontalScrollButtonGroupViewDemoView?.demoView
+    }()
+
     var filters = [DemoFilterInfo]()
     var contextFilters = [DemoFilterInfo]()
 

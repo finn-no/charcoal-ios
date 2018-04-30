@@ -111,12 +111,21 @@ public class FilterRootViewController: UIViewController {
                 cell.accessoryType = .disclosureIndicator
             }
             return cell
-        default:
+        case .preference:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = section.rawValue
-            cell.textLabel?.font = .body
-            cell.textLabel?.textColor = .licorice
+            cell.textLabel?.text = nil
             cell.accessoryType = .none
+            if let preferencesView = filterDataSource.preferencesView {
+                cell.contentView.clipsToBounds = false
+                preferencesView.translatesAutoresizingMaskIntoConstraints = false
+                cell.contentView.addSubview(preferencesView)
+                NSLayoutConstraint.activate([
+                    preferencesView.topAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.topAnchor),
+                    preferencesView.bottomAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.bottomAnchor),
+                    preferencesView.leadingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.leadingAnchor),
+                    preferencesView.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor)
+                    ])
+            }
             return cell
         }
     }

@@ -31,6 +31,9 @@
 		44ECE6B6208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */; };
 		44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */; };
 		44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */; };
+		55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */; };
+		55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */; };
+		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +95,9 @@
 		44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Medium.ttf"; sourceTree = "<group>"; };
 		44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Regular.ttf"; sourceTree = "<group>"; };
 		44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Bold.ttf"; sourceTree = "<group>"; };
+		55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupView.swift; sourceTree = "<group>"; };
+		55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupViewDemoView.swift; sourceTree = "<group>"; };
+		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,11 +152,12 @@
 			isa = PBXGroup;
 			children = (
 				44ECE661208F7FA20017AC82 /* FilterKit.h */,
+				44ECE662208F7FA20017AC82 /* Info.plist */,
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				44ECE693208F80320017AC82 /* BottomSheet */,
 				44ECE699208F80320017AC82 /* Finnivers */,
+				55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
-				44ECE662208F7FA20017AC82 /* Info.plist */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -158,14 +165,15 @@
 		44ECE66C208F7FD00017AC82 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				44ECE679208F7FD20017AC82 /* Info.plist */,
 				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
 				44ECE6A7208F816D0017AC82 /* Demo.swift */,
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
-				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
+				55646DB520933D56006AA2DA /* Components */,
+				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
-				44ECE679208F7FD20017AC82 /* Info.plist */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -227,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				44ECE6B0208F83BD0017AC82 /* Fonts */,
+				55646DAF2091FE11006AA2DA /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -240,6 +249,30 @@
 				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */ = {
+			isa = PBXGroup;
+			children = (
+				55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */,
+			);
+			path = HorizontalScrollButtonGroup;
+			sourceTree = "<group>";
+		};
+		55646DB420933D4C006AA2DA /* HorizontalScrollButtonGroup */ = {
+			isa = PBXGroup;
+			children = (
+				55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */,
+			);
+			path = HorizontalScrollButtonGroup;
+			sourceTree = "<group>";
+		};
+		55646DB520933D56006AA2DA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				55646DB420933D4C006AA2DA /* HorizontalScrollButtonGroup */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,6 +395,7 @@
 				44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */,
 				44ECE6B6208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf in Resources */,
 				44ECE6B5208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf in Resources */,
+				55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +426,7 @@
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				44ECE6A4208F80320017AC82 /* Font.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,
+				55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */,
 				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
@@ -403,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,

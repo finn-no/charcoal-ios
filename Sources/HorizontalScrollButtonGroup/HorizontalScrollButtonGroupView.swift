@@ -27,7 +27,7 @@ public final class HorizontalScrollButtonGroupView: UIView {
         return scrollView
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var container: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -45,7 +45,7 @@ public final class HorizontalScrollButtonGroupView: UIView {
         return view
     }()
     
-    private lazy var buttonImage: UIImage! = {
+    private lazy var buttonImage: UIImage = {
         return UIImage(named: "arrowDown", in: Bundle(for: HorizontalScrollButtonGroupView.self), compatibleWith: nil)!
     }()
     
@@ -72,7 +72,7 @@ public final class HorizontalScrollButtonGroupView: UIView {
         
         addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(stackView)
+        contentView.addSubview(container)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -86,34 +86,37 @@ public final class HorizontalScrollButtonGroupView: UIView {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.heightAnchor.constraint(equalTo: heightAnchor),
             
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            container.topAnchor.constraint(equalTo: contentView.topAnchor),
+            container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             ])
     }
 }
 
 
-// MARK: - PUBLIC
 public extension HorizontalScrollButtonGroupView {
     func reload() {
         layoutButtonGroup()
     }
     
     func removeAllButtons() {
-        stackView.arrangedSubviews.forEach({ arrangedSubview in
-            stackView.removeArrangedSubview(arrangedSubview)
+        container.arrangedSubviews.forEach({ arrangedSubview in
+            container.removeArrangedSubview(arrangedSubview)
             arrangedSubview.removeFromSuperview()
         })
     }
     
     func setButton(at index: Int, selected: Bool) {
-        guard stackView.arrangedSubviews.indices.contains(index) else {
+        guard container.arrangedSubviews.indices.contains(index) else {
             return
         }
         
-        let buttons = stackView.arrangedSubviews as! [UIButton]
+        guard let buttons = container.arrangedSubviews as? [UIButton] else {
+            assertionFailure("Expected subviews to be array of only buttons ")
+            return
+        }
+        
         let button = buttons[index]
         let state = selected ? UIControlState.selected : .normal
         let attributedTitle = attributedButtonTitle(from: button.currentAttributedTitle?.string, for: state)
@@ -125,11 +128,11 @@ public extension HorizontalScrollButtonGroupView {
     }
     
     func rectForButton(at index: Int, convertedToRectInView view: UIView? = nil) -> CGRect? {
-        guard stackView.arrangedSubviews.indices.contains(index) else {
+        guard container.arrangedSubviews.indices.contains(index) else {
             return nil
         }
         
-        let rect = stackView.arrangedSubviews[index].frame
+        let rect = container.arrangedSubviews[index].frame
         
         if let conversionView = view {
             return convert(rect, to: conversionView)
@@ -139,7 +142,11 @@ public extension HorizontalScrollButtonGroupView {
     }
     
     var indexesForSelectedButtons: [Int] {
-        let buttons = stackView.arrangedSubviews as! [UIButton]
+        guard let buttons = container.arrangedSubviews as? [UIButton] else {
+            assertionFailure("Expected subviews to be array of only buttons ")
+            return []
+        }
+        
         let seletectedButtons =  buttons.filter({ $0.isSelected })
         let indexesOfSelectedButtons = seletectedButtons.compactMap({ buttons.index(of: $0) })
         
@@ -147,8 +154,6 @@ public extension HorizontalScrollButtonGroupView {
     }
 }
 
-
-// MARK: - BUTTONS (PRIVATE)
 private extension HorizontalScrollButtonGroupView {
     func layoutButtonGroup() {
         removeAllButtons()
@@ -164,7 +169,10 @@ private extension HorizontalScrollButtonGroupView {
     }
     
     func layoutButton(with title: String?) {
-        let button = makeButton()
+        let button = UIButton(with: buttonImage)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonTapped(sender:forEvent:)), for: .touchUpInside)
+        
         let buttonStates = [UIControlState.normal, .highlighted, .selected]
         
         buttonStates.forEach({ state in
@@ -172,12 +180,12 @@ private extension HorizontalScrollButtonGroupView {
             button.setAttributedTitle(attributedTitle, for: state)
         })
         
-        stackView.addArrangedSubview(button)
+        container.addArrangedSubview(button)
         
         let buttonSize = sizeForButton(with: attributedButtonTitle(from: title, for: .normal))
         
         NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1, constant: 0),
+            button.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 1, constant: 0),
             button.widthAnchor.constraint(equalToConstant: buttonSize.width)
             ])
     }
@@ -211,29 +219,6 @@ private extension HorizontalScrollButtonGroupView {
         return [NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: foregroundColor]
     }
     
-    func makeButton() -> UIButton {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonTapped(sender:forEvent:)), for: .touchUpInside)
-        button.backgroundColor = .milk
-        button.contentEdgeInsets = UIEdgeInsets(top: .mediumSpacing, left: .mediumSpacing, bottom: .mediumSpacing, right: .mediumSpacing)
-        button.semanticContentAttribute = .forceRightToLeft
-       
-        button.layer.borderWidth = HorizontalScrollButtonGroupView.defaultButtonBorderWidth
-        button.layer.borderColor = .stone
-        button.layer.cornerRadius = HorizontalScrollButtonGroupView.defaultButtonHeight / 2
-        
-        let image = buttonImage.withRenderingMode(.alwaysTemplate)
-        button.imageView?.tintColor = .stone
-        button.setImage(image, for: .normal)
-        button.setImage(image, for: .highlighted)
-        button.setImage(image, for: .selected)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: .mediumSpacing, bottom: 0, right: 0)
-        
-        return button
-    }
-    
     func sizeForButton(with attributedTitle: NSAttributedString?) -> CGSize {
         guard let attributedTitle = attributedTitle else {
             return .zero
@@ -248,11 +233,29 @@ private extension HorizontalScrollButtonGroupView {
     }
     
     @objc func buttonTapped(sender: UIButton, forEvent: UIEvent) {
-        guard let buttonIndex = stackView.arrangedSubviews.index(of: sender) else {
+        guard let buttonIndex = container.arrangedSubviews.index(of: sender) else {
             assertionFailure("No index for \(sender)")
             return
         }
         
         delegate?.horizontalScrollButtonGroupView(self, didTapButton: sender, atIndex: buttonIndex)
+    }
+}
+
+private extension UIButton {
+    convenience init(with image: UIImage?) {
+        self.init(type: .custom)
+        backgroundColor = .milk
+        contentEdgeInsets = UIEdgeInsets(top: .mediumSpacing, left: .mediumSpacing, bottom: .mediumSpacing, right: .mediumSpacing)
+        semanticContentAttribute = .forceRightToLeft
+        layer.borderWidth = HorizontalScrollButtonGroupView.defaultButtonBorderWidth
+        layer.borderColor = .stone
+        layer.cornerRadius = HorizontalScrollButtonGroupView.defaultButtonHeight / 2
+        imageView?.tintColor = .stone
+        imageView?.contentMode = .scaleAspectFit
+        setImage(image, for: .normal)
+        setImage(image, for: .highlighted)
+        setImage(image, for: .selected)
+        imageEdgeInsets = UIEdgeInsets(top: 0, left: .mediumSpacing, bottom: 0, right: 0)
     }
 }

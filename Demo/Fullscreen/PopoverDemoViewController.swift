@@ -1,8 +1,4 @@
 //
-//  PopoverDemoViewController.swift
-//  Demo
-//
-//  Created by Holmsen, Henrik on 30/04/2018.
 //  Copyright © 2018 FINN.no. All rights reserved.
 //
 

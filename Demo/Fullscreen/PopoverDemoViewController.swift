@@ -29,6 +29,8 @@ final class PopoverDemoViewController: UIViewController {
         setup()
     }
     
+    var selectedButton: UIButton?
+    
     func setup() {
         view.backgroundColor = .white
         view.addSubview(horizontalScrollButtonGroupView)
@@ -75,31 +77,23 @@ private extension PopoverDemoViewController {
 extension PopoverDemoViewController: UIPopoverPresentationControllerDelegate {
     
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        guard let containerView = popoverPresentationController.containerView else {
-            return
-        }
-        
-        let dimmingView = UIView(frame: containerView.frame)
-        dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        dimmingView.alpha = 0.0
-        
-        containerView.addSubview(dimmingView)
-        
-        UIView.animate(withDuration: 0.2) {
-            dimmingView.alpha = 1.0
-        }
+        popoverPresentationController.sourceView = selectedButton
+        popoverPresentationController.sourceRect = selectedButton?.bounds ?? .zero
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
     
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         guard let selctedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
-            return
+            return true
         }
         
         horizontalScrollButtonGroupView.setButton(at: selctedIndex, selected: false)
+        
+        return true
     }
 }
 
@@ -128,137 +122,27 @@ extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDataSource {
 }
 
 extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDelegate {
-    class CustomPopoverView: UIPopoverBackgroundView {
-        
-        static var sourceViewSnapshotImage: UIImage?
-        static var snapshotRect: CGRect = .zero
-        static var snapshotParentView: UIView?
-        static var preferredSize: CGSize = .zero
-        
-        var sourceViewSnapshot: UIImageView?
-        var arrowView: UIImageView?
-        
-        var _arrowOffset: CGFloat = 0.0
-        override var arrowOffset: CGFloat {
-            get { return _arrowOffset }
-            set {
-                _arrowOffset = newValue
-                setNeedsLayout()
-            }
-        }
-        
-        override var arrowDirection: UIPopoverArrowDirection {
-            get { return .up }
-            set { }
-        }
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            
-            if sourceViewSnapshot == nil {
-                let frame = convert(CustomPopoverView.snapshotRect, from: CustomPopoverView.snapshotParentView)
-                let imageView = UIImageView(frame: frame)
-                imageView.image = CustomPopoverView.sourceViewSnapshotImage
-                
-                addSubview(imageView)
-                
-                sourceViewSnapshot = imageView
-            }
-            
-            if arrowView == nil {
-                let width = CustomPopoverView.arrowBase()
-                let height = CustomPopoverView.arrowHeight()
-                let x = ((self.frame.size.width / 2)  + self.arrowOffset) - (width / 2)
-                let y = CustomPopoverView.contentViewInsets().top + (height / 2)
-                let frame = CGRect(x: x, y: y, width: width, height: height)
-                
-                let arrowView = UIImageView(frame: frame)
-                arrowView.backgroundColor = .milk
-                addSubview(arrowView)
-                
-                arrowView.transform = CGAffineTransform(rotationAngle: .pi / 4)
-                
-                self.arrowView = arrowView
-            }
-            
-            superview?.subviews.forEach({ $0.layer.cornerRadius = 4.0})
-        }
-        
-        override class var wantsDefaultContentAppearance: Bool {
-            return false
-        }
-        
-        override static func contentViewInsets() -> UIEdgeInsets {
-            return UIEdgeInsets(top: .verySmallSpacing, left: -9, bottom: 0, right: -9)
-        }
-        
-        override static func arrowBase() -> CGFloat {
-            return 10
-        }
-        
-        override static func arrowHeight() -> CGFloat {
-            return 10
-        }
-        
-        deinit {
-            CustomPopoverView.sourceViewSnapshotImage = nil
-            CustomPopoverView.snapshotRect = .zero
-            CustomPopoverView.snapshotParentView = nil
-            CustomPopoverView.preferredSize = .zero
-        }
-        
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.frame = frame
-            
-            layer.masksToBounds = false
-            layer.shadowColor = UIColor.clear.cgColor
-            layer.shadowPath = nil
-            
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-    }
     
     func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int) {
         print("Button at index \(index) with title \(HorizontalScrollButtonGroupViewDemoView.titles[index]) was tapped")
         horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
+        selectedButton = button
         
         let subFilters = PopoverDemoViewController.filters[index].subFilters
         let popover = PopoverFilterViewController(filters: subFilters)
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
-        popover.modalPresentationStyle = .popover
-    
-        let popoverPresentationController = popover.popoverPresentationController
-        popoverPresentationController?.permittedArrowDirections = .up
-        popoverPresentationController?.delegate = self
-        popoverPresentationController?.sourceView = button
-        popoverPresentationController?.sourceRect = button.bounds
-        popoverPresentationController?.backgroundColor = .milk
-        popoverPresentationController?.popoverBackgroundViewClass = CustomPopoverView.self
+        popover.modalPresentationStyle = .custom
+        popover.transitioningDelegate = self
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: { [weak self] in
-            let snapshotImage = UIImage(view: button)
-            CustomPopoverView.sourceViewSnapshotImage = snapshotImage
-            CustomPopoverView.snapshotRect = button.frame
-            CustomPopoverView.snapshotParentView = horizontalScrollButtonGroupView
-            CustomPopoverView.preferredSize = popover.preferredContentSize
-          self?.present(popover, animated: true, completion: nil)
-        })
+        present(popover, animated: true, completion: nil)
     }
 }
 
-extension UIImage {
-    convenience init(view: UIView) {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0.0)
-        view.layer.render(in:UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.init(cgImage: image!.cgImage!)
+extension PopoverDemoViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    
+        let popoverPresentationController = CustomPopoverPresentationController(presentedViewController: presented, presenting: presenting)
+        popoverPresentationController.delegate = self
+        return popoverPresentationController
     }
 }
-

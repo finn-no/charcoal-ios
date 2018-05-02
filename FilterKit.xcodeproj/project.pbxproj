@@ -35,6 +35,8 @@
 		55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */; };
+		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
+		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupViewDemoView.swift; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDemoViewController.swift; sourceTree = "<group>"; };
+		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
+		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,7 @@
 				44ECE661208F7FA20017AC82 /* FilterKit.h */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
+				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
 				44ECE693208F80320017AC82 /* BottomSheet */,
 				44ECE699208F80320017AC82 /* Finnivers */,
 				55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */,
@@ -276,6 +281,15 @@
 				55646DB420933D4C006AA2DA /* HorizontalScrollButtonGroup */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */,
+				55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */,
+			);
+			path = CustomPopoverPresentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,7 +439,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
 				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
+				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				44ECE6A4208F80320017AC82 /* Font.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,

@@ -16,6 +16,18 @@ final public class CustomPopoverPresentationController: UIPopoverPresentationCon
         return .up
     }
     
+    private static let defaultPopoverLayoutMargins = UIEdgeInsets(top: .smallSpacing, left: 0, bottom: 0, right: 0)
+    
+    private var _popoverLayouMargins: UIEdgeInsets?
+    public override var popoverLayoutMargins: UIEdgeInsets {
+        get {
+            return _popoverLayouMargins ?? CustomPopoverPresentationController.defaultPopoverLayoutMargins
+        }
+        set {
+            _popoverLayouMargins = newValue
+        }
+    }
+    
     public override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         backgroundColor = .milk
@@ -35,7 +47,7 @@ final public class CustomPopoverPresentationController: UIPopoverPresentationCon
         containerView?.addSubview(snapshotView)
         self.snapshotView = snapshotView
         
-        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
+        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             snapshotView.alpha = 1.0
         })
     }
@@ -49,12 +61,11 @@ final public class CustomPopoverPresentationController: UIPopoverPresentationCon
     }
     
     public override func dismissalTransitionWillBegin() {
+        super.dismissalTransitionWillBegin()
+        
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             self?.snapshotView?.alpha = 0.0
-            self?.popoverView?.alpha = 0.0
         })
-        
-        super.dismissalTransitionWillBegin()
     }
     
     public override func dismissalTransitionDidEnd(_ completed: Bool) {
@@ -70,10 +81,6 @@ private extension CustomPopoverPresentationController {
     
     var dimmingView: UIView? {
         return containerView?.subviews.filter({ $0.isView(named: "UIDimmingView")}).first
-    }
-    
-    var popoverView: UIView? {
-        return containerView?.subviews.filter({ $0.isView(named: "_UIPopoverView")}).first
     }
 }
 

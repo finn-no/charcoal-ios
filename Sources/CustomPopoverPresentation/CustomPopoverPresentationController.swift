@@ -4,7 +4,7 @@
 
 import UIKit
 
-final public class CustomPopoverPresentationController: UIPopoverPresentationController {
+final class CustomPopoverPresentationController: UIPopoverPresentationController {
     
     private var snapshotView: UIView?
     
@@ -47,7 +47,7 @@ final public class CustomPopoverPresentationController: UIPopoverPresentationCon
         containerView?.addSubview(snapshotView)
         self.snapshotView = snapshotView
         
-        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
+        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
             snapshotView.alpha = 1.0
         })
     }

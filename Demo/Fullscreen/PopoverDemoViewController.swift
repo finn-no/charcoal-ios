@@ -19,6 +19,12 @@ final class PopoverDemoViewController: UIViewController {
         return view
     }()
     
+    lazy var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate = {
+        let transitioningDelegate = CustomPopoverPresentationTransitioningDelegate()
+        transitioningDelegate.shouldDismissPopoverHandler = shouldDismissPopoverHandler
+        return transitioningDelegate
+    }()
+    
     convenience init() {
         self.init(nibName: nil, bundle: nil)
     }
@@ -72,21 +78,8 @@ private extension PopoverDemoViewController {
             return 48
         }
     }
-}
-
-extension PopoverDemoViewController: UIPopoverPresentationControllerDelegate {
     
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        popoverPresentationController.sourceView = selectedButton
-        popoverPresentationController.sourceRect = selectedButton?.bounds ?? .zero
-    }
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-
-    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+    func shouldDismissPopoverHandler(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         guard let selctedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
             return true
         }
@@ -132,17 +125,9 @@ extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDelegate {
         let popover = PopoverFilterViewController(filters: subFilters)
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom
-        popover.transitioningDelegate = self
+        popoverPresentationTransitioningDelegate.sourceView = button
+        popover.transitioningDelegate = popoverPresentationTransitioningDelegate
         
         present(popover, animated: true, completion: nil)
-    }
-}
-
-extension PopoverDemoViewController: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-    
-        let popoverPresentationController = CustomPopoverPresentationController(presentedViewController: presented, presenting: presenting)
-        popoverPresentationController.delegate = self
-        return popoverPresentationController
     }
 }

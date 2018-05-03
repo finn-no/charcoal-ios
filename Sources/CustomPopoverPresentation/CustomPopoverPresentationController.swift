@@ -16,12 +16,11 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
         return .up
     }
     
-    private static let defaultPopoverLayoutMargins = UIEdgeInsets(top: .smallSpacing, left: 0, bottom: 0, right: 0)
     
     private var _popoverLayouMargins: UIEdgeInsets?
     public override var popoverLayoutMargins: UIEdgeInsets {
         get {
-            return _popoverLayouMargins ?? CustomPopoverPresentationController.defaultPopoverLayoutMargins
+            return _popoverLayouMargins ?? .defaultPopoverLayoutMargins
         }
         set {
             _popoverLayouMargins = newValue
@@ -37,11 +36,10 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
     public override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
         
-        guard let dimmingView = self.dimmingView, let sourceView = sourceView, let snapshotView = sourceView.snapshotView(afterScreenUpdates: false) else {
+        guard let sourceView = sourceView, let snapshotView = sourceView.snapshotView(afterScreenUpdates: false) else {
             return
         }
         
-        dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         snapshotView.frame = sourceView.convert(sourceView.bounds, to: containerView)
         snapshotView.alpha = 0.0
         containerView?.addSubview(snapshotView)
@@ -50,6 +48,11 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
             snapshotView.alpha = 1.0
         })
+        
+        if let dimmingView = self.dimmingView {
+            // The alpha for the UIDimmingView provided by Apple is 20%. According to design we need 40%
+            dimmingView.backgroundColor = UIColor.black.withAlphaComponent(.dimmingViewAlpha)
+        }
     }
     
     public override func presentationTransitionDidEnd(_ completed: Bool) {
@@ -80,6 +83,7 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
 private extension CustomPopoverPresentationController {
     
     var dimmingView: UIView? {
+        // The UIDimmingView class is not publicly available so our only option is to find it by its class name.
         return containerView?.subviews.filter({ $0.isView(named: "UIDimmingView")}).first
     }
 }
@@ -88,4 +92,12 @@ private extension UIView {
     func isView(named name: String) -> Bool {
         return String(describing: type(of: self)) == name
     }
+}
+
+private extension CGFloat {
+    static let dimmingViewAlpha: CGFloat = 0.4
+}
+
+private extension UIEdgeInsets {
+    static let defaultPopoverLayoutMargins = UIEdgeInsets(top: .smallSpacing, left: 0, bottom: 0, right: 0)
 }

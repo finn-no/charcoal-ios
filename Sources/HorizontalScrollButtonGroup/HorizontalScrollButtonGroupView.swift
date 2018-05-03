@@ -22,7 +22,7 @@ public final class HorizontalScrollButtonGroupView: UIView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .clear
         scrollView.showsHorizontalScrollIndicator = false
-
+        scrollView.clipsToBounds = false
         return scrollView
     }()
 

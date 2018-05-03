@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FilterKit
 import UIKit
 
 enum Sections: String {
@@ -82,24 +83,8 @@ enum Sections: String {
 }
 
 enum ComponentViews: String {
-    case horizontalScrollButtonGroupDemoView
-
-    var viewController: UIViewController {
-        switch self {
-        case .horizontalScrollButtonGroupDemoView:
-            return ViewController<HorizontalScrollButtonGroupViewDemoView>()
-        }
-    }
-
-    static var all: [ComponentViews] {
-        return [
-            .horizontalScrollButtonGroupDemoView,
-        ]
-    }
-}
-
-enum FullscreenViews: String {
     case bottomSheet
+    case rootFilters
     case horizontalScrollButtonGroupWithPopover
 
     var viewController: UIViewController {
@@ -111,17 +96,45 @@ enum FullscreenViews: String {
             navigationController.modalPresentationStyle = .custom
             return navigationController
 
+        case .rootFilters:
+            let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
+            let demoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
+            let navigationController = UINavigationController(rootViewController: demoViewController)
+            return navigationController
+
         case .horizontalScrollButtonGroupWithPopover:
             let popoverDemoViewController = PopoverDemoViewController()
-
             return popoverDemoViewController
+        }
+    }
+
+    static var all: [ComponentViews] {
+        return [
+            .bottomSheet,
+            .rootFilters,
+            .horizontalScrollButtonGroupWithPopover,
+        ]
+    }
+}
+
+enum FullscreenViews: String {
+    case fullDemo
+
+    var viewController: UIViewController {
+        switch self {
+        case .fullDemo:
+            let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
+            let bottomSheetDemoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
+            let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
+            navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
+            navigationController.modalPresentationStyle = .custom
+            return navigationController
         }
     }
 
     static var all: [FullscreenViews] {
         return [
-            .bottomSheet,
-            .horizontalScrollButtonGroupWithPopover,
+            .fullDemo,
         ]
     }
 }

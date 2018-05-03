@@ -6,8 +6,8 @@ import FilterKit
 import UIKit
 
 class BottomSheetDemoViewController: UITableViewController {
-    lazy var bottomsheetTransitioningDelegate: BotomSheetTransitioningDelegate = {
-        let delegate = BotomSheetTransitioningDelegate(for: self)
+    lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
+        let delegate = BottomSheetTransitioningDelegate(for: self)
         delegate.presentationControllerDelegate = self
         return delegate
     }()

@@ -21,7 +21,7 @@ extension CustomPopoverPresentationController {
         }
         
         static let popoverArrowImage: UIImage? = {
-            return UIImage(named: "popoverArrow", in: Bundle(for: PopoverBackgroundView.self), compatibleWith: nil)
+            return UIImage(named: "popoverArrow", in: .filterKit, compatibleWith: nil)
         }()
         
         override var arrowDirection: UIPopoverArrowDirection {

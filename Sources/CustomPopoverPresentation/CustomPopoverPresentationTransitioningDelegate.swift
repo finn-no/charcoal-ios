@@ -10,6 +10,7 @@ public final class CustomPopoverPresentationTransitioningDelegate: NSObject, UIV
     public var shouldDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Bool)?
     public var prepareForPopoverPresentationHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
     public var popoverPresentationControllerDidDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
+    public var popoverPresentationControllerWillDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         guard let sourceView = sourceView else {
@@ -25,13 +26,17 @@ public final class CustomPopoverPresentationTransitioningDelegate: NSObject, UIV
     }
 }
 
-extension CustomPopoverPresentationTransitioningDelegate: UIPopoverPresentationControllerDelegate {
+extension CustomPopoverPresentationTransitioningDelegate: CustomPopoverPresentationControllerDelegate {
     public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return shouldDismissPopoverHandler?(popoverPresentationController) ?? true
     }
 
     public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         prepareForPopoverPresentationHandler?(popoverPresentationController)
+    }
+
+    func customPopoverPresentationControllerWillDismissPopover(_ customPopoverPresentationController: CustomPopoverPresentationController) {
+        popoverPresentationControllerWillDismissPopoverHandler?(customPopoverPresentationController)
     }
 
     public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {

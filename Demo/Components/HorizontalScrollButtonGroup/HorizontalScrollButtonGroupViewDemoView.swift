@@ -1,12 +1,11 @@
 //
-//  Copyright © 2018 FINN.no. All rights reserved.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import UIKit
 import FilterKit
+import UIKit
 
 final class HorizontalScrollButtonGroupViewDemoView: UIView {
-    
     lazy var demoView: HorizontalScrollButtonGroupView = {
         let view = HorizontalScrollButtonGroupView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -14,12 +13,12 @@ final class HorizontalScrollButtonGroupViewDemoView: UIView {
         view.delegate = self
         return view
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
@@ -27,23 +26,23 @@ final class HorizontalScrollButtonGroupViewDemoView: UIView {
 
     func setup() {
         addSubview(demoView)
-        
+
         NSLayoutConstraint.activate([
             demoView.topAnchor.constraint(equalTo: topAnchor, constant: .mediumLargeSpacing),
             demoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             demoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            demoView.heightAnchor.constraint(equalToConstant: HorizontalScrollButtonGroupView.defaultButtonHeight)
-            ])
+            demoView.heightAnchor.constraint(equalToConstant: HorizontalScrollButtonGroupView.defaultButtonHeight),
+        ])
     }
 }
 
 extension HorizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDataSource {
     static var titles = ["Type søk", "Tilstand", "Selger", "Publisert"]
-    
+
     func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, titleForButtonAtIndex index: Int) -> String? {
         return HorizontalScrollButtonGroupViewDemoView.titles[index]
     }
-    
+
     func numberOfButtons(_ horizontalScrollButtonGroup: HorizontalScrollButtonGroupView) -> Int {
         return HorizontalScrollButtonGroupViewDemoView.titles.count
     }

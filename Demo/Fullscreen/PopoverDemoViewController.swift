@@ -76,11 +76,11 @@ private extension PopoverDemoViewController {
     }
     
     func shouldDismissPopoverHandler(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
-        guard let selctedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
+        guard let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
             return true
         }
         
-        horizontalScrollButtonGroupView.setButton(at: selctedIndex, selected: false)
+        horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
         
         return true
     }

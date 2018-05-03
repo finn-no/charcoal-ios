@@ -65,7 +65,7 @@ private extension PopoverDemoViewController {
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
             cell.textLabel?.text = filters[indexPath.row]
-            cell.textLabel?.font = UIFont.body
+            cell.textLabel?.font = .body
             cell.textLabel?.textColor = .primaryBlue
             return cell
         }

@@ -65,6 +65,15 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55C9CC2C209AE8B500F0C9C8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -297,6 +306,8 @@
 				44ECE65B208F7FA20017AC82 /* Frameworks */,
 				44ECE65C208F7FA20017AC82 /* Headers */,
 				44ECE65D208F7FA20017AC82 /* Resources */,
+				55C9CC2C209AE8B500F0C9C8 /* CopyFiles */,
+				55C9CC2E209AE8C700F0C9C8 /* Run SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -315,6 +326,7 @@
 				44ECE668208F7FD00017AC82 /* Frameworks */,
 				44ECE669208F7FD00017AC82 /* Resources */,
 				44ECE692208F7FF90017AC82 /* Embed Frameworks */,
+				55C9CC2A209AE61E00F0C9C8 /* Run SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -416,6 +428,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		55C9CC2A209AE61E00F0C9C8 /* Run SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftFormat";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh \"${SRCROOT}/Others/format.sh\"";
+		};
+		55C9CC2E209AE8C700F0C9C8 /* Run SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftFormat";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh \"${SRCROOT}/Others/format.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		44ECE65A208F7FA20017AC82 /* Sources */ = {

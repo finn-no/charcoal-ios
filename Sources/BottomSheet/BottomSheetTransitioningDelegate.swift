@@ -7,14 +7,14 @@ import UIKit
 public final class BotomSheetTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     private let animationController: BottomSheetTransitioningAnimator
     private var presentationController: BottomSheetPresentationController?
-    
+
     private weak var _presentationControllerDelegate: BottomSheetPresentationControllerDelegate?
     public var presentationControllerDelegate: BottomSheetPresentationControllerDelegate? {
         get {
             return presentationController?.delegate as? BottomSheetPresentationControllerDelegate
         }
         set(delegate) {
-            self._presentationControllerDelegate = delegate
+            _presentationControllerDelegate = delegate
         }
     }
 

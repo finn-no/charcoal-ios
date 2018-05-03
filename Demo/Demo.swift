@@ -110,10 +110,10 @@ enum FullscreenViews: String {
             navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
             navigationController.modalPresentationStyle = .custom
             return navigationController
-            
+
         case .horizontalScrollButtonGroupWithPopover:
             let popoverDemoViewController = PopoverDemoViewController()
-            
+
             return popoverDemoViewController
         }
     }
@@ -121,7 +121,7 @@ enum FullscreenViews: String {
     static var all: [FullscreenViews] {
         return [
             .bottomSheet,
-            .horizontalScrollButtonGroupWithPopover
+            .horizontalScrollButtonGroupWithPopover,
         ]
     }
 }

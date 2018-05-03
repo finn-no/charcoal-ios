@@ -38,6 +38,9 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
             return
         }
 
+        // The alpha for the UIDimmingView provided by Apple is 20%. According to design we need 40%
+        dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(.dimmingViewAlpha)
+        
         snapshotView.frame = sourceView.convert(sourceView.bounds, to: containerView)
         snapshotView.alpha = 0.0
         containerView?.addSubview(snapshotView)
@@ -46,11 +49,6 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
             snapshotView.alpha = 1.0
         })
-
-        if let dimmingView = self.dimmingView {
-            // The alpha for the UIDimmingView provided by Apple is 20%. According to design we need 40%
-            dimmingView.backgroundColor = UIColor.black.withAlphaComponent(.dimmingViewAlpha)
-        }
     }
 
     public override func presentationTransitionDidEnd(_ completed: Bool) {

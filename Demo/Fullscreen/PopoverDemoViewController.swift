@@ -87,26 +87,26 @@ private extension PopoverDemoViewController {
 }
 
 extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDataSource {
-    struct Filter {
+    struct PreferenceFilter {
         let name: String
-        let subFilters: [String]
+        let values: [String]
     }
     
-    static var filters: [Filter] {
+    static var preferenceFilters: [PreferenceFilter] {
         return [
-            Filter(name: "Type søk", subFilters:["Til salgs", "Gis bort", "Ønskes kjøpt"]),
-            Filter(name: "Tilstand", subFilters:["Alle", "Brukt", "Nytt"]),
-            Filter(name: "Selger", subFilters:["Alle", "Forhandler", "Privat"]),
-            Filter(name: "Publisert", subFilters:["Nye i dag"])
+            PreferenceFilter(name: "Type søk", values: ["Til salgs", "Gis bort", "Ønskes kjøpt"]),
+            PreferenceFilter(name: "Tilstand", values: ["Alle", "Brukt", "Nytt"]),
+            PreferenceFilter(name: "Selger", values: ["Alle", "Forhandler", "Privat"]),
+            PreferenceFilter(name: "Publisert", values: ["Nye i dag"])
         ]
     }
     
     func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, titleForButtonAtIndex index: Int) -> String? {
-        return PopoverDemoViewController.filters[index].name
+        return PopoverDemoViewController.preferenceFilters[index].name
     }
     
     func numberOfButtons(_ horizontalScrollButtonGroup: HorizontalScrollButtonGroupView) -> Int {
-        return PopoverDemoViewController.filters.count
+        return PopoverDemoViewController.preferenceFilters.count
     }
 }
 
@@ -117,7 +117,7 @@ extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDelegate {
         horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
         selectedButton = button
         
-        let subFilters = PopoverDemoViewController.filters[index].subFilters
+        let subFilters = PopoverDemoViewController.preferenceFilters[index].values
         let popover = PopoverFilterViewController(filters: subFilters)
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom

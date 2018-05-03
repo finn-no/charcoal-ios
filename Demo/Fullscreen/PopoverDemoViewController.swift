@@ -16,7 +16,7 @@ final class PopoverDemoViewController: UIViewController {
 
     lazy var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate = {
         let transitioningDelegate = CustomPopoverPresentationTransitioningDelegate()
-        transitioningDelegate.popoverPresentationControllerWillDismissPopoverHandler = popoverPresentationControllerWillDismissPopoverHandler
+        transitioningDelegate.willDismissPopoverHandler = willDismissPopoverHandler
         return transitioningDelegate
     }()
 
@@ -72,7 +72,7 @@ private extension PopoverDemoViewController {
         }
     }
 
-    func popoverPresentationControllerWillDismissPopoverHandler(_ popoverPresentationController: UIPopoverPresentationController) {
+    func willDismissPopoverHandler(_ popoverPresentationController: UIPopoverPresentationController) {
         guard let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
             return
         }

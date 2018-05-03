@@ -44,7 +44,7 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
 
         // The alpha for the UIDimmingView provided by Apple is 20%. According to design we need 40%
         dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(.dimmingViewAlpha)
-        
+
         snapshotView.frame = sourceView.convert(sourceView.bounds, to: containerView)
         snapshotView.alpha = 0.0
         containerView?.addSubview(snapshotView)

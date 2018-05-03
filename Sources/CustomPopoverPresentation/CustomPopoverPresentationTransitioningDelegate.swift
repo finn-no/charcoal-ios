@@ -9,8 +9,8 @@ public final class CustomPopoverPresentationTransitioningDelegate: NSObject, UIV
 
     public var shouldDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Bool)?
     public var prepareForPopoverPresentationHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
-    public var popoverPresentationControllerDidDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
-    public var popoverPresentationControllerWillDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
+    public var didDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
+    public var willDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         guard let sourceView = sourceView else {
@@ -36,11 +36,11 @@ extension CustomPopoverPresentationTransitioningDelegate: CustomPopoverPresentat
     }
 
     func customPopoverPresentationControllerWillDismissPopover(_ customPopoverPresentationController: CustomPopoverPresentationController) {
-        popoverPresentationControllerWillDismissPopoverHandler?(customPopoverPresentationController)
+        willDismissPopoverHandler?(customPopoverPresentationController)
     }
 
     public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        popoverPresentationControllerDidDismissPopoverHandler?(popoverPresentationController)
+        didDismissPopoverHandler?(popoverPresentationController)
     }
 
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

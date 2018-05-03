@@ -5,10 +5,9 @@
 import UIKit
 
 class SearchQueryCell: UITableViewCell, Identifiable {
+    private lazy var searchResultsViewController = UIViewController(nibName: nil, bundle: nil)
 
-    fileprivate lazy var searchResultsViewController = UIViewController(nibName: nil, bundle: nil)
-
-    fileprivate lazy var searchController: UISearchController = {
+    private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: self.searchResultsViewController)
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
@@ -16,9 +15,11 @@ class SearchQueryCell: UITableViewCell, Identifiable {
 
         return searchController
     }()
-    fileprivate var searchBar: UISearchBar {
+
+    private var searchBar: UISearchBar {
         return searchController.searchBar
     }
+
     override var textLabel: UILabel? {
         return nil
     }
@@ -33,7 +34,15 @@ class SearchQueryCell: UITableViewCell, Identifiable {
         setup()
     }
 
-    private func setup() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        searchQuery = nil
+        placeholderText = nil
+    }
+}
+
+private extension SearchQueryCell {
+    func setup() {
         selectionStyle = .none
 
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -42,18 +51,13 @@ class SearchQueryCell: UITableViewCell, Identifiable {
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-            ])
+            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        ])
 
         searchBar.isUserInteractionEnabled = false
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        searchQuery = nil
-        placeholderText = nil
-    }
 }
+
 extension SearchQueryCell {
     var searchQuery: String? {
         get {

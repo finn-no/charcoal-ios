@@ -9,10 +9,9 @@ protocol FilterBottomButtonViewDelegate: AnyObject {
 }
 
 class FilterBottomButtonView: UIView {
-
     weak var delegate: FilterBottomButtonViewDelegate?
 
-    fileprivate lazy var button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton(frame: .zero)
         button.backgroundColor = .primaryBlue
         button.setTitleColor(.milk, for: .normal)
@@ -31,8 +30,10 @@ class FilterBottomButtonView: UIView {
         super.init(coder: aDecoder)
         setup()
     }
+}
 
-    private func setup() {
+private extension FilterBottomButtonView {
+    func setup() {
         backgroundColor = .milk
         button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)
@@ -52,11 +53,11 @@ class FilterBottomButtonView: UIView {
             separatorLine.topAnchor.constraint(equalTo: topAnchor),
             separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor)
-            ])
+            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
+        ])
     }
 
-    @objc private func didTapButton() {
+    @objc func didTapButton() {
         delegate?.filterBottomButtonView(self, didTapButton: button)
     }
 }

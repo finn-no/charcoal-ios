@@ -5,7 +5,6 @@
 import UIKit
 
 class FilterCell: UITableViewCell, Identifiable {
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -15,8 +14,10 @@ class FilterCell: UITableViewCell, Identifiable {
         super.init(coder: aDecoder)
         setup()
     }
+}
 
-    private func setup() {
+private extension FilterCell {
+    func setup() {
         let separatorLine = UIView(frame: .zero)
         separatorLine.backgroundColor = .sardine
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +27,7 @@ class FilterCell: UITableViewCell, Identifiable {
             separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
             separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor)
-            ])
+            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
     }
 }

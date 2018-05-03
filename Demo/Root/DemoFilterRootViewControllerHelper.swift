@@ -9,12 +9,17 @@ struct DemoFilterInfo: FilterInfo {
     let selectedValues: [String]
 }
 
-class DemoFilterRootViewControllerHelper: FilterRootViewControllerDataSource {
-    lazy var horizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDemoView? = {
+class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
+    var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? {
+        return horizontalScrollButtonGroupViewDemoView
+    }
+
+    var preferencesDelegate: HorizontalScrollButtonGroupViewDelegate? {
+        return horizontalScrollButtonGroupViewDemoView
+    }
+
+    private lazy var horizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDemoView? = {
         return HorizontalScrollButtonGroupViewDemoView(frame: .zero)
-    }()
-    lazy var preferencesView: HorizontalScrollButtonGroupView? = {
-        return horizontalScrollButtonGroupViewDemoView?.demoView
     }()
 
     var filters = [DemoFilterInfo]()
@@ -42,6 +47,7 @@ class DemoFilterRootViewControllerHelper: FilterRootViewControllerDataSource {
     var searchQueryPlaceholder: String {
         return "Ord i annonsen"
     }
+
     var doneButtonTitle: String {
         if let numberOfHits = numberOfHits {
             return "Vis \(numberOfHits) treff"
@@ -70,17 +76,16 @@ class DemoFilterRootViewControllerHelper: FilterRootViewControllerDataSource {
             DemoFilterInfo(name: "Hjulsett", selectedValues: []),
             DemoFilterInfo(name: "Garanti og forsikring", selectedValues: []),
             DemoFilterInfo(name: "Bilens tilstand", selectedValues: []),
-            DemoFilterInfo(name: "Avgiftsklasse", selectedValues: [])
+            DemoFilterInfo(name: "Avgiftsklasse", selectedValues: []),
         ]
         dataSource.contextFilters = [
             DemoFilterInfo(name: "Kontekst filter", selectedValues: ["4", "2"]),
         ]
         return dataSource
-    }    
+    }
 }
 
-extension DemoFilterRootViewControllerHelper: FilterRootViewControllerDelegate {
-
+extension FilterRootDemoViewControllerHelper: FilterRootViewControllerDelegate {
     func filterRootViewControllerDidSelectShowResults(_ filterRootViewController: FilterRootViewController) {
         filterRootViewController.navigationController?.presentingViewController?.dismiss(animated: true, completion: {
         })
@@ -99,4 +104,3 @@ private extension Array {
         return indices.contains(index) ? self[index] : .none
     }
 }
-

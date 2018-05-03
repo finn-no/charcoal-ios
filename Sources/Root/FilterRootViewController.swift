@@ -5,7 +5,7 @@
 import UIKit
 
 public class FilterRootViewController: UIViewController {
-    fileprivate enum Sections: String {
+    private enum Sections: String {
         case query
         case preference
         case context
@@ -21,10 +21,10 @@ public class FilterRootViewController: UIViewController {
         }
     }
 
-    fileprivate let filterDataSource: FilterRootViewControllerDataSource
-    fileprivate weak var delegate: FilterRootViewControllerDelegate?
+    private let filterDataSource: FilterRootViewControllerDataSource
+    private weak var delegate: FilterRootViewControllerDelegate?
 
-    fileprivate lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.backgroundColor = .milk
         tableView.dataSource = self
@@ -35,7 +35,7 @@ public class FilterRootViewController: UIViewController {
         return tableView
     }()
 
-    fileprivate lazy var showResultsButtonView: FilterBottomButtonView = {
+    private lazy var showResultsButtonView: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.delegate = self
         buttonView.buttonTitle = filterDataSource.doneButtonTitle
@@ -54,16 +54,18 @@ public class FilterRootViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
+}
 
-    private func setup() {
+private extension FilterRootViewController {
+    func setup() {
         view.backgroundColor = .milk
         tableView.register(SearchQueryCell.self, forCellReuseIdentifier: SearchQueryCell.reuseIdentifier)
         tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseIdentifier)
@@ -82,11 +84,11 @@ public class FilterRootViewController: UIViewController {
             showResultsButtonView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             showResultsButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             showResultsButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            showResultsButtonView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
-            ])
+            showResultsButtonView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+        ])
     }
 
-    fileprivate func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, in section: Sections) -> UITableViewCell {
+    private func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, in section: Sections) -> UITableViewCell {
         switch section {
         case .query:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchQueryCell.reuseIdentifier, for: indexPath) as! SearchQueryCell
@@ -113,7 +115,8 @@ public class FilterRootViewController: UIViewController {
             return cell
         case .preference:
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
-            cell.horizontalScrollButtonGroupView = filterDataSource.preferencesView
+            cell.horizontalScrollButtonGroupViewDataSource = filterDataSource.preferencesDataSource
+            cell.horizontalScrollButtonGroupViewDelegate = filterDataSource.preferencesDelegate
             return cell
         }
     }
@@ -173,8 +176,9 @@ extension FilterRootViewController: FilterBottomButtonViewDelegate {
 }
 
 // MARK: For BottomSheet
-extension FilterRootViewController {
-    fileprivate var isScrolledToTop: Bool {
+
+private extension FilterRootViewController {
+    var isScrolledToTop: Bool {
         let scrollPos: CGFloat
         if #available(iOS 11.0, *) {
             scrollPos = (tableView.contentOffset.y + tableView.adjustedContentInset.top)
@@ -184,7 +188,7 @@ extension FilterRootViewController {
         return scrollPos < 1
     }
 
-    fileprivate var isScrollEnabled: Bool {
+    var isScrollEnabled: Bool {
         get {
             return tableView.isScrollEnabled
         } set {
@@ -210,7 +214,6 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
         }
     }
 
-
     public func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
         switch (current, new) {
         case (_, .compact):
@@ -220,4 +223,3 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
         }
     }
 }
-

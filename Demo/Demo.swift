@@ -2,8 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import UIKit
 import FilterKit
+import UIKit
 
 enum Sections: String {
     case components
@@ -97,7 +97,7 @@ enum ComponentViews: String {
             return navigationController
 
         case .rootFilters:
-            let rootFilterHelper = DemoFilterRootViewControllerHelper.createHelperForDemo()
+            let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
             let demoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
             let navigationController = UINavigationController(rootViewController: demoViewController)
             return navigationController
@@ -111,7 +111,7 @@ enum ComponentViews: String {
         return [
             .bottomSheet,
             .rootFilters,
-            .horizontalScrollButtonGroupDemoView
+            .horizontalScrollButtonGroupDemoView,
         ]
     }
 }
@@ -122,7 +122,7 @@ enum FullscreenViews: String {
     var viewController: UIViewController {
         switch self {
         case .fullDemo:
-            let rootFilterHelper = DemoFilterRootViewControllerHelper.createHelperForDemo()
+            let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
             let bottomSheetDemoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
             let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
             navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
@@ -133,7 +133,7 @@ enum FullscreenViews: String {
 
     static var all: [FullscreenViews] {
         return [
-            .fullDemo
+            .fullDemo,
         ]
     }
 }

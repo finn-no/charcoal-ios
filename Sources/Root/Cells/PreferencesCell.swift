@@ -5,22 +5,11 @@
 import UIKit
 
 class PreferencesCell: UITableViewCell, Identifiable {
-
-    var horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            if let preferencesView = horizontalScrollButtonGroupView {
-                preferencesView.translatesAutoresizingMaskIntoConstraints = false
-                contentView.addSubview(preferencesView)
-                NSLayoutConstraint.activate([
-                    preferencesView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-                    preferencesView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-                    preferencesView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-                    preferencesView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
-                    ])
-            }
-        }
-    }
+    private lazy var horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView = {
+        let view = HorizontalScrollButtonGroupView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     override var textLabel: UILabel? {
         return nil
@@ -36,13 +25,44 @@ class PreferencesCell: UITableViewCell, Identifiable {
         setup()
     }
 
-    private func setup() {
-        accessoryType = .none
-        contentView.clipsToBounds = false
-    }
-
     override func prepareForReuse() {
         super.prepareForReuse()
-        horizontalScrollButtonGroupView = nil
+        horizontalScrollButtonGroupView.dataSource = nil
+        horizontalScrollButtonGroupView.delegate = nil
+    }
+}
+
+private extension PreferencesCell {
+    func setup() {
+        accessoryType = .none
+        contentView.clipsToBounds = false
+
+        contentView.addSubview(horizontalScrollButtonGroupView)
+        NSLayoutConstraint.activate([
+            horizontalScrollButtonGroupView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            horizontalScrollButtonGroupView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            horizontalScrollButtonGroupView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            horizontalScrollButtonGroupView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+        ])
+    }
+}
+
+extension PreferencesCell {
+    var horizontalScrollButtonGroupViewDataSource: HorizontalScrollButtonGroupViewDataSource? {
+        get {
+            return horizontalScrollButtonGroupView.dataSource
+        }
+        set {
+            horizontalScrollButtonGroupView.dataSource = newValue
+        }
+    }
+
+    var horizontalScrollButtonGroupViewDelegate: HorizontalScrollButtonGroupViewDelegate? {
+        get {
+            return horizontalScrollButtonGroupView.delegate
+        }
+        set {
+            horizontalScrollButtonGroupView.delegate = newValue
+        }
     }
 }

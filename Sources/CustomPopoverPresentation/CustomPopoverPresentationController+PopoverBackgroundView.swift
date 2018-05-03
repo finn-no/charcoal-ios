@@ -6,9 +6,6 @@ import UIKit
 
 extension CustomPopoverPresentationController {
     class PopoverBackgroundView: UIPopoverBackgroundView {
-        
-        static let defaultCornerRadius: CGFloat = 8.0
-        
         var arrowView: UIImageView?
         
         private var _arrowOffset: CGFloat = 0.0
@@ -61,12 +58,6 @@ extension CustomPopoverPresentationController {
                 
                 self.arrowView = arrowView
             }
-
-            layer.cornerRadius = PopoverBackgroundView.defaultCornerRadius
-            
-            superview?.subviews.filter({ $0 != self }).forEach({ subview in
-                subview.layer.cornerRadius = PopoverBackgroundView.defaultCornerRadius
-            })
         }
     }
 }

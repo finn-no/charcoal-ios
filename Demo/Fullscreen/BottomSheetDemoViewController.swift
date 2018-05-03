@@ -31,11 +31,11 @@ class BottomSheetDemoViewController: UITableViewController {
         cell.textLabel?.text = "Filter \(indexPath.row + 1)"
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sublevelViewController = BottomSheetDemoViewController()
         sublevelViewController.title = "Filter \(indexPath.row + 1)"
-        
+
         navigationController?.pushViewController(sublevelViewController, animated: true)
     }
 }
@@ -45,7 +45,7 @@ extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelega
         switch contentSizeMode {
         case .expanded:
             let isDownwardTranslation = translation.y > 0.0
-            
+
             if isDownwardTranslation {
                 tableView.isScrollEnabled = !tableView.isScrolledToTop
                 return tableView.isScrolledToTop
@@ -56,8 +56,7 @@ extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelega
             return true
         }
     }
-    
-    
+
     func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
         switch (current, new) {
         case (_, .compact):

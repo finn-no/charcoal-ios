@@ -9,7 +9,8 @@ public final class CustomPopoverPresentationTransitioningDelegate: NSObject, UIV
 
     public var shouldDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Bool)?
     public var prepareForPopoverPresentationHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
-    public var popoverPresentationControllerDidDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
+    public var didDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
+    public var willDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Void)?
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         guard let sourceView = sourceView else {
@@ -25,7 +26,7 @@ public final class CustomPopoverPresentationTransitioningDelegate: NSObject, UIV
     }
 }
 
-extension CustomPopoverPresentationTransitioningDelegate: UIPopoverPresentationControllerDelegate {
+extension CustomPopoverPresentationTransitioningDelegate: CustomPopoverPresentationControllerDelegate {
     public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return shouldDismissPopoverHandler?(popoverPresentationController) ?? true
     }
@@ -34,8 +35,12 @@ extension CustomPopoverPresentationTransitioningDelegate: UIPopoverPresentationC
         prepareForPopoverPresentationHandler?(popoverPresentationController)
     }
 
+    func customPopoverPresentationControllerWillDismissPopover(_ customPopoverPresentationController: CustomPopoverPresentationController) {
+        willDismissPopoverHandler?(customPopoverPresentationController)
+    }
+
     public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        popoverPresentationControllerDidDismissPopoverHandler?(popoverPresentationController)
+        didDismissPopoverHandler?(popoverPresentationController)
     }
 
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

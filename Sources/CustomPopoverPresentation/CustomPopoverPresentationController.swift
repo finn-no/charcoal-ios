@@ -4,6 +4,10 @@
 
 import UIKit
 
+protocol CustomPopoverPresentationControllerDelegate: UIPopoverPresentationControllerDelegate {
+    func customPopoverPresentationControllerWillDismissPopover(_ customPopoverPresentationController: CustomPopoverPresentationController)
+}
+
 final class CustomPopoverPresentationController: UIPopoverPresentationController {
     private var snapshotView: UIView?
 
@@ -40,7 +44,7 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
 
         // The alpha for the UIDimmingView provided by Apple is 20%. According to design we need 40%
         dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(.dimmingViewAlpha)
-        
+
         snapshotView.frame = sourceView.convert(sourceView.bounds, to: containerView)
         snapshotView.alpha = 0.0
         containerView?.addSubview(snapshotView)
@@ -60,6 +64,8 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
     }
 
     public override func dismissalTransitionWillBegin() {
+        (delegate as? CustomPopoverPresentationControllerDelegate)?.customPopoverPresentationControllerWillDismissPopover(self)
+
         super.dismissalTransitionWillBegin()
 
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in

@@ -4,20 +4,30 @@
 
 import FilterKit
 
+struct DemoPreferenceValue: PreferenceValue {
+    let name: String
+    let isSelected: Bool = false
+}
+
+struct DemoPreferenceInfo: PreferenceInfo {
+    let name: String
+    let values: [PreferenceValue]
+
+    var numberOfValues: Int {
+        return values.count
+    }
+
+    func value(at index: Int) -> PreferenceValue? {
+        return values[safe: index]
+    }
+}
+
 struct DemoFilterInfo: FilterInfo {
     let name: String
     let selectedValues: [String]
 }
 
 class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
-    var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? {
-        return horizontalScrollButtonGroupViewDemoView
-    }
-
-    var preferencesDelegate: HorizontalScrollButtonGroupViewDelegate? {
-        return horizontalScrollButtonGroupViewDemoView
-    }
-
     private lazy var horizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDemoView? = {
         return HorizontalScrollButtonGroupViewDemoView(frame: .zero)
     }()
@@ -43,7 +53,6 @@ class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
 
     var currentSearchQuery: String?
     var numberOfHits: Int? = 42
-    var hasPreferences = true
     var searchQueryPlaceholder: String {
         return "Ord i annonsen"
     }
@@ -82,6 +91,29 @@ class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
             DemoFilterInfo(name: "Kontekst filter", selectedValues: ["4", "2"]),
         ]
         return dataSource
+    }
+}
+
+extension FilterRootDemoViewControllerHelper: FilterRootViewControllerPreferenceDataSource {
+    var hasPreferences: Bool {
+        return FilterRootDemoViewControllerHelper.preferenceFilters.count > 0
+    }
+
+    var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? {
+        return horizontalScrollButtonGroupViewDemoView
+    }
+
+    func preference(at index: Int) -> PreferenceInfo? {
+        return FilterRootDemoViewControllerHelper.preferenceFilters[safe: index]
+    }
+
+    static var preferenceFilters: [DemoPreferenceInfo] {
+        return [
+            DemoPreferenceInfo(name: "Type søk", values: [DemoPreferenceValue(name: "Til salgs"), DemoPreferenceValue(name: "Gis bort"), DemoPreferenceValue(name: "Ønskes kjøpt")]),
+            DemoPreferenceInfo(name: "Tilstand", values: [DemoPreferenceValue(name: "Alle"), DemoPreferenceValue(name: "Brukt"), DemoPreferenceValue(name: "Nytt")]),
+            DemoPreferenceInfo(name: "Selger", values: [DemoPreferenceValue(name: "Alle"), DemoPreferenceValue(name: "Forhandler"), DemoPreferenceValue(name: "Privat")]),
+            DemoPreferenceInfo(name: "Publisert", values: [DemoPreferenceValue(name: "Nye i dag")]),
+        ]
     }
 }
 

@@ -35,6 +35,8 @@
 		55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
+		5589322D209C3CD500512FF8 /* LayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* LayoutHelpers.swift */; };
+		5589322E209C3CD500512FF8 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
 		55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */; };
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
@@ -123,6 +125,8 @@
 		55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupViewDemoView.swift; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
+		5589322B209C3CD500512FF8 /* LayoutHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutHelpers.swift; sourceTree = "<group>"; };
+		5589322C209C3CD500512FF8 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDemoViewController.swift; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
@@ -191,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
-                44ECE693208F80320017AC82 /* BottomSheet */,
+				44ECE693208F80320017AC82 /* BottomSheet */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				44ECE699208F80320017AC82 /* Finnivers */,
 				55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */,
@@ -321,6 +325,15 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		5589322F209C3CDA00512FF8 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				5589322C209C3CD500512FF8 /* Layout.swift */,
+				5589322B209C3CD500512FF8 /* LayoutHelpers.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +359,7 @@
 		9BE0A04D2091C12A0000632B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5589322F209C3CDA00512FF8 /* UIKit */,
 				9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */,
 			);
 			path = Extensions;
@@ -578,6 +592,7 @@
 				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
+				5589322E209C3CD500512FF8 /* Layout.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,
@@ -593,6 +608,7 @@
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
+				5589322D209C3CD500512FF8 /* LayoutHelpers.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
 				9BE0A0472091BE750000632B /* FilterRootViewControllerDataSource.swift in Sources */,
 			);
@@ -827,14 +843,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D34XZHQLE3;
+				DEVELOPMENT_TEAM = 2AC6QV92JP;
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = no.henrikholmsen.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -847,14 +863,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D34XZHQLE3;
+				DEVELOPMENT_TEAM = 2AC6QV92JP;
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = no.henrikholmsen.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

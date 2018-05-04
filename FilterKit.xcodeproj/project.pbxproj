@@ -39,6 +39,9 @@
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 		55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */; };
+		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
+		9B9C1701209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C1700209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift */; };
+		9B9C1703209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C1702209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift */; };
 		9BE0A0472091BE750000632B /* FilterRootViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */; };
 		9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0452091BE750000632B /* FilterRootViewController.swift */; };
 		9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
@@ -127,6 +130,9 @@
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
+		9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionViewController.swift; sourceTree = "<group>"; };
+		9B9C1700209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRootViewControllerPreferenceDataSource.swift; sourceTree = "<group>"; };
+		9B9C1702209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceValuesSelectionDataSource.swift; sourceTree = "<group>"; };
 		9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRootViewControllerDataSource.swift; sourceTree = "<group>"; };
 		9BE0A0452091BE750000632B /* FilterRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRootViewController.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -191,7 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
-                44ECE693208F80320017AC82 /* BottomSheet */,
+				44ECE693208F80320017AC82 /* BottomSheet */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				44ECE699208F80320017AC82 /* Finnivers */,
 				55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */,
@@ -338,7 +344,10 @@
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				9BE0A0452091BE750000632B /* FilterRootViewController.swift */,
 				9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */,
+				9B9C1700209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift */,
 				9BE0A062209345E90000632B /* FilterRootViewControllerDelegate.swift */,
+				9B9C1702209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift */,
+				9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -573,7 +582,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B9C1703209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
+				9B9C1701209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
@@ -591,6 +602,7 @@
 				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,
 				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
+				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
 				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,

@@ -39,6 +39,7 @@ private extension PreferencesCell {
 
         contentView.addSubview(horizontalScrollButtonGroupView)
         NSLayoutConstraint.activate([
+            horizontalScrollButtonGroupView.heightAnchor.constraint(equalToConstant: HorizontalScrollButtonGroupView.defaultButtonHeight),
             horizontalScrollButtonGroupView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             horizontalScrollButtonGroupView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             horizontalScrollButtonGroupView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),

@@ -246,6 +246,9 @@ extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
             horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
             return
         }
+        transitioningDelegate.didDismissPopoverHandler = { [weak self] _ in
+            self?.preferencePopoverPresentationTransitioningDelegate = nil
+        }
         transitioningDelegate.sourceView = button
         preferencePopoverPresentationTransitioningDelegate = transitioningDelegate
 

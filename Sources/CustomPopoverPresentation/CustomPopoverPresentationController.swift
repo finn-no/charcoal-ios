@@ -4,6 +4,10 @@
 
 import UIKit
 
+protocol CustomPopoverPresentationControllerDelegate: UIPopoverPresentationControllerDelegate {
+    func customPopoverPresentationControllerWillDismissPopover(_ customPopoverPresentationController: CustomPopoverPresentationController)
+}
+
 final class CustomPopoverPresentationController: UIPopoverPresentationController {
     private var snapshotView: UIView?
 
@@ -75,6 +79,8 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
     }
 
     public override func dismissalTransitionWillBegin() {
+        (delegate as? CustomPopoverPresentationControllerDelegate)?.customPopoverPresentationControllerWillDismissPopover(self)
+
         super.dismissalTransitionWillBegin()
 
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in

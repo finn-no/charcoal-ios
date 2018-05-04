@@ -129,6 +129,7 @@
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRootViewControllerDataSource.swift; sourceTree = "<group>"; };
 		9BE0A0452091BE750000632B /* FilterRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRootViewController.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -193,7 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
-                44ECE693208F80320017AC82 /* BottomSheet */,
+				44ECE693208F80320017AC82 /* BottomSheet */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				44ECE699208F80320017AC82 /* Finnivers */,
 				55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */,
@@ -220,6 +221,7 @@
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
+				9B9C1705209C759E007BCBBC /* Cartfile */,
 				9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */,
 			);
 			path = Demo;

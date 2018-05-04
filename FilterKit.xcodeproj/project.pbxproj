@@ -44,6 +44,9 @@
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
 		9B9C1701209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C1700209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift */; };
 		9B9C1703209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C1702209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift */; };
+		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
+		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
+		9B9C1709209C78BA007BCBBC /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9BE0A0472091BE750000632B /* FilterRootViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */; };
 		9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0452091BE750000632B /* FilterRootViewController.swift */; };
 		9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
@@ -80,6 +83,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9B9C1709209C78BA007BCBBC /* HockeySDK.framework in Embed Frameworks */,
 				44ECE68F208F7FF90017AC82 /* FilterKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -137,6 +141,9 @@
 		9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionViewController.swift; sourceTree = "<group>"; };
 		9B9C1700209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRootViewControllerPreferenceDataSource.swift; sourceTree = "<group>"; };
 		9B9C1702209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceValuesSelectionDataSource.swift; sourceTree = "<group>"; };
+		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		9B9C1707209C78BA007BCBBC /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Demo/Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRootViewControllerDataSource.swift; sourceTree = "<group>"; };
 		9BE0A0452091BE750000632B /* FilterRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRootViewController.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -161,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */,
 				44ECE68E208F7FF90017AC82 /* FilterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +236,8 @@
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
+				9B9C1705209C759E007BCBBC /* Cartfile */,
+				9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -244,6 +254,7 @@
 		44ECE68C208F7FF20017AC82 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B9C1707209C78BA007BCBBC /* HockeySDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -533,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */,
+				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -854,8 +866,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2AC6QV92JP;
+				DEVELOPMENT_TEAM = D34XZHQLE3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Demo/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -864,6 +881,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -874,8 +892,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2AC6QV92JP;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 7KGFK8HSHU;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Demo/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -884,6 +907,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b168bcd2-214e-4a39-9f69-186660630719";
+				PROVISIONING_PROFILE_SPECIFIER = "match InHouse no.finn.FilterKitDemo";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -48,11 +48,10 @@ playground.xcworkspace
 # Pods/
 
 # Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build
+Carthage/Checkouts
+Carthage/Build/Mac/*
+Carthage/Build/tvOS/*
+*.bcsymbolmap
 
 # fastlane
 #

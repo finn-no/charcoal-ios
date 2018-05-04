@@ -12,10 +12,7 @@ public protocol FilterRootViewControllerDataSource: AnyObject {
     var searchQueryPlaceholder: String { get }
     var numberOfFilters: Int { get }
     var numberOfContextFilters: Int { get }
-    var hasPreferences: Bool { get }
     var doneButtonTitle: String { get }
-    var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? { get }
-    var preferencesDelegate: HorizontalScrollButtonGroupViewDelegate? { get }
 
     func filter(at index: Int) -> FilterInfo?
     func contextFilter(at index: Int) -> FilterInfo?

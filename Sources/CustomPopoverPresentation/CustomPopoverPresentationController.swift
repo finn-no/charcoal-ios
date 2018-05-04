@@ -45,7 +45,7 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         backgroundColor = .milk
         popoverBackgroundViewClass = PopoverBackgroundView.self
-        permittedArrowDirections = [.up]
+        super.permittedArrowDirections = [.up]
     }
 
     public override func presentationTransitionWillBegin() {

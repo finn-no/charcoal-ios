@@ -45,7 +45,7 @@ public final class HorizontalScrollButtonGroupView: UIView {
     }()
 
     private lazy var buttonImage: UIImage = {
-        return UIImage(named: .arrowDown, in: .filterKit)
+        return UIImage(named: .arrowDown)
     }()
 
     public weak var dataSource: HorizontalScrollButtonGroupViewDataSource? {

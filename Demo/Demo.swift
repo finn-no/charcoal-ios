@@ -99,7 +99,7 @@ enum ComponentViews: String {
 
         case .rootFilters:
             let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
-            let demoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
+            let demoViewController = FilterRootViewController(dataSource: rootFilterHelper, delegate: rootFilterHelper)
             let navigationController = UINavigationController(rootViewController: demoViewController)
             return navigationController
 
@@ -130,7 +130,7 @@ enum FullscreenViews: String {
         switch self {
         case .fullDemo:
             let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
-            let bottomSheetDemoViewController = FilterRootViewController(filterDataSource: rootFilterHelper, delegate: rootFilterHelper)
+            let bottomSheetDemoViewController = FilterRootViewController(dataSource: rootFilterHelper, delegate: rootFilterHelper)
             let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
             navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
             navigationController.modalPresentationStyle = .custom

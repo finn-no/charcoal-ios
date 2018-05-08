@@ -1,0 +1,69 @@
+fastlane_version "2.94.0"
+
+default_platform :ios
+
+platform :ios do
+  
+  app_identifier = "no.finn.FilterKitDemo"
+  username = "apps-enterprise@finn.no"
+  team_id = '7KGFK8HSHU'
+  git_url = "ssh://git@github.schibsted.io/finn/ios-app-certs-enterprise.git"
+  
+  desc "Set up beta certificates"
+  lane :beta_setup do
+    match(app_identifier: app_identifier,
+      username: username ,
+      git_url: git_url,
+      type: "enterprise",
+      readonly: true,
+      team_id: team_id)
+  end
+
+  ## Use this rather than the commandline `match` because fastline doesn't officially
+  ## support enterprise dist (even though it does). So match needs to be called with a very specific set of args
+  desc "Create beta certificates"
+  lane :beta_create do
+    match(app_identifier: app_identifier,
+      username: username,
+      git_url: git_url,
+      type: "enterprise",
+      force: false,
+      team_id: team_id)
+  end
+
+  desc "Cleans any fastlane build artifacts"
+  lane :clean do
+    clean_build_artifacts
+  end
+
+  def prepare_beta(scheme, token, beta_changelog)
+    # Make sure we have a clean slate
+    ensure_git_status_clean
+    beta_setup # call the `beta_setup` lane to setup signing before proceeding
+    
+    gym(scheme: scheme, export_options: { compileBitcode: false, uploadBitcode: false })    
+    hockey(api_token: token, # This token is beta-only
+           notes_type: "1", # markdown
+           notes: beta_changelog)
+
+    # deletes the files that get created in your repo as a result of running the ipa and match (cert/sigh) commands
+    clean_build_artifacts
+  end
+
+  desc "Submit a new Beta Build to HockeyApp"
+  lane :beta do
+    beta_changelog = File.read("../Demo/CHANGELOG.md").split("\n##").reject {|l| l.nil? || l == "" }[0]
+    if UI.interactive?
+      if !UI.confirm("Is the changelog correct? \n'#{beta_changelog}'\n")
+        UI.user_error!("Fix the changelog")
+      end
+      if !UI.confirm("Is the app version numer updated?")
+        UI.user_error!("Fix the version")
+      end
+	  token = UI.input("Please enter HockeyApp token: ")
+    end
+    prepare_beta("Demo", token, beta_changelog)
+  end
+    
+end
+

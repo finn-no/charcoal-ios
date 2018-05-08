@@ -22,7 +22,10 @@ public class FilterRootViewController: UIViewController {
     }
 
     private let filterDataSource: FilterRootViewControllerDataSource
+    private let preferenceDataSource: FilterRootViewControllerPreferenceDataSource
     private weak var delegate: FilterRootViewControllerDelegate?
+
+    private var preferencePopoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -48,10 +51,15 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(filterDataSource: FilterRootViewControllerDataSource, delegate: FilterRootViewControllerDelegate?) {
+    public init(filterDataSource: FilterRootViewControllerDataSource, preferenceDataSource: FilterRootViewControllerPreferenceDataSource, delegate: FilterRootViewControllerDelegate?) {
         self.filterDataSource = filterDataSource
+        self.preferenceDataSource = preferenceDataSource
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
+    }
+
+    public convenience init(dataSource: FilterRootViewControllerDataSource & FilterRootViewControllerPreferenceDataSource, delegate: FilterRootViewControllerDelegate?) {
+        self.init(filterDataSource: dataSource, preferenceDataSource: dataSource, delegate: delegate)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -115,8 +123,8 @@ private extension FilterRootViewController {
             return cell
         case .preference:
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
-            cell.horizontalScrollButtonGroupViewDataSource = filterDataSource.preferencesDataSource
-            cell.horizontalScrollButtonGroupViewDelegate = filterDataSource.preferencesDelegate
+            cell.horizontalScrollButtonGroupViewDataSource = preferenceDataSource.preferencesDataSource
+            cell.horizontalScrollButtonGroupViewDelegate = self
             return cell
         }
     }
@@ -153,7 +161,7 @@ extension FilterRootViewController: UITableViewDataSource {
         case .query:
             return 1
         case .preference:
-            return filterDataSource.hasPreferences ? 1 : 0
+            return preferenceDataSource.hasPreferences ? 1 : 0
         case .context:
             return filterDataSource.numberOfContextFilters
         case .filter:
@@ -221,5 +229,35 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
         case (_, .expanded):
             isScrollEnabled = true
         }
+    }
+}
+
+extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
+    public func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int) {
+        guard let preferenceInfo = preferenceDataSource.preference(at: index) else {
+            return
+        }
+        horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
+        let transitioningDelegate = CustomPopoverPresentationTransitioningDelegate()
+        transitioningDelegate.willDismissPopoverHandler = { [weak horizontalScrollButtonGroupView] _ in
+            guard let horizontalScrollButtonGroupView = horizontalScrollButtonGroupView, let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
+                return
+            }
+            horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
+            return
+        }
+        transitioningDelegate.didDismissPopoverHandler = { [weak self] _ in
+            self?.preferencePopoverPresentationTransitioningDelegate = nil
+        }
+        transitioningDelegate.sourceView = button
+        preferencePopoverPresentationTransitioningDelegate = transitioningDelegate
+
+        let valuesDataSource = PreferenceValuesSelectionDataSource(preferenceInfo: preferenceInfo)
+        let popover = ValueSelectionViewController(valuesDataSource: valuesDataSource)
+        popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
+        popover.modalPresentationStyle = .custom
+        popover.transitioningDelegate = preferencePopoverPresentationTransitioningDelegate
+
+        present(popover, animated: true, completion: nil)
     }
 }

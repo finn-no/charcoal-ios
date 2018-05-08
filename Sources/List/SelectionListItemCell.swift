@@ -22,11 +22,6 @@ public final class SelectionListItemCell: UITableViewCell, Identifiable {
         super.init(coder: aDecoder)
     }
 
-    public override func prepareForReuse() {
-        super.prepareForReuse()
-        separatorLine.removeFromSuperview()
-    }
-
     public override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

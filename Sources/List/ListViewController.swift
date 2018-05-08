@@ -5,7 +5,7 @@
 import UIKit
 
 public protocol ListViewControllerDelegate: AnyObject {
-    func listViewController(_ listViewController: ListViewController, didSelectListItem listItem: ListItem, atIndexPath indexPath: IndexPath)
+    func listViewController(_ listViewController: ListViewController, didSelectListItem listItem: ListItem, atIndex index: Int)
 }
 
 public protocol ListItem {
@@ -66,7 +66,7 @@ extension ListViewController: UITableViewDataSource {
 extension ListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let listItem = listItems[indexPath.row]
-        delegate?.listViewController(self, didSelectListItem: listItem, atIndexPath: indexPath)
+        delegate?.listViewController(self, didSelectListItem: listItem, atIndex: indexPath.row)
     }
 }
 
@@ -84,11 +84,11 @@ private extension ListViewController {
 }
 
 public extension ListViewController {
-    func indexPathsForSelectedListItems() -> [IndexPath]? {
-        return tableView.indexPathsForSelectedRows
+    func indexesForSelectedListItems() -> [Int]? {
+        return tableView.indexPathsForSelectedRows?.map({ $0.row })
     }
 
-    func indexPathForSelectedListItem() -> IndexPath? {
-        return tableView.indexPathForSelectedRow
+    func indexForSelectedListItem() -> Int? {
+        return tableView.indexPathForSelectedRow?.row
     }
 }

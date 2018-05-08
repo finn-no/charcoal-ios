@@ -15,6 +15,8 @@ public protocol ListItem {
 }
 
 public final class ListViewController: UIViewController {
+    private static var rowHeight: CGFloat = 48.0
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +69,10 @@ extension ListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let listItem = listItems[indexPath.row]
         delegate?.listViewController(self, didSelectListItem: listItem, atIndex: indexPath.row)
+    }
+
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return ListViewController.rowHeight
     }
 }
 

@@ -16,4 +16,5 @@ extension UIImage {
 enum ImageAsset: String {
     case arrowDown
     case popoverArrow
+    case removeFilterValue
 }

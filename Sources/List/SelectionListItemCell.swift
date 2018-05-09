@@ -26,7 +26,7 @@ public final class SelectionListItemCell: UITableViewCell, Identifiable {
         super.setSelected(selected, animated: animated)
 
         textLabel?.textColor = selected ? .primaryBlue : .licorice
-        imageView?.image = selected ? UIImage(named: .checkboxActive, in: .filterKit) : UIImage(named: .checkbox, in: .filterKit)
+        imageView?.image = selected ? UIImage(named: .checkboxActive) : UIImage(named: .checkbox)
     }
 }
 
@@ -37,7 +37,7 @@ private extension SelectionListItemCell {
         textLabel?.textColor = .licorice
         detailTextLabel?.font = .detail
         detailTextLabel?.textColor = .stone
-        imageView?.image = UIImage(named: .checkbox, in: .filterKit)
+        imageView?.image = UIImage(named: .checkbox)
 
         addSubview(separatorLine)
 

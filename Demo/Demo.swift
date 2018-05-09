@@ -68,6 +68,8 @@ enum Sections: String {
                 return .none
             case .horizontalScrollButtonGroupWithPopover:
                 return .none
+            case .list:
+                return .none
             }
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]

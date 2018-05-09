@@ -40,18 +40,13 @@ private extension SelectionListItemCell {
         imageView?.image = UIImage(named: .checkbox)
 
         addSubview(separatorLine)
-
+        
         NSLayoutConstraint.activate([
             separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+            separatorLine.leadingAnchor.constraint(equalTo: textLabel?.leadingAnchor ?? leadingAnchor)
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
-
-        if let textlabel = self.textLabel {
-            separatorLine.leadingAnchor.constraint(equalTo: textlabel.leadingAnchor).isActive = true
-        } else {
-            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        }
     }
 }
 

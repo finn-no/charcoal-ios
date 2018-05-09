@@ -106,21 +106,21 @@ private extension FilterRootViewController {
             cell.placeholderText = filterDataSource.searchQueryPlaceholder
             return cell
         case .filter:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
             if let filter = filterDataSource.filter(at: indexPath.item) {
-                cell.textLabel?.text = filter.name
-                cell.textLabel?.font = .body
-                cell.textLabel?.textColor = .licorice
+                cell.filterName = filter.name
+                cell.selectedValues = filter.selectedValues
                 cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
             }
             return cell
         case .context:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
             if let filter = filterDataSource.contextFilter(at: indexPath.item) {
-                cell.textLabel?.text = filter.name
-                cell.textLabel?.font = .body
-                cell.textLabel?.textColor = .licorice
+                cell.filterName = filter.name
+                cell.selectedValues = filter.selectedValues
                 cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
             }
             return cell
         case .preference:
@@ -205,6 +205,25 @@ private extension FilterRootViewController {
             tableView.isScrollEnabled = newValue
         }
     }
+
+    func filterInfo(at indexPath: IndexPath) -> FilterInfo? {
+        guard let section = Sections.all[safe: indexPath.section] else {
+            return nil
+        }
+        let filterInfo: FilterInfo?
+        switch section {
+        case .filter:
+            filterInfo = filterDataSource.filter(at: indexPath.item)
+            break
+        case .context:
+            filterInfo = filterDataSource.contextFilter(at: indexPath.item)
+            break
+        default:
+            filterInfo = nil
+            break
+        }
+        return filterInfo
+    }
 }
 
 extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
@@ -245,5 +264,16 @@ extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
 
             horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
         }))
+    }
+}
+
+extension FilterRootViewController: FilterCellDelegate {
+    func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int) {
+        guard let indexPath = tableView.indexPath(for: filterCell) else {
+            return
+        }
+        guard let _ = filterInfo(at: indexPath) else {
+            return
+        }
     }
 }

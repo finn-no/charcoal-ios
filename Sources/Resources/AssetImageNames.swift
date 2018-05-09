@@ -19,4 +19,5 @@ enum ImageAsset: String {
     case checkboxActive
     case disclosureIndicator
     case popoverArrow
+    case removeFilterValue
 }

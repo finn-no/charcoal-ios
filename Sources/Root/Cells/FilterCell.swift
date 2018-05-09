@@ -44,14 +44,12 @@ class FilterCell: UITableViewCell, Identifiable {
     var selectedValues: [String]? {
         didSet {
             currentValuesContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
-            if let selectedValues = selectedValues {
-                selectedValues.forEach { selectedValue in
-                    let button = RemoveFilterValueButton(title: selectedValue)
-                    button.translatesAutoresizingMaskIntoConstraints = false
-                    NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: 30)])
-                    currentValuesContainer.addArrangedSubview(button)
-                    button.addTarget(self, action: #selector(didTapRemoveButton(_:)), for: .touchUpInside)
-                }
+            selectedValues?.forEach { selectedValue in
+                let button = RemoveFilterValueButton(title: selectedValue)
+                button.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: 30)])
+                currentValuesContainer.addArrangedSubview(button)
+                button.addTarget(self, action: #selector(didTapRemoveButton(_:)), for: .touchUpInside)
             }
         }
     }

@@ -71,10 +71,6 @@ public class FilterRootViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-
-        if let bottomSheetPresentationController = presentationController as? BottomSheetPresentationController {
-            bottomSheetPresentationController.delegate = self
-        }
     }
 }
 

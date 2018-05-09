@@ -24,10 +24,7 @@ public class FilterNavigator: NSObject, Navigator {
     }
 
     public func start() {
-        guard let filterRootViewController = factory.makeFilterRootViewController(navigator: self) else {
-            return
-        }
-
+        let filterRootViewController = factory.makeFilterRootViewController(navigator: self)
         navigationController.setViewControllers([filterRootViewController], animated: false)
     }
 

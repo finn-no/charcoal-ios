@@ -18,3 +18,9 @@ public protocol FilterRootViewControllerPreferenceDataSource: AnyObject {
     var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? { get }
     func preference(at index: Int) -> PreferenceInfo?
 }
+
+struct PreferenceListItem: ListItem {
+    var title: String?
+    let detail: String? = nil
+    let showsDisclosureIndicator: Bool = false
+}

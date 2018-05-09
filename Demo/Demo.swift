@@ -124,7 +124,7 @@ enum ComponentViews: String {
         case .rootFilters:
             let helper = FilterRootDemoViewControllerHelper.createHelperForDemo()
             let navigationController = FilterNavigationController()
-            let factory = FilterFactory(dataSource: helper, delegate: helper)
+            let factory = FilterFactory(filter: helper, delegate: helper)
             let filterNavigator = FilterNavigator(navigationController: navigationController, factory: factory)
 
             filterNavigator.start()
@@ -159,7 +159,7 @@ enum FullscreenViews: String {
         case .fullDemo:
             let helper = FilterRootDemoViewControllerHelper.createHelperForDemo()
             let navigationController = FilterNavigationController()
-            let factory = FilterFactory(dataSource: helper, delegate: helper)
+            let factory = FilterFactory(filter: helper, delegate: helper)
             let filterNavigator = FilterNavigator(navigationController: navigationController, factory: factory)
 
             filterNavigator.start()

@@ -111,13 +111,22 @@ extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDelegate {
         horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
         selectedButton = button
 
-        let subFilters = PopoverDemoViewController.preferenceFilters[index].values
-        let popover = PopoverFilterViewController(filters: subFilters)
+        let preferenceFilter = PopoverDemoViewController.preferenceFilters[index]
+        let listItems = preferenceFilter.values.map(PopoverDemoListItem.init)
+        let popover = ListViewController(title: preferenceFilter.name, items: listItems)
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom
         popoverPresentationTransitioningDelegate.sourceView = button
         popover.transitioningDelegate = popoverPresentationTransitioningDelegate
 
         present(popover, animated: true, completion: nil)
+    }
+}
+
+private extension PopoverDemoViewController {
+    struct PopoverDemoListItem: ListItem {
+        var title: String?
+        let detail: String? = nil
+        let showsDisclosureIndicator: Bool = false
     }
 }

@@ -108,6 +108,7 @@ enum ComponentViews: String {
     case bottomSheet
     case rootFilters
     case horizontalScrollButtonGroupWithPopover
+    case list
 
     var viewController: UIViewController {
         switch self {
@@ -131,6 +132,10 @@ enum ComponentViews: String {
         case .horizontalScrollButtonGroupWithPopover:
             let popoverDemoViewController = PopoverDemoViewController()
             return popoverDemoViewController
+
+        case .list:
+            let viewController = ListViewController(title: "Kategori", items: ListViewControllerDemo.listItems)
+            return viewController
         }
     }
 
@@ -139,6 +144,7 @@ enum ComponentViews: String {
             .bottomSheet,
             .rootFilters,
             .horizontalScrollButtonGroupWithPopover,
+            .list,
         ]
     }
 }

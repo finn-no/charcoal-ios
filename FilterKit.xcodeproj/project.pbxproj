@@ -37,6 +37,10 @@
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */; };
 		5589322E209C3CD500512FF8 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
+		55893231209C579000512FF8 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893230209C579000512FF8 /* ListViewController.swift */; };
+		55893234209C743100512FF8 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893233209C743100512FF8 /* UITableViewExtensions.swift */; };
+		55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */; };
+		5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589323720A02E1900512FF8 /* SelectionListItemCell.swift */; };
 		55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */; };
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
@@ -134,6 +138,10 @@
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
 		5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		5589322C209C3CD500512FF8 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		55893230209C579000512FF8 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		55893233209C743100512FF8 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
+		55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerDemo.swift; sourceTree = "<group>"; };
+		5589323720A02E1900512FF8 /* SelectionListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionListItemCell.swift; sourceTree = "<group>"; };
 		55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDemoViewController.swift; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
@@ -219,6 +227,7 @@
 				44ECE661208F7FA20017AC82 /* FilterKit.h */,
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
+				55893232209C651A00512FF8 /* List */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -232,6 +241,7 @@
 				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
 				44ECE6A7208F816D0017AC82 /* Demo.swift */,
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
+				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
@@ -351,6 +361,15 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
+		55893232209C651A00512FF8 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				55893230209C579000512FF8 /* ListViewController.swift */,
+				5589323720A02E1900512FF8 /* SelectionListItemCell.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
 		55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +400,7 @@
 			children = (
 				5589322F209C3CDA00512FF8 /* UIKit */,
 				9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */,
+				55893233209C743100512FF8 /* UITableViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -594,6 +614,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B9C1703209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift in Sources */,
+				5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
 				9B9C1701209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
@@ -611,6 +632,8 @@
 				55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
+				55893234209C743100512FF8 /* UITableViewExtensions.swift in Sources */,
+				55893231209C579000512FF8 /* ListViewController.swift in Sources */,
 				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,
 				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
@@ -633,6 +656,7 @@
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
 				9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */,
+				55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
 				44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */,
 			);

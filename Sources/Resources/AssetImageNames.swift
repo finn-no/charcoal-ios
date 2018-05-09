@@ -15,5 +15,8 @@ extension UIImage {
 
 enum ImageAsset: String {
     case arrowDown
+    case checkbox
+    case checkboxActive
+    case disclosureIndicator
     case popoverArrow
 }

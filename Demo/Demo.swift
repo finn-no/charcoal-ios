@@ -56,6 +56,28 @@ enum Sections: String {
         }
     }
 
+    static func transitionStyle(for indexPath: IndexPath) -> TransitionStyle {
+        let section = Sections.all[indexPath.section]
+        switch section {
+        case .components:
+            let selectedView = ComponentViews.all[indexPath.row]
+            switch selectedView {
+            case .bottomSheet:
+                return .bottomSheet
+            case .rootFilters:
+                return .none
+            case .horizontalScrollButtonGroupWithPopover:
+                return .none
+            }
+        case .fullscreen:
+            let selectedView = FullscreenViews.all[indexPath.row]
+            switch selectedView {
+            case .fullDemo:
+                return .bottomSheet
+            }
+        }
+    }
+
     private static let lastSelectedRowKey = "lastSelectedRowKey"
     private static let lastSelectedSectionKey = "lastSelectedSectionKey"
 
@@ -97,9 +119,13 @@ enum ComponentViews: String {
             return navigationController
 
         case .rootFilters:
-            let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
-            let demoViewController = FilterRootViewController(dataSource: rootFilterHelper, delegate: rootFilterHelper)
-            let navigationController = UINavigationController(rootViewController: demoViewController)
+            let helper = FilterRootDemoViewControllerHelper.createHelperForDemo()
+            let navigationController = FilterNavigationController()
+            let factory = FilterFactory(dataSource: helper, delegate: helper)
+            let filterNavigator = FilterNavigator(navigationController: navigationController, factory: factory)
+
+            filterNavigator.start()
+
             return navigationController
 
         case .horizontalScrollButtonGroupWithPopover:
@@ -123,11 +149,13 @@ enum FullscreenViews: String {
     var viewController: UIViewController {
         switch self {
         case .fullDemo:
-            let rootFilterHelper = FilterRootDemoViewControllerHelper.createHelperForDemo()
-            let bottomSheetDemoViewController = FilterRootViewController(dataSource: rootFilterHelper, delegate: rootFilterHelper)
-            let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
-            navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
-            navigationController.modalPresentationStyle = .custom
+            let helper = FilterRootDemoViewControllerHelper.createHelperForDemo()
+            let navigationController = FilterNavigationController()
+            let factory = FilterFactory(dataSource: helper, delegate: helper)
+            let filterNavigator = FilterNavigator(navigationController: navigationController, factory: factory)
+
+            filterNavigator.start()
+
             return navigationController
         }
     }
@@ -137,6 +165,11 @@ enum FullscreenViews: String {
             .fullDemo,
         ]
     }
+}
+
+enum TransitionStyle {
+    case none
+    case bottomSheet
 }
 
 extension String {

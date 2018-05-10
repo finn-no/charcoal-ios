@@ -29,6 +29,11 @@ final class PopoverDemoViewController: UIViewController {
         setup()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showDismissInstructionsIfNeeded()
+    }
+
     var selectedButton: UIButton?
 
     func setup() {

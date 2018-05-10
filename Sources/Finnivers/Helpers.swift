@@ -4,11 +4,11 @@
 
 import UIKit
 
-struct State {
+public struct State {
     private static let lastSelectedIndexPathRowKey = "lastSelectedIndexPathRowKey"
     private static let lastSelectedIndexPathSectionKey = "lastSelectedIndexPathSectionKey"
 
-    static var lastSelectedIndexPath: IndexPath? {
+    public static var lastSelectedIndexPath: IndexPath? {
         get {
             guard let row = UserDefaults.standard.object(forKey: lastSelectedIndexPathRowKey) as? Int else { return nil }
             guard let section = UserDefaults.standard.object(forKey: lastSelectedIndexPathSectionKey) as? Int else { return nil }
@@ -32,7 +32,7 @@ struct State {
 
     private static let shouldShowDismissInstructionsKey = "shouldShowDismissInstructions"
 
-    static var shouldShowDismissInstructions: Bool {
+    public static var shouldShowDismissInstructions: Bool {
         get {
             return UserDefaults.standard.object(forKey: shouldShowDismissInstructionsKey) as? Bool ?? true
         }
@@ -44,7 +44,7 @@ struct State {
 }
 
 extension String {
-    var capitalizingFirstLetter: String {
+    public var capitalizingFirstLetter: String {
         return prefix(1).uppercased() + dropFirst()
     }
 }
@@ -63,6 +63,19 @@ public extension UIView {
             return safeAreaLayoutGuide.bottomAnchor
         } else {
             return bottomAnchor
+        }
+    }
+}
+
+extension UIViewController {
+    public func showDismissInstructionsIfNeeded() {
+        let miniToastView = MiniToastView()
+        miniToastView.translatesAutoresizingMaskIntoConstraints = false
+        miniToastView.titleLabel.text = "Double tap to dismiss"
+
+        if State.shouldShowDismissInstructions {
+            miniToastView.show(in: view)
+            State.shouldShowDismissInstructions = false
         }
     }
 }

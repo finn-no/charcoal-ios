@@ -19,7 +19,13 @@ class BottomSheetDemoViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showDismissInstructionsIfNeeded()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

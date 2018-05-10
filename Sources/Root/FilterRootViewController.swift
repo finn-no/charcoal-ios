@@ -70,6 +70,11 @@ public class FilterRootViewController: UIViewController {
         super.viewDidLoad()
         setup()
     }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showDismissInstructionsIfNeeded()
+    }
 }
 
 private extension FilterRootViewController {

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		449CAF1B20A4500200EB201A /* MiniToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CAF1A20A4500200EB201A /* MiniToastView.swift */; };
-		449CAF1D20A4500D00EB201A /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CAF1C20A4500D00EB201A /* Helpers.swift */; };
+		449CAF2020A4B3FD00EB201A /* MiniToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CAF1F20A4B3FC00EB201A /* MiniToastView.swift */; };
+		449CAF2220A4B43A00EB201A /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CAF2120A4B43A00EB201A /* Helpers.swift */; };
 		44ECE663208F7FA20017AC82 /* FilterKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 44ECE661208F7FA20017AC82 /* FilterKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE66D208F7FD00017AC82 /* AppDelegate.swift */; };
 		44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE674208F7FD20017AC82 /* Assets.xcassets */; };
@@ -25,7 +25,6 @@
 		44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE69B208F80320017AC82 /* Spacing.swift */; };
 		44ECE6A4208F80320017AC82 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE69C208F80320017AC82 /* Font.swift */; };
 		44ECE6A5208F80320017AC82 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE69D208F80320017AC82 /* Color.swift */; };
-		44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A6208F816D0017AC82 /* ViewController.swift */; };
 		44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A7208F816D0017AC82 /* Demo.swift */; };
 		44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */; };
 		44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6AA208F816D0017AC82 /* BottomSheetDemoViewController.swift */; };
@@ -107,8 +106,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		449CAF1A20A4500200EB201A /* MiniToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniToastView.swift; sourceTree = "<group>"; };
-		449CAF1C20A4500D00EB201A /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		449CAF1F20A4B3FC00EB201A /* MiniToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniToastView.swift; sourceTree = "<group>"; };
+		449CAF2120A4B43A00EB201A /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		44ECE65F208F7FA20017AC82 /* FilterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FilterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44ECE661208F7FA20017AC82 /* FilterKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterKit.h; sourceTree = "<group>"; };
 		44ECE662208F7FA20017AC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,7 +127,6 @@
 		44ECE69B208F80320017AC82 /* Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		44ECE69C208F80320017AC82 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		44ECE69D208F80320017AC82 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		44ECE6A6208F816D0017AC82 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		44ECE6A7208F816D0017AC82 /* Demo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewsTableViewController.swift; sourceTree = "<group>"; };
 		44ECE6AA208F816D0017AC82 /* BottomSheetDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetDemoViewController.swift; sourceTree = "<group>"; };
@@ -246,9 +244,6 @@
 				44ECE6A7208F816D0017AC82 /* Demo.swift */,
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
 				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
-				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
-				449CAF1A20A4500200EB201A /* MiniToastView.swift */,
-				449CAF1C20A4500D00EB201A /* Helpers.swift */,
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
@@ -289,6 +284,8 @@
 		44ECE699208F80320017AC82 /* Finnivers */ = {
 			isa = PBXGroup;
 			children = (
+				449CAF2120A4B43A00EB201A /* Helpers.swift */,
+				449CAF1F20A4B3FC00EB201A /* MiniToastView.swift */,
 				44ECE69A208F80320017AC82 /* DNA */,
 			);
 			path = Finnivers;
@@ -620,6 +617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B9C1703209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift in Sources */,
+				449CAF2020A4B3FD00EB201A /* MiniToastView.swift in Sources */,
 				5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
 				9B9C1701209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift in Sources */,
@@ -645,6 +643,7 @@
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
 				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
+				449CAF2220A4B43A00EB201A /* Helpers.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
@@ -659,14 +658,11 @@
 				55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */,
 				55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
-				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
-				449CAF1D20A4500D00EB201A /* Helpers.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
 				9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */,
 				55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
 				44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */,
-				449CAF1B20A4500200EB201A /* MiniToastView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

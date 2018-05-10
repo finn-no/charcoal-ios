@@ -2,8 +2,6 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
-
 class MiniToastView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()

@@ -48,6 +48,11 @@ public final class ListViewController: UIViewController {
         listItems = []
         super.init(coder: aDecoder)
     }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showDismissInstructionsIfNeeded()
+    }
 }
 
 extension ListViewController: UITableViewDataSource {

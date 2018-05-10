@@ -27,12 +27,30 @@ struct DemoFilterInfo: FilterInfo {
     let selectedValues: [String]
 }
 
+struct DemoMultilevelFilterInfo: MultiLevelFilterInfo {
+    var level: Int
+
+    var filters: [MultiLevelFilterInfo]
+
+    var name: String
+
+    var selectedValues: [String]
+}
+
 class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
+    func multilevelFilter(atIndex index: Int, forFilterAtIndex filterIndex: Int) -> MultiLevelFilterInfo? {
+        guard let multiLevelFilterInfo = filters[safe: filterIndex] as? MultiLevelFilterInfo else {
+            return nil
+        }
+
+        return multiLevelFilterInfo.filters[safe: index]
+    }
+
     private lazy var horizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDemoView? = {
         return HorizontalScrollButtonGroupViewDemoView(frame: .zero)
     }()
 
-    var filters = [DemoFilterInfo]()
+    var filters = [FilterInfo]()
     var contextFilters = [DemoFilterInfo]()
 
     var numberOfFilters: Int {
@@ -73,7 +91,13 @@ class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
             DemoFilterInfo(name: "Årsmodell", selectedValues: ["2000 - 2017"]),
             DemoFilterInfo(name: "Kilometerstand", selectedValues: []),
             DemoFilterInfo(name: "Pris", selectedValues: []),
-            DemoFilterInfo(name: "Område", selectedValues: ["Oslo Øst"]),
+            //            DemoFilterInfo(name: "Område", selectedValues: ["Oslo Øst"]),
+            DemoMultilevelFilterInfo(level: 0, filters: [
+                DemoMultilevelFilterInfo(level: 1, filters: [
+                    DemoMultilevelFilterInfo(level: 1, filters: [], name: "Alle", selectedValues: []),
+                ], name: "Oslo", selectedValues: []),
+                DemoMultilevelFilterInfo(level: 1, filters: [], name: "Østfold", selectedValues: []),
+            ], name: "Område", selectedValues: ["Oslo Øst"]),
             DemoFilterInfo(name: "Karosseri", selectedValues: []),
             DemoFilterInfo(name: "Drivstoff", selectedValues: ["Elektrisitet]"]),
             DemoFilterInfo(name: "Farge", selectedValues: ["Farge"]),

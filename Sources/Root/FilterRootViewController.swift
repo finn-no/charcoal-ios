@@ -142,6 +142,7 @@ extension FilterRootViewController: UITableViewDelegate {
             break
         case .filter:
             delegate?.filterRootViewController(self, didSelectFilterAt: indexPath)
+            navigator.navigate(to: .filter(filterIndex: indexPath.row))
             break
         default:
             break

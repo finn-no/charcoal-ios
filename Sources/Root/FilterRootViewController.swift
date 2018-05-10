@@ -33,7 +33,6 @@ public class FilterRootViewController: UIViewController {
         tableView.backgroundColor = .milk
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
         return tableView

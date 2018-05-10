@@ -2,9 +2,17 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public protocol PreferenceValue {
+public protocol PreferenceValue: ListItem {
     var name: String { get }
     var isSelected: Bool { get }
+}
+
+// MARK: - ListItem default implementation
+
+extension PreferenceValue {
+    public var title: String? { return name }
+    public var detail: String? { return nil }
+    public var showsDisclosureIndicator: Bool { return false }
 }
 
 public protocol PreferenceInfo {
@@ -17,10 +25,4 @@ public protocol FilterRootViewControllerPreferenceDataSource: AnyObject {
     var hasPreferences: Bool { get }
     var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? { get }
     func preference(at index: Int) -> PreferenceInfo?
-}
-
-struct PreferenceListItem: ListItem {
-    var title: String?
-    let detail: String? = nil
-    let showsDisclosureIndicator: Bool = false
 }

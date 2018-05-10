@@ -23,7 +23,7 @@ extension FilterFactory: ViewControllerFactory {
             return nil
         }
 
-        let listItems = (0 ..< preferenceInfo.numberOfValues).compactMap({ preferenceInfo.value(at: $0)?.name }).map(PreferenceListItem.init)
+        let listItems = (0 ..< preferenceInfo.numberOfValues).compactMap({ preferenceInfo.value(at: $0) })
         let listViewController = ListViewController(title: preferenceInfo.name, items: listItems)
 
         listViewController.didSelectListItemHandler = { _, _ in

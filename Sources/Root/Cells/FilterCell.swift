@@ -73,6 +73,8 @@ class FilterCell: UITableViewCell, Identifiable {
 
 private extension FilterCell {
     func setup() {
+        selectionStyle = .none
+
         contentView.addSubview(nameLabel)
         contentView.addSubview(currentValuesContainer)
 

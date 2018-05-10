@@ -26,7 +26,7 @@ class DemoViewsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let indexPath = Sections.lastSelectedIndexPath {
+        if let indexPath = State.lastSelectedIndexPath {
             let viewController = Sections.viewController(for: indexPath)
             presentViewControllerWithDismissGesture(viewController)
         }
@@ -65,7 +65,7 @@ extension DemoViewsTableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        Sections.lastSelectedIndexPath = indexPath
+        State.lastSelectedIndexPath = indexPath
         let viewController = Sections.viewController(for: indexPath)
         presentViewControllerWithDismissGesture(viewController)
     }
@@ -89,7 +89,7 @@ extension DemoViewsTableViewController {
     }
 
     @objc func closeCurrentlyPresentedViewController() {
-        Sections.lastSelectedIndexPath = nil
+        State.lastSelectedIndexPath = nil
         dismiss(animated: true, completion: nil)
     }
 }

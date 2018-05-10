@@ -40,7 +40,7 @@ private extension SelectionListItemCell {
         imageView?.image = UIImage(named: .checkbox)
 
         addSubview(separatorLine)
-        
+
         NSLayoutConstraint.activate([
             separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),

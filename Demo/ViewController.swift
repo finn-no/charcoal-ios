@@ -5,6 +5,20 @@
 import UIKit
 
 class ViewController<View: UIView>: UIViewController {
+    lazy var playgroundView: View = {
+        let playgroundView = View(frame: view.frame)
+        playgroundView.translatesAutoresizingMaskIntoConstraints = false
+        playgroundView.backgroundColor = .milk
+        return playgroundView
+    }()
+
+    lazy var miniToastView: MiniToastView = {
+        let view = MiniToastView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.titleLabel.text = "Double tap to dismiss"
+        return view
+    }()
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -12,11 +26,8 @@ class ViewController<View: UIView>: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let playgroundView = View(frame: view.frame)
-        playgroundView.translatesAutoresizingMaskIntoConstraints = false
-        playgroundView.backgroundColor = .white
         view.addSubview(playgroundView)
-        view.backgroundColor = .white
+        view.backgroundColor = .milk
 
         NSLayoutConstraint.activate([
             playgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -31,25 +42,16 @@ class ViewController<View: UIView>: UIViewController {
     }
 
     @objc func didDoubleTap() {
-        Sections.lastSelectedIndexPath = nil
+        State.lastSelectedIndexPath = nil
         dismiss(animated: true, completion: nil)
     }
-}
 
-public extension UIView {
-    public var compatibleTopAnchor: NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.topAnchor
-        } else {
-            return topAnchor
-        }
-    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
-    public var compatibleBottomAnchor: NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.bottomAnchor
-        } else {
-            return bottomAnchor
+        if State.shouldShowDismissInstructions {
+            miniToastView.show(in: view)
+            State.shouldShowDismissInstructions = false
         }
     }
 }

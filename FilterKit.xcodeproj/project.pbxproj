@@ -195,11 +195,11 @@
 		44ECE645208F7F7B0017AC82 = {
 			isa = PBXGroup;
 			children = (
-				44ECE66C208F7FD00017AC82 /* Demo */,
-				44ECE68C208F7FF20017AC82 /* Frameworks */,
-				44ECE650208F7F7B0017AC82 /* Products */,
 				44ECE660208F7FA20017AC82 /* Sources */,
 				44ECE682208F7FDE0017AC82 /* UnitTests */,
+				44ECE66C208F7FD00017AC82 /* Demo */,
+				44ECE650208F7F7B0017AC82 /* Products */,
+				44ECE68C208F7FF20017AC82 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,18 +216,18 @@
 		44ECE660208F7FA20017AC82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE693208F80320017AC82 /* BottomSheet */,
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
+				44ECE693208F80320017AC82 /* BottomSheet */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				44ECE699208F80320017AC82 /* Finnivers */,
 				55646DB320933D22006AA2DA /* HorizontalScrollButtonGroup */,
-				55893232209C651A00512FF8 /* List */,
-				9BE0A0552091D2530000632B /* Protocols */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
+				9BE0A0552091D2530000632B /* Protocols */,
 				9BE0A0402091BE750000632B /* Root */,
 				44ECE661208F7FA20017AC82 /* FilterKit.h */,
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
+				55893232209C651A00512FF8 /* List */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -239,15 +239,15 @@
 				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				9BE0A0502091CED70000632B /* Root */,
 				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
-				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
-				9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */,
-				9B9C1705209C759E007BCBBC /* Cartfile */,
 				44ECE6A7208F816D0017AC82 /* Demo.swift */,
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
-				44ECE679208F7FD20017AC82 /* Info.plist */,
-				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
+				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
+				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
+				44ECE679208F7FD20017AC82 /* Info.plist */,
+				9B9C1705209C759E007BCBBC /* Cartfile */,
+				9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -255,8 +255,8 @@
 		44ECE682208F7FDE0017AC82 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE685208F7FDE0017AC82 /* Info.plist */,
 				44ECE683208F7FDE0017AC82 /* UnitTests.swift */,
+				44ECE685208F7FDE0017AC82 /* Info.plist */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -272,10 +272,10 @@
 		44ECE693208F80320017AC82 /* BottomSheet */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */,
 				44ECE694208F80320017AC82 /* BottomSheetPresentationController.swift */,
-				44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */,
 				44ECE695208F80320017AC82 /* BottomSheetTransitioningDelegate.swift */,
+				44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */,
+				44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */,
 			);
 			path = BottomSheet;
 			sourceTree = "<group>";
@@ -291,9 +291,9 @@
 		44ECE69A208F80320017AC82 /* DNA */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE69D208F80320017AC82 /* Color.swift */,
-				44ECE69C208F80320017AC82 /* Font.swift */,
 				44ECE69B208F80320017AC82 /* Spacing.swift */,
+				44ECE69C208F80320017AC82 /* Font.swift */,
+				44ECE69D208F80320017AC82 /* Color.swift */,
 			);
 			path = DNA;
 			sourceTree = "<group>";
@@ -311,8 +311,8 @@
 			isa = PBXGroup;
 			children = (
 				44ECE6B0208F83BD0017AC82 /* Fonts */,
-				55893225209B206000512FF8 /* AssetImageNames.swift */,
 				55646DAF2091FE11006AA2DA /* Assets.xcassets */,
+				55893225209B206000512FF8 /* AssetImageNames.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -320,10 +320,10 @@
 		44ECE6B0208F83BD0017AC82 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
 				44ECE6B1208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf */,
 				44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */,
 				44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */,
+				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -373,8 +373,8 @@
 		55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */ = {
 			isa = PBXGroup;
 			children = (
-				55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */,
 				55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */,
+				55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */,
 				55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */,
 			);
 			path = CustomPopoverPresentation;
@@ -387,8 +387,8 @@
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				9BE0A0452091BE750000632B /* FilterRootViewController.swift */,
 				9BE0A0412091BE750000632B /* FilterRootViewControllerDataSource.swift */,
-				9BE0A062209345E90000632B /* FilterRootViewControllerDelegate.swift */,
 				9B9C1700209B4725007BCBBC /* FilterRootViewControllerPreferenceDataSource.swift */,
+				9BE0A062209345E90000632B /* FilterRootViewControllerDelegate.swift */,
 				9B9C1702209C4E08007BCBBC /* PreferenceValuesSelectionDataSource.swift */,
 				9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */,
 			);
@@ -692,7 +692,6 @@
 				44ECE677208F7FD20017AC82 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

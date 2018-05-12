@@ -692,6 +692,7 @@
 				44ECE677208F7FD20017AC82 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

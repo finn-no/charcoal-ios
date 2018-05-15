@@ -85,7 +85,7 @@ enum Sections: String {
 enum ComponentViews: String {
     case bottomSheet
     case rootFilters
-    case horizontalScrollButtonGroupWithPopover
+    case preferenceFilter
     case list
 
     var viewController: UIViewController {
@@ -103,7 +103,7 @@ enum ComponentViews: String {
             let navigationController = UINavigationController(rootViewController: demoViewController)
             return navigationController
 
-        case .horizontalScrollButtonGroupWithPopover:
+        case .preferenceFilter:
             let popoverDemoViewController = PopoverDemoViewController()
             return popoverDemoViewController
 
@@ -117,7 +117,7 @@ enum ComponentViews: String {
         return [
             .bottomSheet,
             .rootFilters,
-            .horizontalScrollButtonGroupWithPopover,
+            .preferenceFilter,
             .list,
         ]
     }

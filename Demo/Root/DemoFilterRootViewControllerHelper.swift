@@ -28,8 +28,8 @@ struct DemoFilterInfo: FilterInfo {
 }
 
 class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
-    private lazy var horizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDemoView? = {
-        return HorizontalScrollButtonGroupViewDemoView(frame: .zero)
+    private lazy var horizontalScrollButtonGroupViewDemoView: PreferenceSelectionViewDemoView? = {
+        return PreferenceSelectionViewDemoView(frame: .zero)
     }()
 
     var filters = [DemoFilterInfo]()
@@ -99,7 +99,7 @@ extension FilterRootDemoViewControllerHelper: FilterRootViewControllerPreference
         return FilterRootDemoViewControllerHelper.preferenceFilters.count > 0
     }
 
-    var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? {
+    var preferencesDataSource: PreferenceSelectionViewDataSource? {
         return horizontalScrollButtonGroupViewDemoView
     }
 

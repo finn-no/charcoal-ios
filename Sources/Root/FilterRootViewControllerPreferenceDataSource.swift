@@ -15,6 +15,6 @@ public protocol PreferenceInfo {
 
 public protocol FilterRootViewControllerPreferenceDataSource: AnyObject {
     var hasPreferences: Bool { get }
-    var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? { get }
+    var preferencesDataSource: PreferenceSelectionViewDataSource? { get }
     func preference(at index: Int) -> PreferenceInfo?
 }

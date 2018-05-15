@@ -123,8 +123,8 @@ private extension FilterRootViewController {
             return cell
         case .preference:
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
-            cell.horizontalScrollButtonGroupViewDataSource = preferenceDataSource.preferencesDataSource
-            cell.horizontalScrollButtonGroupViewDelegate = self
+            cell.preferenceSelectionViewDataSource = preferenceDataSource.preferencesDataSource
+            cell.preferenceSelectionViewDelegate = self
             return cell
         }
     }
@@ -251,24 +251,27 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
     }
 }
 
-extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
-    public func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int) {
+extension FilterRootViewController: PreferenceSelectionViewDelegate {
+    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
         guard let preferenceInfo = preferenceDataSource.preference(at: index) else {
             return
         }
-        horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
+        let isSelected = preferenceSelectionView.isPreferenceSelected(at: index)
+
+        preferenceSelectionView.setPreference(at: index, selected: !isSelected)
+
         let transitioningDelegate = CustomPopoverPresentationTransitioningDelegate()
-        transitioningDelegate.willDismissPopoverHandler = { [weak horizontalScrollButtonGroupView] _ in
-            guard let horizontalScrollButtonGroupView = horizontalScrollButtonGroupView, let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
+        transitioningDelegate.willDismissPopoverHandler = { [weak preferenceSelectionView] _ in
+            guard let preferenceSelectionView = preferenceSelectionView, let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
                 return
             }
-            horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
+            preferenceSelectionView.setPreference(at: selectedIndex, selected: false)
             return
         }
         transitioningDelegate.didDismissPopoverHandler = { [weak self] _ in
             self?.preferencePopoverPresentationTransitioningDelegate = nil
         }
-        transitioningDelegate.sourceView = button
+        transitioningDelegate.sourceView = preferenceSelectionView.viewForPreference(at: index)
         preferencePopoverPresentationTransitioningDelegate = transitioningDelegate
 
         let valuesDataSource = PreferenceValuesSelectionDataSource(preferenceInfo: preferenceInfo)

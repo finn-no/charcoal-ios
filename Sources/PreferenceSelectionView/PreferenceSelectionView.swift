@@ -48,7 +48,7 @@ public final class PreferenceSelectionView: UIView {
         return UIImage(named: .arrowDown)
     }()
 
-    public var dataSource: HorizontalScrollButtonGroupViewDataSource? {
+    public var dataSource: PreferenceSelectionViewDataSource? {
         didSet {
             reload()
         }

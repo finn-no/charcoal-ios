@@ -66,7 +66,7 @@ enum Sections: String {
                 return .bottomSheet
             case .rootFilters:
                 return .none
-            case .horizontalScrollButtonGroupWithPopover:
+            case .preferenceFilter:
                 return .none
             case .list:
                 return .none

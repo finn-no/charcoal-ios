@@ -31,13 +31,18 @@
 		44ECE6B6208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */; };
 		44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */; };
 		44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */; };
+<<<<<<< HEAD
+		55646DAC2091C572006AA2DA /* PreferenceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* PreferenceSelectionView.swift */; };
+		55646DAE2091E1E1006AA2DA /* PreferenceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* PreferenceSelectionView.swift */; };
+=======
 		5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525323F20A2D9B2000CBD21 /* Navigator.swift */; };
 		5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324120A2DB02000CBD21 /* ViewControllerFactory.swift */; };
 		5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */; };
 		5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */; };
 		5525324820A300A6000CBD21 /* FilterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324720A300A6000CBD21 /* FilterNavigationController.swift */; };
-		55646DAC2091C572006AA2DA /* PreferenceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* PreferenceSelectionView.swift */; };
-		55646DAE2091E1E1006AA2DA /* PreferenceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* PreferenceSelectionView.swift */; };
+		55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */; };
+		55646DAE2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */; };
+>>>>>>> master
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55858A1320AAC26400B100EA /* FilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1220AAC26400B100EA /* FilterInfo.swift */; };
 		55858A1720AAC2EB00B100EA /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1620AAC2EB00B100EA /* FilterService.swift */; };
@@ -137,13 +142,18 @@
 		44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Medium.ttf"; sourceTree = "<group>"; };
 		44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Regular.ttf"; sourceTree = "<group>"; };
 		44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Bold.ttf"; sourceTree = "<group>"; };
+<<<<<<< HEAD
+		55646DAB2091C572006AA2DA /* PreferenceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSelectionView.swift; sourceTree = "<group>"; };
+		55646DAD2091E1E1006AA2DA /* PreferenceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSelectionView.swift; sourceTree = "<group>"; };
+=======
 		5525323F20A2D9B2000CBD21 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		5525324120A2DB02000CBD21 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFilterNavigator.swift; sourceTree = "<group>"; };
 		5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDependencyContainer.swift; sourceTree = "<group>"; };
 		5525324720A300A6000CBD21 /* FilterNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNavigationController.swift; sourceTree = "<group>"; };
-		55646DAB2091C572006AA2DA /* PreferenceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSelectionView.swift; sourceTree = "<group>"; };
-		55646DAD2091E1E1006AA2DA /* PreferenceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSelectionView.swift; sourceTree = "<group>"; };
+		55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupView.swift; sourceTree = "<group>"; };
+		55646DAD2091E1E1006AA2DA /* HorizontalScrollButtonGroupViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupViewDemoView.swift; sourceTree = "<group>"; };
+>>>>>>> master
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55858A1220AAC26400B100EA /* FilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfo.swift; sourceTree = "<group>"; };
 		55858A1620AAC2EB00B100EA /* FilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterService.swift; sourceTree = "<group>"; };

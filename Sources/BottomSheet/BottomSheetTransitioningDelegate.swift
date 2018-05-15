@@ -9,6 +9,7 @@ public final class BottomSheetTransitioningDelegate: NSObject, UIViewControllerT
     private var presentationController: BottomSheetPresentationController?
 
     private weak var _presentationControllerDelegate: BottomSheetPresentationControllerDelegate?
+
     public var presentationControllerDelegate: BottomSheetPresentationControllerDelegate? {
         get {
             return presentationController?.delegate as? BottomSheetPresentationControllerDelegate

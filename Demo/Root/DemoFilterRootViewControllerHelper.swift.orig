@@ -19,12 +19,30 @@ struct DemoFilterInfo: FilterInfo {
     let selectedValues: [String]
 }
 
+<<<<<<< HEAD
+class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
+    private lazy var horizontalScrollButtonGroupViewDemoView: PreferenceSelectionViewDemoView? = {
+        return PreferenceSelectionViewDemoView(frame: .zero)
+    }()
+
+    var filters = [DemoFilterInfo]()
+    var contextFilters = [DemoFilterInfo]()
+
+    var numberOfFilters: Int {
+        return filters.count
+    }
+
+    var numberOfContextFilters: Int {
+        return contextFilters.count
+    }
+=======
 struct DemoFreeSearchFilterInfo: FreeSearchFilterInfo {
     var currentSearchQuery: String?
     var searchQueryPlaceholder: String
     var name: String
     var selectedValues: [String]
 }
+>>>>>>> master
 
 struct DemoPreferenceFilterInfo: PreferenceFilterInfo {
     var preferences: [PreferenceInfo]
@@ -42,6 +60,16 @@ struct DemoMultilevelFilterInfo: MultiLevelFilterInfo {
     var selectedValues: [String]
 }
 
+<<<<<<< HEAD
+extension FilterRootDemoViewControllerHelper: FilterRootViewControllerPreferenceDataSource {
+    var hasPreferences: Bool {
+        return FilterRootDemoViewControllerHelper.preferenceFilters.count > 0
+    }
+
+    var preferencesDataSource: PreferenceSelectionViewDataSource? {
+        return horizontalScrollButtonGroupViewDemoView
+    }
+=======
 class DemoFilterService: FilterService {
     var filterComponents: [FilterComponent] {
         let freeSearchFilterInfo = DemoFreeSearchFilterInfo(currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch", selectedValues: [])
@@ -52,6 +80,7 @@ class DemoFilterService: FilterService {
             ], name: "Oslo", selectedValues: []),
             DemoMultilevelFilterInfo(level: 1, filters: [], name: "Østfold", selectedValues: []),
         ], name: "Område", selectedValues: ["Oslo Øst"])
+>>>>>>> master
 
         return [
             FreeSearchFilterComponent(filterInfo: freeSearchFilterInfo),

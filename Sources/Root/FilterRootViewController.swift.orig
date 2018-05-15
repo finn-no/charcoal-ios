@@ -72,6 +72,42 @@ private extension FilterRootViewController {
             showResultsButtonView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
         ])
     }
+<<<<<<< HEAD
+
+    private func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, in section: Sections) -> UITableViewCell {
+        switch section {
+        case .query:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SearchQueryCell.reuseIdentifier, for: indexPath) as! SearchQueryCell
+            cell.searchQuery = filterDataSource.currentSearchQuery
+            cell.placeholderText = filterDataSource.searchQueryPlaceholder
+            return cell
+        case .filter:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            if let filter = filterDataSource.filter(at: indexPath.item) {
+                cell.filterName = filter.name
+                cell.selectedValues = filter.selectedValues
+                cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
+            }
+            return cell
+        case .context:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            if let filter = filterDataSource.contextFilter(at: indexPath.item) {
+                cell.filterName = filter.name
+                cell.selectedValues = filter.selectedValues
+                cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
+            }
+            return cell
+        case .preference:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
+            cell.preferenceSelectionViewDataSource = preferenceDataSource.preferencesDataSource
+            cell.preferenceSelectionViewDelegate = self
+            return cell
+        }
+    }
+=======
+>>>>>>> master
 }
 
 extension FilterRootViewController: UITableViewDelegate {
@@ -172,21 +208,51 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
     }
 }
 
-extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
+<<<<<<< HEAD
+extension FilterRootViewController: PreferenceSelectionViewDelegate {
     public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
-        guard let dataSource = preferenceSelectionView.dataSource as? PreferenceFilterDataSource, let preferenceInfo = dataSource.preferences[safe: index] else {
         guard let preferenceInfo = preferenceDataSource.preference(at: index) else {
             return
         }
+        let isSelected = preferenceSelectionView.isPreferenceSelected(at: index)
 
-        preferenceSelectionView.setPreference(at: index, selected: true)
+        preferenceSelectionView.setPreference(at: index, selected: !isSelected)
 
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: button, popoverWillDismiss: { [weak preferenceSelectionView] in
+        let transitioningDelegate = CustomPopoverPresentationTransitioningDelegate()
+        transitioningDelegate.willDismissPopoverHandler = { [weak preferenceSelectionView] _ in
             guard let preferenceSelectionView = preferenceSelectionView, let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
                 return
             }
-
             preferenceSelectionView.setPreference(at: selectedIndex, selected: false)
+            return
+        }
+        transitioningDelegate.didDismissPopoverHandler = { [weak self] _ in
+            self?.preferencePopoverPresentationTransitioningDelegate = nil
+        }
+        transitioningDelegate.sourceView = preferenceSelectionView.viewForPreference(at: index)
+        preferencePopoverPresentationTransitioningDelegate = transitioningDelegate
+
+        let valuesDataSource = PreferenceValuesSelectionDataSource(preferenceInfo: preferenceInfo)
+        let popover = ValueSelectionViewController(valuesDataSource: valuesDataSource)
+        popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
+        popover.modalPresentationStyle = .custom
+        popover.transitioningDelegate = preferencePopoverPresentationTransitioningDelegate
+=======
+extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
+    public func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int) {
+        guard let dataSource = horizontalScrollButtonGroupView.dataSource as? PreferenceFilterDataSource, let preferenceInfo = dataSource.preferences[safe: index] else {
+            return
+        }
+
+        horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
+
+        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: button, popoverWillDismiss: { [weak horizontalScrollButtonGroupView] in
+            guard let horizontalScrollButtonGroupView = horizontalScrollButtonGroupView, let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
+                return
+            }
+>>>>>>> master
+
+            horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
         }))
     }
 }

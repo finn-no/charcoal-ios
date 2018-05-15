@@ -60,6 +60,9 @@ platform :ios do
       if !UI.confirm("Is the app version numer updated?")
         UI.user_error!("Fix the version")
       end
+      if UI.confirm("Run script to set build number?")
+        sh "cd .. && sh Scripts/version.sh"
+      end
 	  token = UI.input("Please enter HockeyApp token: ")
     end
     prepare_beta("Demo", token, beta_changelog)

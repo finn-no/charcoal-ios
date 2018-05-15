@@ -744,6 +744,7 @@
 				44ECE677208F7FD20017AC82 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -935,6 +936,8 @@
 					"$(PROJECT_DIR)/Demo/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
+				INFOPLIST_PREFIX_HEADER = Demo/InfoPlist.h;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -961,6 +964,8 @@
 					"$(PROJECT_DIR)/Demo/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
+				INFOPLIST_PREFIX_HEADER = Demo/InfoPlist.h;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

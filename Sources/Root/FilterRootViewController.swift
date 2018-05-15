@@ -5,7 +5,7 @@
 import UIKit
 
 public class FilterRootViewController: UIViewController {
-    private let navigator: FilterNavigator
+    private let navigator: RootFilterNavigator
     private let components: [FilterComponent]
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
@@ -33,7 +33,7 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(navigator: FilterNavigator, components: [FilterComponent]) {
+    public init(navigator: RootFilterNavigator, components: [FilterComponent]) {
         self.navigator = navigator
         self.components = components
         super.init(nibName: nil, bundle: nil)

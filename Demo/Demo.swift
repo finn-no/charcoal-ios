@@ -125,9 +125,9 @@ enum ComponentViews: String {
             let filterService = DemoFilterService()
             let navigationController = FilterNavigationController()
             let factory = FilterDependencyContainer(filterService: filterService)
-            let filterNavigator = FilterNavigator(navigationController: navigationController, factory: factory)
+            let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
-            filterNavigator.start()
+            rootFilterNavigator.start()
 
             return navigationController
 
@@ -160,9 +160,9 @@ enum FullscreenViews: String {
             let filterService = DemoFilterService()
             let navigationController = FilterNavigationController()
             let factory = FilterDependencyContainer(filterService: filterService)
-            let filterNavigator = FilterNavigator(navigationController: navigationController, factory: factory)
+            let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
-            filterNavigator.start()
+            rootFilterNavigator.start()
 
             return navigationController
         }

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public class FilterNavigator: NSObject, Navigator {
+public class RootFilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
         case preferenceFilterInPopover(preferenceInfo: PreferenceInfo, sourceView: UIView, popoverWillDismiss: (() -> Void)?)
@@ -30,7 +30,7 @@ public class FilterNavigator: NSObject, Navigator {
         navigationController.setViewControllers([filterRootViewController], animated: false)
     }
 
-    public func navigate(to destination: FilterNavigator.Destination) {
+    public func navigate(to destination: RootFilterNavigator.Destination) {
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
@@ -52,7 +52,7 @@ public class FilterNavigator: NSObject, Navigator {
     }
 }
 
-private extension FilterNavigator {
+private extension RootFilterNavigator {
     var filterRootViewController: FilterRootViewController? {
         return navigationController.viewControllers.first as? FilterRootViewController
     }

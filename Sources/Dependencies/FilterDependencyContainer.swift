@@ -12,6 +12,11 @@ public class FilterDependencyContainer {
     }
 }
 
+extension FilterDependencyContainer: NavigatorFactory {
+    public func makeRootFilterNavigator(navigationController: FilterNavigationController) -> RootFilterNavigator {
+        return RootFilterNavigator(navigationController: navigationController, factory: self)
+    }
+}
 
 extension FilterDependencyContainer: ViewControllerFactory {
     public func makeListViewControllerForPreference(with preferenceInfo: PreferenceInfo) -> UIViewController? {
@@ -24,7 +29,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return listViewController
     }
 
-    public func makeViewControllerForFilterComponent(at index: Int, navigator: FilterNavigator) -> UIViewController? {
+    public func makeViewControllerForFilterComponent(at index: Int, navigator: RootFilterNavigator) -> UIViewController? {
         let component = filterService.filterComponents[index]
         let filterInfo = component.filterInfo
 
@@ -39,7 +44,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return viewController
     }
 
-    public func makeListViewControllerForMultiLevelFilterComponent(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: FilterNavigator) -> ListViewController? {
+    public func makeListViewControllerForMultiLevelFilterComponent(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: RootFilterNavigator) -> ListViewController? {
         if multiLevelFilterInfo.filters.isEmpty {
             return nil
         }
@@ -58,7 +63,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return listViewController
     }
 
-    public func makeFilterRootViewController(navigator: FilterNavigator) -> FilterRootViewController {
+    public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
         return FilterRootViewController(navigator: navigator, components: filterService.filterComponents)
     }
 }

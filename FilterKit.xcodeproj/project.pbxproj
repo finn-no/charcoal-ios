@@ -33,7 +33,7 @@
 		44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */; };
 		5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525323F20A2D9B2000CBD21 /* Navigator.swift */; };
 		5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324120A2DB02000CBD21 /* ViewControllerFactory.swift */; };
-		5525324420A2DB73000CBD21 /* FilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324320A2DB73000CBD21 /* FilterNavigator.swift */; };
+		5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */; };
 		5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */; };
 		5525324820A300A6000CBD21 /* FilterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324720A300A6000CBD21 /* FilterNavigationController.swift */; };
 		55646DAC2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */; };
@@ -42,6 +42,7 @@
 		55858A1320AAC26400B100EA /* FilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1220AAC26400B100EA /* FilterInfo.swift */; };
 		55858A1720AAC2EB00B100EA /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1620AAC2EB00B100EA /* FilterService.swift */; };
 		55858A1920AAC36200B100EA /* FilterComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1820AAC36200B100EA /* FilterComponents.swift */; };
+		55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1F20AAD18400B100EA /* NavigatorFactory.swift */; };
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */; };
 		5589322E209C3CD500512FF8 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
@@ -138,7 +139,7 @@
 		44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Bold.ttf"; sourceTree = "<group>"; };
 		5525323F20A2D9B2000CBD21 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		5525324120A2DB02000CBD21 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
-		5525324320A2DB73000CBD21 /* FilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNavigator.swift; sourceTree = "<group>"; };
+		5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFilterNavigator.swift; sourceTree = "<group>"; };
 		5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDependencyContainer.swift; sourceTree = "<group>"; };
 		5525324720A300A6000CBD21 /* FilterNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNavigationController.swift; sourceTree = "<group>"; };
 		55646DAB2091C572006AA2DA /* HorizontalScrollButtonGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonGroupView.swift; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		55858A1220AAC26400B100EA /* FilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfo.swift; sourceTree = "<group>"; };
 		55858A1620AAC2EB00B100EA /* FilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterService.swift; sourceTree = "<group>"; };
 		55858A1820AAC36200B100EA /* FilterComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponents.swift; sourceTree = "<group>"; };
+		55858A1F20AAD18400B100EA /* NavigatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorFactory.swift; sourceTree = "<group>"; };
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
 		5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		5589322C209C3CD500512FF8 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
@@ -236,11 +238,10 @@
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
 				55893232209C651A00512FF8 /* List */,
-				55858A1A20AAC73A00B100EA /* Navigation */,
-				55858A1D20AAC9BF00B100EA /* Factory */,
+				55858A1A20AAC73A00B100EA /* NavigationController */,
+				55858A1E20AACFF000B100EA /* Dependencies */,
 				55858A1220AAC26400B100EA /* FilterInfo.swift */,
 				55858A1820AAC36200B100EA /* FilterComponents.swift */,
-				55858A1620AAC2EB00B100EA /* FilterService.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -365,23 +366,40 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		55858A1A20AAC73A00B100EA /* Navigation */ = {
+		55858A1A20AAC73A00B100EA /* NavigationController */ = {
 			isa = PBXGroup;
 			children = (
-				5525323F20A2D9B2000CBD21 /* Navigator.swift */,
 				5525324720A300A6000CBD21 /* FilterNavigationController.swift */,
-				5525324320A2DB73000CBD21 /* FilterNavigator.swift */,
 			);
-			path = Navigation;
+			path = NavigationController;
 			sourceTree = "<group>";
 		};
-		55858A1D20AAC9BF00B100EA /* Factory */ = {
+		55858A1D20AAC9BF00B100EA /* Factories */ = {
 			isa = PBXGroup;
 			children = (
 				5525324120A2DB02000CBD21 /* ViewControllerFactory.swift */,
-				5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */,
+				55858A1F20AAD18400B100EA /* NavigatorFactory.swift */,
 			);
-			path = Factory;
+			path = Factories;
+			sourceTree = "<group>";
+		};
+		55858A1E20AACFF000B100EA /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				55858A1620AAC2EB00B100EA /* FilterService.swift */,
+				55858A2120AAD27F00B100EA /* Navigation */,
+				5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */,
+				55858A1D20AAC9BF00B100EA /* Factories */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		55858A2120AAD27F00B100EA /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				5525323F20A2D9B2000CBD21 /* Navigator.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		5589322F209C3CDA00512FF8 /* UIKit */ = {
@@ -415,6 +433,7 @@
 		9BE0A0402091BE750000632B /* Root */ = {
 			isa = PBXGroup;
 			children = (
+				5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */,
 				9BE0A068209724AF0000632B /* Cells */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				9BE0A0452091BE750000632B /* FilterRootViewController.swift */,
@@ -651,6 +670,7 @@
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				55858A1320AAC26400B100EA /* FilterInfo.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
+				55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */,
 				5589322E209C3CD500512FF8 /* Layout.swift in Sources */,
 				5525324820A300A6000CBD21 /* FilterNavigationController.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
@@ -667,7 +687,7 @@
 				55893231209C579000512FF8 /* ListViewController.swift in Sources */,
 				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,
 				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
-				5525324420A2DB73000CBD21 /* FilterNavigator.swift in Sources */,
+				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,

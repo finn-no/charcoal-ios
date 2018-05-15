@@ -12,14 +12,6 @@ struct DemoPreferenceValue: PreferenceValue {
 struct DemoPreferenceInfo: PreferenceInfo {
     let name: String
     let values: [PreferenceValue]
-
-    var numberOfValues: Int {
-        return values.count
-    }
-
-    func value(at index: Int) -> PreferenceValue? {
-        return values[safe: index]
-    }
 }
 
 struct DemoFilterInfo: FilterInfo {
@@ -27,84 +19,60 @@ struct DemoFilterInfo: FilterInfo {
     let selectedValues: [String]
 }
 
-class FilterRootDemoViewControllerHelper: FilterRootViewControllerDataSource {
-    private lazy var horizontalScrollButtonGroupViewDemoView: HorizontalScrollButtonGroupViewDemoView? = {
-        return HorizontalScrollButtonGroupViewDemoView(frame: .zero)
-    }()
-
-    var filters = [DemoFilterInfo]()
-    var contextFilters = [DemoFilterInfo]()
-
-    var numberOfFilters: Int {
-        return filters.count
-    }
-
-    var numberOfContextFilters: Int {
-        return contextFilters.count
-    }
-
-    func filter(at index: Int) -> FilterInfo? {
-        return filters[safe: index]
-    }
-
-    func contextFilter(at index: Int) -> FilterInfo? {
-        return contextFilters[safe: index]
-    }
-
+struct DemoFreeSearchFilterInfo: FreeSearchFilterInfo {
     var currentSearchQuery: String?
-    var numberOfHits: Int? = 42
-    var searchQueryPlaceholder: String {
-        return "Ord i annonsen"
-    }
-
-    var doneButtonTitle: String {
-        if let numberOfHits = numberOfHits {
-            return "Vis \(numberOfHits) treff"
-        } else {
-            return "Vis treff"
-        }
-    }
-
-    static func createHelperForDemo() -> Self {
-        let dataSource = self.init()
-        dataSource.currentSearchQuery = nil
-        dataSource.filters = [
-            DemoFilterInfo(name: "Merke", selectedValues: ["Toyota"]),
-            DemoFilterInfo(name: "Årsmodell", selectedValues: ["2000 - 2017"]),
-            DemoFilterInfo(name: "Kilometerstand", selectedValues: []),
-            DemoFilterInfo(name: "Pris", selectedValues: []),
-            DemoFilterInfo(name: "Område", selectedValues: ["Oslo Øst"]),
-            DemoFilterInfo(name: "Karosseri", selectedValues: []),
-            DemoFilterInfo(name: "Drivstoff", selectedValues: ["Elektrisitet]"]),
-            DemoFilterInfo(name: "Farge", selectedValues: ["Farge"]),
-            DemoFilterInfo(name: "Hestekrefter", selectedValues: []),
-            DemoFilterInfo(name: "Antall seter", selectedValues: []),
-            DemoFilterInfo(name: "Hjuldrift", selectedValues: []),
-            DemoFilterInfo(name: "Girkasse", selectedValues: ["Automatisk"]),
-            DemoFilterInfo(name: "Ekstrautstyr", selectedValues: []),
-            DemoFilterInfo(name: "Hjulsett", selectedValues: []),
-            DemoFilterInfo(name: "Garanti og forsikring", selectedValues: []),
-            DemoFilterInfo(name: "Bilens tilstand", selectedValues: []),
-            DemoFilterInfo(name: "Avgiftsklasse", selectedValues: []),
-        ]
-        dataSource.contextFilters = [
-            DemoFilterInfo(name: "Kontekst filter", selectedValues: ["4", "2"]),
-        ]
-        return dataSource
-    }
+    var searchQueryPlaceholder: String
+    var name: String
+    var selectedValues: [String]
 }
 
-extension FilterRootDemoViewControllerHelper: FilterRootViewControllerPreferenceDataSource {
-    var hasPreferences: Bool {
-        return FilterRootDemoViewControllerHelper.preferenceFilters.count > 0
-    }
+struct DemoPreferenceFilterInfo: PreferenceFilterInfo {
+    var preferences: [PreferenceInfo]
+    var name: String
+    var selectedValues: [String]
+}
 
-    var preferencesDataSource: HorizontalScrollButtonGroupViewDataSource? {
-        return horizontalScrollButtonGroupViewDemoView
-    }
+struct DemoMultilevelFilterInfo: MultiLevelFilterInfo {
+    var level: Int
 
-    func preference(at index: Int) -> PreferenceInfo? {
-        return FilterRootDemoViewControllerHelper.preferenceFilters[safe: index]
+    var filters: [MultiLevelFilterInfo]
+
+    var name: String
+
+    var selectedValues: [String]
+}
+
+class DemoFilterService: FilterService {
+    var filterComponents: [FilterComponent] {
+        let freeSearchFilterInfo = DemoFreeSearchFilterInfo(currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch", selectedValues: [])
+        let preferencesFilterInfo = DemoPreferenceFilterInfo(preferences: DemoFilterService.preferenceFilters, name: "preferences", selectedValues: [])
+        let areaFilterInfo = DemoMultilevelFilterInfo(level: 0, filters: [
+            DemoMultilevelFilterInfo(level: 1, filters: [
+                DemoMultilevelFilterInfo(level: 2, filters: [], name: "Alle", selectedValues: []),
+            ], name: "Oslo", selectedValues: []),
+            DemoMultilevelFilterInfo(level: 1, filters: [], name: "Østfold", selectedValues: []),
+        ], name: "Område", selectedValues: ["Oslo Øst"])
+
+        return [
+            FreeSearchFilterComponent(filterInfo: freeSearchFilterInfo),
+            PreferenceFilterComponent(filterInfo: preferencesFilterInfo),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Merke", selectedValues: ["Toyota"])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Årsmodell", selectedValues: ["2000 - 2017"])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Kilometerstand", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Pris", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: areaFilterInfo),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Karosseri", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Drivstoff", selectedValues: ["Elektrisitet"])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Farge", selectedValues: ["Farge"])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Hestekrefter", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Antall seter", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Hjuldrift", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Girkasse", selectedValues: ["Automatisk"])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Hjulsett", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Garanti og forsikring", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Bilens tilstand", selectedValues: [])),
+            MultiLevelFilterComponent(filterInfo: DemoMultilevelFilterInfo(level: 0, filters: [], name: "Avgiftsklasse", selectedValues: [])),
+        ]
     }
 
     static var preferenceFilters: [DemoPreferenceInfo] {
@@ -114,19 +82,6 @@ extension FilterRootDemoViewControllerHelper: FilterRootViewControllerPreference
             DemoPreferenceInfo(name: "Selger", values: [DemoPreferenceValue(name: "Alle"), DemoPreferenceValue(name: "Forhandler"), DemoPreferenceValue(name: "Privat")]),
             DemoPreferenceInfo(name: "Publisert", values: [DemoPreferenceValue(name: "Nye i dag")]),
         ]
-    }
-}
-
-extension FilterRootDemoViewControllerHelper: FilterRootViewControllerDelegate {
-    func filterRootViewControllerDidSelectShowResults(_ filterRootViewController: FilterRootViewController) {
-        filterRootViewController.navigationController?.presentingViewController?.dismiss(animated: true, completion: {
-        })
-    }
-
-    func filterRootViewController(_ filterRootViewController: FilterRootViewController, didSelectFilterAt indexPath: IndexPath) {
-    }
-
-    func filterRootViewController(_ filterRootViewController: FilterRootViewController, didSelectContextFilterAt indexPath: IndexPath) {
     }
 }
 

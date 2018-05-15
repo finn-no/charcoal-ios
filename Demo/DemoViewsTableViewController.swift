@@ -8,6 +8,11 @@ import UIKit
 // MARK: - DemoViewsTableViewController
 
 class DemoViewsTableViewController: UITableViewController {
+    public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
+        let delegate = BottomSheetTransitioningDelegate(for: self)
+        return delegate
+    }()
+
     init() {
         super.init(style: .grouped)
     }
@@ -28,7 +33,8 @@ class DemoViewsTableViewController: UITableViewController {
 
         if let indexPath = Sections.lastSelectedIndexPath {
             let viewController = Sections.viewController(for: indexPath)
-            presentViewControllerWithDismissGesture(viewController)
+            let transitionStyle = Sections.transitionStyle(for: indexPath)
+            presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
         }
     }
 
@@ -67,7 +73,8 @@ extension DemoViewsTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         Sections.lastSelectedIndexPath = indexPath
         let viewController = Sections.viewController(for: indexPath)
-        presentViewControllerWithDismissGesture(viewController)
+        let transitionStyle = Sections.transitionStyle(for: indexPath)
+        presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -80,7 +87,15 @@ extension DemoViewsTableViewController {
 }
 
 extension DemoViewsTableViewController {
-    func presentViewControllerWithDismissGesture(_ viewController: UIViewController) {
+    func presentViewControllerWithDismissGesture(_ viewController: UIViewController, transitionStyle: TransitionStyle) {
+        switch transitionStyle {
+        case .bottomSheet:
+            viewController.transitioningDelegate = bottomsheetTransitioningDelegate
+            viewController.modalPresentationStyle = .custom
+        default:
+            break
+        }
+
         present(viewController, animated: true) {
             let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(self.closeCurrentlyPresentedViewController))
             dismissGesture.numberOfTapsRequired = 2

@@ -48,7 +48,7 @@ public final class HorizontalScrollButtonGroupView: UIView {
         return UIImage(named: .arrowDown)
     }()
 
-    public weak var dataSource: HorizontalScrollButtonGroupViewDataSource? {
+    public var dataSource: HorizontalScrollButtonGroupViewDataSource? {
         didSet {
             reload()
         }

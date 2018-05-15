@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol Navigator {
+public protocol Navigator {
     associatedtype Destination
 
     func start()

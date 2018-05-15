@@ -7,9 +7,8 @@ import Foundation
 public class FilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
-        case preferenceFilterInPopover(preferenceIndex: Int, sourceView: UIView, popoverWillDismiss: (() -> Void)?)
+        case preferenceFilterInPopover(preferenceInfo: PreferenceInfo, sourceView: UIView, popoverWillDismiss: (() -> Void)?)
         case filter(filterIndex: Int)
-        case contextFilter(contextFilterIndex: Int)
         case mulitlevelFilter(mulitlevelFilterInfo: MultiLevelFilterInfo)
     }
 
@@ -31,25 +30,24 @@ public class FilterNavigator: NSObject, Navigator {
         navigationController.setViewControllers([filterRootViewController], animated: false)
     }
 
-    func navigate(to destination: FilterNavigator.Destination) {
+    public func navigate(to destination: FilterNavigator.Destination) {
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
-        case let .preferenceFilterInPopover(preferenceIndex, sourceView, popoverWillDismiss):
-            presentPreference(at: preferenceIndex, with: sourceView, popoverWillDismiss: popoverWillDismiss)
+        case let .preferenceFilterInPopover(preferenceInfo, sourceView, popoverWillDismiss):
+            presentPreference(with: preferenceInfo, and: sourceView, popoverWillDismiss: popoverWillDismiss)
         case let .filter(filterIndex):
-            guard let viewController = factory.makeViewControllerForFilter(at: filterIndex, navigator: self) else {
-                return
-            }
-            navigationController.pushViewController(viewController, animated: true)
-        case let .contextFilter(contextFilterIndex):
-            break
-        case let .mulitlevelFilter(mulitlevelFilterInfo):
-            guard let viewController = factory.makeMultiLevelFilterListViewController(from: mulitlevelFilterInfo, navigator: self) else {
+            guard let viewController = factory.makeViewControllerForFilterComponent(at: filterIndex, navigator: self) else {
                 return
             }
 
             navigationController.pushViewController(viewController, animated: true)
+        case let .mulitlevelFilter(mulitlevelFilterInfo):
+            guard let listViewController = factory.makeListViewControllerForMultiLevelFilterComponent(from: mulitlevelFilterInfo, navigator: self) else {
+                return
+            }
+
+            navigationController.pushViewController(listViewController, animated: true)
         }
     }
 }
@@ -65,8 +63,8 @@ private extension FilterNavigator {
         }
     }
 
-    func presentPreference(at preferenceIndex: Int, with sourceView: UIView, popoverWillDismiss: (() -> Void)?) {
-        guard let preferencelistViewController = factory.makeListViewControllerForPreference(at: preferenceIndex), let filterRootViewController = filterRootViewController else {
+    func presentPreference(with preferenceInfo: PreferenceInfo, and sourceView: UIView, popoverWillDismiss: (() -> Void)?) {
+        guard let preferencelistViewController = factory.makeListViewControllerForPreference(with: preferenceInfo), let filterRootViewController = filterRootViewController else {
             return
         }
 

@@ -5,26 +5,8 @@
 import UIKit
 
 public class FilterRootViewController: UIViewController {
-    private enum Sections: String {
-        case query
-        case preference
-        case context
-        case filter
-
-        static var all: [Sections] {
-            return [
-                .query,
-                .preference,
-                .context,
-                .filter,
-            ]
-        }
-    }
-
     private let navigator: FilterNavigator
-    private let filterDataSource: FilterRootViewControllerDataSource
-    private let preferenceDataSource: FilterRootViewControllerPreferenceDataSource
-    private weak var delegate: FilterRootViewControllerDelegate?
+    private let components: [FilterComponent]
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -41,7 +23,7 @@ public class FilterRootViewController: UIViewController {
     private lazy var showResultsButtonView: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.delegate = self
-        buttonView.buttonTitle = filterDataSource.doneButtonTitle
+        buttonView.buttonTitle = "Vis 42 treff"
         return buttonView
     }()
 
@@ -51,16 +33,10 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(navigator: FilterNavigator, filterDataSource: FilterRootViewControllerDataSource, preferenceDataSource: FilterRootViewControllerPreferenceDataSource, delegate: FilterRootViewControllerDelegate?) {
+    public init(navigator: FilterNavigator, components: [FilterComponent]) {
         self.navigator = navigator
-        self.filterDataSource = filterDataSource
-        self.preferenceDataSource = preferenceDataSource
-        self.delegate = delegate
+        self.components = components
         super.init(nibName: nil, bundle: nil)
-    }
-
-    public convenience init(navigator: FilterNavigator, dataSource: FilterRootViewControllerDataSource & FilterRootViewControllerPreferenceDataSource, delegate: FilterRootViewControllerDelegate?) {
-        self.init(navigator: navigator, filterDataSource: dataSource, preferenceDataSource: dataSource, delegate: delegate)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -96,92 +72,61 @@ private extension FilterRootViewController {
             showResultsButtonView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
         ])
     }
-
-    private func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, in section: Sections) -> UITableViewCell {
-        switch section {
-        case .query:
-            let cell = tableView.dequeueReusableCell(withIdentifier: SearchQueryCell.reuseIdentifier, for: indexPath) as! SearchQueryCell
-            cell.searchQuery = filterDataSource.currentSearchQuery
-            cell.placeholderText = filterDataSource.searchQueryPlaceholder
-            return cell
-        case .filter:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
-            if let filter = filterDataSource.filter(at: indexPath.item) {
-                cell.filterName = filter.name
-                cell.selectedValues = filter.selectedValues
-                cell.accessoryType = .disclosureIndicator
-                cell.delegate = self
-            }
-            return cell
-        case .context:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
-            if let filter = filterDataSource.contextFilter(at: indexPath.item) {
-                cell.filterName = filter.name
-                cell.selectedValues = filter.selectedValues
-                cell.accessoryType = .disclosureIndicator
-                cell.delegate = self
-            }
-            return cell
-        case .preference:
-            let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
-            cell.horizontalScrollButtonGroupViewDataSource = preferenceDataSource.preferencesDataSource
-            cell.horizontalScrollButtonGroupViewDelegate = self
-            return cell
-        }
-    }
 }
 
 extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let section = Sections.all[safe: indexPath.section] else {
-            return
-        }
-        switch section {
-        case .context:
-            delegate?.filterRootViewController(self, didSelectContextFilterAt: indexPath)
+        let component = components[indexPath.row]
+
+        switch component.type {
+        case .freeSearch:
             break
-        case .filter:
-            delegate?.filterRootViewController(self, didSelectFilterAt: indexPath)
+        case .preference:
+            break
+        case .multiLevel:
             navigator.navigate(to: .filter(filterIndex: indexPath.row))
-            break
-        default:
-            break
         }
     }
 }
 
 extension FilterRootViewController: UITableViewDataSource {
-    public func numberOfSections(in tableView: UITableView) -> Int {
-        return Sections.all.count
-    }
-
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = Sections.all[safe: section] else {
-            return 0
-        }
-        switch section {
-        case .query:
-            return 1
-        case .preference:
-            return preferenceDataSource.hasPreferences ? 1 : 0
-        case .context:
-            return filterDataSource.numberOfContextFilters
-        case .filter:
-            return filterDataSource.numberOfFilters
-        }
+        return components.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let section = Sections.all[safe: indexPath.section] else {
-            fatalError("Undefined section")
+        let component = components[indexPath.row]
+
+        switch component {
+        case let freeSearch as FreeSearchFilterComponent:
+            let filterInfo = freeSearch.filterInfo as? FreeSearchFilterComponent.Info
+            let cell = tableView.dequeueReusableCell(withIdentifier: SearchQueryCell.reuseIdentifier, for: indexPath) as! SearchQueryCell
+            cell.searchQuery = filterInfo?.currentSearchQuery
+            cell.placeholderText = filterInfo?.searchQueryPlaceholder
+            return cell
+        case let preference as PreferenceFilterComponent:
+            let filterInfo = preference.filterInfo as? PreferenceFilterComponent.Info
+            let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
+            cell.horizontalScrollButtonGroupViewDataSource = PreferenceFilterDataSource(preferences: filterInfo?.preferences ?? [])
+            cell.horizontalScrollButtonGroupViewDelegate = self
+            cell.selectionStyle = .none
+            return cell
+        case let multiLevel as MultiLevelFilterComponent:
+            let filterInfo = multiLevel.filterInfo as? MultiLevelFilterComponent.Info
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            cell.filterName = filterInfo?.name
+            cell.selectedValues = filterInfo?.selectedValues
+            cell.accessoryType = .disclosureIndicator
+            cell.delegate = self
+            return cell
+        default:
+            fatalError("Unimplemented component \(component)")
         }
-        return self.tableView(tableView, cellForRowAt: indexPath, in: section)
     }
 }
 
 extension FilterRootViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.filterRootViewControllerDidSelectShowResults(self)
     }
 }
 
@@ -204,25 +149,6 @@ private extension FilterRootViewController {
         } set {
             tableView.isScrollEnabled = newValue
         }
-    }
-
-    func filterInfo(at indexPath: IndexPath) -> FilterInfo? {
-        guard let section = Sections.all[safe: indexPath.section] else {
-            return nil
-        }
-        let filterInfo: FilterInfo?
-        switch section {
-        case .filter:
-            filterInfo = filterDataSource.filter(at: indexPath.item)
-            break
-        case .context:
-            filterInfo = filterDataSource.contextFilter(at: indexPath.item)
-            break
-        default:
-            filterInfo = nil
-            break
-        }
-        return filterInfo
     }
 }
 
@@ -255,9 +181,13 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
 
 extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
     public func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int) {
+        guard let dataSource = horizontalScrollButtonGroupView.dataSource as? PreferenceFilterDataSource, let preferenceInfo = dataSource.preferences[safe: index] else {
+            return
+        }
+
         horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
 
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceIndex: index, sourceView: button, popoverWillDismiss: { [weak horizontalScrollButtonGroupView] in
+        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: button, popoverWillDismiss: { [weak horizontalScrollButtonGroupView] in
             guard let horizontalScrollButtonGroupView = horizontalScrollButtonGroupView, let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
                 return
             }
@@ -272,8 +202,23 @@ extension FilterRootViewController: FilterCellDelegate {
         guard let indexPath = tableView.indexPath(for: filterCell) else {
             return
         }
-        guard let _ = filterInfo(at: indexPath) else {
-            return
+    }
+}
+
+extension FilterRootViewController {
+    class PreferenceFilterDataSource: HorizontalScrollButtonGroupViewDataSource {
+        let preferences: [PreferenceInfo]
+
+        init(preferences: [PreferenceInfo]) {
+            self.preferences = preferences
+        }
+
+        func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, titleForButtonAtIndex index: Int) -> String? {
+            return preferences[index].name
+        }
+
+        func numberOfButtons(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView) -> Int {
+            return preferences.count
         }
     }
 }

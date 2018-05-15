@@ -78,14 +78,7 @@ extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let component = components[indexPath.row]
 
-        switch component.type {
-        case .freeSearch:
-            break
-        case .preference:
-            break
-        case .multiLevel:
-            navigator.navigate(to: .filter(filterIndex: indexPath.row))
-        }
+        navigator.navigate(to: .filter(filterInfo: component.filterInfo))
     }
 }
 

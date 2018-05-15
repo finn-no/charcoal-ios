@@ -19,6 +19,19 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
+    public func makeViewControllerForFilter(with filterInfo: FilterInfo, navigator: RootFilterNavigator) -> UIViewController? {
+        let viewController: UIViewController?
+
+        switch filterInfo {
+        case let multiLevelInfo as MultiLevelFilterInfo:
+            viewController = makeListViewControllerForMultiLevelFilterComponent(from: multiLevelInfo, navigator: navigator)
+        default:
+            viewController = nil
+        }
+
+        return viewController
+    }
+
     public func makeListViewControllerForPreference(with preferenceInfo: PreferenceInfo) -> UIViewController? {
         let listViewController = ListViewController(title: preferenceInfo.name, items: preferenceInfo.values)
 
@@ -27,21 +40,6 @@ extension FilterDependencyContainer: ViewControllerFactory {
         }
 
         return listViewController
-    }
-
-    public func makeViewControllerForFilterComponent(at index: Int, navigator: RootFilterNavigator) -> UIViewController? {
-        let component = filterService.filterComponents[index]
-        let filterInfo = component.filterInfo
-
-        let viewController: UIViewController?
-        switch filterInfo {
-        case let multiLevelInfo as MultiLevelFilterInfo:
-            viewController = makeListViewControllerForMultiLevelFilterComponent(from: multiLevelInfo, navigator: navigator)
-        default:
-            return nil
-        }
-
-        return viewController
     }
 
     public func makeListViewControllerForMultiLevelFilterComponent(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: RootFilterNavigator) -> ListViewController? {

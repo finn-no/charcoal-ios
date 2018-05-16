@@ -29,23 +29,8 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return listViewController
     }
 
-    public func makeListViewControllerForMultiLevelFilterComponent(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: RootFilterNavigator) -> ListViewController? {
-        if multiLevelFilterInfo.filters.isEmpty {
-            return nil
-        }
-
-        let listItems = multiLevelFilterInfo.filters
-        let listViewController = ListViewController(title: multiLevelFilterInfo.name, items: listItems, allowsMultipleSelection: true)
-
-        listViewController.didSelectListItemHandler = { _, index in
-            guard let subLevelFilter = multiLevelFilterInfo.filters[safe: index] else {
-                return
-            }
-
-            navigator.navigate(to: .mulitlevelFilter(mulitlevelFilterInfo: subLevelFilter))
-        }
-
-        return listViewController
+    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfo) -> MultiLevelFilterListViewController? {
+        return MultiLevelFilterListViewController(filterInfo: multiLevelFilterInfo)
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {

@@ -79,8 +79,8 @@ extension FilterRootViewController: UITableViewDelegate {
         let component = components[indexPath.row]
 
         switch component.filterInfo {
-        case let multiLevelFilterInfo as MultiLevelFilterInfo:
-            navigator.navigate(to: .mulitlevelFilter(mulitlevelFilterInfo: multiLevelFilterInfo))
+        case let mulitlevelFilterInfo as MultiLevelFilterInfo:
+            navigator.navigate(to: .mulitLevelFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
         default:
             break
         }
@@ -201,6 +201,16 @@ extension FilterRootViewController: FilterCellDelegate {
         guard let indexPath = tableView.indexPath(for: filterCell) else {
             return
         }
+    }
+}
+
+extension FilterRootViewController: MultiLevelFilterListViewControllerDelegate {
+    public func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfo, didSelect sublevelFilterInfo: MultiLevelFilterInfo) {
+        if sublevelFilterInfo.filters.isEmpty {
+            return
+        }
+
+        navigator.navigate(to: .mulitLevelFilter(filterInfo: sublevelFilterInfo, delegate: self))
     }
 }
 

@@ -38,7 +38,8 @@ public protocol PreferenceFilterInfo: FilterInfo {
 
 public protocol MultiLevelFilterInfo: FilterInfo, ListItem {
     var level: Int { get }
-    var filters: [MultiLevelFilterInfo] { get set }
+    var filters: [MultiLevelFilterInfo] { get }
+    var isMultiSelect: Bool { get }
 }
 
 // MARK: - ListItem default implementation

@@ -40,6 +40,8 @@ struct DemoMultilevelFilterInfo: MultiLevelFilterInfo {
     var name: String
 
     var selectedValues: [String]
+
+    let isMultiSelect: Bool = true
 }
 
 class DemoFilterService: FilterService {

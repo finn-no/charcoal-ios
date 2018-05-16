@@ -22,10 +22,6 @@ extension FilterDependencyContainer: ViewControllerFactory {
     public func makeListViewControllerForPreference(with preferenceInfo: PreferenceInfo) -> UIViewController? {
         let listViewController = ListViewController(title: preferenceInfo.name, items: preferenceInfo.values)
 
-        listViewController.didSelectListItemHandler = { _, _ in
-            // update filter
-        }
-
         return listViewController
     }
 

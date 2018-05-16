@@ -30,6 +30,7 @@ extension PreferenceValue {
 public protocol PreferenceInfo {
     var name: String { get }
     var values: [PreferenceValue] { get }
+    var isMultiSelect: Bool { get }
 }
 
 public protocol PreferenceFilterInfo: FilterInfo {

@@ -14,7 +14,7 @@ public protocol ListItem {
     var showsDisclosureIndicator: Bool { get }
 }
 
-public final class ListViewController: UIViewController {
+public class ListViewController: UIViewController {
     private static var rowHeight: CGFloat = 48.0
 
     private lazy var tableView: UITableView = {

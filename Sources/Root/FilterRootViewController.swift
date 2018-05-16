@@ -78,7 +78,12 @@ extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let component = components[indexPath.row]
 
-        navigator.navigate(to: .filter(filterInfo: component.filterInfo))
+        switch component.filterInfo {
+        case let multiLevelFilterInfo as MultiLevelFilterInfo:
+            navigator.navigate(to: .mulitlevelFilter(mulitlevelFilterInfo: multiLevelFilterInfo))
+        default:
+            break
+        }
     }
 }
 

@@ -8,7 +8,6 @@ public class RootFilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
         case preferenceFilterInPopover(preferenceInfo: PreferenceInfo, sourceView: UIView, popoverWillDismiss: (() -> Void)?)
-        case filter(filterInfo: FilterInfo)
         case mulitlevelFilter(mulitlevelFilterInfo: MultiLevelFilterInfo)
     }
 
@@ -36,12 +35,6 @@ public class RootFilterNavigator: NSObject, Navigator {
             navigationController.popToRootViewController(animated: true)
         case let .preferenceFilterInPopover(preferenceInfo, sourceView, popoverWillDismiss):
             presentPreference(with: preferenceInfo, and: sourceView, popoverWillDismiss: popoverWillDismiss)
-        case let .filter(filterInfo):
-            guard let viewController = factory.makeViewControllerForFilter(with: filterInfo, navigator: self) else {
-                return
-            }
-
-            navigationController.pushViewController(viewController, animated: true)
         case let .mulitlevelFilter(mulitlevelFilterInfo):
             guard let listViewController = factory.makeListViewControllerForMultiLevelFilterComponent(from: mulitlevelFilterInfo, navigator: self) else {
                 return

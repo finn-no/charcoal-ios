@@ -5,8 +5,8 @@
 import UIKit
 
 class PreferencesCell: UITableViewCell, Identifiable {
-    private lazy var horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView = {
-        let view = HorizontalScrollButtonGroupView(frame: .zero)
+    private lazy var preferenceSelectionView: PreferenceSelectionView = {
+        let view = PreferenceSelectionView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -27,8 +27,8 @@ class PreferencesCell: UITableViewCell, Identifiable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        horizontalScrollButtonGroupView.dataSource = nil
-        horizontalScrollButtonGroupView.delegate = nil
+        preferenceSelectionView.dataSource = nil
+        preferenceSelectionView.delegate = nil
     }
 }
 
@@ -37,33 +37,33 @@ private extension PreferencesCell {
         accessoryType = .none
         contentView.clipsToBounds = false
 
-        contentView.addSubview(horizontalScrollButtonGroupView)
+        contentView.addSubview(preferenceSelectionView)
         NSLayoutConstraint.activate([
-            horizontalScrollButtonGroupView.heightAnchor.constraint(equalToConstant: HorizontalScrollButtonGroupView.defaultButtonHeight),
-            horizontalScrollButtonGroupView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            horizontalScrollButtonGroupView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-            horizontalScrollButtonGroupView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            horizontalScrollButtonGroupView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            preferenceSelectionView.heightAnchor.constraint(equalToConstant: PreferenceSelectionView.defaultButtonHeight),
+            preferenceSelectionView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            preferenceSelectionView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            preferenceSelectionView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            preferenceSelectionView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
         ])
     }
 }
 
 extension PreferencesCell {
-    var horizontalScrollButtonGroupViewDataSource: HorizontalScrollButtonGroupViewDataSource? {
+    var preferenceSelectionViewDataSource: PreferenceSelectionViewDataSource? {
         get {
-            return horizontalScrollButtonGroupView.dataSource
+            return preferenceSelectionView.dataSource
         }
         set {
-            horizontalScrollButtonGroupView.dataSource = newValue
+            preferenceSelectionView.dataSource = newValue
         }
     }
 
-    var horizontalScrollButtonGroupViewDelegate: HorizontalScrollButtonGroupViewDelegate? {
+    var preferenceSelectionViewDelegate: PreferenceSelectionViewDelegate? {
         get {
-            return horizontalScrollButtonGroupView.delegate
+            return preferenceSelectionView.delegate
         }
         set {
-            horizontalScrollButtonGroupView.delegate = newValue
+            preferenceSelectionView.delegate = newValue
         }
     }
 }

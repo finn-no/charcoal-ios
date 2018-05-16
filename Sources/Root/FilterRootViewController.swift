@@ -100,8 +100,8 @@ extension FilterRootViewController: UITableViewDataSource {
         case let preference as PreferenceFilterComponent:
             let filterInfo = preference.filterInfo as? PreferenceFilterComponent.Info
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
-            cell.horizontalScrollButtonGroupViewDataSource = PreferenceFilterDataSource(preferences: filterInfo?.preferences ?? [])
-            cell.horizontalScrollButtonGroupViewDelegate = self
+            cell.preferenceSelectionViewDataSource = PreferenceFilterDataSource(preferences: filterInfo?.preferences ?? [])
+            cell.preferenceSelectionViewDelegate = self
             cell.selectionStyle = .none
             return cell
         case let multiLevel as MultiLevelFilterComponent:
@@ -172,20 +172,21 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
     }
 }
 
-extension FilterRootViewController: HorizontalScrollButtonGroupViewDelegate {
-    public func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int) {
-        guard let dataSource = horizontalScrollButtonGroupView.dataSource as? PreferenceFilterDataSource, let preferenceInfo = dataSource.preferences[safe: index] else {
+extension FilterRootViewController: PreferenceSelectionViewDelegate {
+    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
+        guard let dataSource = preferenceSelectionView.dataSource as? PreferenceFilterDataSource, let preferenceInfo = dataSource.preferences[safe: index], let sourceView = preferenceSelectionView.viewForPreference(at: index) else {
             return
         }
 
-        horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
+        preferenceSelectionView.setPreference(at: index, selected: true)
 
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: button, popoverWillDismiss: { [weak horizontalScrollButtonGroupView] in
-            guard let horizontalScrollButtonGroupView = horizontalScrollButtonGroupView, let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
+        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, popoverWillDismiss: { [weak preferenceSelectionView] in
+
+            guard let preferenceSelectionView = preferenceSelectionView, let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
                 return
             }
 
-            horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
+            preferenceSelectionView.setPreference(at: selectedIndex, selected: false)
         }))
     }
 }
@@ -199,18 +200,18 @@ extension FilterRootViewController: FilterCellDelegate {
 }
 
 extension FilterRootViewController {
-    class PreferenceFilterDataSource: HorizontalScrollButtonGroupViewDataSource {
+    class PreferenceFilterDataSource: PreferenceSelectionViewDataSource {
         let preferences: [PreferenceInfo]
 
         init(preferences: [PreferenceInfo]) {
             self.preferences = preferences
         }
 
-        func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, titleForButtonAtIndex index: Int) -> String? {
+        func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String? {
             return preferences[index].name
         }
 
-        func numberOfButtons(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView) -> Int {
+        func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {
             return preferences.count
         }
     }

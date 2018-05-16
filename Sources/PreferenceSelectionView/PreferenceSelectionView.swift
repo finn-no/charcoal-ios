@@ -4,16 +4,16 @@
 
 import Foundation
 
-public protocol HorizontalScrollButtonGroupViewDataSource: AnyObject {
-    func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, titleForButtonAtIndex index: Int) -> String?
-    func numberOfButtons(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView) -> Int
+public protocol PreferenceSelectionViewDataSource: AnyObject {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String?
+    func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int
 }
 
-public protocol HorizontalScrollButtonGroupViewDelegate: AnyObject {
-    func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int)
+public protocol PreferenceSelectionViewDelegate: AnyObject {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int)
 }
 
-public final class HorizontalScrollButtonGroupView: UIView {
+public final class PreferenceSelectionView: UIView {
     public static var defaultButtonHeight: CGFloat = 38
     static var defaultButtonBorderWidth: CGFloat = 1.5
 
@@ -48,13 +48,13 @@ public final class HorizontalScrollButtonGroupView: UIView {
         return UIImage(named: .arrowDown)
     }()
 
-    public var dataSource: HorizontalScrollButtonGroupViewDataSource? {
+    public var dataSource: PreferenceSelectionViewDataSource? {
         didSet {
             reload()
         }
     }
 
-    public weak var delegate: HorizontalScrollButtonGroupViewDelegate?
+    public weak var delegate: PreferenceSelectionViewDelegate?
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -93,44 +93,37 @@ public final class HorizontalScrollButtonGroupView: UIView {
     }
 }
 
-public extension HorizontalScrollButtonGroupView {
+public extension PreferenceSelectionView {
     func reload() {
         layoutButtonGroup()
     }
 
-    func removeAllButtons() {
+    func removeAllPreferences() {
         container.arrangedSubviews.forEach({ arrangedSubview in
             container.removeArrangedSubview(arrangedSubview)
             arrangedSubview.removeFromSuperview()
         })
     }
 
-    func setButton(at index: Int, selected: Bool) {
-        guard container.arrangedSubviews.indices.contains(index) else {
-            return
-        }
-
-        guard let buttons = container.arrangedSubviews as? [UIButton] else {
+    func setPreference(at index: Int, selected: Bool) {
+        guard let button = container.arrangedSubview(atSafeIndex: index) as? UIButton else {
             assertionFailure("Expected subviews to be array of only buttons ")
             return
         }
 
-        let button = buttons[index]
         let state = selected ? UIControlState.selected : .normal
         let attributedTitle = attributedButtonTitle(from: button.currentAttributedTitle?.string, for: state)
         let showsBorder = state == .selected ? false : true
 
         button.isSelected = selected
         button.setAttributedTitle(attributedTitle, for: state)
-        button.layer.borderWidth = showsBorder ? HorizontalScrollButtonGroupView.defaultButtonBorderWidth : 0.0
+        button.layer.borderWidth = showsBorder ? PreferenceSelectionView.defaultButtonBorderWidth : 0.0
     }
 
-    func rectForButton(at index: Int, convertedToRectInView view: UIView? = nil) -> CGRect? {
-        guard container.arrangedSubviews.indices.contains(index) else {
+    func rectForPreference(at index: Int, convertedToRectInView view: UIView? = nil) -> CGRect? {
+        guard let rect = container.arrangedSubview(atSafeIndex: index)?.frame else {
             return nil
         }
-
-        let rect = container.arrangedSubviews[index].frame
 
         if let conversionView = view {
             return convert(rect, to: conversionView)
@@ -139,7 +132,11 @@ public extension HorizontalScrollButtonGroupView {
         }
     }
 
-    var indexesForSelectedButtons: [Int] {
+    func viewForPreference(at index: Int) -> UIView? {
+        return container.arrangedSubview(atSafeIndex: index)
+    }
+
+    var indexesForSelectedPreferences: [Int] {
         guard let buttons = container.arrangedSubviews as? [UIButton] else {
             assertionFailure("Expected subviews to be array of only buttons ")
             return []
@@ -150,18 +147,26 @@ public extension HorizontalScrollButtonGroupView {
 
         return indexesOfSelectedButtons
     }
+
+    func isPreferenceSelected(at index: Int) -> Bool {
+        guard let button = container.arrangedSubview(atSafeIndex: index) as? UIButton else {
+            return false
+        }
+
+        return button.isSelected
+    }
 }
 
-private extension HorizontalScrollButtonGroupView {
+private extension PreferenceSelectionView {
     func layoutButtonGroup() {
-        removeAllButtons()
+        removeAllPreferences()
 
         guard let dataSource = dataSource else {
             return
         }
 
-        let rangeOfButtons = 0 ..< dataSource.numberOfButtons(self)
-        let buttonTitlesToDisplay = rangeOfButtons.map { dataSource.horizontalScrollButtonGroupView(self, titleForButtonAtIndex: $0) }
+        let rangeOfButtons = 0 ..< dataSource.numberOfPreferences(self)
+        let buttonTitlesToDisplay = rangeOfButtons.map { dataSource.preferenceSelectionView(self, titleForPreferenceAtIndex: $0) }
 
         buttonTitlesToDisplay.forEach { layoutButton(with: $0) }
     }
@@ -222,7 +227,7 @@ private extension HorizontalScrollButtonGroupView {
             return .zero
         }
 
-        let boundingRectSize = CGSize(width: CGFloat.infinity, height: HorizontalScrollButtonGroupView.defaultButtonHeight)
+        let boundingRectSize = CGSize(width: CGFloat.infinity, height: PreferenceSelectionView.defaultButtonHeight)
         let rect = attributedTitle.boundingRect(with: boundingRectSize, options: .usesLineFragmentOrigin, context: nil)
         let verticalSpacings: CGFloat = .mediumSpacing + .mediumSpacing + 18 + .mediumSpacing
         let size = CGSize(width: rect.width + verticalSpacings, height: rect.height)
@@ -231,12 +236,12 @@ private extension HorizontalScrollButtonGroupView {
     }
 
     @objc func buttonTapped(sender: UIButton, forEvent: UIEvent) {
-        guard let buttonIndex = container.arrangedSubviews.index(of: sender) else {
+        guard let index = container.arrangedSubviews.index(of: sender) else {
             assertionFailure("No index for \(sender)")
             return
         }
 
-        delegate?.horizontalScrollButtonGroupView(self, didTapButton: sender, atIndex: buttonIndex)
+        delegate?.preferenceSelectionView(self, didTapPreferenceAtIndex: index)
     }
 }
 
@@ -246,14 +251,24 @@ private extension UIButton {
         backgroundColor = .milk
         contentEdgeInsets = UIEdgeInsets(top: .mediumSpacing, left: .mediumSpacing, bottom: .mediumSpacing, right: .mediumSpacing)
         semanticContentAttribute = .forceRightToLeft
-        layer.borderWidth = HorizontalScrollButtonGroupView.defaultButtonBorderWidth
+        layer.borderWidth = PreferenceSelectionView.defaultButtonBorderWidth
         layer.borderColor = .stone
-        layer.cornerRadius = HorizontalScrollButtonGroupView.defaultButtonHeight / 2
+        layer.cornerRadius = PreferenceSelectionView.defaultButtonHeight / 2
         imageView?.tintColor = .stone
         imageView?.contentMode = .scaleAspectFit
         setImage(image, for: .normal)
         setImage(image, for: .highlighted)
         setImage(image, for: .selected)
         imageEdgeInsets = UIEdgeInsets(top: 0, left: .mediumSpacing, bottom: 0, right: 0)
+    }
+}
+
+private extension UIStackView {
+    func arrangedSubview(atSafeIndex safeIndex: Int) -> UIView? {
+        guard arrangedSubviews.indices.contains(safeIndex) else {
+            return nil
+        }
+
+        return arrangedSubviews[safeIndex]
     }
 }

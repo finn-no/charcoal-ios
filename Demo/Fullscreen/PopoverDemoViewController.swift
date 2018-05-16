@@ -6,8 +6,8 @@ import FilterKit
 import UIKit
 
 final class PopoverDemoViewController: UIViewController {
-    lazy var horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView = {
-        let view = HorizontalScrollButtonGroupView(frame: .zero)
+    lazy var preferenceSelectionView: PreferenceSelectionView = {
+        let view = PreferenceSelectionView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.dataSource = self
         view.delegate = self
@@ -29,17 +29,17 @@ final class PopoverDemoViewController: UIViewController {
         setup()
     }
 
-    var selectedButton: UIButton?
+    var selectedPreferenceView: UIView?
 
     func setup() {
         view.backgroundColor = .white
-        view.addSubview(horizontalScrollButtonGroupView)
+        view.addSubview(preferenceSelectionView)
 
         NSLayoutConstraint.activate([
-            horizontalScrollButtonGroupView.topAnchor.constraint(equalTo: view.compatibleTopAnchor, constant: .mediumLargeSpacing),
-            horizontalScrollButtonGroupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            horizontalScrollButtonGroupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            horizontalScrollButtonGroupView.heightAnchor.constraint(equalToConstant: HorizontalScrollButtonGroupView.defaultButtonHeight),
+            preferenceSelectionView.topAnchor.constraint(equalTo: view.compatibleTopAnchor, constant: .mediumLargeSpacing),
+            preferenceSelectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            preferenceSelectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            preferenceSelectionView.heightAnchor.constraint(equalToConstant: PreferenceSelectionView.defaultButtonHeight),
         ])
     }
 }
@@ -73,15 +73,15 @@ private extension PopoverDemoViewController {
     }
 
     func willDismissPopoverHandler(_ popoverPresentationController: UIPopoverPresentationController) {
-        guard let selectedIndex = horizontalScrollButtonGroupView.indexesForSelectedButtons.first else {
+        guard let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
             return
         }
 
-        horizontalScrollButtonGroupView.setButton(at: selectedIndex, selected: false)
+        preferenceSelectionView.setPreference(at: selectedIndex, selected: false)
     }
 }
 
-extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDataSource {
+extension PopoverDemoViewController: PreferenceSelectionViewDataSource {
     struct PreferenceFilter {
         let name: String
         let values: [String]
@@ -96,27 +96,29 @@ extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDataSource {
         ]
     }
 
-    func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, titleForButtonAtIndex index: Int) -> String? {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String? {
         return PopoverDemoViewController.preferenceFilters[index].name
     }
 
-    func numberOfButtons(_ horizontalScrollButtonGroup: HorizontalScrollButtonGroupView) -> Int {
+    func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {
         return PopoverDemoViewController.preferenceFilters.count
     }
 }
 
-extension PopoverDemoViewController: HorizontalScrollButtonGroupViewDelegate {
-    func horizontalScrollButtonGroupView(_ horizontalScrollButtonGroupView: HorizontalScrollButtonGroupView, didTapButton button: UIButton, atIndex index: Int) {
-        print("Button at index \(index) with title \(HorizontalScrollButtonGroupViewDemoView.titles[index]) was tapped")
-        horizontalScrollButtonGroupView.setButton(at: index, selected: !button.isSelected)
-        selectedButton = button
+extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
+        print("Button at index \(index) with title \(PreferenceSelectionViewDemoView.titles[index]) was tapped")
+
+        let isSelected = preferenceSelectionView.isPreferenceSelected(at: index)
+        preferenceSelectionView.setPreference(at: index, selected: !isSelected)
+        selectedPreferenceView = preferenceSelectionView.viewForPreference(at: index)
 
         let preferenceFilter = PopoverDemoViewController.preferenceFilters[index]
         let listItems = preferenceFilter.values.map(PopoverDemoListItem.init)
         let popover = ListViewController(title: preferenceFilter.name, items: listItems)
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom
-        popoverPresentationTransitioningDelegate.sourceView = button
+        popoverPresentationTransitioningDelegate.sourceView = selectedPreferenceView
         popover.transitioningDelegate = popoverPresentationTransitioningDelegate
 
         present(popover, animated: true, completion: nil)

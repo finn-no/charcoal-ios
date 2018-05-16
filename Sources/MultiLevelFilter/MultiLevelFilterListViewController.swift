@@ -13,7 +13,7 @@ extension MultiLevelFilterListViewControllerDelegate {
     }
 }
 
-public class MultiLevelFilterListViewController: ListViewController {
+public final class MultiLevelFilterListViewController: ListViewController {
     let filterInfo: MultiLevelFilterInfo
 
     public init(filterInfo: MultiLevelFilterInfo) {

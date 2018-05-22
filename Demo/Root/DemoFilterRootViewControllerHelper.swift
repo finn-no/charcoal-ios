@@ -45,10 +45,10 @@ struct DemoMultilevelFilterInfo: MultiLevelFilterInfo {
     let isMultiSelect: Bool = true
 }
 
-class DemoFilterService: FilterService {
+class DemoFilterDataSource: FilterDataSource {
     var filterComponents: [FilterComponent] {
         let freeSearchFilterInfo = DemoFreeSearchFilterInfo(currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch", selectedValues: [])
-        let preferencesFilterInfo = DemoPreferenceFilterInfo(preferences: DemoFilterService.preferenceFilters, name: "preferences", selectedValues: [])
+        let preferencesFilterInfo = DemoPreferenceFilterInfo(preferences: DemoFilterDataSource.preferenceFilters, name: "preferences", selectedValues: [])
         let areaFilterInfo = DemoMultilevelFilterInfo(level: 0, filters: [
             DemoMultilevelFilterInfo(level: 1, filters: [
                 DemoMultilevelFilterInfo(level: 2, filters: [], name: "Alle", selectedValues: []),

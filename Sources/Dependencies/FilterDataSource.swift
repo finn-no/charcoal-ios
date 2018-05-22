@@ -4,6 +4,6 @@
 
 import Foundation
 
-public protocol FilterService {
+public protocol FilterDataSource {
     var filterComponents: [FilterComponent] { get }
 }

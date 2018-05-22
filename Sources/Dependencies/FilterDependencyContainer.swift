@@ -5,10 +5,10 @@
 import Foundation
 
 public class FilterDependencyContainer {
-    private let filterService: FilterService
+    private let dataSource: FilterDataSource
 
-    public init(filterService: FilterService) {
-        self.filterService = filterService
+    public init(dataSource: FilterDataSource) {
+        self.dataSource = dataSource
     }
 }
 
@@ -35,6 +35,6 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
-        return FilterRootViewController(navigator: navigator, components: filterService.filterComponents)
+        return FilterRootViewController(navigator: navigator, components: dataSource.filterComponents)
     }
 }

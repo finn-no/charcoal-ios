@@ -35,6 +35,6 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
-        return FilterRootViewController(navigator: navigator, components: dataSource.filterComponents)
+        return FilterRootViewController(navigator: navigator, dataSource: dataSource)
     }
 }

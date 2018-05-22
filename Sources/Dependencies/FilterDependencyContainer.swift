@@ -23,10 +23,11 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makeListViewControllerForPreference(with preferenceInfo: PreferenceInfo) -> UIViewController? {
-        let listViewController = ListViewController(title: preferenceInfo.name, items: preferenceInfo.values)
+    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfo, delegate: PreferenceFilterListViewControllerDelegate) -> PreferenceFilterListViewController? {
+        let preferenceFilterListViewController = PreferenceFilterListViewController(preferenceInfo: preferenceInfo)
+        preferenceFilterListViewController.delegate = delegate
 
-        return listViewController
+        return preferenceFilterListViewController
     }
 
     public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController {

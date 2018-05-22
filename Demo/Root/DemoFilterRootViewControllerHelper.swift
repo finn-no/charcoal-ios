@@ -12,6 +12,7 @@ struct DemoPreferenceValue: PreferenceValue {
 struct DemoPreferenceInfo: PreferenceInfo {
     let name: String
     let values: [PreferenceValue]
+    let isMultiSelect: Bool = true
 }
 
 struct DemoFilterInfo: FilterInfo {

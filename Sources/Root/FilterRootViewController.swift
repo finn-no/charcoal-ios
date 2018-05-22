@@ -185,7 +185,7 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 
         preferenceSelectionView.setPreference(at: index, selected: true)
 
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, popoverWillDismiss: { [weak preferenceSelectionView] in
+        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
 
             guard let preferenceSelectionView = preferenceSelectionView, let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
                 return
@@ -193,6 +193,11 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 
             preferenceSelectionView.setPreference(at: selectedIndex, selected: false)
         }))
+    }
+}
+
+extension FilterRootViewController: PreferenceFilterListViewControllerDelegate {
+    public func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfo, didSelect preferenceValue: PreferenceValue) {
     }
 }
 

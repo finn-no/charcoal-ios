@@ -7,12 +7,11 @@ import Foundation
 public class RootFilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
+        case mulitLevelFilter(filterInfo: MultiLevelFilterInfo, delegate: MultiLevelFilterListViewControllerDelegate)
         case preferenceFilterInPopover(preferenceInfo: PreferenceInfo, sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
-        case filter(filterInfo: FilterInfo)
-        case mulitlevelFilter(mulitlevelFilterInfo: MultiLevelFilterInfo)
     }
 
-    public typealias Factory = ViewControllerFactory
+    public typealias Factory = ViewControllerFactory & MultiLevelFilterNavigatorFactory
 
     private let navigationController: FilterNavigationController
     private let factory: Factory
@@ -34,20 +33,16 @@ public class RootFilterNavigator: NSObject, Navigator {
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
+        case let .mulitLevelFilter(filterInfo, delegate):
+            if filterInfo.filters.isEmpty {
+                return
+            }
+
+            let navigator = factory.makeMultiLevelFilterNavigator(navigationController: navigationController)
+
+            navigator.navigate(to: .subLevel(filterInfo: filterInfo, delegate: delegate))
         case let .preferenceFilterInPopover(preferenceInfo, sourceView, delegate, popoverWillDismiss):
             presentPreference(with: preferenceInfo, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
-        case let .filter(filterInfo):
-            guard let viewController = factory.makeViewControllerForFilter(with: filterInfo, navigator: self) else {
-                return
-            }
-
-            navigationController.pushViewController(viewController, animated: true)
-        case let .mulitlevelFilter(mulitlevelFilterInfo):
-            guard let listViewController = factory.makeListViewControllerForMultiLevelFilterComponent(from: mulitlevelFilterInfo, navigator: self) else {
-                return
-            }
-
-            navigationController.pushViewController(listViewController, animated: true)
         }
     }
 }

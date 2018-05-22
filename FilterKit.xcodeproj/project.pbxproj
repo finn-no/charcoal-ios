@@ -43,6 +43,7 @@
 		55858A1720AAC2EB00B100EA /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1620AAC2EB00B100EA /* FilterService.swift */; };
 		55858A1920AAC36200B100EA /* FilterComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1820AAC36200B100EA /* FilterComponents.swift */; };
 		55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1F20AAD18400B100EA /* NavigatorFactory.swift */; };
+		55858A2420AB08FA00B100EA /* MultiLevelFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A2320AB08FA00B100EA /* MultiLevelFilterListViewController.swift */; };
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */; };
 		5589322E209C3CD500512FF8 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
@@ -55,6 +56,7 @@
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 		55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */; };
 		55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */; };
+		55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
@@ -150,6 +152,7 @@
 		55858A1620AAC2EB00B100EA /* FilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterService.swift; sourceTree = "<group>"; };
 		55858A1820AAC36200B100EA /* FilterComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponents.swift; sourceTree = "<group>"; };
 		55858A1F20AAD18400B100EA /* NavigatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorFactory.swift; sourceTree = "<group>"; };
+		55858A2320AB08FA00B100EA /* MultiLevelFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelFilterListViewController.swift; sourceTree = "<group>"; };
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
 		5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		5589322C209C3CD500512FF8 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFilterListViewController.swift; sourceTree = "<group>"; };
+		55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelFilterNavigator.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionViewController.swift; sourceTree = "<group>"; };
 		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 				44ECE661208F7FA20017AC82 /* FilterKit.h */,
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
+				55858A2220AB086200B100EA /* MultiLevelFilter */,
 				55893232209C651A00512FF8 /* List */,
 				55858A1A20AAC73A00B100EA /* NavigationController */,
 				55858A1E20AACFF000B100EA /* Dependencies */,
@@ -402,6 +407,15 @@
 				5525323F20A2D9B2000CBD21 /* Navigator.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		55858A2220AB086200B100EA /* MultiLevelFilter */ = {
+			isa = PBXGroup;
+			children = (
+				55858A2320AB08FA00B100EA /* MultiLevelFilterListViewController.swift */,
+				55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */,
+			);
+			path = MultiLevelFilter;
 			sourceTree = "<group>";
 		};
 		5589322F209C3CDA00512FF8 /* UIKit */ = {
@@ -678,6 +692,7 @@
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
 				5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */,
+				55858A2420AB08FA00B100EA /* MultiLevelFilterListViewController.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				55858A1320AAC26400B100EA /* FilterInfo.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
@@ -702,6 +717,7 @@
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
+				55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
 				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,

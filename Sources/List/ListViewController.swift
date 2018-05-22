@@ -32,8 +32,6 @@ public class ListViewController: UIViewController {
     public weak var delegate: ListViewControllerDelegate?
     public let listItems: [ListItem]
 
-    var didSelectListItemHandler: ((_ listItem: ListItem, _ index: Int) -> Void)?
-
     public init(title: String, items: [ListItem], allowsMultipleSelection: Bool = false) {
         listItems = items
         super.init(nibName: nil, bundle: nil)
@@ -71,7 +69,6 @@ extension ListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let listItem = listItems[indexPath.row]
         delegate?.listViewController(self, didSelectListItem: listItem, atIndex: indexPath.row)
-        didSelectListItemHandler?(listItem, indexPath.row)
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,11 +90,11 @@ private extension ListViewController {
 }
 
 public extension ListViewController {
-    func indexesForSelectedListItems() -> [Int]? {
+    final func indexesForSelectedListItems() -> [Int]? {
         return tableView.indexPathsForSelectedRows?.map({ $0.row })
     }
 
-    func indexForSelectedListItem() -> Int? {
+    final func indexForSelectedListItem() -> Int? {
         return tableView.indexPathForSelectedRow?.row
     }
 }

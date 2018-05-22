@@ -8,7 +8,7 @@ public protocol PreferenceFilterListViewControllerDelegate: ListViewControllerDe
     func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfo, didSelect preferenceValue: PreferenceValue)
 }
 
-extension PreferenceFilterListViewControllerDelegate {
+extension ListViewControllerDelegate where Self: PreferenceFilterListViewControllerDelegate {
     public func listViewController(_ listViewController: ListViewController, didSelectListItem listItem: ListItem, atIndex index: Int) {
     }
 }

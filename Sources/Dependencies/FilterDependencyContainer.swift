@@ -13,25 +13,16 @@ public class FilterDependencyContainer {
 }
 
 extension FilterDependencyContainer: NavigatorFactory {
+    public func makeMultiLevelFilterNavigator(navigationController: UINavigationController) -> MultiLevelFilterNavigator {
+        return MultiLevelFilterNavigator(navigationController: navigationController, factory: self)
+    }
+
     public func makeRootFilterNavigator(navigationController: FilterNavigationController) -> RootFilterNavigator {
         return RootFilterNavigator(navigationController: navigationController, factory: self)
     }
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makeViewControllerForFilter(with filterInfo: FilterInfo, navigator: RootFilterNavigator) -> UIViewController? {
-        let viewController: UIViewController?
-
-        switch filterInfo {
-        case let multiLevelInfo as MultiLevelFilterInfo:
-            viewController = makeListViewControllerForMultiLevelFilterComponent(from: multiLevelInfo, navigator: navigator)
-        default:
-            viewController = nil
-        }
-
-        return viewController
-    }
-
     public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfo, delegate: PreferenceFilterListViewControllerDelegate) -> PreferenceFilterListViewController? {
         let preferenceFilterListViewController = PreferenceFilterListViewController(preferenceInfo: preferenceInfo)
         preferenceFilterListViewController.delegate = delegate
@@ -39,23 +30,8 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return preferenceFilterListViewController
     }
 
-    public func makeListViewControllerForMultiLevelFilterComponent(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: RootFilterNavigator) -> ListViewController? {
-        if multiLevelFilterInfo.filters.isEmpty {
-            return nil
-        }
-
-        let listItems = multiLevelFilterInfo.filters
-        let listViewController = ListViewController(title: multiLevelFilterInfo.name, items: listItems, allowsMultipleSelection: true)
-
-        listViewController.didSelectListItemHandler = { _, index in
-            guard let subLevelFilter = multiLevelFilterInfo.filters[safe: index] else {
-                return
-            }
-
-            navigator.navigate(to: .mulitlevelFilter(mulitlevelFilterInfo: subLevelFilter))
-        }
-
-        return listViewController
+    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController {
+        return MultiLevelFilterListViewController(filterInfo: multiLevelFilterInfo, navigator: navigator)
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {

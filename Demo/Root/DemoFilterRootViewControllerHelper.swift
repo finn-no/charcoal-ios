@@ -46,9 +46,13 @@ struct DemoMultilevelFilterInfo: MultiLevelFilterInfo {
 }
 
 class DemoFilterDataSource: FilterDataSource {
+    var numberOfHits: Int {
+        return 42
+    }
+
     func selectionValuesForFilterComponent(at index: Int) -> [String] {
         let filterInfo = filterComponents[index].filterInfo
-        
+
         switch filterInfo {
         case let multiLevelFilterInfo as DemoMultilevelFilterInfo:
             return multiLevelFilterInfo.selectedValues

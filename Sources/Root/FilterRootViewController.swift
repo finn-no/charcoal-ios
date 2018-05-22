@@ -23,7 +23,7 @@ public class FilterRootViewController: UIViewController {
     private lazy var showResultsButtonView: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.delegate = self
-        buttonView.buttonTitle = "Vis 42 treff"
+        buttonView.buttonTitle = "Vis \(dataSource.numberOfHits) treff"
         return buttonView
     }()
 

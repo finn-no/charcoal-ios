@@ -6,7 +6,7 @@ import UIKit
 
 public protocol ViewControllerFactory {
     func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController
-    func makeListViewControllerForPreference(with preferenceInfo: PreferenceInfo) -> UIViewController?
+    func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfo, delegate: PreferenceFilterListViewControllerDelegate) -> PreferenceFilterListViewController?
     func makeListViewControllerForMultiLevelFilterComponent(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: RootFilterNavigator) -> ListViewController?
     func makeViewControllerForFilter(with filterInfo: FilterInfo, navigator: RootFilterNavigator) -> UIViewController?
 }

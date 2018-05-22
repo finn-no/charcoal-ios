@@ -7,7 +7,7 @@ import Foundation
 public class RootFilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
-        case preferenceFilterInPopover(preferenceInfo: PreferenceInfo, sourceView: UIView, popoverWillDismiss: (() -> Void)?)
+        case preferenceFilterInPopover(preferenceInfo: PreferenceInfo, sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case filter(filterInfo: FilterInfo)
         case mulitlevelFilter(mulitlevelFilterInfo: MultiLevelFilterInfo)
     }
@@ -34,8 +34,8 @@ public class RootFilterNavigator: NSObject, Navigator {
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
-        case let .preferenceFilterInPopover(preferenceInfo, sourceView, popoverWillDismiss):
-            presentPreference(with: preferenceInfo, and: sourceView, popoverWillDismiss: popoverWillDismiss)
+        case let .preferenceFilterInPopover(preferenceInfo, sourceView, delegate, popoverWillDismiss):
+            presentPreference(with: preferenceInfo, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
         case let .filter(filterInfo):
             guard let viewController = factory.makeViewControllerForFilter(with: filterInfo, navigator: self) else {
                 return
@@ -63,8 +63,8 @@ private extension RootFilterNavigator {
         }
     }
 
-    func presentPreference(with preferenceInfo: PreferenceInfo, and sourceView: UIView, popoverWillDismiss: (() -> Void)?) {
-        guard let preferencelistViewController = factory.makeListViewControllerForPreference(with: preferenceInfo), let filterRootViewController = filterRootViewController else {
+    func presentPreference(with preferenceInfo: PreferenceInfo, and sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
+        guard let preferencelistViewController = factory.makePreferenceFilterListViewController(with: preferenceInfo, delegate: delegate), let filterRootViewController = filterRootViewController else {
             return
         }
 

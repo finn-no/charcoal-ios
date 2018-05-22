@@ -54,6 +54,7 @@
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 		55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */; };
+		55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
@@ -160,6 +161,7 @@
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
+		55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFilterListViewController.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionViewController.swift; sourceTree = "<group>"; };
 		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -230,7 +232,6 @@
 				44ECE693208F80320017AC82 /* BottomSheet */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				44ECE699208F80320017AC82 /* Finnivers */,
-				55646DB320933D22006AA2DA /* PreferenceSelectionView */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				9BE0A0552091D2530000632B /* Protocols */,
 				9BE0A0402091BE750000632B /* Root */,
@@ -242,6 +243,7 @@
 				55858A1E20AACFF000B100EA /* Dependencies */,
 				55858A1220AAC26400B100EA /* FilterInfo.swift */,
 				55858A1820AAC36200B100EA /* FilterComponents.swift */,
+				55F97D1320AC51FD002BABC9 /* PreferenceFilter */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -428,6 +430,15 @@
 				55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */,
 			);
 			path = CustomPopoverPresentation;
+			sourceTree = "<group>";
+		};
+		55F97D1320AC51FD002BABC9 /* PreferenceFilter */ = {
+			isa = PBXGroup;
+			children = (
+				55646DB320933D22006AA2DA /* PreferenceSelectionView */,
+				55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */,
+			);
+			path = PreferenceFilter;
 			sourceTree = "<group>";
 		};
 		9BE0A0402091BE750000632B /* Root */ = {
@@ -683,6 +694,7 @@
 				55646DAC2091C572006AA2DA /* PreferenceSelectionView.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
+				55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */,
 				55893234209C743100512FF8 /* UITableViewExtensions.swift in Sources */,
 				55893231209C579000512FF8 /* ListViewController.swift in Sources */,
 				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,

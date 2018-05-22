@@ -15,9 +15,11 @@ extension MultiLevelFilterListViewControllerDelegate {
 
 public final class MultiLevelFilterListViewController: ListViewController {
     let filterInfo: MultiLevelFilterInfo
+    let navigator: MultiLevelFilterNavigator
 
-    public init(filterInfo: MultiLevelFilterInfo) {
+    public init(filterInfo: MultiLevelFilterInfo, navigator: MultiLevelFilterNavigator) {
         self.filterInfo = filterInfo
+        self.navigator = navigator
         super.init(title: filterInfo.name, items: filterInfo.filters, allowsMultipleSelection: filterInfo.isMultiSelect)
     }
 
@@ -27,6 +29,13 @@ public final class MultiLevelFilterListViewController: ListViewController {
 
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sublevelFilterInfo = filterInfo.filters[indexPath.row]
-        (delegate as? MultiLevelFilterListViewControllerDelegate)?.multiLevelFilterListViewController(self, with: filterInfo, didSelect: sublevelFilterInfo)
+        let delegate = self.delegate as? MultiLevelFilterListViewControllerDelegate
+        delegate?.multiLevelFilterListViewController(self, with: filterInfo, didSelect: sublevelFilterInfo)
+
+        let shouldNavigateToSublevel = !sublevelFilterInfo.filters.isEmpty
+
+        if shouldNavigateToSublevel {
+            navigator.navigate(to: .subLevel(filterInfo: sublevelFilterInfo, delegate: delegate))
+        }
     }
 }

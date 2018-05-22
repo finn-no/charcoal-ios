@@ -11,7 +11,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case mulitLevelFilter(filterInfo: MultiLevelFilterInfo, delegate: MultiLevelFilterListViewControllerDelegate)
     }
 
-    public typealias Factory = ViewControllerFactory
+    public typealias Factory = ViewControllerFactory & MultiLevelFilterNavigatorFactory
 
     private let navigationController: FilterNavigationController
     private let factory: Factory
@@ -40,13 +40,9 @@ public class RootFilterNavigator: NSObject, Navigator {
                 return
             }
 
-            guard let multiLevelFilterListViewController = factory.makeMultiLevelFilterListViewController(from: filterInfo) else {
-                return
-            }
+            let navigator = factory.makeMultiLevelFilterNavigator(navigationController: navigationController)
 
-            multiLevelFilterListViewController.delegate = delegate
-
-            navigationController.pushViewController(multiLevelFilterListViewController, animated: true)
+            navigator.navigate(to: .subLevel(filterInfo: filterInfo, delegate: delegate))
         }
     }
 }

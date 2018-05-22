@@ -13,6 +13,10 @@ public class FilterDependencyContainer {
 }
 
 extension FilterDependencyContainer: NavigatorFactory {
+    public func makeMultiLevelFilterNavigator(navigationController: UINavigationController) -> MultiLevelFilterNavigator {
+        return MultiLevelFilterNavigator(navigationController: navigationController, factory: self)
+    }
+
     public func makeRootFilterNavigator(navigationController: FilterNavigationController) -> RootFilterNavigator {
         return RootFilterNavigator(navigationController: navigationController, factory: self)
     }
@@ -25,8 +29,8 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return listViewController
     }
 
-    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfo) -> MultiLevelFilterListViewController? {
-        return MultiLevelFilterListViewController(filterInfo: multiLevelFilterInfo)
+    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController {
+        return MultiLevelFilterListViewController(filterInfo: multiLevelFilterInfo, navigator: navigator)
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {

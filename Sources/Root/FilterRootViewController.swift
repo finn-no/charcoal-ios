@@ -206,11 +206,6 @@ extension FilterRootViewController: FilterCellDelegate {
 
 extension FilterRootViewController: MultiLevelFilterListViewControllerDelegate {
     public func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfo, didSelect sublevelFilterInfo: MultiLevelFilterInfo) {
-        if sublevelFilterInfo.filters.isEmpty {
-            return
-        }
-
-        navigator.navigate(to: .mulitLevelFilter(filterInfo: sublevelFilterInfo, delegate: self))
     }
 }
 

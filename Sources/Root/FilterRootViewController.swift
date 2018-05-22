@@ -76,6 +76,10 @@ private extension FilterRootViewController {
     func filterComponent(at index: Int) -> FilterComponent {
         return dataSource.filterComponents[index]
     }
+
+    func selectionValuesForFilterComponent(at index: Int) -> [String] {
+        return dataSource.selectionValuesForFilterComponent(at: index)
+    }
 }
 
 extension FilterRootViewController: UITableViewDelegate {
@@ -98,6 +102,7 @@ extension FilterRootViewController: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let component = filterComponent(at: indexPath.row)
+        let selectionValues = selectionValuesForFilterComponent(at: indexPath.row)
 
         switch component {
         case let freeSearch as FreeSearchFilterComponent:
@@ -117,7 +122,7 @@ extension FilterRootViewController: UITableViewDataSource {
             let filterInfo = multiLevel.filterInfo as? MultiLevelFilterComponent.Info
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
             cell.filterName = filterInfo?.name
-            cell.selectedValues = filterInfo?.selectedValues
+            cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell

@@ -46,6 +46,17 @@ struct DemoMultilevelFilterInfo: MultiLevelFilterInfo {
 }
 
 class DemoFilterDataSource: FilterDataSource {
+    func selectionValuesForFilterComponent(at index: Int) -> [String] {
+        let filterInfo = filterComponents[index].filterInfo
+        
+        switch filterInfo {
+        case let multiLevelFilterInfo as DemoMultilevelFilterInfo:
+            return multiLevelFilterInfo.selectedValues
+        default:
+            return []
+        }
+    }
+
     var filterComponents: [FilterComponent] {
         let freeSearchFilterInfo = DemoFreeSearchFilterInfo(currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch", selectedValues: [])
         let preferencesFilterInfo = DemoPreferenceFilterInfo(preferences: DemoFilterDataSource.preferenceFilters, name: "preferences", selectedValues: [])

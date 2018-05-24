@@ -52,10 +52,33 @@ public final class RangeSliderView: UIControl {
     public typealias Steps = Int
     public let steps: Int
 
-    public var genereatesHapticFeedbackOnValueChange = true {
+    public var generatesHapticFeedbackOnValueChange = true {
         didSet {
-            lowValueSlider.genereatesHapticFeedbackOnValueChange = genereatesHapticFeedbackOnValueChange
-            highValueSlider.genereatesHapticFeedbackOnValueChange = genereatesHapticFeedbackOnValueChange
+            lowValueSlider.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnValueChange
+            highValueSlider.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnValueChange
+        }
+    }
+
+    public var accessibilityValueSuffix: String? {
+        didSet {
+            lowValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
+            highValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
+        }
+    }
+
+    private var _accessibilitySteps: Steps?
+    public var accessibilitySteps: Steps {
+        get {
+            guard let accessibilitySteps = _accessibilitySteps else {
+                return steps
+            }
+
+            return accessibilitySteps
+        }
+        set {
+            _accessibilitySteps = newValue
+            lowValueSlider.accessibilitySteps = newValue
+            highValueSlider.accessibilitySteps = newValue
         }
     }
 
@@ -92,10 +115,12 @@ public extension RangeSliderView {
 
     func setLowerValue(_ value: RangeValue, animated: Bool) {
         lowestValueSlider.setValueForSlider(value, animated: animated)
+        updateActiveTrackRange()
     }
 
     func setUpperValue(_ value: RangeValue, animated: Bool) {
         highValueSlider.setValueForSlider(value, animated: animated)
+        updateActiveTrackRange()
     }
 }
 
@@ -111,7 +136,6 @@ private extension RangeSliderView {
 
     func setup() {
         activeRangeTrackView.isHidden = true
-
         addSubview(trackView)
         addSubview(activeRangeTrackView)
         addSubview(lowValueSlider)
@@ -136,6 +160,9 @@ private extension RangeSliderView {
             activeRangeTrackView.centerYAnchor.constraint(equalTo: lowValueSlider.centerYAnchor),
             activeRangeTrackView.heightAnchor.constraint(equalToConstant: Style.activeRangeTrackHeight),
         ])
+
+        accessibilityElements = [lowValueSlider, highValueSlider]
+        updateAccesibilityValues()
     }
 
     func roundedStepValueChanged(_ slider: SteppedSlider) {
@@ -144,6 +171,7 @@ private extension RangeSliderView {
 
     @objc func sliderValueChanged(_ slider: SteppedSlider) {
         updateActiveTrackRange()
+        updateAccesibilityValues()
     }
 
     var lowestValueSlider: SteppedSlider {
@@ -166,6 +194,11 @@ private extension RangeSliderView {
         activeRangeTrackView.layoutIfNeeded()
         activeRangeTrackView.isHidden = false
     }
+
+    func updateAccesibilityValues() {
+        lowestValueSlider.accessibilityLabel = "range_slider_view_low_value_slider_accessibility_label".localized()
+        highestValueSlider.accessibilityLabel = "range_slider_view_high_value_slider_accessibility_label".localized()
+    }
 }
 
 fileprivate final class SteppedSlider: UISlider {
@@ -173,7 +206,27 @@ fileprivate final class SteppedSlider: UISlider {
     let range: RangeSliderView.SliderRange
 
     var roundedStepValueChangedHandler: ((SteppedSlider) -> Void)?
-    var genereatesHapticFeedbackOnValueChange = true
+    var generatesHapticFeedbackOnValueChange = true
+
+    var accessibilityValueSuffix: String? {
+        didSet {
+            accessibilityValue = "\(roundedStepValue) \(accessibilityValueSuffix ?? "")"
+        }
+    }
+
+    private var _accessibilitySteps: RangeSliderView.Steps?
+    public var accessibilitySteps: RangeSliderView.Steps {
+        get {
+            guard let accessibilitySteps = _accessibilitySteps else {
+                return steps
+            }
+
+            return accessibilitySteps
+        }
+        set {
+            _accessibilitySteps = newValue
+        }
+    }
 
     private var previousRoundedStepValue: RangeSliderView.RangeValue?
 
@@ -190,10 +243,26 @@ fileprivate final class SteppedSlider: UISlider {
         setThumbImage(RangeSliderView.Style.activeSliderThumbImage, for: .highlighted)
 
         addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+
+        accessibilityValue = "\(minimumValue) \(accessibilityValueSuffix ?? "")"
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func accessibilityIncrement() {
+        let incrementedValue = roundedStepValue + accessibilityStepIncrement
+        value = Float(incrementedValue)
+        updateAccessibilityValue()
+        sendActions(for: .valueChanged)
+    }
+
+    override func accessibilityDecrement() {
+        let decrementedValue = roundedStepValue - accessibilityStepIncrement
+        value = Float(decrementedValue)
+        updateAccessibilityValue()
+        sendActions(for: .valueChanged)
     }
 
     var currentTrackRect: CGRect {
@@ -211,6 +280,7 @@ fileprivate final class SteppedSlider: UISlider {
     func setValueForSlider(_ value: RangeSliderView.RangeValue, animated: Bool) {
         let roundedStepValue = self.roundedStepValue(fromValue: value)
         setValue(Float(roundedStepValue), animated: animated)
+        updateAccessibilityValue()
     }
 
     @objc func sliderValueChanged(sender: SteppedSlider) {
@@ -218,23 +288,35 @@ fileprivate final class SteppedSlider: UISlider {
             value = Float(roundedStepValue)
             self.previousRoundedStepValue = roundedStepValue
             roundedStepValueChangedHandler?(self)
+            updateAccessibilityValue()
 
-            if genereatesHapticFeedbackOnValueChange {
-                genereateFeedback()
+            if generatesHapticFeedbackOnValueChange {
+                generateFeedback()
             }
         } else {
             value = Float(roundedStepValue)
             previousRoundedStepValue = roundedStepValue
+            updateAccessibilityValue()
         }
     }
 
-    private func roundedStepValue(fromValue value: RangeSliderView.RangeValue) -> RangeSliderView.RangeValue {
-        let increments = (range.upperBound - range.lowerBound) / RangeSliderView.RangeValue(steps)
-
-        return (value / increments) * increments
+    private var accessibilityStepIncrement: Int {
+        return (range.upperBound - range.lowerBound) / RangeSliderView.RangeValue(accessibilitySteps)
     }
 
-    private func genereateFeedback() {
+    private var stepIncrement: Int {
+        return (range.upperBound - range.lowerBound) / RangeSliderView.RangeValue(steps)
+    }
+
+    private func roundedStepValue(fromValue value: RangeSliderView.RangeValue) -> RangeSliderView.RangeValue {
+        return (value / stepIncrement) * stepIncrement
+    }
+
+    private func updateAccessibilityValue() {
+        accessibilityValue = "\(roundedStepValue) \(accessibilityValueSuffix ?? "")"
+    }
+
+    private func generateFeedback() {
         if #available(iOS 10.0, *) {
             let generator = UISelectionFeedbackGenerator()
             generator.selectionChanged()

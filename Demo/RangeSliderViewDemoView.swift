@@ -7,7 +7,11 @@ import UIKit
 
 class RangeSliderViewDemoView: UIView {
     lazy var rangeSliderView: RangeSliderView = {
-        let sliderView = RangeSliderView(range: 0 ... 100, steps: 10)
+        let sliderView = RangeSliderView(range: 0 ... 30000, steps: 300)
+        sliderView.accessibilityValueSuffix = "kroner"
+        sliderView.accessibilitySteps = 30
+        sliderView.setLowerValue(0, animated: false)
+        sliderView.setUpperValue(30000, animated: false)
         sliderView.translatesAutoresizingMaskIntoConstraints = false
         sliderView.addTarget(self, action: #selector(rangeSliderViewValueChanged(_:)), for: .valueChanged)
         return sliderView

@@ -70,6 +70,8 @@ enum Sections: String {
                 return .none
             case .list:
                 return .none
+            case .rangeSlider:
+                return .none
             }
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]
@@ -111,6 +113,7 @@ enum ComponentViews: String {
     case rootFilters
     case preferenceFilter
     case list
+    case rangeSlider
 
     var viewController: UIViewController {
         switch self {
@@ -138,6 +141,8 @@ enum ComponentViews: String {
         case .list:
             let viewController = ListViewController(title: "Kategori", items: ListViewControllerDemo.listItems)
             return viewController
+        case .rangeSlider:
+            return ViewController<RangeSliderViewDemoView>()
         }
     }
 
@@ -147,6 +152,7 @@ enum ComponentViews: String {
             .rootFilters,
             .preferenceFilter,
             .list,
+            .rangeSlider,
         ]
     }
 }

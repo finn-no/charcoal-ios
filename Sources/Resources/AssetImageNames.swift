@@ -20,4 +20,6 @@ enum ImageAsset: String {
     case disclosureIndicator
     case popoverArrow
     case removeFilterValue
+    case sliderThumb
+    case sliderThumbActive
 }

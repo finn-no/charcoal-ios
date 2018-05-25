@@ -6,7 +6,7 @@ import UIKit
 
 public class FilterRootViewController: UIViewController {
     private let navigator: RootFilterNavigator
-    private let components: [FilterComponent]
+    private let dataSource: FilterDataSource
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -23,7 +23,7 @@ public class FilterRootViewController: UIViewController {
     private lazy var showResultsButtonView: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.delegate = self
-        buttonView.buttonTitle = "Vis 42 treff"
+        buttonView.buttonTitle = "Vis \(dataSource.numberOfHits) treff"
         return buttonView
     }()
 
@@ -33,9 +33,9 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(navigator: RootFilterNavigator, components: [FilterComponent]) {
+    public init(navigator: RootFilterNavigator, dataSource: FilterDataSource) {
         self.navigator = navigator
-        self.components = components
+        self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -72,11 +72,19 @@ private extension FilterRootViewController {
             showResultsButtonView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
         ])
     }
+
+    func filterComponent(at index: Int) -> FilterComponent {
+        return dataSource.filterComponents[index]
+    }
+
+    func selectionValuesForFilterComponent(at index: Int) -> [String] {
+        return dataSource.selectionValuesForFilterComponent(at: index)
+    }
 }
 
 extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let component = components[indexPath.row]
+        let component = filterComponent(at: indexPath.row)
 
         switch component.filterInfo {
         case let mulitlevelFilterInfo as MultiLevelFilterInfo:
@@ -89,11 +97,12 @@ extension FilterRootViewController: UITableViewDelegate {
 
 extension FilterRootViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return components.count
+        return dataSource.filterComponents.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let component = components[indexPath.row]
+        let component = filterComponent(at: indexPath.row)
+        let selectionValues = selectionValuesForFilterComponent(at: indexPath.row)
 
         switch component {
         case let freeSearch as FreeSearchFilterComponent:
@@ -113,7 +122,7 @@ extension FilterRootViewController: UITableViewDataSource {
             let filterInfo = multiLevel.filterInfo as? MultiLevelFilterComponent.Info
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
             cell.filterName = filterInfo?.name
-            cell.selectedValues = filterInfo?.selectedValues
+            cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell

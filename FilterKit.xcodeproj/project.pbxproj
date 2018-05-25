@@ -40,7 +40,7 @@
 		55646DAE2091E1E1006AA2DA /* PreferenceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55646DAD2091E1E1006AA2DA /* PreferenceSelectionView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55858A1320AAC26400B100EA /* FilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1220AAC26400B100EA /* FilterInfo.swift */; };
-		55858A1720AAC2EB00B100EA /* FilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1620AAC2EB00B100EA /* FilterService.swift */; };
+		55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1620AAC2EB00B100EA /* FilterDataSource.swift */; };
 		55858A1920AAC36200B100EA /* FilterComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1820AAC36200B100EA /* FilterComponents.swift */; };
 		55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A1F20AAD18400B100EA /* NavigatorFactory.swift */; };
 		55858A2420AB08FA00B100EA /* MultiLevelFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55858A2320AB08FA00B100EA /* MultiLevelFilterListViewController.swift */; };
@@ -149,7 +149,7 @@
 		55646DAD2091E1E1006AA2DA /* PreferenceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSelectionView.swift; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55858A1220AAC26400B100EA /* FilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfo.swift; sourceTree = "<group>"; };
-		55858A1620AAC2EB00B100EA /* FilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterService.swift; sourceTree = "<group>"; };
+		55858A1620AAC2EB00B100EA /* FilterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataSource.swift; sourceTree = "<group>"; };
 		55858A1820AAC36200B100EA /* FilterComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterComponents.swift; sourceTree = "<group>"; };
 		55858A1F20AAD18400B100EA /* NavigatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorFactory.swift; sourceTree = "<group>"; };
 		55858A2320AB08FA00B100EA /* MultiLevelFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelFilterListViewController.swift; sourceTree = "<group>"; };
@@ -393,7 +393,7 @@
 		55858A1E20AACFF000B100EA /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				55858A1620AAC2EB00B100EA /* FilterService.swift */,
+				55858A1620AAC2EB00B100EA /* FilterDataSource.swift */,
 				55858A2120AAD27F00B100EA /* Navigation */,
 				5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */,
 				55858A1D20AAC9BF00B100EA /* Factories */,
@@ -702,7 +702,7 @@
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,
-				55858A1720AAC2EB00B100EA /* FilterService.swift in Sources */,
+				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,
 				44ECE6A4208F80320017AC82 /* Font.swift in Sources */,
 				9BE0A05B2091E7F30000632B /* Identifiable.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,

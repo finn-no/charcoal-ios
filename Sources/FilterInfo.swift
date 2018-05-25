@@ -6,7 +6,6 @@ import Foundation
 
 public protocol FilterInfo {
     var name: String { get }
-    var selectedValues: [String] { get }
 }
 
 public protocol FreeSearchFilterInfo: FilterInfo {

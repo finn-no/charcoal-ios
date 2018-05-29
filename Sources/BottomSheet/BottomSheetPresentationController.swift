@@ -173,6 +173,7 @@ public final class BottomSheetPresentationController: UIPresentationController {
 
         dimmingView.removeFromSuperview()
         swipeBar.removeFromSuperview()
+        presentedViewTopAnchorConstraint = nil
     }
 }
 

@@ -15,8 +15,6 @@ public final class RangeNumberInputView: UIControl {
         textField.font = RangeNumberInputView.Style.normalFont
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
-//        textField.clearsOnInsertion = true
-//        textField.clearsOnBeginEditing = true
 
         return textField
     }()
@@ -27,8 +25,8 @@ public final class RangeNumberInputView: UIControl {
         label.text = unit
         label.textColor = RangeNumberInputView.Style.textColor
         label.font = RangeNumberInputView.Style.normalFont
+        label.addGestureRecognizer(makeGestureRecognizer())
         label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(tapGestureRecognizer)
 
         return label
     }()
@@ -51,8 +49,6 @@ public final class RangeNumberInputView: UIControl {
         textField.font = RangeNumberInputView.Style.normalFont
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
-//        textField.clearsOnInsertion = true
-//        textField.clearsOnBeginEditing = true
 
         return textField
     }()
@@ -63,8 +59,8 @@ public final class RangeNumberInputView: UIControl {
         label.text = unit
         label.textColor = RangeNumberInputView.Style.textColor
         label.font = RangeNumberInputView.Style.normalFont
+        label.addGestureRecognizer(makeGestureRecognizer())
         label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(tapGestureRecognizer)
 
         return label
     }()
@@ -73,7 +69,7 @@ public final class RangeNumberInputView: UIControl {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Style.decorationViewColor
-        view.addGestureRecognizer(tapGestureRecognizer)
+        view.addGestureRecognizer(makeGestureRecognizer())
 
         return view
     }()
@@ -82,18 +78,10 @@ public final class RangeNumberInputView: UIControl {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Style.decorationViewColor
-        view.addGestureRecognizer(tapGestureRecognizer)
+        view.addGestureRecognizer(makeGestureRecognizer())
 
         return view
     }()
-
-    private var tapGestureRecognizer: UITapGestureRecognizer {
-        let tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        tapGestureRecognizer.addTarget(self, action: #selector(handleTapGesture(_:)))
-
-        return tapGestureRecognizer
-    }
 
     private lazy var inputGroupMap: [UIView: InputGroup] = {
         return [
@@ -125,10 +113,31 @@ public final class RangeNumberInputView: UIControl {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard self.point(inside: point, with: event) else {
+            if lowValueInputTextField.isFirstResponder {
+                lowValueInputTextField.resignFirstResponder()
+            } else if highValueInputTextField.isFirstResponder {
+                highValueInputTextField.resignFirstResponder()
+            }
+
+            return nil
+        }
+
+        for subview in subviews {
+            let convertedPoint = subview.convert(point, from: self)
+            if let hitView = subview.hitTest(convertedPoint, with: event) {
+                return hitView
+            }
+        }
+
+        return nil
+    }
 }
 
-public extension RangeNumberInputView {
-    var lowValue: RangeValue? {
+extension RangeNumberInputView: RangeControl {
+    public var lowValue: RangeValue? {
         guard let lowInputValue = inputValues[.lowValue] else {
             return nil
         }
@@ -140,7 +149,7 @@ public extension RangeNumberInputView {
         return min(lowInputValue, highInputValue)
     }
 
-    var highValue: RangeValue? {
+    public var highValue: RangeValue? {
         guard let highInputValue = inputValues[.highValue] else {
             return nil
         }
@@ -152,12 +161,12 @@ public extension RangeNumberInputView {
         return max(lowInputValue, highInputValue)
     }
 
-    func setLowerValue(_ value: RangeValue, animated: Bool) {
+    public func setLowValue(_ value: RangeValue, animated: Bool) {
         lowValueInputTextField.text = text(from: value)
         inputValues[.lowValue] = value
     }
 
-    func setUpperValue(_ value: RangeValue, animated: Bool) {
+    public func setHighValue(_ value: RangeValue, animated: Bool) {
         highValueInputTextField.text = text(from: value)
         inputValues[.highValue] = value
     }
@@ -187,36 +196,50 @@ extension RangeNumberInputView: UITextFieldDelegate {
 
         textField.text?.dropLeadingZeros()
 
-        let existingString = (textField.text ?? "")
-        var newString = (existingString + string)
+        var newString = (textField.text ?? "")
 
-        if string == "" {
-            newString = String(newString.dropLast())
+        if newString.isEmpty {
+            newString += string
+        } else {
+            let stringIndex = newString.index(newString.startIndex, offsetBy: range.location)
+
+            if string.isEmpty {
+                newString.remove(at: stringIndex)
+            } else {
+                newString.insert(Character(string), at: stringIndex)
+            }
         }
 
         guard let inputGroup = inputGroupMap[textField] else {
             return false
         }
 
-        guard let newValue = RangeValue(newString) else {
-            let value = self.range.lowerBound
-            textField.text = "\(value)"
-            inputValues[inputGroup] = value
+        if newString.isEmpty {
+            let newValue = self.range.lowerBound
+            newString = "\(newValue)"
+            textField.text = "\(newValue)"
+            inputValues[inputGroup] = newValue
             return false
         }
 
-        if newValue >= self.range.upperBound {
-            let value = self.range.upperBound
-            textField.text = "\(value)"
-            inputValues[inputGroup] = value
+        guard let newValue = RangeValue(newString) else {
+            inputValues[inputGroup] = nil
             return false
-        } else if newValue <= self.range.lowerBound {
-            let value = self.range.lowerBound
-            textField.text = "\(value)"
-            inputValues[inputGroup] = value
-            return false
-        } else {
-            inputValues[inputGroup] = newValue
+        }
+
+        inputValues[inputGroup] = newValue
+
+        if let font = RangeNumberInputView.Style.activeFont {
+            let attributes = [NSAttributedStringKey.font: font]
+            let maxTextFieldBounds = self.maxTextFieldBounds(for: inputGroup)
+            let shouldAdjustsFontSizeToFitWidth = newString.willFit(in: maxTextFieldBounds, attributes: attributes) == false
+
+            if shouldAdjustsFontSizeToFitWidth {
+                textField.adjustsFontSizeToFitWidth = true
+            } else {
+                textField.adjustsFontSizeToFitWidth = false
+                textField.font = font
+            }
         }
 
         return true
@@ -279,16 +302,19 @@ private extension RangeNumberInputView {
             highValueInputUnitLabel.bottomAnchor.constraint(equalTo: highValueInputTextField.bottomAnchor),
             highValueInputUnitLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
 
-            lowValueInputDecorationView.leadingAnchor.constraint(equalTo: lowValueInputTextField.leadingAnchor),
+            lowValueInputDecorationView.leadingAnchor.constraint(equalTo: lowValueInputTextField.leadingAnchor, constant: 4),
             lowValueInputDecorationView.trailingAnchor.constraint(equalTo: lowValueInputUnitLabel.trailingAnchor),
             lowValueInputDecorationView.bottomAnchor.constraint(equalTo: bottomAnchor),
             lowValueInputDecorationViewConstraint,
 
-            highValueInputDecorationView.leadingAnchor.constraint(equalTo: highValueInputTextField.leadingAnchor),
+            highValueInputDecorationView.leadingAnchor.constraint(equalTo: highValueInputTextField.leadingAnchor, constant: 4),
             highValueInputDecorationView.trailingAnchor.constraint(equalTo: highValueInputUnitLabel.trailingAnchor),
             highValueInputDecorationView.bottomAnchor.constraint(equalTo: bottomAnchor),
             highValueInputDecorationViewConstraint,
         ])
+
+        lowValueInputUnitLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        highValueInputUnitLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     func text(from value: RangeValue) -> String {
@@ -343,6 +369,36 @@ private extension RangeNumberInputView {
             inputGroupTextField.resignFirstResponder()
         }
     }
+
+    func makeGestureRecognizer() -> UITapGestureRecognizer {
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.addTarget(self, action: #selector(handleTapGesture(_:)))
+
+        return tapGestureRecognizer
+    }
+
+    func maxTextFieldBounds(for inputGroup: InputGroup) -> CGRect {
+        let maxRect: CGRect
+        switch inputGroup {
+        case .lowValue:
+            let currentFrame = lowValueInputTextField.frame
+            let minX: CGFloat = 0
+            let maxX = currentFrame.maxX
+            let maxWidth = maxX - minX
+
+            maxRect = CGRect(x: 0, y: 0, width: maxWidth, height: currentFrame.height)
+        case .highValue:
+            let currentFrame = highValueInputTextField.frame
+            let minX = currentFrame.minX
+            let maxX = frame.width - (highValueInputUnitLabel.frame.width + .mediumSpacing)
+            let maxWidth = maxX - minX
+
+            maxRect = CGRect(x: 0, y: 0, width: maxWidth, height: currentFrame.height)
+        }
+
+        return maxRect
+    }
 }
 
 private extension UIView {
@@ -357,5 +413,13 @@ private extension String {
             self = String(dropFirst())
             dropLeadingZeros()
         }
+    }
+
+    func willFit(in rect: CGRect, attributes: [NSAttributedStringKey: Any]) -> Bool {
+        let attributedString = NSAttributedString(string: self, attributes: attributes)
+        let constrainedSize = CGSize(width: 0, height: rect.size.height)
+        let boundingRect = attributedString.boundingRect(with: constrainedSize, options: .usesLineFragmentOrigin, context: nil)
+
+        return boundingRect.width <= rect.width
     }
 }

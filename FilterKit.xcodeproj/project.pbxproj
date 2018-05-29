@@ -55,14 +55,15 @@
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
 		559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB320B6CB6D009B734D /* StringExtensions.swift */; };
 		559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB520B6D771009B734D /* RangeNumberInputView.swift */; };
-		559C6CB820B6E93C009B734D /* RangeNumberInputViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB720B6E93C009B734D /* RangeNumberInputViewDemoView.swift */; };
+		559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB920B83178009B734D /* RangeFilterView.swift */; };
+		559C6CBD20BBE709009B734D /* RangeFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */; };
+		559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CC020BC24B9009B734D /* RangeControl.swift */; };
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 		55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */; };
 		55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */; };
 		55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
-		55F97D1920B447FF002BABC9 /* RangeSliderViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1820B447FF002BABC9 /* RangeSliderViewDemoView.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
@@ -170,14 +171,15 @@
 		559C6CB120B6CA72009B734D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		559C6CB320B6CB6D009B734D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		559C6CB520B6D771009B734D /* RangeNumberInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
-		559C6CB720B6E93C009B734D /* RangeNumberInputViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeNumberInputViewDemoView.swift; sourceTree = "<group>"; };
+		559C6CB920B83178009B734D /* RangeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterView.swift; sourceTree = "<group>"; };
+		559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoView.swift; sourceTree = "<group>"; };
+		559C6CC020BC24B9009B734D /* RangeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeControl.swift; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFilterListViewController.swift; sourceTree = "<group>"; };
 		55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelFilterNavigator.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
-		55F97D1820B447FF002BABC9 /* RangeSliderViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderViewDemoView.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionViewController.swift; sourceTree = "<group>"; };
 		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -261,8 +263,7 @@
 				55858A1220AAC26400B100EA /* FilterInfo.swift */,
 				55858A1820AAC36200B100EA /* FilterComponents.swift */,
 				55F97D1320AC51FD002BABC9 /* PreferenceFilter */,
-				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
-				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
+				5515EA4320BD5B5600AC98A3 /* RangeFilter */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -275,8 +276,7 @@
 				9BE0A0502091CED70000632B /* Root */,
 				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
 				44ECE6A7208F816D0017AC82 /* Demo.swift */,
-				55F97D1820B447FF002BABC9 /* RangeSliderViewDemoView.swift */,
-				559C6CB720B6E93C009B734D /* RangeNumberInputViewDemoView.swift */,
+				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
 				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
@@ -364,6 +364,17 @@
 				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		5515EA4320BD5B5600AC98A3 /* RangeFilter */ = {
+			isa = PBXGroup;
+			children = (
+				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
+				559C6CB920B83178009B734D /* RangeFilterView.swift */,
+				559C6CC020BC24B9009B734D /* RangeControl.swift */,
+				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
+			);
+			path = RangeFilter;
 			sourceTree = "<group>";
 		};
 		55646DB320933D22006AA2DA /* PreferenceSelectionView */ = {
@@ -707,6 +718,7 @@
 				5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */,
 				5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
+				559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */,
 				55858A1920AAC36200B100EA /* FilterComponents.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
@@ -724,6 +736,7 @@
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,
 				55858A1720AAC2EB00B100EA /* FilterService.swift in Sources */,
+				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				44ECE6A4208F80320017AC82 /* Font.swift in Sources */,
 				9BE0A05B2091E7F30000632B /* Identifiable.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,
@@ -752,9 +765,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55F97D1920B447FF002BABC9 /* RangeSliderViewDemoView.swift in Sources */,
 				55646DAE2091E1E1006AA2DA /* PreferenceSelectionView.swift in Sources */,
-				559C6CB820B6E93C009B734D /* RangeNumberInputViewDemoView.swift in Sources */,
 				55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
@@ -763,6 +774,7 @@
 				55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
 				44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */,
+				559C6CBD20BBE709009B734D /* RangeFilterDemoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

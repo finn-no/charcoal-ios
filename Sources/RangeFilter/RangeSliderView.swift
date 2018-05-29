@@ -94,6 +94,10 @@ public final class RangeSliderView: UIControl {
     }
 
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard self.point(inside: point, with: event) else {
+            return nil
+        }
+
         if lowValueSlider.currentThumbRect.contains(point) {
             return lowValueSlider
         } else if highValueSlider.currentThumbRect.contains(point) {
@@ -104,21 +108,21 @@ public final class RangeSliderView: UIControl {
     }
 }
 
-public extension RangeSliderView {
-    var lowValue: RangeValue {
+extension RangeSliderView: RangeControl {
+    public var lowValue: RangeValue? {
         return RangeSliderView.RangeValue(min(lowValueSlider.value, highValueSlider.value))
     }
 
-    var highValue: RangeValue {
+    public var highValue: RangeValue? {
         return RangeSliderView.RangeValue(max(lowValueSlider.value, highValueSlider.value))
     }
 
-    func setLowerValue(_ value: RangeValue, animated: Bool) {
+    public func setLowValue(_ value: RangeValue, animated: Bool) {
         lowestValueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
     }
 
-    func setUpperValue(_ value: RangeValue, animated: Bool) {
+    public func setHighValue(_ value: RangeValue, animated: Bool) {
         highValueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
     }

@@ -1,0 +1,139 @@
+//
+//  Copyright © FINN.no AS, Inc. All rights reserved.
+//
+
+import UIKit
+
+public final class RangeFilterView: UIControl {
+    private lazy var numberInputView: RangeNumberInputView = {
+        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit)
+        rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
+        rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
+
+        return rangeNumberInputView
+    }()
+
+    private lazy var sliderInputView: RangeSliderView = {
+        let rangeSliderView = RangeSliderView(range: range, steps: steps)
+        rangeSliderView.translatesAutoresizingMaskIntoConstraints = false
+        rangeSliderView.addTarget(self, action: #selector(sliderInputValueChanged(_:)), for: .valueChanged)
+        return rangeSliderView
+    }()
+
+    public var generatesHapticFeedbackOnSliderValueChange = true {
+        didSet {
+            sliderInputView.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnSliderValueChange
+        }
+    }
+
+    public var sliderAccessibilityValueSuffix: String? {
+        didSet {
+            sliderInputView.accessibilityValueSuffix = sliderAccessibilityValueSuffix
+        }
+    }
+
+    private var _accessibilitySteps: RangeSliderView.Steps?
+    public var sliderAccessibilitySteps: RangeSliderView.Steps {
+        get {
+            guard let accessibilitySteps = _accessibilitySteps else {
+                return steps
+            }
+
+            return accessibilitySteps
+        }
+        set {
+            _accessibilitySteps = newValue
+            sliderInputView.accessibilitySteps = newValue
+        }
+    }
+
+    private enum InputValue {
+        case low, high
+    }
+
+    private var inputValues = [InputValue: RangeValue]()
+
+    public typealias RangeValue = Int
+    public typealias InputRange = ClosedRange<RangeValue>
+    let range: InputRange
+    let steps: Int
+    let unit: String
+
+    public init(range: InputRange, steps: Int, unit: String) {
+        self.range = range
+        self.steps = steps
+        self.unit = unit
+        super.init(frame: .zero)
+        setup()
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension RangeFilterView: RangeControl {
+    public var lowValue: Int? {
+        return inputValues[.low]
+    }
+
+    public var highValue: Int? {
+        return inputValues[.high]
+    }
+
+    public func setLowValue(_ value: Int, animated: Bool) {
+        numberInputView.setLowValue(value, animated: animated)
+        sliderInputView.setLowValue(value, animated: animated)
+    }
+
+    public func setHighValue(_ value: Int, animated: Bool) {
+        numberInputView.setHighValue(value, animated: animated)
+        sliderInputView.setHighValue(value, animated: animated)
+    }
+}
+
+private extension RangeFilterView {
+    func setup() {
+        addSubview(numberInputView)
+        addSubview(sliderInputView)
+
+        NSLayoutConstraint.activate([
+            numberInputView.topAnchor.constraint(equalTo: topAnchor),
+            numberInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            numberInputView.bottomAnchor.constraint(equalTo: sliderInputView.topAnchor, constant: -50),
+            numberInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sliderInputView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+    }
+
+    @objc func numberInputValueChanged(_ sender: RangeNumberInputView) {
+        if let lowValue = sender.lowValue {
+            sliderInputView.setLowValue(lowValue, animated: true)
+            inputValues[.low] = lowValue
+        }
+
+        if let highValue = sender.highValue {
+            sliderInputView.setHighValue(highValue, animated: true)
+            inputValues[.high] = highValue
+        }
+
+        sendActions(for: .valueChanged)
+    }
+
+    @objc func sliderInputValueChanged(_ sender: RangeSliderView) {
+        if let lowValue = sender.lowValue {
+            numberInputView.setLowValue(lowValue, animated: true)
+            inputValues[.low] = lowValue
+        }
+
+        if let highValue = sender.highValue {
+            numberInputView.setHighValue(highValue, animated: true)
+            inputValues[.high] = highValue
+        }
+
+        sendActions(for: .valueChanged)
+    }
+}

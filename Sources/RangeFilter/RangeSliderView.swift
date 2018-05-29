@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class RangeSliderView: UIControl {
+final class RangeSliderView: UIControl {
     public static let minimumViewHeight: CGFloat = 28.0
 
     private lazy var lowValueSlider: SteppedSlider = {
@@ -45,29 +45,27 @@ public final class RangeSliderView: UIControl {
     private let activeRangeTrackViewLeadingAnchorIdentifier = "activeRangeTrackViewLeadingAnchorIdentifier"
     private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
 
-    public typealias RangeValue = Int
-    public typealias SliderRange = ClosedRange<RangeValue>
-    public let range: SliderRange
+    typealias RangeValue = Int
+    typealias SliderRange = ClosedRange<RangeValue>
+    let range: SliderRange
+    let steps: Int
 
-    public typealias Steps = Int
-    public let steps: Int
-
-    public var generatesHapticFeedbackOnValueChange = true {
+    var generatesHapticFeedbackOnValueChange = true {
         didSet {
             lowValueSlider.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnValueChange
             highValueSlider.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnValueChange
         }
     }
 
-    public var accessibilityValueSuffix: String? {
+    var accessibilityValueSuffix: String? {
         didSet {
             lowValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
             highValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
         }
     }
 
-    private var _accessibilitySteps: Steps?
-    public var accessibilitySteps: Steps {
+    private var _accessibilitySteps: Int?
+    var accessibilitySteps: Int {
         get {
             guard let accessibilitySteps = _accessibilitySteps else {
                 return steps
@@ -82,18 +80,18 @@ public final class RangeSliderView: UIControl {
         }
     }
 
-    public init(range: SliderRange, steps: Steps?) {
+    init(range: SliderRange, steps: Int?) {
         self.range = range
-        self.steps = steps ?? Steps(range.upperBound - range.lowerBound)
+        self.steps = steps ?? Int(range.upperBound - range.lowerBound)
         super.init(frame: .zero)
         setup()
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard self.point(inside: point, with: event) else {
             return nil
         }
@@ -109,20 +107,20 @@ public final class RangeSliderView: UIControl {
 }
 
 extension RangeSliderView: RangeControl {
-    public var lowValue: RangeValue? {
+    var lowValue: RangeValue? {
         return RangeSliderView.RangeValue(min(lowValueSlider.value, highValueSlider.value))
     }
 
-    public var highValue: RangeValue? {
+    var highValue: RangeValue? {
         return RangeSliderView.RangeValue(max(lowValueSlider.value, highValueSlider.value))
     }
 
-    public func setLowValue(_ value: RangeValue, animated: Bool) {
+    func setLowValue(_ value: RangeValue, animated: Bool) {
         lowestValueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
     }
 
-    public func setHighValue(_ value: RangeValue, animated: Bool) {
+    func setHighValue(_ value: RangeValue, animated: Bool) {
         highValueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
     }
@@ -206,7 +204,7 @@ private extension RangeSliderView {
 }
 
 fileprivate final class SteppedSlider: UISlider {
-    let steps: RangeSliderView.Steps
+    let steps: Int
     let range: RangeSliderView.SliderRange
 
     var roundedStepValueChangedHandler: ((SteppedSlider) -> Void)?
@@ -218,8 +216,8 @@ fileprivate final class SteppedSlider: UISlider {
         }
     }
 
-    private var _accessibilitySteps: RangeSliderView.Steps?
-    public var accessibilitySteps: RangeSliderView.Steps {
+    private var _accessibilitySteps: Int?
+    public var accessibilitySteps: Int {
         get {
             guard let accessibilitySteps = _accessibilitySteps else {
                 return steps
@@ -234,7 +232,7 @@ fileprivate final class SteppedSlider: UISlider {
 
     private var previousRoundedStepValue: RangeSliderView.RangeValue?
 
-    init(range: RangeSliderView.SliderRange, steps: RangeSliderView.Steps) {
+    init(range: RangeSliderView.SliderRange, steps: Int) {
         self.range = range
         self.steps = steps
         super.init(frame: .zero)

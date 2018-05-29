@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol RangeControl {
+protocol RangeControl {
     associatedtype RangeValue: Comparable
     var lowValue: RangeValue? { get }
     var highValue: RangeValue? { get }

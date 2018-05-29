@@ -32,8 +32,8 @@ public final class RangeFilterView: UIControl {
         }
     }
 
-    private var _accessibilitySteps: RangeSliderView.Steps?
-    public var sliderAccessibilitySteps: RangeSliderView.Steps {
+    private var _accessibilitySteps: Int?
+    public var sliderAccessibilitySteps: Int {
         get {
             guard let accessibilitySteps = _accessibilitySteps else {
                 return steps

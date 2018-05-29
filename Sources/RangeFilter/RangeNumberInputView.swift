@@ -4,9 +4,7 @@
 
 import UIKit
 
-public final class RangeNumberInputView: UIControl {
-    public static let minimumViewHeight: CGFloat = 58.0
-
+final class RangeNumberInputView: UIControl {
     private lazy var lowValueInputTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -98,23 +96,23 @@ public final class RangeNumberInputView: UIControl {
     private let highValueInputDecorationViewConstraintIdentifier = "highValueInputDecorationViewConstraintIdentifier"
     private var inputValues = [InputGroup: RangeValue]()
 
-    public typealias RangeValue = Int
-    public typealias InputRange = ClosedRange<RangeValue>
+    typealias RangeValue = Int
+    typealias InputRange = ClosedRange<RangeValue>
     let range: InputRange
     let unit: String
 
-    public init(range: InputRange, unit: String) {
+    init(range: InputRange, unit: String) {
         self.range = range
         self.unit = unit
         super.init(frame: .zero)
         setup()
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard self.point(inside: point, with: event) else {
             _ = resignFirstResponder()
             return nil
@@ -130,11 +128,11 @@ public final class RangeNumberInputView: UIControl {
         return nil
     }
 
-    public override var isFirstResponder: Bool {
+    override var isFirstResponder: Bool {
         return lowValueInputTextField.isFirstResponder || highValueInputTextField.isFirstResponder
     }
 
-    public override func resignFirstResponder() -> Bool {
+    override func resignFirstResponder() -> Bool {
         if lowValueInputTextField.isFirstResponder {
             lowValueInputTextField.resignFirstResponder()
         } else if highValueInputTextField.isFirstResponder {
@@ -146,7 +144,7 @@ public final class RangeNumberInputView: UIControl {
 }
 
 extension RangeNumberInputView: RangeControl {
-    public var lowValue: RangeValue? {
+    var lowValue: RangeValue? {
         guard let lowInputValue = inputValues[.lowValue] else {
             return nil
         }
@@ -158,7 +156,7 @@ extension RangeNumberInputView: RangeControl {
         return min(lowInputValue, highInputValue)
     }
 
-    public var highValue: RangeValue? {
+    var highValue: RangeValue? {
         guard let highInputValue = inputValues[.highValue] else {
             return nil
         }
@@ -170,19 +168,19 @@ extension RangeNumberInputView: RangeControl {
         return max(lowInputValue, highInputValue)
     }
 
-    public func setLowValue(_ value: RangeValue, animated: Bool) {
+    func setLowValue(_ value: RangeValue, animated: Bool) {
         lowValueInputTextField.text = text(from: value)
         inputValues[.lowValue] = value
     }
 
-    public func setHighValue(_ value: RangeValue, animated: Bool) {
+    func setHighValue(_ value: RangeValue, animated: Bool) {
         highValueInputTextField.text = text(from: value)
         inputValues[.highValue] = value
     }
 }
 
 extension RangeNumberInputView: UITextFieldDelegate {
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         guard let inputGroup = inputGroupMap[textField] else {
             return
         }
@@ -190,7 +188,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         handleInteraction(with: inputGroup)
     }
 
-    public func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         guard let inputGroup = inputGroupMap[textField] else {
             return
         }
@@ -198,7 +196,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         setInputGroup(inputGroup, active: false)
     }
 
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         defer {
             sendActions(for: .valueChanged)
         }

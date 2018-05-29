@@ -70,6 +70,25 @@ public final class RangeFilterView: UIControl {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard self.point(inside: point, with: event) else {
+            if numberInputView.isFirstResponder {
+                _ = numberInputView.resignFirstResponder()
+            }
+
+            return nil
+        }
+
+        for subview in subviews {
+            let convertedPoint = subview.convert(point, from: self)
+            if let hitView = subview.hitTest(convertedPoint, with: event) {
+                return hitView
+            }
+        }
+
+        return nil
+    }
 }
 
 extension RangeFilterView: RangeControl {

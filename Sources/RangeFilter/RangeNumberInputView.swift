@@ -116,12 +116,7 @@ public final class RangeNumberInputView: UIControl {
 
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard self.point(inside: point, with: event) else {
-            if lowValueInputTextField.isFirstResponder {
-                lowValueInputTextField.resignFirstResponder()
-            } else if highValueInputTextField.isFirstResponder {
-                highValueInputTextField.resignFirstResponder()
-            }
-
+            _ = resignFirstResponder()
             return nil
         }
 
@@ -133,6 +128,20 @@ public final class RangeNumberInputView: UIControl {
         }
 
         return nil
+    }
+
+    public override var isFirstResponder: Bool {
+        return lowValueInputTextField.isFirstResponder || highValueInputTextField.isFirstResponder
+    }
+
+    public override func resignFirstResponder() -> Bool {
+        if lowValueInputTextField.isFirstResponder {
+            lowValueInputTextField.resignFirstResponder()
+        } else if highValueInputTextField.isFirstResponder {
+            highValueInputTextField.resignFirstResponder()
+        }
+
+        return super.resignFirstResponder()
     }
 }
 

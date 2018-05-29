@@ -94,18 +94,35 @@ extension RangeFilterView: RangeControl {
 
 private extension RangeFilterView {
     func setup() {
+        let referenceValueLabelsContainer = UIStackView(frame: .zero)
+        referenceValueLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
+        referenceValueLabelsContainer.distribution = .fillEqually
+
+        let lowerBoundReferenceLabel = UILabel(text: "\(range.lowerBound) \(unit)", textAlignment: .left)
+        let midBoundReferenceLabel = UILabel(text: "\(range.count / 2) \(unit)", textAlignment: .center)
+        let upperBoundReferenceLabel = UILabel(text: "\(range.upperBound) \(unit)", textAlignment: .right)
+
+        referenceValueLabelsContainer.addArrangedSubview(lowerBoundReferenceLabel)
+        referenceValueLabelsContainer.addArrangedSubview(midBoundReferenceLabel)
+        referenceValueLabelsContainer.addArrangedSubview(upperBoundReferenceLabel)
+
         addSubview(numberInputView)
         addSubview(sliderInputView)
+        addSubview(referenceValueLabelsContainer)
 
         NSLayoutConstraint.activate([
             numberInputView.topAnchor.constraint(equalTo: topAnchor),
             numberInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            numberInputView.bottomAnchor.constraint(equalTo: sliderInputView.topAnchor, constant: -50),
             numberInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
+            sliderInputView.topAnchor.constraint(equalTo: numberInputView.bottomAnchor, constant: 50),
             sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sliderInputView.bottomAnchor.constraint(equalTo: bottomAnchor),
             sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            referenceValueLabelsContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .mediumLargeSpacing),
+            referenceValueLabelsContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),
+            referenceValueLabelsContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            referenceValueLabelsContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
     }
 
@@ -135,5 +152,16 @@ private extension RangeFilterView {
         }
 
         sendActions(for: .valueChanged)
+    }
+}
+
+private extension UILabel {
+    convenience init(text: String, textAlignment: NSTextAlignment) {
+        self.init(frame: .zero)
+        self.text = text
+        self.textAlignment = textAlignment
+
+        font = .detail
+        textColor = .licorice
     }
 }

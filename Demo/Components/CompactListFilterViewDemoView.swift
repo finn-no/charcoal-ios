@@ -12,6 +12,7 @@ final class CompactListFilterViewDemoView: UIView {
 
     let compactListFilterView: CompactListFilterView = {
         let compactListFilterView = CompactListFilterView(values: items)
+        compactListFilterView.accessibilityValuesPrefix = "Størrelse"
         compactListFilterView.addTarget(self, action: #selector(compactListFilterViewValueChanged(_:)), for: .valueChanged)
         return compactListFilterView
     }()

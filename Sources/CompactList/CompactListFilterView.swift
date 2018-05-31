@@ -19,6 +19,7 @@ public final class CompactListFilterView: UIControl {
 
     public typealias FilterValue = String
     public let values: [FilterValue]
+    public var accessibilityValuesPrefix: String?
 
     public init(values: [FilterValue]) {
         self.values = values
@@ -73,7 +74,8 @@ extension CompactListFilterView: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ItemCell.self), for: indexPath) as! ItemCell
-        cell.titleLabel.text = values[indexPath.row]
+        cell.value = values[indexPath.row]
+        cell.accessibilityValuePrefix = accessibilityValuesPrefix
         return cell
     }
 }
@@ -101,7 +103,7 @@ extension CompactListFilterView: UICollectionViewDelegate {
 }
 
 fileprivate final class ItemCell: UICollectionViewCell {
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -119,6 +121,19 @@ fileprivate final class ItemCell: UICollectionViewCell {
         }
     }
 
+    var value: String = "" {
+        didSet {
+            titleLabel.text = value
+            accessibilityValue = value
+        }
+    }
+
+    var accessibilityValuePrefix: String? {
+        didSet {
+            accessibilityValue = "\(accessibilityValuePrefix ?? "") \(value)"
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -129,6 +144,8 @@ fileprivate final class ItemCell: UICollectionViewCell {
     }
 
     private func setup() {
+        isAccessibilityElement = true
+
         contentView.addSubview(titleLabel)
         titleLabel.fillInSuperview()
 

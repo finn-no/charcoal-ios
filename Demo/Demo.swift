@@ -71,7 +71,7 @@ enum Sections: String {
             case .list:
                 return .none
             case .compactListFilter:
-                return .none
+                return .bottomSheet
             }
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]

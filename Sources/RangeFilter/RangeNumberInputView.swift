@@ -243,9 +243,9 @@ extension RangeNumberInputView: UITextFieldDelegate {
 
             if shouldAdjustsFontSizeToFitWidth {
                 textField.adjustsFontSizeToFitWidth = true
+                textField.minimumFontSize = Style.minimumFontSize
             } else {
-                textField.adjustsFontSizeToFitWidth = false
-                textField.font = font
+                textField.minimumFontSize = Style.normalFontSize
             }
         }
 
@@ -256,8 +256,10 @@ extension RangeNumberInputView: UITextFieldDelegate {
 private extension RangeNumberInputView {
     struct Style {
         static let textColor: UIColor = .licorice
-        static let normalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: 36)
-        static let activeFont: UIFont? = UIFont(name: FontType.bold.rawValue, size: 36)
+        static let minimumFontSize: CGFloat = 22
+        static let normalFontSize: CGFloat = 36
+        static let normalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: normalFontSize)
+        static let activeFont: UIFont? = UIFont(name: FontType.bold.rawValue, size: normalFontSize)
         static let decorationViewColor: UIColor = .stone
         static let decorationViewActiveColor: UIColor = .primaryBlue
         static let decorationViewHeight: CGFloat = 1.0

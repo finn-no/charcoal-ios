@@ -37,6 +37,7 @@ private extension SelectionListItemCell {
         textLabel?.textColor = .licorice
         detailTextLabel?.font = .detail
         detailTextLabel?.textColor = .stone
+        detailTextLabel?.adjustsFontSizeToFitWidth = true
         imageView?.image = UIImage(named: .checkbox)
 
         addSubview(separatorLine)

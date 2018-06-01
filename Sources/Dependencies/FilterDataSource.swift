@@ -5,8 +5,9 @@
 import Foundation
 
 public protocol FilterDataSource {
-    var filterComponents: [FilterComponent] { get }
+    var filterInfo: [FilterInfoType] { get }
     var numberOfHits: Int { get }
+    var filterTitle: String { get }
 
-    func selectionValuesForFilterComponent(at index: Int) -> [String]
+    func selectionValuesForFilterInfo(at index: Int) -> [String]
 }

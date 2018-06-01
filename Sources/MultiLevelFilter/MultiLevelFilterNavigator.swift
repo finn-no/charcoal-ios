@@ -6,7 +6,7 @@ import Foundation
 
 public class MultiLevelFilterNavigator: Navigator {
     public enum Destination {
-        case subLevel(filterInfo: MultiLevelFilterInfo, delegate: MultiLevelFilterListViewControllerDelegate?)
+        case subLevel(filterInfo: MultiLevelFilterInfoType, delegate: MultiLevelFilterListViewControllerDelegate?)
     }
 
     typealias Factory = MultiLevelFilterNavigatorFactory & MultiLevelFilterListViewControllerFactory

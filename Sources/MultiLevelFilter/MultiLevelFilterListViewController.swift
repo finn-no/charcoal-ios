@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol MultiLevelFilterListViewControllerDelegate: ListViewControllerDelegate {
-    func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfo, didSelect sublevelFilterInfo: MultiLevelFilterInfo)
+    func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfoType, didSelect sublevelFilterInfo: MultiLevelFilterInfoType)
 }
 
 extension MultiLevelFilterListViewControllerDelegate {
@@ -14,10 +14,10 @@ extension MultiLevelFilterListViewControllerDelegate {
 }
 
 public final class MultiLevelFilterListViewController: ListViewController {
-    let filterInfo: MultiLevelFilterInfo
+    let filterInfo: MultiLevelFilterInfoType
     let navigator: MultiLevelFilterNavigator
 
-    public init(filterInfo: MultiLevelFilterInfo, navigator: MultiLevelFilterNavigator) {
+    public init(filterInfo: MultiLevelFilterInfoType, navigator: MultiLevelFilterNavigator) {
         self.filterInfo = filterInfo
         self.navigator = navigator
         super.init(title: filterInfo.name, items: filterInfo.filters, allowsMultipleSelection: filterInfo.isMultiSelect)

@@ -122,7 +122,8 @@ enum ComponentViews: String {
             return navigationController
 
         case .rootFilters:
-            let dataSource = DemoFilterDataSource()
+            let filterData = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
+            let dataSource = DemoFilterDataSource(filterData: filterData)
             let navigationController = FilterNavigationController()
             let factory = FilterDependencyContainer(dataSource: dataSource)
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
@@ -157,7 +158,8 @@ enum FullscreenViews: String {
     var viewController: UIViewController {
         switch self {
         case .fullDemo:
-            let dataSource = DemoFilterDataSource()
+            let filterData = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
+            let dataSource = DemoFilterDataSource(filterData: filterData)
             let navigationController = FilterNavigationController()
             let factory = FilterDependencyContainer(dataSource: dataSource)
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)

@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol PreferenceFilterListViewControllerDelegate: ListViewControllerDelegate {
-    func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfo, didSelect preferenceValue: PreferenceValue)
+    func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfoType, didSelect preferenceValue: PreferenceValueType)
 }
 
 extension ListViewControllerDelegate where Self: PreferenceFilterListViewControllerDelegate {
@@ -14,9 +14,9 @@ extension ListViewControllerDelegate where Self: PreferenceFilterListViewControl
 }
 
 public class PreferenceFilterListViewController: ListViewController {
-    let preferenceInfo: PreferenceInfo
+    let preferenceInfo: PreferenceInfoType
 
-    public init(preferenceInfo: PreferenceInfo) {
+    public init(preferenceInfo: PreferenceInfoType) {
         self.preferenceInfo = preferenceInfo
         super.init(title: preferenceInfo.name, items: preferenceInfo.values, allowsMultipleSelection: preferenceInfo.isMultiSelect)
     }

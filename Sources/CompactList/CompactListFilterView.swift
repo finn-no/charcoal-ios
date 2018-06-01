@@ -10,7 +10,7 @@ public final class CompactListFilterView: UIControl {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(ItemCell.self, forCellWithReuseIdentifier: String(describing: ItemCell.self))
+        collectionView.register(ItemCell.self)
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
 
@@ -73,7 +73,7 @@ extension CompactListFilterView: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ItemCell.self), for: indexPath) as! ItemCell
+        let cell = collectionView.dequeueReusableCell(for: indexPath) as ItemCell
         cell.value = values[indexPath.row]
         cell.accessibilityValuePrefix = accessibilityValuesPrefix
         return cell
@@ -102,7 +102,7 @@ extension CompactListFilterView: UICollectionViewDelegate {
     }
 }
 
-fileprivate final class ItemCell: UICollectionViewCell {
+fileprivate final class ItemCell: UICollectionViewCell, Identifiable {
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false

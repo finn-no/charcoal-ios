@@ -8,10 +8,7 @@ import UIKit
 // MARK: - DemoViewsTableViewController
 
 class DemoViewsTableViewController: UITableViewController {
-    public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
-        let delegate = BottomSheetTransitioningDelegate(for: self)
-        return delegate
-    }()
+    var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate?
 
     init() {
         super.init(style: .grouped)
@@ -90,6 +87,7 @@ extension DemoViewsTableViewController {
     func presentViewControllerWithDismissGesture(_ viewController: UIViewController, transitionStyle: TransitionStyle) {
         switch transitionStyle {
         case .bottomSheet:
+            bottomsheetTransitioningDelegate = BottomSheetTransitioningDelegate(for: self)
             viewController.transitioningDelegate = bottomsheetTransitioningDelegate
             viewController.modalPresentationStyle = .custom
         default:

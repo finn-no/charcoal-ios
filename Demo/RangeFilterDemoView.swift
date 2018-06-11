@@ -11,13 +11,13 @@ public class RangeFilterDemoView: UIView {
     let steps: Int = 300
     let sliderAccessibilitySteps: Int = 30
     let unit = "kr"
-    let accessabilityUnit = "kroner"
+    let accessibilityUnit = "kroner"
 
     private lazy var rangeFilterView: RangeFilterView = {
         let rangeFilterView = RangeFilterView(range: lowValue ... highValue, steps: steps, unit: unit)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
-        rangeFilterView.accessibilityValueSuffix = accessabilityUnit
+        rangeFilterView.accessibilityValueSuffix = accessibilityUnit
         rangeFilterView.setLowValue(lowValue, animated: false)
         rangeFilterView.setHighValue(highValue, animated: false)
         rangeFilterView.addTarget(self, action: #selector(rangeFilterViewValueChanged(_:)), for: .valueChanged)

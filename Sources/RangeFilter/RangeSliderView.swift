@@ -80,6 +80,13 @@ final class RangeSliderView: UIControl {
         }
     }
 
+    override var accessibilityFrame: CGRect {
+        didSet {
+            lowValueSlider.accessibilityFrame = accessibilityFrame
+            highValueSlider.accessibilityFrame = accessibilityFrame
+        }
+    }
+
     init(range: SliderRange, steps: Int?) {
         self.range = range
         self.steps = steps ?? Int(range.upperBound - range.lowerBound)
@@ -118,11 +125,13 @@ extension RangeSliderView: RangeControl {
     func setLowValue(_ value: RangeValue, animated: Bool) {
         lowestValueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
+        updateAccesibilityValues()
     }
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
         highValueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
+        updateAccesibilityValues()
     }
 }
 

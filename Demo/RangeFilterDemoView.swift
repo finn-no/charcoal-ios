@@ -17,7 +17,7 @@ public class RangeFilterDemoView: UIView {
         let rangeFilterView = RangeFilterView(range: lowValue ... highValue, steps: steps, unit: unit)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
-        rangeFilterView.sliderAccessibilityValueSuffix = accessabilityUnit
+        rangeFilterView.accessibilityValueSuffix = accessabilityUnit
         rangeFilterView.setLowValue(lowValue, animated: false)
         rangeFilterView.setHighValue(highValue, animated: false)
         rangeFilterView.addTarget(self, action: #selector(rangeFilterViewValueChanged(_:)), for: .valueChanged)

@@ -26,9 +26,10 @@ public final class RangeFilterView: UIControl {
         }
     }
 
-    public var sliderAccessibilityValueSuffix: String? {
+    public var accessibilityValueSuffix: String? {
         didSet {
-            sliderInputView.accessibilityValueSuffix = sliderAccessibilityValueSuffix
+            sliderInputView.accessibilityValueSuffix = accessibilityValueSuffix
+            numberInputView.accessibilityValueSuffix = accessibilityValueSuffix
         }
     }
 
@@ -89,6 +90,12 @@ public final class RangeFilterView: UIControl {
 
         return nil
     }
+
+    public override var accessibilityFrame: CGRect {
+        didSet {
+            sliderInputView.accessibilityFrame = accessibilityFrame
+        }
+    }
 }
 
 extension RangeFilterView: RangeControl {
@@ -118,8 +125,11 @@ private extension RangeFilterView {
         referenceValueLabelsContainer.distribution = .fillEqually
 
         let lowerBoundReferenceLabel = UILabel(text: "\(range.lowerBound) \(unit)", textAlignment: .left)
+        lowerBoundReferenceLabel.isAccessibilityElement = false
         let midBoundReferenceLabel = UILabel(text: "\(range.count / 2) \(unit)", textAlignment: .center)
+        midBoundReferenceLabel.isAccessibilityElement = false
         let upperBoundReferenceLabel = UILabel(text: "\(range.upperBound) \(unit)", textAlignment: .right)
+        upperBoundReferenceLabel.isAccessibilityElement = false
 
         referenceValueLabelsContainer.addArrangedSubview(lowerBoundReferenceLabel)
         referenceValueLabelsContainer.addArrangedSubview(midBoundReferenceLabel)

@@ -7,3 +7,5 @@
 
 "range_slider_view_low_value_slider_accessibility_label" = "Glidebryter for lav verdi";
 "range_slider_view_high_value_slider_accessibility_label" = "Glidebryter for høy verdi";
+"range_number_input_view_low_value_textfield_accessibility_label" = "Tekstfelt for lav verdi";
+"range_number_input_view_high_value_textfield_accessibility_label" = "Tekstfelt for høy verdi";

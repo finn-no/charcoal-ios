@@ -13,6 +13,7 @@ final class RangeNumberInputView: UIControl {
         textField.font = RangeNumberInputView.Style.normalFont
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
+        textField.accessibilityLabel = "range_number_input_view_low_value_textfield_accessibility_label".localized()
 
         return textField
     }()
@@ -25,7 +26,7 @@ final class RangeNumberInputView: UIControl {
         label.font = RangeNumberInputView.Style.normalFont
         label.addGestureRecognizer(makeGestureRecognizer())
         label.isUserInteractionEnabled = true
-
+        label.isAccessibilityElement = false
         return label
     }()
 
@@ -47,6 +48,7 @@ final class RangeNumberInputView: UIControl {
         textField.font = RangeNumberInputView.Style.normalFont
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
+        textField.accessibilityLabel = "range_number_input_view_high_value_textfield_accessibility_label".localized()
 
         return textField
     }()
@@ -59,6 +61,7 @@ final class RangeNumberInputView: UIControl {
         label.font = RangeNumberInputView.Style.normalFont
         label.addGestureRecognizer(makeGestureRecognizer())
         label.isUserInteractionEnabled = true
+        label.isAccessibilityElement = false
 
         return label
     }()
@@ -128,6 +131,11 @@ final class RangeNumberInputView: UIControl {
         return nil
     }
 
+    var accessibilityValueSuffix: String? {
+        didSet {
+        }
+    }
+
     override var isFirstResponder: Bool {
         return lowValueInputTextField.isFirstResponder || highValueInputTextField.isFirstResponder
     }
@@ -169,12 +177,16 @@ extension RangeNumberInputView: RangeControl {
     }
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
-        lowValueInputTextField.text = text(from: value)
+        let valueText = text(from: value)
+        lowValueInputTextField.text = valueText
+        lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.lowValue] = value
     }
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
-        highValueInputTextField.text = text(from: value)
+        let valueText = text(from: value)
+        highValueInputTextField.text = valueText
+        highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.highValue] = value
     }
 }
@@ -229,7 +241,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         }
 
         textField.text = "\(newValue)"
-
+        textField.accessibilityValue = "\(newValue) \(accessibilityValueSuffix ?? "")"
         inputValues[inputGroup] = newValue
 
         if let font = RangeNumberInputView.Style.activeFont {
@@ -268,8 +280,11 @@ private extension RangeNumberInputView {
     }
 
     func setup() {
-        lowValueInputTextField.text = text(from: range.lowerBound)
-        highValueInputTextField.text = text(from: range.lowerBound)
+        let valueText = text(from: range.lowerBound)
+        lowValueInputTextField.text = valueText
+        highValueInputTextField.text = valueText
+        lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
+        highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
 
         addSubview(lowValueInputTextField)
         addSubview(lowValueInputUnitLabel)

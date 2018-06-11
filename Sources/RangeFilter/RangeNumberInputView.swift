@@ -201,20 +201,14 @@ extension RangeNumberInputView: UITextFieldDelegate {
             sendActions(for: .valueChanged)
         }
 
-        textField.text?.dropLeadingZeros()
-
         var newString = (textField.text ?? "")
 
-        if newString.isEmpty {
-            newString += string
-        } else {
-            let stringIndex = newString.index(newString.startIndex, offsetBy: range.location)
+        let stringIndex = newString.index(newString.startIndex, offsetBy: range.location)
 
-            if string.isEmpty {
-                newString.remove(at: stringIndex)
-            } else {
-                newString.insert(Character(string), at: stringIndex)
-            }
+        if string.isEmpty {
+            newString.remove(at: stringIndex)
+        } else {
+            newString.insert(Character(string), at: stringIndex)
         }
 
         guard let inputGroup = inputGroupMap[textField] else {
@@ -234,6 +228,8 @@ extension RangeNumberInputView: UITextFieldDelegate {
             return false
         }
 
+        textField.text = "\(newValue)"
+
         inputValues[inputGroup] = newValue
 
         if let font = RangeNumberInputView.Style.activeFont {
@@ -249,7 +245,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
             }
         }
 
-        return true
+        return false
     }
 }
 
@@ -417,13 +413,6 @@ private extension UIView {
 }
 
 private extension String {
-    mutating func dropLeadingZeros() {
-        if let firstChararcter = self.first, let firstNumber = Int(String(firstChararcter)), firstNumber == 0 {
-            self = String(dropFirst())
-            dropLeadingZeros()
-        }
-    }
-
     func willFit(in rect: CGRect, attributes: [NSAttributedStringKey: Any]) -> Bool {
         let attributedString = NSAttributedString(string: self, attributes: attributes)
         let constrainedSize = CGSize(width: 0, height: rect.size.height)

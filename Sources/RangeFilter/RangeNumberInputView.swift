@@ -213,29 +213,23 @@ extension RangeNumberInputView: UITextFieldDelegate {
             sendActions(for: .valueChanged)
         }
 
-        var newString = (textField.text ?? "")
+        var text = textField.text ?? ""
 
-        let stringIndex = newString.index(newString.startIndex, offsetBy: range.location)
+        guard let stringRange = Range<String.Index>(range, in: text) else {
+            return false
+        }
 
-        if string.isEmpty {
-            newString.remove(at: stringIndex)
-        } else {
-            newString.insert(Character(string), at: stringIndex)
+        text.replaceSubrange(stringRange, with: string)
+
+        if text.isEmpty {
+            text = "\(self.range.lowerBound)"
         }
 
         guard let inputGroup = inputGroupMap[textField] else {
             return false
         }
 
-        if newString.isEmpty {
-            let newValue = self.range.lowerBound
-            newString = "\(newValue)"
-            textField.text = "\(newValue)"
-            inputValues[inputGroup] = newValue
-            return false
-        }
-
-        guard let newValue = RangeValue(newString) else {
+        guard let newValue = RangeValue(text) else {
             inputValues[inputGroup] = nil
             return false
         }
@@ -247,7 +241,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         if let font = RangeNumberInputView.Style.activeFont {
             let attributes = [NSAttributedStringKey.font: font]
             let maxTextFieldBounds = self.maxTextFieldBounds(for: inputGroup)
-            let shouldAdjustsFontSizeToFitWidth = newString.willFit(in: maxTextFieldBounds, attributes: attributes) == false
+            let shouldAdjustsFontSizeToFitWidth = text.willFit(in: maxTextFieldBounds, attributes: attributes) == false
 
             if shouldAdjustsFontSizeToFitWidth {
                 textField.adjustsFontSizeToFitWidth = true

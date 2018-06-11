@@ -70,6 +70,8 @@ enum Sections: String {
                 return .none
             case .list:
                 return .none
+            case .compactListFilter:
+                return .bottomSheet
             case .rangeFilter:
                 return .bottomSheet
             }
@@ -113,6 +115,7 @@ enum ComponentViews: String {
     case rootFilters
     case preferenceFilter
     case list
+    case compactListFilter
     case rangeFilter
 
     var viewController: UIViewController {
@@ -141,6 +144,8 @@ enum ComponentViews: String {
         case .list:
             let viewController = ListViewController(title: "Kategori", items: ListViewControllerDemo.listItems)
             return viewController
+        case .compactListFilter:
+            return ViewController<CompactListFilterViewDemoView>()
 
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
@@ -153,6 +158,7 @@ enum ComponentViews: String {
             .rootFilters,
             .preferenceFilter,
             .list,
+            .compactListFilter,
             .rangeFilter,
         ]
     }

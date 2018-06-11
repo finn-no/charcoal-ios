@@ -6,9 +6,9 @@ import FilterKit
 import Foundation
 
 final class FilterInfoBuilder {
-    let filterData: FilterData
+    let filterData: Filter
 
-    init(filterData: FilterData) {
+    init(filterData: Filter) {
         self.filterData = filterData
     }
 
@@ -35,7 +35,7 @@ private extension FilterInfoBuilder {
         return FreeSearchFilterInfo(currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch")
     }
 
-    func buildPreferenceFilterInfo(from filterData: FilterData) -> PreferenceFilterInfo? {
+    func buildPreferenceFilterInfo(from filterData: Filter) -> PreferenceFilterInfo? {
         let filterKeys = FilterKey.preferenceFilterKeys
         let filters = filterKeys.compactMap { filterData.filter(forKey: $0) }
 
@@ -54,7 +54,7 @@ private extension FilterInfoBuilder {
         return PreferenceFilterInfo(preferences: preferences, name: "Preferences")
     }
 
-    func buildMultiLevelFilterInfo(from filterData: FilterData) -> [MultilevelFilterInfo] {
+    func buildMultiLevelFilterInfo(from filterData: Filter) -> [MultilevelFilterInfo] {
         let allFilterKeysSet = Set(filterData.filters.map({ $0.key }))
         let preferenceFilterKeys = FilterKey.preferenceFilterKeys
         let rangeFilterKeys = filterData.filters.filter({ $0.isRange }).map { $0.key }

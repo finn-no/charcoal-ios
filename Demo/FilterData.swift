@@ -38,12 +38,12 @@ enum FilterKey: String, CodingKey {
     }
 }
 
-struct FilterData: Decodable {
+struct Filter: Decodable {
     let market: String
     let hits: Int
     let filterTitle: String
     let rawFilterKeys: [String]
-    let filters: [Filter]
+    let filters: [FilterData]
 
     enum CodingKeys: String, CodingKey {
         case market, hits, filterTitle = "label", rawFilterKeys = "filters", filterData = "filter-data"
@@ -59,29 +59,29 @@ struct FilterData: Decodable {
 
         let filterDataContainer = try container.nestedContainer(keyedBy: FilterKey.self, forKey: .filterData)
         let elementKeys = rawFilterKeys.compactMap({ FilterKey(stringValue: $0) })
-        filters = try elementKeys.compactMap { elementKey -> Filter? in
-            guard let partial = try filterDataContainer.decodeIfPresent(Filter.PartialFilterDataElement.self, forKey: elementKey) else {
+        filters = try elementKeys.compactMap { elementKey -> FilterData? in
+            guard let partial = try filterDataContainer.decodeIfPresent(FilterData.PartialFilterDataElement.self, forKey: elementKey) else {
                 return nil
             }
 
-            return Filter(key: elementKey, partial: partial)
+            return FilterData(key: elementKey, partial: partial)
         }
     }
 
-    func filter(forKey key: FilterKey) -> Filter? {
+    func filter(forKey key: FilterKey) -> FilterData? {
         return filter(forKey: key.rawValue)
     }
 
-    func filter(forKey key: String) -> Filter? {
+    func filter(forKey key: String) -> FilterData? {
         return filters.first(where: { $0.key.rawValue == key })
     }
 }
 
-struct Filter {
+struct FilterData {
     let key: FilterKey
     let title: String
     let isRange: Bool
-    let queries: [Filter.Query]?
+    let queries: [FilterData.Query]?
 
     init(key: FilterKey, partial: PartialFilterDataElement) {
         self.key = key
@@ -91,11 +91,11 @@ struct Filter {
     }
 }
 
-extension Filter {
+extension FilterData {
     struct PartialFilterDataElement: Decodable {
         let title: String
         let isRange: Bool
-        let queries: [Filter.Query]?
+        let queries: [FilterData.Query]?
 
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -110,7 +110,7 @@ extension Filter {
     }
 }
 
-extension Filter {
+extension FilterData {
     struct Query: Decodable {
         let title: String
         let value: String
@@ -123,14 +123,14 @@ extension Filter {
     }
 }
 
-extension Filter.Query {
+extension FilterData.Query {
     struct Filter: Decodable {
         let title: String
         let queries: [Filter.Query]
     }
 }
 
-extension Filter.Query.Filter {
+extension FilterData.Query.Filter {
     struct Query: Decodable {
         let title: String
         let value: String

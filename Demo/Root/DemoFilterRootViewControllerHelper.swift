@@ -5,9 +5,9 @@
 import FilterKit
 
 class DemoFilterDataSource: FilterDataSource {
-    let filterData: FilterData
+    let filterData: Filter
 
-    init(filterData: FilterData) {
+    init(filterData: Filter) {
         self.filterData = filterData
     }
 
@@ -35,11 +35,11 @@ class DemoFilterDataSource: FilterDataSource {
         return try! Data(contentsOf: URL(fileURLWithPath: path!))
     }
 
-    static func filterDataFromJSONFile(named name: String) -> FilterData {
+    static func filterDataFromJSONFile(named name: String) -> Filter {
         let data = dataFromJSONFile(named: name)
         let jsonDecoder = JSONDecoder()
 
-        return try! jsonDecoder.decode(FilterData.self, from: data)
+        return try! jsonDecoder.decode(Filter.self, from: data)
     }
 }
 

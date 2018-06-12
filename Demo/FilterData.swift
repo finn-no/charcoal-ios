@@ -32,9 +32,41 @@ enum FilterKey: String, CodingKey {
     case wheelSets = "wheel_sets"
     case warrantyInsurance = "warranty_insurance"
     case registrationClass = "registration_class"
+    // realestate-homes
+    case noOfBedrooms = "no_of_bedrooms"
+    case area
+    case plotArea = "plot_area"
+    case priceCollective = "price_collective"
+    case constructionYear = "construction_year"
+    case rent
+    case isPrivateBroker = "is_private_broker"
+    case facilities
+    case viewing
+    case isNewProperty = "is_new_property"
+    case energyLabel = "energy_label"
+    case isSold = "is_sold"
+    case floorNavigator = "floor_navigator"
+    case propertyType = "property_type"
+    case ownershipType = "ownership_type"
 
     static var preferenceFilterKeys: [FilterKey] {
-        return [.searchType, .segment, .condition, .published, .priceChanged, .dealerSegment, .salesForm]
+        return [.searchType, .segment, .condition, .published, .priceChanged, .dealerSegment, .salesForm, .isPrivateBroker, .isSold, .isNewProperty]
+    }
+}
+
+enum FilterMarket: String {
+    case bap, realestate, car
+
+    init?(market: String) {
+        guard let market = FilterMarket.allMarkets.first(where: { market.hasPrefix($0.rawValue) }) else {
+            return nil
+        }
+
+        self = market
+    }
+
+    static var allMarkets: [FilterMarket] {
+        return [.bap, .realestate, car]
     }
 }
 

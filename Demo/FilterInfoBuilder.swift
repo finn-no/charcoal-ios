@@ -80,68 +80,23 @@ private extension FilterInfoBuilder {
         var filterInfo = [FilterInfoType]()
 
         keys.forEach({ key in
-            guard let filter = filter.filter(forKey: key) else {
+            guard let filterData = filter.filter(forKey: key) else {
                 return
             }
 
-            if filter.isRange {
-                if let rangeFilterInfo = self.buildRangeFilterInfo(from: filter) {
+            if filterData.isRange {
+                let rangeInfoFilterBuilder = RangeFilterInfoBuilder(filter: filter)
+                if let rangeFilterInfo = rangeInfoFilterBuilder.buildRangeFilterInfo(from: filterData) {
                     filterInfo.append(rangeFilterInfo)
                 }
             } else {
-                if let mulitLevelFilterInfo = buildMultiLevelFilterInfo(from: filter) {
+                if let mulitLevelFilterInfo = buildMultiLevelFilterInfo(from: filterData) {
                     filterInfo.append(mulitLevelFilterInfo)
                 }
             }
         })
 
         return filterInfo
-    }
-}
-
-private extension FilterInfoBuilder {
-    func buildRangeFilterInfo(from filterData: FilterData) -> RangeFilterInfoType? {
-        guard filterData.isRange else {
-            return nil
-        }
-
-        let title = filterData.title
-        let lowValue: Int
-        let highValue: Int
-        let steps: Int
-        let unit: String
-
-        switch filterData.key {
-        case .year:
-            lowValue = 1950
-            highValue = 2018
-            steps = highValue - lowValue
-            unit = "år"
-        case .engineEffect:
-            lowValue = 0
-            highValue = 500
-            steps = 100
-            unit = "hk"
-        case .mileage:
-            lowValue = 0
-            highValue = 200_000
-            steps = 200
-            unit = "km"
-        case .numberOfSeats:
-            lowValue = 0
-            highValue = 10
-            steps = 10
-            unit = "seter"
-        case .price:
-            lowValue = 0
-            highValue = 500_000
-            steps = 500
-            unit = "kr"
-        default:
-            return nil
-        }
-
-        return RangeFilterInfo(name: title, lowValue: lowValue, highValue: highValue, steps: steps, unit: unit)
     }
 }
 

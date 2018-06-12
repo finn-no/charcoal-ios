@@ -100,11 +100,11 @@ struct Filter: Decodable {
         }
     }
 
-    func filter(forKey key: FilterKey) -> FilterData? {
-        return filter(forKey: key.rawValue)
+    func filterData(forKey key: FilterKey) -> FilterData? {
+        return filterData(forKey: key.rawValue)
     }
 
-    func filter(forKey key: String) -> FilterData? {
+    func filterData(forKey key: String) -> FilterData? {
         return filters.first(where: { $0.key.rawValue == key })
     }
 }

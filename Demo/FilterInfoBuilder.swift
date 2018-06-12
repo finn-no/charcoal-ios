@@ -45,9 +45,9 @@ private extension FilterInfoBuilder {
     }
 
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {
-        let filters = keys.compactMap { filter.filter(forKey: $0) }
+        let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
-        let preferences = filters.compactMap { filter -> PreferenceInfoType? in
+        let preferences = filterDataArray.compactMap { filter -> PreferenceInfoType? in
             guard let values = filter.queries?.map({ PreferenceValue(name: $0.title, results: $0.totalResults) }) else {
                 return nil
             }
@@ -62,8 +62,8 @@ private extension FilterInfoBuilder {
         return PreferenceFilterInfo(preferences: preferences, name: "Preferences")
     }
 
-    func buildMultiLevelFilterInfo(from filter: FilterData) -> MultilevelFilterInfo? {
-        guard let filters = filter.queries?.map({ query -> MultilevelFilterInfo in
+    func buildMultiLevelFilterInfo(from filterData: FilterData) -> MultilevelFilterInfo? {
+        guard let filters = filterData.queries?.map({ query -> MultilevelFilterInfo in
             let queryFilters = query.filter?.queries.map({ filterQueries -> MultilevelFilterInfo in
                 return MultilevelFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults)
             })
@@ -73,14 +73,14 @@ private extension FilterInfoBuilder {
             return nil
         }
 
-        return MultilevelFilterInfo(filters: filters, name: filter.title, results: 0)
+        return MultilevelFilterInfo(filters: filters, name: filterData.title, results: 0)
     }
 
     func buildFilterInfo(fromKeys keys: [FilterKey]) -> [FilterInfoType] {
         var filterInfo = [FilterInfoType]()
 
         keys.forEach({ key in
-            guard let filterData = filter.filter(forKey: key) else {
+            guard let filterData = filter.filterData(forKey: key) else {
                 return
             }
 

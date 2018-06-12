@@ -54,4 +54,5 @@ public protocol RangeFilterInfoType: FilterInfoType {
     var lowValue: Int { get }
     var highValue: Int { get }
     var unit: String { get }
+    var steps: Int { get }
 }

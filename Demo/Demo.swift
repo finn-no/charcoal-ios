@@ -78,7 +78,7 @@ enum Sections: String {
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]
             switch selectedView {
-            case .fullDemo:
+            case .fullDemoTorget, .fullDemoBil:
                 return .bottomSheet
             }
         }
@@ -129,7 +129,7 @@ enum ComponentViews: String {
 
         case .rootFilters:
             let filterData = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
-            let dataSource = DemoFilterDataSource(filterData: filterData)
+            let dataSource = DemoFilterDataSource(filter: filterData)
             let navigationController = FilterNavigationController()
             let factory = FilterDependencyContainer(dataSource: dataSource)
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
@@ -166,13 +166,20 @@ enum ComponentViews: String {
 }
 
 enum FullscreenViews: String {
-    case fullDemo
+    case fullDemoTorget
+    case fullDemoBil
 
     var viewController: UIViewController {
         switch self {
-        case .fullDemo:
-            let filterData = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
-            let dataSource = DemoFilterDataSource(filterData: filterData)
+        case .fullDemoTorget, .fullDemoBil:
+            let filter: Filter
+            switch self {
+            case .fullDemoTorget:
+                filter = DemoFilterDataSource.filterDataFromJSONFile(named: "bap-sale")
+            case .fullDemoBil:
+                filter = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
+            }
+            let dataSource = DemoFilterDataSource(filter: filter)
             let navigationController = FilterNavigationController()
             let factory = FilterDependencyContainer(dataSource: dataSource)
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
@@ -185,7 +192,7 @@ enum FullscreenViews: String {
 
     static var all: [FullscreenViews] {
         return [
-            .fullDemo,
+            .fullDemoTorget, .fullDemoBil,
         ]
     }
 }

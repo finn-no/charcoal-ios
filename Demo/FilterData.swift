@@ -34,7 +34,7 @@ enum FilterKey: String, CodingKey {
     case registrationClass = "registration_class"
 
     static var preferenceFilterKeys: [FilterKey] {
-        return [.searchType, .segment, .condition, .published, .priceChanged]
+        return [.searchType, .segment, .condition, .published, .priceChanged, .dealerSegment, .salesForm]
     }
 }
 

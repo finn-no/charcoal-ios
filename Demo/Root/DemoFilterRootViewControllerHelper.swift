@@ -7,8 +7,14 @@ import FilterKit
 class DemoFilterDataSource: FilterDataSource {
     let filterData: Filter
 
-    init(filterData: Filter) {
-        self.filterData = filterData
+    lazy var loadedFilterInfo: [FilterInfoType] = {
+        let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
+
+        return filterInfoBuilder.build()
+    }()
+
+    init(filter: Filter) {
+        filterData = filter
     }
 
     var filterTitle: String {
@@ -24,9 +30,7 @@ class DemoFilterDataSource: FilterDataSource {
     }
 
     var filterInfo: [FilterInfoType] {
-        let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
-
-        return filterInfoBuilder.build()
+        return loadedFilterInfo
     }
 
     static func dataFromJSONFile(named name: String) -> Data {

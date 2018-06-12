@@ -63,6 +63,7 @@
 		559C6CBD20BBE709009B734D /* RangeFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */; };
 		559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CC020BC24B9009B734D /* RangeControl.swift */; };
 		55ABF8AE20CFB59C00E31229 /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABF8AD20CFB59C00E31229 /* RangeFilterViewController.swift */; };
+		55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 55ABF8AF20CFD8A100E31229 /* bap-sale.json */; };
 		55BDC0FE20BFFB8D0038C83A /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC0FD20BFFB8D0038C83A /* FilterData.swift */; };
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
@@ -185,6 +186,7 @@
 		559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoView.swift; sourceTree = "<group>"; };
 		559C6CC020BC24B9009B734D /* RangeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeControl.swift; sourceTree = "<group>"; };
 		55ABF8AD20CFB59C00E31229 /* RangeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
+		55ABF8AF20CFD8A100E31229 /* bap-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bap-sale.json"; sourceTree = "<group>"; };
 		55BDC0FD20BFFB8D0038C83A /* FilterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
 		55BDC10120C005600038C83A /* filterData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filterData.json; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
 				55BDC10120C005600038C83A /* filterData.json */,
 			);
@@ -703,6 +706,7 @@
 			files = (
 				44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */,
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
+				55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */,
 				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
 				5598F20F20C00AEF00E148E0 /* filterData.json in Resources */,

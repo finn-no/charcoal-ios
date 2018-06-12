@@ -63,14 +63,12 @@ private extension FilterInfoBuilder {
     }
 
     func buildMultiLevelFilterInfo(from filter: FilterData) -> MultilevelFilterInfo? {
-        guard let filters = filter.queries?.compactMap({ query -> MultilevelFilterInfo? in
-            guard let queryFilters = query.filter?.queries.compactMap({ filterQueries -> MultilevelFilterInfo? in
+        guard let filters = filter.queries?.map({ query -> MultilevelFilterInfo in
+            let queryFilters = query.filter?.queries.map({ filterQueries -> MultilevelFilterInfo in
                 return MultilevelFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults)
-            }) else {
-                return nil
-            }
+            })
 
-            return MultilevelFilterInfo(filters: queryFilters, name: query.title, results: query.totalResults)
+            return MultilevelFilterInfo(filters: queryFilters ?? [], name: query.title, results: query.totalResults)
         }) else {
             return nil
         }
@@ -110,34 +108,40 @@ private extension FilterInfoBuilder {
         let title = filterData.title
         let lowValue: Int
         let highValue: Int
+        let steps: Int
         let unit: String
 
         switch filterData.key {
         case .year:
             lowValue = 1950
             highValue = 2018
+            steps = highValue - lowValue
             unit = "år"
         case .engineEffect:
             lowValue = 0
             highValue = 500
+            steps = 100
             unit = "hk"
         case .mileage:
             lowValue = 0
             highValue = 200_000
+            steps = 200
             unit = "km"
         case .numberOfSeats:
             lowValue = 0
             highValue = 10
+            steps = 10
             unit = "seter"
         case .price:
             lowValue = 0
             highValue = 500_000
+            steps = 500
             unit = "kr"
         default:
             return nil
         }
 
-        return RangeFilterInfo(name: title, lowValue: lowValue, highValue: highValue, unit: unit)
+        return RangeFilterInfo(name: title, lowValue: lowValue, highValue: highValue, steps: steps, unit: unit)
     }
 }
 
@@ -178,5 +182,6 @@ struct RangeFilterInfo: RangeFilterInfoType {
     var name: String
     var lowValue: Int
     var highValue: Int
+    var steps: Int
     var unit: String
 }

@@ -126,7 +126,7 @@ private extension RangeFilterView {
 
         let lowerBoundReferenceLabel = UILabel(text: "\(range.lowerBound) \(unit)", textAlignment: .left)
         lowerBoundReferenceLabel.isAccessibilityElement = false
-        let midBoundReferenceLabel = UILabel(text: "\(range.count / 2) \(unit)", textAlignment: .center)
+        let midBoundReferenceLabel = UILabel(text: "\(range.lowerBound + range.count / 2) \(unit)", textAlignment: .center)
         midBoundReferenceLabel.isAccessibilityElement = false
         let upperBoundReferenceLabel = UILabel(text: "\(range.upperBound) \(unit)", textAlignment: .right)
         upperBoundReferenceLabel.isAccessibilityElement = false

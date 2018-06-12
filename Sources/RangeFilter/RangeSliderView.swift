@@ -87,9 +87,9 @@ final class RangeSliderView: UIControl {
         }
     }
 
-    init(range: SliderRange, steps: Int?) {
+    init(range: SliderRange, steps: Int) {
         self.range = range
-        self.steps = steps ?? Int(range.upperBound - range.lowerBound)
+        self.steps = steps
         super.init(frame: .zero)
         setup()
     }

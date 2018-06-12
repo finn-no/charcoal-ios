@@ -24,7 +24,7 @@ class DemoFilterDataSource: FilterDataSource {
     }
 
     var filterInfo: [FilterInfoType] {
-        let filterInfoBuilder = FilterInfoBuilder(filterData: filterData)
+        let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
 
         return filterInfoBuilder.build()
     }

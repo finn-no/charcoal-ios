@@ -90,6 +90,8 @@ extension FilterRootViewController: UITableViewDelegate {
         switch filterInfo {
         case let mulitlevelFilterInfo as MultiLevelFilterInfoType:
             navigator.navigate(to: .mulitLevelFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
+        case let rangeFilterInfo as RangeFilterInfoType:
+            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo))
         default:
             break
         }
@@ -123,6 +125,11 @@ extension FilterRootViewController: UITableViewDataSource {
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
+            return cell
+        case let rangeInfo as RangeFilterInfoType:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            cell.filterName = rangeInfo.name
+            cell.accessoryType = .disclosureIndicator
             return cell
         default:
             fatalError("Unimplemented component \(filterInfo)")

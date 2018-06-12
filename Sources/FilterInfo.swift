@@ -49,3 +49,9 @@ extension MultiLevelFilterInfoType {
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }
 }
+
+public protocol RangeFilterInfoType: FilterInfoType {
+    var lowValue: Int { get }
+    var highValue: Int { get }
+    var unit: String { get }
+}

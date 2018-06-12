@@ -54,7 +54,6 @@
 		55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */; };
 		5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589323720A02E1900512FF8 /* SelectionListItemCell.swift */; };
 		55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */; };
-		5598F20F20C00AEF00E148E0 /* filterData.json in Resources */ = {isa = PBXBuildFile; fileRef = 55BDC10120C005600038C83A /* filterData.json */; };
 		5598F21120C0163B00E148E0 /* FilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */; };
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
 		559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB320B6CB6D009B734D /* StringExtensions.swift */; };
@@ -190,7 +189,6 @@
 		55ABF8AD20CFB59C00E31229 /* RangeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		55ABF8AF20CFD8A100E31229 /* bap-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bap-sale.json"; sourceTree = "<group>"; };
 		55BDC0FD20BFFB8D0038C83A /* FilterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
-		55BDC10120C005600038C83A /* filterData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filterData.json; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -504,7 +502,6 @@
 				55FBC32320CFE246008BFD82 /* realestate-homes.json */,
 				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
-				55BDC10120C005600038C83A /* filterData.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -716,7 +713,6 @@
 				55FBC32420CFE246008BFD82 /* realestate-homes.json in Resources */,
 				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
-				5598F20F20C00AEF00E148E0 /* filterData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

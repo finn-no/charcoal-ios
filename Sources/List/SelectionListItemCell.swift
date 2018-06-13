@@ -5,13 +5,40 @@
 import Foundation
 
 public final class SelectionListItemCell: UITableViewCell, Identifiable {
-    lazy var separatorLine: UIView = {
+    public enum SelectionIndicatorType {
+        case radioButton
+        case checkbox
+
+        var normalStateImageAsset: ImageAsset {
+            switch self {
+            case .radioButton:
+                return .radioButtonOff
+            case .checkbox:
+                return .checkboxOff
+            }
+        }
+
+        var selectedStateImageAsset: ImageAsset {
+            switch self {
+            case .radioButton:
+                return .radioButtonOn
+            case .checkbox:
+                return .checkboxOn
+            }
+        }
+
+        static let `default` = SelectionIndicatorType.checkbox
+    }
+
+    private lazy var separatorLine: UIView = {
         let separatorLine = UIView(frame: .zero)
         separatorLine.backgroundColor = .sardine
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
 
         return separatorLine
     }()
+
+    public var selectionIndicatorType = SelectionIndicatorType.default
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
@@ -26,7 +53,7 @@ public final class SelectionListItemCell: UITableViewCell, Identifiable {
         super.setSelected(selected, animated: animated)
 
         textLabel?.textColor = selected ? .primaryBlue : .licorice
-        imageView?.image = selected ? UIImage(named: .checkboxActive) : UIImage(named: .checkbox)
+        imageView?.image = selected ? UIImage(named: selectionIndicatorType.selectedStateImageAsset) : UIImage(named: selectionIndicatorType.normalStateImageAsset)
     }
 }
 
@@ -37,7 +64,7 @@ private extension SelectionListItemCell {
         textLabel?.textColor = .licorice
         detailTextLabel?.font = .detail
         detailTextLabel?.textColor = .stone
-        imageView?.image = UIImage(named: .checkbox)
+        imageView?.image = UIImage(named: selectionIndicatorType.normalStateImageAsset)
 
         addSubview(separatorLine)
 

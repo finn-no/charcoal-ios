@@ -171,26 +171,25 @@ enum FullscreenViews: String {
     case fullDemoEiendom
 
     var viewController: UIViewController {
+        let filter: Filter
+
         switch self {
-        case .fullDemoTorget, .fullDemoBil, .fullDemoEiendom:
-            let filter: Filter
-            switch self {
-            case .fullDemoTorget:
-                filter = DemoFilterDataSource.filterDataFromJSONFile(named: "bap-sale")
-            case .fullDemoBil:
-                filter = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
-            case .fullDemoEiendom:
-                filter = DemoFilterDataSource.filterDataFromJSONFile(named: "realestate-homes")
-            }
-            let dataSource = DemoFilterDataSource(filter: filter)
-            let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: dataSource)
-            let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
-
-            rootFilterNavigator.start()
-
-            return navigationController
+        case .fullDemoTorget:
+            filter = DemoFilterDataSource.filterDataFromJSONFile(named: "bap-sale")
+        case .fullDemoBil:
+            filter = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
+        case .fullDemoEiendom:
+            filter = DemoFilterDataSource.filterDataFromJSONFile(named: "realestate-homes")
         }
+
+        let dataSource = DemoFilterDataSource(filter: filter)
+        let navigationController = FilterNavigationController()
+        let factory = FilterDependencyContainer(dataSource: dataSource)
+        let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
+
+        rootFilterNavigator.start()
+
+        return navigationController
     }
 
     static var all: [FullscreenViews] {

@@ -36,6 +36,7 @@ public class ListViewController: UIViewController {
         listItems = items
         super.init(nibName: nil, bundle: nil)
         self.title = title
+        tableView.allowsMultipleSelection = allowsMultipleSelection
         setup()
     }
 
@@ -60,6 +61,7 @@ extension ListViewController: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(for: indexPath) as SelectionListItemCell
         cell.configure(for: listItem)
+        cell.selectionIndicatorType = tableView.allowsMultipleSelection ? .checkbox : .radioButton
 
         return cell
     }

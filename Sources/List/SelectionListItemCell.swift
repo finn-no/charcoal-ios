@@ -38,7 +38,11 @@ public final class SelectionListItemCell: UITableViewCell, Identifiable {
         return separatorLine
     }()
 
-    public var selectionIndicatorType = SelectionIndicatorType.default
+    public var selectionIndicatorType = SelectionIndicatorType.default {
+        didSet {
+            setSelectionIndicator(selected: isSelected)
+        }
+    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
@@ -53,7 +57,7 @@ public final class SelectionListItemCell: UITableViewCell, Identifiable {
         super.setSelected(selected, animated: animated)
 
         textLabel?.textColor = selected ? .primaryBlue : .licorice
-        imageView?.image = selected ? UIImage(named: selectionIndicatorType.selectedStateImageAsset) : UIImage(named: selectionIndicatorType.normalStateImageAsset)
+        setSelectionIndicator(selected: selected)
     }
 }
 
@@ -74,6 +78,10 @@ private extension SelectionListItemCell {
             separatorLine.leadingAnchor.constraint(equalTo: textLabel?.leadingAnchor ?? leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
+    }
+
+    func setSelectionIndicator(selected: Bool) {
+        imageView?.image = selected ? UIImage(named: selectionIndicatorType.selectedStateImageAsset) : UIImage(named: selectionIndicatorType.normalStateImageAsset)
     }
 }
 

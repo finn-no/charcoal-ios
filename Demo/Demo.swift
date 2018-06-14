@@ -78,7 +78,7 @@ enum Sections: String {
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]
             switch selectedView {
-            case .fullDemoTorget, .fullDemoBil, .fullDemoEiendom:
+            case .torget, .bil, .eiendom:
                 return .bottomSheet
             }
         }
@@ -166,19 +166,19 @@ enum ComponentViews: String {
 }
 
 enum FullscreenViews: String {
-    case fullDemoTorget
-    case fullDemoBil
-    case fullDemoEiendom
+    case torget
+    case bil
+    case eiendom
 
     var viewController: UIViewController {
         let filter: Filter
 
         switch self {
-        case .fullDemoTorget:
+        case .torget:
             filter = DemoFilterDataSource.filterDataFromJSONFile(named: "bap-sale")
-        case .fullDemoBil:
+        case .bil:
             filter = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
-        case .fullDemoEiendom:
+        case .eiendom:
             filter = DemoFilterDataSource.filterDataFromJSONFile(named: "realestate-homes")
         }
 
@@ -194,7 +194,7 @@ enum FullscreenViews: String {
 
     static var all: [FullscreenViews] {
         return [
-            .fullDemoTorget, .fullDemoBil, .fullDemoEiendom,
+            .torget, .bil, .eiendom,
         ]
     }
 }

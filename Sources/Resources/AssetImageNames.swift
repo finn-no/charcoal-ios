@@ -15,10 +15,12 @@ extension UIImage {
 
 enum ImageAsset: String {
     case arrowDown
-    case checkbox
-    case checkboxActive
+    case checkboxOff
+    case checkboxOn
     case disclosureIndicator
     case popoverArrow
+    case radioButtonOff
+    case radioButtonOn
     case removeFilterValue
     case sliderThumb
     case sliderThumbActive

@@ -235,26 +235,6 @@ extension RangeNumberInputView: UITextFieldDelegate {
         textField.accessibilityValue = "\(newValue) \(accessibilityValueSuffix ?? "")"
         inputValues[inputGroup] = newValue
 
-//        if let font = RangeNumberInputView.Style.activeFont {
-//            let attributes = [NSAttributedStringKey.font: font]
-//            let maxTextFieldBounds = self.maxTextFieldBounds(for: inputGroup)
-//            let shouldAdjustsFontSizeToFitWidth = text.willFit(in: maxTextFieldBounds, attributes: attributes) == false
-//
-//            if shouldAdjustsFontSizeToFitWidth {
-//                textField.adjustsFontSizeToFitWidth = true
-//                textField.minimumFontSize = Style.minimumFontSize
-//            } else {
-//                textField.minimumFontSize = Style.normalFontSize
-//            }
-//
-//            switch inputGroup {
-//            case .lowValue:
-//                lowValueInputUnitLabel.font = textField.font
-//            case .highValue:
-//                highValueInputUnitLabel.font = textField.font
-//            }
-//        }
-
         return false
     }
 }
@@ -422,28 +402,6 @@ private extension RangeNumberInputView {
 
         return tapGestureRecognizer
     }
-
-    func maxTextFieldBounds(for inputGroup: InputGroup) -> CGRect {
-        let maxRect: CGRect
-        switch inputGroup {
-        case .lowValue:
-            let currentFrame = lowValueInputTextField.frame
-            let minX: CGFloat = 0
-            let maxX = currentFrame.maxX
-            let maxWidth = maxX - minX
-
-            maxRect = CGRect(x: 0, y: 0, width: maxWidth, height: currentFrame.height)
-        case .highValue:
-            let currentFrame = highValueInputTextField.frame
-            let minX = currentFrame.minX
-            let maxX = frame.width - (highValueInputUnitLabel.frame.width + .mediumSpacing)
-            let maxWidth = maxX - minX
-
-            maxRect = CGRect(x: 0, y: 0, width: maxWidth, height: currentFrame.height)
-        }
-
-        return maxRect
-    }
 }
 
 private extension UIView {
@@ -453,14 +411,6 @@ private extension UIView {
 }
 
 private extension String {
-    func willFit(in rect: CGRect, attributes: [NSAttributedStringKey: Any]) -> Bool {
-        let attributedString = NSAttributedString(string: self, attributes: attributes)
-        let constrainedSize = CGSize(width: 0, height: rect.size.height)
-        let boundingRect = attributedString.boundingRect(with: constrainedSize, options: .usesLineFragmentOrigin, context: nil)
-
-        return boundingRect.width <= rect.width
-    }
-
     mutating func trimWhiteSpaces() {
         let components = self.components(separatedBy: .whitespaces)
         self = components.joined(separator: "")

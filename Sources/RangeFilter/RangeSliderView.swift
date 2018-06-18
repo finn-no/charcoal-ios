@@ -162,8 +162,8 @@ private extension RangeSliderView {
         activeRangeTrackViewTrailingAnchor.identifier = activeRangeTrackViewTrailingAnchorIdentifier
 
         NSLayoutConstraint.activate([
-            trackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .verySmallSpacing),
-            trackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.verySmallSpacing),
+            trackView.leadingAnchor.constraint(equalTo: lowValueSlider.leadingAnchor, constant: .verySmallSpacing),
+            trackView.trailingAnchor.constraint(equalTo: lowValueSlider.trailingAnchor, constant: -.verySmallSpacing),
             trackView.centerYAnchor.constraint(equalTo: lowValueSlider.centerYAnchor),
             trackView.heightAnchor.constraint(equalToConstant: Style.trackHeight),
             activeRangeTrackViewLeadingAnchor,

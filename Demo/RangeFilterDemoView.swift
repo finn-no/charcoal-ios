@@ -14,7 +14,7 @@ public class RangeFilterDemoView: UIView {
     let accessibilityUnit = "kroner"
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, steps: steps, unit: unit)
+        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, steps: steps, unit: unit, isValueCurrency: true)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit
@@ -39,8 +39,8 @@ public class RangeFilterDemoView: UIView {
 
         NSLayoutConstraint.activate([
             rangeFilterView.topAnchor.constraint(equalTo: topAnchor, constant: 48),
-            rangeFilterView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            rangeFilterView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
+            rangeFilterView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            rangeFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 

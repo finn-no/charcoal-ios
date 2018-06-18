@@ -5,8 +5,18 @@
 import UIKit
 
 public final class RangeFilterView: UIControl {
+    private lazy var formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = isValueCurrency ? .currency : .none
+        formatter.currencySymbol = ""
+        formatter.locale = Locale(identifier: "nb_NO")
+        formatter.maximumFractionDigits = 0
+
+        return formatter
+    }()
+
     private lazy var numberInputView: RangeNumberInputView = {
-        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit)
+        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit, formatter: formatter)
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
 
@@ -59,11 +69,13 @@ public final class RangeFilterView: UIControl {
     let range: InputRange
     let steps: Int
     let unit: String
+    let isValueCurrency: Bool
 
-    public init(range: InputRange, steps: Int, unit: String) {
+    public init(range: InputRange, steps: Int, unit: String, isValueCurrency: Bool) {
         self.range = range
         self.steps = steps
         self.unit = unit
+        self.isValueCurrency = isValueCurrency
         super.init(frame: .zero)
         setup()
     }
@@ -124,11 +136,15 @@ private extension RangeFilterView {
         referenceValueLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
         referenceValueLabelsContainer.distribution = .fillEqually
 
-        let lowerBoundReferenceLabel = UILabel(text: "\(range.lowerBound) \(unit)", textAlignment: .left)
+        let lowerBoundFormattedValue = formatter.string(from: NSNumber(value: range.lowerBound)) ?? ""
+        let lowerBoundReferenceLabel = UILabel(text: "\(lowerBoundFormattedValue) \(unit)", textAlignment: .left)
         lowerBoundReferenceLabel.isAccessibilityElement = false
-        let midBoundReferenceLabel = UILabel(text: "\(range.count / 2) \(unit)", textAlignment: .center)
+
+        let midBoundFormattedValue = formatter.string(from: NSNumber(value: range.count / 2)) ?? ""
+        let midBoundReferenceLabel = UILabel(text: "\(midBoundFormattedValue) \(unit)", textAlignment: .center)
         midBoundReferenceLabel.isAccessibilityElement = false
-        let upperBoundReferenceLabel = UILabel(text: "\(range.upperBound) \(unit)", textAlignment: .right)
+        let upperBoundFormattedValue = formatter.string(from: NSNumber(value: range.upperBound)) ?? ""
+        let upperBoundReferenceLabel = UILabel(text: "\(upperBoundFormattedValue) \(unit)", textAlignment: .right)
         upperBoundReferenceLabel.isAccessibilityElement = false
 
         referenceValueLabelsContainer.addArrangedSubview(lowerBoundReferenceLabel)
@@ -136,17 +152,19 @@ private extension RangeFilterView {
         referenceValueLabelsContainer.addArrangedSubview(upperBoundReferenceLabel)
 
         addSubview(numberInputView)
+        numberInputView.backgroundColor = .banana
         addSubview(sliderInputView)
         addSubview(referenceValueLabelsContainer)
 
         NSLayoutConstraint.activate([
             numberInputView.topAnchor.constraint(equalTo: topAnchor),
-            numberInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            numberInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            numberInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .mediumSpacing),
+            numberInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.mediumSpacing),
+            numberInputView.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             sliderInputView.topAnchor.constraint(equalTo: numberInputView.bottomAnchor, constant: 50),
-            sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
+            sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
 
             referenceValueLabelsContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .mediumLargeSpacing),
             referenceValueLabelsContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),

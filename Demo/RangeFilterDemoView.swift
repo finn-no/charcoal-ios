@@ -19,7 +19,7 @@ public class RangeFilterDemoView: UIView {
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit
         rangeFilterView.setLowValue(lowValue, animated: false)
-        rangeFilterView.setHighValue(highValue, animated: false)
+        rangeFilterView.setHighValue(30001, animated: false)
         rangeFilterView.addTarget(self, action: #selector(rangeFilterViewValueChanged(_:)), for: .valueChanged)
 
         return rangeFilterView

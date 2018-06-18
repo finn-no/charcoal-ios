@@ -120,11 +120,12 @@ extension RangeFilterView: RangeControl {
     }
 
     public func setLowValue(_ value: Int, animated: Bool) {
-        numberInputView.setLowValue(value, animated: animated)
+        updateNumberInputLowValue(with: value)
         sliderInputView.setLowValue(value, animated: animated)
     }
 
     public func setHighValue(_ value: Int, animated: Bool) {
+        updateNumberInputHighValue(with: value)
         numberInputView.setHighValue(value, animated: animated)
         sliderInputView.setHighValue(value, animated: animated)
     }
@@ -152,7 +153,6 @@ private extension RangeFilterView {
         referenceValueLabelsContainer.addArrangedSubview(upperBoundReferenceLabel)
 
         addSubview(numberInputView)
-        numberInputView.backgroundColor = .banana
         addSubview(sliderInputView)
         addSubview(referenceValueLabelsContainer)
 
@@ -177,11 +177,13 @@ private extension RangeFilterView {
         if let lowValue = sender.lowValue {
             sliderInputView.setLowValue(lowValue, animated: true)
             inputValues[.low] = lowValue
+            numberInputView.setLowValueHint(text: "")
         }
 
         if let highValue = sender.highValue {
             sliderInputView.setHighValue(highValue, animated: true)
             inputValues[.high] = highValue
+            numberInputView.setHighValueHint(text: "")
         }
 
         sendActions(for: .valueChanged)
@@ -189,16 +191,32 @@ private extension RangeFilterView {
 
     @objc func sliderInputValueChanged(_ sender: RangeSliderView) {
         if let lowValue = sender.lowValue {
-            numberInputView.setLowValue(lowValue, animated: true)
-            inputValues[.low] = lowValue
+            updateNumberInputLowValue(with: lowValue)
         }
 
         if let highValue = sender.highValue {
-            numberInputView.setHighValue(highValue, animated: true)
-            inputValues[.high] = highValue
+            updateNumberInputHighValue(with: highValue)
         }
 
         sendActions(for: .valueChanged)
+    }
+
+    func updateNumberInputLowValue(with value: RangeValue) {
+        let isValueLowerThanRangeLowerBound = value < range.lowerBound
+        let newValue = isValueLowerThanRangeLowerBound ? range.lowerBound : value
+        let hintText = isValueLowerThanRangeLowerBound ? "Under" : ""
+        numberInputView.setLowValueHint(text: hintText)
+        numberInputView.setLowValue(newValue, animated: true)
+        inputValues[.low] = lowValue
+    }
+
+    func updateNumberInputHighValue(with value: RangeValue) {
+        let isValueHigherThanRangeUpperBound = value > range.upperBound
+        let newValue = isValueHigherThanRangeUpperBound ? range.upperBound : value
+        let hintText = isValueHigherThanRangeUpperBound ? "Over" : ""
+        numberInputView.setHighValue(newValue, animated: true)
+        numberInputView.setHighValueHint(text: hintText)
+        inputValues[.high] = highValue
     }
 }
 

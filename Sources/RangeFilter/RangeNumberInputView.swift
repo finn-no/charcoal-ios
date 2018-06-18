@@ -9,8 +9,8 @@ final class RangeNumberInputView: UIControl {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
-        textField.textColor = RangeNumberInputView.Style.textColor
-        textField.font = RangeNumberInputView.Style.normalFont
+        textField.textColor = Style.textColor
+        textField.font = Style.normalFont
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
         textField.accessibilityLabel = "range_number_input_view_low_value_textfield_accessibility_label".localized()
@@ -28,12 +28,21 @@ final class RangeNumberInputView: UIControl {
         return label
     }()
 
+    private lazy var underLowerBoundHintLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Under"
+        label.font = Style.hintNormalFont
+        label.textColor = Style.textColor
+        return label
+    }()
+
     private lazy var inputSeparatorView: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "-"
-        label.textColor = RangeNumberInputView.Style.textColor
-        label.font = RangeNumberInputView.Style.normalFont
+        label.textColor = Style.textColor
+        label.font = Style.normalFont
 
         return label
     }()
@@ -42,8 +51,8 @@ final class RangeNumberInputView: UIControl {
         let textField = UITextField(frame: .zero)
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textColor = RangeNumberInputView.Style.textColor
-        textField.font = RangeNumberInputView.Style.normalFont
+        textField.textColor = Style.textColor
+        textField.font = Style.normalFont
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
         textField.accessibilityLabel = "range_number_input_view_high_value_textfield_accessibility_label".localized()
@@ -58,6 +67,15 @@ final class RangeNumberInputView: UIControl {
         label.isUserInteractionEnabled = true
         label.isAccessibilityElement = false
 
+        return label
+    }()
+
+    private lazy var overUpperBoundHintLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Over"
+        label.font = Style.hintNormalFont
+        label.textColor = Style.textColor
         return label
     }()
 
@@ -186,6 +204,14 @@ extension RangeNumberInputView: RangeControl {
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.highValue] = value
     }
+
+    func setLowValueHint(text: String) {
+        setHintText(text, for: .lowValue)
+    }
+
+    func setHighValueHint(text: String) {
+        setHintText(text, for: .highValue)
+    }
 }
 
 extension RangeNumberInputView: UITextFieldDelegate {
@@ -246,6 +272,8 @@ private extension RangeNumberInputView {
         static let normalFontSize: CGFloat = 32
         static let normalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: normalFontSize)
         static let activeFont: UIFont? = UIFont(name: FontType.bold.rawValue, size: normalFontSize)
+        static let hintNormalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: 18)
+        static let hintActiveFont: UIFont? = UIFont(name: FontType.bold.rawValue, size: 18)
         static let decorationViewColor: UIColor = .stone
         static let decorationViewActiveColor: UIColor = .primaryBlue
         static let decorationViewHeight: CGFloat = 1.0
@@ -266,9 +294,11 @@ private extension RangeNumberInputView {
         lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont, from: unit)
         highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont, from: unit)
 
+        addSubview(underLowerBoundHintLabel)
         addSubview(lowValueInputTextField)
         addSubview(lowValueInputUnitLabel)
         addSubview(inputSeparatorView)
+        addSubview(overUpperBoundHintLabel)
         addSubview(highValueInputTextField)
         addSubview(highValueInputUnitLabel)
         addSubview(lowValueInputDecorationView)
@@ -280,7 +310,10 @@ private extension RangeNumberInputView {
         highValueInputDecorationViewConstraint.identifier = highValueInputDecorationViewConstraintIdentifier
 
         NSLayoutConstraint.activate([
-            lowValueInputTextField.topAnchor.constraint(equalTo: topAnchor),
+            underLowerBoundHintLabel.topAnchor.constraint(equalTo: topAnchor),
+            underLowerBoundHintLabel.centerXAnchor.constraint(equalTo: lowValueInputDecorationView.centerXAnchor),
+
+            lowValueInputTextField.topAnchor.constraint(equalTo: underLowerBoundHintLabel.bottomAnchor, constant: .smallSpacing),
             lowValueInputTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
             lowValueInputTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 
@@ -292,7 +325,10 @@ private extension RangeNumberInputView {
             inputSeparatorView.topAnchor.constraint(equalTo: lowValueInputTextField.topAnchor),
             inputSeparatorView.bottomAnchor.constraint(equalTo: lowValueInputTextField.bottomAnchor),
 
-            highValueInputTextField.topAnchor.constraint(equalTo: topAnchor),
+            overUpperBoundHintLabel.topAnchor.constraint(equalTo: topAnchor),
+            overUpperBoundHintLabel.centerXAnchor.constraint(equalTo: highValueInputDecorationView.centerXAnchor),
+
+            highValueInputTextField.topAnchor.constraint(equalTo: overUpperBoundHintLabel.bottomAnchor, constant: .smallSpacing),
             highValueInputTextField.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
             highValueInputTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 
@@ -306,7 +342,7 @@ private extension RangeNumberInputView {
             lowValueInputDecorationView.bottomAnchor.constraint(equalTo: bottomAnchor),
             lowValueInputDecorationViewConstraint,
 
-            highValueInputDecorationView.leadingAnchor.constraint(equalTo: highValueInputTextField.leadingAnchor, constant: 4),
+            highValueInputDecorationView.leadingAnchor.constraint(equalTo: highValueInputTextField.leadingAnchor, constant: .smallSpacing),
             highValueInputDecorationView.trailingAnchor.constraint(equalTo: highValueInputUnitLabel.trailingAnchor),
             highValueInputDecorationView.bottomAnchor.constraint(equalTo: bottomAnchor),
             highValueInputDecorationViewConstraint,
@@ -342,6 +378,15 @@ private extension RangeNumberInputView {
         return NSAttributedString(string: string, attributes: attributes)
     }
 
+    func setHintText(_ text: String, for inputGroup: InputGroup) {
+        switch inputGroup {
+        case .lowValue:
+            underLowerBoundHintLabel.text = text
+        case .highValue:
+            overUpperBoundHintLabel.text = text
+        }
+    }
+
     @objc func handleTapGesture(_ gestureRecognizer: UITapGestureRecognizer) {
         guard let view = gestureRecognizer.view, let inputGroup = inputGroupMap[view] else {
             return
@@ -358,12 +403,14 @@ private extension RangeNumberInputView {
 
     func setInputGroup(_ inputGroup: InputGroup, active: Bool) {
         let font: UIFont? = active ? Style.activeFont : Style.normalFont
+        let outOfRangeBoundsFont = active ? Style.hintActiveFont : Style.hintNormalFont
         let decorationViewColor: UIColor = active ? Style.decorationViewActiveColor : Style.decorationViewColor
 
         switch inputGroup {
         case .lowValue:
             lowValueInputTextField.font = font
             lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: lowValueInputTextField.font, from: unit)
+            underLowerBoundHintLabel.font = outOfRangeBoundsFont
 
             let constraint = lowValueInputDecorationView.constraint(withIdentifier: lowValueInputDecorationViewConstraintIdentifier)
             constraint?.constant = active ? Style.decorationViewActiveHeight : Style.decorationViewHeight
@@ -376,6 +423,7 @@ private extension RangeNumberInputView {
         case .highValue:
             highValueInputTextField.font = font
             highValueInputUnitLabel.attributedText = attributedUnitText(withFont: highValueInputTextField.font, from: unit)
+            overUpperBoundHintLabel.font = outOfRangeBoundsFont
 
             let constraint = highValueInputDecorationView.constraint(withIdentifier: highValueInputDecorationViewConstraintIdentifier)
             constraint?.constant = active ? Style.decorationViewActiveHeight : Style.decorationViewHeight

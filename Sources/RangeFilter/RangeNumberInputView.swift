@@ -381,9 +381,19 @@ private extension RangeNumberInputView {
     func setHintText(_ text: String, for inputGroup: InputGroup) {
         switch inputGroup {
         case .lowValue:
-            underLowerBoundHintLabel.text = text
+            if text.isEmpty {
+                underLowerBoundHintLabel.isHidden = true
+            } else {
+                underLowerBoundHintLabel.text = text
+                underLowerBoundHintLabel.isHidden = false
+            }
         case .highValue:
-            overUpperBoundHintLabel.text = text
+            if text.isEmpty {
+                overUpperBoundHintLabel.isHidden = true
+            } else {
+                overUpperBoundHintLabel.text = text
+                overUpperBoundHintLabel.isHidden = false
+            }
         }
     }
 

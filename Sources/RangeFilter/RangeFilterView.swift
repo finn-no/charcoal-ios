@@ -24,7 +24,7 @@ public final class RangeFilterView: UIControl {
     }()
 
     private lazy var sliderInputView: RangeSliderView = {
-        let rangeSliderView = RangeSliderView(range: range, steps: steps)
+        let rangeSliderView = RangeSliderView(range: effectiveRange, steps: steps)
         rangeSliderView.translatesAutoresizingMaskIntoConstraints = false
         rangeSliderView.addTarget(self, action: #selector(sliderInputValueChanged(_:)), for: .valueChanged)
         return rangeSliderView
@@ -67,12 +67,18 @@ public final class RangeFilterView: UIControl {
     public typealias RangeValue = Int
     public typealias InputRange = ClosedRange<RangeValue>
     let range: InputRange
+    let additionalLowerBoundOffset: RangeValue
+    let additionalUpperBoundOffset: RangeValue
+    let effectiveRange: InputRange
     let steps: Int
     let unit: String
     let isValueCurrency: Bool
 
-    public init(range: InputRange, steps: Int, unit: String, isValueCurrency: Bool) {
+    public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool) {
         self.range = range
+        self.additionalLowerBoundOffset = additionalLowerBoundOffset
+        self.additionalUpperBoundOffset = additionalUpperBoundOffset
+        effectiveRange = RangeFilterView.effectiveRange(from: range, with: additionalLowerBoundOffset, and: additionalUpperBoundOffset)
         self.steps = steps
         self.unit = unit
         self.isValueCurrency = isValueCurrency
@@ -121,13 +127,12 @@ extension RangeFilterView: RangeControl {
 
     public func setLowValue(_ value: Int, animated: Bool) {
         updateNumberInputLowValue(with: value)
-        sliderInputView.setLowValue(value, animated: animated)
+        updateSliderLowValue(with: value)
     }
 
     public func setHighValue(_ value: Int, animated: Bool) {
         updateNumberInputHighValue(with: value)
-        numberInputView.setHighValue(value, animated: animated)
-        sliderInputView.setHighValue(value, animated: animated)
+        updateSliderHighValue(with: value)
     }
 }
 
@@ -175,15 +180,15 @@ private extension RangeFilterView {
 
     @objc func numberInputValueChanged(_ sender: RangeNumberInputView) {
         if let lowValue = sender.lowValue {
-            sliderInputView.setLowValue(lowValue, animated: true)
-            inputValues[.low] = lowValue
+            updateSliderLowValue(with: lowValue)
             numberInputView.setLowValueHint(text: "")
+            inputValues[.low] = lowValue
         }
 
         if let highValue = sender.highValue {
-            sliderInputView.setHighValue(highValue, animated: true)
-            inputValues[.high] = highValue
+            updateSliderHighValue(with: highValue)
             numberInputView.setHighValueHint(text: "")
+            inputValues[.high] = highValue
         }
 
         sendActions(for: .valueChanged)
@@ -192,13 +197,27 @@ private extension RangeFilterView {
     @objc func sliderInputValueChanged(_ sender: RangeSliderView) {
         if let lowValue = sender.lowValue {
             updateNumberInputLowValue(with: lowValue)
+            inputValues[.low] = lowValue
         }
 
         if let highValue = sender.highValue {
+            inputValues[.high] = highValue
             updateNumberInputHighValue(with: highValue)
         }
 
         sendActions(for: .valueChanged)
+    }
+
+    func updateSliderLowValue(with value: RangeValue) {
+        let isValueLowerThanRangeLowerBound = value < range.lowerBound
+        let newValue = isValueLowerThanRangeLowerBound ? effectiveRange.lowerBound : value
+        sliderInputView.setLowValue(newValue, animated: false)
+    }
+
+    func updateSliderHighValue(with value: RangeValue) {
+        let isValueHigherThanRangeUpperBound = value > range.upperBound
+        let newValue = isValueHigherThanRangeUpperBound ? effectiveRange.upperBound : value
+        sliderInputView.setHighValue(newValue, animated: false)
     }
 
     func updateNumberInputLowValue(with value: RangeValue) {
@@ -206,17 +225,22 @@ private extension RangeFilterView {
         let newValue = isValueLowerThanRangeLowerBound ? range.lowerBound : value
         let hintText = isValueLowerThanRangeLowerBound ? "Under" : ""
         numberInputView.setLowValueHint(text: hintText)
-        numberInputView.setLowValue(newValue, animated: true)
-        inputValues[.low] = lowValue
+        numberInputView.setLowValue(newValue, animated: false)
     }
 
     func updateNumberInputHighValue(with value: RangeValue) {
         let isValueHigherThanRangeUpperBound = value > range.upperBound
         let newValue = isValueHigherThanRangeUpperBound ? range.upperBound : value
         let hintText = isValueHigherThanRangeUpperBound ? "Over" : ""
-        numberInputView.setHighValue(newValue, animated: true)
+        numberInputView.setHighValue(newValue, animated: false)
         numberInputView.setHighValueHint(text: hintText)
-        inputValues[.high] = highValue
+    }
+
+    static func effectiveRange(from range: InputRange, with lowerBoundOffset: RangeValue, and upperBoundOffset: RangeValue) -> InputRange {
+        let newLowerBound = range.lowerBound - lowerBoundOffset
+        let newUpperBound = range.upperBound + upperBoundOffset
+
+        return InputRange(newLowerBound ... newUpperBound)
     }
 }
 

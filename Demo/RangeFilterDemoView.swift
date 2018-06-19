@@ -8,13 +8,13 @@ import Foundation
 public class RangeFilterDemoView: UIView {
     let lowValue: Int = 0
     let highValue: Int = 30000
-    let steps: Int = 300
-    let sliderAccessibilitySteps: Int = 30
+    let steps: Int = 310
+    let sliderAccessibilitySteps: Int = 31
     let unit = "kr"
     let accessibilityUnit = "kroner"
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, steps: steps, unit: unit, isValueCurrency: true)
+        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, additionalUpperBoundOffset: 1000, steps: steps, unit: unit, isValueCurrency: true)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit

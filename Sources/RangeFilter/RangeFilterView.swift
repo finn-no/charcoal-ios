@@ -30,6 +30,13 @@ public final class RangeFilterView: UIControl {
         return rangeSliderView
     }()
 
+    private lazy var referenceValuesContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = false
+        return view
+    }()
+
     public var generatesHapticFeedbackOnSliderValueChange = true {
         didSet {
             sliderInputView.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnSliderValueChange
@@ -58,11 +65,21 @@ public final class RangeFilterView: UIControl {
         }
     }
 
+    struct ReferenceValueLayout {
+        let value: RangeValue
+        let view: UIView
+
+        var leadingConstraintIdentifier: String {
+            return "ReferenceValueView-\(ObjectIdentifier(view))"
+        }
+    }
+
     private enum InputValue {
         case low, high
     }
 
     private var inputValues = [InputValue: RangeValue]()
+    private var referenceValueLayouts = [ReferenceValueLayout]()
 
     public typealias RangeValue = Int
     public typealias InputRange = ClosedRange<RangeValue>
@@ -73,8 +90,9 @@ public final class RangeFilterView: UIControl {
     let steps: Int
     let unit: String
     let isValueCurrency: Bool
+    let referenceValues: [RangeValue]
 
-    public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool) {
+    public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool, referenceValues: [RangeValue]) {
         self.range = range
         self.additionalLowerBoundOffset = additionalLowerBoundOffset
         self.additionalUpperBoundOffset = additionalUpperBoundOffset
@@ -82,6 +100,7 @@ public final class RangeFilterView: UIControl {
         self.steps = steps
         self.unit = unit
         self.isValueCurrency = isValueCurrency
+        self.referenceValues = referenceValues
         super.init(frame: .zero)
         setup()
     }
@@ -114,6 +133,15 @@ public final class RangeFilterView: UIControl {
             sliderInputView.accessibilityFrame = accessibilityFrame
         }
     }
+
+    public override func layoutSubviews() {
+        referenceValueLayouts.forEach({ layout in
+            let thumbRectForValue = sliderInputView.thumbRect(for: layout.value)
+            let leadingConstant = thumbRectForValue.midX - (layout.view.frame.width / 2)
+            let leadingConstraint = referenceValuesContainer.constraints.first(where: { $0.identifier == layout.leadingConstraintIdentifier })
+            leadingConstraint?.constant = leadingConstant
+        })
+    }
 }
 
 extension RangeFilterView: RangeControl {
@@ -138,28 +166,22 @@ extension RangeFilterView: RangeControl {
 
 private extension RangeFilterView {
     func setup() {
-        let referenceValueLabelsContainer = UIStackView(frame: .zero)
-        referenceValueLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
-        referenceValueLabelsContainer.distribution = .fillEqually
-
-        let lowerBoundFormattedValue = formatter.string(from: NSNumber(value: range.lowerBound)) ?? ""
-        let lowerBoundReferenceLabel = UILabel(text: "\(lowerBoundFormattedValue) \(unit)", textAlignment: .left)
-        lowerBoundReferenceLabel.isAccessibilityElement = false
-
-        let midBoundFormattedValue = formatter.string(from: NSNumber(value: range.count / 2)) ?? ""
-        let midBoundReferenceLabel = UILabel(text: "\(midBoundFormattedValue) \(unit)", textAlignment: .center)
-        midBoundReferenceLabel.isAccessibilityElement = false
-        let upperBoundFormattedValue = formatter.string(from: NSNumber(value: range.upperBound)) ?? ""
-        let upperBoundReferenceLabel = UILabel(text: "\(upperBoundFormattedValue) \(unit)", textAlignment: .right)
-        upperBoundReferenceLabel.isAccessibilityElement = false
-
-        referenceValueLabelsContainer.addArrangedSubview(lowerBoundReferenceLabel)
-        referenceValueLabelsContainer.addArrangedSubview(midBoundReferenceLabel)
-        referenceValueLabelsContainer.addArrangedSubview(upperBoundReferenceLabel)
+        let referenceValueViews = referenceValues.map({ ReferenceValueView(value: $0, unit: unit, formatter: formatter) })
+        referenceValueLayouts = referenceValueViews.map({ ReferenceValueLayout(value: $0.value, view: $0) })
 
         addSubview(numberInputView)
         addSubview(sliderInputView)
-        addSubview(referenceValueLabelsContainer)
+        addSubview(referenceValuesContainer)
+
+        referenceValueLayouts.forEach({ value in
+            value.view.translatesAutoresizingMaskIntoConstraints = false
+            referenceValuesContainer.addSubview(value.view)
+            let leadingAnchor = value.view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)
+            leadingAnchor.identifier = value.leadingConstraintIdentifier
+            leadingAnchor.isActive = true
+            value.view.topAnchor.constraint(equalTo: referenceValuesContainer.topAnchor).isActive = true
+            value.view.bottomAnchor.constraint(equalTo: referenceValuesContainer.bottomAnchor).isActive = true
+        })
 
         NSLayoutConstraint.activate([
             numberInputView.topAnchor.constraint(equalTo: topAnchor),
@@ -171,10 +193,10 @@ private extension RangeFilterView {
             sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
 
-            referenceValueLabelsContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .mediumLargeSpacing),
-            referenceValueLabelsContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),
-            referenceValueLabelsContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
-            referenceValueLabelsContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
+            referenceValuesContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .smallSpacing),
+            referenceValuesContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),
+            referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
     }
 
@@ -239,18 +261,64 @@ private extension RangeFilterView {
     static func effectiveRange(from range: InputRange, with lowerBoundOffset: RangeValue, and upperBoundOffset: RangeValue) -> InputRange {
         let newLowerBound = range.lowerBound - lowerBoundOffset
         let newUpperBound = range.upperBound + upperBoundOffset
-
         return InputRange(newLowerBound ... newUpperBound)
     }
 }
 
-private extension UILabel {
-    convenience init(text: String, textAlignment: NSTextAlignment) {
-        self.init(frame: .zero)
-        self.text = text
-        self.textAlignment = textAlignment
+fileprivate final class ReferenceValueView: UIView {
+    lazy var indicatorView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .sardine
+        view.layer.cornerRadius = 2.0
+        return view
+    }()
 
-        font = .detail
-        textColor = .licorice
+    lazy var referenceLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: FontType.light.rawValue, size: 12)
+        label.textColor = .licorice
+        label.textAlignment = .center
+
+        return label
+    }()
+
+    let value: RangeFilterView.RangeValue
+    let unit: String
+    let formatter: NumberFormatter
+
+    init(value: RangeFilterView.RangeValue, unit: String, formatter: NumberFormatter) {
+        self.value = value
+        self.unit = unit
+        self.formatter = formatter
+        super.init(frame: .zero)
+
+        setup()
+    }
+
+    func setup() {
+        referenceLabel.text = formatter.string(from: NSNumber(value: value))?.appending(" \(unit)")
+
+        addSubview(indicatorView)
+        addSubview(referenceLabel)
+
+        NSLayoutConstraint.activate([
+            indicatorView.topAnchor.constraint(equalTo: topAnchor),
+            indicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            indicatorView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            indicatorView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            indicatorView.widthAnchor.constraint(equalToConstant: 4),
+            indicatorView.heightAnchor.constraint(equalToConstant: 4),
+
+            referenceLabel.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: .mediumSpacing),
+            referenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            referenceLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            referenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

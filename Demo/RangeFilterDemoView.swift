@@ -14,7 +14,7 @@ public class RangeFilterDemoView: UIView {
     let accessibilityUnit = "kroner"
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, additionalUpperBoundOffset: 1000, steps: steps, unit: unit, isValueCurrency: true)
+        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, additionalUpperBoundOffset: 1000, steps: steps, unit: unit, isValueCurrency: true, referenceValues: [1000, 15000, 30000])
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit

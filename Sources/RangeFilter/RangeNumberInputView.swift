@@ -269,11 +269,11 @@ private extension RangeNumberInputView {
     struct Style {
         static let textColor: UIColor = .licorice
         static let minimumFontSize: CGFloat = 22
-        static let normalFontSize: CGFloat = 32
+        static let normalFontSize: CGFloat = 30
         static let normalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: normalFontSize)
         static let activeFont: UIFont? = UIFont(name: FontType.bold.rawValue, size: normalFontSize)
-        static let hintNormalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: 18)
-        static let hintActiveFont: UIFont? = UIFont(name: FontType.bold.rawValue, size: 18)
+        static let hintNormalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: 16)
+        static let hintActiveFont: UIFont? = UIFont(name: FontType.medium.rawValue, size: 16)
         static let decorationViewColor: UIColor = .stone
         static let decorationViewActiveColor: UIColor = .primaryBlue
         static let decorationViewHeight: CGFloat = 1.0

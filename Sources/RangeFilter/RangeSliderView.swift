@@ -137,6 +137,15 @@ extension RangeSliderView: RangeControl {
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
+
+    func thumbRect(for value: RangeValue) -> CGRect {
+        let trackRect = lowValueSlider.trackRect(forBounds: lowValueSlider.bounds)
+        let thumbRect = lowValueSlider.thumbRect(forBounds: lowValueSlider.bounds, trackRect: trackRect, value: Float(value))
+
+        let rectWithoutBoundingBox = CGRect(x: thumbRect.origin.x - 2, y: thumbRect.origin.y, width: thumbRect.width, height: thumbRect.height)
+
+        return rectWithoutBoundingBox
+    }
 }
 
 private extension RangeSliderView {
@@ -377,7 +386,7 @@ fileprivate final class SteppedSlider: UISlider {
         return (effectiveRange.upperBound - effectiveRange.lowerBound) / RangeSliderView.RangeValue(steps)
     }
 
-    private func roundedStepValue(fromValue value: RangeSliderView.RangeValue) -> RangeSliderView.RangeValue {
+    func roundedStepValue(fromValue value: RangeSliderView.RangeValue) -> RangeSliderView.RangeValue {
         return (value / stepIncrement) * stepIncrement
     }
 

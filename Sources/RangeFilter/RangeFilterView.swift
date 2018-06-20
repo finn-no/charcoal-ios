@@ -166,22 +166,9 @@ extension RangeFilterView: RangeControl {
 
 private extension RangeFilterView {
     func setup() {
-        let referenceValueViews = referenceValues.map({ ReferenceValueView(value: $0, unit: unit, formatter: formatter) })
-        referenceValueLayouts = referenceValueViews.map({ ReferenceValueLayout(value: $0.value, view: $0) })
-
         addSubview(numberInputView)
         addSubview(sliderInputView)
         addSubview(referenceValuesContainer)
-
-        referenceValueLayouts.forEach({ value in
-            value.view.translatesAutoresizingMaskIntoConstraints = false
-            referenceValuesContainer.addSubview(value.view)
-            let leadingAnchor = value.view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)
-            leadingAnchor.identifier = value.leadingConstraintIdentifier
-            leadingAnchor.isActive = true
-            value.view.topAnchor.constraint(equalTo: referenceValuesContainer.topAnchor).isActive = true
-            value.view.bottomAnchor.constraint(equalTo: referenceValuesContainer.bottomAnchor).isActive = true
-        })
 
         NSLayoutConstraint.activate([
             numberInputView.topAnchor.constraint(equalTo: topAnchor),
@@ -198,6 +185,23 @@ private extension RangeFilterView {
             referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
+
+        let referenceValueViews = referenceValues.map({ ReferenceValueView(value: $0, unit: unit, formatter: formatter) })
+        referenceValueLayouts = referenceValueViews.map({ ReferenceValueLayout(value: $0.value, view: $0) })
+
+        referenceValueLayouts.forEach { value in
+            value.view.translatesAutoresizingMaskIntoConstraints = false
+            referenceValuesContainer.addSubview(value.view)
+
+            let leadingAnchor = value.view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)
+            leadingAnchor.identifier = value.leadingConstraintIdentifier
+
+            NSLayoutConstraint.activate([
+                leadingAnchor,
+                value.view.topAnchor.constraint(equalTo: referenceValuesContainer.topAnchor),
+                value.view.bottomAnchor.constraint(equalTo: referenceValuesContainer.bottomAnchor),
+            ])
+        }
     }
 
     @objc func numberInputValueChanged(_ sender: RangeNumberInputView) {

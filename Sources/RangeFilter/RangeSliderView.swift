@@ -139,12 +139,13 @@ extension RangeSliderView: RangeControl {
     }
 
     func thumbRect(for value: RangeValue) -> CGRect {
-        let trackRect = lowValueSlider.trackRect(forBounds: lowValueSlider.bounds)
-        let thumbRect = lowValueSlider.thumbRect(forBounds: lowValueSlider.bounds, trackRect: trackRect, value: Float(value))
+        let bounds = lowValueSlider.bounds
+        let trackRect = lowValueSlider.trackRect(forBounds: bounds)
+        let thumbRect = lowValueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: Float(value))
 
-        let rectWithoutBoundingBox = CGRect(x: thumbRect.origin.x - 2, y: thumbRect.origin.y, width: thumbRect.width, height: thumbRect.height)
+        let rectOffsetingInvisibleThumbPadding = thumbRect.offsetBy(dx: -2, dy: 0)
 
-        return rectWithoutBoundingBox
+        return rectOffsetingInvisibleThumbPadding
     }
 }
 

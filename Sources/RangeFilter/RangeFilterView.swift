@@ -17,7 +17,7 @@ public final class RangeFilterView: UIControl {
 
     private lazy var numberInputView: RangeNumberInputView = {
         let inputFontSize = usesSmallNumberInputFont ? RangeNumberInputView.InputFontSize.small : RangeNumberInputView.InputFontSize.large
-        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit, formatter: formatter, inputFontSize: inputFontSize)
+        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit, formatter: formatter, inputFontSize: inputFontSize, displaysUnitInNumberInput: displaysUnitInNumberInput)
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
 
@@ -84,8 +84,9 @@ public final class RangeFilterView: UIControl {
     let isValueCurrency: Bool
     let referenceValues: [RangeValue]
     let usesSmallNumberInputFont: Bool
+    let displaysUnitInNumberInput: Bool
 
-    public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool, referenceValues: [RangeValue], usesSmallNumberInputFont: Bool = false) {
+    public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool, referenceValues: [RangeValue], usesSmallNumberInputFont: Bool = false, displaysUnitInNumberInput: Bool = true) {
         self.range = range
         self.additionalLowerBoundOffset = additionalLowerBoundOffset
         self.additionalUpperBoundOffset = additionalUpperBoundOffset
@@ -95,6 +96,7 @@ public final class RangeFilterView: UIControl {
         self.isValueCurrency = isValueCurrency
         self.referenceValues = referenceValues
         self.usesSmallNumberInputFont = usesSmallNumberInputFont
+        self.displaysUnitInNumberInput = displaysUnitInNumberInput
         super.init(frame: .zero)
         setup()
     }

@@ -118,17 +118,19 @@ final class RangeNumberInputView: UIControl {
     let unit: String
     let formatter: NumberFormatter
     let inputFontSize: CGFloat
+    let displaysUnitInNumberInput: Bool
 
     enum InputFontSize: CGFloat {
         case large = 30
         case small = 24
     }
 
-    init(range: InputRange, unit: String, formatter: NumberFormatter, inputFontSize: InputFontSize = .large) {
+    init(range: InputRange, unit: String, formatter: NumberFormatter, inputFontSize: InputFontSize = .large, displaysUnitInNumberInput: Bool = true) {
         self.range = range
         self.unit = unit
         self.formatter = formatter
         self.inputFontSize = inputFontSize.rawValue
+        self.displaysUnitInNumberInput = displaysUnitInNumberInput
         super.init(frame: .zero)
         setup()
     }
@@ -296,8 +298,11 @@ private extension RangeNumberInputView {
         highValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
-        lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
-        highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
+
+        if displaysUnitInNumberInput {
+            lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
+            highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
+        }
 
         addSubview(underLowerBoundHintLabel)
         addSubview(lowValueInputTextField)

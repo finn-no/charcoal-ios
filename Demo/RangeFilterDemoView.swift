@@ -15,7 +15,7 @@ public class RangeFilterDemoView: UIView {
     let referenceValues = [1000, 15000, 30000]
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, additionalUpperBoundOffset: 1000, steps: steps, unit: unit, isValueCurrency: true, referenceValues: referenceValues)
+        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, additionalUpperBoundOffset: 1000, steps: steps, unit: unit, isValueCurrency: true, referenceValues: referenceValues, displaysUnitInNumberInput: false)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit

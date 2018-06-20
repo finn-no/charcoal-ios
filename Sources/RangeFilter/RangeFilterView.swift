@@ -150,12 +150,12 @@ extension RangeFilterView: RangeControl {
     }
 
     public func setLowValue(_ value: Int, animated: Bool) {
-        updateNumberInputLowValue(with: value)
+        updateNumberInput(for: .low, with: value)
         updateSliderLowValue(with: value)
     }
 
     public func setHighValue(_ value: Int, animated: Bool) {
-        updateNumberInputHighValue(with: value)
+        updateNumberInput(for: .high, with: value)
         updateSliderHighValue(with: value)
     }
 }
@@ -217,13 +217,13 @@ private extension RangeFilterView {
 
     @objc func sliderInputValueChanged(_ sender: RangeSliderView) {
         if let lowValue = sender.lowValue {
-            updateNumberInputLowValue(with: lowValue)
+            updateNumberInput(for: .low, with: lowValue)
             inputValues[.low] = lowValue
         }
 
         if let highValue = sender.highValue {
             inputValues[.high] = highValue
-            updateNumberInputHighValue(with: highValue)
+            updateNumberInput(for: .high, with: highValue)
         }
 
         sendActions(for: .valueChanged)
@@ -241,20 +241,31 @@ private extension RangeFilterView {
         sliderInputView.setHighValue(newValue, animated: false)
     }
 
-    func updateNumberInputLowValue(with value: RangeValue) {
+    private func updateNumberInput(for inputValue: InputValue, with value: RangeValue) {
         let isValueLowerThanRangeLowerBound = value < range.lowerBound
-        let newValue = isValueLowerThanRangeLowerBound ? range.lowerBound : value
-        let hintText = isValueLowerThanRangeLowerBound ? "Under" : ""
-        numberInputView.setLowValueHint(text: hintText)
-        numberInputView.setLowValue(newValue, animated: false)
-    }
+        let isValueIsHigherThaRangeUpperBound = value > range.upperBound
+        let newValue: RangeValue
+        let hintText: String
 
-    func updateNumberInputHighValue(with value: RangeValue) {
-        let isValueHigherThanRangeUpperBound = value > range.upperBound
-        let newValue = isValueHigherThanRangeUpperBound ? range.upperBound : value
-        let hintText = isValueHigherThanRangeUpperBound ? "Over" : ""
-        numberInputView.setHighValue(newValue, animated: false)
-        numberInputView.setHighValueHint(text: hintText)
+        if isValueLowerThanRangeLowerBound {
+            newValue = range.lowerBound
+            hintText = "Under"
+        } else if isValueIsHigherThaRangeUpperBound {
+            newValue = range.upperBound
+            hintText = "Over"
+        } else {
+            newValue = value
+            hintText = ""
+        }
+
+        switch inputValue {
+        case .low:
+            numberInputView.setLowValueHint(text: hintText)
+            numberInputView.setLowValue(newValue, animated: false)
+        case .high:
+            numberInputView.setHighValue(newValue, animated: false)
+            numberInputView.setHighValueHint(text: hintText)
+        }
     }
 
     static func effectiveRange(from range: InputRange, with lowerBoundOffset: RangeValue, and upperBoundOffset: RangeValue) -> InputRange {

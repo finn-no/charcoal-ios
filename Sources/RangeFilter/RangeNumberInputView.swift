@@ -429,7 +429,9 @@ private extension RangeNumberInputView {
         switch inputGroup {
         case .lowValue:
             lowValueInputTextField.font = font
-            lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: lowValueInputTextField.font, from: unit)
+            if displaysUnitInNumberInput {
+                lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: lowValueInputTextField.font, from: unit)
+            }
             underLowerBoundHintLabel.font = outOfRangeBoundsFont
 
             let constraint = lowValueInputDecorationView.constraint(withIdentifier: lowValueInputDecorationViewConstraintIdentifier)
@@ -442,7 +444,9 @@ private extension RangeNumberInputView {
             }
         case .highValue:
             highValueInputTextField.font = font
-            highValueInputUnitLabel.attributedText = attributedUnitText(withFont: highValueInputTextField.font, from: unit)
+            if displaysUnitInNumberInput {
+                highValueInputUnitLabel.attributedText = attributedUnitText(withFont: highValueInputTextField.font, from: unit)
+            }
             overUpperBoundHintLabel.font = outOfRangeBoundsFont
 
             let constraint = highValueInputDecorationView.constraint(withIdentifier: highValueInputDecorationViewConstraintIdentifier)

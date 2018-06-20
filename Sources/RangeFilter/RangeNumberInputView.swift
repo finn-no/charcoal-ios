@@ -250,7 +250,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         }
 
         text.replaceSubrange(stringRange, with: string)
-        text.trimWhiteSpaces()
+        text.removeWhitespaces()
 
         if text.isEmpty {
             text = "\(self.range.lowerBound)"
@@ -474,7 +474,7 @@ private extension UIView {
 }
 
 private extension String {
-    mutating func trimWhiteSpaces() {
+    mutating func removeWhitespaces() {
         let components = self.components(separatedBy: .whitespaces)
         self = components.joined(separator: "")
     }

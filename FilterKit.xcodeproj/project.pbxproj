@@ -54,7 +54,10 @@
 		55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */; };
 		5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589323720A02E1900512FF8 /* SelectionListItemCell.swift */; };
 		55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */; };
-		5598F21120C0163B00E148E0 /* FilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */; };
+		559C61F320DA4C8D0083A574 /* FilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC32720CFFF3D008BFD82 /* FilterInfo.swift */; };
+		559C61F420DA4C8D0083A574 /* RangeFilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC32520CFEC34008BFD82 /* RangeFilterInfoBuilder.swift */; };
+		559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */; };
+		559C61F720DA4CBF0083A574 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC0FD20BFFB8D0038C83A /* Filter.swift */; };
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
 		559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB320B6CB6D009B734D /* StringExtensions.swift */; };
 		559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB520B6D771009B734D /* RangeNumberInputView.swift */; };
@@ -63,7 +66,6 @@
 		559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CC020BC24B9009B734D /* RangeControl.swift */; };
 		55ABF8AE20CFB59C00E31229 /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABF8AD20CFB59C00E31229 /* RangeFilterViewController.swift */; };
 		55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 55ABF8AF20CFD8A100E31229 /* bap-sale.json */; };
-		55BDC0FE20BFFB8D0038C83A /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC0FD20BFFB8D0038C83A /* FilterData.swift */; };
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 		55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */; };
@@ -71,8 +73,6 @@
 		55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FBC32420CFE246008BFD82 /* realestate-homes.json in Resources */ = {isa = PBXBuildFile; fileRef = 55FBC32320CFE246008BFD82 /* realestate-homes.json */; };
-		55FBC32620CFEC34008BFD82 /* RangeFilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC32520CFEC34008BFD82 /* RangeFilterInfoBuilder.swift */; };
-		55FBC32820CFFF3D008BFD82 /* FilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC32720CFFF3D008BFD82 /* FilterInfo.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
@@ -189,7 +189,7 @@
 		559C6CC020BC24B9009B734D /* RangeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeControl.swift; sourceTree = "<group>"; };
 		55ABF8AD20CFB59C00E31229 /* RangeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		55ABF8AF20CFD8A100E31229 /* bap-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bap-sale.json"; sourceTree = "<group>"; };
-		55BDC0FD20BFFB8D0038C83A /* FilterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
+		55BDC0FD20BFFB8D0038C83A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -266,6 +266,8 @@
 		44ECE660208F7FA20017AC82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				559C61F620DA4CAA0083A574 /* Filter */,
+				559C61F220DA4C3B0083A574 /* FilterBuilder */,
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
 				44ECE693208F80320017AC82 /* BottomSheet */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
@@ -304,10 +306,6 @@
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
-				55BDC0FD20BFFB8D0038C83A /* FilterData.swift */,
-				55FBC32720CFFF3D008BFD82 /* FilterInfo.swift */,
-				55FBC32520CFEC34008BFD82 /* RangeFilterInfoBuilder.swift */,
-				5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */,
 				9B9C1705209C759E007BCBBC /* Cartfile */,
 				9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */,
 			);
@@ -507,6 +505,24 @@
 				554D154F20C0782200FA3930 /* car-norway.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		559C61F220DA4C3B0083A574 /* FilterBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				55FBC32720CFFF3D008BFD82 /* FilterInfo.swift */,
+				55FBC32520CFEC34008BFD82 /* RangeFilterInfoBuilder.swift */,
+				5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */,
+			);
+			path = FilterBuilder;
+			sourceTree = "<group>";
+		};
+		559C61F620DA4CAA0083A574 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				55BDC0FD20BFFB8D0038C83A /* Filter.swift */,
+			);
+			name = Filter;
 			sourceTree = "<group>";
 		};
 		55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */ = {
@@ -775,7 +791,9 @@
 				55ABF8AE20CFB59C00E31229 /* RangeFilterViewController.swift in Sources */,
 				5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */,
 				55858A2420AB08FA00B100EA /* MultiLevelFilterListViewController.swift in Sources */,
+				559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
+				559C61F420DA4C8D0083A574 /* RangeFilterInfoBuilder.swift in Sources */,
 				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
 				55858A1320AAC26400B100EA /* FilterInfo.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
@@ -804,11 +822,13 @@
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
 				55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
+				559C61F720DA4CBF0083A574 /* Filter.swift in Sources */,
 				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
+				559C61F320DA4C8D0083A574 /* FilterInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,14 +836,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55FBC32820CFFF3D008BFD82 /* FilterInfo.swift in Sources */,
 				55646DAE2091E1E1006AA2DA /* PreferenceSelectionView.swift in Sources */,
-				55FBC32620CFEC34008BFD82 /* RangeFilterInfoBuilder.swift in Sources */,
-				55BDC0FE20BFFB8D0038C83A /* FilterData.swift in Sources */,
 				55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
-				5598F21120C0163B00E148E0 /* FilterInfoBuilder.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
 				9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */,
 				55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */,

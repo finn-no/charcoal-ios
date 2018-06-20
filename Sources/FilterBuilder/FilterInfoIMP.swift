@@ -2,9 +2,6 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
-import Foundation
-
 struct FilterInfo: FilterInfoType {
     let name: String
 }

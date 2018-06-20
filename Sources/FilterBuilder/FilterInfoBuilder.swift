@@ -2,17 +2,16 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
 import Foundation
 
-final class FilterInfoBuilder {
+public final class FilterInfoBuilder {
     let filter: Filter
 
-    init(filter: Filter) {
+    public init(filter: Filter) {
         self.filter = filter
     }
 
-    func build() -> [FilterInfoType] {
+    public func build() -> [FilterInfoType] {
         var info = [FilterInfoType]()
         var buildKeys = filter.rawFilterKeys.compactMap { FilterKey(rawValue: $0) }
 

@@ -70,10 +70,10 @@ enum FilterMarket: String {
     }
 }
 
-struct Filter: Decodable {
-    let market: String
-    let hits: Int
-    let filterTitle: String
+public struct Filter: Decodable {
+    public let market: String
+    public let hits: Int
+    public let filterTitle: String
     let rawFilterKeys: [String]
     let filters: [FilterData]
 
@@ -81,7 +81,7 @@ struct Filter: Decodable {
         case market, hits, filterTitle = "label", rawFilterKeys = "filters", filterData = "filter-data"
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         market = try container.decode(String.self, forKey: .market)

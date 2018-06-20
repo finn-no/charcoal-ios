@@ -2,10 +2,9 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
 import Foundation
 
-final class RangeFilterInfoBuilder {
+public final class RangeFilterInfoBuilder {
     let filter: Filter
 
     init(filter: Filter) {

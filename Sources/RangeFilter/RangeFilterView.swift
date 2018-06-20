@@ -137,6 +137,10 @@ public final class RangeFilterView: UIControl {
             let leadingConstraint = referenceValuesContainer.constraints.first(where: { $0.identifier == view.leadingConstraintIdentifier })
             leadingConstraint?.constant = leadingConstant
         })
+
+        if shouldForceSmallFontSizeForNumberInput() {
+            numberInputView.forceSmallInputFontSize()
+        }
     }
 }
 
@@ -266,6 +270,12 @@ private extension RangeFilterView {
             numberInputView.setHighValue(newValue, animated: false)
             numberInputView.setHighValueHint(text: hintText)
         }
+    }
+
+    func shouldForceSmallFontSizeForNumberInput() -> Bool {
+        let iphone6ScreenWidth: CGFloat = 375
+
+        return frame.width < iphone6ScreenWidth
     }
 
     static func effectiveRange(from range: InputRange, with lowerBoundOffset: RangeValue, and upperBoundOffset: RangeValue) -> InputRange {

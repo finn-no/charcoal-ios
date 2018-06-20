@@ -15,8 +15,16 @@ public class RangeFilterDemoView: UIView {
     let referenceValues = [1000, 15000, 30000]
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let usesSmallNumberInputFont = UIScreen.main.hasWidthLessThaniPhone6DeviceScreenWidth
-        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, additionalUpperBoundOffset: 1000, steps: steps, unit: unit, isValueCurrency: true, referenceValues: referenceValues, usesSmallNumberInputFont: usesSmallNumberInputFont, displaysUnitInNumberInput: true)
+        let rangeFilterView = RangeFilterView(
+            range: lowValue ... highValue,
+            additionalUpperBoundOffset: 1000,
+            steps: steps,
+            unit: unit,
+            isValueCurrency: true,
+            referenceValues: referenceValues,
+            usesSmallNumberInputFont: false,
+            displaysUnitInNumberInput: true
+        )
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit

@@ -117,7 +117,7 @@ final class RangeNumberInputView: UIControl {
     let range: InputRange
     let unit: String
     let formatter: NumberFormatter
-    let inputFontSize: CGFloat
+    private(set) var inputFontSize: CGFloat
     let displaysUnitInNumberInput: Bool
 
     enum InputFontSize: CGFloat {
@@ -220,6 +220,14 @@ extension RangeNumberInputView: RangeControl {
 
     func setHighValueHint(text: String) {
         setHintText(text, for: .highValue)
+    }
+
+    func forceSmallInputFontSize() {
+        inputFontSize = InputFontSize.small.rawValue
+        lowValueInputTextField.font = lowValueInputTextField.isFirstResponder ? Style.activeFont(size: inputFontSize) : Style.normalFont(size: inputFontSize)
+        lowValueInputUnitLabel.font = lowValueInputTextField.font
+        highValueInputTextField.font = highValueInputTextField.isFirstResponder ? Style.activeFont(size: inputFontSize) : Style.normalFont(size: inputFontSize)
+        highValueInputUnitLabel.font = highValueInputTextField.font
     }
 }
 

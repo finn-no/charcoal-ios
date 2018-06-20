@@ -16,7 +16,8 @@ public final class RangeFilterView: UIControl {
     }()
 
     private lazy var numberInputView: RangeNumberInputView = {
-        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit, formatter: formatter)
+        let inputFontSize = usesSmallNumberInputFont ? RangeNumberInputView.InputFontSize.small : RangeNumberInputView.InputFontSize.large
+        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit, formatter: formatter, inputFontSize: inputFontSize)
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
 
@@ -91,8 +92,9 @@ public final class RangeFilterView: UIControl {
     let unit: String
     let isValueCurrency: Bool
     let referenceValues: [RangeValue]
+    let usesSmallNumberInputFont: Bool
 
-    public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool, referenceValues: [RangeValue]) {
+    public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool, referenceValues: [RangeValue], usesSmallNumberInputFont: Bool = false) {
         self.range = range
         self.additionalLowerBoundOffset = additionalLowerBoundOffset
         self.additionalUpperBoundOffset = additionalUpperBoundOffset
@@ -101,6 +103,7 @@ public final class RangeFilterView: UIControl {
         self.unit = unit
         self.isValueCurrency = isValueCurrency
         self.referenceValues = referenceValues
+        self.usesSmallNumberInputFont = usesSmallNumberInputFont
         super.init(frame: .zero)
         setup()
     }

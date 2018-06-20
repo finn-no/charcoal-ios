@@ -10,7 +10,7 @@ final class RangeNumberInputView: UIControl {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         textField.textColor = Style.textColor
-        textField.font = Style.normalFont
+        textField.font = Style.normalFont(size: inputFontSize)
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
         textField.accessibilityLabel = "range_number_input_view_low_value_textfield_accessibility_label".localized()
@@ -42,7 +42,7 @@ final class RangeNumberInputView: UIControl {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "-"
         label.textColor = Style.textColor
-        label.font = Style.normalFont
+        label.font = Style.normalFont(size: inputFontSize)
 
         return label
     }()
@@ -52,7 +52,7 @@ final class RangeNumberInputView: UIControl {
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = Style.textColor
-        textField.font = Style.normalFont
+        textField.font = Style.normalFont(size: inputFontSize)
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
         textField.accessibilityLabel = "range_number_input_view_high_value_textfield_accessibility_label".localized()
@@ -117,11 +117,18 @@ final class RangeNumberInputView: UIControl {
     let range: InputRange
     let unit: String
     let formatter: NumberFormatter
+    let inputFontSize: CGFloat
 
-    init(range: InputRange, unit: String, formatter: NumberFormatter) {
+    enum InputFontSize: CGFloat {
+        case large = 30
+        case small = 24
+    }
+
+    init(range: InputRange, unit: String, formatter: NumberFormatter, inputFontSize: InputFontSize = .large) {
         self.range = range
         self.unit = unit
         self.formatter = formatter
+        self.inputFontSize = inputFontSize.rawValue
         super.init(frame: .zero)
         setup()
     }
@@ -268,10 +275,8 @@ extension RangeNumberInputView: UITextFieldDelegate {
 private extension RangeNumberInputView {
     struct Style {
         static let textColor: UIColor = .licorice
-        static let minimumFontSize: CGFloat = 22
-        static let normalFontSize: CGFloat = 30
-        static let normalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: normalFontSize)
-        static let activeFont: UIFont? = UIFont(name: FontType.bold.rawValue, size: normalFontSize)
+        static func normalFont(size: CGFloat) -> UIFont? { return UIFont(name: FontType.light.rawValue, size: size) }
+        static func activeFont(size: CGFloat) -> UIFont? { return UIFont(name: FontType.bold.rawValue, size: size) }
         static let hintNormalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: 16)
         static let hintActiveFont: UIFont? = UIFont(name: FontType.medium.rawValue, size: 16)
         static let decorationViewColor: UIColor = .stone
@@ -291,8 +296,8 @@ private extension RangeNumberInputView {
         highValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
-        lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont, from: unit)
-        highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont, from: unit)
+        lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
+        highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
 
         addSubview(underLowerBoundHintLabel)
         addSubview(lowValueInputTextField)
@@ -370,7 +375,7 @@ private extension RangeNumberInputView {
         style.lineBreakMode = .byCharWrapping
 
         let attributes = [
-            NSAttributedStringKey.font: font ?? UIFont.systemFont(ofSize: Style.normalFontSize),
+            NSAttributedStringKey.font: font ?? UIFont.systemFont(ofSize: inputFontSize),
             NSAttributedStringKey.foregroundColor: RangeNumberInputView.Style.textColor,
             NSAttributedStringKey.paragraphStyle: style,
         ]
@@ -412,7 +417,7 @@ private extension RangeNumberInputView {
     }
 
     func setInputGroup(_ inputGroup: InputGroup, active: Bool) {
-        let font: UIFont? = active ? Style.activeFont : Style.normalFont
+        let font: UIFont? = active ? Style.activeFont(size: inputFontSize) : Style.normalFont(size: inputFontSize)
         let outOfRangeBoundsFont = active ? Style.hintActiveFont : Style.hintNormalFont
         let decorationViewColor: UIColor = active ? Style.decorationViewActiveColor : Style.decorationViewColor
 

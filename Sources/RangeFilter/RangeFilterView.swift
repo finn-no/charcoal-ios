@@ -66,21 +66,12 @@ public final class RangeFilterView: UIControl {
         }
     }
 
-    struct ReferenceValueLayout {
-        let value: RangeValue
-        let view: UIView
-
-        var leadingConstraintIdentifier: String {
-            return "ReferenceValueView-\(ObjectIdentifier(view))"
-        }
-    }
-
     private enum InputValue {
         case low, high
     }
 
     private var inputValues = [InputValue: RangeValue]()
-    private var referenceValueLayouts = [ReferenceValueLayout]()
+    private var referenceValueViews = [ReferenceValueView]()
 
     public typealias RangeValue = Int
     public typealias InputRange = ClosedRange<RangeValue>
@@ -138,10 +129,10 @@ public final class RangeFilterView: UIControl {
     }
 
     public override func layoutSubviews() {
-        referenceValueLayouts.forEach({ layout in
-            let thumbRectForValue = sliderInputView.thumbRect(for: layout.value)
-            let leadingConstant = thumbRectForValue.midX - (layout.view.frame.width / 2)
-            let leadingConstraint = referenceValuesContainer.constraints.first(where: { $0.identifier == layout.leadingConstraintIdentifier })
+        referenceValueViews.forEach({ view in
+            let thumbRectForValue = sliderInputView.thumbRect(for: view.value)
+            let leadingConstant = thumbRectForValue.midX - (view.frame.width / 2)
+            let leadingConstraint = referenceValuesContainer.constraints.first(where: { $0.identifier == view.leadingConstraintIdentifier })
             leadingConstraint?.constant = leadingConstant
         })
     }
@@ -189,20 +180,19 @@ private extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        let referenceValueViews = referenceValues.map({ ReferenceValueView(value: $0, unit: unit, formatter: formatter) })
-        referenceValueLayouts = referenceValueViews.map({ ReferenceValueLayout(value: $0.value, view: $0) })
+        referenceValueViews = referenceValues.map({ ReferenceValueView(value: $0, unit: unit, formatter: formatter) })
 
-        referenceValueLayouts.forEach { value in
-            value.view.translatesAutoresizingMaskIntoConstraints = false
-            referenceValuesContainer.addSubview(value.view)
+        referenceValueViews.forEach { view in
+            view.translatesAutoresizingMaskIntoConstraints = false
+            referenceValuesContainer.addSubview(view)
 
-            let leadingAnchor = value.view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)
-            leadingAnchor.identifier = value.leadingConstraintIdentifier
+            let leadingConstraint = view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)
+            leadingConstraint.identifier = view.leadingConstraintIdentifier
 
             NSLayoutConstraint.activate([
-                leadingAnchor,
-                value.view.topAnchor.constraint(equalTo: referenceValuesContainer.topAnchor),
-                value.view.bottomAnchor.constraint(equalTo: referenceValuesContainer.bottomAnchor),
+                leadingConstraint,
+                view.topAnchor.constraint(equalTo: referenceValuesContainer.topAnchor),
+                view.bottomAnchor.constraint(equalTo: referenceValuesContainer.bottomAnchor),
             ])
         }
     }
@@ -272,7 +262,7 @@ private extension RangeFilterView {
     }
 }
 
-fileprivate final class ReferenceValueView: UIView {
+private final class ReferenceValueView: UIView {
     lazy var indicatorView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -280,6 +270,10 @@ fileprivate final class ReferenceValueView: UIView {
         view.layer.cornerRadius = 2.0
         return view
     }()
+
+    var leadingConstraintIdentifier: String {
+        return "ReferenceValueView-\(ObjectIdentifier(self))"
+    }
 
     lazy var referenceLabel: UILabel = {
         let label = UILabel(frame: .zero)

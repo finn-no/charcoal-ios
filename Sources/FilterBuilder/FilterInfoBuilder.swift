@@ -20,19 +20,21 @@ public final class FilterInfoBuilder {
             info.append(buildFreeSearchFilterInfo())
         }
 
-        let preferenceInfoKeys = buildKeys.filter({ FilterKey.preferenceFilterKeys.contains($0) })
-        preferenceInfoKeys.forEach { key in
-            if let index = buildKeys.index(of: key) {
-                buildKeys.remove(at: index)
+        if let market = FilterMarket(market: filter.market) {
+            let preferenceInfoKeys = buildKeys.filter({ FilterKey.preferenceFilterKeys(forMarket: market).contains($0) })
+            preferenceInfoKeys.forEach { key in
+                if let index = buildKeys.index(of: key) {
+                    buildKeys.remove(at: index)
+                }
             }
-        }
 
-        if let preferenceFilterInfo = buildPreferenceFilterInfo(fromKeys: preferenceInfoKeys) {
-            info.append(preferenceFilterInfo)
-        }
+            if let preferenceFilterInfo = buildPreferenceFilterInfo(fromKeys: preferenceInfoKeys) {
+                info.append(preferenceFilterInfo)
+            }
 
-        let remainingFilters = buildFilterInfo(fromKeys: buildKeys)
-        info.append(contentsOf: remainingFilters)
+            let remainingFilters = buildFilterInfo(fromKeys: buildKeys)
+            info.append(contentsOf: remainingFilters)
+        }
 
         return info
     }

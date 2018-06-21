@@ -31,11 +31,11 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertNotNil(filter)
         XCTAssertNotNil(builder)
         XCTAssertNotNil(filterInfoElements)
-        XCTAssertEqual(filterInfoElements?.count, 18)
+        XCTAssertEqual(filterInfoElements?.count, 19)
         XCTAssertEqual(numberOfFreeSearchFilterInfoElements, 1)
         XCTAssertEqual(numberOfPreferenceFilterInfoElements, 1)
         XCTAssertEqual(numberOfRangeFilterInfoElements, 5)
-        XCTAssertEqual(numberOfMultiLevelFilterInfoElements, 11)
+        XCTAssertEqual(numberOfMultiLevelFilterInfoElements, 12)
     }
 
     func testFilterInfoBuilderBuildsPreferenceFilterInfoWithExpectedValues() {
@@ -52,7 +52,7 @@ class FilterInfoBuilderTests: BaseTestCase {
         let filterInfoElements = builder?.build()
         let preferenceFilterInfo = filterInfoElements?.first(where: { $0 is PreferenceFilterInfoType }) as? PreferenceFilterInfoType
         let preferenceFilterInfoPreferences = preferenceFilterInfo?.preferences
-        let publishedPreference = preferenceFilterInfoPreferences?.first(where: {$0.name == "Publisert" })
+        let publishedPreference = preferenceFilterInfoPreferences?.first(where: { $0.name == "Publisert" })
         let publishedFilterData = filter?.filterData(forKey: .published)
 
         // Then
@@ -61,7 +61,7 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertNotNil(preferenceFilterInfoPreferences)
         XCTAssertNotNil(publishedFilterData)
 
-        XCTAssertEqual(preferenceFilterInfoPreferences?.count, 5)
+        XCTAssertEqual(preferenceFilterInfoPreferences?.count, FilterKey.preferenceFilterKeys(forMarket: .car).count)
 
         XCTAssertNotNil(publishedPreference)
         XCTAssertEqual(publishedPreference?.name, "Publisert")
@@ -72,7 +72,7 @@ class FilterInfoBuilderTests: BaseTestCase {
 
         XCTAssertNotNil(publishedPreference?.values.first)
         XCTAssertNotNil(publishedFilterData?.queries?.first)
-        
+
         XCTAssertEqual(publishedPreference?.values.first?.title, "Nye i dag")
         XCTAssertEqual(publishedPreference?.values.first?.title, publishedFilterData?.queries?.first?.title)
 
@@ -92,9 +92,8 @@ class FilterInfoBuilderTests: BaseTestCase {
 
         // When
         let filterInfoElements = builder?.build()
-        let makeMultiLevelFilterInfo = filterInfoElements?.first(where: { $0.name == "Merke"} ) as? MultiLevelFilterInfoType
+        let makeMultiLevelFilterInfo = filterInfoElements?.first(where: { $0.name == "Merke" }) as? MultiLevelFilterInfoType
         let makeFilterData = filter?.filterData(forKey: .make)
-
 
         // Then
         XCTAssertNotNil(filterInfoElements)

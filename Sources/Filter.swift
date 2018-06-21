@@ -49,8 +49,15 @@ enum FilterKey: String, CodingKey {
     case propertyType = "property_type"
     case ownershipType = "ownership_type"
 
-    static var preferenceFilterKeys: [FilterKey] {
-        return [.searchType, .segment, .condition, .published, .priceChanged, .dealerSegment, .salesForm, .isPrivateBroker, .isSold, .isNewProperty]
+    static func preferenceFilterKeys(forMarket market: FilterMarket) -> [FilterKey] {
+        switch market {
+        case .bap:
+            return [.searchType, .segment, .condition, .published]
+        case .realestate:
+            return [.published, .isPrivateBroker, .isSold, .isNewProperty]
+        case .car:
+            return [.condition, .published, .priceChanged, .dealerSegment]
+        }
     }
 }
 

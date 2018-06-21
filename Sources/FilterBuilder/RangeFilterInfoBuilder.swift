@@ -38,7 +38,8 @@ private extension RangeFilterInfoBuilder {
         switch filterData.key {
         case .year:
             lowValue = 1950
-            highValue = 2018
+            let currentYear = Calendar.current.component(.year, from: Date())
+            highValue = currentYear
             steps = highValue - lowValue
             unit = "år"
         case .engineEffect:

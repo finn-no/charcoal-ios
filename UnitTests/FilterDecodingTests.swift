@@ -5,14 +5,14 @@
 @testable import FilterKit
 import XCTest
 
-class FilterDecodingTests: XCTestCase {
+class FilterDecodingTests: BaseTestCase {
     lazy var decodedTestFilter: Filter? = {
-        return FilterDecodingTests.filterDataFromJSONFile(named: "DecodingTestFilter")
+        return filterDataFromJSONFile(named: "DecodingTestFilter")
     }()
 
     func testFilterCanBeDecodedFromJSONData() {
         // Given
-        let data = FilterDecodingTests.dataFromJSONFile(named: "DecodingTestFilter")
+        let data = dataFromJSONFile(named: "DecodingTestFilter")
 
         // When
         let filter: Filter?
@@ -108,25 +108,5 @@ class FilterDecodingTests: XCTestCase {
         XCTAssertEqual(firstQueryElement?.value, "2")
         XCTAssertEqual(firstQueryElement?.totalResults, 37283)
         XCTAssertNil(firstQueryElement?.filter)
-    }
-}
-
-extension FilterDecodingTests {
-    static func dataFromJSONFile(named name: String) -> Data? {
-        let bundle = Bundle(for: FilterDecodingTests.self)
-
-        guard let path = bundle.path(forResource: name, ofType: "json") else {
-            return nil
-        }
-
-        return try? Data(contentsOf: URL(fileURLWithPath: path))
-    }
-
-    static func filterDataFromJSONFile(named name: String) -> Filter? {
-        guard let data = dataFromJSONFile(named: name) else {
-            return nil
-        }
-
-        return try? JSONDecoder().decode(Filter.self, from: data)
     }
 }

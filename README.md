@@ -1,4 +1,4 @@
-<p align="center"><img width=35% src="https://raw.githubusercontent.com/finn-no/FilterKit/master/GitHub/cover.gif"></p>
+<p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/cover.gif" width="40%" /></p>
 
 # FilterKit
 

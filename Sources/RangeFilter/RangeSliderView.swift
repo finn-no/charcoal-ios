@@ -8,7 +8,7 @@ final class RangeSliderView: UIControl {
     public static let minimumViewHeight: CGFloat = 28.0
 
     private lazy var lowValueSlider: SteppedSlider = {
-        let slider = SteppedSlider(range: range, steps: steps)
+        let slider = SteppedSlider(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         slider.roundedStepValueChangedHandler = roundedStepValueChanged
@@ -17,7 +17,7 @@ final class RangeSliderView: UIControl {
     }()
 
     private lazy var highValueSlider: SteppedSlider = {
-        let slider = SteppedSlider(range: range, steps: steps)
+        let slider = SteppedSlider(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         slider.roundedStepValueChangedHandler = roundedStepValueChanged
@@ -48,6 +48,8 @@ final class RangeSliderView: UIControl {
     typealias RangeValue = Int
     typealias SliderRange = ClosedRange<RangeValue>
     let range: SliderRange
+    let additionalLowerBoundOffset: RangeValue
+    let additionalUpperBoundOffset: RangeValue
     let steps: Int
 
     var generatesHapticFeedbackOnValueChange = true {
@@ -87,8 +89,10 @@ final class RangeSliderView: UIControl {
         }
     }
 
-    init(range: SliderRange, steps: Int?) {
+    init(range: SliderRange, additionalLowerBoundOffset: RangeValue, additionalUpperBoundOffset: RangeValue, steps: Int?) {
         self.range = range
+        self.additionalLowerBoundOffset = additionalLowerBoundOffset
+        self.additionalUpperBoundOffset = additionalUpperBoundOffset
         self.steps = steps ?? Int(range.upperBound - range.lowerBound)
         super.init(frame: .zero)
         setup()
@@ -129,9 +133,19 @@ extension RangeSliderView: RangeControl {
     }
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
-        highValueSlider.setValueForSlider(value, animated: animated)
+        highestValueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
+    }
+
+    func thumbRect(for value: RangeValue) -> CGRect {
+        let bounds = lowValueSlider.bounds
+        let trackRect = lowValueSlider.trackRect(forBounds: bounds)
+        let thumbRect = lowValueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: Float(value))
+
+        let rectOffsetingInvisibleThumbPadding = thumbRect.offsetBy(dx: -2, dy: 0)
+
+        return rectOffsetingInvisibleThumbPadding
     }
 }
 
@@ -162,8 +176,8 @@ private extension RangeSliderView {
         activeRangeTrackViewTrailingAnchor.identifier = activeRangeTrackViewTrailingAnchorIdentifier
 
         NSLayoutConstraint.activate([
-            trackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .verySmallSpacing),
-            trackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.verySmallSpacing),
+            trackView.leadingAnchor.constraint(equalTo: lowValueSlider.leadingAnchor, constant: .verySmallSpacing),
+            trackView.trailingAnchor.constraint(equalTo: lowValueSlider.trailingAnchor, constant: -.verySmallSpacing),
             trackView.centerYAnchor.constraint(equalTo: lowValueSlider.centerYAnchor),
             trackView.heightAnchor.constraint(equalToConstant: Style.trackHeight),
             activeRangeTrackViewLeadingAnchor,
@@ -215,6 +229,7 @@ private extension RangeSliderView {
 fileprivate final class SteppedSlider: UISlider {
     let steps: Int
     let range: RangeSliderView.SliderRange
+    let effectiveRange: RangeSliderView.SliderRange
 
     var roundedStepValueChangedHandler: ((SteppedSlider) -> Void)?
     var generatesHapticFeedbackOnValueChange = true
@@ -241,20 +256,20 @@ fileprivate final class SteppedSlider: UISlider {
 
     private var previousRoundedStepValue: RangeSliderView.RangeValue?
 
-    init(range: RangeSliderView.SliderRange, steps: Int) {
+    init(range: RangeSliderView.SliderRange, additionalLowerBoundOffset: RangeSliderView.RangeValue = 0, additionalUpperBoundOffset: RangeSliderView.RangeValue = 0, steps: Int) {
         self.range = range
+        effectiveRange = SteppedSlider.effectiveRange(from: range, with: additionalLowerBoundOffset, and: additionalUpperBoundOffset)
         self.steps = steps
         super.init(frame: .zero)
 
         minimumTrackTintColor = .clear
         maximumTrackTintColor = .clear
-        minimumValue = Float(range.lowerBound)
-        maximumValue = Float(range.upperBound)
+        minimumValue = Float(effectiveRange.lowerBound)
+        maximumValue = Float(effectiveRange.upperBound)
         setThumbImage(RangeSliderView.Style.sliderThumbImage, for: .normal)
         setThumbImage(RangeSliderView.Style.activeSliderThumbImage, for: .highlighted)
-
         addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
-
+        addTarget(self, action: #selector(sliderStoppedTracking), for: .touchUpInside)
         accessibilityValue = "\(minimumValue) \(accessibilityValueSuffix ?? "")"
     }
 
@@ -295,31 +310,84 @@ fileprivate final class SteppedSlider: UISlider {
     }
 
     @objc func sliderValueChanged(sender: SteppedSlider) {
-        if let previousRoundedStepValue = previousRoundedStepValue, previousRoundedStepValue != roundedStepValue {
-            value = Float(roundedStepValue)
-            self.previousRoundedStepValue = roundedStepValue
-            roundedStepValueChangedHandler?(self)
+        let newValue = RangeSliderView.RangeValue(roundedStepValue)
+
+        if let previousValue = previousRoundedStepValue, previousValue != newValue {
+            let offsetValue = self.offsetValue(for: newValue, checkedAgaints: previousValue)
+            let isLowerBoundStepValue = (newValue == range.lowerBound || newValue == effectiveRange.lowerBound)
+            let isUpperBoundStepValue = (newValue == range.upperBound || newValue == effectiveRange.upperBound)
+            let isNonOffsetValue = range.contains(newValue)
+            let shouldNotifyValueChanged = isNonOffsetValue || isLowerBoundStepValue || isUpperBoundStepValue
+
+            if shouldNotifyValueChanged {
+                value = Float(offsetValue)
+                previousRoundedStepValue = offsetValue
+                roundedStepValueChangedHandler?(self)
+            }
+
             updateAccessibilityValue()
 
-            if generatesHapticFeedbackOnValueChange {
+            if generatesHapticFeedbackOnValueChange && shouldNotifyValueChanged {
                 generateFeedback()
             }
+
         } else {
-            value = Float(roundedStepValue)
-            previousRoundedStepValue = roundedStepValue
+            value = Float(newValue)
+            previousRoundedStepValue = newValue
             updateAccessibilityValue()
         }
     }
 
+    @objc func sliderStoppedTracking(sender: SteppedSlider) {
+        let newValue = RangeSliderView.RangeValue(roundedStepValue)
+
+        if let previousValue = previousRoundedStepValue {
+            if newValue < previousValue && newValue > range.upperBound {
+                value = Float(range.upperBound)
+            } else if newValue > previousValue && newValue > range.upperBound {
+                value = Float(effectiveRange.upperBound)
+            } else if newValue > previousValue && newValue < range.lowerBound {
+                value = Float(range.lowerBound)
+            } else if newValue < previousValue && newValue < range.lowerBound {
+                value = Float(effectiveRange.lowerBound)
+            } else {
+                value = Float(newValue)
+            }
+        } else {
+            value = Float(newValue)
+        }
+
+        previousRoundedStepValue = newValue
+        roundedStepValueChangedHandler?(self)
+
+        if generatesHapticFeedbackOnValueChange {
+            generateFeedback()
+        }
+    }
+
+    func offsetValue(for value: RangeSliderView.RangeValue, checkedAgaints previousValue: RangeSliderView.RangeValue) -> RangeSliderView.RangeValue {
+        let isLowerOffsetValue = (effectiveRange.lowerBound ..< range.lowerBound) ~= value
+        let isUpperOffsetValue = ((range.upperBound.advanced(by: 1)) ... effectiveRange.upperBound) ~= value
+        let isOffsetValue = isLowerOffsetValue || isUpperOffsetValue
+
+        if isOffsetValue && isLowerOffsetValue {
+            return (previousValue > value) ? range.lowerBound : effectiveRange.lowerBound
+        } else if isOffsetValue && isUpperOffsetValue {
+            return (value > previousValue) ? effectiveRange.upperBound : range.upperBound
+        } else {
+            return value
+        }
+    }
+
     private var accessibilityStepIncrement: Int {
-        return (range.upperBound - range.lowerBound) / RangeSliderView.RangeValue(accessibilitySteps)
+        return (effectiveRange.upperBound - effectiveRange.lowerBound) / RangeSliderView.RangeValue(accessibilitySteps)
     }
 
     private var stepIncrement: Int {
-        return (range.upperBound - range.lowerBound) / RangeSliderView.RangeValue(steps)
+        return (effectiveRange.upperBound - effectiveRange.lowerBound) / RangeSliderView.RangeValue(steps)
     }
 
-    private func roundedStepValue(fromValue value: RangeSliderView.RangeValue) -> RangeSliderView.RangeValue {
+    func roundedStepValue(fromValue value: RangeSliderView.RangeValue) -> RangeSliderView.RangeValue {
         return (value / stepIncrement) * stepIncrement
     }
 
@@ -332,5 +400,12 @@ fileprivate final class SteppedSlider: UISlider {
             let generator = UISelectionFeedbackGenerator()
             generator.selectionChanged()
         }
+    }
+
+    static func effectiveRange(from range: RangeSliderView.SliderRange, with lowerBoundOffset: RangeSliderView.RangeValue, and upperBoundOffset: RangeSliderView.RangeValue) -> RangeSliderView.SliderRange {
+        let newLowerBound = range.lowerBound - lowerBoundOffset
+        let newUpperBound = range.upperBound + upperBoundOffset
+
+        return RangeSliderView.SliderRange(newLowerBound ... newUpperBound)
     }
 }

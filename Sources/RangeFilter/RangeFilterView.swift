@@ -134,8 +134,7 @@ public final class RangeFilterView: UIControl {
         referenceValueViews.forEach({ view in
             let thumbRectForValue = sliderInputView.thumbRect(for: view.value)
             let leadingConstant = thumbRectForValue.midX - (view.frame.width / 2)
-            let leadingConstraint = referenceValuesContainer.constraints.first(where: { $0.identifier == view.leadingConstraintIdentifier })
-            leadingConstraint?.constant = leadingConstant
+            view.leadingConstraint?.constant = leadingConstant
         })
 
         if shouldForceSmallFontSizeForNumberInput() {
@@ -193,13 +192,14 @@ private extension RangeFilterView {
             referenceValuesContainer.addSubview(view)
 
             let leadingConstraint = view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)
-            leadingConstraint.identifier = view.leadingConstraintIdentifier
 
             NSLayoutConstraint.activate([
                 leadingConstraint,
                 view.topAnchor.constraint(equalTo: referenceValuesContainer.topAnchor),
                 view.bottomAnchor.constraint(equalTo: referenceValuesContainer.bottomAnchor),
             ])
+
+            view.leadingConstraint = leadingConstraint
         }
     }
 
@@ -294,9 +294,7 @@ private final class ReferenceValueView: UIView {
         return view
     }()
 
-    var leadingConstraintIdentifier: String {
-        return "ReferenceValueView-\(ObjectIdentifier(self))"
-    }
+    weak var leadingConstraint: NSLayoutConstraint?
 
     lazy var referenceLabel: UILabel = {
         let label = UILabel(frame: .zero)

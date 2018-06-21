@@ -8,18 +8,28 @@ import Foundation
 public class RangeFilterDemoView: UIView {
     let lowValue: Int = 0
     let highValue: Int = 30000
-    let steps: Int = 300
-    let sliderAccessibilitySteps: Int = 30
+    let steps: Int = 310
+    let sliderAccessibilitySteps: Int = 31
     let unit = "kr"
     let accessibilityUnit = "kroner"
+    let referenceValues = [1000, 15000, 30000]
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(range: lowValue ... highValue, steps: steps, unit: unit)
+        let rangeFilterView = RangeFilterView(
+            range: lowValue ... highValue,
+            additionalUpperBoundOffset: 1000,
+            steps: steps,
+            unit: unit,
+            isValueCurrency: true,
+            referenceValues: referenceValues,
+            usesSmallNumberInputFont: false,
+            displaysUnitInNumberInput: true
+        )
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit
         rangeFilterView.setLowValue(lowValue, animated: false)
-        rangeFilterView.setHighValue(highValue, animated: false)
+        rangeFilterView.setHighValue(30001, animated: false)
         rangeFilterView.addTarget(self, action: #selector(rangeFilterViewValueChanged(_:)), for: .valueChanged)
 
         return rangeFilterView
@@ -39,8 +49,8 @@ public class RangeFilterDemoView: UIView {
 
         NSLayoutConstraint.activate([
             rangeFilterView.topAnchor.constraint(equalTo: topAnchor, constant: 48),
-            rangeFilterView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            rangeFilterView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
+            rangeFilterView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            rangeFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 

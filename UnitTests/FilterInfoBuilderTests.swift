@@ -125,4 +125,27 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.results, 2)
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.results, makeFilterData?.queries?.first?.filter?.queries.first?.totalResults)
     }
+
+    func testFilterInfoBuilderBuildsRangeFilterInfoIfFilterDataIsRange() {
+        // Given
+        let filter = decodedTestFilter
+        let builder: FilterInfoBuilder?
+        if let filter = filter {
+            builder = FilterInfoBuilder(filter: filter)
+        } else {
+            builder = nil
+        }
+
+        // When
+        let filterInfoElements = builder?.build()
+        let rangeFilterData = filter?.filters.first(where: { $0.isRange })
+        let rangeFilterName = rangeFilterData?.title
+        let rangeFilterInfo = filterInfoElements?.first(where: { $0.name == rangeFilterName }) as? RangeFilterInfoType
+
+        // Then
+        XCTAssertNotNil(filterInfoElements)
+        XCTAssertNotNil(rangeFilterData)
+        XCTAssertNotNil(rangeFilterName)
+        XCTAssertNotNil(rangeFilterInfo)
+    }
 }

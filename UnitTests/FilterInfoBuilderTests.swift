@@ -61,7 +61,7 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertNotNil(preferenceFilterInfoPreferences)
         XCTAssertNotNil(publishedFilterData)
 
-        XCTAssertEqual(preferenceFilterInfoPreferences?.count, FilterKey.preferenceFilterKeys(forMarket: .car).count)
+        XCTAssertEqual(preferenceFilterInfoPreferences?.count, FilterMarket.car.preferenceFilterKeys.count)
 
         XCTAssertNotNil(publishedPreference)
         XCTAssertEqual(publishedPreference?.name, "Publisert")

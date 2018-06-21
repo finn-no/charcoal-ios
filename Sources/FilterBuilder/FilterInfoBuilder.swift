@@ -13,28 +13,21 @@ public final class FilterInfoBuilder {
 
     public func build() -> [FilterInfoType] {
         var info = [FilterInfoType]()
-        var buildKeys = filter.rawFilterKeys.compactMap { FilterKey(rawValue: $0) }
 
-        if let queryIndex = buildKeys.index(of: FilterKey.query) {
-            buildKeys.remove(at: queryIndex)
+        guard let market = FilterMarket(market: filter.market) else {
+            return []
+        }
+
+        if filter.rawFilterKeys.contains(FilterKey.query.rawValue) {
             info.append(buildFreeSearchFilterInfo())
         }
 
-        if let market = FilterMarket(market: filter.market) {
-            let preferenceInfoKeys = buildKeys.filter({ FilterKey.preferenceFilterKeys(forMarket: market).contains($0) })
-            preferenceInfoKeys.forEach { key in
-                if let index = buildKeys.index(of: key) {
-                    buildKeys.remove(at: index)
-                }
-            }
-
-            if let preferenceFilterInfo = buildPreferenceFilterInfo(fromKeys: preferenceInfoKeys) {
-                info.append(preferenceFilterInfo)
-            }
-
-            let remainingFilters = buildFilterInfo(fromKeys: buildKeys)
-            info.append(contentsOf: remainingFilters)
+        if let preferenceFilterInfo = buildPreferenceFilterInfo(fromKeys: market.preferenceFilterKeys) {
+            info.append(preferenceFilterInfo)
         }
+
+        let remainingFilters = buildFilterInfo(fromKeys: market.supportedFiltersKeys)
+        info.append(contentsOf: remainingFilters)
 
         return info
     }

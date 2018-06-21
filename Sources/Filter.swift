@@ -4,79 +4,6 @@
 
 import Foundation
 
-enum FilterKey: String, CodingKey {
-    case query = "q"
-    case published
-    case location
-    case segment
-    case searchType = "search_type"
-    case condition
-    case category
-    case price
-    // car-norway
-    case markets
-    case make
-    case dealerSegment = "dealer_segment"
-    case salesForm = "sales_form"
-    case year
-    case mileage
-    case priceChanged = "price_changed"
-    case bodyType = "body_type"
-    case engineFuel = "engine_fuel"
-    case exteriorColour = "exterior_colour"
-    case engineEffect = "engine_effect"
-    case numberOfSeats = "number_of_seats"
-    case wheelDrive = "wheel_drive"
-    case transmission
-    case carEquipment = "car_equipment"
-    case wheelSets = "wheel_sets"
-    case warrantyInsurance = "warranty_insurance"
-    case registrationClass = "registration_class"
-    // realestate-homes
-    case noOfBedrooms = "no_of_bedrooms"
-    case area
-    case plotArea = "plot_area"
-    case priceCollective = "price_collective"
-    case constructionYear = "construction_year"
-    case rent
-    case isPrivateBroker = "is_private_broker"
-    case facilities
-    case viewing
-    case isNewProperty = "is_new_property"
-    case energyLabel = "energy_label"
-    case isSold = "is_sold"
-    case floorNavigator = "floor_navigator"
-    case propertyType = "property_type"
-    case ownershipType = "ownership_type"
-
-    static func preferenceFilterKeys(forMarket market: FilterMarket) -> [FilterKey] {
-        switch market {
-        case .bap:
-            return [.searchType, .segment, .condition, .published]
-        case .realestate:
-            return [.published, .isPrivateBroker, .isSold, .isNewProperty]
-        case .car:
-            return [.condition, .published, .priceChanged, .dealerSegment]
-        }
-    }
-}
-
-enum FilterMarket: String {
-    case bap, realestate, car
-
-    init?(market: String) {
-        guard let market = FilterMarket.allMarkets.first(where: { market.hasPrefix($0.rawValue) }) else {
-            return nil
-        }
-
-        self = market
-    }
-
-    static var allMarkets: [FilterMarket] {
-        return [.bap, .realestate, car]
-    }
-}
-
 public struct Filter: Decodable {
     public let market: String
     public let hits: Int
@@ -101,6 +28,7 @@ public struct Filter: Decodable {
         rawFilterKeys = try container.decode([String].self, forKey: .rawFilterKeys)
 
         let filterDataContainer = try container.nestedContainer(keyedBy: FilterKey.self, forKey: .filterData)
+
         let elementKeys = rawFilterKeys.compactMap({ FilterKey(stringValue: $0) })
         filters = try elementKeys.compactMap { elementKey -> FilterData? in
             guard let partial = try filterDataContainer.decodeIfPresent(FilterData.PartialFilterDataElement.self, forKey: elementKey) else {

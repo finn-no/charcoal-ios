@@ -81,6 +81,10 @@ public struct Filter: Decodable {
         case market, hits, filterTitle = "label", rawFilterKeys = "filters", filterData = "filter-data"
     }
 
+    public init(from data: Data) throws {
+        self = try JSONDecoder().decode(Filter.self, from: data)
+    }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 

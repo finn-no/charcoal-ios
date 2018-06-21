@@ -58,6 +58,8 @@
 		559C61F420DA4C8D0083A574 /* RangeFilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC32520CFEC34008BFD82 /* RangeFilterInfoBuilder.swift */; };
 		559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */; };
 		559C61F820DA4D860083A574 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC0FD20BFFB8D0038C83A /* Filter.swift */; };
+		559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C61FB20DA87330083A574 /* FilterDecodingTests.swift */; };
+		559C620320DA88B90083A574 /* DecodingTestFilter.json in Resources */ = {isa = PBXBuildFile; fileRef = 559C620220DA88B90083A574 /* DecodingTestFilter.json */; };
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
 		559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB320B6CB6D009B734D /* StringExtensions.swift */; };
 		559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB520B6D771009B734D /* RangeNumberInputView.swift */; };
@@ -181,6 +183,8 @@
 		5589323720A02E1900512FF8 /* SelectionListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionListItemCell.swift; sourceTree = "<group>"; };
 		55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDemoViewController.swift; sourceTree = "<group>"; };
 		5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfoBuilder.swift; sourceTree = "<group>"; };
+		559C61FB20DA87330083A574 /* FilterDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDecodingTests.swift; sourceTree = "<group>"; };
+		559C620220DA88B90083A574 /* DecodingTestFilter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DecodingTestFilter.json; sourceTree = "<group>"; };
 		559C6CB120B6CA72009B734D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		559C6CB320B6CB6D009B734D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		559C6CB520B6D771009B734D /* RangeNumberInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
@@ -315,8 +319,10 @@
 		44ECE682208F7FDE0017AC82 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				559C620120DA88330083A574 /* Test Data */,
 				44ECE683208F7FDE0017AC82 /* UnitTests.swift */,
 				44ECE685208F7FDE0017AC82 /* Info.plist */,
+				559C61FB20DA87330083A574 /* FilterDecodingTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -523,6 +529,22 @@
 				55BDC0FD20BFFB8D0038C83A /* Filter.swift */,
 			);
 			name = Filter;
+			sourceTree = "<group>";
+		};
+		559C620120DA88330083A574 /* Test Data */ = {
+			isa = PBXGroup;
+			children = (
+				55BDA75F20DB7D6600331FFC /* FilterDecodingTests */,
+			);
+			path = "Test Data";
+			sourceTree = "<group>";
+		};
+		55BDA75F20DB7D6600331FFC /* FilterDecodingTests */ = {
+			isa = PBXGroup;
+			children = (
+				559C620220DA88B90083A574 /* DecodingTestFilter.json */,
+			);
+			path = FilterDecodingTests;
 			sourceTree = "<group>";
 		};
 		55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */ = {
@@ -739,6 +761,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559C620320DA88B90083A574 /* DecodingTestFilter.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,6 +877,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */,
 				44ECE684208F7FDE0017AC82 /* UnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

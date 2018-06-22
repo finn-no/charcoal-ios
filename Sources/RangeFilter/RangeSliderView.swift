@@ -115,6 +115,12 @@ final class RangeSliderView: UIControl {
             return self
         }
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        updateActiveTrackRange()
+    }
 }
 
 extension RangeSliderView: RangeControl {
@@ -208,6 +214,10 @@ private extension RangeSliderView {
     }
 
     func updateActiveTrackRange() {
+        if frame == CGRect.zero {
+            return
+        }
+
         let leadingConstant = lowestValueSlider.currentThumbRect.midX
         let trailingConstant = highestValueSlider.currentThumbRect.midX - trackView.bounds.width
         let activeRangeTrackViewLeadingAnchor = constraints.filter({ $0.identifier == activeRangeTrackViewLeadingAnchorIdentifier }).first

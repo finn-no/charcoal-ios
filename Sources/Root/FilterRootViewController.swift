@@ -33,10 +33,11 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(navigator: RootFilterNavigator, dataSource: FilterDataSource) {
+    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource) {
         self.navigator = navigator
         self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
+        self.title = title
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -73,22 +74,24 @@ private extension FilterRootViewController {
         ])
     }
 
-    func filterComponent(at index: Int) -> FilterComponent {
-        return dataSource.filterComponents[index]
+    func filterInfo(at index: Int) -> FilterInfoType {
+        return dataSource.filterInfo[index]
     }
 
     func selectionValuesForFilterComponent(at index: Int) -> [String] {
-        return dataSource.selectionValuesForFilterComponent(at: index)
+        return dataSource.selectionValuesForFilterInfo(at: index)
     }
 }
 
 extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let component = filterComponent(at: indexPath.row)
+        let filterInfo = self.filterInfo(at: indexPath.row)
 
-        switch component.filterInfo {
-        case let mulitlevelFilterInfo as MultiLevelFilterInfo:
+        switch filterInfo {
+        case let mulitlevelFilterInfo as MultiLevelFilterInfoType:
             navigator.navigate(to: .mulitLevelFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
+        case let rangeFilterInfo as RangeFilterInfoType:
+            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo))
         default:
             break
         }
@@ -97,37 +100,39 @@ extension FilterRootViewController: UITableViewDelegate {
 
 extension FilterRootViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.filterComponents.count
+        return dataSource.filterInfo.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let component = filterComponent(at: indexPath.row)
+        let filterInfo = self.filterInfo(at: indexPath.row)
         let selectionValues = selectionValuesForFilterComponent(at: indexPath.row)
 
-        switch component {
-        case let freeSearch as FreeSearchFilterComponent:
-            let filterInfo = freeSearch.filterInfo as? FreeSearchFilterComponent.Info
+        switch filterInfo {
+        case let freeSearchInfo as FreeSearchFilterInfoType:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchQueryCell.reuseIdentifier, for: indexPath) as! SearchQueryCell
-            cell.searchQuery = filterInfo?.currentSearchQuery
-            cell.placeholderText = filterInfo?.searchQueryPlaceholder
+            cell.searchQuery = freeSearchInfo.currentSearchQuery
+            cell.placeholderText = freeSearchInfo.searchQueryPlaceholder
             return cell
-        case let preference as PreferenceFilterComponent:
-            let filterInfo = preference.filterInfo as? PreferenceFilterComponent.Info
+        case let preferenceInfo as PreferenceFilterInfoType:
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
-            cell.preferenceSelectionViewDataSource = PreferenceFilterDataSource(preferences: filterInfo?.preferences ?? [])
+            cell.preferenceSelectionViewDataSource = PreferenceFilterDataSource(preferences: preferenceInfo.preferences)
             cell.preferenceSelectionViewDelegate = self
             cell.selectionStyle = .none
             return cell
-        case let multiLevel as MultiLevelFilterComponent:
-            let filterInfo = multiLevel.filterInfo as? MultiLevelFilterComponent.Info
+        case let multiLevelInfo as MultiLevelFilterInfoType:
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
-            cell.filterName = filterInfo?.name
+            cell.filterName = multiLevelInfo.name
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
+        case let rangeInfo as RangeFilterInfoType:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            cell.filterName = rangeInfo.name
+            cell.accessoryType = .disclosureIndicator
+            return cell
         default:
-            fatalError("Unimplemented component \(component)")
+            fatalError("Unimplemented component \(filterInfo)")
         }
     }
 }
@@ -206,7 +211,7 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 }
 
 extension FilterRootViewController: PreferenceFilterListViewControllerDelegate {
-    public func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfo, didSelect preferenceValue: PreferenceValue) {
+    public func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfoType, didSelect preferenceValue: PreferenceValueType) {
     }
 }
 
@@ -219,15 +224,15 @@ extension FilterRootViewController: FilterCellDelegate {
 }
 
 extension FilterRootViewController: MultiLevelFilterListViewControllerDelegate {
-    public func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfo, didSelect sublevelFilterInfo: MultiLevelFilterInfo) {
+    public func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfoType, didSelect sublevelFilterInfo: MultiLevelFilterInfoType) {
     }
 }
 
 extension FilterRootViewController {
     class PreferenceFilterDataSource: PreferenceSelectionViewDataSource {
-        let preferences: [PreferenceInfo]
+        let preferences: [PreferenceInfoType]
 
-        init(preferences: [PreferenceInfo]) {
+        init(preferences: [PreferenceInfoType]) {
             self.preferences = preferences
         }
 

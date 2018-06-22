@@ -7,8 +7,9 @@ import Foundation
 public class RootFilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
-        case mulitLevelFilter(filterInfo: MultiLevelFilterInfo, delegate: MultiLevelFilterListViewControllerDelegate)
-        case preferenceFilterInPopover(preferenceInfo: PreferenceInfo, sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
+        case mulitLevelFilter(filterInfo: MultiLevelFilterInfoType, delegate: MultiLevelFilterListViewControllerDelegate)
+        case preferenceFilterInPopover(preferenceInfo: PreferenceInfoType, sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
+        case rangeFilter(filterInfo: RangeFilterInfoType)
     }
 
     public typealias Factory = ViewControllerFactory & MultiLevelFilterNavigatorFactory
@@ -43,6 +44,9 @@ public class RootFilterNavigator: NSObject, Navigator {
             navigator.navigate(to: .subLevel(filterInfo: filterInfo, delegate: delegate))
         case let .preferenceFilterInPopover(preferenceInfo, sourceView, delegate, popoverWillDismiss):
             presentPreference(with: preferenceInfo, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
+        case let .rangeFilter(filterInfo):
+            let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo)
+            navigationController.pushViewController(rangeFilterViewController, animated: true)
         }
     }
 }
@@ -58,7 +62,7 @@ private extension RootFilterNavigator {
         }
     }
 
-    func presentPreference(with preferenceInfo: PreferenceInfo, and sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
+    func presentPreference(with preferenceInfo: PreferenceInfoType, and sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
         guard let preferencelistViewController = factory.makePreferenceFilterListViewController(with: preferenceInfo, delegate: delegate), let filterRootViewController = filterRootViewController else {
             return
         }

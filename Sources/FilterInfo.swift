@@ -4,48 +4,55 @@
 
 import Foundation
 
-public protocol FilterInfo {
+public protocol FilterInfoType {
     var name: String { get }
 }
 
-public protocol FreeSearchFilterInfo: FilterInfo {
+public protocol FreeSearchFilterInfoType: FilterInfoType {
     var currentSearchQuery: String? { get }
     var searchQueryPlaceholder: String { get }
 }
 
-public protocol PreferenceValue: ListItem {
+public protocol PreferenceValueType: ListItem {
     var name: String { get }
-    var isSelected: Bool { get }
+    var results: Int { get }
 }
 
 // MARK: - ListItem default implementation
 
-extension PreferenceValue {
+extension PreferenceValueType {
     public var title: String? { return name }
-    public var detail: String? { return nil }
+    public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return false }
 }
 
-public protocol PreferenceInfo {
+public protocol PreferenceInfoType {
     var name: String { get }
-    var values: [PreferenceValue] { get }
+    var values: [PreferenceValueType] { get }
     var isMultiSelect: Bool { get }
 }
 
-public protocol PreferenceFilterInfo: FilterInfo {
-    var preferences: [PreferenceInfo] { get }
+public protocol PreferenceFilterInfoType: FilterInfoType {
+    var preferences: [PreferenceInfoType] { get }
 }
 
-public protocol MultiLevelFilterInfo: FilterInfo, ListItem {
-    var level: Int { get }
-    var filters: [MultiLevelFilterInfo] { get }
+public protocol MultiLevelFilterInfoType: FilterInfoType, ListItem {
+    var filters: [MultiLevelFilterInfoType] { get }
     var isMultiSelect: Bool { get }
+    var results: Int { get }
 }
 
 // MARK: - ListItem default implementation
 
-extension MultiLevelFilterInfo {
+extension MultiLevelFilterInfoType {
     public var title: String? { return name }
-    public var detail: String? { return nil }
+    public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }
+}
+
+public protocol RangeFilterInfoType: FilterInfoType {
+    var lowValue: Int { get }
+    var highValue: Int { get }
+    var unit: String { get }
+    var steps: Int { get }
 }

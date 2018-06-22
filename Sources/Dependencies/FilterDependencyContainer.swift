@@ -23,18 +23,22 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfo, delegate: PreferenceFilterListViewControllerDelegate) -> PreferenceFilterListViewController? {
+    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType) -> RangeFilterViewController {
+        return RangeFilterViewController(filterInfo: filterInfo)
+    }
+
+    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, delegate: PreferenceFilterListViewControllerDelegate) -> PreferenceFilterListViewController? {
         let preferenceFilterListViewController = PreferenceFilterListViewController(preferenceInfo: preferenceInfo)
         preferenceFilterListViewController.delegate = delegate
 
         return preferenceFilterListViewController
     }
 
-    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfo, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController {
+    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController {
         return MultiLevelFilterListViewController(filterInfo: multiLevelFilterInfo, navigator: navigator)
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
-        return FilterRootViewController(navigator: navigator, dataSource: dataSource)
+        return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource)
     }
 }

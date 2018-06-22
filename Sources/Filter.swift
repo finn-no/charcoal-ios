@@ -86,7 +86,7 @@ extension FilterData {
         let title: String
         let value: String
         let totalResults: Int
-        let filter: Query.Filter?
+        let filter: Filter?
 
         enum CodingKeys: String, CodingKey {
             case title, value, totalResults = "total-results", filter
@@ -97,18 +97,6 @@ extension FilterData {
 extension FilterData.Query {
     struct Filter: Decodable {
         let title: String
-        let queries: [Filter.Query]
-    }
-}
-
-extension FilterData.Query.Filter {
-    struct Query: Decodable {
-        let title: String
-        let value: String
-        let totalResults: Int
-
-        enum CodingKeys: String, CodingKey {
-            case title, value, totalResults = "total-results"
-        }
+        let queries: [FilterData.Query]
     }
 }

@@ -1,3 +1,10 @@
+## [Unreleased] 
+- App icon!
+- Different UI for checkbox and radio "buttons" 
+- Range filter
+- Parsing of filter data, demo app will have 3 different filter setups based on real data
+- Styled navigation bar
+
 ## [0.3] - 2018-06-11
 - Compact list (shoe size filter)
 

@@ -24,7 +24,9 @@ private extension RangeFilterViewController {
         title = filterInfo.name
 
         let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
-        let rangeFilterView = RangeFilterView(range: range, steps: filterInfo.steps, unit: filterInfo.unit)
+
+        let referenceValues = [range.lowerBound, (range.lowerBound + range.count / 2), range.upperBound]
+        let rangeFilterView = RangeFilterView(range: range, additionalLowerBoundOffset: 0, additionalUpperBoundOffset: 0, steps: filterInfo.steps, unit: filterInfo.unit, isValueCurrency: false, referenceValues: referenceValues, usesSmallNumberInputFont: false, displaysUnitInNumberInput: true)
         rangeFilterView.setLowValue(filterInfo.lowValue, animated: false)
         rangeFilterView.setHighValue(filterInfo.highValue, animated: false)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false

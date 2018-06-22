@@ -23,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
 
+        UINavigationBar.appearance().barTintColor = .milk
+        UINavigationBar.appearance().tintColor = .primaryBlue
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.body, .foregroundColor: UIColor.licorice]
+        UIBarButtonItem.appearance().setTitleTextAttributes([.font: UIFont.body], for: .normal)
+
         return true
     }
 }

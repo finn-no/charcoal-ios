@@ -77,6 +77,7 @@
 		55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76E20DBC46800331FFC /* FilterMarket.swift */; };
 		55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA77020DBD99600331FFC /* RangeFilterInfoBuilder.swift */; };
 		55BDA77320DBD99600331FFC /* FilterInfoIMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA77120DBD99600331FFC /* FilterInfoIMP.swift */; };
+		55BDA77520DCCD8E00331FFC /* realestate-homes.json in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA77420DCCD8E00331FFC /* realestate-homes.json */; };
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 		55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */; };
@@ -210,6 +211,7 @@
 		55BDA76E20DBC46800331FFC /* FilterMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarket.swift; sourceTree = "<group>"; };
 		55BDA77020DBD99600331FFC /* RangeFilterInfoBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterInfoBuilder.swift; sourceTree = "<group>"; };
 		55BDA77120DBD99600331FFC /* FilterInfoIMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterInfoIMP.swift; path = FilterBuilder/FilterInfoIMP.swift; sourceTree = "<group>"; };
+		55BDA77420DCCD8E00331FFC /* realestate-homes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-homes.json"; sourceTree = "<group>"; };
 		55BDC0FD20BFFB8D0038C83A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
 				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
 			);
@@ -784,6 +787,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55BDA77520DCCD8E00331FFC /* realestate-homes.json in Resources */,
 				44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */,
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
 				55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */,

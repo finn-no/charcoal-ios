@@ -328,8 +328,9 @@ private extension RangeNumberInputView {
         highValueInputDecorationViewConstraint.identifier = highValueInputDecorationViewConstraintIdentifier
 
         NSLayoutConstraint.activate([
-            underLowerBoundHintLabel.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
+            underLowerBoundHintLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             underLowerBoundHintLabel.centerXAnchor.constraint(equalTo: lowValueInputDecorationView.centerXAnchor),
+            underLowerBoundHintLabel.bottomAnchor.constraint(lessThanOrEqualTo: lowValueInputTextField.topAnchor),
 
             lowValueInputTextField.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             lowValueInputTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -343,8 +344,9 @@ private extension RangeNumberInputView {
             inputSeparatorView.topAnchor.constraint(equalTo: lowValueInputTextField.topAnchor),
             inputSeparatorView.bottomAnchor.constraint(equalTo: lowValueInputTextField.bottomAnchor),
 
-            overUpperBoundHintLabel.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
+            overUpperBoundHintLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             overUpperBoundHintLabel.centerXAnchor.constraint(equalTo: highValueInputDecorationView.centerXAnchor),
+            overUpperBoundHintLabel.bottomAnchor.constraint(lessThanOrEqualTo: highValueInputTextField.topAnchor),
 
             highValueInputTextField.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             highValueInputTextField.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),

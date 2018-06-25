@@ -144,22 +144,26 @@ public final class RangeFilterView: UIControl {
 }
 
 extension RangeFilterView: RangeControl {
-    public var lowValue: Int? {
+    public var lowValue: RangeValue? {
         return inputValues[.low]
     }
 
-    public var highValue: Int? {
+    public var highValue: RangeValue? {
         return inputValues[.high]
     }
 
-    public func setLowValue(_ value: Int, animated: Bool) {
-        updateNumberInput(for: .low, with: value)
-        updateSliderLowValue(with: value)
+    public func setLowValue(_ value: RangeValue, animated: Bool) {
+        let lowValue = (value < range.lowerBound) ? effectiveRange.lowerBound : value
+        updateNumberInput(for: .low, with: lowValue)
+        updateSliderLowValue(with: lowValue)
+        inputValues[.low] = lowValue
     }
 
-    public func setHighValue(_ value: Int, animated: Bool) {
-        updateNumberInput(for: .high, with: value)
-        updateSliderHighValue(with: value)
+    public func setHighValue(_ value: RangeValue, animated: Bool) {
+        let highValue = (value > range.upperBound) ? effectiveRange.upperBound : value
+        updateNumberInput(for: .high, with: highValue)
+        updateSliderHighValue(with: highValue)
+        inputValues[.high] = highValue
     }
 }
 
@@ -253,10 +257,10 @@ private extension RangeFilterView {
 
         if isValueLowerThanRangeLowerBound {
             newValue = range.lowerBound
-            hintText = "Under"
+            hintText = (value == effectiveRange.lowerBound) ? "Under" : ""
         } else if isValueIsHigherThaRangeUpperBound {
             newValue = range.upperBound
-            hintText = "Over"
+            hintText = (value == effectiveRange.upperBound) ? "Over" : ""
         } else {
             newValue = value
             hintText = ""

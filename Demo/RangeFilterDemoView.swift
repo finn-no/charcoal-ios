@@ -8,7 +8,7 @@ import Foundation
 public class RangeFilterDemoView: UIView {
     let lowValue: Int = 0
     let highValue: Int = 30000
-    let steps: Int = 310
+    let steps: Int = 320
     let sliderAccessibilitySteps: Int = 31
     let unit = "kr"
     let accessibilityUnit = "kroner"
@@ -17,6 +17,7 @@ public class RangeFilterDemoView: UIView {
     private lazy var rangeFilterView: RangeFilterView = {
         let rangeFilterView = RangeFilterView(
             range: lowValue ... highValue,
+            additionalLowerBoundOffset: 1000,
             additionalUpperBoundOffset: 1000,
             steps: steps,
             unit: unit,

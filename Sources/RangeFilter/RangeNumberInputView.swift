@@ -328,10 +328,11 @@ private extension RangeNumberInputView {
         highValueInputDecorationViewConstraint.identifier = highValueInputDecorationViewConstraintIdentifier
 
         NSLayoutConstraint.activate([
-            underLowerBoundHintLabel.topAnchor.constraint(equalTo: topAnchor),
+            underLowerBoundHintLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             underLowerBoundHintLabel.centerXAnchor.constraint(equalTo: lowValueInputDecorationView.centerXAnchor),
+            underLowerBoundHintLabel.bottomAnchor.constraint(equalTo: lowValueInputTextField.topAnchor),
 
-            lowValueInputTextField.topAnchor.constraint(equalTo: underLowerBoundHintLabel.bottomAnchor, constant: .smallSpacing),
+            lowValueInputTextField.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             lowValueInputTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
             lowValueInputTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 
@@ -343,10 +344,11 @@ private extension RangeNumberInputView {
             inputSeparatorView.topAnchor.constraint(equalTo: lowValueInputTextField.topAnchor),
             inputSeparatorView.bottomAnchor.constraint(equalTo: lowValueInputTextField.bottomAnchor),
 
-            overUpperBoundHintLabel.topAnchor.constraint(equalTo: topAnchor),
+            overUpperBoundHintLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             overUpperBoundHintLabel.centerXAnchor.constraint(equalTo: highValueInputDecorationView.centerXAnchor),
+            overUpperBoundHintLabel.bottomAnchor.constraint(equalTo: highValueInputTextField.topAnchor),
 
-            highValueInputTextField.topAnchor.constraint(equalTo: overUpperBoundHintLabel.bottomAnchor, constant: .smallSpacing),
+            highValueInputTextField.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             highValueInputTextField.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
             highValueInputTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 
@@ -397,22 +399,8 @@ private extension RangeNumberInputView {
     }
 
     func setHintText(_ text: String, for inputGroup: InputGroup) {
-        switch inputGroup {
-        case .lowValue:
-            if text.isEmpty {
-                underLowerBoundHintLabel.isHidden = true
-            } else {
-                underLowerBoundHintLabel.text = text
-                underLowerBoundHintLabel.isHidden = false
-            }
-        case .highValue:
-            if text.isEmpty {
-                overUpperBoundHintLabel.isHidden = true
-            } else {
-                overUpperBoundHintLabel.text = text
-                overUpperBoundHintLabel.isHidden = false
-            }
-        }
+        let hintLabel = inputGroup == .lowValue ? underLowerBoundHintLabel : overUpperBoundHintLabel
+        hintLabel.text = text
     }
 
     @objc func handleTapGesture(_ gestureRecognizer: UITapGestureRecognizer) {

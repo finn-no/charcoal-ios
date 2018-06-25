@@ -397,22 +397,8 @@ private extension RangeNumberInputView {
     }
 
     func setHintText(_ text: String, for inputGroup: InputGroup) {
-        switch inputGroup {
-        case .lowValue:
-            if text.isEmpty {
-                underLowerBoundHintLabel.isHidden = true
-            } else {
-                underLowerBoundHintLabel.text = text
-                underLowerBoundHintLabel.isHidden = false
-            }
-        case .highValue:
-            if text.isEmpty {
-                overUpperBoundHintLabel.isHidden = true
-            } else {
-                overUpperBoundHintLabel.text = text
-                overUpperBoundHintLabel.isHidden = false
-            }
-        }
+        let hintLabel = inputGroup == .lowValue ? underLowerBoundHintLabel : overUpperBoundHintLabel
+        hintLabel.text = text
     }
 
     @objc func handleTapGesture(_ gestureRecognizer: UITapGestureRecognizer) {

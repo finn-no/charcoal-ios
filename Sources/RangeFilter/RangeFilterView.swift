@@ -253,10 +253,10 @@ private extension RangeFilterView {
 
         if isValueLowerThanRangeLowerBound {
             newValue = range.lowerBound
-            hintText = "Under"
+            hintText = (value == effectiveRange.lowerBound) ? "Under" : ""
         } else if isValueIsHigherThaRangeUpperBound {
             newValue = range.upperBound
-            hintText = "Over"
+            hintText = (value == effectiveRange.upperBound) ? "Over" : ""
         } else {
             newValue = value
             hintText = ""

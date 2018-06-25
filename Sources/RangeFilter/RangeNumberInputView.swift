@@ -330,7 +330,7 @@ private extension RangeNumberInputView {
         NSLayoutConstraint.activate([
             underLowerBoundHintLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             underLowerBoundHintLabel.centerXAnchor.constraint(equalTo: lowValueInputDecorationView.centerXAnchor),
-            underLowerBoundHintLabel.bottomAnchor.constraint(lessThanOrEqualTo: lowValueInputTextField.topAnchor),
+            underLowerBoundHintLabel.bottomAnchor.constraint(equalTo: lowValueInputTextField.topAnchor),
 
             lowValueInputTextField.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             lowValueInputTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -346,7 +346,7 @@ private extension RangeNumberInputView {
 
             overUpperBoundHintLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             overUpperBoundHintLabel.centerXAnchor.constraint(equalTo: highValueInputDecorationView.centerXAnchor),
-            overUpperBoundHintLabel.bottomAnchor.constraint(lessThanOrEqualTo: highValueInputTextField.topAnchor),
+            overUpperBoundHintLabel.bottomAnchor.constraint(equalTo: highValueInputTextField.topAnchor),
 
             highValueInputTextField.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             highValueInputTextField.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),

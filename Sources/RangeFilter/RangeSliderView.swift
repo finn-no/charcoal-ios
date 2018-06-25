@@ -361,12 +361,7 @@ fileprivate final class SteppedSlider: UISlider {
             let isLowerOffsetValue = translatedValue == effectiveRange.lowerBound
             let isUpperOffsetValue = translatedValue == effectiveRange.upperBound
             let isNonOffsetValue = range.contains(translatedValue)
-            let shouldNotifyValueChanged = isNonOffsetValue || isLowerOffsetValue || isUpperOffsetValue
             let shouldGenerateFeedBack = isNonOffsetValue || isLowerOffsetValue || isUpperOffsetValue
-
-//            if shouldNotifyValueChanged {
-//                roundedStepValueChangedHandler?(self)
-//            }
 
             value = Float(newValue)
             previousRoundedStepValue = newValue
@@ -378,7 +373,6 @@ fileprivate final class SteppedSlider: UISlider {
             if generatesHapticFeedbackOnValueChange && shouldGenerateFeedBack {
                 generateFeedback()
             }
-
         } else {
             value = Float(newValue)
             previousRoundedStepValue = newValue

@@ -91,7 +91,7 @@ extension FilterRootViewController: UITableViewDelegate {
         case let mulitlevelFilterInfo as MultiLevelFilterInfoType:
             navigator.navigate(to: .mulitLevelFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
-            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo))
+            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
         default:
             break
         }
@@ -225,6 +225,11 @@ extension FilterRootViewController: FilterCellDelegate {
 
 extension FilterRootViewController: MultiLevelFilterListViewControllerDelegate {
     public func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfoType, didSelect sublevelFilterInfo: MultiLevelFilterInfoType) {
+    }
+}
+
+extension FilterRootViewController: FilterViewControllerDelegate {
+    public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
     }
 }
 

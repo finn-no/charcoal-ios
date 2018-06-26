@@ -9,7 +9,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case root
         case mulitLevelFilter(filterInfo: MultiLevelFilterInfoType, delegate: MultiLevelFilterListViewControllerDelegate)
         case preferenceFilterInPopover(preferenceInfo: PreferenceInfoType, sourceView: UIView, delegate: PreferenceFilterListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
-        case rangeFilter(filterInfo: RangeFilterInfoType)
+        case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
     }
 
     public typealias Factory = ViewControllerFactory & MultiLevelFilterNavigatorFactory
@@ -44,8 +44,11 @@ public class RootFilterNavigator: NSObject, Navigator {
             navigator.navigate(to: .subLevel(filterInfo: filterInfo, delegate: delegate))
         case let .preferenceFilterInPopover(preferenceInfo, sourceView, delegate, popoverWillDismiss):
             presentPreference(with: preferenceInfo, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
-        case let .rangeFilter(filterInfo):
-            let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo)
+        case let .rangeFilter(filterInfo, delegate):
+            guard let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo, delegate: delegate) else {
+                return
+            }
+
             navigationController.pushViewController(rangeFilterViewController, animated: true)
         }
     }

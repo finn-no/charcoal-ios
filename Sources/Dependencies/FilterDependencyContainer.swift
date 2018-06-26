@@ -23,8 +23,10 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType) -> RangeFilterViewController {
-        return RangeFilterViewController(filterInfo: filterInfo)
+    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate) -> UIViewController? {
+        let filterViewController = FilterViewController<RangeFilterView>(filterInfo: filterInfo)
+        filterViewController?.delegate = delegate
+        return filterViewController
     }
 
     public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, delegate: PreferenceFilterListViewControllerDelegate) -> PreferenceFilterListViewController? {

@@ -224,7 +224,7 @@ private extension RangeFilterInfoBuilder {
     }
 
     func defaultReferencValuesForRange(withLowValue lowValue: Int, andHighValue highValue: Int) -> [Int] {
-        return [lowValue, (lowValue + highValue / 2), highValue]
+        return RangeFilterInfoBuilder.defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
     }
 
     func calculatedStepsForRange(withLowValue lowValue: Int, highValue: Int, rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets, incrementedBy increments: Int) -> Int {
@@ -233,6 +233,11 @@ private extension RangeFilterInfoBuilder {
 }
 
 extension RangeFilterInfoBuilder {
+    static func defaultReferencValuesForRange(withLowValue lowValue: Int, andHighValue highValue: Int) -> [Int] {
+        let midValue = lowValue + ((highValue - lowValue) / 2)
+        return [lowValue, midValue, highValue]
+    }
+
     static func calculatedStepsForRange(withLowValue lowValue: Int, highValue: Int, rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets, incrementedBy increments: Int) -> Int {
         let lowerBound = lowValue - rangeBoundsOffsets.lowerBoundOffset
         let upperBound = highValue + rangeBoundsOffsets.upperBoundOffset

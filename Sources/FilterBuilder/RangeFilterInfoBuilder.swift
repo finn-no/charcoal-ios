@@ -45,7 +45,7 @@ private extension RangeFilterInfoBuilder {
             highValue = Calendar.current.component(.year, from: Date())
             unit = "år"
             rangeBoundsOffsets = (10, 10)
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
@@ -54,7 +54,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 500
             unit = "hk"
             rangeBoundsOffsets = (0, 10)
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 10)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -63,7 +63,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 200_000
             unit = "km"
             rangeBoundsOffsets = (0, 10)
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -72,7 +72,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 10
             unit = "seter"
             rangeBoundsOffsets = (0, 1)
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -81,7 +81,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 500_000
             unit = "kr"
             rangeBoundsOffsets = (0, 1000)
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
@@ -119,7 +119,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 10_000_000
             rangeBoundsOffsets = (0, 100_000)
             unit = "kr"
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 10000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: false, isCurrencyValueRange: true)
@@ -128,7 +128,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 20000
             rangeBoundsOffsets = (0, 1000)
             unit = "kr"
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 100)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
@@ -137,7 +137,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 6
             rangeBoundsOffsets = (1, 1)
             unit = "soverom"
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -146,7 +146,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 400
             rangeBoundsOffsets = (0, 10)
             unit = "m\u{00B2}"
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -155,7 +155,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 6000
             rangeBoundsOffsets = (0, 100)
             unit = "m\u{00B2}"
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 10)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -164,7 +164,7 @@ private extension RangeFilterInfoBuilder {
             highValue = Calendar.current.component(.year, from: Date())
             rangeBoundsOffsets = (10, 10)
             unit = ""
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
@@ -202,7 +202,7 @@ private extension RangeFilterInfoBuilder {
             highValue = 30000
             unit = "kr"
             rangeBoundsOffsets = (0, 1000)
-            referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
@@ -223,8 +223,8 @@ private extension RangeFilterInfoBuilder {
         )
     }
 
-    func defaultReferencValuesForRange(withLowValue lowValue: Int, andHighValue highValue: Int) -> [Int] {
-        return RangeFilterInfoBuilder.defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+    func defaultReferenceValuesForRange(withLowValue lowValue: Int, andHighValue highValue: Int) -> [Int] {
+        return RangeFilterInfoBuilder.defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
     }
 
     func calculatedStepsForRange(withLowValue lowValue: Int, highValue: Int, rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets, incrementedBy increments: Int) -> Int {
@@ -233,7 +233,7 @@ private extension RangeFilterInfoBuilder {
 }
 
 extension RangeFilterInfoBuilder {
-    static func defaultReferencValuesForRange(withLowValue lowValue: Int, andHighValue highValue: Int) -> [Int] {
+    static func defaultReferenceValuesForRange(withLowValue lowValue: Int, andHighValue highValue: Int) -> [Int] {
         let midValue = lowValue + ((highValue - lowValue) / 2)
         return [lowValue, midValue, highValue]
     }

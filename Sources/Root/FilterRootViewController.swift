@@ -229,6 +229,10 @@ extension FilterRootViewController: MultiLevelFilterListViewControllerDelegate {
 }
 
 extension FilterRootViewController: FilterViewControllerDelegate {
+    public func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?) {
+        navigator.navigate(to: .root)
+    }
+
     public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
     }
 }

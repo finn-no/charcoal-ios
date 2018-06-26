@@ -80,7 +80,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 500_000
             unit = "kr"
-            rangeBoundsOffsets = (0, 1000)
+            rangeBoundsOffsets = (0, 1_000)
             referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
@@ -120,13 +120,13 @@ private extension RangeFilterInfoBuilder {
             rangeBoundsOffsets = (0, 100_000)
             unit = "kr"
             referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
-            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 10000)
+            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 10_000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: false, isCurrencyValueRange: true)
         case .rent:
             lowValue = 0
-            highValue = 20000
-            rangeBoundsOffsets = (0, 1000)
+            highValue = 20_000
+            rangeBoundsOffsets = (0, 1_000)
             unit = "kr"
             referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 100)
@@ -152,8 +152,8 @@ private extension RangeFilterInfoBuilder {
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .plotArea:
             lowValue = 0
-            highValue = 6000
-            rangeBoundsOffsets = (0, 1000)
+            highValue = 6_000
+            rangeBoundsOffsets = (0, 1_000)
             unit = "m\u{00B2}"
             referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 10)
@@ -199,11 +199,11 @@ private extension RangeFilterInfoBuilder {
         switch filterData.key {
         case .price:
             lowValue = 0
-            highValue = 30000
+            highValue = 30_000
             unit = "kr"
-            rangeBoundsOffsets = (0, 1000)
+            rangeBoundsOffsets = (0, 1_000)
             referenceValues = defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
-            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
+            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1_000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         default:

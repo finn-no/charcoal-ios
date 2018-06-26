@@ -9,7 +9,7 @@ public protocol FilterViewControllerDelegate: AnyObject {
     func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?)
 }
 
-public final class FilterViewController<ChildViewController: FilterViewContainer>: UIViewController {
+public final class FilterViewController<ChildViewController: FilterChildViewController>: UIViewController {
     private lazy var safeLayoutGuide: UILayoutGuide = {
         if #available(iOS 11.0, *) {
             return view.safeAreaLayoutGuide
@@ -28,7 +28,7 @@ public final class FilterViewController<ChildViewController: FilterViewContainer
         }
     }()
 
-    private lazy var showResultsButtonView: FilterBottomButtonView = {
+    private lazy var applySelectionButton: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.delegate = self
@@ -37,21 +37,22 @@ public final class FilterViewController<ChildViewController: FilterViewContainer
     }()
 
     let filterInfo: FilterInfoType
+    let showsApplySelectionButton: Bool
     var delegate: FilterViewControllerDelegate?
     private(set) var filterSelectionValue: FilterSelectionValue?
 
-    public required init?(filterInfo: FilterInfoType) {
-        guard let child = ChildViewController(filterInfo: filterInfo), let childView = child.view else {
+    public required init?(filterInfo: FilterInfoType, showsApplySelectionButton: Bool = true) {
+        guard var child = ChildViewController(filterInfo: filterInfo), let childView = child.controller.view else {
             return nil
         }
-
         self.filterInfo = filterInfo
+        self.showsApplySelectionButton = showsApplySelectionButton
         super.init(nibName: nil, bundle: nil)
 
-        child.delegate = self
-        addChildViewController(child)
+        child.filterSelectionDelegate = self
+        addChildViewController(child.controller)
         setup(with: childView)
-        child.didMove(toParentViewController: self)
+        child.controller.didMove(toParentViewController: self)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -59,8 +60,8 @@ public final class FilterViewController<ChildViewController: FilterViewContainer
     }
 }
 
-extension FilterViewController: FilterViewContainerDelegate {
-    public func filterViewContainer(filterViewContainer: FilterViewContainer, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
+extension FilterViewController: FilterChildViewControllerDelegate {
+    public func filterChildViewController(filterChildViewController: FilterChildViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
         self.filterSelectionValue = filterSelectionValue
         delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
@@ -79,16 +80,24 @@ private extension FilterViewController {
 
         filterView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterView)
-        view.addSubview(showResultsButtonView)
+
+        let filterViewBottomAnchor = showsApplySelectionButton ? filterView.bottomAnchor.constraint(greaterThanOrEqualTo: applySelectionButton.topAnchor) : filterView.bottomAnchor.constraint(greaterThanOrEqualTo: safeLayoutGuide.bottomAnchor)
 
         NSLayoutConstraint.activate([
-            filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor, constant: 48),
+            filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
             filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            filterView.bottomAnchor.constraint(greaterThanOrEqualTo: showResultsButtonView.topAnchor),
-            showResultsButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            showResultsButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            showResultsButtonView.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
+            filterViewBottomAnchor,
         ])
+
+        if showsApplySelectionButton {
+            view.addSubview(applySelectionButton)
+
+            NSLayoutConstraint.activate([
+                applySelectionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                applySelectionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                applySelectionButton.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
+            ])
+        }
     }
 }

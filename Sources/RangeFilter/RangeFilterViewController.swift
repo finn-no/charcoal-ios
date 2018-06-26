@@ -4,7 +4,13 @@
 
 import Foundation
 
-public final class RangeFilterViewController: FilterViewContainer {
+public final class RangeFilterViewController: UIViewController, FilterChildViewController {
+    public var controller: UIViewController {
+        return self
+    }
+
+    public var filterSelectionDelegate: FilterChildViewControllerDelegate?
+
     lazy var rangeFilterView: RangeFilterView = {
         let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
         let referenceValues = [range.lowerBound, (range.lowerBound + range.count / 2), range.upperBound]
@@ -42,7 +48,11 @@ public final class RangeFilterViewController: FilterViewContainer {
         setup()
     }
 
-    public override func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+    public required init?(string: String) {
+        fatalError("init(string:) has not been implemented")
+    }
+
+    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
         guard case let .rangeSelection(lowValue, higValue) = selectionValue else {
             return
         }
@@ -68,10 +78,11 @@ private extension RangeFilterViewController {
             rangeFilterView.topAnchor.constraint(equalTo: view.topAnchor),
             rangeFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             rangeFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            rangeFilterView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
         ])
     }
 
     @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        delegate?.filterViewContainer(filterViewContainer: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue))
+        filterSelectionDelegate?.filterChildViewController(filterChildViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue))
     }
 }

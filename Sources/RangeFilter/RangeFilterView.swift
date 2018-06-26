@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class RangeFilterView: FilterView {
+public final class RangeFilterView: UIControl {
     private lazy var formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = isValueCurrency ? .currency : .none
@@ -105,26 +105,6 @@ public final class RangeFilterView: FilterView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public required init(filterInfo: FilterInfoType) {
-        guard let rangeFilterInfo = filterInfo as? RangeFilterInfoType else {
-            fatalError("\(String(describing: RangeFilterView.self)) can only be instantiated with \(String(describing: RangeFilterInfo.self))")
-        }
-
-        let range = RangeFilterView.InputRange(rangeFilterInfo.lowValue ... rangeFilterInfo.highValue)
-        self.range = range
-        additionalLowerBoundOffset = 0 // rangeFilterInfo.additionalLowerBoundOffset
-        additionalUpperBoundOffset = 0 // rangeFilterInfo.additionalUpperBoundOffset
-        effectiveRange = RangeFilterView.effectiveRange(from: range, with: additionalLowerBoundOffset, and: additionalUpperBoundOffset)
-        steps = rangeFilterInfo.steps
-        unit = rangeFilterInfo.unit
-        isValueCurrency = true // rangeFilterInfo.isValueCurrency
-        referenceValues = [] // rangeFilterInfo.referenceValues
-        usesSmallNumberInputFont = false // rangeFilterInfo.usesSmallNumberInputFont
-        displaysUnitInNumberInput = true // rangeFilterInfo.displaysUnitInNumberInput
-        super.init(frame: .zero)
-        setup()
-    }
-
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard self.point(inside: point, with: event) else {
             if numberInputView.isFirstResponder {
@@ -162,19 +142,19 @@ public final class RangeFilterView: FilterView {
         }
     }
 
-    public override func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        guard case let FilterSelectionValue.rangeSelection(lowValue, highValue) = selectionValue else {
-            return
-        }
-
-        if let selectedLowValue = lowValue {
-            setLowValue(selectedLowValue, animated: false)
-        }
-
-        if let selectedHighValue = highValue {
-            setHighValue(selectedHighValue, animated: false)
-        }
-    }
+//    public override func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+//        guard case let FilterSelectionValue.rangeSelection(lowValue, highValue) = selectionValue else {
+//            return
+//        }
+//
+//        if let selectedLowValue = lowValue {
+//            setLowValue(selectedLowValue, animated: false)
+//        }
+//
+//        if let selectedHighValue = highValue {
+//            setHighValue(selectedHighValue, animated: false)
+//        }
+//    }
 }
 
 extension RangeFilterView: RangeControl {
@@ -254,7 +234,7 @@ private extension RangeFilterView {
             inputValues[.high] = highValue
         }
 
-        delegate?.filterView(filterView: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: lowValue, highValue: highValue))
+        sendActions(for: .valueChanged)
     }
 
     @objc func sliderInputValueChanged(_ sender: RangeSliderView) {
@@ -268,7 +248,7 @@ private extension RangeFilterView {
             updateNumberInput(for: .high, with: highValue)
         }
 
-        delegate?.filterView(filterView: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: lowValue, highValue: highValue))
+        sendActions(for: .valueChanged)
     }
 
     func updateSliderLowValue(with value: RangeValue) {

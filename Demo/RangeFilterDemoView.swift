@@ -29,8 +29,9 @@ public class RangeFilterDemoView: UIView {
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit
-        rangeFilterView.setSelectionValue(.rangeSelection(lowValue: 0, highValue: 30001))
-        rangeFilterView.delegate = self
+        rangeFilterView.setLowValue(lowValue, animated: false)
+        rangeFilterView.setHighValue(highValue + 1, animated: false)
+        rangeFilterView.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
 
         return rangeFilterView
     }()
@@ -53,14 +54,8 @@ public class RangeFilterDemoView: UIView {
             rangeFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
-}
 
-extension RangeFilterDemoView: FilterViewDelegate {
-    public func filterView(filterView: FilterView, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
-        guard case let FilterSelectionValue.rangeSelection(lowValue, highValue) = filterSelectionValue else {
-            return
-        }
-
-        print("Lower value: \(lowValue ?? 0) -  Upper value: \(highValue ?? 0)")
+    @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
+        print("Lower value: \(sender.lowValue ?? 0) -  Upper value: \(sender.highValue ?? 0)")
     }
 }

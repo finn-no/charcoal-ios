@@ -81,8 +81,9 @@
 		55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */; };
 		55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */; };
 		55E869D720E24498008B921E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869D620E24498008B921E /* FilterViewController.swift */; };
-		55E869DA20E2585F008B921E /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869D920E2585F008B921E /* FilterView.swift */; };
 		55E869DC20E2587E008B921E /* FilterSelectionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869DB20E2587E008B921E /* FilterSelectionValue.swift */; };
+		55E869DE20E2674B008B921E /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869DD20E2674B008B921E /* RangeFilterViewController.swift */; };
+		55E869E020E26764008B921E /* FilterViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869DF20E26764008B921E /* FilterViewContainer.swift */; };
 		55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */; };
 		55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
@@ -218,8 +219,9 @@
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
 		55E869D620E24498008B921E /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		55E869D920E2585F008B921E /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		55E869DB20E2587E008B921E /* FilterSelectionValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionValue.swift; sourceTree = "<group>"; };
+		55E869DD20E2674B008B921E /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
+		55E869DF20E26764008B921E /* FilterViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewContainer.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFilterListViewController.swift; sourceTree = "<group>"; };
 		55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelFilterNavigator.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 				559C6CB920B83178009B734D /* RangeFilterView.swift */,
 				559C6CC020BC24B9009B734D /* RangeControl.swift */,
 				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
+				55E869DD20E2674B008B921E /* RangeFilterViewController.swift */,
 			);
 			path = RangeFilter;
 			sourceTree = "<group>";
@@ -605,7 +608,7 @@
 			isa = PBXGroup;
 			children = (
 				55E869D620E24498008B921E /* FilterViewController.swift */,
-				55E869D920E2585F008B921E /* FilterView.swift */,
+				55E869DF20E26764008B921E /* FilterViewContainer.swift */,
 			);
 			path = FilterViewController;
 			sourceTree = "<group>";
@@ -862,7 +865,6 @@
 				5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */,
 				5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
-				55E869DA20E2585F008B921E /* FilterView.swift in Sources */,
 				559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
@@ -870,6 +872,7 @@
 				5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */,
 				55858A2420AB08FA00B100EA /* MultiLevelFilterListViewController.swift in Sources */,
 				559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */,
+				55E869DE20E2674B008B921E /* RangeFilterViewController.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				55E869DC20E2587E008B921E /* FilterSelectionValue.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
@@ -879,6 +882,7 @@
 				55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */,
 				5589322E209C3CD500512FF8 /* Layout.swift in Sources */,
 				5525324820A300A6000CBD21 /* FilterNavigationController.swift in Sources */,
+				55E869E020E26764008B921E /* FilterViewContainer.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,

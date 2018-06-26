@@ -9,7 +9,7 @@ public protocol FilterViewControllerDelegate: AnyObject {
     func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?)
 }
 
-public final class FilterViewController<View: FilterView>: UIViewController {
+public final class FilterViewController<ChildViewController: FilterViewContainer>: UIViewController {
     private lazy var safeLayoutGuide: UILayoutGuide = {
         if #available(iOS 11.0, *) {
             return view.safeAreaLayoutGuide
@@ -41,14 +41,17 @@ public final class FilterViewController<View: FilterView>: UIViewController {
     private(set) var filterSelectionValue: FilterSelectionValue?
 
     public required init?(filterInfo: FilterInfoType) {
-        guard let filterView = View(filterInfo: filterInfo) else {
+        guard let child = ChildViewController(filterInfo: filterInfo), let childView = child.view else {
             return nil
         }
 
         self.filterInfo = filterInfo
         super.init(nibName: nil, bundle: nil)
 
-        setup(with: filterView)
+        child.delegate = self
+        addChildViewController(child)
+        setup(with: childView)
+        child.didMove(toParentViewController: self)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -56,8 +59,8 @@ public final class FilterViewController<View: FilterView>: UIViewController {
     }
 }
 
-extension FilterViewController: FilterViewDelegate {
-    public func filterView(filterView: FilterView, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
+extension FilterViewController: FilterViewContainerDelegate {
+    public func filterViewContainer(filterViewContainer: FilterViewContainer, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
         self.filterSelectionValue = filterSelectionValue
         delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
@@ -70,12 +73,11 @@ extension FilterViewController: FilterBottomButtonViewDelegate {
 }
 
 private extension FilterViewController {
-    func setup(with filterView: FilterView) {
+    func setup(with filterView: UIView) {
         view.backgroundColor = .milk
         title = filterInfo.name
-        filterView.delegate = self
-        filterView.translatesAutoresizingMaskIntoConstraints = false
 
+        filterView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterView)
         view.addSubview(showResultsButtonView)
 

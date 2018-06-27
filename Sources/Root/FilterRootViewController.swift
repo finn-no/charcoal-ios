@@ -119,9 +119,16 @@ extension FilterRootViewController: UITableViewDataSource {
             cell.preferenceSelectionViewDelegate = self
             cell.selectionStyle = .none
             return cell
-        case let multiLevelInfo as MultiLevelListSelectionFilterInfoType:
+        case let listSelectionInfo as ListSelectionFilterInfoType:
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
-            cell.filterName = multiLevelInfo.name
+            cell.filterName = listSelectionInfo.name
+            cell.selectedValues = selectionValues
+            cell.accessoryType = .disclosureIndicator
+            cell.delegate = self
+            return cell
+        case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            cell.filterName = multiLevelListSelectionInfo.name
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self

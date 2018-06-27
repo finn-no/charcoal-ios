@@ -11,7 +11,7 @@ public protocol ViewControllerFactory: MultiLevelFilterListViewControllerFactory
 }
 
 public protocol MultiLevelFilterListViewControllerFactory {
-    func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController?
+    func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController?
 }
 
 public protocol SublevelViewControllerFactory {

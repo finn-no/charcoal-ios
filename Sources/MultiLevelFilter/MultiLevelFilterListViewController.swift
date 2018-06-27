@@ -5,7 +5,7 @@
 import Foundation
 
 public final class MultiLevelFilterListViewController: ListViewController, FilterContainerViewController {
-    let filterInfo: MultiLevelFilterInfoType
+    let filterInfo: MultiLevelSelectionFilterInfoType
 
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
@@ -14,7 +14,7 @@ public final class MultiLevelFilterListViewController: ListViewController, Filte
     }
 
     public init?(filterInfo: FilterInfoType) {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelFilterInfoType else {
+        guard let multiLevelFilterInfo = filterInfo as? MultiLevelSelectionFilterInfoType else {
             return nil
         }
 

@@ -23,7 +23,7 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
+    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
         let shouldShowsApplySelectionButton = false // FIXME:
         let filterViewController = FilterViewController<MultiLevelFilterListViewController>(filterInfo: multiLevelFilterInfo, navigator: navigator, showsApplySelectionButton: shouldShowsApplySelectionButton)
         filterViewController?.delegate = delegate
@@ -31,7 +31,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeSublevelViewController(for filterInfo: FilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelFilterInfoType else {
+        guard let multiLevelFilterInfo = filterInfo as? MultiLevelSelectionFilterInfoType else {
             return nil
         }
 

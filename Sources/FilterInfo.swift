@@ -37,8 +37,8 @@ public protocol PreferenceFilterInfoType: FilterInfoType {
     var preferences: [PreferenceInfoType] { get }
 }
 
-public protocol MultiLevelFilterInfoType: FilterInfoType, ListItem {
-    var filters: [MultiLevelFilterInfoType] { get }
+public protocol MultiLevelSelectionFilterInfoType: FilterInfoType, ListItem {
+    var filters: [MultiLevelSelectionFilterInfoType] { get }
     var isMultiSelect: Bool { get }
     var results: Int { get }
     var value: String? { get }
@@ -46,7 +46,7 @@ public protocol MultiLevelFilterInfoType: FilterInfoType, ListItem {
 
 // MARK: - ListItem default implementation
 
-extension MultiLevelFilterInfoType {
+extension MultiLevelSelectionFilterInfoType {
     public var title: String? { return name }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }

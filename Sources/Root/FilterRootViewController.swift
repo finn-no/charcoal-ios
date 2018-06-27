@@ -210,11 +210,6 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
     }
 }
 
-extension FilterRootViewController: PreferenceFilterListViewControllerDelegate {
-    public func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfoType, didSelect preferenceValue: PreferenceValueType) {
-    }
-}
-
 extension FilterRootViewController: FilterCellDelegate {
     func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int) {
         guard let indexPath = tableView.indexPath(for: filterCell) else {
@@ -234,6 +229,7 @@ extension FilterRootViewController: FilterViewControllerDelegate {
     }
 
     public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+        print("filterSelectionValueChanged for filter named: \(filterInfo.name). Value: \(filterSelectionValue)")
     }
 }
 

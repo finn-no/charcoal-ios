@@ -42,7 +42,7 @@ private extension FilterInfoBuilder {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
         let preferences = filterDataArray.compactMap { filter -> PreferenceInfoType? in
-            guard let values = filter.queries?.map({ PreferenceValue(name: $0.title, results: $0.totalResults) }) else {
+            guard let values = filter.queries?.map({ PreferenceValue(name: $0.title, results: $0.totalResults, value: $0.value) }) else {
                 return nil
             }
 
@@ -59,15 +59,15 @@ private extension FilterInfoBuilder {
     func buildMultiLevelFilterInfo(from filterData: FilterData) -> MultilevelFilterInfo? {
         guard let filters = filterData.queries?.map({ query -> MultilevelFilterInfo in
             let queryFilters = query.filter?.queries.map({ filterQueries -> MultilevelFilterInfo in
-                return MultilevelFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults)
+                return MultilevelFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
             })
 
-            return MultilevelFilterInfo(filters: queryFilters ?? [], name: query.title, results: query.totalResults)
+            return MultilevelFilterInfo(filters: queryFilters ?? [], name: query.title, results: query.totalResults, value: query.value)
         }) else {
             return nil
         }
 
-        return MultilevelFilterInfo(filters: filters, name: filterData.title, results: 0)
+        return MultilevelFilterInfo(filters: filters, name: filterData.title, results: 0, value: nil)
     }
 
     func buildFilterInfo(fromKeys keys: [FilterKey]) -> [FilterInfoType] {

@@ -4,15 +4,6 @@
 
 import Foundation
 
-public protocol PreferenceFilterListViewControllerDelegate: ListViewControllerDelegate {
-    func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfoType, didSelect preferenceValue: PreferenceValueType)
-}
-
-extension ListViewControllerDelegate where Self: PreferenceFilterListViewControllerDelegate {
-    public func listViewController(_ listViewController: ListViewController, didSelectListItem listItem: ListItem, atIndex index: Int) {
-    }
-}
-
 public class PreferenceFilterListViewController: ListViewController, FilterContainerViewController {
     public var controller: UIViewController {
         return self
@@ -33,6 +24,9 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
     }
 
     public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+
+        // MARK: TODO
+
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -40,7 +34,20 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
     }
 
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let preferenceValue = preferenceInfo.values[indexPath.row]
-        (delegate as? PreferenceFilterListViewControllerDelegate)?.preferenceFilterListViewController(self, with: preferenceInfo, didSelect: preferenceValue)
+        var selectionValue: FilterSelectionValue?
+
+        if preferenceInfo.isMultiSelect {
+            if let values = tableView.indexPathsForSelectedRows?.map({ preferenceInfo.values[$0.row].value }) {
+                selectionValue = .mulitpleSelection(values: values)
+            }
+        } else {
+            if let value = tableView.indexPathForSelectedRow.map({ preferenceInfo.values[$0.row].value }) {
+                selectionValue = .singleSelection(value: value)
+            }
+        }
+
+        if let selectionValue = selectionValue {
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
+        }
     }
 }

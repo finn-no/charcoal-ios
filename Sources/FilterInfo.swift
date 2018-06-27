@@ -40,7 +40,6 @@ public protocol PreferenceFilterInfoType: FilterInfoType {
 public protocol ListSelectionFilterInfoType: FilterInfoType {
     var values: [ListSelectionFilterValueType] { get }
     var isMultiSelect: Bool { get }
-    var value: String? { get }
 }
 
 public protocol ListSelectionFilterValueType: ListItem {

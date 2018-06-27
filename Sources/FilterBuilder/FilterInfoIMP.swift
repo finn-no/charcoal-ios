@@ -29,6 +29,18 @@ struct PreferenceValue: PreferenceValueType {
     let value: String
 }
 
+struct ListSelectionFilterInfo: ListSelectionFilterInfoType {
+    let name: String
+    let values: [ListSelectionFilterValueType]
+    let isMultiSelect: Bool
+}
+
+struct ListSelectionFilterValue: ListSelectionFilterValueType {
+    let title: String
+    let results: Int
+    let value: String?
+}
+
 struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType {
     let filters: [MultiLevelListSelectionFilterInfoType]
     let name: String

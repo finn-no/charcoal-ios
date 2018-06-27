@@ -32,7 +32,7 @@ class RangeFilterBuilderTests: BaseTestCase {
         let currentYear = Calendar.current.component(.year, from: Date())
         let steps: Int?
         if let filterInfo = yearRangefilterInfo {
-            steps = (currentYear + filterInfo.additionalUpperBoundOffset) - (fromYear - filterInfo.additonalLowerBoundOffset)
+            steps = (currentYear + filterInfo.additionalUpperBoundOffset) - (fromYear - filterInfo.additionalLowerBoundOffset)
         } else {
             steps = nil
         }
@@ -56,7 +56,7 @@ class RangeFilterBuilderTests: BaseTestCase {
         let highValue = 30000
 
         // When
-        let referenceValues = RangeFilterInfoBuilder.defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+        let referenceValues = RangeFilterInfoBuilder.defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
 
         // Then
         guard referenceValues.count == 3 else {
@@ -75,7 +75,7 @@ class RangeFilterBuilderTests: BaseTestCase {
         let highValue = 2018
 
         // When
-        let referenceValues = RangeFilterInfoBuilder.defaultReferencValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+        let referenceValues = RangeFilterInfoBuilder.defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
 
         // Then
         guard referenceValues.count == 3 else {

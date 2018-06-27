@@ -92,7 +92,7 @@ class FilterInfoBuilderTests: BaseTestCase {
 
         // When
         let filterInfoElements = builder?.build()
-        let makeMultiLevelFilterInfo = filterInfoElements?.first(where: { $0.name == "Merke" }) as? MultiLevelSelectionFilterInfoType
+        let makeMultiLevelFilterInfo = filterInfoElements?.first(where: { $0.name == "Merke" }) as? MultiLevelListSelectionFilterInfoType
         let makeFilterData = filter?.filterData(forKey: .make)
 
         // Then

@@ -56,18 +56,18 @@ private extension FilterInfoBuilder {
         return PreferenceFilterInfo(preferences: preferences, name: "Preferences")
     }
 
-    func buildMultiLevelFilterInfo(from filterData: FilterData) -> MultiLevelSelectionFilterInfo? {
-        guard let filters = filterData.queries?.map({ query -> MultiLevelSelectionFilterInfo in
-            let queryFilters = query.filter?.queries.map({ filterQueries -> MultiLevelSelectionFilterInfo in
-                return MultiLevelSelectionFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
+    func buildMultiLevelFilterInfo(from filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
+        guard let filters = filterData.queries?.map({ query -> MultiLevelListSelectionFilterInfo in
+            let queryFilters = query.filter?.queries.map({ filterQueries -> MultiLevelListSelectionFilterInfo in
+                return MultiLevelListSelectionFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
             })
 
-            return MultiLevelSelectionFilterInfo(filters: queryFilters ?? [], name: query.title, results: query.totalResults, value: query.value)
+            return MultiLevelListSelectionFilterInfo(filters: queryFilters ?? [], name: query.title, results: query.totalResults, value: query.value)
         }) else {
             return nil
         }
 
-        return MultiLevelSelectionFilterInfo(filters: filters, name: filterData.title, results: 0, value: nil)
+        return MultiLevelListSelectionFilterInfo(filters: filters, name: filterData.title, results: 0, value: nil)
     }
 
     func buildFilterInfo(fromKeys keys: [FilterKey]) -> [FilterInfoType] {

@@ -23,19 +23,19 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makeMultiLevelSelectionFilterViewController(from multiLevelFilterInfo: MultiLevelSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
+    public func makeMultiLevelListSelectionFilterViewController(from multiLevelSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
         let shouldShowsApplySelectionButton = false // FIXME:
-        let filterViewController = FilterViewController<MultiLevelSelectionFilterViewController>(filterInfo: multiLevelFilterInfo, navigator: navigator, showsApplySelectionButton: shouldShowsApplySelectionButton)
+        let filterViewController = FilterViewController<MultiLevelListSelectionFilterViewController>(filterInfo: multiLevelSelectionListFilterInfo, navigator: navigator, showsApplySelectionButton: shouldShowsApplySelectionButton)
         filterViewController?.delegate = delegate
         return filterViewController
     }
 
     public func makeSublevelViewController(for filterInfo: FilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelSelectionFilterInfoType else {
+        guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
             return nil
         }
 
-        return makeMultiLevelSelectionFilterViewController(from: multiLevelFilterInfo, navigator: navigator, delegate: delegate)
+        return makeMultiLevelListSelectionFilterViewController(from: multiLevelFilterInfo, navigator: navigator, delegate: delegate)
     }
 
     public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> UIViewController? {

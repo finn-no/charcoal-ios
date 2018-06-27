@@ -88,8 +88,8 @@ extension FilterRootViewController: UITableViewDelegate {
         let filterInfo = self.filterInfo(at: indexPath.row)
 
         switch filterInfo {
-        case let mulitlevelFilterInfo as MultiLevelSelectionFilterInfoType:
-            navigator.navigate(to: .mulitLevelFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
+        case let mulitlevelFilterInfo as MultiLevelListSelectionFilterInfoType:
+            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
             navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
         default:
@@ -119,7 +119,7 @@ extension FilterRootViewController: UITableViewDataSource {
             cell.preferenceSelectionViewDelegate = self
             cell.selectionStyle = .none
             return cell
-        case let multiLevelInfo as MultiLevelSelectionFilterInfoType:
+        case let multiLevelInfo as MultiLevelListSelectionFilterInfoType:
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
             cell.filterName = multiLevelInfo.name
             cell.selectedValues = selectionValues

@@ -101,7 +101,7 @@ private extension FilterViewController {
     }
 
     func canNavigate(to filterInfo: FilterInfoType, from filterContainerViewController: FilterContainerViewController) -> Bool {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelSelectionFilterInfoType else {
+        guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
             return false
         }
 

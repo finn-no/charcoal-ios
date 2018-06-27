@@ -57,8 +57,8 @@ extension ListSelectionFilterValueType {
     public var showsDisclosureIndicator: Bool { return false }
 }
 
-public protocol MultiLevelSelectionFilterInfoType: FilterInfoType, ListItem {
-    var filters: [MultiLevelSelectionFilterInfoType] { get }
+public protocol MultiLevelListSelectionFilterInfoType: FilterInfoType, ListItem {
+    var filters: [MultiLevelListSelectionFilterInfoType] { get }
     var isMultiSelect: Bool { get }
     var results: Int { get }
     var value: String? { get }
@@ -66,7 +66,7 @@ public protocol MultiLevelSelectionFilterInfoType: FilterInfoType, ListItem {
 
 // MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation
 
-extension MultiLevelSelectionFilterInfoType {
+extension MultiLevelListSelectionFilterInfoType {
     public var title: String? { return name }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }

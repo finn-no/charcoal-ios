@@ -7,7 +7,7 @@ import Foundation
 public class RootFilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
-        case mulitLevelFilter(filterInfo: MultiLevelSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
+        case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
         case preferenceFilterInPopover(preferenceInfo: PreferenceInfoType, sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
     }
@@ -34,7 +34,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
-        case let .mulitLevelFilter(filterInfo, delegate):
+        case let .multiLevelSelectionListFilter(filterInfo, delegate):
             if filterInfo.filters.isEmpty {
                 return
             }

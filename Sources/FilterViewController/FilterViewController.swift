@@ -9,7 +9,7 @@ public protocol FilterViewControllerDelegate: AnyObject {
     func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?)
 }
 
-public final class FilterViewController<ChildViewController: FilterChildViewController>: UIViewController {
+public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController {
     private lazy var safeLayoutGuide: UILayoutGuide = {
         if #available(iOS 11.0, *) {
             return view.safeAreaLayoutGuide
@@ -38,15 +38,17 @@ public final class FilterViewController<ChildViewController: FilterChildViewCont
 
     let filterInfo: FilterInfoType
     let showsApplySelectionButton: Bool
-    var delegate: FilterViewControllerDelegate?
+    weak var delegate: FilterViewControllerDelegate?
     private(set) var filterSelectionValue: FilterSelectionValue?
+    weak var filterContainerViewController: FilterContainerViewController?
 
     public required init?(filterInfo: FilterInfoType, showsApplySelectionButton: Bool = true) {
-        guard var child = ChildViewController(filterInfo: filterInfo), let childView = child.controller.view else {
+        guard let child = ChildViewController(filterInfo: filterInfo), let childView = child.controller.view else {
             return nil
         }
         self.filterInfo = filterInfo
         self.showsApplySelectionButton = showsApplySelectionButton
+        filterContainerViewController = child
         super.init(nibName: nil, bundle: nil)
 
         child.filterSelectionDelegate = self
@@ -60,16 +62,9 @@ public final class FilterViewController<ChildViewController: FilterChildViewCont
     }
 }
 
-extension FilterViewController: FilterChildViewControllerDelegate {
-    public func filterChildViewController(filterChildViewController: FilterChildViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
-        self.filterSelectionValue = filterSelectionValue
-        delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
-    }
-}
-
-extension FilterViewController: FilterBottomButtonViewDelegate {
-    func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.applyFilterButtonTapped(with: filterSelectionValue)
+public extension FilterViewController {
+    func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+        filterContainerViewController?.setSelectionValue(selectionValue)
     }
 }
 
@@ -81,23 +76,38 @@ private extension FilterViewController {
         filterView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterView)
 
-        let filterViewBottomAnchor = showsApplySelectionButton ? filterView.bottomAnchor.constraint(greaterThanOrEqualTo: applySelectionButton.topAnchor) : filterView.bottomAnchor.constraint(greaterThanOrEqualTo: safeLayoutGuide.bottomAnchor)
-
-        NSLayoutConstraint.activate([
-            filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            filterViewBottomAnchor,
-        ])
-
         if showsApplySelectionButton {
             view.addSubview(applySelectionButton)
 
             NSLayoutConstraint.activate([
+                filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+                filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                filterView.bottomAnchor.constraint(greaterThanOrEqualTo: applySelectionButton.topAnchor),
                 applySelectionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 applySelectionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 applySelectionButton.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
             ])
+        } else {
+            NSLayoutConstraint.activate([
+                filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+                filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                filterView.bottomAnchor.constraint(greaterThanOrEqualTo: safeLayoutGuide.bottomAnchor),
+            ])
         }
+    }
+}
+
+extension FilterViewController: FilterContainerViewControllerDelegate {
+    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
+        self.filterSelectionValue = filterSelectionValue
+        delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
+    }
+}
+
+extension FilterViewController: FilterBottomButtonViewDelegate {
+    func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        delegate?.applyFilterButtonTapped(with: filterSelectionValue)
     }
 }

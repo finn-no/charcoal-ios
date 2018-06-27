@@ -29,11 +29,10 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return filterViewController
     }
 
-    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, delegate: PreferenceFilterListViewControllerDelegate) -> PreferenceFilterListViewController? {
-        let preferenceFilterListViewController = PreferenceFilterListViewController(preferenceInfo: preferenceInfo)
-        preferenceFilterListViewController.delegate = delegate
-
-        return preferenceFilterListViewController
+    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, delegate: FilterViewControllerDelegate) -> UIViewController? {
+        let filterViewController = FilterViewController<PreferenceFilterListViewController>(filterInfo: preferenceInfo, showsApplySelectionButton: false)
+        filterViewController?.delegate = delegate
+        return filterViewController
     }
 
     public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController {

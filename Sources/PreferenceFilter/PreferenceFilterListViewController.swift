@@ -13,12 +13,26 @@ extension ListViewControllerDelegate where Self: PreferenceFilterListViewControl
     }
 }
 
-public class PreferenceFilterListViewController: ListViewController {
+public class PreferenceFilterListViewController: ListViewController, FilterContainerViewController {
+    public var controller: UIViewController {
+        return self
+    }
+
+    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
+
     let preferenceInfo: PreferenceInfoType
 
-    public init(preferenceInfo: PreferenceInfoType) {
+    public required init?(filterInfo: FilterInfoType) {
+        guard let preferenceInfo = filterInfo as? PreferenceInfoType else {
+            return nil
+        }
+
         self.preferenceInfo = preferenceInfo
+
         super.init(title: preferenceInfo.name, items: preferenceInfo.values, allowsMultipleSelection: preferenceInfo.isMultiSelect)
+    }
+
+    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
     }
 
     public required init?(coder aDecoder: NSCoder) {

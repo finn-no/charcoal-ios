@@ -26,7 +26,7 @@ extension PreferenceValueType {
     public var showsDisclosureIndicator: Bool { return false }
 }
 
-public protocol PreferenceInfoType {
+public protocol PreferenceInfoType: FilterInfoType {
     var name: String { get }
     var values: [PreferenceValueType] { get }
     var isMultiSelect: Bool { get }

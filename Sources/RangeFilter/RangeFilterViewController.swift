@@ -4,12 +4,12 @@
 
 import Foundation
 
-public final class RangeFilterViewController: UIViewController, FilterChildViewController {
+public final class RangeFilterViewController: UIViewController, FilterContainerViewController {
     public var controller: UIViewController {
         return self
     }
 
-    public var filterSelectionDelegate: FilterChildViewControllerDelegate?
+    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     lazy var rangeFilterView: RangeFilterView = {
         let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
@@ -94,6 +94,6 @@ private extension RangeFilterViewController {
     }
 
     @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        filterSelectionDelegate?.filterChildViewController(filterChildViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue))
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue))
     }
 }

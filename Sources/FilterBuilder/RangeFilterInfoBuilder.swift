@@ -62,7 +62,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 200_000
             unit = "km"
-            rangeBoundsOffsets = (0, 10)
+            rangeBoundsOffsets = (0, 1000)
             referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)

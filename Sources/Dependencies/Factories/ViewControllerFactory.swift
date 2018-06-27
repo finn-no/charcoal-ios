@@ -4,12 +4,16 @@
 
 import UIKit
 
-public protocol ViewControllerFactory: MultiLevelFilterListViewControllerFactory {
+public protocol ViewControllerFactory: MultiLevelFilterListViewControllerFactory, SublevelViewControllerFactory {
     func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController
-    func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, delegate: FilterViewControllerDelegate) -> UIViewController?
-    func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate) -> UIViewController?
+    func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> UIViewController?
+    func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> UIViewController?
 }
 
 public protocol MultiLevelFilterListViewControllerFactory {
-    func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController
+    func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController?
+}
+
+public protocol SublevelViewControllerFactory {
+    func makeSublevelViewController(for filterInfo: FilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController?
 }

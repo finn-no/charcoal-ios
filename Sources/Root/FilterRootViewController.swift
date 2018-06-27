@@ -218,13 +218,9 @@ extension FilterRootViewController: FilterCellDelegate {
     }
 }
 
-extension FilterRootViewController: MultiLevelFilterListViewControllerDelegate {
-    public func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfoType, didSelect sublevelFilterInfo: MultiLevelFilterInfoType) {
-    }
-}
-
 extension FilterRootViewController: FilterViewControllerDelegate {
-    public func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?) {
+    public func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+        print("applyFilterButtonTapped for filter named: \(filterInfo.name). Value: \(String(describing: filterSelectionValue))")
         navigator.navigate(to: .root)
     }
 

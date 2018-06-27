@@ -6,7 +6,7 @@ import Foundation
 
 public protocol FilterViewControllerDelegate: AnyObject {
     func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType)
-    func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?)
+    func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType)
 }
 
 public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController {
@@ -37,16 +37,18 @@ public final class FilterViewController<ChildViewController: FilterContainerView
     }()
 
     let filterInfo: FilterInfoType
+    let navigator: FilterNavigator
     let showsApplySelectionButton: Bool
     weak var delegate: FilterViewControllerDelegate?
     private(set) var filterSelectionValue: FilterSelectionValue?
     weak var filterContainerViewController: FilterContainerViewController?
 
-    public required init?(filterInfo: FilterInfoType, showsApplySelectionButton: Bool = true) {
+    public required init?(filterInfo: FilterInfoType, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
         guard let child = ChildViewController(filterInfo: filterInfo), let childView = child.controller.view else {
             return nil
         }
         self.filterInfo = filterInfo
+        self.navigator = navigator
         self.showsApplySelectionButton = showsApplySelectionButton
         filterContainerViewController = child
         super.init(nibName: nil, bundle: nil)
@@ -97,9 +99,29 @@ private extension FilterViewController {
             ])
         }
     }
+
+    func canNavigate(to filterInfo: FilterInfoType, from filterContainerViewController: FilterContainerViewController) -> Bool {
+        guard let multiLevelFilterInfo = filterInfo as? MultiLevelFilterInfoType else {
+            return false
+        }
+
+        let shouldNavigateToSublevel = !multiLevelFilterInfo.filters.isEmpty
+
+        return shouldNavigateToSublevel
+    }
 }
 
 extension FilterViewController: FilterContainerViewControllerDelegate {
+    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
+        if canNavigate(to: filterInfo, from: filterContainerViewController) {
+            navigator.navigate(to: .subLevel(filterInfo: filterInfo, delegate: delegate))
+        }
+    }
+
+    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, canNavigateTo filterInfo: FilterInfoType) -> Bool {
+        return canNavigate(to: filterInfo, from: filterContainerViewController)
+    }
+
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
         self.filterSelectionValue = filterSelectionValue
         delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
@@ -108,6 +130,6 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
 
 extension FilterViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.applyFilterButtonTapped(with: filterSelectionValue)
+        delegate?.applyFilterButtonTapped(with: filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
 }

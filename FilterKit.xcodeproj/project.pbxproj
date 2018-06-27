@@ -84,8 +84,8 @@
 		55E869DC20E2587E008B921E /* FilterSelectionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869DB20E2587E008B921E /* FilterSelectionValue.swift */; };
 		55E869DE20E2674B008B921E /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869DD20E2674B008B921E /* RangeFilterViewController.swift */; };
 		55E869E020E26764008B921E /* FilterContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869DF20E26764008B921E /* FilterContainerViewController.swift */; };
+		55E869E220E39373008B921E /* FilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E869E120E39373008B921E /* FilterNavigator.swift */; };
 		55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */; };
-		55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
@@ -222,8 +222,8 @@
 		55E869DB20E2587E008B921E /* FilterSelectionValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionValue.swift; sourceTree = "<group>"; };
 		55E869DD20E2674B008B921E /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		55E869DF20E26764008B921E /* FilterContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterContainerViewController.swift; sourceTree = "<group>"; };
+		55E869E120E39373008B921E /* FilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNavigator.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFilterListViewController.swift; sourceTree = "<group>"; };
-		55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelFilterNavigator.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -506,7 +506,6 @@
 			isa = PBXGroup;
 			children = (
 				55858A2320AB08FA00B100EA /* MultiLevelFilterListViewController.swift */,
-				55F97D1420AC60AA002BABC9 /* MultiLevelFilterNavigator.swift */,
 			);
 			path = MultiLevelFilter;
 			sourceTree = "<group>";
@@ -609,6 +608,7 @@
 			children = (
 				55E869D620E24498008B921E /* FilterViewController.swift */,
 				55E869DF20E26764008B921E /* FilterContainerViewController.swift */,
+				55E869E120E39373008B921E /* FilterNavigator.swift */,
 			);
 			path = FilterViewController;
 			sourceTree = "<group>";
@@ -906,7 +906,6 @@
 				559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */,
 				55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */,
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
-				55F97D1520AC60AA002BABC9 /* MultiLevelFilterNavigator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
 				559C61F820DA4D860083A574 /* Filter.swift in Sources */,
 				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
@@ -915,6 +914,7 @@
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
 				55BDA77320DBD99600331FFC /* FilterInfoIMP.swift in Sources */,
+				55E869E220E39373008B921E /* FilterNavigator.swift in Sources */,
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				559C61F320DA4C8D0083A574 /* (null) in Sources */,
 			);

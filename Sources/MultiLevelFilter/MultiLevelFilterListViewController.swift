@@ -4,23 +4,22 @@
 
 import Foundation
 
-public protocol MultiLevelFilterListViewControllerDelegate: ListViewControllerDelegate {
-    func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfoType, didSelect sublevelFilterInfo: MultiLevelFilterInfoType)
-}
-
-extension MultiLevelFilterListViewControllerDelegate {
-    public func listViewController(_ listViewController: ListViewController, didSelectListItem listItem: ListItem, atIndex index: Int) {
-    }
-}
-
-public final class MultiLevelFilterListViewController: ListViewController {
+public final class MultiLevelFilterListViewController: ListViewController, FilterContainerViewController {
     let filterInfo: MultiLevelFilterInfoType
-    let navigator: MultiLevelFilterNavigator
 
-    public init(filterInfo: MultiLevelFilterInfoType, navigator: MultiLevelFilterNavigator) {
-        self.filterInfo = filterInfo
-        self.navigator = navigator
-        super.init(title: filterInfo.name, items: filterInfo.filters, allowsMultipleSelection: filterInfo.isMultiSelect)
+    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
+
+    public var controller: UIViewController {
+        return self
+    }
+
+    public init?(filterInfo: FilterInfoType) {
+        guard let multiLevelFilterInfo = filterInfo as? MultiLevelFilterInfoType else {
+            return nil
+        }
+
+        self.filterInfo = multiLevelFilterInfo
+        super.init(title: multiLevelFilterInfo.name, items: multiLevelFilterInfo.filters, allowsMultipleSelection: multiLevelFilterInfo.isMultiSelect)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -29,13 +28,28 @@ public final class MultiLevelFilterListViewController: ListViewController {
 
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sublevelFilterInfo = filterInfo.filters[indexPath.row]
-        let delegate = self.delegate as? MultiLevelFilterListViewControllerDelegate
-        delegate?.multiLevelFilterListViewController(self, with: filterInfo, didSelect: sublevelFilterInfo)
+        var selectionValue: FilterSelectionValue?
 
-        let shouldNavigateToSublevel = !sublevelFilterInfo.filters.isEmpty
-
-        if shouldNavigateToSublevel {
-            navigator.navigate(to: .subLevel(filterInfo: sublevelFilterInfo, delegate: delegate))
+        if filterInfo.isMultiSelect {
+            if let values = tableView.indexPathsForSelectedRows?.compactMap({ filterInfo.filters[$0.row].value }) {
+                selectionValue = .mulitpleSelection(values: values)
+            }
+        } else {
+            if let value = tableView.indexPathForSelectedRow.flatMap({ filterInfo.filters[$0.row].value }) {
+                selectionValue = .singleSelection(value: value)
+            }
         }
+
+        if let selectionValue = selectionValue {
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
+        }
+
+        let canNavigateToSublevel = filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, canNavigateTo: sublevelFilterInfo) ?? false
+        if canNavigateToSublevel {
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: sublevelFilterInfo)
+        }
+    }
+
+    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
     }
 }

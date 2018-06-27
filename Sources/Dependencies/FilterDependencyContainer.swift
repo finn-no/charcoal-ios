@@ -13,8 +13,8 @@ public class FilterDependencyContainer {
 }
 
 extension FilterDependencyContainer: NavigatorFactory {
-    public func makeMultiLevelFilterNavigator(navigationController: UINavigationController) -> MultiLevelFilterNavigator {
-        return MultiLevelFilterNavigator(navigationController: navigationController, factory: self)
+    public func makeFilterNavigator(navigationController: UINavigationController) -> FilterNavigator {
+        return FilterNavigator(navigationController: navigationController, factory: self)
     }
 
     public func makeRootFilterNavigator(navigationController: FilterNavigationController) -> RootFilterNavigator {
@@ -23,20 +23,31 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate) -> UIViewController? {
-        let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo)
+    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
+        let shouldShowsApplySelectionButton = false // FIXME:
+        let filterViewController = FilterViewController<MultiLevelFilterListViewController>(filterInfo: multiLevelFilterInfo, navigator: navigator, showsApplySelectionButton: shouldShowsApplySelectionButton)
         filterViewController?.delegate = delegate
         return filterViewController
     }
 
-    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, delegate: FilterViewControllerDelegate) -> UIViewController? {
-        let filterViewController = FilterViewController<PreferenceFilterListViewController>(filterInfo: preferenceInfo, showsApplySelectionButton: false)
+    public func makeSublevelViewController(for filterInfo: FilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
+        guard let multiLevelFilterInfo = filterInfo as? MultiLevelFilterInfoType else {
+            return nil
+        }
+
+        return makeMultiLevelFilterListViewController(from: multiLevelFilterInfo, navigator: navigator, delegate: delegate)
+    }
+
+    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> UIViewController? {
+        let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo, navigator: navigator, showsApplySelectionButton: true)
         filterViewController?.delegate = delegate
         return filterViewController
     }
 
-    public func makeMultiLevelFilterListViewController(from multiLevelFilterInfo: MultiLevelFilterInfoType, navigator: MultiLevelFilterNavigator) -> MultiLevelFilterListViewController {
-        return MultiLevelFilterListViewController(filterInfo: multiLevelFilterInfo, navigator: navigator)
+    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> UIViewController? {
+        let filterViewController = FilterViewController<PreferenceFilterListViewController>(filterInfo: preferenceInfo, navigator: navigator, showsApplySelectionButton: false)
+        filterViewController?.delegate = delegate
+        return filterViewController
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {

@@ -36,7 +36,7 @@ struct ListSelectionFilterInfo: ListSelectionFilterInfoType {
 }
 
 struct ListSelectionFilterValue: ListSelectionFilterValueType {
-    let title: String
+    let name: String
     let results: Int
     let value: String?
 }

@@ -57,7 +57,7 @@ private extension FilterInfoBuilder {
     }
 
     func buildSelectionListFilterInfo(from filterData: FilterData) -> ListSelectionFilterInfo? {
-        guard let values = filterData.queries?.map({ ListSelectionFilterValue(title: $0.title, results: $0.totalResults, value: $0.value) }) else {
+        guard let values = filterData.queries?.map({ ListSelectionFilterValue(name: $0.title, results: $0.totalResults, value: $0.value) }) else {
             return nil
         }
 

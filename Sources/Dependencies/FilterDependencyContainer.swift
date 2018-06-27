@@ -24,7 +24,9 @@ extension FilterDependencyContainer: NavigatorFactory {
 
 extension FilterDependencyContainer: ViewControllerFactory {
     public func makeListSelectionFilterViewController(from listSelectionListFilterInfo: ListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
-        return nil
+        let filterViewController = FilterViewController<ListSelectionFilterViewController>(filterInfo: listSelectionListFilterInfo, navigator: navigator, showsApplySelectionButton: true)
+        filterViewController?.delegate = delegate
+        return filterViewController
     }
 
     public func makeMultiLevelListSelectionFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {

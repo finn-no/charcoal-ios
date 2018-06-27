@@ -43,7 +43,7 @@ public protocol ListSelectionFilterInfoType: FilterInfoType {
 }
 
 public protocol ListSelectionFilterValueType: ListItem {
-    var title: String { get }
+    var name: String { get }
     var results: Int { get }
     var value: String? { get }
 }
@@ -51,7 +51,7 @@ public protocol ListSelectionFilterValueType: ListItem {
 // MARK: - SelectionFilterInfoType: ListItem default implementation
 
 extension ListSelectionFilterValueType {
-    public var title: String? { return title }
+    public var title: String? { return name }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return false }
 }

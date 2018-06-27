@@ -15,6 +15,7 @@ public protocol FreeSearchFilterInfoType: FilterInfoType {
 
 public protocol PreferenceValueType: ListItem {
     var name: String { get }
+    var value: String { get }
     var results: Int { get }
 }
 
@@ -40,6 +41,7 @@ public protocol MultiLevelFilterInfoType: FilterInfoType, ListItem {
     var filters: [MultiLevelFilterInfoType] { get }
     var isMultiSelect: Bool { get }
     var results: Int { get }
+    var value: String? { get }
 }
 
 // MARK: - ListItem default implementation

@@ -25,14 +25,16 @@ struct PreferenceInfo: PreferenceInfoType {
 
 struct PreferenceValue: PreferenceValueType {
     let name: String
-    var results: Int
+    let results: Int
+    let value: String
 }
 
 struct MultilevelFilterInfo: MultiLevelFilterInfoType {
-    var filters: [MultiLevelFilterInfoType]
-    var name: String
+    let filters: [MultiLevelFilterInfoType]
+    let name: String
     let isMultiSelect: Bool = true
     let results: Int
+    let value: String?
 }
 
 struct RangeFilterInfo: RangeFilterInfoType {

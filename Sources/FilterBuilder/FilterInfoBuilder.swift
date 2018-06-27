@@ -93,3 +93,33 @@ private extension FilterInfoBuilder {
         return filterInfo
     }
 }
+
+extension FilterInfoBuilder {
+    static func isListSelectionFilter(filterData: FilterData) -> Bool {
+        return hasQueriesWithFilters(filterData: filterData) == false
+    }
+
+    static func isMultiLevelSelectionFilter(filterData: FilterData) -> Bool {
+        return hasQueriesWithFilters(filterData: filterData) == true
+    }
+
+    static func hasQueriesWithFilters(filterData: FilterData) -> Bool {
+        guard let queries = filterData.queries else {
+            return false
+        }
+
+        let hasQueriesWithFilters = queries.reduce(false, { result, element -> Bool in
+            if result == true {
+                return result
+            }
+
+            if element.filter != nil {
+                return true
+            }
+
+            return false
+        })
+
+        return hasQueriesWithFilters
+    }
+}

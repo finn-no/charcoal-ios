@@ -25,7 +25,7 @@ class FilterInfoBuilderTests: BaseTestCase {
         let numberOfFreeSearchFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is FreeSearchFilterInfoType) ? $0 + 1 : $0 })
         let numberOfPreferenceFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is PreferenceFilterInfoType) ? $0 + 1 : $0 })
         let numberOfRangeFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is RangeFilterInfoType) ? $0 + 1 : $0 })
-        let numberOfMultiLevelFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is MultilevelSelectionFilterInfo) ? $0 + 1 : $0 })
+        let numberOfMultiLevelFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is MultiLevelListSelectionFilterInfo) ? $0 + 1 : $0 })
 
         // Then
         XCTAssertNotNil(filter)
@@ -147,5 +147,31 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertNotNil(rangeFilterData)
         XCTAssertNotNil(rangeFilterName)
         XCTAssertNotNil(rangeFilterInfo)
+    }
+
+    func testFilterDataWithQueriesWithoutFiltersIsListSelectionFilter() {
+        // Given
+        let filterDataElement = decodedTestFilter?.filterData(forKey: .transmission)
+
+        // When
+        let isSelectionFilter = FilterInfoBuilder.isListSelectionFilter(filterData: filterDataElement!)
+        let isMultiLevelSelectionFilter = FilterInfoBuilder.isMultiLevelSelectionFilter(filterData: filterDataElement!)
+
+        XCTAssertNotNil(isSelectionFilter)
+        XCTAssertEqual(isSelectionFilter, true)
+        XCTAssertEqual(isMultiLevelSelectionFilter, false)
+    }
+
+    func testFilterDataWithQueriesWithFiltersiltersIsMultiLevelListSelectionFilter() {
+        // Given
+        let filterDataElement = decodedTestFilter?.filterData(forKey: .make)
+
+        // When
+        let isSelectionFilter = FilterInfoBuilder.isListSelectionFilter(filterData: filterDataElement!)
+        let isMultiLevelSelectionFilter = FilterInfoBuilder.isMultiLevelSelectionFilter(filterData: filterDataElement!)
+
+        XCTAssertNotNil(isSelectionFilter)
+        XCTAssertEqual(isSelectionFilter, false)
+        XCTAssertEqual(isMultiLevelSelectionFilter, true)
     }
 }

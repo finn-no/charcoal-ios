@@ -39,6 +39,37 @@ struct RangeFilterInfo: RangeFilterInfoType {
     var name: String
     var lowValue: Int
     var highValue: Int
+    var additonalLowerBoundOffset: Int
+    var additionalUpperBoundOffset: Int
     var steps: Int
     var unit: String
+    var referenceValues: [Int]
+    var isCurrencyValueRange: Bool
+    var accessibilitySteps: Int?
+    var accessibilityValueSuffix: String?
+    var usesSmallNumberInputFont: Bool
+    var displaysUnitInNumberInput: Bool
+}
+
+extension RangeFilterInfo {
+    typealias RangeBoundsOffsets = (lowerBoundOffset: Int, upperBoundOffset: Int)
+    typealias ReferenceValues = [Int]
+    typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
+    typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
+
+    init(name: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
+        self.name = name
+        self.lowValue = lowValue
+        self.highValue = highValue
+        additonalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset
+        additionalUpperBoundOffset = rangeBoundsOffsets.upperBoundOffset
+        self.steps = steps
+        self.unit = unit
+        self.referenceValues = referenceValues
+        isCurrencyValueRange = appearanceProperties.isCurrencyValueRange
+        accessibilitySteps = accesibilityValues.accessibilitySteps
+        accessibilityValueSuffix = accesibilityValues.accessibilityValueSuffix
+        usesSmallNumberInputFont = appearanceProperties.usesSmallNumberInputFont
+        displaysUnitInNumberInput = appearanceProperties.displaysUnitInNumberInput
+    }
 }

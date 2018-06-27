@@ -52,7 +52,7 @@ public final class RangeFilterView: UIControl {
     }
 
     private var _accessibilitySteps: Int?
-    public var sliderAccessibilitySteps: Int {
+    public var sliderAccessibilitySteps: Int? {
         get {
             guard let accessibilitySteps = _accessibilitySteps else {
                 return steps
@@ -62,7 +62,7 @@ public final class RangeFilterView: UIControl {
         }
         set {
             _accessibilitySteps = newValue
-            sliderInputView.accessibilitySteps = newValue
+            sliderInputView.accessibilitySteps = newValue ?? steps
         }
     }
 

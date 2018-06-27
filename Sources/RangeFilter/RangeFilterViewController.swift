@@ -72,6 +72,15 @@ private extension RangeFilterViewController {
         view.backgroundColor = .milk
         title = filterInfo.name
 
+        let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
+
+        let rangeFilterView = RangeFilterView(range: range, additionalLowerBoundOffset: filterInfo.additonalLowerBoundOffset, additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset, steps: filterInfo.steps, unit: filterInfo.unit, isValueCurrency: filterInfo.isCurrencyValueRange, referenceValues: filterInfo.referenceValues, usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont, displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput)
+        rangeFilterView.setLowValue(filterInfo.lowValue, animated: false)
+        rangeFilterView.setHighValue(filterInfo.highValue, animated: false)
+        rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
+        rangeFilterView.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
+        rangeFilterView.sliderAccessibilitySteps = filterInfo.accessibilitySteps
+
         view.addSubview(rangeFilterView)
 
         NSLayoutConstraint.activate([

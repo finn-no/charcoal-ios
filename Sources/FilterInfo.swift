@@ -53,7 +53,7 @@ extension MultiLevelFilterInfoType {
 public protocol RangeFilterInfoType: FilterInfoType {
     var lowValue: Int { get }
     var highValue: Int { get }
-    var additonalLowerBoundOffset: Int { get }
+    var additionalLowerBoundOffset: Int { get }
     var additionalUpperBoundOffset: Int { get }
     var steps: Int { get }
     var unit: String { get }

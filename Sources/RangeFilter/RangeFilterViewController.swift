@@ -13,18 +13,20 @@ public final class RangeFilterViewController: UIViewController, FilterChildViewC
 
     lazy var rangeFilterView: RangeFilterView = {
         let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
-        let referenceValues = [range.lowerBound, (range.lowerBound + range.count / 2), range.upperBound]
         let view = RangeFilterView(
             range: range,
-            additionalLowerBoundOffset: 0,
-            additionalUpperBoundOffset: 0,
+            additionalLowerBoundOffset: filterInfo.additionalLowerBoundOffset,
+            additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset,
             steps: filterInfo.steps,
             unit: filterInfo.unit,
-            isValueCurrency: false,
-            referenceValues: referenceValues,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true
+            isValueCurrency: filterInfo.isCurrencyValueRange,
+            referenceValues: filterInfo.referenceValues,
+            usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont,
+            displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput
         )
+
+        view.sliderAccessibilitySteps = filterInfo.accessibilitySteps
+        view.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
 
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
@@ -74,7 +76,7 @@ private extension RangeFilterViewController {
 
         let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
 
-        let rangeFilterView = RangeFilterView(range: range, additionalLowerBoundOffset: filterInfo.additonalLowerBoundOffset, additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset, steps: filterInfo.steps, unit: filterInfo.unit, isValueCurrency: filterInfo.isCurrencyValueRange, referenceValues: filterInfo.referenceValues, usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont, displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput)
+        let rangeFilterView = RangeFilterView(range: range, additionalLowerBoundOffset: filterInfo.additionalLowerBoundOffset, additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset, steps: filterInfo.steps, unit: filterInfo.unit, isValueCurrency: filterInfo.isCurrencyValueRange, referenceValues: filterInfo.referenceValues, usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont, displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput)
         rangeFilterView.setLowValue(filterInfo.lowValue, animated: false)
         rangeFilterView.setHighValue(filterInfo.highValue, animated: false)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false

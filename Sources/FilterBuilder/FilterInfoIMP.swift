@@ -39,7 +39,7 @@ struct RangeFilterInfo: RangeFilterInfoType {
     var name: String
     var lowValue: Int
     var highValue: Int
-    var additonalLowerBoundOffset: Int
+    var additionalLowerBoundOffset: Int
     var additionalUpperBoundOffset: Int
     var steps: Int
     var unit: String
@@ -61,7 +61,7 @@ extension RangeFilterInfo {
         self.name = name
         self.lowValue = lowValue
         self.highValue = highValue
-        additonalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset
+        additionalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset
         additionalUpperBoundOffset = rangeBoundsOffsets.upperBoundOffset
         self.steps = steps
         self.unit = unit

@@ -29,7 +29,7 @@ struct PreferenceValue: PreferenceValueType {
     let value: String
 }
 
-struct MultilevelFilterInfo: MultiLevelSelectionFilterInfoType {
+struct MultiLevelSelectionFilterInfo: MultiLevelSelectionFilterInfoType {
     let filters: [MultiLevelSelectionFilterInfoType]
     let name: String
     let isMultiSelect: Bool = true

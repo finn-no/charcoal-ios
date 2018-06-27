@@ -56,7 +56,15 @@ private extension FilterInfoBuilder {
         return PreferenceFilterInfo(preferences: preferences, name: "Preferences")
     }
 
-    func buildMultiLevelFilterInfo(from filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
+    func buildSelectionListFilterInfo(from filterData: FilterData) -> ListSelectionFilterInfo? {
+        guard let values = filterData.queries?.map({ ListSelectionFilterValue(title: $0.title, results: $0.totalResults, value: $0.value) }) else {
+            return nil
+        }
+
+        return ListSelectionFilterInfo(name: filterData.title, values: values, isMultiSelect: true)
+    }
+
+    func buildMultiLevelListSelectionFilterInfo(from filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
         guard let filters = filterData.queries?.map({ query -> MultiLevelListSelectionFilterInfo in
             let queryFilters = query.filter?.queries.map({ filterQueries -> MultiLevelListSelectionFilterInfo in
                 return MultiLevelListSelectionFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
@@ -83,9 +91,13 @@ private extension FilterInfoBuilder {
                 if let rangeFilterInfo = rangeInfoFilterBuilder.buildRangeFilterInfo(from: filterData) {
                     filterInfo.append(rangeFilterInfo)
                 }
-            } else {
-                if let mulitLevelFilterInfo = buildMultiLevelFilterInfo(from: filterData) {
-                    filterInfo.append(mulitLevelFilterInfo)
+            } else if FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterData) {
+                if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(from: filterData) {
+                    filterInfo.append(mulitLevelSelectionFilterInfo)
+                }
+            } else if FilterInfoBuilder.isListSelectionFilter(filterData: filterData) {
+                if let selectionListFilterInfo = buildSelectionListFilterInfo(from: filterData) {
+                    filterInfo.append(selectionListFilterInfo)
                 }
             }
         })
@@ -99,7 +111,7 @@ extension FilterInfoBuilder {
         return hasQueriesWithFilters(filterData: filterData) == false
     }
 
-    static func isMultiLevelSelectionFilter(filterData: FilterData) -> Bool {
+    static func isMultiLevelListSelectionFilter(filterData: FilterData) -> Bool {
         return hasQueriesWithFilters(filterData: filterData) == true
     }
 

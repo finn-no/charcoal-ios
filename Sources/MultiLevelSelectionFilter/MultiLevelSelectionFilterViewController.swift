@@ -4,7 +4,7 @@
 
 import Foundation
 
-public final class MultiLevelFilterListViewController: ListViewController, FilterContainerViewController {
+public final class MultiLevelSelectionFilterViewController: ListViewController, FilterContainerViewController {
     let filterInfo: MultiLevelSelectionFilterInfoType
 
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?

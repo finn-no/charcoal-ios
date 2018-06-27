@@ -9,7 +9,7 @@ public class FilterNavigator: Navigator {
         case subLevel(filterInfo: FilterInfoType, delegate: FilterViewControllerDelegate?)
     }
 
-    typealias Factory = SublevelViewControllerFactory & FilterNavigtorFactory
+    typealias Factory = SublevelViewControllerFactory
 
     let navigationController: UINavigationController
     let factory: Factory

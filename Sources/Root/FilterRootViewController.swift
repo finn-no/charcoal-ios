@@ -88,8 +88,10 @@ extension FilterRootViewController: UITableViewDelegate {
         let filterInfo = self.filterInfo(at: indexPath.row)
 
         switch filterInfo {
-        case let mulitlevelFilterInfo as MultiLevelListSelectionFilterInfoType:
-            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
+        case let listSelectionFilterInfo as ListSelectionFilterInfoType:
+            navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, delegate: self))
+        case let multiLevelListSelectionFilterInfo as MultiLevelListSelectionFilterInfoType:
+            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
             navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
         default:

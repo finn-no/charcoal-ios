@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterKey: String, CodingKey {
+public enum FilterKey: String, CodingKey {
     case query = "q"
 
     // bap

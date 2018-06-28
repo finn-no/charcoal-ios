@@ -35,7 +35,7 @@ public final class FilterInfoBuilder {
 
 private extension FilterInfoBuilder {
     func buildFreeSearchFilterInfo() -> FilterInfoType {
-        return FreeSearchFilterInfo(currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch")
+        return FreeSearchFilterInfo(key: .query, currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch")
     }
 
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {
@@ -46,7 +46,7 @@ private extension FilterInfoBuilder {
                 return nil
             }
 
-            return PreferenceInfo(name: filter.title, values: values)
+            return PreferenceInfo(key: filter.key, name: filter.title, values: values)
         }
 
         if preferences.isEmpty {
@@ -61,21 +61,21 @@ private extension FilterInfoBuilder {
             return nil
         }
 
-        return ListSelectionFilterInfo(name: filterData.title, values: values, isMultiSelect: true)
+        return ListSelectionFilterInfo(key: filterData.key, name: filterData.title, values: values, isMultiSelect: true)
     }
 
     func buildMultiLevelListSelectionFilterInfo(from filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
         guard let filters = filterData.queries?.map({ query -> MultiLevelListSelectionFilterInfo in
             let queryFilters = query.filter?.queries.map({ filterQueries -> MultiLevelListSelectionFilterInfo in
-                return MultiLevelListSelectionFilterInfo(filters: [], name: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
+                return MultiLevelListSelectionFilterInfo(key: filterData.key, filters: [], name: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
             })
 
-            return MultiLevelListSelectionFilterInfo(filters: queryFilters ?? [], name: query.title, results: query.totalResults, value: query.value)
+            return MultiLevelListSelectionFilterInfo(key: filterData.key, filters: queryFilters ?? [], name: query.title, results: query.totalResults, value: query.value)
         }) else {
             return nil
         }
 
-        return MultiLevelListSelectionFilterInfo(filters: filters, name: filterData.title, results: 0, value: nil)
+        return MultiLevelListSelectionFilterInfo(key: filterData.key, filters: filters, name: filterData.title, results: 0, value: nil)
     }
 
     func buildFilterInfo(fromKeys keys: [FilterKey]) -> [FilterInfoType] {

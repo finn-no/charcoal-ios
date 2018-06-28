@@ -37,7 +37,6 @@ public class ListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.title = title
         tableView.allowsMultipleSelection = allowsMultipleSelection
-        setup()
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -48,6 +47,12 @@ public class ListViewController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         listItems = []
         super.init(coder: aDecoder)
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setup()
     }
 }
 

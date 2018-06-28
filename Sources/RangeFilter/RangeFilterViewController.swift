@@ -47,11 +47,16 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
         self.filterInfo = rangeFilterInfo
         super.init(nibName: nil, bundle: nil)
-        setup()
     }
 
     public required init?(string: String) {
         fatalError("init(string:) has not been implemented")
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setup()
     }
 
     public func setSelectionValue(_ selectionValue: FilterSelectionValue) {

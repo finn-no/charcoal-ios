@@ -39,34 +39,41 @@ public final class FilterViewController<ChildViewController: FilterContainerView
     let filterInfo: FilterInfoType
     let navigator: FilterNavigator
     let showsApplySelectionButton: Bool
+    let filterContainerViewController: FilterContainerViewController
     weak var delegate: FilterViewControllerDelegate?
     private(set) var filterSelectionValue: FilterSelectionValue?
-    weak var filterContainerViewController: FilterContainerViewController?
 
     public required init?(filterInfo: FilterInfoType, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
-        guard let child = ChildViewController(filterInfo: filterInfo), let childView = child.controller.view else {
+        guard let child = ChildViewController(filterInfo: filterInfo) else {
             return nil
         }
+
         self.filterInfo = filterInfo
         self.navigator = navigator
         self.showsApplySelectionButton = showsApplySelectionButton
         filterContainerViewController = child
         super.init(nibName: nil, bundle: nil)
-
         child.filterSelectionDelegate = self
-        addChildViewController(child.controller)
-        setup(with: childView)
-        child.controller.didMove(toParentViewController: self)
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let childViewController = filterContainerViewController.controller
+
+        addChildViewController(childViewController)
+        setup(with: childViewController.view)
+        childViewController.didMove(toParentViewController: self)
+    }
 }
 
 public extension FilterViewController {
     func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        filterContainerViewController?.setSelectionValue(selectionValue)
+        filterContainerViewController.setSelectionValue(selectionValue)
     }
 }
 

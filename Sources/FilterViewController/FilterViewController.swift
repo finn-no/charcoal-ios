@@ -20,7 +20,7 @@ public final class FilterViewController<ChildViewController: FilterContainerView
             NSLayoutConstraint.activate([
                 layoutGuide.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
                 layoutGuide.leftAnchor.constraint(equalTo: view.leftAnchor),
-                layoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                layoutGuide.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
                 layoutGuide.rightAnchor.constraint(equalTo: view.rightAnchor),
             ])
 
@@ -95,7 +95,7 @@ private extension FilterViewController {
                 filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
                 filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                filterView.bottomAnchor.constraint(greaterThanOrEqualTo: safeLayoutGuide.bottomAnchor),
+                filterView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor),
             ])
         }
     }

@@ -141,20 +141,6 @@ public final class RangeFilterView: UIControl {
             numberInputView.forceSmallInputFontSize()
         }
     }
-
-//    public override func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-//        guard case let FilterSelectionValue.rangeSelection(lowValue, highValue) = selectionValue else {
-//            return
-//        }
-//
-//        if let selectedLowValue = lowValue {
-//            setLowValue(selectedLowValue, animated: false)
-//        }
-//
-//        if let selectedHighValue = highValue {
-//            setHighValue(selectedHighValue, animated: false)
-//        }
-//    }
 }
 
 extension RangeFilterView: RangeControl {

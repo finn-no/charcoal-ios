@@ -99,27 +99,16 @@ private extension FilterViewController {
             ])
         }
     }
-
-    func canNavigate(to filterInfo: FilterInfoType, from filterContainerViewController: FilterContainerViewController) -> Bool {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
-            return false
-        }
-
-        let shouldNavigateToSublevel = !multiLevelFilterInfo.filters.isEmpty
-
-        return shouldNavigateToSublevel
-    }
 }
 
 extension FilterViewController: FilterContainerViewControllerDelegate {
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
-        if canNavigate(to: filterInfo, from: filterContainerViewController) {
-            navigator.navigate(to: .subLevel(filterInfo: filterInfo, delegate: delegate))
+        switch filterInfo {
+        case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
+            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate))
+        default:
+            break
         }
-    }
-
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, canNavigateTo filterInfo: FilterInfoType) -> Bool {
-        return canNavigate(to: filterInfo, from: filterContainerViewController)
     }
 
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {

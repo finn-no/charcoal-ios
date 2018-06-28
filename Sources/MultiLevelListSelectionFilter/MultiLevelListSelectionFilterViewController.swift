@@ -44,8 +44,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
             filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
         }
 
-        let canNavigateToSublevel = filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, canNavigateTo: sublevelFilterInfo) ?? false
-        if canNavigateToSublevel {
+        if sublevelFilterInfo.filters.isEmpty == false {
             filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: sublevelFilterInfo)
         }
     }

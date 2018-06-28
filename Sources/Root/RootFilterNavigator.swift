@@ -36,12 +36,12 @@ public class RootFilterNavigator: NSObject, Navigator {
         case .root:
             navigationController.popToRootViewController(animated: true)
         case let .multiLevelSelectionListFilter(filterInfo, delegate):
-            if filterInfo.filters.isEmpty {
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            guard let multiLevelListViewController = factory.makeMultiLevelListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
 
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
-            navigator.navigate(to: .subLevel(filterInfo: filterInfo, delegate: delegate))
+            navigationController.pushViewController(multiLevelListViewController, animated: true)
         case let .preferenceFilterInPopover(preferenceInfo, sourceView, delegate, popoverWillDismiss):
             presentPreference(with: preferenceInfo, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
         case let .rangeFilter(filterInfo, delegate):

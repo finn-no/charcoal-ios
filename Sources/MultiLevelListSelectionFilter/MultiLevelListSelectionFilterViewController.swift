@@ -32,7 +32,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
 
         if filterInfo.isMultiSelect {
             if let values = tableView.indexPathsForSelectedRows?.compactMap({ filterInfo.filters[$0.row].value }) {
-                selectionValue = .mulitpleSelection(values: values)
+                selectionValue = .multipleSelection(values: values)
             }
         } else {
             if let value = tableView.indexPathForSelectedRow.flatMap({ filterInfo.filters[$0.row].value }) {

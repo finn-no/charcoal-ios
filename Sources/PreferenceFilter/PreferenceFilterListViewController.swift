@@ -38,7 +38,7 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
 
         if preferenceInfo.isMultiSelect {
             if let values = tableView.indexPathsForSelectedRows?.map({ preferenceInfo.values[$0.row].value }) {
-                selectionValue = .mulitpleSelection(values: values)
+                selectionValue = .multipleSelection(values: values)
             }
         } else {
             if let value = tableView.indexPathForSelectedRow.map({ preferenceInfo.values[$0.row].value }) {

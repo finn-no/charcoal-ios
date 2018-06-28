@@ -6,9 +6,11 @@ import Foundation
 
 public class FilterDependencyContainer {
     private let dataSource: FilterDataSource
+    weak var delegate: FilterDelegate?
 
-    public init(dataSource: FilterDataSource) {
+    public init(dataSource: FilterDataSource, delegate: FilterDelegate) {
         self.dataSource = dataSource
+        self.delegate = delegate
     }
 }
 
@@ -56,6 +58,6 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
-        return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource)
+        return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, delegate: delegate)
     }
 }

@@ -7,6 +7,7 @@ import UIKit
 public class FilterRootViewController: UIViewController {
     private let navigator: RootFilterNavigator
     private let dataSource: FilterDataSource
+    private weak var delegate: FilterDelegate?
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -33,9 +34,10 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource) {
+    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, delegate: FilterDelegate?) {
         self.navigator = navigator
         self.dataSource = dataSource
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
@@ -229,12 +231,12 @@ extension FilterRootViewController: FilterCellDelegate {
 
 extension FilterRootViewController: FilterViewControllerDelegate {
     public func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        print("applyFilterButtonTapped for filter named: \(filterInfo.name). Value: \(String(describing: filterSelectionValue))")
+        delegate?.applyFilterSelectionValue(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
         navigator.navigate(to: .root)
     }
 
     public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        print("filterSelectionValueChanged for filter named: \(filterInfo.name). Value: \(filterSelectionValue)")
+        delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
 }
 

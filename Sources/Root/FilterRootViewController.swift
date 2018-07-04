@@ -7,6 +7,7 @@ import UIKit
 public class FilterRootViewController: UIViewController {
     private let navigator: RootFilterNavigator
     private let dataSource: FilterDataSource
+    private weak var delegate: FilterDelegate?
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -33,9 +34,10 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource) {
+    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, delegate: FilterDelegate?) {
         self.navigator = navigator
         self.dataSource = dataSource
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
@@ -88,10 +90,12 @@ extension FilterRootViewController: UITableViewDelegate {
         let filterInfo = self.filterInfo(at: indexPath.row)
 
         switch filterInfo {
-        case let mulitlevelFilterInfo as MultiLevelFilterInfoType:
-            navigator.navigate(to: .mulitLevelFilter(filterInfo: mulitlevelFilterInfo, delegate: self))
+        case let listSelectionFilterInfo as ListSelectionFilterInfoType:
+            navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, delegate: self))
+        case let multiLevelListSelectionFilterInfo as MultiLevelListSelectionFilterInfoType:
+            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
-            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo))
+            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
         default:
             break
         }
@@ -119,9 +123,16 @@ extension FilterRootViewController: UITableViewDataSource {
             cell.preferenceSelectionViewDelegate = self
             cell.selectionStyle = .none
             return cell
-        case let multiLevelInfo as MultiLevelFilterInfoType:
+        case let listSelectionInfo as ListSelectionFilterInfoType:
             let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
-            cell.filterName = multiLevelInfo.name
+            cell.filterName = listSelectionInfo.name
+            cell.selectedValues = selectionValues
+            cell.accessoryType = .disclosureIndicator
+            cell.delegate = self
+            return cell
+        case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
+            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            cell.filterName = multiLevelListSelectionInfo.name
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
@@ -210,11 +221,6 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
     }
 }
 
-extension FilterRootViewController: PreferenceFilterListViewControllerDelegate {
-    public func preferenceFilterListViewController(_ preferenceFilterListViewController: PreferenceFilterListViewController, with preferenceInfo: PreferenceInfoType, didSelect preferenceValue: PreferenceValueType) {
-    }
-}
-
 extension FilterRootViewController: FilterCellDelegate {
     func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int) {
         guard let indexPath = tableView.indexPath(for: filterCell) else {
@@ -223,8 +229,14 @@ extension FilterRootViewController: FilterCellDelegate {
     }
 }
 
-extension FilterRootViewController: MultiLevelFilterListViewControllerDelegate {
-    public func multiLevelFilterListViewController(_ multiLevelFilterListViewController: MultiLevelFilterListViewController, with filterInfo: MultiLevelFilterInfoType, didSelect sublevelFilterInfo: MultiLevelFilterInfoType) {
+extension FilterRootViewController: FilterViewControllerDelegate {
+    public func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+        delegate?.applyFilterSelectionValue(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
+        navigator.navigate(to: .root)
+    }
+
+    public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+        delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
 }
 

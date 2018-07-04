@@ -128,10 +128,10 @@ enum ComponentViews: String {
             return navigationController
 
         case .rootFilters:
-            let filterData = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
-            let dataSource = DemoFilterDataSource(filter: filterData)
+            let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
+            let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: dataSource)
+            let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter)
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             rootFilterNavigator.start()
@@ -175,16 +175,16 @@ enum FullscreenViews: String {
 
         switch self {
         case .torget:
-            filter = DemoFilterDataSource.filterDataFromJSONFile(named: "bap-sale")
+            filter = DemoFilter.filterDataFromJSONFile(named: "bap-sale")
         case .bil:
-            filter = DemoFilterDataSource.filterDataFromJSONFile(named: "car-norway")
+            filter = DemoFilter.filterDataFromJSONFile(named: "car-norway")
         case .eiendom:
-            filter = DemoFilterDataSource.filterDataFromJSONFile(named: "realestate-homes")
+            filter = DemoFilter.filterDataFromJSONFile(named: "realestate-homes")
         }
 
-        let dataSource = DemoFilterDataSource(filter: filter)
+        let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: dataSource)
+        let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter)
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         rootFilterNavigator.start()

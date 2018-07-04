@@ -15,6 +15,7 @@ public protocol FreeSearchFilterInfoType: FilterInfoType {
 
 public protocol PreferenceValueType: ListItem {
     var name: String { get }
+    var value: String { get }
     var results: Int { get }
 }
 
@@ -26,7 +27,7 @@ extension PreferenceValueType {
     public var showsDisclosureIndicator: Bool { return false }
 }
 
-public protocol PreferenceInfoType {
+public protocol PreferenceInfoType: FilterInfoType {
     var name: String { get }
     var values: [PreferenceValueType] { get }
     var isMultiSelect: Bool { get }
@@ -36,15 +37,35 @@ public protocol PreferenceFilterInfoType: FilterInfoType {
     var preferences: [PreferenceInfoType] { get }
 }
 
-public protocol MultiLevelFilterInfoType: FilterInfoType, ListItem {
-    var filters: [MultiLevelFilterInfoType] { get }
+public protocol ListSelectionFilterInfoType: FilterInfoType {
+    var values: [ListSelectionFilterValueType] { get }
     var isMultiSelect: Bool { get }
-    var results: Int { get }
 }
 
-// MARK: - ListItem default implementation
+public protocol ListSelectionFilterValueType: ListItem {
+    var name: String { get }
+    var results: Int { get }
+    var value: String? { get }
+}
 
-extension MultiLevelFilterInfoType {
+// MARK: - SelectionFilterInfoType: ListItem default implementation
+
+extension ListSelectionFilterValueType {
+    public var title: String? { return name }
+    public var detail: String? { return String(results) }
+    public var showsDisclosureIndicator: Bool { return false }
+}
+
+public protocol MultiLevelListSelectionFilterInfoType: FilterInfoType, ListItem {
+    var filters: [MultiLevelListSelectionFilterInfoType] { get }
+    var isMultiSelect: Bool { get }
+    var results: Int { get }
+    var value: String? { get }
+}
+
+// MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation
+
+extension MultiLevelListSelectionFilterInfoType {
     public var title: String? { return name }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }
@@ -53,7 +74,7 @@ extension MultiLevelFilterInfoType {
 public protocol RangeFilterInfoType: FilterInfoType {
     var lowValue: Int { get }
     var highValue: Int { get }
-    var additonalLowerBoundOffset: Int { get }
+    var additionalLowerBoundOffset: Int { get }
     var additionalUpperBoundOffset: Int { get }
     var steps: Int { get }
     var unit: String { get }

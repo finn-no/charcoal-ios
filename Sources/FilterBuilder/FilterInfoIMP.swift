@@ -2,11 +2,12 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-struct FilterInfo: FilterInfoType {
-    let name: String
+public protocol KeyedFilterInfo {
+    var key: FilterKey { get }
 }
 
-struct FreeSearchFilterInfo: FreeSearchFilterInfoType {
+struct FreeSearchFilterInfo: FreeSearchFilterInfoType, KeyedFilterInfo {
+    var key: FilterKey
     var currentSearchQuery: String?
     var searchQueryPlaceholder: String
     var name: String
@@ -17,7 +18,8 @@ struct PreferenceFilterInfo: PreferenceFilterInfoType {
     var name: String
 }
 
-struct PreferenceInfo: PreferenceInfoType {
+struct PreferenceInfo: PreferenceInfoType, KeyedFilterInfo {
+    var key: FilterKey
     let name: String
     let values: [PreferenceValueType]
     let isMultiSelect: Bool = true
@@ -25,21 +27,38 @@ struct PreferenceInfo: PreferenceInfoType {
 
 struct PreferenceValue: PreferenceValueType {
     let name: String
-    var results: Int
+    let results: Int
+    let value: String
 }
 
-struct MultilevelFilterInfo: MultiLevelFilterInfoType {
-    var filters: [MultiLevelFilterInfoType]
-    var name: String
+struct ListSelectionFilterInfo: ListSelectionFilterInfoType, KeyedFilterInfo {
+    var key: FilterKey
+    let name: String
+    let values: [ListSelectionFilterValueType]
+    let isMultiSelect: Bool
+}
+
+struct ListSelectionFilterValue: ListSelectionFilterValueType {
+    let name: String
+    let results: Int
+    let value: String?
+}
+
+struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, KeyedFilterInfo {
+    var key: FilterKey
+    let filters: [MultiLevelListSelectionFilterInfoType]
+    let name: String
     let isMultiSelect: Bool = true
     let results: Int
+    let value: String?
 }
 
-struct RangeFilterInfo: RangeFilterInfoType {
+struct RangeFilterInfo: RangeFilterInfoType, KeyedFilterInfo {
+    var key: FilterKey
     var name: String
     var lowValue: Int
     var highValue: Int
-    var additonalLowerBoundOffset: Int
+    var additionalLowerBoundOffset: Int
     var additionalUpperBoundOffset: Int
     var steps: Int
     var unit: String
@@ -57,11 +76,12 @@ extension RangeFilterInfo {
     typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
-    init(name: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
+    init(key: FilterKey, name: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
+        self.key = key
         self.name = name
         self.lowValue = lowValue
         self.highValue = highValue
-        additonalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset
+        additionalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset
         additionalUpperBoundOffset = rangeBoundsOffsets.upperBoundOffset
         self.steps = steps
         self.unit = unit

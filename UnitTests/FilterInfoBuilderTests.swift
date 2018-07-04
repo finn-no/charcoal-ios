@@ -25,7 +25,8 @@ class FilterInfoBuilderTests: BaseTestCase {
         let numberOfFreeSearchFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is FreeSearchFilterInfoType) ? $0 + 1 : $0 })
         let numberOfPreferenceFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is PreferenceFilterInfoType) ? $0 + 1 : $0 })
         let numberOfRangeFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is RangeFilterInfoType) ? $0 + 1 : $0 })
-        let numberOfMultiLevelFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is MultilevelFilterInfo) ? $0 + 1 : $0 })
+        let numberOfMultiLevelListSelectionFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is MultiLevelListSelectionFilterInfo) ? $0 + 1 : $0 })
+        let numberOfListSelectionFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is ListSelectionFilterInfo) ? $0 + 1 : $0 })
 
         // Then
         XCTAssertNotNil(filter)
@@ -35,7 +36,8 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertEqual(numberOfFreeSearchFilterInfoElements, 1)
         XCTAssertEqual(numberOfPreferenceFilterInfoElements, 1)
         XCTAssertEqual(numberOfRangeFilterInfoElements, 5)
-        XCTAssertEqual(numberOfMultiLevelFilterInfoElements, 12)
+        XCTAssertEqual(numberOfMultiLevelListSelectionFilterInfoElements, 1)
+        XCTAssertEqual(numberOfListSelectionFilterInfoElements, 11)
     }
 
     func testFilterInfoBuilderBuildsPreferenceFilterInfoWithExpectedValues() {
@@ -92,7 +94,7 @@ class FilterInfoBuilderTests: BaseTestCase {
 
         // When
         let filterInfoElements = builder?.build()
-        let makeMultiLevelFilterInfo = filterInfoElements?.first(where: { $0.name == "Merke" }) as? MultiLevelFilterInfoType
+        let makeMultiLevelFilterInfo = filterInfoElements?.first(where: { $0.name == "Merke" }) as? MultiLevelListSelectionFilterInfoType
         let makeFilterData = filter?.filterData(forKey: .make)
 
         // Then
@@ -147,5 +149,31 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertNotNil(rangeFilterData)
         XCTAssertNotNil(rangeFilterName)
         XCTAssertNotNil(rangeFilterInfo)
+    }
+
+    func testFilterDataWithQueriesWithoutFiltersIsListSelectionFilter() {
+        // Given
+        let filterDataElement = decodedTestFilter?.filterData(forKey: .transmission)
+
+        // When
+        let isSelectionFilter = FilterInfoBuilder.isListSelectionFilter(filterData: filterDataElement!)
+        let isMultiLevelSelectionFilter = FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterDataElement!)
+
+        XCTAssertNotNil(isSelectionFilter)
+        XCTAssertEqual(isSelectionFilter, true)
+        XCTAssertEqual(isMultiLevelSelectionFilter, false)
+    }
+
+    func testFilterDataWithQueriesWithFiltersiltersIsMultiLevelListSelectionFilter() {
+        // Given
+        let filterDataElement = decodedTestFilter?.filterData(forKey: .make)
+
+        // When
+        let isSelectionFilter = FilterInfoBuilder.isListSelectionFilter(filterData: filterDataElement!)
+        let isMultiLevelSelectionFilter = FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterDataElement!)
+
+        XCTAssertNotNil(isSelectionFilter)
+        XCTAssertEqual(isSelectionFilter, false)
+        XCTAssertEqual(isMultiLevelSelectionFilter, true)
     }
 }

@@ -29,6 +29,7 @@ public final class RangeFilterInfoBuilder {
 
 private extension RangeFilterInfoBuilder {
     func buildRangeFilterInfoForCarMarket(from filterData: FilterData) -> RangeFilterInfoType? {
+        let key = filterData.key
         let name = filterData.title
         let lowValue: Int
         let highValue: Int
@@ -62,7 +63,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 200_000
             unit = "km"
-            rangeBoundsOffsets = (0, 10)
+            rangeBoundsOffsets = (0, 1000)
             referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
@@ -90,6 +91,7 @@ private extension RangeFilterInfoBuilder {
         }
 
         return RangeFilterInfo(
+            key: key,
             name: name,
             lowValue: lowValue,
             highValue: highValue,
@@ -103,6 +105,7 @@ private extension RangeFilterInfoBuilder {
     }
 
     func buildRangeFilterInfoForRealestateMarket(from filterData: FilterData) -> RangeFilterInfoType? {
+        let key = filterData.key
         let name = filterData.title
         let lowValue: Int
         let highValue: Int
@@ -173,6 +176,7 @@ private extension RangeFilterInfoBuilder {
         }
 
         return RangeFilterInfo(
+            key: key,
             name: name,
             lowValue: lowValue,
             highValue: highValue,
@@ -186,6 +190,7 @@ private extension RangeFilterInfoBuilder {
     }
 
     func buildRangeFilterInfoForBAPMarket(from filterData: FilterData) -> RangeFilterInfoType? {
+        let key = filterData.key
         let name = filterData.title
         let lowValue: Int
         let highValue: Int
@@ -211,6 +216,7 @@ private extension RangeFilterInfoBuilder {
         }
 
         return RangeFilterInfo(
+            key: key,
             name: name,
             lowValue: lowValue,
             highValue: highValue,

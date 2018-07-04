@@ -4,7 +4,7 @@
 
 import FilterKit
 
-class DemoFilterDataSource: FilterDataSource {
+class DemoFilter {
     let filterData: Filter
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
@@ -17,24 +17,8 @@ class DemoFilterDataSource: FilterDataSource {
         filterData = filter
     }
 
-    var filterTitle: String {
-        return filterData.filterTitle
-    }
-
-    var numberOfHits: Int {
-        return filterData.hits
-    }
-
-    func selectionValuesForFilterInfo(at index: Int) -> [String] {
-        return []
-    }
-
-    var filterInfo: [FilterInfoType] {
-        return loadedFilterInfo
-    }
-
     static func dataFromJSONFile(named name: String) -> Data {
-        let bundle = Bundle(for: DemoFilterDataSource.self)
+        let bundle = Bundle(for: DemoFilter.self)
         let path = bundle.path(forResource: name, ofType: "json")
         return try! Data(contentsOf: URL(fileURLWithPath: path!))
     }
@@ -44,6 +28,38 @@ class DemoFilterDataSource: FilterDataSource {
         let jsonDecoder = JSONDecoder()
 
         return try! jsonDecoder.decode(Filter.self, from: data)
+    }
+}
+
+extension DemoFilter: FilterDataSource {
+    var filterTitle: String {
+        return filterData.filterTitle
+    }
+
+    var numberOfHits: Int {
+        return filterData.hits
+    }
+
+    var filterInfo: [FilterInfoType] {
+        return loadedFilterInfo
+    }
+
+    func selectionValuesForFilterInfo(at index: Int) -> [String] {
+        return []
+    }
+}
+
+extension DemoFilter: FilterDelegate {
+    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+        if let keyedFilter = filterInfo as? KeyedFilterInfo {
+            print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+        }
+    }
+
+    func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+        if let keyedFilter = filterInfo as? KeyedFilterInfo {
+            print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+        }
     }
 }
 

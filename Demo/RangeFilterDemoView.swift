@@ -30,8 +30,8 @@ public class RangeFilterDemoView: UIView {
         rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
         rangeFilterView.accessibilityValueSuffix = accessibilityUnit
         rangeFilterView.setLowValue(lowValue, animated: false)
-        rangeFilterView.setHighValue(30001, animated: false)
-        rangeFilterView.addTarget(self, action: #selector(rangeFilterViewValueChanged(_:)), for: .valueChanged)
+        rangeFilterView.setHighValue(highValue + 1, animated: false)
+        rangeFilterView.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
 
         return rangeFilterView
     }()
@@ -55,7 +55,7 @@ public class RangeFilterDemoView: UIView {
         ])
     }
 
-    @objc func rangeFilterViewValueChanged(_ sender: RangeFilterView) {
+    @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
         print("Lower value: \(sender.lowValue ?? 0) -  Upper value: \(sender.highValue ?? 0)")
     }
 }

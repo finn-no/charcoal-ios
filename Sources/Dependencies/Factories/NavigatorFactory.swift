@@ -4,10 +4,12 @@
 
 import Foundation
 
-public protocol NavigatorFactory: MultiLevelFilterNavigatorFactory {
+public typealias NavigatorFactory = RootFilterNavigatorFactory & FilterNavigtorFactory
+
+public protocol RootFilterNavigatorFactory {
     func makeRootFilterNavigator(navigationController: FilterNavigationController) -> RootFilterNavigator
 }
 
-public protocol MultiLevelFilterNavigatorFactory {
-    func makeMultiLevelFilterNavigator(navigationController: UINavigationController) -> MultiLevelFilterNavigator
+public protocol FilterNavigtorFactory {
+    func makeFilterNavigator(navigationController: UINavigationController) -> FilterNavigator
 }

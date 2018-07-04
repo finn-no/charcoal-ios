@@ -4,17 +4,73 @@
 
 import Foundation
 
-public final class RangeFilterViewController: UIViewController {
-    let filterInfo: RangeFilterInfoType
-
-    public init(filterInfo: RangeFilterInfoType) {
-        self.filterInfo = filterInfo
-        super.init(nibName: nil, bundle: nil)
-        setup()
+public final class RangeFilterViewController: UIViewController, FilterContainerViewController {
+    public var controller: UIViewController {
+        return self
     }
+
+    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
+
+    lazy var rangeFilterView: RangeFilterView = {
+        let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
+        let view = RangeFilterView(
+            range: range,
+            additionalLowerBoundOffset: filterInfo.additionalLowerBoundOffset,
+            additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset,
+            steps: filterInfo.steps,
+            unit: filterInfo.unit,
+            isValueCurrency: filterInfo.isCurrencyValueRange,
+            referenceValues: filterInfo.referenceValues,
+            usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont,
+            displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput
+        )
+
+        view.sliderAccessibilitySteps = filterInfo.accessibilitySteps
+        view.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
+
+        return view
+    }()
+
+    let filterInfo: RangeFilterInfoType
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public required init?(filterInfo: FilterInfoType) {
+        guard let rangeFilterInfo = filterInfo as? RangeFilterInfoType else {
+            return nil
+        }
+
+        self.filterInfo = rangeFilterInfo
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(string: String) {
+        fatalError("init(string:) has not been implemented")
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setup()
+    }
+
+    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+        guard case let .rangeSelection(lowValue, higValue) = selectionValue else {
+            return
+        }
+
+        if let selectionLowValue = lowValue {
+            rangeFilterView.setLowValue(selectionLowValue, animated: false)
+        }
+
+        if let selectionHighValue = higValue {
+            rangeFilterView.setHighValue(selectionHighValue, animated: false)
+        }
     }
 }
 
@@ -23,29 +79,17 @@ private extension RangeFilterViewController {
         view.backgroundColor = .milk
         title = filterInfo.name
 
-        let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
-
-        let rangeFilterView = RangeFilterView(range: range, additionalLowerBoundOffset: filterInfo.additonalLowerBoundOffset, additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset, steps: filterInfo.steps, unit: filterInfo.unit, isValueCurrency: filterInfo.isCurrencyValueRange, referenceValues: filterInfo.referenceValues, usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont, displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput)
-        rangeFilterView.setLowValue(filterInfo.lowValue, animated: false)
-        rangeFilterView.setHighValue(filterInfo.highValue, animated: false)
-        rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
-        rangeFilterView.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
-        rangeFilterView.sliderAccessibilitySteps = filterInfo.accessibilitySteps
-
         view.addSubview(rangeFilterView)
 
-        let safeTopAnchor: NSLayoutYAxisAnchor = {
-            if #available(iOS 11.0, *) {
-                return view.safeAreaLayoutGuide.topAnchor
-            } else {
-                return view.topAnchor
-            }
-        }()
-
         NSLayoutConstraint.activate([
-            rangeFilterView.topAnchor.constraint(equalTo: safeTopAnchor, constant: 48),
-            rangeFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
-            rangeFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
+            rangeFilterView.topAnchor.constraint(equalTo: view.topAnchor, constant: 48),
+            rangeFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            rangeFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            rangeFilterView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
         ])
+    }
+
+    @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue))
     }
 }

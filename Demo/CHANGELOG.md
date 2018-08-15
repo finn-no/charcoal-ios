@@ -1,5 +1,6 @@
 ## [Unreleased]
 - Fixed UI issue when iOS version < 11
+- Updated bottom sheet swipe handle
 
 ## [0.4] - 2018-06-26
 - App icon!

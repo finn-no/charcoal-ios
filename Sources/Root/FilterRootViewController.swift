@@ -18,6 +18,13 @@ public class FilterRootViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
+
+        if #available(iOS 11.0, *) {
+            // Not necessary >= iOS 11
+        } else {
+            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.estimatedRowHeight = 44
+        }
         return tableView
     }()
 

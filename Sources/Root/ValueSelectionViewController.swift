@@ -16,7 +16,7 @@ class ValueSelectionViewController: UITableViewController {
         self.valuesDataSource = valuesDataSource
         super.init(style: .plain)
         view.backgroundColor = .milk
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+        tableView.register(UITableViewCell.self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -28,7 +28,7 @@ class ValueSelectionViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+        let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
         cell.textLabel?.font = .body
         cell.textLabel?.textColor = .primaryBlue
         cell.textLabel?.text = valuesDataSource.nameForItem(at: indexPath.row)

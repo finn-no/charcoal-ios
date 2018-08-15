@@ -73,7 +73,7 @@ extension CompactListFilterView: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(for: indexPath) as ItemCell
+        let cell = collectionView.dequeue(ItemCell.self, for: indexPath)
         cell.value = values[indexPath.row]
         cell.accessibilityValuePrefix = accessibilityValuesPrefix
         return cell
@@ -102,7 +102,7 @@ extension CompactListFilterView: UICollectionViewDelegate {
     }
 }
 
-fileprivate final class ItemCell: UICollectionViewCell, Identifiable {
+fileprivate final class ItemCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false

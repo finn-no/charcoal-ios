@@ -9,10 +9,22 @@ public class FilterKit {
     static var bundle: Bundle {
         return Bundle(for: FilterKit.self)
     }
+
+    public static var isDynamicTypeEnabled: Bool = true
 }
 
 public extension Bundle {
     static var filterKit: Bundle {
         return FilterKit.bundle
+    }
+}
+
+extension UIFont {
+    var isDynamicTypeEnabled: Bool {
+        return FilterKit.isDynamicTypeEnabled
+    }
+
+    static var bundle: Bundle {
+        return .filterKit
     }
 }

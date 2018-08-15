@@ -36,7 +36,7 @@ class DemoViewsTableViewController: UITableViewController {
     }
 
     private func setup() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self)
         tableView.backgroundColor = UIColor.secondaryBlue
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -56,7 +56,7 @@ extension DemoViewsTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
         cell.textLabel?.text = Sections.formattedName(for: indexPath)
         cell.textLabel?.font = UIFont.title3
         cell.textLabel?.textColor = UIColor.milk

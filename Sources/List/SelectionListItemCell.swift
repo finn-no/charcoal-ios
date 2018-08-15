@@ -4,7 +4,7 @@
 
 import Foundation
 
-public final class SelectionListItemCell: UITableViewCell, Identifiable {
+public final class SelectionListItemCell: UITableViewCell {
     public enum SelectionIndicatorType {
         case radioButton
         case checkbox

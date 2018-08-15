@@ -4,7 +4,7 @@
 
 import UIKit
 
-class SearchQueryCell: UITableViewCell, Identifiable {
+class SearchQueryCell: UITableViewCell {
     private lazy var searchResultsViewController = UIViewController(nibName: nil, bundle: nil)
 
     private lazy var searchController: UISearchController = {

@@ -8,7 +8,7 @@ protocol FilterCellDelegate: AnyObject {
     func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int)
 }
 
-class FilterCell: UITableViewCell, Identifiable {
+class FilterCell: UITableViewCell {
     private lazy var nameLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false

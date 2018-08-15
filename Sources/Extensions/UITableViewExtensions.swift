@@ -2,14 +2,16 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UITableViewCell: Identifiable {}
 
 extension UITableView {
-    func register<T: UITableViewCell>(_: T.Type) where T: Identifiable {
-        register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
+    func register(_ cellClass: UITableViewCell.Type) {
+        register(cellClass.self, forCellReuseIdentifier: cellClass.reuseIdentifier)
     }
 
-    func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T where T: Identifiable {
-        return dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
+    func dequeue<T>(_ cellClass: T.Type, for indexPath: IndexPath) -> T where T: UITableViewCell {
+        return dequeueReusableCell(withIdentifier: cellClass.reuseIdentifier, for: indexPath) as! T
     }
 }

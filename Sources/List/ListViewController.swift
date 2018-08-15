@@ -64,7 +64,7 @@ extension ListViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let listItem = listItems[indexPath.row]
 
-        let cell = tableView.dequeueReusableCell(for: indexPath) as SelectionListItemCell
+        let cell = tableView.dequeue(SelectionListItemCell.self, for: indexPath)
         cell.configure(for: listItem)
         cell.selectionIndicatorType = tableView.allowsMultipleSelection ? .checkbox : .radioButton
 

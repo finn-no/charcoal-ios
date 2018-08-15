@@ -2,9 +2,9 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
-public extension CGFloat {
+extension CGFloat {
     /// Separation of 2 points.
     static let verySmallSpacing: CGFloat = 2
 

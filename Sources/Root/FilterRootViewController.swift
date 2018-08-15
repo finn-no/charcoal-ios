@@ -62,9 +62,9 @@ public class FilterRootViewController: UIViewController {
 private extension FilterRootViewController {
     func setup() {
         view.backgroundColor = .milk
-        tableView.register(SearchQueryCell.self, forCellReuseIdentifier: SearchQueryCell.reuseIdentifier)
-        tableView.register(FilterCell.self, forCellReuseIdentifier: FilterCell.reuseIdentifier)
-        tableView.register(PreferencesCell.self, forCellReuseIdentifier: PreferencesCell.reuseIdentifier)
+        tableView.register(SearchQueryCell.self)
+        tableView.register(FilterCell.self)
+        tableView.register(PreferencesCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 
@@ -120,32 +120,32 @@ extension FilterRootViewController: UITableViewDataSource {
 
         switch filterInfo {
         case let freeSearchInfo as FreeSearchFilterInfoType:
-            let cell = tableView.dequeueReusableCell(withIdentifier: SearchQueryCell.reuseIdentifier, for: indexPath) as! SearchQueryCell
+            let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
             cell.searchQuery = freeSearchInfo.currentSearchQuery
             cell.placeholderText = freeSearchInfo.searchQueryPlaceholder
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
-            let cell = tableView.dequeueReusableCell(withIdentifier: PreferencesCell.reuseIdentifier, for: indexPath) as! PreferencesCell
+            let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
             cell.preferenceSelectionViewDataSource = PreferenceFilterDataSource(preferences: preferenceInfo.preferences)
             cell.preferenceSelectionViewDelegate = self
             cell.selectionStyle = .none
             return cell
         case let listSelectionInfo as ListSelectionFilterInfoType:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = listSelectionInfo.name
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
         case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = multiLevelListSelectionInfo.name
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
         case let rangeInfo as RangeFilterInfoType:
-            let cell = tableView.dequeueReusableCell(withIdentifier: FilterCell.reuseIdentifier, for: indexPath) as! FilterCell
+            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = rangeInfo.name
             cell.accessoryType = .disclosureIndicator
             return cell

@@ -52,7 +52,7 @@ private extension PopoverDemoViewController {
             self.init(style: .plain)
             self.filters = filters
             view.backgroundColor = .milk
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+            tableView.register(UITableViewCell.self)
         }
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,7 +60,7 @@ private extension PopoverDemoViewController {
         }
 
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
             cell.textLabel?.text = filters[indexPath.row]
             cell.textLabel?.font = .body
             cell.textLabel?.textColor = .primaryBlue

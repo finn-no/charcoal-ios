@@ -4,12 +4,14 @@
 
 import Foundation
 
+extension UICollectionViewCell: Identifiable {}
+
 extension UICollectionView {
-    func register<T: UICollectionViewCell>(_: T.Type) where T: Identifiable {
-        register(T.self, forCellWithReuseIdentifier: T.reuseIdentifier)
+    func register(_ cellClass: UICollectionViewCell.Type) {
+        register(cellClass.self, forCellWithReuseIdentifier: cellClass.reuseIdentifier)
     }
 
-    func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T where T: Identifiable {
+    func dequeue<T>(_ cellClass: T.Type, for indexPath: IndexPath) -> T where T: UICollectionViewCell {
         return dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
 }

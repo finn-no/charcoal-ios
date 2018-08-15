@@ -4,7 +4,7 @@
 
 import UIKit
 
-class PreferencesCell: UITableViewCell, Identifiable {
+class PreferencesCell: UITableViewCell {
     private lazy var preferenceSelectionView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false

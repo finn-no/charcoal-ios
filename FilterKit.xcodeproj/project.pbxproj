@@ -20,9 +20,6 @@
 		44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */; };
 		44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */; };
 		44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE698208F80320017AC82 /* FilterKit.swift */; };
-		44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE69B208F80320017AC82 /* Spacing.swift */; };
-		44ECE6A4208F80320017AC82 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE69C208F80320017AC82 /* Font.swift */; };
-		44ECE6A5208F80320017AC82 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE69D208F80320017AC82 /* Color.swift */; };
 		44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A6208F816D0017AC82 /* ViewController.swift */; };
 		44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A7208F816D0017AC82 /* Demo.swift */; };
 		44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */; };
@@ -94,6 +91,19 @@
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
 		9B9C1709209C78BA007BCBBC /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9BD637622124430F00AB9DFE /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893233209C743100512FF8 /* UITableViewExtensions.swift */; };
+		9BD637632124432E00AB9DFE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0562091D26E0000632B /* Identifiable.swift */; };
+		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
+		9BD6378A21244C0B00AB9DFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
+		9BD6378C21244C0B00AB9DFE /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6378121244C0B00AB9DFE /* Spacing.swift */; };
+		9BD6378E21244C0B00AB9DFE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6378521244C0B00AB9DFE /* Font.swift */; };
+		9BD6379021244C1100AB9DFE /* ColorDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377C21244C0B00AB9DFE /* ColorDemoView.swift */; };
+		9BD6379221244C2300AB9DFE /* FontDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6378421244C0B00AB9DFE /* FontDemoView.swift */; };
+		9BD6379321244C2A00AB9DFE /* AssetsDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6378821244C0B00AB9DFE /* AssetsDemoView.swift */; };
+		9BD6379421244EC100AB9DFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
+		9BD6379521244EDB00AB9DFE /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6378121244C0B00AB9DFE /* Spacing.swift */; };
+		9BD6379621244EDE00AB9DFE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6378521244C0B00AB9DFE /* Font.swift */; };
+		9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */; };
 		9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0452091BE750000632B /* FilterRootViewController.swift */; };
 		9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0512091CF270000632B /* DemoFilterRootViewControllerHelper.swift */; };
@@ -162,9 +172,6 @@
 		44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetInteractiveDismissalController.swift; sourceTree = "<group>"; };
 		44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningAnimator.swift; sourceTree = "<group>"; };
 		44ECE698208F80320017AC82 /* FilterKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterKit.swift; sourceTree = "<group>"; };
-		44ECE69B208F80320017AC82 /* Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
-		44ECE69C208F80320017AC82 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		44ECE69D208F80320017AC82 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		44ECE6A6208F816D0017AC82 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		44ECE6A7208F816D0017AC82 /* Demo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewsTableViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +241,13 @@
 		9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionViewController.swift; sourceTree = "<group>"; };
 		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		9B9C1707209C78BA007BCBBC /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Demo/Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
+		9BD6377C21244C0B00AB9DFE /* ColorDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorDemoView.swift; sourceTree = "<group>"; };
+		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		9BD6378121244C0B00AB9DFE /* Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
+		9BD6378421244C0B00AB9DFE /* FontDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontDemoView.swift; sourceTree = "<group>"; };
+		9BD6378521244C0B00AB9DFE /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		9BD6378821244C0B00AB9DFE /* AssetsDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsDemoView.swift; sourceTree = "<group>"; };
+		9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnaFontExtensions.swift; sourceTree = "<group>"; };
 		9BE0A0452091BE750000632B /* FilterRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRootViewController.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		9BE0A0512091CF270000632B /* DemoFilterRootViewControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoFilterRootViewControllerHelper.swift; sourceTree = "<group>"; };
@@ -325,21 +339,22 @@
 		44ECE66C208F7FD00017AC82 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				55646DB520933D56006AA2DA /* Components */,
-				44ECE6A9208F816D0017AC82 /* Fullscreen */,
-				9BE0A0502091CED70000632B /* Root */,
 				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
-				5598F20E20C008F900E148E0 /* Resources */,
-				44ECE6A7208F816D0017AC82 /* Demo.swift */,
-				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
-				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
-				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
-				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
-				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
-				44ECE679208F7FD20017AC82 /* Info.plist */,
 				9B9C1705209C759E007BCBBC /* Cartfile */,
 				9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */,
+				55646DB520933D56006AA2DA /* Components */,
+				44ECE6A7208F816D0017AC82 /* Demo.swift */,
+				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
+				9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */,
+				44ECE6A9208F816D0017AC82 /* Fullscreen */,
+				44ECE679208F7FD20017AC82 /* Info.plist */,
+				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
+				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
+				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
+				5598F20E20C008F900E148E0 /* Resources */,
+				9BE0A0502091CED70000632B /* Root */,
+				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -380,19 +395,9 @@
 		44ECE699208F80320017AC82 /* Finnivers */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE69A208F80320017AC82 /* DNA */,
+				9BD6377921244C0B00AB9DFE /* DNA */,
 			);
 			path = Finnivers;
-			sourceTree = "<group>";
-		};
-		44ECE69A208F80320017AC82 /* DNA */ = {
-			isa = PBXGroup;
-			children = (
-				44ECE69B208F80320017AC82 /* Spacing.swift */,
-				44ECE69C208F80320017AC82 /* Font.swift */,
-				44ECE69D208F80320017AC82 /* Color.swift */,
-			);
-			path = DNA;
 			sourceTree = "<group>";
 		};
 		44ECE6A9208F816D0017AC82 /* Fullscreen */ = {
@@ -634,6 +639,75 @@
 				55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */,
 			);
 			path = PreferenceFilter;
+			sourceTree = "<group>";
+		};
+		9BD6377921244C0B00AB9DFE /* DNA */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6378621244C0B00AB9DFE /* Assets */,
+				9BD6377A21244C0B00AB9DFE /* Color */,
+				9BD6378221244C0B00AB9DFE /* Font */,
+				9BD6377E21244C0B00AB9DFE /* Spacing */,
+			);
+			path = DNA;
+			sourceTree = "<group>";
+		};
+		9BD6377A21244C0B00AB9DFE /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6377B21244C0B00AB9DFE /* Demo */,
+				9BD6377D21244C0B00AB9DFE /* Color.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		9BD6377B21244C0B00AB9DFE /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6377C21244C0B00AB9DFE /* ColorDemoView.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		9BD6377E21244C0B00AB9DFE /* Spacing */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6378121244C0B00AB9DFE /* Spacing.swift */,
+			);
+			path = Spacing;
+			sourceTree = "<group>";
+		};
+		9BD6378221244C0B00AB9DFE /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6378321244C0B00AB9DFE /* Demo */,
+				9BD6378521244C0B00AB9DFE /* Font.swift */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		9BD6378321244C0B00AB9DFE /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6378421244C0B00AB9DFE /* FontDemoView.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		9BD6378621244C0B00AB9DFE /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6378721244C0B00AB9DFE /* Demo */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		9BD6378721244C0B00AB9DFE /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6378821244C0B00AB9DFE /* AssetsDemoView.swift */,
+			);
+			path = Demo;
 			sourceTree = "<group>";
 		};
 		9BE0A0402091BE750000632B /* Root */ = {
@@ -885,9 +959,12 @@
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */,
 				55858A2420AB08FA00B100EA /* MultiLevelListSelectionFilterViewController.swift in Sources */,
+				9BD6378A21244C0B00AB9DFE /* Color.swift in Sources */,
+				9BD6378C21244C0B00AB9DFE /* Spacing.swift in Sources */,
 				559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */,
 				55E869DE20E2674B008B921E /* RangeFilterViewController.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
+				9BD6378E21244C0B00AB9DFE /* Font.swift in Sources */,
 				55E869DC20E2587E008B921E /* FilterSelectionValue.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
 				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
@@ -904,7 +981,6 @@
 				55BDA76D20DBC43F00331FFC /* FilterKey.swift in Sources */,
 				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
-				44ECE6A4208F80320017AC82 /* Font.swift in Sources */,
 				9BE0A05B2091E7F30000632B /* Identifiable.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,
 				55646DAC2091C572006AA2DA /* PreferenceSelectionView.swift in Sources */,
@@ -915,7 +991,6 @@
 				55893234209C743100512FF8 /* UITableViewExtensions.swift in Sources */,
 				55E869E420E3D246008B921E /* ListSelectionFilterViewController.swift in Sources */,
 				55893231209C579000512FF8 /* ListViewController.swift in Sources */,
-				44ECE6A5208F80320017AC82 /* Color.swift in Sources */,
 				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
@@ -924,7 +999,6 @@
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
 				559C61F820DA4D860083A574 /* Filter.swift in Sources */,
-				44ECE6A3208F80320017AC82 /* Spacing.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				55E869D720E24498008B921E /* FilterViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
@@ -940,16 +1014,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */,
 				55646DAE2091E1E1006AA2DA /* PreferenceSelectionView.swift in Sources */,
 				55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */,
+				9BD6379621244EDE00AB9DFE /* Font.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
+				9BD6379221244C2300AB9DFE /* FontDemoView.swift in Sources */,
+				9BD637622124430F00AB9DFE /* UITableViewExtensions.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
+				9BD6379321244C2A00AB9DFE /* AssetsDemoView.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
 				9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */,
 				55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */,
+				9BD6379421244EC100AB9DFE /* Color.swift in Sources */,
 				55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
+				9BD637632124432E00AB9DFE /* Identifiable.swift in Sources */,
+				9BD6379021244C1100AB9DFE /* ColorDemoView.swift in Sources */,
 				44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */,
+				9BD6379521244EDB00AB9DFE /* Spacing.swift in Sources */,
+				9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */,
 				559C6CBD20BBE709009B734D /* RangeFilterDemoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

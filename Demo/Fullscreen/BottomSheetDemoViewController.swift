@@ -19,7 +19,7 @@ class BottomSheetDemoViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+        tableView.register(UITableViewCell.self)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,7 +27,7 @@ class BottomSheetDemoViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+        let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
         cell.textLabel?.text = "Filter \(indexPath.row + 1)"
         return cell
     }

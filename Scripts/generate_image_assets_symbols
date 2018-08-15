@@ -19,7 +19,7 @@ end
 
 names  = []
 asset_folders.each do |folder|
-  names += Dir.glob(File.join(folder, "/*")).select{|f| File.extname(f) == ".imageset" }.map{|f| File.basename(f, ".*") }
+  names += Dir.glob(File.join(folder, "/**/*.imageset")).map { |f| File.basename(f, File.extname(f)) }
 end
 
 names = names.sort
@@ -53,8 +53,18 @@ EOS
       f.puts "    case #{casename} = \"#{name}\"\n"
     end
   end
-  f.puts "}"
 
+  f.puts "\n    public static var imageNames: [ImageAsset] {\n"
+  f.puts "        return [\n"
+  names.each do |name|
+    casename = name.dup
+    casename[0] = casename[0].downcase
+    f.puts "            .#{casename},\n"
+  end
+  f.puts "    ]\n"
+  f.puts "  }\n"
+
+  f.puts "}"
 end
 
 swiftNewDigest = Digest::MD5.hexdigest(File.read(File.join(temp_path, "#{output_filename}.swift")))

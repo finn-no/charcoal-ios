@@ -24,4 +24,19 @@ enum ImageAsset: String {
     case removeFilterValue
     case sliderThumb
     case sliderThumbActive
+
+    public static var imageNames: [ImageAsset] {
+        return [
+            .arrowDown,
+            .checkboxOff,
+            .checkboxOn,
+            .disclosureIndicator,
+            .popoverArrow,
+            .radioButtonOff,
+            .radioButtonOn,
+            .removeFilterValue,
+            .sliderThumb,
+            .sliderThumbActive,
+    ]
+  }
 }

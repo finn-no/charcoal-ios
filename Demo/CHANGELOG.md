@@ -1,3 +1,6 @@
+## [Unreleased]
+- Fixed UI issue when iOS version < 11
+
 ## [0.4] - 2018-06-26
 - App icon!
 - Different UI for checkbox and radio "buttons" 

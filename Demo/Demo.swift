@@ -50,19 +50,23 @@ enum Sections: String {
         return rawClassName.replacingOccurrences(of: "DemoView", with: "").capitalizingFirstLetter
     }
 
-    static func viewController(for indexPath: IndexPath) -> UIViewController {
-        let section = Sections.all[indexPath.section]
+    static func viewController(for indexPath: IndexPath) -> UIViewController? {
+        guard let section = Sections.all[safe: indexPath.section] else {
+            return nil
+        }
+        let selectedViewController: UIViewController?
         switch section {
         case .dna:
-            let selectedView = DnaViews.all[indexPath.row]
-            return selectedView.viewController
+            let selectedView = DnaViews.all[safe: indexPath.row]
+            selectedViewController = selectedView?.viewController
         case .components:
-            let selectedView = ComponentViews.all[indexPath.row]
-            return selectedView.viewController
+            let selectedView = ComponentViews.all[safe: indexPath.row]
+            selectedViewController = selectedView?.viewController
         case .fullscreen:
-            let selectedView = FullscreenViews.all[indexPath.row]
-            return selectedView.viewController
+            let selectedView = FullscreenViews.all[safe: indexPath.row]
+            selectedViewController = selectedView?.viewController
         }
+        return selectedViewController
     }
 
     static func transitionStyle(for indexPath: IndexPath) -> TransitionStyle {

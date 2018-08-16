@@ -28,8 +28,7 @@ class DemoViewsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let indexPath = Sections.lastSelectedIndexPath {
-            let viewController = Sections.viewController(for: indexPath)
+        if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
         }
@@ -69,9 +68,10 @@ extension DemoViewsTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         Sections.lastSelectedIndexPath = indexPath
-        let viewController = Sections.viewController(for: indexPath)
-        let transitionStyle = Sections.transitionStyle(for: indexPath)
-        presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
+        if let viewController = Sections.viewController(for: indexPath) {
+            let transitionStyle = Sections.transitionStyle(for: indexPath)
+            presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -80,6 +80,12 @@ extension DemoViewsTableViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return Sections.formattedName(for: section)
+    }
+
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        closeCurrentlyPresentedViewController {
+            print("dismissed")
+        }
     }
 }
 
@@ -101,8 +107,8 @@ extension DemoViewsTableViewController {
         }
     }
 
-    @objc func closeCurrentlyPresentedViewController() {
+    @objc func closeCurrentlyPresentedViewController(_ completion: (() -> Void)? = nil) {
         Sections.lastSelectedIndexPath = nil
-        dismiss(animated: true, completion: nil)
+        super.dismiss(animated: true, completion: completion)
     }
 }

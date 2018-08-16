@@ -87,6 +87,7 @@
 		55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
+		9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
@@ -1027,6 +1028,7 @@
 				9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */,
 				55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */,
 				9BD6379421244EC100AB9DFE /* Color.swift in Sources */,
+				9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */,
 				55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
 				9BD637632124432E00AB9DFE /* Identifiable.swift in Sources */,

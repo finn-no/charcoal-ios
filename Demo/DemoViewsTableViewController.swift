@@ -83,9 +83,7 @@ extension DemoViewsTableViewController {
     }
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        closeCurrentlyPresentedViewController {
-            print("dismissed")
-        }
+        closeCurrentlyPresentedViewController(completion)
     }
 }
 

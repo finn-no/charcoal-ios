@@ -12,9 +12,9 @@ enum Sections: String {
 
     static var all: [Sections] {
         return [
-            .dna,
             .components,
             .fullscreen,
+            .dna,
         ]
     }
 

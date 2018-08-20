@@ -50,8 +50,8 @@ extension DemoViewsTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let section = Sections.all[section]
-        return section.numberOfItems
+        let section = Sections.all[safe: section]
+        return section?.numberOfItems ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,7 +83,8 @@ extension DemoViewsTableViewController {
     }
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        closeCurrentlyPresentedViewController(completion)
+        Sections.lastSelectedIndexPath = nil
+        super.dismiss(animated: flag, completion: completion)
     }
 }
 
@@ -105,8 +106,7 @@ extension DemoViewsTableViewController {
         }
     }
 
-    @objc func closeCurrentlyPresentedViewController(_ completion: (() -> Void)? = nil) {
-        Sections.lastSelectedIndexPath = nil
-        super.dismiss(animated: true, completion: completion)
+    @objc func closeCurrentlyPresentedViewController() {
+        dismiss(animated: true)
     }
 }

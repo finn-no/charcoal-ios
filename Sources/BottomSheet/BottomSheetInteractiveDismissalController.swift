@@ -69,6 +69,10 @@ public final class BottomSheetInteractiveDismissalController: UIPercentDrivenInt
             } else if percentComplete >= dismissalPercentageThreshold {
                 finish()
             } else {
+                if UIDevice.isPreiOS11 {
+                    // There is a bug for version earlier than iOS 11 that needs completion speed to be something else than 1 to avoid "double" cancel dismissal animation
+                    completionSpeed = 0.99
+                }
                 cancel()
             }
 

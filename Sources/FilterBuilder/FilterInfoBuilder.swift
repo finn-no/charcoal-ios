@@ -35,7 +35,7 @@ public final class FilterInfoBuilder {
 
 private extension FilterInfoBuilder {
     func buildFreeSearchFilterInfo() -> FilterInfoType {
-        return FreeSearchFilterInfo(key: .query, currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch")
+        return FreeSearchFilterInfo(key: .query, currentSearchQuery: "nil", searchQueryPlaceholder: "Ord i annonsen", name: "freesearch")
     }
 
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {

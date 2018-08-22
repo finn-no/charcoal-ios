@@ -4,10 +4,6 @@
 
 import UIKit
 
-public protocol ListViewControllerDelegate: AnyObject {
-    func listViewController(_ listViewController: ListViewController, didSelectListItem listItem: ListItem, atIndex index: Int)
-}
-
 public protocol ListItem {
     var title: String? { get }
     var detail: String? { get }
@@ -29,7 +25,6 @@ public class ListViewController: UIViewController {
         return tableView
     }()
 
-    public weak var delegate: ListViewControllerDelegate?
     public let listItems: [ListItem]
 
     public init(title: String, items: [ListItem], allowsMultipleSelection: Bool = false) {
@@ -74,8 +69,6 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let listItem = listItems[indexPath.row]
-        delegate?.listViewController(self, didSelectListItem: listItem, atIndex: indexPath.row)
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

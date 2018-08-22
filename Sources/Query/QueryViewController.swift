@@ -4,21 +4,30 @@
 
 import UIKit
 
-public protocol QueryViewControllerDelegate: AnyObject {
-    func queryViewController(_ queryViewController: QueryViewController, didChangeQuery query: String?)
-    func queryViewController(_ queryViewController: QueryViewController, didChooseSuggestion suggestion: String)
-}
+public class QueryViewController: UIViewController, FilterContainerViewController {
+    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
-public class QueryViewController: UIViewController {
+    public var controller: UIViewController {
+        return self
+    }
+
+    private var startText: String?
+
+    private var placeholder: String?
+
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
+        searchController.searchBar.text = startText
+        searchController.searchBar.placeholder = placeholder
+        searchController.searchBar.showsCancelButton = true
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.delegate = self
         searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
 
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
         return searchController
     }()
 
@@ -38,19 +47,30 @@ public class QueryViewController: UIViewController {
         return tableView
     }()
 
-    public weak var delegate: QueryViewControllerDelegate?
+    public required convenience init?(filterInfo: FilterInfoType) {
+        guard let freeSearchFilterInfoType = filterInfo as? FreeSearchFilterInfoType else {
+            return nil
+        }
 
-    public init(title: String, query: String?) {
+        self.init(title: freeSearchFilterInfoType.name, startText: freeSearchFilterInfoType.currentSearchQuery, placeholder: freeSearchFilterInfoType.searchQueryPlaceholder)
+    }
+
+    public init(title: String?, startText: String?, placeholder: String?) {
+        self.startText = startText
+        self.placeholder = placeholder
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+        guard case let .singleSelection(value) = selectionValue else {
+            return
+        }
+        currentQuery = value
     }
 
     public override func viewDidLoad() {
@@ -71,7 +91,7 @@ extension QueryViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
         suggestions.removeAll()
         suggestionsTableView.reloadData()
-        delegate?.queryViewController(self, didChangeQuery: searchController.searchBar.text)
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: currentQuery ?? ""))
     }
 }
 
@@ -79,6 +99,15 @@ extension QueryViewController: UISearchControllerDelegate {
 }
 
 extension QueryViewController: UISearchBarDelegate {
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: startText ?? ""))
+        navigationController?.popViewController(animated: true)
+    }
+
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: currentQuery ?? ""))
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension QueryViewController: UITableViewDataSource {
@@ -97,7 +126,7 @@ extension QueryViewController: UITableViewDataSource {
 extension QueryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let suggestion = suggestions[safe: indexPath.row] {
-            delegate?.queryViewController(self, didChooseSuggestion: suggestion)
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: suggestion))
         }
     }
 

@@ -4,7 +4,14 @@
 
 import UIKit
 
+protocol SearchQueryCellDelegate: AnyObject {
+    func searchQueryCellDidTapSearchBar(_ searchQueryCell: SearchQueryCell)
+    func searchQueryCellDidTapRemoveSelectedValue(_ searchQueryCell: SearchQueryCell)
+}
+
 class SearchQueryCell: UITableViewCell {
+    weak var delegate: SearchQueryCellDelegate?
+
     private lazy var searchResultsViewController = UIViewController(nibName: nil, bundle: nil)
 
     private lazy var searchController: UISearchController = {
@@ -12,6 +19,9 @@ class SearchQueryCell: UITableViewCell {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.text = "Test"
+        searchController.searchBar.delegate = self
 
         return searchController
     }()
@@ -19,6 +29,8 @@ class SearchQueryCell: UITableViewCell {
     private var searchBar: UISearchBar {
         return searchController.searchBar
     }
+
+    private var hasTappedClearButton = false
 
     override var textLabel: UILabel? {
         return nil
@@ -53,8 +65,21 @@ private extension SearchQueryCell {
             searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
+    }
+}
 
-        searchBar.isUserInteractionEnabled = false
+extension SearchQueryCell: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        if !hasTappedClearButton {
+            delegate?.searchQueryCellDidTapSearchBar(self)
+        }
+        hasTappedClearButton = false
+        return false
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        delegate?.searchQueryCellDidTapRemoveSelectedValue(self)
+        hasTappedClearButton = true
     }
 }
 

@@ -87,6 +87,8 @@ enum Sections: String {
                 return .bottomSheet
             case .rangeFilter:
                 return .bottomSheet
+            case .query:
+                return .none
             }
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]
@@ -157,6 +159,7 @@ enum ComponentViews: String {
     case list
     case compactListFilter
     case rangeFilter
+    case query
 
     var viewController: UIViewController {
         switch self {
@@ -190,6 +193,11 @@ enum ComponentViews: String {
 
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
+
+        case .query:
+            let queryViewController = QueryViewController(title: "Filtrer søket", query: nil)
+            let navigationController = UINavigationController(rootViewController: queryViewController)
+            return navigationController
         }
     }
 
@@ -201,6 +209,7 @@ enum ComponentViews: String {
             .list,
             .compactListFilter,
             .rangeFilter,
+            .query,
         ]
     }
 }

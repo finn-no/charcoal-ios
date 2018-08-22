@@ -195,7 +195,8 @@ enum ComponentViews: String {
             return ViewController<RangeFilterDemoView>()
 
         case .query:
-            let queryViewController = QueryViewController(title: "Filtrer søket", query: nil)
+            let queryViewController = QueryViewController(title: "Filtrer søket", query: "")
+            queryViewController.showSuggestions(["One", "Two", "Three"], for: "")
             let navigationController = UINavigationController(rootViewController: queryViewController)
             return navigationController
         }

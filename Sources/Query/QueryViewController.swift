@@ -32,7 +32,7 @@ public class QueryViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.allowsMultipleSelection = true
+        tableView.allowsMultipleSelection = false
         tableView.register(UITableViewCell.self)
 
         return tableView
@@ -83,18 +83,22 @@ extension QueryViewController: UISearchBarDelegate {
 
 extension QueryViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return suggestions.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+        let suggestion = suggestions[safe: indexPath.row]
+        cell.textLabel?.text = suggestion
         return cell
     }
 }
 
 extension QueryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.queryViewController(self, didChooseSuggestion: "")
+        if let suggestion = suggestions[safe: indexPath.row] {
+            delegate?.queryViewController(self, didChooseSuggestion: suggestion)
+        }
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

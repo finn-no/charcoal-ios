@@ -18,6 +18,7 @@ public final class BottomSheetInteractiveDismissalController: UIPercentDrivenInt
 
     public var dismissalDidBegin: (() -> Void)?
     public private(set) var isDismissing = false
+    public var isInteractionActive = false
 
     var initialDismissalTranslation: CGFloat = 0.0
 
@@ -36,6 +37,7 @@ public final class BottomSheetInteractiveDismissalController: UIPercentDrivenInt
 
         switch sender.state {
         case .began, .possible:
+            isInteractionActive = sender.state == .began
             let startPoint = CGPoint(x: presentedView.frame.origin.x, y: presentedView.frame.origin.y + translationY)
 
             if dismissalTransitioningRect.contains(startPoint) && isDismissing == false {
@@ -57,14 +59,20 @@ public final class BottomSheetInteractiveDismissalController: UIPercentDrivenInt
                 update(dismissalPercentage)
             }
         case .cancelled, .failed:
+            isInteractionActive = false
             isDismissing = false
             cancel()
         case .ended:
+            isInteractionActive = false
             if dismissalPercentage < 0 {
                 cancel()
             } else if percentComplete >= dismissalPercentageThreshold {
                 finish()
             } else {
+                if UIDevice.isPreiOS11 {
+                    // There is a bug for version earlier than iOS 11 that needs completion speed to be something else than 1 to avoid "double" cancel dismissal animation
+                    completionSpeed = 0.99
+                }
                 cancel()
             }
 

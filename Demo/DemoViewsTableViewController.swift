@@ -28,8 +28,7 @@ class DemoViewsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let indexPath = Sections.lastSelectedIndexPath {
-            let viewController = Sections.viewController(for: indexPath)
+        if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
         }
@@ -51,8 +50,8 @@ extension DemoViewsTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let section = Sections.all[section]
-        return section.numberOfItems
+        let section = Sections.all[safe: section]
+        return section?.numberOfItems ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,9 +68,10 @@ extension DemoViewsTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         Sections.lastSelectedIndexPath = indexPath
-        let viewController = Sections.viewController(for: indexPath)
-        let transitionStyle = Sections.transitionStyle(for: indexPath)
-        presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
+        if let viewController = Sections.viewController(for: indexPath) {
+            let transitionStyle = Sections.transitionStyle(for: indexPath)
+            presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -80,6 +80,11 @@ extension DemoViewsTableViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return Sections.formattedName(for: section)
+    }
+
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        Sections.lastSelectedIndexPath = nil
+        super.dismiss(animated: flag, completion: completion)
     }
 }
 
@@ -102,7 +107,6 @@ extension DemoViewsTableViewController {
     }
 
     @objc func closeCurrentlyPresentedViewController() {
-        Sections.lastSelectedIndexPath = nil
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }

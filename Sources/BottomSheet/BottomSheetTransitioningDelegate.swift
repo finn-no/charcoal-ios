@@ -37,7 +37,10 @@ public final class BottomSheetTransitioningDelegate: NSObject, UIViewControllerT
     }
 
     public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return presentationController?.interactiveDismissalController
+        if let interactiveDismissalController = presentationController?.interactiveDismissalController, interactiveDismissalController.isInteractionActive {
+            return interactiveDismissalController
+        }
+        return nil
     }
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {

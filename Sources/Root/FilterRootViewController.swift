@@ -19,9 +19,7 @@ public class FilterRootViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
 
-        if #available(iOS 11.0, *) {
-            // Not necessary >= iOS 11
-        } else {
+        if UIDevice.isPreiOS11 {
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = 44
         }

@@ -12,23 +12,12 @@ protocol FreeTextCellDelegate: AnyObject {
 class FreeTextCell: UITableViewCell {
     weak var delegate: FreeTextCellDelegate?
 
-    private lazy var searchResultsViewController = UIViewController(nibName: nil, bundle: nil)
-
-    private lazy var searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: self.searchResultsViewController)
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.showsCancelButton = false
-        searchController.searchBar.text = "Test"
-        searchController.searchBar.delegate = self
-
-        return searchController
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
+        return searchBar
     }()
-
-    private var searchBar: UISearchBar {
-        return searchController.searchBar
-    }
 
     private var hasTappedClearButton = false
 

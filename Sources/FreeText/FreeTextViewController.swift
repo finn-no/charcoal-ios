@@ -15,20 +15,16 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
 
     private var placeholder: String?
 
-    private lazy var searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.text = startText
-        searchController.searchBar.placeholder = placeholder
-        searchController.searchBar.showsCancelButton = true
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
-
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        return searchController
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.searchBarStyle = .minimal
+        searchBar.showsScopeBar = false
+        searchBar.text = startText
+        searchBar.placeholder = placeholder
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        return searchBar
     }()
 
     private static var rowHeight: CGFloat = 48.0
@@ -77,6 +73,7 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
         super.viewDidLoad()
 
         setup()
+        searchBar.becomeFirstResponder()
     }
 
     public func showSuggestions(_ suggestions: [String], for searchText: String) {
@@ -95,9 +92,6 @@ extension FreeTextViewController: UISearchResultsUpdating {
     }
 }
 
-extension FreeTextViewController: UISearchControllerDelegate {
-}
-
 extension FreeTextViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: startText ?? ""))
@@ -107,6 +101,12 @@ extension FreeTextViewController: UISearchBarDelegate {
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText ?? ""))
         navigationController?.popViewController(animated: true)
+    }
+
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        suggestions.removeAll()
+        suggestionsTableView.reloadData()
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText))
     }
 }
 
@@ -138,23 +138,23 @@ extension FreeTextViewController: UITableViewDelegate {
 private extension FreeTextViewController {
     var searchText: String? {
         set {
-            searchController.searchBar.text = newValue
+            searchBar.text = newValue
         }
         get {
-            return searchController.searchBar.text
+            return searchBar.text
         }
     }
 
     func setup() {
         view.backgroundColor = .milk
-        view.addSubview(searchController.searchBar)
+        view.addSubview(searchBar)
         view.addSubview(suggestionsTableView)
 
         NSLayoutConstraint.activate([
-            searchController.searchBar.topAnchor.constraint(equalTo: safeTopAnchor),
-            searchController.searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchController.searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            suggestionsTableView.topAnchor.constraint(equalTo: searchController.searchBar.bottomAnchor),
+            searchBar.topAnchor.constraint(equalTo: safeTopAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            suggestionsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             suggestionsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             suggestionsTableView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
             suggestionsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

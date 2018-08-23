@@ -65,7 +65,12 @@ public class RootFilterNavigator: NSObject, Navigator {
                 return
             }
 
-            navigationController.pushViewController(freeTextViewController, animated: true)
+            if let bottomSheetPresentationController = navigationController.presentationController as? BottomSheetPresentationController, bottomSheetPresentationController.currentContentSizeMode != .expanded {
+                navigationController.pushViewController(freeTextViewController, animated: false)
+                bottomSheetPresentationController.transition(to: .expanded)
+            } else {
+                navigationController.pushViewController(freeTextViewController, animated: true)
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ class FreeTextCell: UITableViewCell {
     weak var delegate: FreeTextCellDelegate?
 
     private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar(frame: .zero)
+        let searchBar = FreeTextSearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         return searchBar
@@ -89,5 +89,26 @@ extension FreeTextCell {
         set {
             searchBar.placeholder = newValue
         }
+    }
+}
+
+fileprivate class FreeTextSearchBar: UISearchBar {
+    // Makes sure to setup appearance proxy one time and one time only
+    private static let setupFreeTextSearchBarAppereanceOnce: () = {
+        let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextSearchBar.self])
+        appearance.defaultTextAttributes = [
+            NSAttributedStringKey.foregroundColor.rawValue: UIColor.primaryBlue,
+            NSAttributedStringKey.font.rawValue: UIFont.title4,
+        ]
+    }()
+
+    override init(frame: CGRect) {
+        _ = FreeTextSearchBar.setupFreeTextSearchBarAppereanceOnce
+        super.init(frame: frame)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        _ = FreeTextSearchBar.setupFreeTextSearchBarAppereanceOnce
+        super.init(coder: aDecoder)
     }
 }

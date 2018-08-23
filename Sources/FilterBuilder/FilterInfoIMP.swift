@@ -6,10 +6,10 @@ public protocol KeyedFilterInfo {
     var key: FilterKey { get }
 }
 
-struct FreeSearchFilterInfo: FreeSearchFilterInfoType, KeyedFilterInfo {
+struct FreeTextFilterInfo: FreeTextFilterInfoType, KeyedFilterInfo {
     var key: FilterKey
-    var currentSearchQuery: String?
-    var searchQueryPlaceholder: String
+    var value: String?
+    var placeholderText: String
     var name: String
 }
 

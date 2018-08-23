@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class QueryViewController: UIViewController, FilterContainerViewController {
+public class FreeTextViewController: UIViewController, FilterContainerViewController {
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     public var controller: UIViewController {
@@ -48,11 +48,11 @@ public class QueryViewController: UIViewController, FilterContainerViewControlle
     }()
 
     public required convenience init?(filterInfo: FilterInfoType) {
-        guard let freeSearchFilterInfoType = filterInfo as? FreeSearchFilterInfoType else {
+        guard let freeTextFilterInfoType = filterInfo as? FreeTextFilterInfoType else {
             return nil
         }
 
-        self.init(title: freeSearchFilterInfoType.name, startText: freeSearchFilterInfoType.currentSearchQuery, placeholder: freeSearchFilterInfoType.searchQueryPlaceholder)
+        self.init(title: freeTextFilterInfoType.name, startText: freeTextFilterInfoType.value, placeholder: freeTextFilterInfoType.placeholderText)
     }
 
     public init(title: String?, startText: String?, placeholder: String?) {
@@ -70,7 +70,7 @@ public class QueryViewController: UIViewController, FilterContainerViewControlle
         guard case let .singleSelection(value) = selectionValue else {
             return
         }
-        currentQuery = value
+        searchText = value
     }
 
     public override func viewDidLoad() {
@@ -79,38 +79,38 @@ public class QueryViewController: UIViewController, FilterContainerViewControlle
         setup()
     }
 
-    public func showSuggestions(_ suggestions: [String], for query: String) {
-        if currentQuery == query {
+    public func showSuggestions(_ suggestions: [String], for searchText: String) {
+        if searchText == searchText {
             self.suggestions = suggestions
             suggestionsTableView.reloadData()
         }
     }
 }
 
-extension QueryViewController: UISearchResultsUpdating {
+extension FreeTextViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
         suggestions.removeAll()
         suggestionsTableView.reloadData()
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: currentQuery ?? ""))
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText ?? ""))
     }
 }
 
-extension QueryViewController: UISearchControllerDelegate {
+extension FreeTextViewController: UISearchControllerDelegate {
 }
 
-extension QueryViewController: UISearchBarDelegate {
+extension FreeTextViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: startText ?? ""))
         navigationController?.popViewController(animated: true)
     }
 
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: currentQuery ?? ""))
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText ?? ""))
         navigationController?.popViewController(animated: true)
     }
 }
 
-extension QueryViewController: UITableViewDataSource {
+extension FreeTextViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return suggestions.count
     }
@@ -123,7 +123,7 @@ extension QueryViewController: UITableViewDataSource {
     }
 }
 
-extension QueryViewController: UITableViewDelegate {
+extension FreeTextViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let suggestion = suggestions[safe: indexPath.row] {
             filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: suggestion))
@@ -135,8 +135,8 @@ extension QueryViewController: UITableViewDelegate {
     }
 }
 
-private extension QueryViewController {
-    var currentQuery: String? {
+private extension FreeTextViewController {
+    var searchText: String? {
         set {
             searchController.searchBar.text = newValue
         }

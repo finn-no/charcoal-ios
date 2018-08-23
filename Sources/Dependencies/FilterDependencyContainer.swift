@@ -61,8 +61,8 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, delegate: delegate)
     }
 
-    public func makeQueryFilterViewController(from freeSearchFilterInfo: FreeSearchFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
-        let filterViewController = FilterViewController<QueryViewController>(filterInfo: freeSearchFilterInfo, navigator: navigator, showsApplySelectionButton: false)
+    public func makeFreeTextFilterViewController(from freeTextFilterInfo: FreeTextFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
+        let filterViewController = FilterViewController<FreeTextViewController>(filterInfo: freeTextFilterInfo, navigator: navigator, showsApplySelectionButton: false)
         filterViewController?.delegate = delegate
 
         return filterViewController

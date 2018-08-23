@@ -8,9 +8,9 @@ public protocol FilterInfoType {
     var name: String { get }
 }
 
-public protocol FreeSearchFilterInfoType: FilterInfoType {
-    var currentSearchQuery: String? { get }
-    var searchQueryPlaceholder: String { get }
+public protocol FreeTextFilterInfoType: FilterInfoType {
+    var value: String? { get }
+    var placeholderText: String { get }
 }
 
 public protocol PreferenceValueType: ListItem {

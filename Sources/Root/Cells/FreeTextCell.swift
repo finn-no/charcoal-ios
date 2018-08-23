@@ -4,13 +4,13 @@
 
 import UIKit
 
-protocol SearchQueryCellDelegate: AnyObject {
-    func searchQueryCellDidTapSearchBar(_ searchQueryCell: SearchQueryCell)
-    func searchQueryCellDidTapRemoveSelectedValue(_ searchQueryCell: SearchQueryCell)
+protocol FreeTextCellDelegate: AnyObject {
+    func freeTextCellDidTapSearchBar(_ freeTextCell: FreeTextCell)
+    func freeTextCellDidTapRemoveSelectedValue(_ freeTextCell: FreeTextCell)
 }
 
-class SearchQueryCell: UITableViewCell {
-    weak var delegate: SearchQueryCellDelegate?
+class FreeTextCell: UITableViewCell {
+    weak var delegate: FreeTextCellDelegate?
 
     private lazy var searchResultsViewController = UIViewController(nibName: nil, bundle: nil)
 
@@ -48,12 +48,12 @@ class SearchQueryCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        searchQuery = nil
+        searchText = nil
         placeholderText = nil
     }
 }
 
-private extension SearchQueryCell {
+private extension FreeTextCell {
     func setup() {
         selectionStyle = .none
 
@@ -68,23 +68,23 @@ private extension SearchQueryCell {
     }
 }
 
-extension SearchQueryCell: UISearchBarDelegate {
+extension FreeTextCell: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         if !hasTappedClearButton {
-            delegate?.searchQueryCellDidTapSearchBar(self)
+            delegate?.freeTextCellDidTapSearchBar(self)
         }
         hasTappedClearButton = false
         return false
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        delegate?.searchQueryCellDidTapRemoveSelectedValue(self)
+        delegate?.freeTextCellDidTapRemoveSelectedValue(self)
         hasTappedClearButton = true
     }
 }
 
-extension SearchQueryCell {
-    var searchQuery: String? {
+extension FreeTextCell {
+    var searchText: String? {
         get {
             return searchBar.text
         }

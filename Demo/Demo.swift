@@ -87,7 +87,7 @@ enum Sections: String {
                 return .bottomSheet
             case .rangeFilter:
                 return .bottomSheet
-            case .query:
+            case .freeText:
                 return .none
             }
         case .fullscreen:
@@ -159,7 +159,7 @@ enum ComponentViews: String {
     case list
     case compactListFilter
     case rangeFilter
-    case query
+    case freeText
 
     var viewController: UIViewController {
         switch self {
@@ -194,10 +194,10 @@ enum ComponentViews: String {
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
 
-        case .query:
-            let queryViewController = QueryViewController(title: "Filtrer søket", startText: "Søktekst", placeholder: "Hjelptekst")
-            queryViewController.showSuggestions(["One", "Two", "Three"], for: "")
-            let navigationController = UINavigationController(rootViewController: queryViewController)
+        case .freeText:
+            let freeTextViewController = FreeTextViewController(title: "Filtrer søket", startText: "Bu", placeholder: "Søk etter ord")
+            freeTextViewController.showSuggestions(["One", "Two", "Three"], for: "Bu")
+            let navigationController = UINavigationController(rootViewController: freeTextViewController)
             return navigationController
         }
     }
@@ -210,7 +210,7 @@ enum ComponentViews: String {
             .list,
             .compactListFilter,
             .rangeFilter,
-            .query,
+            .freeText,
         ]
     }
 }

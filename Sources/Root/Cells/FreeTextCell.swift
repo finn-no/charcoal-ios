@@ -13,7 +13,7 @@ class FreeTextCell: UITableViewCell {
     weak var delegate: FreeTextCellDelegate?
 
     private lazy var searchBar: UISearchBar = {
-        let searchBar = FreeTextSearchBar(frame: .zero)
+        let searchBar = FreeTextCellSearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         return searchBar
@@ -44,6 +44,8 @@ class FreeTextCell: UITableViewCell {
 
 private extension FreeTextCell {
     func setup() {
+        preservesSuperviewLayoutMargins = true
+        contentView.preservesSuperviewLayoutMargins = true
         selectionStyle = .none
 
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -51,8 +53,8 @@ private extension FreeTextCell {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            searchBar.layoutMarginsGuide.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            searchBar.layoutMarginsGuide.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
         ])
     }
 }
@@ -92,10 +94,10 @@ extension FreeTextCell {
     }
 }
 
-fileprivate class FreeTextSearchBar: UISearchBar {
+fileprivate class FreeTextCellSearchBar: UISearchBar {
     // Makes sure to setup appearance proxy one time and one time only
     private static let setupFreeTextSearchBarAppereanceOnce: () = {
-        let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextSearchBar.self])
+        let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextCellSearchBar.self])
         appearance.defaultTextAttributes = [
             NSAttributedStringKey.foregroundColor.rawValue: UIColor.primaryBlue,
             NSAttributedStringKey.font.rawValue: UIFont.title4,
@@ -103,12 +105,12 @@ fileprivate class FreeTextSearchBar: UISearchBar {
     }()
 
     override init(frame: CGRect) {
-        _ = FreeTextSearchBar.setupFreeTextSearchBarAppereanceOnce
+        _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
         super.init(frame: frame)
     }
 
     required init?(coder aDecoder: NSCoder) {
-        _ = FreeTextSearchBar.setupFreeTextSearchBarAppereanceOnce
+        _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
         super.init(coder: aDecoder)
     }
 }

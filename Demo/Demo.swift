@@ -174,7 +174,7 @@ enum ComponentViews: String {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter)
+            let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, freeTextSuggestionsHelper: DemoFreeTextSuggestionsHelper())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             rootFilterNavigator.start()
@@ -195,8 +195,7 @@ enum ComponentViews: String {
             return ViewController<RangeFilterDemoView>()
 
         case .freeText:
-            let freeTextViewController = FreeTextViewController(title: "Filtrer søket", startText: "Bu", placeholder: "Søk etter ord")
-            freeTextViewController.showSuggestions(["One", "Two", "Three"], for: "Bu")
+            let freeTextViewController = FreeTextViewController(title: "Filtrer søket", startText: nil, placeholder: "Søk etter ord")
             let navigationController = UINavigationController(rootViewController: freeTextViewController)
             return navigationController
         }
@@ -234,7 +233,7 @@ enum FullscreenViews: String {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter)
+        let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, freeTextSuggestionsHelper: DemoFreeTextSuggestionsHelper())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         rootFilterNavigator.start()

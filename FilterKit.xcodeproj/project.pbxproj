@@ -96,6 +96,8 @@
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
 		9B9C1709209C78BA007BCBBC /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9BAF4F81212AEC45003DD663 /* FreeTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F80212AEC45003DD663 /* FreeTextViewController.swift */; };
+		9BAF4F87212EE689003DD663 /* DemoFreeTextSuggestionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F86212EE689003DD663 /* DemoFreeTextSuggestionsHelper.swift */; };
+		9BBCEDFE212EEE6B00F91B5D /* FreeTextSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBCEDFD212EEE6B00F91B5D /* FreeTextSuggestionCell.swift */; };
 		9BD637632124432E00AB9DFE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0562091D26E0000632B /* Identifiable.swift */; };
 		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		9BD6378A21244C0B00AB9DFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
@@ -248,6 +250,8 @@
 		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		9B9C1707209C78BA007BCBBC /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Demo/Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		9BAF4F80212AEC45003DD663 /* FreeTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextViewController.swift; sourceTree = "<group>"; };
+		9BAF4F86212EE689003DD663 /* DemoFreeTextSuggestionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoFreeTextSuggestionsHelper.swift; sourceTree = "<group>"; };
+		9BBCEDFD212EEE6B00F91B5D /* FreeTextSuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextSuggestionCell.swift; sourceTree = "<group>"; };
 		9BD6377C21244C0B00AB9DFE /* ColorDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorDemoView.swift; sourceTree = "<group>"; };
 		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9BD6378121244C0B00AB9DFE /* Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
@@ -329,6 +333,7 @@
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				55E869D820E25598008B921E /* FilterViewController */,
 				44ECE699208F80320017AC82 /* Finnivers */,
+				9BAF4F7F212AEB99003DD663 /* FreeText */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
 				55893232209C651A00512FF8 /* List */,
 				55E869E520E3D285008B921E /* ListSelectionFilter */,
@@ -336,7 +341,6 @@
 				55858A1A20AAC73A00B100EA /* NavigationController */,
 				55F97D1320AC51FD002BABC9 /* PreferenceFilter */,
 				9BE0A0552091D2530000632B /* Protocols */,
-				9BAF4F7F212AEB99003DD663 /* FreeText */,
 				5515EA4320BD5B5600AC98A3 /* RangeFilter */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				9BE0A0402091BE750000632B /* Root */,
@@ -355,6 +359,7 @@
 				44ECE6A7208F816D0017AC82 /* Demo.swift */,
 				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
 				9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */,
+				9BAF4F85212EE64F003DD663 /* FreeText */,
 				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
@@ -657,6 +662,15 @@
 			isa = PBXGroup;
 			children = (
 				9BAF4F80212AEC45003DD663 /* FreeTextViewController.swift */,
+				9BBCEDFD212EEE6B00F91B5D /* FreeTextSuggestionCell.swift */,
+			);
+			path = FreeText;
+			sourceTree = "<group>";
+		};
+		9BAF4F85212EE64F003DD663 /* FreeText */ = {
+			isa = PBXGroup;
+			children = (
+				9BAF4F86212EE689003DD663 /* DemoFreeTextSuggestionsHelper.swift */,
 			);
 			path = FreeText;
 			sourceTree = "<group>";
@@ -997,6 +1011,7 @@
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				55E869E720E4C937008B921E /* FilterDelegate.swift in Sources */,
+				9BBCEDFE212EEE6B00F91B5D /* FreeTextSuggestionCell.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* FreeTextCell.swift in Sources */,
 				55BDA76D20DBC43F00331FFC /* FilterKey.swift in Sources */,
 				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,
@@ -1040,6 +1055,7 @@
 				55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */,
 				9BD6379621244EDE00AB9DFE /* Font.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
+				9BAF4F87212EE689003DD663 /* DemoFreeTextSuggestionsHelper.swift in Sources */,
 				9BD6379221244C2300AB9DFE /* FontDemoView.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				9BD6379321244C2A00AB9DFE /* AssetsDemoView.swift in Sources */,

@@ -35,7 +35,7 @@ public final class FilterInfoBuilder {
 
 private extension FilterInfoBuilder {
     func buildFreeTextFilterInfo() -> FilterInfoType {
-        return FreeTextFilterInfo(key: .query, value: "Fritekst", placeholderText: "Ord i annonsen", name: "Filtrer søket")
+        return FreeTextFilterInfo(key: .query, value: nil, placeholderText: "Ord i annonsen", name: "Filtrer søket")
     }
 
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {

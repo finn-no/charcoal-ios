@@ -4,7 +4,15 @@
 
 import UIKit
 
+public protocol FreeTextSuggestionsHelper: AnyObject {
+    typealias SuggestionResult = (text: String, suggestions: [String])
+
+    func suggestions(for: String, completion: @escaping ((SuggestionResult) -> Void))
+}
+
 public class FreeTextViewController: UIViewController, FilterContainerViewController {
+    public var suggestionsHelper: FreeTextSuggestionsHelper?
+
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     public var controller: UIViewController {
@@ -16,7 +24,7 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
     private var placeholder: String?
 
     private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar(frame: .zero)
+        let searchBar = FreeTextViewControllerSearchBar(frame: .zero)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.searchBarStyle = .minimal
         searchBar.showsScopeBar = false
@@ -38,7 +46,7 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelection = false
-        tableView.register(UITableViewCell.self)
+        tableView.register(FreeTextSuggestionCell.self)
 
         return tableView
     }()
@@ -75,21 +83,6 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
         setup()
         searchBar.becomeFirstResponder()
     }
-
-    public func showSuggestions(_ suggestions: [String], for searchText: String) {
-        if searchText == searchText {
-            self.suggestions = suggestions
-            suggestionsTableView.reloadData()
-        }
-    }
-}
-
-extension FreeTextViewController: UISearchResultsUpdating {
-    public func updateSearchResults(for searchController: UISearchController) {
-        suggestions.removeAll()
-        suggestionsTableView.reloadData()
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText ?? ""))
-    }
 }
 
 extension FreeTextViewController: UISearchBarDelegate {
@@ -106,7 +99,11 @@ extension FreeTextViewController: UISearchBarDelegate {
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         suggestions.removeAll()
         suggestionsTableView.reloadData()
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText))
+        suggestionsHelper?.suggestions(for: searchText, completion: { [weak self] result in
+            DispatchQueue.main.async {
+                self?.showSuggestions(result)
+            }
+        })
     }
 }
 
@@ -116,9 +113,9 @@ extension FreeTextViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+        let cell = tableView.dequeue(FreeTextSuggestionCell.self, for: indexPath)
         let suggestion = suggestions[safe: indexPath.row]
-        cell.textLabel?.text = suggestion
+        cell.suggestionLabel.text = suggestion
         return cell
     }
 }
@@ -126,7 +123,8 @@ extension FreeTextViewController: UITableViewDataSource {
 extension FreeTextViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let suggestion = suggestions[safe: indexPath.row] {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: suggestion))
+            searchText = suggestion
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 
@@ -152,12 +150,40 @@ private extension FreeTextViewController {
 
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: safeTopAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.layoutMarginsGuide.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            searchBar.layoutMarginsGuide.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             suggestionsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             suggestionsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             suggestionsTableView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
             suggestionsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+    }
+
+    func showSuggestions(_ suggestionResult: FreeTextSuggestionsHelper.SuggestionResult) {
+        if searchText == suggestionResult.text {
+            suggestions = suggestionResult.suggestions
+            suggestionsTableView.reloadData()
+        }
+    }
+}
+
+fileprivate class FreeTextViewControllerSearchBar: UISearchBar {
+    // Makes sure to setup appearance proxy one time and one time only
+    private static let setupFreeTextSearchBarAppereanceOnce: () = {
+        let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextViewControllerSearchBar.self])
+        appearance.defaultTextAttributes = [
+            NSAttributedStringKey.foregroundColor.rawValue: UIColor.licorice,
+            NSAttributedStringKey.font.rawValue: UIFont.title4,
+        ]
+    }()
+
+    override init(frame: CGRect) {
+        _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
+        super.init(frame: frame)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
+        super.init(coder: aDecoder)
     }
 }

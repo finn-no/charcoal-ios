@@ -22,7 +22,7 @@ class FilterInfoBuilderTests: BaseTestCase {
 
         // When
         let filterInfoElements = builder?.build()
-        let numberOfFreeTextFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is FreeTextFilterInfoType) ? $0 + 1 : $0 })
+        let numberOfSearchTermFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is SearchTermFilterInfoType) ? $0 + 1 : $0 })
         let numberOfPreferenceFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is PreferenceFilterInfoType) ? $0 + 1 : $0 })
         let numberOfRangeFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is RangeFilterInfoType) ? $0 + 1 : $0 })
         let numberOfMultiLevelListSelectionFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is MultiLevelListSelectionFilterInfo) ? $0 + 1 : $0 })
@@ -33,7 +33,7 @@ class FilterInfoBuilderTests: BaseTestCase {
         XCTAssertNotNil(builder)
         XCTAssertNotNil(filterInfoElements)
         XCTAssertEqual(filterInfoElements?.count, 19)
-        XCTAssertEqual(numberOfFreeTextFilterInfoElements, 1)
+        XCTAssertEqual(numberOfSearchTermFilterInfoElements, 1)
         XCTAssertEqual(numberOfPreferenceFilterInfoElements, 1)
         XCTAssertEqual(numberOfRangeFilterInfoElements, 5)
         XCTAssertEqual(numberOfMultiLevelListSelectionFilterInfoElements, 1)

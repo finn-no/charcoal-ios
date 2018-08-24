@@ -94,23 +94,27 @@ extension FreeTextCell {
     }
 }
 
-fileprivate class FreeTextCellSearchBar: UISearchBar {
-    // Makes sure to setup appearance proxy one time and one time only
-    private static let setupFreeTextSearchBarAppereanceOnce: () = {
-        let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextCellSearchBar.self])
-        appearance.defaultTextAttributes = [
-            NSAttributedStringKey.foregroundColor.rawValue: UIColor.primaryBlue,
-            NSAttributedStringKey.font.rawValue: UIFont.title4,
-        ]
-    }()
+// MARK: - Private class
 
-    override init(frame: CGRect) {
-        _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
-        super.init(frame: frame)
-    }
+private extension FreeTextCell {
+    class FreeTextCellSearchBar: UISearchBar {
+        // Makes sure to setup appearance proxy one time and one time only
+        private static let setupFreeTextSearchBarAppereanceOnce: () = {
+            let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextCellSearchBar.self])
+            appearance.defaultTextAttributes = [
+                NSAttributedStringKey.foregroundColor.rawValue: UIColor.primaryBlue,
+                NSAttributedStringKey.font.rawValue: UIFont.title4,
+            ]
+        }()
 
-    required init?(coder aDecoder: NSCoder) {
-        _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
-        super.init(coder: aDecoder)
+        override init(frame: CGRect) {
+            _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
+            super.init(frame: frame)
+        }
+
+        required init?(coder aDecoder: NSCoder) {
+            _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
+            super.init(coder: aDecoder)
+        }
     }
 }

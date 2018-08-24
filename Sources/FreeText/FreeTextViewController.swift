@@ -167,23 +167,27 @@ private extension FreeTextViewController {
     }
 }
 
-fileprivate class FreeTextViewControllerSearchBar: UISearchBar {
-    // Makes sure to setup appearance proxy one time and one time only
-    private static let setupFreeTextSearchBarAppereanceOnce: () = {
-        let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextViewControllerSearchBar.self])
-        appearance.defaultTextAttributes = [
-            NSAttributedStringKey.foregroundColor.rawValue: UIColor.licorice,
-            NSAttributedStringKey.font.rawValue: UIFont.title4,
-        ]
-    }()
+// MARK: - Private class
 
-    override init(frame: CGRect) {
-        _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
-        super.init(frame: frame)
-    }
+private extension FreeTextViewController {
+    class FreeTextViewControllerSearchBar: UISearchBar {
+        // Makes sure to setup appearance proxy one time and one time only
+        private static let setupFreeTextSearchBarAppereanceOnce: () = {
+            let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextViewControllerSearchBar.self])
+            appearance.defaultTextAttributes = [
+                NSAttributedStringKey.foregroundColor.rawValue: UIColor.licorice,
+                NSAttributedStringKey.font.rawValue: UIFont.title4,
+            ]
+        }()
 
-    required init?(coder aDecoder: NSCoder) {
-        _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
-        super.init(coder: aDecoder)
+        override init(frame: CGRect) {
+            _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
+            super.init(frame: frame)
+        }
+
+        required init?(coder aDecoder: NSCoder) {
+            _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
+            super.init(coder: aDecoder)
+        }
     }
 }

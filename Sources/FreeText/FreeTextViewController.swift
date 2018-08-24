@@ -4,15 +4,12 @@
 
 import UIKit
 
-public protocol FreeTextSuggestionsHelper: AnyObject {
-    typealias SuggestionResult = (text: String, suggestions: [String])
-
-    func suggestions(for: String, completion: @escaping ((SuggestionResult) -> Void))
+public protocol FreeTextSuggestionsDataSource: AnyObject {
+    func freeTextViewController(_ freeTextViewController: FreeTextViewController, didRequestSuggestionsFor searchTerm: String, completion: @escaping ((_ text: String, _ suggestions: [String]) -> Void))
 }
 
 public class FreeTextViewController: UIViewController, FilterContainerViewController {
-    public var suggestionsHelper: FreeTextSuggestionsHelper?
-
+    public var freeTextSuggestionsDataSource: FreeTextSuggestionsDataSource?
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     public var controller: UIViewController {
@@ -99,9 +96,12 @@ extension FreeTextViewController: UISearchBarDelegate {
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         suggestions.removeAll()
         suggestionsTableView.reloadData()
-        suggestionsHelper?.suggestions(for: searchText, completion: { [weak self] result in
+        freeTextSuggestionsDataSource?.freeTextViewController(self, didRequestSuggestionsFor: searchText, completion: { text, suggestions in
             DispatchQueue.main.async {
-                self?.showSuggestions(result)
+                if searchText == text {
+                    self.suggestions = suggestions
+                    self.suggestionsTableView.reloadData()
+                }
             }
         })
     }
@@ -157,13 +157,6 @@ private extension FreeTextViewController {
             suggestionsTableView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
             suggestionsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-    }
-
-    func showSuggestions(_ suggestionResult: FreeTextSuggestionsHelper.SuggestionResult) {
-        if searchText == suggestionResult.text {
-            suggestions = suggestionResult.suggestions
-            suggestionsTableView.reloadData()
-        }
     }
 }
 

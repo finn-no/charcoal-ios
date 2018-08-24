@@ -4,11 +4,10 @@
 
 import FilterKit
 
-class DemoFreeTextSuggestionsHelper: FreeTextSuggestionsHelper {
-    func suggestions(for text: String, completion: @escaping ((FreeTextSuggestionsHelper.SuggestionResult) -> Void)) {
-        let result = SuggestionResult(text: text, suggestions: [text + " 1", text + " 2", text + " 3", text + " 4"])
+class DemoFreeTextSuggestionsDataSource: FreeTextSuggestionsDataSource {
+    func freeTextViewController(_ freeTextViewController: FreeTextViewController, didRequestSuggestionsFor searchTerm: String, completion: @escaping ((String, [String]) -> Void)) {
         DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1) {
-            completion(result)
+            completion(searchTerm, [searchTerm + " 1", searchTerm + " 2", searchTerm + " 3", searchTerm + " 4"])
         }
     }
 }

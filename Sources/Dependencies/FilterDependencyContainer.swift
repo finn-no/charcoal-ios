@@ -7,12 +7,12 @@ import Foundation
 public class FilterDependencyContainer {
     private let dataSource: FilterDataSource
     weak var delegate: FilterDelegate?
-    private let freeTextSuggestionsHelper: FreeTextSuggestionsHelper?
+    private let freeTextSuggestionsDataSource: FreeTextSuggestionsDataSource?
 
-    public init(dataSource: FilterDataSource, delegate: FilterDelegate, freeTextSuggestionsHelper: FreeTextSuggestionsHelper?) {
+    public init(dataSource: FilterDataSource, delegate: FilterDelegate, freeTextSuggestionsDataSource: FreeTextSuggestionsDataSource?) {
         self.dataSource = dataSource
         self.delegate = delegate
-        self.freeTextSuggestionsHelper = freeTextSuggestionsHelper
+        self.freeTextSuggestionsDataSource = freeTextSuggestionsDataSource
     }
 }
 
@@ -66,7 +66,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     public func makeFreeTextFilterViewController(from freeTextFilterInfo: FreeTextFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
         let filterViewController = FilterViewController<FreeTextViewController>(filterInfo: freeTextFilterInfo, navigator: navigator, showsApplySelectionButton: false)
         filterViewController?.delegate = delegate
-        (filterViewController?.filterContainerViewController as? FreeTextViewController)?.suggestionsHelper = freeTextSuggestionsHelper
+        (filterViewController?.filterContainerViewController as? FreeTextViewController)?.freeTextSuggestionsDataSource = freeTextSuggestionsDataSource
 
         return filterViewController
     }

@@ -249,7 +249,13 @@ extension FilterRootViewController: FreeTextCellDelegate {
     }
 
     func freeTextCellDidTapRemoveSelectedValue(_ freeTextCell: FreeTextCell) {
-        // Clear value
+        guard let indexPath = tableView.indexPath(for: freeTextCell) else {
+            return
+        }
+        guard let freeTextFilterInfo = self.filterInfo(at: indexPath.row) as? FreeTextFilterInfoType else {
+            return
+        }
+        delegate?.filterSelectionValueChanged(.singleSelection(value: ""), forFilterWithFilterInfo: freeTextFilterInfo)
     }
 }
 

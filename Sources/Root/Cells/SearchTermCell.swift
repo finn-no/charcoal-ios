@@ -4,16 +4,16 @@
 
 import UIKit
 
-protocol FreeTextCellDelegate: AnyObject {
-    func freeTextCellDidTapSearchBar(_ freeTextCell: FreeTextCell)
-    func freeTextCellDidTapRemoveSelectedValue(_ freeTextCell: FreeTextCell)
+protocol SearchTermCellDelegate: AnyObject {
+    func searchTermCellDidTapSearchBar(_ searchTermCell: SearchTermCell)
+    func searchTermCellDidTapRemoveSelectedValue(_ searchTermCell: SearchTermCell)
 }
 
-class FreeTextCell: UITableViewCell {
-    weak var delegate: FreeTextCellDelegate?
+class SearchTermCell: UITableViewCell {
+    weak var delegate: SearchTermCellDelegate?
 
     private lazy var searchBar: UISearchBar = {
-        let searchBar = FreeTextCellSearchBar(frame: .zero)
+        let searchBar = SearchTermCellSearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         return searchBar
@@ -42,7 +42,7 @@ class FreeTextCell: UITableViewCell {
     }
 }
 
-private extension FreeTextCell {
+private extension SearchTermCell {
     func setup() {
         preservesSuperviewLayoutMargins = true
         contentView.preservesSuperviewLayoutMargins = true
@@ -59,22 +59,22 @@ private extension FreeTextCell {
     }
 }
 
-extension FreeTextCell: UISearchBarDelegate {
+extension SearchTermCell: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         if !hasTappedClearButton {
-            delegate?.freeTextCellDidTapSearchBar(self)
+            delegate?.searchTermCellDidTapSearchBar(self)
         }
         hasTappedClearButton = false
         return false
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        delegate?.freeTextCellDidTapRemoveSelectedValue(self)
+        delegate?.searchTermCellDidTapRemoveSelectedValue(self)
         hasTappedClearButton = true
     }
 }
 
-extension FreeTextCell {
+extension SearchTermCell {
     var searchText: String? {
         get {
             return searchBar.text
@@ -96,11 +96,11 @@ extension FreeTextCell {
 
 // MARK: - Private class
 
-private extension FreeTextCell {
-    class FreeTextCellSearchBar: UISearchBar {
+private extension SearchTermCell {
+    class SearchTermCellSearchBar: UISearchBar {
         // Makes sure to setup appearance proxy one time and one time only
-        private static let setupFreeTextSearchBarAppereanceOnce: () = {
-            let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextCellSearchBar.self])
+        private static let setupSearchTermSearchBarAppereanceOnce: () = {
+            let appearance = UITextField.appearance(whenContainedInInstancesOf: [SearchTermCellSearchBar.self])
             appearance.defaultTextAttributes = [
                 NSAttributedStringKey.foregroundColor.rawValue: UIColor.primaryBlue,
                 NSAttributedStringKey.font.rawValue: UIFont.title4,
@@ -108,12 +108,12 @@ private extension FreeTextCell {
         }()
 
         override init(frame: CGRect) {
-            _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
+            _ = SearchTermCellSearchBar.setupSearchTermSearchBarAppereanceOnce
             super.init(frame: frame)
         }
 
         required init?(coder aDecoder: NSCoder) {
-            _ = FreeTextCellSearchBar.setupFreeTextSearchBarAppereanceOnce
+            _ = SearchTermCellSearchBar.setupSearchTermSearchBarAppereanceOnce
             super.init(coder: aDecoder)
         }
     }

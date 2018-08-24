@@ -60,7 +60,7 @@ public class FilterRootViewController: UIViewController {
 private extension FilterRootViewController {
     func setup() {
         view.backgroundColor = .milk
-        tableView.register(FreeTextCell.self)
+        tableView.register(SearchTermCell.self)
         tableView.register(FilterCell.self)
         tableView.register(PreferencesCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,8 +101,8 @@ extension FilterRootViewController: UITableViewDelegate {
             navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
             navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
-        case let freeTextFilterInfo as FreeTextFilterInfoType:
-            navigator.navigate(to: .freeTextFilter(filterInfo: freeTextFilterInfo, delegate: self))
+        case let searchTermFilterInfo as SearchTermFilterInfoType:
+            navigator.navigate(to: .searchTermFilter(filterInfo: searchTermFilterInfo, delegate: self))
         default:
             break
         }
@@ -119,10 +119,10 @@ extension FilterRootViewController: UITableViewDataSource {
         let selectionValues = selectionValuesForFilterComponent(at: indexPath.row)
 
         switch filterInfo {
-        case let freeTextInfo as FreeTextFilterInfoType:
-            let cell = tableView.dequeue(FreeTextCell.self, for: indexPath)
-            cell.searchText = freeTextInfo.value
-            cell.placeholderText = freeTextInfo.placeholderText
+        case let searchTermInfo as SearchTermFilterInfoType:
+            let cell = tableView.dequeue(SearchTermCell.self, for: indexPath)
+            cell.searchText = searchTermInfo.value
+            cell.placeholderText = searchTermInfo.placeholderText
             cell.delegate = self
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
@@ -237,25 +237,25 @@ extension FilterRootViewController: FilterCellDelegate {
     }
 }
 
-extension FilterRootViewController: FreeTextCellDelegate {
-    func freeTextCellDidTapSearchBar(_ freeTextCell: FreeTextCell) {
-        guard let indexPath = tableView.indexPath(for: freeTextCell) else {
+extension FilterRootViewController: SearchTermCellDelegate {
+    func searchTermCellDidTapSearchBar(_ searchTermCell: SearchTermCell) {
+        guard let indexPath = tableView.indexPath(for: searchTermCell) else {
             return
         }
-        guard let freeTextFilterInfo = self.filterInfo(at: indexPath.row) as? FreeTextFilterInfoType else {
+        guard let searchTermFilterInfo = self.filterInfo(at: indexPath.row) as? SearchTermFilterInfoType else {
             return
         }
-        navigator.navigate(to: .freeTextFilter(filterInfo: freeTextFilterInfo, delegate: self))
+        navigator.navigate(to: .searchTermFilter(filterInfo: searchTermFilterInfo, delegate: self))
     }
 
-    func freeTextCellDidTapRemoveSelectedValue(_ freeTextCell: FreeTextCell) {
-        guard let indexPath = tableView.indexPath(for: freeTextCell) else {
+    func searchTermCellDidTapRemoveSelectedValue(_ searchTermCell: SearchTermCell) {
+        guard let indexPath = tableView.indexPath(for: searchTermCell) else {
             return
         }
-        guard let freeTextFilterInfo = self.filterInfo(at: indexPath.row) as? FreeTextFilterInfoType else {
+        guard let searchTermFilterInfo = self.filterInfo(at: indexPath.row) as? SearchTermFilterInfoType else {
             return
         }
-        delegate?.filterSelectionValueChanged(.singleSelection(value: ""), forFilterWithFilterInfo: freeTextFilterInfo)
+        delegate?.filterSelectionValueChanged(.singleSelection(value: ""), forFilterWithFilterInfo: searchTermFilterInfo)
     }
 }
 

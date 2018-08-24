@@ -87,7 +87,7 @@ enum Sections: String {
                 return .bottomSheet
             case .rangeFilter:
                 return .bottomSheet
-            case .freeText:
+            case .searchTerm:
                 return .none
             }
         case .fullscreen:
@@ -159,7 +159,7 @@ enum ComponentViews: String {
     case list
     case compactListFilter
     case rangeFilter
-    case freeText
+    case searchTerm
 
     var viewController: UIViewController {
         switch self {
@@ -174,7 +174,7 @@ enum ComponentViews: String {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, freeTextSuggestionsDataSource: DemoFreeTextSuggestionsDataSource())
+            let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, searchTermSuggestionsDataSource: DemoSearchTermSuggestionsDataSource())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             rootFilterNavigator.start()
@@ -194,9 +194,9 @@ enum ComponentViews: String {
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
 
-        case .freeText:
-            let freeTextViewController = FreeTextViewController(title: "Filtrer søket", startText: nil, placeholder: "Søk etter ord")
-            let navigationController = UINavigationController(rootViewController: freeTextViewController)
+        case .searchTerm:
+            let searchTermViewController = SearchTermViewController(title: "Filtrer søket", startText: nil, placeholder: "Søk etter ord")
+            let navigationController = UINavigationController(rootViewController: searchTermViewController)
             return navigationController
         }
     }
@@ -209,7 +209,7 @@ enum ComponentViews: String {
             .list,
             .compactListFilter,
             .rangeFilter,
-            .freeText,
+            .searchTerm,
         ]
     }
 }
@@ -233,7 +233,7 @@ enum FullscreenViews: String {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, freeTextSuggestionsDataSource: DemoFreeTextSuggestionsDataSource())
+        let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, searchTermSuggestionsDataSource: DemoSearchTermSuggestionsDataSource())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         rootFilterNavigator.start()

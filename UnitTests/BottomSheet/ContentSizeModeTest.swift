@@ -10,6 +10,14 @@ class ContentSizeModeTest: XCTestCase {
     let iPhone6ScreenHeight: CGFloat = 667
     let iPhone6PlusScreenHeight: CGFloat = 736
 
+    func testCompactContentSizeModeIsSupportedForiPhone6ScreenSize() {
+        let compactMode = BottomSheetPresentationController.ContentSizeMode.compact
+
+        let isSupported = compactMode.isSupported(for: iPhone6ScreenHeight)
+
+        XCTAssertTrue(isSupported)
+    }
+
     func testCompactContentSizeModeIsNotSupportedForiPhone5ScreenSize() {
         let compactMode = BottomSheetPresentationController.ContentSizeMode.compact
 

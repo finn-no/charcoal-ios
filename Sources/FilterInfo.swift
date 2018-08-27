@@ -8,7 +8,7 @@ public protocol FilterInfoType {
     var name: String { get }
 }
 
-public protocol FreeTextFilterInfoType: FilterInfoType {
+public protocol SearchQueryFilterInfoType: FilterInfoType {
     var value: String? { get }
     var placeholderText: String { get }
 }

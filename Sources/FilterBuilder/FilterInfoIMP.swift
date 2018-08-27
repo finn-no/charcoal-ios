@@ -6,7 +6,7 @@ public protocol KeyedFilterInfo {
     var key: FilterKey { get }
 }
 
-struct FreeTextFilterInfo: FreeTextFilterInfoType, KeyedFilterInfo {
+struct SearchQueryFilterInfo: SearchQueryFilterInfoType, KeyedFilterInfo {
     var key: FilterKey
     var value: String?
     var placeholderText: String

@@ -11,7 +11,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
         case preferenceFilterInPopover(preferenceInfo: PreferenceInfoType, sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
-        case freeTextFilter(filterInfo: FreeTextFilterInfoType, delegate: FilterViewControllerDelegate)
+        case searchQueryFilter(filterInfo: SearchQueryFilterInfoType, delegate: FilterViewControllerDelegate)
     }
 
     public typealias Factory = ViewControllerFactory & FilterNavigtorFactory
@@ -59,17 +59,17 @@ public class RootFilterNavigator: NSObject, Navigator {
             }
 
             navigationController.pushViewController(listSelectionViewController, animated: true)
-        case let .freeTextFilter(filterInfo, delegate):
+        case let .searchQueryFilter(filterInfo, delegate):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController)
-            guard let freeTextViewController = factory.makeFreeTextFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
+            guard let searchQueryViewController = factory.makeSearchQueryFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
 
             if let bottomSheetPresentationController = navigationController.presentationController as? BottomSheetPresentationController, bottomSheetPresentationController.currentContentSizeMode != .expanded {
-                navigationController.pushViewController(freeTextViewController, animated: false)
+                navigationController.pushViewController(searchQueryViewController, animated: false)
                 bottomSheetPresentationController.transition(to: .expanded)
             } else {
-                navigationController.pushViewController(freeTextViewController, animated: true)
+                navigationController.pushViewController(searchQueryViewController, animated: true)
             }
         }
     }

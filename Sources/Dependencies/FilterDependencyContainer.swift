@@ -7,12 +7,12 @@ import Foundation
 public class FilterDependencyContainer {
     private let dataSource: FilterDataSource
     weak var delegate: FilterDelegate?
-    private let freeTextSuggestionsDataSource: FreeTextSuggestionsDataSource?
+    private let searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
 
-    public init(dataSource: FilterDataSource, delegate: FilterDelegate, freeTextSuggestionsDataSource: FreeTextSuggestionsDataSource?) {
+    public init(dataSource: FilterDataSource, delegate: FilterDelegate, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?) {
         self.dataSource = dataSource
         self.delegate = delegate
-        self.freeTextSuggestionsDataSource = freeTextSuggestionsDataSource
+        self.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
     }
 }
 
@@ -63,10 +63,10 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, delegate: delegate)
     }
 
-    public func makeFreeTextFilterViewController(from freeTextFilterInfo: FreeTextFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
-        let filterViewController = FilterViewController<FreeTextViewController>(filterInfo: freeTextFilterInfo, navigator: navigator, showsApplySelectionButton: false)
+    public func makeSearchQueryFilterViewController(from searchQueryFilterInfo: SearchQueryFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
+        let filterViewController = FilterViewController<SearchQueryViewController>(filterInfo: searchQueryFilterInfo, navigator: navigator, showsApplySelectionButton: false)
         filterViewController?.delegate = delegate
-        (filterViewController?.filterContainerViewController as? FreeTextViewController)?.freeTextSuggestionsDataSource = freeTextSuggestionsDataSource
+        (filterViewController?.filterContainerViewController as? SearchQueryViewController)?.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
 
         return filterViewController
     }

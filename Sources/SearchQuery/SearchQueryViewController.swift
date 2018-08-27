@@ -4,12 +4,12 @@
 
 import UIKit
 
-public protocol FreeTextSuggestionsDataSource: AnyObject {
-    func freeTextViewController(_ freeTextViewController: FreeTextViewController, didRequestSuggestionsFor searchTerm: String, completion: @escaping ((_ text: String, _ suggestions: [String]) -> Void))
+public protocol SearchQuerySuggestionsDataSource: AnyObject {
+    func searchQueryViewController(_ searchQueryViewController: SearchQueryViewController, didRequestSuggestionsFor searchQuery: String, completion: @escaping ((_ text: String, _ suggestions: [String]) -> Void))
 }
 
-public class FreeTextViewController: UIViewController, FilterContainerViewController {
-    public var freeTextSuggestionsDataSource: FreeTextSuggestionsDataSource?
+public class SearchQueryViewController: UIViewController, FilterContainerViewController {
+    public var searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     public var controller: UIViewController {
@@ -21,7 +21,7 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
     private var placeholder: String?
 
     private lazy var searchBar: UISearchBar = {
-        let searchBar = FreeTextViewControllerSearchBar(frame: .zero)
+        let searchBar = SearchQueryViewControllerSearchBar(frame: .zero)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.searchBarStyle = .minimal
         searchBar.showsScopeBar = false
@@ -43,17 +43,17 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelection = false
-        tableView.register(FreeTextSuggestionCell.self)
+        tableView.register(SearchQuerySuggestionCell.self)
 
         return tableView
     }()
 
     public required convenience init?(filterInfo: FilterInfoType) {
-        guard let freeTextFilterInfoType = filterInfo as? FreeTextFilterInfoType else {
+        guard let searchQueryFilterInfoType = filterInfo as? SearchQueryFilterInfoType else {
             return nil
         }
 
-        self.init(title: freeTextFilterInfoType.name, startText: freeTextFilterInfoType.value, placeholder: freeTextFilterInfoType.placeholderText)
+        self.init(title: searchQueryFilterInfoType.name, startText: searchQueryFilterInfoType.value, placeholder: searchQueryFilterInfoType.placeholderText)
     }
 
     public init(title: String?, startText: String?, placeholder: String?) {
@@ -82,7 +82,7 @@ public class FreeTextViewController: UIViewController, FilterContainerViewContro
     }
 }
 
-extension FreeTextViewController: UISearchBarDelegate {
+extension SearchQueryViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: startText ?? ""))
         navigationController?.popViewController(animated: true)
@@ -96,7 +96,7 @@ extension FreeTextViewController: UISearchBarDelegate {
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         suggestions.removeAll()
         suggestionsTableView.reloadData()
-        freeTextSuggestionsDataSource?.freeTextViewController(self, didRequestSuggestionsFor: searchText, completion: { text, suggestions in
+        searchQuerySuggestionsDataSource?.searchQueryViewController(self, didRequestSuggestionsFor: searchText, completion: { text, suggestions in
             DispatchQueue.main.async {
                 if searchText == text {
                     self.suggestions = suggestions
@@ -107,20 +107,20 @@ extension FreeTextViewController: UISearchBarDelegate {
     }
 }
 
-extension FreeTextViewController: UITableViewDataSource {
+extension SearchQueryViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return suggestions.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(FreeTextSuggestionCell.self, for: indexPath)
+        let cell = tableView.dequeue(SearchQuerySuggestionCell.self, for: indexPath)
         let suggestion = suggestions[safe: indexPath.row]
         cell.suggestionLabel.text = suggestion
         return cell
     }
 }
 
-extension FreeTextViewController: UITableViewDelegate {
+extension SearchQueryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let suggestion = suggestions[safe: indexPath.row] {
             searchText = suggestion
@@ -133,7 +133,7 @@ extension FreeTextViewController: UITableViewDelegate {
     }
 }
 
-private extension FreeTextViewController {
+private extension SearchQueryViewController {
     var searchText: String? {
         set {
             searchBar.text = newValue
@@ -162,11 +162,11 @@ private extension FreeTextViewController {
 
 // MARK: - Private class
 
-private extension FreeTextViewController {
-    class FreeTextViewControllerSearchBar: UISearchBar {
+private extension SearchQueryViewController {
+    class SearchQueryViewControllerSearchBar: UISearchBar {
         // Makes sure to setup appearance proxy one time and one time only
-        private static let setupFreeTextSearchBarAppereanceOnce: () = {
-            let appearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextViewControllerSearchBar.self])
+        private static let setupSearchQuerySearchBarAppereanceOnce: () = {
+            let appearance = UITextField.appearance(whenContainedInInstancesOf: [SearchQueryViewControllerSearchBar.self])
             appearance.defaultTextAttributes = [
                 NSAttributedStringKey.foregroundColor.rawValue: UIColor.licorice,
                 NSAttributedStringKey.font.rawValue: UIFont.title4,
@@ -174,12 +174,12 @@ private extension FreeTextViewController {
         }()
 
         override init(frame: CGRect) {
-            _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
+            _ = SearchQueryViewControllerSearchBar.setupSearchQuerySearchBarAppereanceOnce
             super.init(frame: frame)
         }
 
         required init?(coder aDecoder: NSCoder) {
-            _ = FreeTextViewControllerSearchBar.setupFreeTextSearchBarAppereanceOnce
+            _ = SearchQueryViewControllerSearchBar.setupSearchQuerySearchBarAppereanceOnce
             super.init(coder: aDecoder)
         }
     }

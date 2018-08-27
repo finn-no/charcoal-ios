@@ -4,7 +4,7 @@
 
 import UIKit
 
-class FreeTextSuggestionCell: UITableViewCell {
+class SearchQuerySuggestionCell: UITableViewCell {
     lazy var suggestionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false

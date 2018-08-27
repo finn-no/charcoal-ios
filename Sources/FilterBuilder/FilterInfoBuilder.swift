@@ -19,7 +19,7 @@ public final class FilterInfoBuilder {
         }
 
         if filter.rawFilterKeys.contains(FilterKey.query.rawValue) {
-            info.append(buildFreeSearchFilterInfo())
+            info.append(buildSearchQueryFilterInfo())
         }
 
         if let preferenceFilterInfo = buildPreferenceFilterInfo(fromKeys: market.preferenceFilterKeys) {
@@ -34,8 +34,8 @@ public final class FilterInfoBuilder {
 }
 
 private extension FilterInfoBuilder {
-    func buildFreeSearchFilterInfo() -> FilterInfoType {
-        return FreeSearchFilterInfo(key: .query, currentSearchQuery: nil, searchQueryPlaceholder: "Ord i annonsen", name: "freesearch")
+    func buildSearchQueryFilterInfo() -> FilterInfoType {
+        return SearchQueryFilterInfo(key: .query, value: nil, placeholderText: "Ord i annonsen", name: "Filtrer søket")
     }
 
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {

@@ -101,6 +101,8 @@ extension FilterRootViewController: UITableViewDelegate {
             navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
             navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
+        case let searchQueryFilterInfo as SearchQueryFilterInfoType:
+            navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
         default:
             break
         }
@@ -117,10 +119,11 @@ extension FilterRootViewController: UITableViewDataSource {
         let selectionValues = selectionValuesForFilterComponent(at: indexPath.row)
 
         switch filterInfo {
-        case let freeSearchInfo as FreeSearchFilterInfoType:
+        case let searchQueryInfo as SearchQueryFilterInfoType:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            cell.searchQuery = freeSearchInfo.currentSearchQuery
-            cell.placeholderText = freeSearchInfo.searchQueryPlaceholder
+            cell.searchText = searchQueryInfo.value
+            cell.placeholderText = searchQueryInfo.placeholderText
+            cell.delegate = self
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
@@ -231,6 +234,28 @@ extension FilterRootViewController: FilterCellDelegate {
         guard let indexPath = tableView.indexPath(for: filterCell) else {
             return
         }
+    }
+}
+
+extension FilterRootViewController: SearchQueryCellDelegate {
+    func searchQueryCellDidTapSearchBar(_ searchQueryCell: SearchQueryCell) {
+        guard let indexPath = tableView.indexPath(for: searchQueryCell) else {
+            return
+        }
+        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath.row) as? SearchQueryFilterInfoType else {
+            return
+        }
+        navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
+    }
+
+    func searchQueryCellDidTapRemoveSelectedValue(_ searchQueryCell: SearchQueryCell) {
+        guard let indexPath = tableView.indexPath(for: searchQueryCell) else {
+            return
+        }
+        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath.row) as? SearchQueryFilterInfoType else {
+            return
+        }
+        delegate?.filterSelectionValueChanged(.singleSelection(value: ""), forFilterWithFilterInfo: searchQueryFilterInfo)
     }
 }
 

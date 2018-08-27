@@ -211,7 +211,7 @@ public extension BottomSheetPresentationController {
 
 // MARK: - Transitions
 
-private extension BottomSheetPresentationController {
+public extension BottomSheetPresentationController {
     func transition(to contentSizeMode: ContentSizeMode) {
         guard let containerView = containerView else {
             return

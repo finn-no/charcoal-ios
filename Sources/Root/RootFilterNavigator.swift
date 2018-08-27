@@ -11,6 +11,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
         case preferenceFilterInPopover(preferenceInfo: PreferenceInfoType, sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
+        case searchQueryFilter(filterInfo: SearchQueryFilterInfoType, delegate: FilterViewControllerDelegate)
     }
 
     public typealias Factory = ViewControllerFactory & FilterNavigtorFactory
@@ -58,6 +59,18 @@ public class RootFilterNavigator: NSObject, Navigator {
             }
 
             navigationController.pushViewController(listSelectionViewController, animated: true)
+        case let .searchQueryFilter(filterInfo, delegate):
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            guard let searchQueryViewController = factory.makeSearchQueryFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
+                return
+            }
+
+            if let bottomSheetPresentationController = navigationController.presentationController as? BottomSheetPresentationController, bottomSheetPresentationController.currentContentSizeMode != .expanded {
+                navigationController.pushViewController(searchQueryViewController, animated: false)
+                bottomSheetPresentationController.transition(to: .expanded)
+            } else {
+                navigationController.pushViewController(searchQueryViewController, animated: true)
+            }
         }
     }
 }

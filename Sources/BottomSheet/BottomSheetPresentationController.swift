@@ -211,7 +211,7 @@ public extension BottomSheetPresentationController {
                 } else {
                     compactHeight = 0.7 * containerHeight
                 }
-                return min(450, compactHeight.rounded())
+                return max(450, compactHeight.rounded())
             case .expanded:
                 return expandedHeightCalcuation()
             }

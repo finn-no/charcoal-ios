@@ -1,6 +1,9 @@
 ## [Unreleased]
-- Fixed UI issue when iOS version < 11
 - Updated bottom sheet swipe handle
+- Fixed UI issue when iOS version < 11
+- Updated DNA from Finnivers and added DNA views to Demo app
+- New search query filter added
+- Update bottom sheet size and removed support for compact size on small devices
 
 ## [0.4] - 2018-06-26
 - App icon!

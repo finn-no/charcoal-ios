@@ -5,7 +5,7 @@
 @testable import FilterKit
 import XCTest
 
-class FilterDecodingTests: BaseTestCase {
+class FilterDecodingTests: BaseDecodingTestCase {
     lazy var decodedTestFilter: Filter? = {
         return filterDataFromJSONFile(named: "DecodingTestFilter")
     }()

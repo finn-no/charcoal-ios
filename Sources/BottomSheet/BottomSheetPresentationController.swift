@@ -198,13 +198,30 @@ public extension BottomSheetPresentationController {
     enum ContentSizeMode {
         case compact, expanded
 
-        var percentageOfSizeInSuperview: CGFloat {
+        func bottomSheetHeight(for containerHeight: CGFloat) -> CGFloat {
+            let expandedHeightCalcuation = { (0.92 * containerHeight).rounded() }
             switch self {
             case .compact:
-                return 0.5
+                if !isSupported(for: containerHeight) {
+                    return expandedHeightCalcuation()
+                }
+                let compactHeight: CGFloat
+                if containerHeight > 800 {
+                    compactHeight = 0.6 * containerHeight
+                } else {
+                    compactHeight = 0.7 * containerHeight
+                }
+                return max(450, compactHeight.rounded())
             case .expanded:
-                return 0.9
+                return expandedHeightCalcuation()
             }
+        }
+
+        func isSupported(for containerHeight: CGFloat) -> Bool {
+            if self == .compact && containerHeight < 570 {
+                return false
+            }
+            return true
         }
     }
 }
@@ -218,7 +235,12 @@ public extension BottomSheetPresentationController {
         }
 
         let fromContentSizeMode = currentContentSizeMode
-        let newContentSizeMode = contentSizeMode
+        let newContentSizeMode: ContentSizeMode
+        if contentSizeMode.isSupported(for: containerView.frame.height) {
+            newContentSizeMode = contentSizeMode
+        } else {
+            newContentSizeMode = .expanded
+        }
 
         presentedViewTopAnchorConstraint?.constant = rect(for: newContentSizeMode, in: containerView.frame).origin.y
 
@@ -246,8 +268,9 @@ public extension BottomSheetPresentationController {
 
 private extension BottomSheetPresentationController {
     func rect(for contentSizeMode: ContentSizeMode, in rect: CGRect) -> CGRect {
-        let origin = CGPoint(x: 0, y: rect.height * (1.0 - contentSizeMode.percentageOfSizeInSuperview))
-        let size = CGSize(width: rect.width, height: rect.height - origin.y)
+        let height = contentSizeMode.bottomSheetHeight(for: rect.height)
+        let origin = CGPoint(x: 0, y: rect.height - height)
+        let size = CGSize(width: rect.width, height: height)
 
         return CGRect(origin: origin, size: size)
     }

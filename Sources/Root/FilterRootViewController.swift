@@ -121,7 +121,7 @@ extension FilterRootViewController: UITableViewDataSource {
         switch filterInfo {
         case let searchQueryInfo as SearchQueryFilterInfoType:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            cell.searchText = searchQueryInfo.value
+            cell.searchText = selectionValues.first
             cell.placeholderText = searchQueryInfo.placeholderText
             cell.delegate = self
             return cell

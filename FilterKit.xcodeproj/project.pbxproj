@@ -118,6 +118,7 @@
 		9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */; };
 		9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A069209724D70000632B /* PreferencesCell.swift */; };
 		9BFC08912134088C00AB8A11 /* ContentSizeModeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */; };
+		9BFC089421341FFA00AB8A11 /* FilterSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +268,7 @@
 		9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomButtonView.swift; sourceTree = "<group>"; };
 		9BE0A069209724D70000632B /* PreferencesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCell.swift; sourceTree = "<group>"; };
 		9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeModeTest.swift; sourceTree = "<group>"; };
+		9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,11 +508,12 @@
 		55858A1E20AACFF000B100EA /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				55858A1620AAC2EB00B100EA /* FilterDataSource.swift */,
-				55858A2120AAD27F00B100EA /* Navigation */,
-				5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */,
 				55858A1D20AAC9BF00B100EA /* Factories */,
+				55858A1620AAC2EB00B100EA /* FilterDataSource.swift */,
 				55E869E620E4C937008B921E /* FilterDelegate.swift */,
+				5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */,
+				9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */,
+				55858A2120AAD27F00B100EA /* Navigation */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -1005,6 +1008,7 @@
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */,
 				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
+				9BFC089421341FFA00AB8A11 /* FilterSelectionDataSource.swift in Sources */,
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,

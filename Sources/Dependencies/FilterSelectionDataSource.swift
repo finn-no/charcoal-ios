@@ -6,75 +6,80 @@ import Foundation
 
 public protocol FilterSelectionDataSource: AnyObject {
     func value(for filterInfo: FilterInfoType) -> FilterSelectionValue?
-    func setValue(_ filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType)
+    func setValue(_ filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType)
 }
 
-public class QueryItemBasedFilterSelectionDataSource: NSObject {
-    private var queryItems: [URLQueryItem]
+public class KeyedFilterInfoSelectionDataSource: NSObject {
+    private var selectionValues: [String: [String]]
 
-    init(queryItems: [URLQueryItem]) {
-        self.queryItems = queryItems
+    public init(queryItems: [URLQueryItem]) {
+        var selectionValues = [String: [String]]()
+        for qi in queryItems {
+            guard let value = qi.value else {
+                continue
+            }
+            if let values = selectionValues[qi.name] {
+                selectionValues[qi.name] = values + [value]
+            } else {
+                selectionValues[qi.name] = [value]
+            }
+        }
+        self.selectionValues = selectionValues
+    }
+
+    public convenience override init() {
+        self.init(queryItems: [URLQueryItem]())
+    }
+
+    public override var description: String {
+        return selectionValues.compactMap({ (keyAndValues) -> String? in
+            return keyAndValues.value.map({ keyAndValues.key + "=" + $0 })
+                .joined(separator: "&")
+        }).joined(separator: "&")
     }
 }
 
-private extension QueryItemBasedFilterSelectionDataSource {
-    func queryIndex(of queryName: String) -> Int? {
-        return queryItems.index(where: { (_) -> Bool in
-            return queryName == queryName
-        })
+private extension KeyedFilterInfoSelectionDataSource {
+    func setSelectionValues(_ values: [String], for key: String) {
+        selectionValues[key] = values
     }
 
-    func setQueryItemValues(_ values: [String], for queryName: String) {
-        let otherQueryItems = queryItems.filter { (qi) -> Bool in
-            return qi.name != queryName
-        }
-        var newValues = [URLQueryItem]()
-        for value in values {
-            newValues.append(URLQueryItem(name: queryName, value: value))
-        }
-        queryItems = otherQueryItems + newValues
+    func setSelectionValue(_ value: String, for key: String) {
+        setSelectionValues([value], for: key)
     }
 
-    func setQueryItemValue(_ value: String, for queryName: String) {
-        setQueryItemValues([value], for: queryName)
+    func removeSelectionValue(_ key: String) {
+        selectionValues.removeValue(forKey: key)
     }
 
-    func removeQueryItems(_ queryName: String) {
-        setQueryItemValues([], for: queryName)
+    func selectionValues(for name: String) -> [String] {
+        return selectionValues[name] ?? []
     }
 
-    func queryItems(for name: String) -> [URLQueryItem] {
-        let matchingItems = queryItems.filter { (qi) -> Bool in
-            return qi.name == name
-        }
-        return matchingItems
-    }
-
-    func queryName(for filterInfo: FilterInfoType) -> String? {
+    func filterKey(for filterInfo: FilterInfoType) -> String? {
         if let keyedFilterInfo = filterInfo as? KeyedFilterInfo {
             return keyedFilterInfo.key.rawValue
         }
         return nil
     }
 
-    func setStringValue(_ value: String?, for queryName: String) {
+    func setStringValue(_ value: String?, for key: String) {
         if let value = value, !value.isEmpty {
-            setQueryItemValue(value, for: queryName)
+            setSelectionValue(value, for: key)
         } else {
-            removeQueryItems(queryName)
+            removeSelectionValue(key)
         }
     }
 
-    func setFilterSelectionValue(_ value: FilterSelectionValue, for queryName: String) {
+    func setFilterSelectionValue(_ value: FilterSelectionValue, for key: String) {
         switch value {
         case let .singleSelection(value):
-            setStringValue(value, for: queryName)
+            setStringValue(value, for: key)
         case let .multipleSelection(values):
-            let value = values.joined(separator: ",")
-            setStringValue(value, for: queryName)
+            setSelectionValues(values, for: key)
         case let .rangeSelection(lowValue, highValue):
-            setStringValue(lowValue?.description ?? "", for: queryName + "_from")
-            setStringValue(highValue?.description ?? "", for: queryName + "_to")
+            setStringValue(lowValue?.description ?? "", for: key + "_from")
+            setStringValue(highValue?.description ?? "", for: key + "_to")
         }
     }
 
@@ -86,33 +91,39 @@ private extension QueryItemBasedFilterSelectionDataSource {
     }
 }
 
-extension QueryItemBasedFilterSelectionDataSource: FilterSelectionDataSource {
+extension KeyedFilterInfoSelectionDataSource: FilterSelectionDataSource {
     public func value(for filterInfo: FilterInfoType) -> FilterSelectionValue? {
-        guard let queryName = queryName(for: filterInfo) else {
+        guard let filterKey = filterKey(for: filterInfo) else {
             return nil
         }
         if filterInfo is RangeFilterInfoType {
-            let low = queryItems(for: queryName + "_from").first?.value
-            let high = queryItems(for: queryName + "_to").first?.value
+            let low = selectionValues(for: filterKey + "_from").first
+            let high = selectionValues(for: filterKey + "_to").first
             return .rangeSelection(lowValue: intOrNil(from: low), highValue: intOrNil(from: high))
         } else {
-            if let value = queryItems(for: queryName).first?.value {
-                if filterInfo is ListItem {
-                    let splittedValues = value.split(separator: ",")
-                    return .multipleSelection(values: splittedValues.map({ return String($0) }))
-                } else {
-                    return .singleSelection(value: value)
-                }
-            } else {
+            let values = selectionValues(for: filterKey)
+            if values.count < 1 {
                 return nil
             }
+            if filterInfo is ListItem {
+                return .multipleSelection(values: values)
+            } else {
+                if let value = values.first {
+                    return .singleSelection(value: value)
+                }
+            }
+            return nil
         }
     }
 
-    public func setValue(_ filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType) {
-        guard let queryName = queryName(for: filterInfo) else {
+    public func setValue(_ filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType) {
+        guard let filterKey = filterKey(for: filterInfo) else {
             return
         }
-        setFilterSelectionValue(filterSelectionValue, for: queryName)
+        if let filterSelectionValue = filterSelectionValue {
+            setFilterSelectionValue(filterSelectionValue, for: filterKey)
+        } else {
+            removeSelectionValue(filterKey)
+        }
     }
 }

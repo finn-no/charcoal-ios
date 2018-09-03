@@ -6,6 +6,7 @@ import FilterKit
 
 class DemoFilter {
     let filterData: FilterSetup
+    let selectionDataSource = KeyedFilterInfoSelectionDataSource()
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
         let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
@@ -51,14 +52,18 @@ extension DemoFilter: FilterDataSource {
 
 extension DemoFilter: FilterDelegate {
     func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let filter = filterInfo as? ParameterBasedFilterInfo {
-            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
+        if let keyedFilter = filterInfo as? KeyedFilterInfo {
+            // print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+            selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
+            print(selectionDataSource)
         }
     }
 
     func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let filter = filterInfo as? ParameterBasedFilterInfo {
-            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
+        if let keyedFilter = filterInfo as? KeyedFilterInfo {
+            // print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+            selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
+            print(selectionDataSource)
         }
     }
 }

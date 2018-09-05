@@ -1,4 +1,4 @@
-## [Unreleased]
+## [0.5] - 2018-09-05
 - Updated bottom sheet swipe handle
 - Fixed UI issue when iOS version < 11
 - Updated DNA from Finnivers and added DNA views to Demo app

@@ -6,7 +6,7 @@
 import XCTest
 
 class FilterDecodingTests: BaseDecodingTestCase {
-    lazy var decodedTestFilter: Filter? = {
+    lazy var decodedTestFilter: FilterSetup? = {
         return filterDataFromJSONFile(named: "DecodingTestFilter")
     }()
 
@@ -15,10 +15,10 @@ class FilterDecodingTests: BaseDecodingTestCase {
         let data = dataFromJSONFile(named: "DecodingTestFilter")
 
         // When
-        let filter: Filter?
+        let filter: FilterSetup?
 
         if let data = data {
-            filter = try? JSONDecoder().decode(Filter.self, from: data)
+            filter = try? JSONDecoder().decode(FilterSetup.self, from: data)
         } else {
             filter = nil
         }

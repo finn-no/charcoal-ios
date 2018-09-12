@@ -5,9 +5,9 @@
 import Foundation
 
 public final class RangeFilterInfoBuilder {
-    let filter: Filter
+    let filter: FilterSetup
 
-    init(filter: Filter) {
+    init(filter: FilterSetup) {
         self.filter = filter
     }
 

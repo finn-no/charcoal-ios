@@ -220,7 +220,7 @@ enum FullscreenViews: String {
     case eiendom
 
     var viewController: UIViewController {
-        let filter: Filter
+        let filter: FilterSetup
 
         switch self {
         case .torget:

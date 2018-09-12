@@ -6,7 +6,7 @@
 import XCTest
 
 class FilterInfoBuilderTests: BaseDecodingTestCase {
-    lazy var decodedTestFilter: Filter? = {
+    lazy var decodedTestFilter: FilterSetup? = {
         return filterDataFromJSONFile(named: "FilterInfoBuildersTestsFilter")
     }()
 

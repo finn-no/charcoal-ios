@@ -55,7 +55,7 @@
 		559C61F320DA4C8D0083A574 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		559C61F420DA4C8D0083A574 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */; };
-		559C61F820DA4D860083A574 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC0FD20BFFB8D0038C83A /* Filter.swift */; };
+		559C61F820DA4D860083A574 /* FilterSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */; };
 		559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C61FB20DA87330083A574 /* FilterDecodingTests.swift */; };
 		559C620320DA88B90083A574 /* DecodingTestFilter.json in Resources */ = {isa = PBXBuildFile; fileRef = 559C620220DA88B90083A574 /* DecodingTestFilter.json */; };
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
@@ -229,7 +229,7 @@
 		55BDA77020DBD99600331FFC /* RangeFilterInfoBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterInfoBuilder.swift; sourceTree = "<group>"; };
 		55BDA77120DBD99600331FFC /* FilterInfoIMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterInfoIMP.swift; path = FilterBuilder/FilterInfoIMP.swift; sourceTree = "<group>"; };
 		55BDA77420DCCD8E00331FFC /* realestate-homes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-homes.json"; sourceTree = "<group>"; };
-		55BDC0FD20BFFB8D0038C83A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
 		55C9CC252099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomPopoverPresentationController+PopoverBackgroundView.swift"; sourceTree = "<group>"; };
 		55C9CC282099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -576,7 +576,7 @@
 			isa = PBXGroup;
 			children = (
 				55BDA77120DBD99600331FFC /* FilterInfoIMP.swift */,
-				55BDC0FD20BFFB8D0038C83A /* Filter.swift */,
+				55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */,
 				55BDA76C20DBC43F00331FFC /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				55E869DB20E2587E008B921E /* FilterSelectionValue.swift */,
@@ -1050,7 +1050,7 @@
 				55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */,
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
-				559C61F820DA4D860083A574 /* Filter.swift in Sources */,
+				559C61F820DA4D860083A574 /* FilterSetup.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				55E869D720E24498008B921E /* FilterViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct Filter: Decodable {
+public struct FilterSetup: Decodable {
     public let market: String
     public let hits: Int
     public let filterTitle: String
@@ -16,7 +16,7 @@ public struct Filter: Decodable {
     }
 
     public init(from data: Data) throws {
-        self = try JSONDecoder().decode(Filter.self, from: data)
+        self = try JSONDecoder().decode(FilterSetup.self, from: data)
     }
 
     public init(from decoder: Decoder) throws {

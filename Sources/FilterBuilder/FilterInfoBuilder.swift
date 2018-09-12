@@ -5,9 +5,9 @@
 import Foundation
 
 public final class FilterInfoBuilder {
-    let filter: Filter
+    let filter: FilterSetup
 
-    public init(filter: Filter) {
+    public init(filter: FilterSetup) {
         self.filter = filter
     }
 

@@ -227,7 +227,7 @@
 		55BDA76C20DBC43F00331FFC /* FilterKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterKey.swift; sourceTree = "<group>"; };
 		55BDA76E20DBC46800331FFC /* FilterMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarket.swift; sourceTree = "<group>"; };
 		55BDA77020DBD99600331FFC /* RangeFilterInfoBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterInfoBuilder.swift; sourceTree = "<group>"; };
-		55BDA77120DBD99600331FFC /* FilterInfoIMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterInfoIMP.swift; path = FilterBuilder/FilterInfoIMP.swift; sourceTree = "<group>"; };
+		55BDA77120DBD99600331FFC /* FilterInfoIMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterInfoIMP.swift; sourceTree = "<group>"; };
 		55BDA77420DCCD8E00331FFC /* realestate-homes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-homes.json"; sourceTree = "<group>"; };
 		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
 		55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopoverPresentationController.swift; sourceTree = "<group>"; };
@@ -581,7 +581,7 @@
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				55E869DB20E2587E008B921E /* FilterSelectionValue.swift */,
 			);
-			name = Filter;
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		559C620120DA88330083A574 /* Test Data */ = {

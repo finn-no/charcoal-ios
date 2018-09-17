@@ -27,7 +27,7 @@ struct PreferenceInfo: PreferenceInfoType, KeyedFilterInfo {
 }
 
 struct PreferenceValue: PreferenceValueType {
-    let preferenceName: String
+    let title: String
     let results: Int
     let value: String
 }

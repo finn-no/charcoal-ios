@@ -14,7 +14,7 @@ public protocol SearchQueryFilterInfoType: FilterInfoType {
 }
 
 public protocol PreferenceValueType: ListItem {
-    var preferenceName: String { get }
+    var title: String { get }
     var value: String { get }
     var results: Int { get }
 }
@@ -22,7 +22,6 @@ public protocol PreferenceValueType: ListItem {
 // MARK: - ListItem default implementation
 
 extension PreferenceValueType {
-    public var title: String? { return preferenceName }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return false }
 }
@@ -51,7 +50,6 @@ public protocol ListSelectionFilterValueType: ListItem {
 // MARK: - SelectionFilterInfoType: ListItem default implementation
 
 extension ListSelectionFilterValueType {
-    public var title: String? { return title }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return false }
 }
@@ -66,7 +64,6 @@ public protocol MultiLevelListSelectionFilterInfoType: FilterInfoType, ListItem 
 // MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation
 
 extension MultiLevelListSelectionFilterInfoType {
-    public var title: String? { return title }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }
 }

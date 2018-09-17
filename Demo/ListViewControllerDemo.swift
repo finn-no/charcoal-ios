@@ -7,7 +7,7 @@ import Foundation
 
 struct ListViewControllerDemo {
     struct DemoListItem: ListItem {
-        var title: String?
+        var title: String
         var detail: String?
         var showsDisclosureIndicator: Bool
     }

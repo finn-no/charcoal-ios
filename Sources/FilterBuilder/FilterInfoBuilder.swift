@@ -42,7 +42,7 @@ private extension FilterInfoBuilder {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
         let preferences = filterDataArray.compactMap { filter -> PreferenceInfoType? in
-            guard let values = filter.queries?.map({ PreferenceValue(preferenceName: $0.title, results: $0.totalResults, value: $0.value) }) else {
+            guard let values = filter.queries?.map({ PreferenceValue(title: $0.title, results: $0.totalResults, value: $0.value) }) else {
                 return nil
             }
 

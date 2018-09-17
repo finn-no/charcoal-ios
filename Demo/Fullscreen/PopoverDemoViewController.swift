@@ -127,7 +127,7 @@ extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
 
 private extension PopoverDemoViewController {
     struct PopoverDemoListItem: ListItem {
-        var title: String?
+        var title: String
         let detail: String? = nil
         let showsDisclosureIndicator: Bool = false
     }

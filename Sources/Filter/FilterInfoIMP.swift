@@ -77,9 +77,9 @@ extension RangeFilterInfo {
     typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
-    init(key: FilterKey, name: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
+    init(key: FilterKey, title: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
         self.key = key
-        title = name
+        self.title = title
         self.lowValue = lowValue
         self.highValue = highValue
         additionalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset

@@ -51,12 +51,14 @@ public struct FilterSetup: Decodable {
 struct FilterData {
     let key: FilterKey
     let title: String
+    let parameterName: String
     let isRange: Bool
     let queries: [FilterData.Query]?
 
     init(key: FilterKey, partial: PartialFilterDataElement) {
         self.key = key
         title = partial.title
+        parameterName = partial.parameterName
         isRange = partial.isRange
         queries = partial.queries
     }
@@ -65,18 +67,20 @@ struct FilterData {
 extension FilterData {
     struct PartialFilterDataElement: Decodable {
         let title: String
+        let parameterName: String
         let isRange: Bool
         let queries: [FilterData.Query]?
 
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             title = try container.decode(String.self, forKey: CodingKeys.title)
+            parameterName = try container.decode(String.self, forKey: CodingKeys.name)
             isRange = try container.decodeIfPresent(Bool.self, forKey: CodingKeys.isRange) ?? false
             queries = try container.decodeIfPresent([Query].self, forKey: CodingKeys.queries)
         }
 
         enum CodingKeys: String, CodingKey {
-            case title, isRange = "range", queries
+            case title, isRange = "range", queries, name
         }
     }
 }
@@ -97,6 +101,11 @@ extension FilterData {
 extension FilterData.Query {
     struct QueryFilter: Decodable {
         let title: String
+        let parameterName: String
         let queries: [FilterData.Query]
+
+        enum CodingKeys: String, CodingKey {
+            case title, parameterName = "name", queries
+        }
     }
 }

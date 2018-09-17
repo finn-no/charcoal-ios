@@ -92,7 +92,7 @@ private extension RangeFilterInfoBuilder {
 
         return RangeFilterInfo(
             key: key,
-            name: name,
+            title: name,
             lowValue: lowValue,
             highValue: highValue,
             steps: steps,
@@ -177,7 +177,7 @@ private extension RangeFilterInfoBuilder {
 
         return RangeFilterInfo(
             key: key,
-            name: name,
+            title: name,
             lowValue: lowValue,
             highValue: highValue,
             steps: steps,
@@ -217,7 +217,7 @@ private extension RangeFilterInfoBuilder {
 
         return RangeFilterInfo(
             key: key,
-            name: name,
+            title: name,
             lowValue: lowValue,
             highValue: highValue,
             steps: steps,

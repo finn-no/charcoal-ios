@@ -80,7 +80,7 @@ public extension FilterViewController {
 private extension FilterViewController {
     func setup(with filterView: UIView) {
         view.backgroundColor = .milk
-        title = filterInfo.name
+        title = filterInfo.title
 
         filterView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterView)

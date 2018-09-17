@@ -77,7 +77,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 private extension RangeFilterViewController {
     func setup() {
         view.backgroundColor = .milk
-        title = filterInfo.name
+        title = filterInfo.title
 
         view.addSubview(rangeFilterView)
 

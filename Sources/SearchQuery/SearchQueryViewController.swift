@@ -53,7 +53,7 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
             return nil
         }
 
-        self.init(title: searchQueryFilterInfoType.name, startText: searchQueryFilterInfoType.value, placeholder: searchQueryFilterInfoType.placeholderText)
+        self.init(title: searchQueryFilterInfoType.title, startText: searchQueryFilterInfoType.value, placeholder: searchQueryFilterInfoType.placeholderText)
     }
 
     public init(title: String?, startText: String?, placeholder: String?) {

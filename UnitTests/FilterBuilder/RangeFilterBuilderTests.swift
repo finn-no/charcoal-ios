@@ -42,8 +42,8 @@ class RangeFilterBuilderTests: BaseDecodingTestCase {
         XCTAssertNotNil(yearRangefilterInfo)
         XCTAssertNotNil(steps)
 
-        XCTAssertEqual(yearRangefilterInfo?.name, "Årsmodell")
-        XCTAssertEqual(yearRangefilterInfo?.name, yearRangeFilterData?.title)
+        XCTAssertEqual(yearRangefilterInfo?.title, "Årsmodell")
+        XCTAssertEqual(yearRangefilterInfo?.title, yearRangeFilterData?.title)
         XCTAssertEqual(yearRangefilterInfo?.lowValue, fromYear)
         XCTAssertEqual(yearRangefilterInfo?.highValue, currentYear)
         XCTAssertEqual(yearRangefilterInfo?.steps, steps)

@@ -10,20 +10,20 @@ struct SearchQueryFilterInfo: SearchQueryFilterInfoType, KeyedFilterInfo {
     var key: FilterKey
     var value: String?
     var placeholderText: String
-    var name: String
+    var title: String
 }
 
 struct PreferenceFilterInfo: PreferenceFilterInfoType {
     var preferences: [PreferenceInfoType]
-    var name: String
+    var title: String
 }
 
 struct PreferenceInfo: PreferenceInfoType, KeyedFilterInfo {
     var key: FilterKey
-    let preferenceName: String
+    let title: String
     let values: [PreferenceValueType]
     let isMultiSelect: Bool = true
-    var name: String { return "" } // This will be title later
+    var preferenceName: String { return title }
 }
 
 struct PreferenceValue: PreferenceValueType {
@@ -34,7 +34,7 @@ struct PreferenceValue: PreferenceValueType {
 
 struct ListSelectionFilterInfo: ListSelectionFilterInfoType, KeyedFilterInfo {
     var key: FilterKey
-    let name: String
+    let title: String
     let values: [ListSelectionFilterValueType]
     let isMultiSelect: Bool
 }
@@ -48,7 +48,7 @@ struct ListSelectionFilterValue: ListSelectionFilterValueType {
 struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, KeyedFilterInfo {
     var key: FilterKey
     let filters: [MultiLevelListSelectionFilterInfoType]
-    let name: String
+    let title: String
     let isMultiSelect: Bool = true
     let results: Int
     let value: String?
@@ -56,7 +56,7 @@ struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType,
 
 struct RangeFilterInfo: RangeFilterInfoType, KeyedFilterInfo {
     var key: FilterKey
-    var name: String
+    var title: String
     var lowValue: Int
     var highValue: Int
     var additionalLowerBoundOffset: Int
@@ -79,7 +79,7 @@ extension RangeFilterInfo {
 
     init(key: FilterKey, name: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
         self.key = key
-        self.name = name
+        title = name
         self.lowValue = lowValue
         self.highValue = highValue
         additionalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset

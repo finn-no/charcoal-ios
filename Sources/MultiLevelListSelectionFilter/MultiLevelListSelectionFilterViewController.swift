@@ -19,7 +19,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         }
 
         self.filterInfo = multiLevelFilterInfo
-        super.init(title: multiLevelFilterInfo.name, items: multiLevelFilterInfo.filters, allowsMultipleSelection: multiLevelFilterInfo.isMultiSelect)
+        super.init(title: multiLevelFilterInfo.title, items: multiLevelFilterInfo.filters, allowsMultipleSelection: multiLevelFilterInfo.isMultiSelect)
     }
 
     public required init?(coder aDecoder: NSCoder) {

@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol FilterInfoType {
-    var name: String { get }
+    var title: String { get }
 }
 
 public protocol SearchQueryFilterInfoType: FilterInfoType {
@@ -66,7 +66,7 @@ public protocol MultiLevelListSelectionFilterInfoType: FilterInfoType, ListItem 
 // MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation
 
 extension MultiLevelListSelectionFilterInfoType {
-    public var title: String? { return name }
+    public var title: String? { return title }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }
 }

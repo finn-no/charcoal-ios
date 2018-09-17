@@ -20,13 +20,14 @@ struct PreferenceFilterInfo: PreferenceFilterInfoType {
 
 struct PreferenceInfo: PreferenceInfoType, KeyedFilterInfo {
     var key: FilterKey
-    let name: String
+    let preferenceName: String
     let values: [PreferenceValueType]
     let isMultiSelect: Bool = true
+    var name: String { return "" } // This will be title later
 }
 
 struct PreferenceValue: PreferenceValueType {
-    let name: String
+    let preferenceName: String
     let results: Int
     let value: String
 }
@@ -39,7 +40,7 @@ struct ListSelectionFilterInfo: ListSelectionFilterInfoType, KeyedFilterInfo {
 }
 
 struct ListSelectionFilterValue: ListSelectionFilterValueType {
-    let name: String
+    let title: String
     let results: Int
     let value: String?
 }

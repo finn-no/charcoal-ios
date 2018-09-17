@@ -54,7 +54,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         let filterInfoElements = builder?.build()
         let preferenceFilterInfo = filterInfoElements?.first(where: { $0 is PreferenceFilterInfoType }) as? PreferenceFilterInfoType
         let preferenceFilterInfoPreferences = preferenceFilterInfo?.preferences
-        let publishedPreference = preferenceFilterInfoPreferences?.first(where: { $0.name == "Publisert" })
+        let publishedPreference = preferenceFilterInfoPreferences?.first(where: { $0.preferenceName == "Publisert" })
         let publishedFilterData = filter?.filterData(forKey: .published)
 
         // Then
@@ -66,8 +66,8 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         XCTAssertEqual(preferenceFilterInfoPreferences?.count, FilterMarket.car.preferenceFilterKeys.count)
 
         XCTAssertNotNil(publishedPreference)
-        XCTAssertEqual(publishedPreference?.name, "Publisert")
-        XCTAssertEqual(publishedPreference?.name, publishedFilterData?.title)
+        XCTAssertEqual(publishedPreference?.preferenceName, "Publisert")
+        XCTAssertEqual(publishedPreference?.preferenceName, publishedFilterData?.title)
 
         XCTAssertEqual(publishedPreference?.values.count, 1)
         XCTAssertEqual(publishedPreference?.values.count, publishedFilterData?.queries?.count)

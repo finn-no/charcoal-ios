@@ -20,7 +20,7 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
 
         self.preferenceInfo = preferenceInfo
 
-        super.init(title: preferenceInfo.name, items: preferenceInfo.values, allowsMultipleSelection: preferenceInfo.isMultiSelect)
+        super.init(title: preferenceInfo.preferenceName, items: preferenceInfo.values, allowsMultipleSelection: preferenceInfo.isMultiSelect)
     }
 
     public func setSelectionValue(_ selectionValue: FilterSelectionValue) {

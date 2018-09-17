@@ -42,11 +42,11 @@ private extension FilterInfoBuilder {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
         let preferences = filterDataArray.compactMap { filter -> PreferenceInfoType? in
-            guard let values = filter.queries?.map({ PreferenceValue(name: $0.title, results: $0.totalResults, value: $0.value) }) else {
+            guard let values = filter.queries?.map({ PreferenceValue(preferenceName: $0.title, results: $0.totalResults, value: $0.value) }) else {
                 return nil
             }
 
-            return PreferenceInfo(key: filter.key, name: filter.title, values: values)
+            return PreferenceInfo(key: filter.key, preferenceName: filter.title, values: values)
         }
 
         if preferences.isEmpty {
@@ -57,7 +57,7 @@ private extension FilterInfoBuilder {
     }
 
     func buildSelectionListFilterInfo(from filterData: FilterData) -> ListSelectionFilterInfo? {
-        guard let values = filterData.queries?.map({ ListSelectionFilterValue(name: $0.title, results: $0.totalResults, value: $0.value) }) else {
+        guard let values = filterData.queries?.map({ ListSelectionFilterValue(title: $0.title, results: $0.totalResults, value: $0.value) }) else {
             return nil
         }
 

@@ -279,7 +279,7 @@ extension FilterRootViewController {
         }
 
         func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String? {
-            return preferences[index].name
+            return preferences[index].preferenceName
         }
 
         func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {

@@ -51,14 +51,14 @@ extension DemoFilter: FilterDataSource {
 
 extension DemoFilter: FilterDelegate {
     func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            print("filterSelectionValueChanged for filter with parameter: \(keyedFilter.parameterName). Value: \(String(describing: filterSelectionValue))")
+        if let filter = filterInfo as? ParameterBasedFilterInfo {
+            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
         }
     }
 
     func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            print("filterSelectionValueChanged for filter with parameter: \(keyedFilter.parameterName). Value: \(String(describing: filterSelectionValue))")
+        if let filter = filterInfo as? ParameterBasedFilterInfo {
+            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
         }
     }
 }

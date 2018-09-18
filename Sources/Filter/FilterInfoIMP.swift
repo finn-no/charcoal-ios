@@ -2,11 +2,11 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public protocol KeyedFilterInfo {
+public protocol ParameterBasedFilterInfo {
     var parameterName: String { get }
 }
 
-struct SearchQueryFilterInfo: SearchQueryFilterInfoType, KeyedFilterInfo {
+struct SearchQueryFilterInfo: SearchQueryFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     var value: String?
     var placeholderText: String
@@ -18,7 +18,7 @@ struct PreferenceFilterInfo: PreferenceFilterInfoType {
     var title: String
 }
 
-struct PreferenceInfo: PreferenceInfoType, KeyedFilterInfo {
+struct PreferenceInfo: PreferenceInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let title: String
     let values: [PreferenceValueType]
@@ -32,7 +32,7 @@ struct PreferenceValue: PreferenceValueType {
     let value: String
 }
 
-struct ListSelectionFilterInfo: ListSelectionFilterInfoType, KeyedFilterInfo {
+struct ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let title: String
     let values: [ListSelectionFilterValueType]
@@ -45,7 +45,7 @@ struct ListSelectionFilterValue: ListSelectionFilterValueType {
     let value: String?
 }
 
-struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, KeyedFilterInfo {
+struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let filters: [MultiLevelListSelectionFilterInfoType]
     let title: String
@@ -54,7 +54,7 @@ struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType,
     let value: String?
 }
 
-struct RangeFilterInfo: RangeFilterInfoType, KeyedFilterInfo {
+struct RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     var title: String
     var lowValue: Int

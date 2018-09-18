@@ -48,19 +48,17 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
         return tableView
     }()
 
-    public required convenience init?(filterInfo: FilterInfoType) {
-        guard let searchQueryFilterInfoType = filterInfo as? SearchQueryFilterInfoType else {
+    private let searchQueryFilterInfo: SearchQueryFilterInfoType
+
+    public required init?(filterInfo: FilterInfoType) {
+        guard let searchQueryFilterInfo = filterInfo as? SearchQueryFilterInfoType else {
             return nil
         }
-
-        self.init(title: searchQueryFilterInfoType.title, startText: searchQueryFilterInfoType.value, placeholder: searchQueryFilterInfoType.placeholderText)
-    }
-
-    public init(title: String?, startText: String?, placeholder: String?) {
-        self.startText = startText
-        self.placeholder = placeholder
+        self.searchQueryFilterInfo = searchQueryFilterInfo
+        startText = searchQueryFilterInfo.value
+        placeholder = searchQueryFilterInfo.placeholderText
         super.init(nibName: nil, bundle: nil)
-        self.title = title
+        title = searchQueryFilterInfo.title
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -84,12 +82,12 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
 
 extension SearchQueryViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: startText ?? ""))
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: startText ?? ""), for: searchQueryFilterInfo)
         navigationController?.popViewController(animated: true)
     }
 
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText ?? ""))
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText ?? ""), for: searchQueryFilterInfo)
         navigationController?.popViewController(animated: true)
     }
 

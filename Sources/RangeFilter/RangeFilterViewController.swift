@@ -90,6 +90,6 @@ private extension RangeFilterViewController {
     }
 
     @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue))
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue), for: filterInfo)
     }
 }

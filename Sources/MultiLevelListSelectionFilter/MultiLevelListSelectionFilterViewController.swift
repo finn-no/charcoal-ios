@@ -41,7 +41,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         }
 
         if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: sublevelFilterInfo)
         }
 
         if sublevelFilterInfo.filters.isEmpty == false {

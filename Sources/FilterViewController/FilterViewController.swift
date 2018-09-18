@@ -118,7 +118,7 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
         }
     }
 
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
+    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType) {
         self.filterSelectionValue = filterSelectionValue
         delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }

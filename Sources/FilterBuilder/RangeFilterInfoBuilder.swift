@@ -30,6 +30,7 @@ public final class RangeFilterInfoBuilder {
 private extension RangeFilterInfoBuilder {
     func buildRangeFilterInfoForCarMarket(from filterData: FilterData) -> RangeFilterInfoType? {
         let key = filterData.key
+        let parameterName = filterData.parameterName
         let name = filterData.title
         let lowValue: Int
         let highValue: Int
@@ -92,6 +93,7 @@ private extension RangeFilterInfoBuilder {
 
         return RangeFilterInfo(
             key: key,
+            parameterName: parameterName,
             title: name,
             lowValue: lowValue,
             highValue: highValue,
@@ -106,6 +108,7 @@ private extension RangeFilterInfoBuilder {
 
     func buildRangeFilterInfoForRealestateMarket(from filterData: FilterData) -> RangeFilterInfoType? {
         let key = filterData.key
+        let parameterName = filterData.parameterName
         let name = filterData.title
         let lowValue: Int
         let highValue: Int
@@ -177,6 +180,7 @@ private extension RangeFilterInfoBuilder {
 
         return RangeFilterInfo(
             key: key,
+            parameterName: parameterName,
             title: name,
             lowValue: lowValue,
             highValue: highValue,
@@ -191,6 +195,7 @@ private extension RangeFilterInfoBuilder {
 
     func buildRangeFilterInfoForBAPMarket(from filterData: FilterData) -> RangeFilterInfoType? {
         let key = filterData.key
+        let parameterName = filterData.parameterName
         let name = filterData.title
         let lowValue: Int
         let highValue: Int
@@ -217,6 +222,7 @@ private extension RangeFilterInfoBuilder {
 
         return RangeFilterInfo(
             key: key,
+            parameterName: parameterName,
             title: name,
             lowValue: lowValue,
             highValue: highValue,

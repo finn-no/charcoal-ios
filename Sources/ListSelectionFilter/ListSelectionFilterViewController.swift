@@ -39,7 +39,7 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         }
 
         if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: filterInfo)
         }
     }
 

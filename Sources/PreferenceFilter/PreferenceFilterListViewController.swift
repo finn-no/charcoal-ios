@@ -47,7 +47,7 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
         }
 
         if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: preferenceInfo)
         }
     }
 }

@@ -35,7 +35,7 @@ public final class FilterInfoBuilder {
 
 private extension FilterInfoBuilder {
     func buildSearchQueryFilterInfo() -> FilterInfoType {
-        return SearchQueryFilterInfo(key: .query, parameterName: "q", value: nil, placeholderText: "Ord i annonsen", title: "Filtrer søket")
+        return SearchQueryFilterInfo(parameterName: "q", value: nil, placeholderText: "Ord i annonsen", title: "Filtrer søket")
     }
 
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {
@@ -46,7 +46,7 @@ private extension FilterInfoBuilder {
                 return nil
             }
 
-            return PreferenceInfo(key: filter.key, parameterName: filter.parameterName, title: filter.title, values: values)
+            return PreferenceInfo(parameterName: filter.parameterName, title: filter.title, values: values)
         }
 
         if preferences.isEmpty {
@@ -61,27 +61,27 @@ private extension FilterInfoBuilder {
             return nil
         }
 
-        return ListSelectionFilterInfo(key: filterData.key, parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true)
+        return ListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true)
     }
 
-    func buildMultiLevelListSelectionFilterInfo(from filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
+    func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
         guard let filters = filterData.queries?.map({ query -> MultiLevelListSelectionFilterInfo in
-            let queryFilters = buildMultiLevelListSelectionFilterInfo(from: query.filter, key: filterData.key)
-            return MultiLevelListSelectionFilterInfo(key: filterData.key, parameterName: filterData.parameterName, filters: queryFilters, title: query.title, results: query.totalResults, value: query.value)
+            let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter)
+            return MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, filters: queryFilters, title: query.title, results: query.totalResults, value: query.value)
         }) else {
             return nil
         }
 
-        return MultiLevelListSelectionFilterInfo(key: filterData.key, parameterName: filterData.parameterName, filters: filters, title: filterData.title, results: 0, value: nil)
+        return MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, filters: filters, title: filterData.title, results: 0, value: nil)
     }
 
-    func buildMultiLevelListSelectionFilterInfo(from queryFilter: FilterData.Query.QueryFilter?, key: FilterKey) -> [MultiLevelListSelectionFilterInfoType] {
+    func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData.Query.QueryFilter?) -> [MultiLevelListSelectionFilterInfoType] {
         guard let queryFilter = queryFilter else {
             return []
         }
         let queryFilters = queryFilter.queries.map({ filterQueries -> MultiLevelListSelectionFilterInfo in
-            let subQueryFilters = buildMultiLevelListSelectionFilterInfo(from: filterQueries.filter, key: key)
-            return MultiLevelListSelectionFilterInfo(key: key, parameterName: queryFilter.parameterName, filters: subQueryFilters, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
+            let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter)
+            return MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, filters: subQueryFilters, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
         })
         return queryFilters
     }
@@ -100,7 +100,7 @@ private extension FilterInfoBuilder {
                     filterInfo.append(rangeFilterInfo)
                 }
             } else if FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterData) {
-                if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(from: filterData) {
+                if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(fromFilterData: filterData) {
                     filterInfo.append(mulitLevelSelectionFilterInfo)
                 }
             } else if FilterInfoBuilder.isListSelectionFilter(filterData: filterData) {

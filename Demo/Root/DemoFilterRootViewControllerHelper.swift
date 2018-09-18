@@ -52,13 +52,13 @@ extension DemoFilter: FilterDataSource {
 extension DemoFilter: FilterDelegate {
     func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
         if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue), parameter: \(keyedFilter.parameterName). Value: \(String(describing: filterSelectionValue))")
+            print("filterSelectionValueChanged for filter with parameter: \(keyedFilter.parameterName). Value: \(String(describing: filterSelectionValue))")
         }
     }
 
     func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
         if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue), parameter: \(keyedFilter.parameterName). Value: \(String(describing: filterSelectionValue))")
+            print("filterSelectionValueChanged for filter with parameter: \(keyedFilter.parameterName). Value: \(String(describing: filterSelectionValue))")
         }
     }
 }

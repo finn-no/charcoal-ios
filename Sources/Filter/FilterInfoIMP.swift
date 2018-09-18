@@ -3,12 +3,10 @@
 //
 
 public protocol KeyedFilterInfo {
-    var key: FilterKey { get }
     var parameterName: String { get }
 }
 
 struct SearchQueryFilterInfo: SearchQueryFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
     let parameterName: String
     var value: String?
     var placeholderText: String
@@ -21,7 +19,6 @@ struct PreferenceFilterInfo: PreferenceFilterInfoType {
 }
 
 struct PreferenceInfo: PreferenceInfoType, KeyedFilterInfo {
-    var key: FilterKey
     let parameterName: String
     let title: String
     let values: [PreferenceValueType]
@@ -36,7 +33,6 @@ struct PreferenceValue: PreferenceValueType {
 }
 
 struct ListSelectionFilterInfo: ListSelectionFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
     let parameterName: String
     let title: String
     let values: [ListSelectionFilterValueType]
@@ -50,7 +46,6 @@ struct ListSelectionFilterValue: ListSelectionFilterValueType {
 }
 
 struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
     let parameterName: String
     let filters: [MultiLevelListSelectionFilterInfoType]
     let title: String
@@ -60,7 +55,6 @@ struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType,
 }
 
 struct RangeFilterInfo: RangeFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
     let parameterName: String
     var title: String
     var lowValue: Int
@@ -83,8 +77,7 @@ extension RangeFilterInfo {
     typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
-    init(key: FilterKey, parameterName: String, title: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
-        self.key = key
+    init(parameterName: String, title: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
         self.parameterName = parameterName
         self.title = title
         self.lowValue = lowValue

@@ -58,6 +58,7 @@ class FilterDecodingTests: BaseDecodingTestCase {
         // Then
         XCTAssertNotNil(filterDataElement)
         XCTAssertEqual(filterDataElement?.key, .make)
+        XCTAssertEqual(filterDataElement?.parameterName, "make")
         XCTAssertEqual(filterDataElement?.isRange, false)
         XCTAssertEqual(filterDataElement?.title, "Merke")
         XCTAssertEqual(filterDataElement?.queries?.count, 84)
@@ -68,6 +69,7 @@ class FilterDecodingTests: BaseDecodingTestCase {
         XCTAssertEqual(firstQueryElement?.totalResults, 9)
 
         XCTAssertNotNil(firstQueryElement?.filter)
+        XCTAssertEqual(firstQueryElement?.filter?.parameterName, "model")
         XCTAssertEqual(firstQueryElement?.filter?.title, "Modell")
         XCTAssertEqual(firstQueryElement?.filter?.queries.count, 3)
 
@@ -84,6 +86,7 @@ class FilterDecodingTests: BaseDecodingTestCase {
         // Then
         XCTAssertNotNil(filterDataElement)
         XCTAssertEqual(filterDataElement?.key, .numberOfSeats)
+        XCTAssertEqual(filterDataElement?.parameterName, "number_of_seats")
         XCTAssertEqual(filterDataElement?.title, "Antall seter")
 
         XCTAssertEqual(filterDataElement?.isRange, true)
@@ -100,6 +103,7 @@ class FilterDecodingTests: BaseDecodingTestCase {
         // Then
         XCTAssertNotNil(filterDataElement)
         XCTAssertEqual(filterDataElement?.key, .transmission)
+        XCTAssertEqual(filterDataElement?.parameterName, "transmission")
         XCTAssertEqual(filterDataElement?.title, "Girkasse")
         XCTAssertEqual(filterDataElement?.isRange, false)
 

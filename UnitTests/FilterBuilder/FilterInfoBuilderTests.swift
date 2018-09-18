@@ -78,7 +78,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         XCTAssertEqual(publishedPreference?.values.first?.title, "Nye i dag")
         XCTAssertEqual(publishedPreference?.values.first?.title, publishedFilterData?.queries?.first?.title)
 
-        XCTAssertEqual(publishedPreference?.values.first?.results, 2309)
+        XCTAssertEqual(publishedPreference?.values.first?.results, 2307)
         XCTAssertEqual(publishedPreference?.values.first?.results, publishedFilterData?.queries?.first?.totalResults)
     }
 
@@ -103,7 +103,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         XCTAssertNotNil(makeFilterData)
         XCTAssertEqual(makeMultiLevelFilterInfo?.title, "Merke")
         XCTAssertEqual(makeMultiLevelFilterInfo?.title, makeFilterData?.title)
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.count, 86)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.count, 84)
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.count, makeFilterData?.queries?.count)
 
         XCTAssertNotNil(makeMultiLevelFilterInfo?.filters.first)
@@ -112,7 +112,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.title, "Abarth")
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.title, makeFilterData?.queries?.first?.title)
 
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.results, 6)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.results, 9)
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.results, makeFilterData?.queries?.first?.totalResults)
 
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.count, 3)

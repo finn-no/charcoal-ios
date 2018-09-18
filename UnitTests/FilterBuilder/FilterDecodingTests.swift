@@ -34,7 +34,7 @@ class FilterDecodingTests: BaseDecodingTestCase {
 
         // When
         let expectedMarket = "car-norway"
-        let expectedHits = 70070
+        let expectedHits = 63455
         let expetedFilterTitle = "Biler i Norge"
         let expectedNumberOfRawFilterKeys = 23
         let expectedNumberOfFilterDataElements = 21 // raw filter keys 'market' and 'q' should not be parsed into filter data
@@ -60,12 +60,12 @@ class FilterDecodingTests: BaseDecodingTestCase {
         XCTAssertEqual(filterDataElement?.key, .make)
         XCTAssertEqual(filterDataElement?.isRange, false)
         XCTAssertEqual(filterDataElement?.title, "Merke")
-        XCTAssertEqual(filterDataElement?.queries?.count, 86)
+        XCTAssertEqual(filterDataElement?.queries?.count, 84)
 
         XCTAssertNotNil(firstQueryElement)
         XCTAssertEqual(firstQueryElement?.title, "Abarth")
         XCTAssertEqual(firstQueryElement?.value, "0.8093")
-        XCTAssertEqual(firstQueryElement?.totalResults, 6)
+        XCTAssertEqual(firstQueryElement?.totalResults, 9)
 
         XCTAssertNotNil(firstQueryElement?.filter)
         XCTAssertEqual(firstQueryElement?.filter?.title, "Modell")
@@ -106,7 +106,7 @@ class FilterDecodingTests: BaseDecodingTestCase {
         XCTAssertNotNil(firstQueryElement)
         XCTAssertEqual(firstQueryElement?.title, "Automat")
         XCTAssertEqual(firstQueryElement?.value, "2")
-        XCTAssertEqual(firstQueryElement?.totalResults, 37283)
+        XCTAssertEqual(firstQueryElement?.totalResults, 33282)
         XCTAssertNil(firstQueryElement?.filter)
     }
 }

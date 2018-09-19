@@ -6,10 +6,11 @@ import Foundation
 
 public protocol FilterSelectionDataSource: AnyObject {
     func value(for filterInfo: FilterInfoType) -> FilterSelectionValue?
+    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionValue]
     func setValue(_ filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType)
 }
 
-public class KeyedFilterInfoSelectionDataSource: NSObject {
+public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
     private var selectionValues: [String: [String]]
 
     public init(queryItems: [URLQueryItem]) {
@@ -39,7 +40,7 @@ public class KeyedFilterInfoSelectionDataSource: NSObject {
     }
 }
 
-private extension KeyedFilterInfoSelectionDataSource {
+private extension ParameterBasedFilterInfoSelectionDataSource {
     func setSelectionValues(_ values: [String], for key: String) {
         selectionValues[key] = values
     }
@@ -56,9 +57,9 @@ private extension KeyedFilterInfoSelectionDataSource {
         return selectionValues[name] ?? []
     }
 
-    func filterKey(for filterInfo: FilterInfoType) -> String? {
-        if let keyedFilterInfo = filterInfo as? KeyedFilterInfo {
-            return keyedFilterInfo.key.rawValue
+    func filterParameter(for filterInfo: FilterInfoType) -> String? {
+        if let filter = filterInfo as? ParameterBasedFilterInfo {
+            return filter.parameterName
         }
         return nil
     }
@@ -91,14 +92,31 @@ private extension KeyedFilterInfoSelectionDataSource {
     }
 }
 
-extension KeyedFilterInfoSelectionDataSource: FilterSelectionDataSource {
+extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource {
+    public func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionValue] {
+        var values = [FilterSelectionValue]()
+        if let rootValue = value(for: filterInfo) {
+            values.append(rootValue)
+        }
+        if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType {
+            multiLevelFilterInfo.filters.forEach { subLevel in
+                let subLevelValues = valueAndSubLevelValues(for: subLevel)
+                values.append(contentsOf: subLevelValues)
+            }
+        }
+        return values
+    }
+
     public func value(for filterInfo: FilterInfoType) -> FilterSelectionValue? {
-        guard let filterKey = filterKey(for: filterInfo) else {
+        guard let filterKey = filterParameter(for: filterInfo) else {
             return nil
         }
         if filterInfo is RangeFilterInfoType {
             let low = selectionValues(for: filterKey + "_from").first
             let high = selectionValues(for: filterKey + "_to").first
+            if low == nil && high == nil {
+                return nil
+            }
             return .rangeSelection(lowValue: intOrNil(from: low), highValue: intOrNil(from: high))
         } else {
             let values = selectionValues(for: filterKey)
@@ -117,7 +135,7 @@ extension KeyedFilterInfoSelectionDataSource: FilterSelectionDataSource {
     }
 
     public func setValue(_ filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType) {
-        guard let filterKey = filterKey(for: filterInfo) else {
+        guard let filterKey = filterParameter(for: filterInfo) else {
             return
         }
         if let filterSelectionValue = filterSelectionValue {

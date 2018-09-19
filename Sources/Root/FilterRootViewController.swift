@@ -55,6 +55,11 @@ public class FilterRootViewController: UIViewController {
         super.viewDidLoad()
         setup()
     }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
 }
 
 private extension FilterRootViewController {
@@ -81,12 +86,12 @@ private extension FilterRootViewController {
         ])
     }
 
-    func filterInfo(at index: Int) -> FilterInfoType {
-        return dataSource.filterInfo[index]
+    func filterInfo(at index: Int) -> FilterInfoType? {
+        return dataSource.filterInfo[safe: index]
     }
 
     func selectionValuesForFilterComponent(at index: Int) -> [String] {
-        return dataSource.selectionValuesForFilterInfo(at: index)
+        return dataSource.selectionValuesForFilterInfoAndSubFilters(at: index)
     }
 }
 
@@ -148,10 +153,11 @@ extension FilterRootViewController: UITableViewDataSource {
         case let rangeInfo as RangeFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = rangeInfo.title
+            cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             return cell
         default:
-            fatalError("Unimplemented component \(filterInfo)")
+            fatalError("Unimplemented component \(String(describing: filterInfo))")
         }
     }
 }
@@ -231,9 +237,10 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 
 extension FilterRootViewController: FilterCellDelegate {
     func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int) {
-        guard let indexPath = tableView.indexPath(for: filterCell) else {
+        guard let indexPath = tableView.indexPath(for: filterCell), let filterInfo = filterInfo(at: indexPath.row) else {
             return
         }
+        delegate?.applyFilterSelectionValue(nil, forFilterWithFilterInfo: filterInfo)
     }
 }
 

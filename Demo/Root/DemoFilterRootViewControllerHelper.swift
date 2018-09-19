@@ -6,12 +6,22 @@ import FilterKit
 
 class DemoFilter {
     let filterData: FilterSetup
-    let selectionDataSource = KeyedFilterInfoSelectionDataSource()
+    let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
         let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
 
         return filterInfoBuilder.build()
+    }()
+
+    private lazy var formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.currencySymbol = ""
+        formatter.locale = Locale(identifier: "nb_NO")
+        formatter.maximumFractionDigits = 0
+
+        return formatter
     }()
 
     init(filter: FilterSetup) {
@@ -45,23 +55,40 @@ extension DemoFilter: FilterDataSource {
         return loadedFilterInfo
     }
 
-    func selectionValuesForFilterInfo(at index: Int) -> [String] {
-        return []
+    func selectionValuesForFilterInfoAndSubFilters(at index: Int) -> [String] {
+        guard let filter = filterInfo[safe: index] else {
+            return []
+        }
+        let selectionValues = selectionDataSource.valueAndSubLevelValues(for: filter)
+
+        var result = [String]()
+
+        for selectionValue in selectionValues {
+            switch selectionValue {
+            case let .singleSelection(value):
+                result = [value]
+            case let .multipleSelection(values):
+                result = values
+            case let .rangeSelection(lowValue, highValue):
+                let lowString = formatter.string(for: lowValue) ?? ""
+                let highString = formatter.string(for: highValue) ?? ""
+                result = ["\(lowString) - \(highString)"]
+            }
+        }
+        return result
     }
 }
 
 extension DemoFilter: FilterDelegate {
     func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            // print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+        if let _ = filterInfo as? ParameterBasedFilterInfo {
             selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
             print(selectionDataSource)
         }
     }
 
     func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            // print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+        if let _ = filterInfo as? ParameterBasedFilterInfo {
             selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
             print(selectionDataSource)
         }

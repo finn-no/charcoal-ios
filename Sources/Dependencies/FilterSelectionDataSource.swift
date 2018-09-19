@@ -78,9 +78,18 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
             setStringValue(value, for: key)
         case let .multipleSelection(values):
             setSelectionValues(values, for: key)
-        case let .rangeSelection(lowValue, highValue):
-            setStringValue(lowValue?.description ?? "", for: key + "_from")
-            setStringValue(highValue?.description ?? "", for: key + "_to")
+        case let .rangeSelection(range):
+            switch range {
+            case let .minimum(lowValue):
+                setStringValue(lowValue.description, for: key + "_from")
+                removeSelectionValue(key + "_to")
+            case let .maximum(highValue):
+                removeSelectionValue(key + "_from")
+                setStringValue(highValue.description, for: key + "_to")
+            case let .closed(lowValue, highValue):
+                setStringValue(lowValue.description, for: key + "_from")
+                setStringValue(highValue.description, for: key + "_to")
+            }
         }
     }
 
@@ -112,12 +121,17 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             return nil
         }
         if filterInfo is RangeFilterInfoType {
-            let low = selectionValues(for: filterKey + "_from").first
-            let high = selectionValues(for: filterKey + "_to").first
-            if low == nil && high == nil {
+            let low = intOrNil(from: selectionValues(for: filterKey + "_from").first)
+            let high = intOrNil(from: selectionValues(for: filterKey + "_to").first)
+            if let low = low, let high = high {
+                return .rangeSelection(range: .closed(lowValue: low, highValue: high))
+            } else if let low = low {
+                return .rangeSelection(range: .minimum(lowValue: low))
+            } else if let high = high {
+                return .rangeSelection(range: .maximum(highValue: high))
+            } else {
                 return nil
             }
-            return .rangeSelection(lowValue: intOrNil(from: low), highValue: intOrNil(from: high))
         } else {
             let values = selectionValues(for: filterKey)
             if values.count < 1 {

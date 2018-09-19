@@ -40,11 +40,7 @@ public struct FilterSetup: Decodable {
     }
 
     func filterData(forKey key: FilterKey) -> FilterData? {
-        return filterData(forKey: key.rawValue)
-    }
-
-    func filterData(forKey key: String) -> FilterData? {
-        return filters.first(where: { $0.key.rawValue == key })
+        return filters.first(where: { $0.key == key })
     }
 }
 

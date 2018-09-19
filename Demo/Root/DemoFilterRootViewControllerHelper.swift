@@ -69,10 +69,15 @@ extension DemoFilter: FilterDataSource {
                 result = [value]
             case let .multipleSelection(values):
                 result = values
-            case let .rangeSelection(lowValue, highValue):
-                let lowString = formatter.string(for: lowValue) ?? ""
-                let highString = formatter.string(for: highValue) ?? ""
-                result = ["\(lowString) - \(highString)"]
+            case let .rangeSelection(range):
+                switch range {
+                case let .minimum(lowValue):
+                    result = ["\(lowValue) - ..."]
+                case let .maximum(highValue):
+                    result = ["... - \(highValue)"]
+                case let .closed(lowValue, highValue):
+                    result = ["\(lowValue) - \(highValue)"]
+                }
             }
         }
         return result

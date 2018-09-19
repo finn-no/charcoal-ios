@@ -60,16 +60,18 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
     }
 
     public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        guard case let .rangeSelection(lowValue, higValue) = selectionValue else {
+        guard case let .rangeSelection(range) = selectionValue else {
             return
         }
 
-        if let selectionLowValue = lowValue {
-            rangeFilterView.setLowValue(selectionLowValue, animated: false)
-        }
-
-        if let selectionHighValue = higValue {
-            rangeFilterView.setHighValue(selectionHighValue, animated: false)
+        switch range {
+        case let .minimum(lowValue):
+            rangeFilterView.setLowValue(lowValue, animated: false)
+        case let .maximum(highValue):
+            rangeFilterView.setHighValue(highValue, animated: false)
+        case let .closed(lowValue, highValue):
+            rangeFilterView.setLowValue(lowValue, animated: false)
+            rangeFilterView.setHighValue(highValue, animated: false)
         }
     }
 }
@@ -90,6 +92,23 @@ private extension RangeFilterViewController {
     }
 
     @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue), for: filterInfo)
+        let rangeValue: RangeValue?
+        if let lowValue = rangeFilterView.lowValue {
+            if let highValue = rangeFilterView.highValue {
+                rangeValue = .closed(lowValue: lowValue, highValue: highValue)
+            } else {
+                rangeValue = .minimum(lowValue: lowValue)
+            }
+        } else if let highValue = rangeFilterView.highValue {
+            rangeValue = .maximum(highValue: highValue)
+        } else {
+            rangeValue = nil
+        }
+
+        if let rangeValue = rangeValue {
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(range: rangeValue), for: filterInfo)
+        } else {
+            // TODO: remove selection
+        }
     }
 }

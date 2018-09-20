@@ -142,7 +142,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             if values.count < 1 {
                 return nil
             }
-            if filterInfo is ListItem {
+            if values.count > 1 {
                 return .multipleSelection(values: values)
             } else {
                 if let value = values.first {

@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public class RangeFilterValueFormatter: NSObject {
+class RangeFilterValueFormatter: NSObject {
     private let isValueCurrency: Bool
 
     private lazy var formatter: NumberFormatter = {
@@ -15,11 +15,11 @@ public class RangeFilterValueFormatter: NSObject {
         return formatter
     }()
 
-    public init(isValueCurrency: Bool) {
+    init(isValueCurrency: Bool) {
         self.isValueCurrency = isValueCurrency
     }
 
-    public func string(from value: Int, isCurrency: Bool = false) -> String? {
+    func string(from value: Int, isCurrency: Bool = false) -> String? {
         let value = NSNumber(value: value)
         return formatter.string(from: value)
     }

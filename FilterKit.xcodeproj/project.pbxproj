@@ -89,6 +89,7 @@
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
 		9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */; };
+		9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */; };
 		9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
@@ -246,6 +247,7 @@
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
+		9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionTitleProvider.swift; sourceTree = "<group>"; };
 		9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSelectionViewController.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				44ECE661208F7FA20017AC82 /* FilterKit.h */,
 				44ECE698208F80320017AC82 /* FilterKit.swift */,
 				55E869DB20E2587E008B921E /* FilterSelectionValue.swift */,
+				9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */,
 				55E869D820E25598008B921E /* FilterViewController */,
 				44ECE699208F80320017AC82 /* Finnivers */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
@@ -1035,6 +1038,7 @@
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				55E869E720E4C937008B921E /* FilterDelegate.swift in Sources */,
 				9BBCEDFE212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift in Sources */,
+				9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,
 				55BDA76D20DBC43F00331FFC /* FilterKey.swift in Sources */,
 				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,

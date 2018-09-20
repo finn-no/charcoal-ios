@@ -19,7 +19,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         }
 
         self.filterInfo = multiLevelFilterInfo
-        super.init(title: multiLevelFilterInfo.name, items: multiLevelFilterInfo.filters, allowsMultipleSelection: multiLevelFilterInfo.isMultiSelect)
+        super.init(title: multiLevelFilterInfo.title, items: multiLevelFilterInfo.filters, allowsMultipleSelection: multiLevelFilterInfo.isMultiSelect)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -41,7 +41,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         }
 
         if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: sublevelFilterInfo)
         }
 
         if sublevelFilterInfo.filters.isEmpty == false {

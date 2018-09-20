@@ -133,21 +133,21 @@ extension FilterRootViewController: UITableViewDataSource {
             return cell
         case let listSelectionInfo as ListSelectionFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
-            cell.filterName = listSelectionInfo.name
+            cell.filterName = listSelectionInfo.title
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
         case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
-            cell.filterName = multiLevelListSelectionInfo.name
+            cell.filterName = multiLevelListSelectionInfo.title
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
         case let rangeInfo as RangeFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
-            cell.filterName = rangeInfo.name
+            cell.filterName = rangeInfo.title
             cell.accessoryType = .disclosureIndicator
             return cell
         default:
@@ -279,7 +279,7 @@ extension FilterRootViewController {
         }
 
         func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String? {
-            return preferences[index].name
+            return preferences[index].preferenceName
         }
 
         func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {

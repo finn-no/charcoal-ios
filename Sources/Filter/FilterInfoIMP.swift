@@ -2,60 +2,61 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public protocol KeyedFilterInfo {
-    var key: FilterKey { get }
+public protocol ParameterBasedFilterInfo {
+    var parameterName: String { get }
 }
 
-struct SearchQueryFilterInfo: SearchQueryFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
+struct SearchQueryFilterInfo: SearchQueryFilterInfoType, ParameterBasedFilterInfo {
+    let parameterName: String
     var value: String?
     var placeholderText: String
-    var name: String
+    var title: String
 }
 
 struct PreferenceFilterInfo: PreferenceFilterInfoType {
     var preferences: [PreferenceInfoType]
-    var name: String
+    var title: String
 }
 
-struct PreferenceInfo: PreferenceInfoType, KeyedFilterInfo {
-    var key: FilterKey
-    let name: String
+struct PreferenceInfo: PreferenceInfoType, ParameterBasedFilterInfo {
+    let parameterName: String
+    let title: String
     let values: [PreferenceValueType]
     let isMultiSelect: Bool = true
+    var preferenceName: String { return title }
 }
 
 struct PreferenceValue: PreferenceValueType {
-    let name: String
+    let title: String
     let results: Int
     let value: String
 }
 
-struct ListSelectionFilterInfo: ListSelectionFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
-    let name: String
+struct ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilterInfo {
+    let parameterName: String
+    let title: String
     let values: [ListSelectionFilterValueType]
     let isMultiSelect: Bool
 }
 
 struct ListSelectionFilterValue: ListSelectionFilterValueType {
-    let name: String
+    let title: String
     let results: Int
     let value: String?
 }
 
-struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
+struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
+    let parameterName: String
     let filters: [MultiLevelListSelectionFilterInfoType]
-    let name: String
+    let title: String
     let isMultiSelect: Bool = true
     let results: Int
     let value: String?
 }
 
-struct RangeFilterInfo: RangeFilterInfoType, KeyedFilterInfo {
-    var key: FilterKey
-    var name: String
+struct RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
+    let parameterName: String
+    var title: String
     var lowValue: Int
     var highValue: Int
     var additionalLowerBoundOffset: Int
@@ -76,9 +77,9 @@ extension RangeFilterInfo {
     typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
-    init(key: FilterKey, name: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
-        self.key = key
-        self.name = name
+    init(parameterName: String, title: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
+        self.parameterName = parameterName
+        self.title = title
         self.lowValue = lowValue
         self.highValue = highValue
         additionalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset

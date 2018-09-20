@@ -18,7 +18,7 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         }
 
         self.filterInfo = listSelectionFilterInfo
-        super.init(title: listSelectionFilterInfo.name, items: listSelectionFilterInfo.values, allowsMultipleSelection: listSelectionFilterInfo.isMultiSelect)
+        super.init(title: listSelectionFilterInfo.title, items: listSelectionFilterInfo.values, allowsMultipleSelection: listSelectionFilterInfo.isMultiSelect)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -39,7 +39,7 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         }
 
         if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue)
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: filterInfo)
         }
     }
 

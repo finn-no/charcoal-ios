@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol FilterInfoType {
-    var name: String { get }
+    var title: String { get }
 }
 
 public protocol SearchQueryFilterInfoType: FilterInfoType {
@@ -14,7 +14,7 @@ public protocol SearchQueryFilterInfoType: FilterInfoType {
 }
 
 public protocol PreferenceValueType: ListItem {
-    var name: String { get }
+    var title: String { get }
     var value: String { get }
     var results: Int { get }
 }
@@ -22,13 +22,12 @@ public protocol PreferenceValueType: ListItem {
 // MARK: - ListItem default implementation
 
 extension PreferenceValueType {
-    public var title: String? { return name }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return false }
 }
 
 public protocol PreferenceInfoType: FilterInfoType {
-    var name: String { get }
+    var preferenceName: String { get }
     var values: [PreferenceValueType] { get }
     var isMultiSelect: Bool { get }
 }
@@ -43,7 +42,7 @@ public protocol ListSelectionFilterInfoType: FilterInfoType {
 }
 
 public protocol ListSelectionFilterValueType: ListItem {
-    var name: String { get }
+    var title: String { get }
     var results: Int { get }
     var value: String? { get }
 }
@@ -51,7 +50,6 @@ public protocol ListSelectionFilterValueType: ListItem {
 // MARK: - SelectionFilterInfoType: ListItem default implementation
 
 extension ListSelectionFilterValueType {
-    public var title: String? { return name }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return false }
 }
@@ -66,7 +64,6 @@ public protocol MultiLevelListSelectionFilterInfoType: FilterInfoType, ListItem 
 // MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation
 
 extension MultiLevelListSelectionFilterInfoType {
-    public var title: String? { return name }
     public var detail: String? { return String(results) }
     public var showsDisclosureIndicator: Bool { return filters.count > 0 }
 }

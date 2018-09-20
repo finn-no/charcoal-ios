@@ -16,11 +16,11 @@ class BaseDecodingTestCase: XCTestCase {
         return try? Data(contentsOf: URL(fileURLWithPath: path))
     }
 
-    func filterDataFromJSONFile(named name: String) -> Filter? {
+    func filterDataFromJSONFile(named name: String) -> FilterSetup? {
         guard let data = dataFromJSONFile(named: name) else {
             return nil
         }
 
-        return try? JSONDecoder().decode(Filter.self, from: data)
+        return try? JSONDecoder().decode(FilterSetup.self, from: data)
     }
 }

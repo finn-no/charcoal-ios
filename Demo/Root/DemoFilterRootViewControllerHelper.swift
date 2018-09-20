@@ -5,7 +5,7 @@
 import FilterKit
 
 class DemoFilter {
-    let filterData: Filter
+    let filterData: FilterSetup
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
         let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
@@ -13,7 +13,7 @@ class DemoFilter {
         return filterInfoBuilder.build()
     }()
 
-    init(filter: Filter) {
+    init(filter: FilterSetup) {
         filterData = filter
     }
 
@@ -23,11 +23,11 @@ class DemoFilter {
         return try! Data(contentsOf: URL(fileURLWithPath: path!))
     }
 
-    static func filterDataFromJSONFile(named name: String) -> Filter {
+    static func filterDataFromJSONFile(named name: String) -> FilterSetup {
         let data = dataFromJSONFile(named: name)
         let jsonDecoder = JSONDecoder()
 
-        return try! jsonDecoder.decode(Filter.self, from: data)
+        return try! jsonDecoder.decode(FilterSetup.self, from: data)
     }
 }
 
@@ -51,14 +51,14 @@ extension DemoFilter: FilterDataSource {
 
 extension DemoFilter: FilterDelegate {
     func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+        if let filter = filterInfo as? ParameterBasedFilterInfo {
+            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
         }
     }
 
     func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let keyedFilter = filterInfo as? KeyedFilterInfo {
-            print("filterSelectionValueChanged for filter with key: \(keyedFilter.key.rawValue). Value: \(String(describing: filterSelectionValue))")
+        if let filter = filterInfo as? ParameterBasedFilterInfo {
+            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
         }
     }
 }

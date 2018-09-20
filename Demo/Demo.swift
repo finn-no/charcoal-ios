@@ -195,7 +195,7 @@ enum ComponentViews: String {
             return ViewController<RangeFilterDemoView>()
 
         case .searchQuery:
-            let searchQueryViewController = SearchQueryViewController(title: "Filtrer søket", startText: nil, placeholder: "Søk etter ord")
+            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"))!
             let navigationController = UINavigationController(rootViewController: searchQueryViewController)
             return navigationController
         }
@@ -220,7 +220,7 @@ enum FullscreenViews: String {
     case eiendom
 
     var viewController: UIViewController {
-        let filter: Filter
+        let filter: FilterSetup
 
         switch self {
         case .torget:
@@ -257,4 +257,10 @@ extension String {
     var capitalizingFirstLetter: String {
         return prefix(1).uppercased() + dropFirst()
     }
+}
+
+struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
+    var value: String?
+    var placeholderText: String
+    var title: String
 }

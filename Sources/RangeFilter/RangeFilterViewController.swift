@@ -77,7 +77,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 private extension RangeFilterViewController {
     func setup() {
         view.backgroundColor = .milk
-        title = filterInfo.name
+        title = filterInfo.title
 
         view.addSubview(rangeFilterView)
 
@@ -90,6 +90,6 @@ private extension RangeFilterViewController {
     }
 
     @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue))
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .rangeSelection(lowValue: rangeFilterView.lowValue, highValue: rangeFilterView.highValue), for: filterInfo)
     }
 }

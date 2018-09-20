@@ -80,7 +80,7 @@ public extension FilterViewController {
 private extension FilterViewController {
     func setup(with filterView: UIView) {
         view.backgroundColor = .milk
-        title = filterInfo.name
+        title = filterInfo.title
 
         filterView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterView)
@@ -118,7 +118,7 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
         }
     }
 
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue) {
+    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType) {
         self.filterSelectionValue = filterSelectionValue
         delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }

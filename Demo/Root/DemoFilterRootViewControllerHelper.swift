@@ -6,11 +6,23 @@ import FilterKit
 
 class DemoFilter {
     let filterData: FilterSetup
+    let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
+    let filterSelectionTitleProvider = FilterSelectionTitleProvider()
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
         let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
 
         return filterInfoBuilder.build()
+    }()
+
+    private lazy var formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.currencySymbol = ""
+        formatter.locale = Locale(identifier: "nb_NO")
+        formatter.maximumFractionDigits = 0
+
+        return formatter
     }()
 
     init(filter: FilterSetup) {
@@ -44,21 +56,32 @@ extension DemoFilter: FilterDataSource {
         return loadedFilterInfo
     }
 
-    func selectionValuesForFilterInfo(at index: Int) -> [String] {
-        return []
+    func selectionValueTitlesForFilterInfoAndSubFilters(at index: Int) -> [String] {
+        guard let filter = filterInfo[safe: index] else {
+            return []
+        }
+        let selectionValues = selectionDataSource.valueAndSubLevelValues(for: filter)
+
+        var result = [String]()
+        for selectionData in selectionValues {
+            result.append(contentsOf: filterSelectionTitleProvider.titlesForSelection(selectionData))
+        }
+        return result
     }
 }
 
 extension DemoFilter: FilterDelegate {
     func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let filter = filterInfo as? ParameterBasedFilterInfo {
-            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
+        if let _ = filterInfo as? ParameterBasedFilterInfo {
+            selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
+            print(selectionDataSource)
         }
     }
 
     func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let filter = filterInfo as? ParameterBasedFilterInfo {
-            print("filterSelectionValueChanged for filter with parameter: \(filter.parameterName). Value: \(String(describing: filterSelectionValue))")
+        if let _ = filterInfo as? ParameterBasedFilterInfo {
+            selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
+            print(selectionDataSource)
         }
     }
 }

@@ -40,12 +40,10 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
             }
         }
 
-        if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: sublevelFilterInfo)
-        }
-
         if sublevelFilterInfo.filters.isEmpty == false {
             filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: sublevelFilterInfo)
+        } else if let selectionValue = selectionValue {
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: sublevelFilterInfo)
         }
     }
 

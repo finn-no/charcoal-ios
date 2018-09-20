@@ -5,15 +5,7 @@
 import UIKit
 
 public final class RangeFilterView: UIControl {
-    private lazy var formatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = isValueCurrency ? .currency : .none
-        formatter.currencySymbol = ""
-        formatter.locale = Locale(identifier: "nb_NO")
-        formatter.maximumFractionDigits = 0
-
-        return formatter
-    }()
+    private let formatter: RangeFilterValueFormatter
 
     private lazy var numberInputView: RangeNumberInputView = {
         let inputFontSize = usesSmallNumberInputFont ? RangeNumberInputView.InputFontSize.small : RangeNumberInputView.InputFontSize.large
@@ -97,6 +89,7 @@ public final class RangeFilterView: UIControl {
         self.referenceValues = referenceValues
         self.usesSmallNumberInputFont = usesSmallNumberInputFont
         self.displaysUnitInNumberInput = displaysUnitInNumberInput
+        formatter = RangeFilterValueFormatter(isValueCurrency: isValueCurrency)
         super.init(frame: .zero)
         setup()
     }
@@ -312,9 +305,9 @@ private final class ReferenceValueView: UIView {
 
     let value: RangeFilterView.RangeValue
     let unit: String
-    let formatter: NumberFormatter
+    let formatter: RangeFilterValueFormatter
 
-    init(value: RangeFilterView.RangeValue, unit: String, formatter: NumberFormatter) {
+    init(value: RangeFilterView.RangeValue, unit: String, formatter: RangeFilterValueFormatter) {
         self.value = value
         self.unit = unit
         self.formatter = formatter
@@ -324,7 +317,7 @@ private final class ReferenceValueView: UIView {
     }
 
     func setup() {
-        referenceLabel.text = formatter.string(from: NSNumber(value: value))?.appending(" \(unit)")
+        referenceLabel.text = formatter.string(from: value)?.appending(" \(unit)")
 
         addSubview(indicatorView)
         addSubview(referenceLabel)

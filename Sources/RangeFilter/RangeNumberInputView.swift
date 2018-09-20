@@ -116,7 +116,7 @@ final class RangeNumberInputView: UIControl {
     typealias InputRange = ClosedRange<RangeValue>
     let range: InputRange
     let unit: String
-    let formatter: NumberFormatter
+    let formatter: RangeFilterValueFormatter
     private(set) var inputFontSize: CGFloat
     let displaysUnitInNumberInput: Bool
 
@@ -125,7 +125,7 @@ final class RangeNumberInputView: UIControl {
         case small = 24
     }
 
-    init(range: InputRange, unit: String, formatter: NumberFormatter, inputFontSize: InputFontSize = .large, displaysUnitInNumberInput: Bool = true) {
+    init(range: InputRange, unit: String, formatter: RangeFilterValueFormatter, inputFontSize: InputFontSize = .large, displaysUnitInNumberInput: Bool = true) {
         self.range = range
         self.unit = unit
         self.formatter = formatter
@@ -378,7 +378,7 @@ private extension RangeNumberInputView {
     }
 
     func text(from value: RangeValue) -> String {
-        return formatter.string(from: NSNumber(value: value)) ?? ""
+        return formatter.string(from: value) ?? ""
     }
 
     func attributedUnitText(withFont font: UIFont?, from string: String) -> NSAttributedString {

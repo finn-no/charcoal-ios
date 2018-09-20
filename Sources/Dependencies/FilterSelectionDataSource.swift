@@ -4,9 +4,14 @@
 
 import Foundation
 
+public struct FilterSelectionData {
+    public let filter: FilterInfoType
+    public let value: FilterSelectionValue
+}
+
 public protocol FilterSelectionDataSource: AnyObject {
     func value(for filterInfo: FilterInfoType) -> FilterSelectionValue?
-    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionValue]
+    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionData]
     func setValue(_ filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType)
 }
 
@@ -102,10 +107,10 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
 }
 
 extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource {
-    public func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionValue] {
-        var values = [FilterSelectionValue]()
+    public func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionData] {
+        var values = [FilterSelectionData]()
         if let rootValue = value(for: filterInfo) {
-            values.append(rootValue)
+            values.append(FilterSelectionData(filter: filterInfo, value: rootValue))
         }
         if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType {
             multiLevelFilterInfo.filters.forEach { subLevel in

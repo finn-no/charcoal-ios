@@ -91,7 +91,7 @@ private extension FilterRootViewController {
     }
 
     func selectionValuesForFilterComponent(at index: Int) -> [String] {
-        return dataSource.selectionValuesForFilterInfoAndSubFilters(at: index)
+        return dataSource.displaySelectionValuesForFilterInfoAndSubFilters(at: index)
     }
 }
 

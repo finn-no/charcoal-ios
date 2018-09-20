@@ -9,5 +9,5 @@ public protocol FilterDataSource {
     var numberOfHits: Int { get }
     var filterTitle: String { get }
 
-    func selectionValuesForFilterInfoAndSubFilters(at index: Int) -> [String]
+    func displaySelectionValuesForFilterInfoAndSubFilters(at index: Int) -> [String]
 }

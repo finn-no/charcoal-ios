@@ -16,6 +16,7 @@ class BottomSheetDemoViewController: UITableViewController {
         self.init(nibName: nil, bundle: nil)
         transitioningDelegate = bottomsheetTransitioningDelegate
         title = "Filtrer søket"
+        tableView.bounces = false
     }
 
     override func viewDidLoad() {

@@ -26,6 +26,11 @@ extension PreferenceValueType {
     public var showsDisclosureIndicator: Bool { return false }
 }
 
+public protocol ListItemFilterInfoType {
+    var values: [ListItem] { get }
+    var isMultiSelect: Bool { get }
+}
+
 public protocol PreferenceInfoType: FilterInfoType {
     var preferenceName: String { get }
     var values: [PreferenceValueType] { get }

@@ -21,60 +21,11 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         self.filterInfo = listSelectionFilterInfo
         listSelectionStateProvider = ListSelectionStateProvider(filterInfo: listSelectionFilterInfo, currentSelection: nil)
         super.init(title: listSelectionFilterInfo.title, items: listSelectionFilterInfo.values, allowsMultipleSelection: listSelectionFilterInfo.isMultiSelect, listItemSelectionStateProvider: listSelectionStateProvider)
+        listViewControllerDelegate = self
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let listItem = listItems[safe: indexPath.row] else {
-            return
-        }
-        if listItem.showsDisclosureIndicator {
-            // TODO: this needs to be handled in where subfilters are accessible, perhaps a func to override? OR should we know about subfilters since we know about disclosure?
-            /* guard let selectedFilterInfo = filterInfo.values[safe: indexPath.row] else {
-             return
-             }
-             filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: selectedFilterInfo) */
-            return
-        } else {
-            var indexPathsToUpdate = [indexPath]
-            let wasSelected = listSelectionStateProvider.isListItemSelected(listItem)
-            var selectionValue: FilterSelectionValue?
-
-            if wasSelected {
-                if filterInfo.isMultiSelect {
-                    let previousSelectionValues = listSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() ?? []
-                    selectionValue = .multipleSelection(values: previousSelectionValues.filter({ $0 != listItem.value }))
-                } else {
-                    selectionValue = nil
-                }
-            } else {
-                if filterInfo.isMultiSelect {
-                    let previousSelectionValues = listSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() ?? []
-                    selectionValue = .multipleSelection(values: previousSelectionValues + [listItem.value])
-                } else {
-                    if let previousSelectionValues = listSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() {
-                        let matches = listItems.enumerated().filter({ (_, item) -> Bool in
-                            return previousSelectionValues.contains(item.value)
-                        })
-                        let matchingIndexPaths = matches.map({ (index, _) -> IndexPath in
-                            return IndexPath(row: index, section: 0)
-                        })
-                        indexPathsToUpdate.append(contentsOf: matchingIndexPaths)
-                    }
-                    selectionValue = .singleSelection(value: listItem.value)
-                }
-            }
-
-            if let selectionValue = selectionValue {
-                filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: filterInfo)
-            }
-            listSelectionStateProvider.currentSelection = selectionValue
-
-            tableView.reloadRows(at: indexPathsToUpdate, with: .fade)
-        }
     }
 
     public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
@@ -82,20 +33,21 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
     }
 }
 
-private extension FilterSelectionValue {
-    func valuesArrayIfSingeOrMultiSelectionData() -> [String]? {
-        if case let .singleSelection(value) = self {
-            return [value]
-        } else if case let .multipleSelection(values) = self {
-            return values
-        }
-        return nil
+extension ListSelectionFilterViewController: ListViewControllerDelegate {
+    public func listViewController(_: ListViewController, didSelectDrillDownItem listItem: ListItem, at indexPath: IndexPath) {
+    }
+
+    public func listViewController(_: ListViewController, didUpdateFilterSelectionValue selectionValue: FilterSelectionValue?, whenSelectingAt indexPath: IndexPath) {
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: filterInfo)
     }
 }
 
-public class ListSelectionStateProvider: ListItemSelectionStateProvider {
-    let filterInfo: ListSelectionFilterInfoType
+private class ListSelectionStateProvider: ListItemSelectionStateProvider {
+    private let filterInfo: ListSelectionFilterInfoType
     var currentSelection: FilterSelectionValue?
+    var isMultiSelectList: Bool {
+        return filterInfo.isMultiSelect
+    }
 
     init(filterInfo: ListSelectionFilterInfoType, currentSelection: FilterSelectionValue? = nil) {
         self.filterInfo = filterInfo

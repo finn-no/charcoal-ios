@@ -759,10 +759,10 @@
 		9BE0A0402091BE750000632B /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */,
 				9BE0A068209724AF0000632B /* Cells */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				9BE0A0452091BE750000632B /* FilterRootViewController.swift */,
+				5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */,
 				9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */,
 			);
 			path = Root;

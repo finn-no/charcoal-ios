@@ -68,20 +68,24 @@ extension DemoFilter: FilterDataSource {
         }
         return result
     }
+
+    func selectionValueForFilterInfo(at index: Int) -> FilterSelectionValue? {
+        guard let filter = filterInfo[safe: index] else {
+            return nil
+        }
+        return selectionDataSource.value(for: filter)
+    }
 }
 
 extension DemoFilter: FilterDelegate {
-    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
         if let _ = filterInfo as? ParameterBasedFilterInfo {
             selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
             print(selectionDataSource)
         }
     }
 
-    func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let _ = filterInfo as? ParameterBasedFilterInfo {
-            selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
-            print(selectionDataSource)
-        }
+    func applyFilterSelectionValue() {
+        print(selectionDataSource)
     }
 }

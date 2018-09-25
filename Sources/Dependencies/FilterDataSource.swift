@@ -10,4 +10,5 @@ public protocol FilterDataSource {
     var filterTitle: String { get }
 
     func selectionValueTitlesForFilterInfoAndSubFilters(at index: Int) -> [String]
+    func selectionValueForFilterInfo(at index: Int) -> FilterSelectionValue?
 }

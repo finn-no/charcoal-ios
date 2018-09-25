@@ -5,6 +5,6 @@
 import Foundation
 
 public protocol FilterDelegate: AnyObject {
-    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType)
-    func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType)
+    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType)
+    func applyFilterSelectionValue()
 }

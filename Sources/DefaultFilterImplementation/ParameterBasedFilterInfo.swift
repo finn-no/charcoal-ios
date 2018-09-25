@@ -52,6 +52,7 @@ struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType,
     let isMultiSelect: Bool = true
     let results: Int
     let value: String
+    var parentParameterNames: Set<String>?
 }
 
 struct RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {

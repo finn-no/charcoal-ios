@@ -93,19 +93,24 @@ private extension FilterRootViewController {
     func selectionValuesForFilterComponent(at index: Int) -> [String] {
         return dataSource.selectionValueTitlesForFilterInfoAndSubFilters(at: index)
     }
+
+    func selectionValueForFilterInfo(at index: Int) -> FilterSelectionValue? {
+        return dataSource.selectionValueForFilterInfo(at: index)
+    }
 }
 
 extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let filterInfo = self.filterInfo(at: indexPath.row)
+        let selectionValue = selectionValueForFilterInfo(at: indexPath.row)
 
         switch filterInfo {
         case let listSelectionFilterInfo as ListSelectionFilterInfoType:
-            navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, delegate: self))
+            navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, selectionValue: selectionValue, delegate: self))
         case let multiLevelListSelectionFilterInfo as MultiLevelListSelectionFilterInfoType:
-            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
+            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, selectionValue: selectionValue, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
-            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
+            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, selectionValue: selectionValue, delegate: self))
         case let searchQueryFilterInfo as SearchQueryFilterInfoType:
             navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
         default:
@@ -224,7 +229,9 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 
         preferenceSelectionView.setPreference(at: index, selected: true)
 
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
+        let selectionValue = selectionValueForFilterInfo(at: index) // TODO, is this correct?
+
+        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, selectionValue: selectionValue, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
 
             guard let preferenceSelectionView = preferenceSelectionView, let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
                 return
@@ -240,7 +247,8 @@ extension FilterRootViewController: FilterCellDelegate {
         guard let indexPath = tableView.indexPath(for: filterCell), let filterInfo = filterInfo(at: indexPath.row) else {
             return
         }
-        delegate?.applyFilterSelectionValue(nil, forFilterWithFilterInfo: filterInfo)
+        // TODO: That filterInfo is probably not the correct one
+        delegate?.filterSelectionValueChanged(nil, forFilterWithFilterInfo: filterInfo)
     }
 }
 
@@ -267,12 +275,12 @@ extension FilterRootViewController: SearchQueryCellDelegate {
 }
 
 extension FilterRootViewController: FilterViewControllerDelegate {
-    public func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        delegate?.applyFilterSelectionValue(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
+    public func applyFilterButtonTapped() {
+        delegate?.applyFilterSelectionValue()
         navigator.navigate(to: .root)
     }
 
-    public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
+    public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
         delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
 }

@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol FilterContainerViewControllerDelegate: AnyObject {
-    func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType)
+    func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType)
     func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType)
 }
 

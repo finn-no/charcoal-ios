@@ -11,8 +11,15 @@ public protocol ListItem {
     var value: String { get }
 }
 
-public protocol ListItemSelectionStateProvider {
+public protocol ListItemSelectionStateProvider: AnyObject {
     func isListItemSelected(_ listItem: ListItem) -> Bool
+    var currentSelection: FilterSelectionValue? { get set }
+    var isMultiSelectList: Bool { get }
+}
+
+public protocol ListViewControllerDelegate: AnyObject {
+    func listViewController(_: ListViewController, didSelectDrillDownItem listItem: ListItem, at indexPath: IndexPath)
+    func listViewController(_: ListViewController, didUpdateFilterSelectionValue selectionValue: FilterSelectionValue?, whenSelectingAt indexPath: IndexPath)
 }
 
 public class ListViewController: UIViewController {
@@ -32,6 +39,7 @@ public class ListViewController: UIViewController {
 
     public let listItems: [ListItem]
     public let listItemSelectionStateProvider: ListItemSelectionStateProvider?
+    public weak var listViewControllerDelegate: ListViewControllerDelegate?
 
     public init(title: String, items: [ListItem], allowsMultipleSelection: Bool = false, listItemSelectionStateProvider: ListItemSelectionStateProvider? = nil) {
         listItems = items
@@ -79,6 +87,49 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let listItem = listItems[safe: indexPath.row] else {
+            return
+        }
+        if listItem.showsDisclosureIndicator {
+            listViewControllerDelegate?.listViewController(self, didSelectDrillDownItem: listItem, at: indexPath)
+        } else {
+            guard let listItemSelectionStateProvider = listItemSelectionStateProvider else {
+                return
+            }
+            var indexPathsToUpdate = [indexPath]
+            let wasSelected = listItemSelectionStateProvider.isListItemSelected(listItem)
+            var selectionValue: FilterSelectionValue?
+
+            if wasSelected {
+                if listItemSelectionStateProvider.isMultiSelectList {
+                    let previousSelectionValues = listItemSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() ?? []
+                    selectionValue = .multipleSelection(values: previousSelectionValues.filter({ $0 != listItem.value }))
+                } else {
+                    selectionValue = nil
+                }
+            } else {
+                if listItemSelectionStateProvider.isMultiSelectList {
+                    let previousSelectionValues = listItemSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() ?? []
+                    selectionValue = .multipleSelection(values: previousSelectionValues + [listItem.value])
+                } else {
+                    if let previousSelectionValues = listItemSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() {
+                        let matches = listItems.enumerated().filter({ (_, item) -> Bool in
+                            return previousSelectionValues.contains(item.value)
+                        })
+                        let matchingIndexPaths = matches.map({ (index, _) -> IndexPath in
+                            return IndexPath(row: index, section: 0)
+                        })
+                        indexPathsToUpdate.append(contentsOf: matchingIndexPaths)
+                    }
+                    selectionValue = .singleSelection(value: listItem.value)
+                }
+            }
+
+            listViewControllerDelegate?.listViewController(self, didUpdateFilterSelectionValue: selectionValue, whenSelectingAt: indexPath)
+            listItemSelectionStateProvider.currentSelection = selectionValue
+
+            tableView.reloadRows(at: indexPathsToUpdate, with: .fade)
+        }
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -110,5 +161,16 @@ public extension ListViewController {
 
     final func indexForSelectedListItem() -> Int? {
         return indexesForSelectedListItems()?.first
+    }
+}
+
+private extension FilterSelectionValue {
+    func valuesArrayIfSingeOrMultiSelectionData() -> [String]? {
+        if case let .singleSelection(value) = self {
+            return [value]
+        } else if case let .multipleSelection(values) = self {
+            return values
+        }
+        return nil
     }
 }

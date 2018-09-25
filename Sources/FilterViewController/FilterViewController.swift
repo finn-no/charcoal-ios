@@ -5,8 +5,8 @@
 import Foundation
 
 public protocol FilterViewControllerDelegate: AnyObject {
-    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType)
-    func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType)
+    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType)
+    func applyFilterButtonTapped()
 }
 
 public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController {
@@ -28,7 +28,7 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         }
     }()
 
-    private lazy var applySelectionButton: FilterBottomButtonView = {
+    private lazy var applySelectionButton: FilterBottomButtonView = { // TODO: change name, it is not really `apply` since we update as soon as values change, `done` is probably better
         let buttonView = FilterBottomButtonView()
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.delegate = self
@@ -41,7 +41,6 @@ public final class FilterViewController<ChildViewController: FilterContainerView
     let showsApplySelectionButton: Bool
     let filterContainerViewController: FilterContainerViewController
     weak var delegate: FilterViewControllerDelegate?
-    private(set) var filterSelectionValue: FilterSelectionValue?
 
     public required init?(filterInfo: FilterInfoType, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
         guard let child = ChildViewController(filterInfo: filterInfo) else {
@@ -112,20 +111,19 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
         switch filterInfo {
         case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
-            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, selectionValue: filterSelectionValue, delegate: delegate))
+            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, selectionValue: nil, delegate: delegate)) // TODO: get selection value for multiLevelSelectionFilterInfo
         default:
             break
         }
     }
 
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType) {
-        self.filterSelectionValue = filterSelectionValue
+    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType) {
         delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
 }
 
 extension FilterViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.applyFilterButtonTapped(with: filterSelectionValue, forFilterWithFilterInfo: filterInfo)
+        delegate?.applyFilterButtonTapped()
     }
 }

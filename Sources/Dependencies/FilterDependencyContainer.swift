@@ -27,7 +27,7 @@ extension FilterDependencyContainer: NavigatorFactory {
 }
 
 extension FilterDependencyContainer: ViewControllerFactory {
-    public func makeListSelectionFilterViewController(from listSelectionListFilterInfo: ListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
+    public func makeListSelectionFilterViewController(from listSelectionListFilterInfo: ListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<ListSelectionFilterViewController>? {
         let filterViewController = FilterViewController<ListSelectionFilterViewController>(filterInfo: listSelectionListFilterInfo, navigator: navigator, showsApplySelectionButton: true)
         filterViewController?.delegate = delegate
         return filterViewController
@@ -47,13 +47,13 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return makeMultiLevelListSelectionFilterViewController(from: multiLevelFilterInfo, navigator: navigator, delegate: delegate)
     }
 
-    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> UIViewController? {
+    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<RangeFilterViewController>? {
         let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo, navigator: navigator, showsApplySelectionButton: true)
         filterViewController?.delegate = delegate
         return filterViewController
     }
 
-    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> UIViewController? {
+    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<PreferenceFilterListViewController>? {
         let filterViewController = FilterViewController<PreferenceFilterListViewController>(filterInfo: preferenceInfo, navigator: navigator, showsApplySelectionButton: false)
         filterViewController?.delegate = delegate
         return filterViewController

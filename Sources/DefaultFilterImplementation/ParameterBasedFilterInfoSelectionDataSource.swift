@@ -126,6 +126,8 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             } else {
                 return nil
             }
+        } else if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType, multiLevelFilterInfo.value.isEmpty {
+            return nil
         } else {
             let values = selectionValues(for: filterKey)
             if values.count < 1 {

@@ -60,20 +60,19 @@ private extension FilterSelectionTitleProvider {
 
     func titlesForSelectionValue(_ selectionValue: FilterSelectionValue, in filter: MultiLevelListSelectionFilterInfoType) -> [String] {
         var result = [String]()
-        if let filterValue = filter.value {
-            switch selectionValue {
-            case let .singleSelection(value):
-                if filterValue == value {
-                    result.append(filter.title)
-                }
-            case let .multipleSelection(values):
-                if values.contains(filterValue) {
-                    result.append(filter.title)
-                }
-            case .rangeSelection:
-                break
+        switch selectionValue {
+        case let .singleSelection(value):
+            if filter.value == value {
+                result.append(filter.title)
             }
+        case let .multipleSelection(values):
+            if values.contains(filter.value) {
+                result.append(filter.title)
+            }
+        case .rangeSelection:
+            break
         }
+
         filter.filters.forEach { subFilter in
             result.append(contentsOf: titlesForSelectionValue(selectionValue, in: subFilter))
         }

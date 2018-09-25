@@ -42,7 +42,7 @@ struct ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilte
 struct ListSelectionFilterValue: ListSelectionFilterValueType {
     let title: String
     let results: Int
-    let value: String?
+    let value: String
 }
 
 struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
@@ -51,7 +51,7 @@ struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType,
     let title: String
     let isMultiSelect: Bool = true
     let results: Int
-    let value: String?
+    let value: String
 }
 
 struct RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {

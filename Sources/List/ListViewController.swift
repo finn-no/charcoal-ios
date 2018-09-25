@@ -8,6 +8,11 @@ public protocol ListItem {
     var title: String { get }
     var detail: String? { get }
     var showsDisclosureIndicator: Bool { get }
+    var value: String { get }
+}
+
+public protocol ListItemSelectionStateProvider {
+    func isListItemSelected(_ listItem: ListItem) -> Bool
 }
 
 public class ListViewController: UIViewController {
@@ -19,16 +24,18 @@ public class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.allowsMultipleSelection = true
+        tableView.allowsSelection = false
         tableView.register(SelectionListItemCell.self)
 
         return tableView
     }()
 
     public let listItems: [ListItem]
+    public let listItemSelectionStateProvider: ListItemSelectionStateProvider?
 
-    public init(title: String, items: [ListItem], allowsMultipleSelection: Bool = false) {
+    public init(title: String, items: [ListItem], allowsMultipleSelection: Bool = false, listItemSelectionStateProvider: ListItemSelectionStateProvider? = nil) {
         listItems = items
+        self.listItemSelectionStateProvider = listItemSelectionStateProvider
         super.init(nibName: nil, bundle: nil)
         self.title = title
         tableView.allowsMultipleSelection = allowsMultipleSelection
@@ -36,11 +43,13 @@ public class ListViewController: UIViewController {
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         listItems = []
+        listItemSelectionStateProvider = nil
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     public required init?(coder aDecoder: NSCoder) {
         listItems = []
+        listItemSelectionStateProvider = nil
         super.init(coder: aDecoder)
     }
 
@@ -62,6 +71,7 @@ extension ListViewController: UITableViewDataSource {
         let cell = tableView.dequeue(SelectionListItemCell.self, for: indexPath)
         cell.configure(for: listItem)
         cell.selectionIndicatorType = tableView.allowsMultipleSelection ? .checkbox : .radioButton
+        cell.setSelectionMarker(visible: isItemSelected(listItem))
 
         return cell
     }
@@ -90,11 +100,15 @@ private extension ListViewController {
 }
 
 public extension ListViewController {
+    func isItemSelected(_ listItem: ListItem) -> Bool {
+        return listItemSelectionStateProvider?.isListItemSelected(listItem) ?? false
+    }
+
     final func indexesForSelectedListItems() -> [Int]? {
-        return tableView.indexPathsForSelectedRows?.map({ $0.row })
+        return listItems.enumerated().compactMap({ isItemSelected($0.element) ? $0.offset : nil })
     }
 
     final func indexForSelectedListItem() -> Int? {
-        return tableView.indexPathForSelectedRow?.row
+        return indexesForSelectedListItems()?.first
     }
 }

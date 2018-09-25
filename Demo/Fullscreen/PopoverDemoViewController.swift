@@ -130,5 +130,6 @@ private extension PopoverDemoViewController {
         var title: String
         let detail: String? = nil
         let showsDisclosureIndicator: Bool = false
+        let value: String = ""
     }
 }

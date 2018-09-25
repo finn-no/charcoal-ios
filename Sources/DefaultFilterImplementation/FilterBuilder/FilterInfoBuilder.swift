@@ -72,7 +72,7 @@ private extension FilterInfoBuilder {
             return nil
         }
 
-        return MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, filters: filters, title: filterData.title, results: 0, value: nil)
+        return MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, filters: filters, title: filterData.title, results: 0, value: "")
     }
 
     func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData.Query.QueryFilter?) -> [MultiLevelListSelectionFilterInfoType] {

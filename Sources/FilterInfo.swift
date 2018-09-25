@@ -44,7 +44,7 @@ public protocol ListSelectionFilterInfoType: FilterInfoType {
 public protocol ListSelectionFilterValueType: ListItem {
     var title: String { get }
     var results: Int { get }
-    var value: String? { get }
+    var value: String { get }
 }
 
 // MARK: - SelectionFilterInfoType: ListItem default implementation
@@ -58,7 +58,7 @@ public protocol MultiLevelListSelectionFilterInfoType: FilterInfoType, ListItem 
     var filters: [MultiLevelListSelectionFilterInfoType] { get }
     var isMultiSelect: Bool { get }
     var results: Int { get }
-    var value: String? { get }
+    var value: String { get }
 }
 
 // MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation

@@ -112,7 +112,7 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
         switch filterInfo {
         case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
-            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate))
+            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, selectionValue: filterSelectionValue, delegate: delegate))
         default:
             break
         }

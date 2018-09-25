@@ -50,7 +50,7 @@ private extension BottomSheetTransitioningAnimator {
         let offScreenTransform = CGAffineTransform(translationX: 0, y: transitionContext.containerView.frame.maxY - finalFrame.origin.y)
         presentedViewController.view.transform = offScreenTransform
 
-        UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1.0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
             presentedViewController.view.transform = .identity
         }) { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
@@ -67,10 +67,13 @@ private extension BottomSheetTransitioningAnimator {
         let finalFrame = transitionContext.finalFrame(for: dismissingViewController)
         let offScreenTransform = CGAffineTransform(translationX: 0, y: transitionContext.containerView.frame.maxY - finalFrame.origin.y)
 
-        UIView.animate(withDuration: animationDuration, animations: {
-            dismissingViewController.view.transform = offScreenTransform
-        }) { _ in
+        UIView.animateKeyframes(withDuration: animationDuration, delay: 0, options: [], animations: {
+            UIView.setAnimationCurve(.linear)
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                dismissingViewController.view.transform = offScreenTransform
+            })
+        }, completion: { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
+        })
     }
 }

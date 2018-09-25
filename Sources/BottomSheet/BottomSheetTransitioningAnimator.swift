@@ -12,11 +12,7 @@ public final class BottomSheetTransitioningAnimator: NSObject, UIViewControllerA
     public var transitionType: TransitionType?
 
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        guard let transitionType = transitionType else {
-            return 0.0
-        }
-
-        return transitionType == .presentation ? 0.4 : 0.4
+        return 0.25
     }
 
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

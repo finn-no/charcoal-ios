@@ -2,15 +2,22 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public protocol ParameterBasedFilterInfo {
+public protocol ParameterBasedFilterInfo: AnyObject, FilterInfoType {
     var parameterName: String { get }
 }
 
-struct SearchQueryFilterInfo: SearchQueryFilterInfoType, ParameterBasedFilterInfo {
+class SearchQueryFilterInfo: SearchQueryFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     var value: String?
     var placeholderText: String
     var title: String
+
+    init(parameterName: String, value: String?, placeholderText: String, title: String) {
+        self.parameterName = parameterName
+        self.value = value
+        self.placeholderText = placeholderText
+        self.title = title
+    }
 }
 
 struct PreferenceFilterInfo: PreferenceFilterInfoType {
@@ -18,12 +25,19 @@ struct PreferenceFilterInfo: PreferenceFilterInfoType {
     var title: String
 }
 
-struct PreferenceInfo: PreferenceInfoType, ParameterBasedFilterInfo {
+class PreferenceInfo: PreferenceInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let title: String
     let values: [PreferenceValueType]
-    let isMultiSelect: Bool = true
+    let isMultiSelect: Bool
     var preferenceName: String { return title }
+
+    init(parameterName: String, title: String, values: [PreferenceValueType], isMultiSelect: Bool = true) {
+        self.parameterName = parameterName
+        self.title = title
+        self.values = values
+        self.isMultiSelect = isMultiSelect
+    }
 }
 
 struct PreferenceValue: PreferenceValueType {
@@ -32,11 +46,18 @@ struct PreferenceValue: PreferenceValueType {
     let value: String
 }
 
-struct ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilterInfo {
+class ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let title: String
     let values: [ListSelectionFilterValueType]
     let isMultiSelect: Bool
+
+    init(parameterName: String, title: String, values: [ListSelectionFilterValueType], isMultiSelect: Bool) {
+        self.parameterName = parameterName
+        self.title = title
+        self.values = values
+        self.isMultiSelect = isMultiSelect
+    }
 }
 
 struct ListSelectionFilterValue: ListSelectionFilterValueType {
@@ -45,17 +66,32 @@ struct ListSelectionFilterValue: ListSelectionFilterValueType {
     let value: String
 }
 
-struct MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
+class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let filters: [MultiLevelListSelectionFilterInfoType]
     let title: String
-    let isMultiSelect: Bool = true
+    let isMultiSelect: Bool
     let results: Int
     let value: String
     var parentParameterNames: Set<String>?
+
+    init(parameterName: String, filters: [MultiLevelListSelectionFilterInfoType], title: String, isMultiSelect: Bool = true, results: Int, value: String, parentParameterNames: Set<String>?) {
+        self.parameterName = parameterName
+        self.filters = filters
+        self.title = title
+        self.isMultiSelect = isMultiSelect
+        self.results = results
+        self.value = value
+        self.parentParameterNames = parentParameterNames
+    }
 }
 
-struct RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
+class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
+    typealias RangeBoundsOffsets = (lowerBoundOffset: Int, upperBoundOffset: Int)
+    typealias ReferenceValues = [Int]
+    typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
+    typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
+
     let parameterName: String
     var title: String
     var lowValue: Int
@@ -70,13 +106,6 @@ struct RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
     var accessibilityValueSuffix: String?
     var usesSmallNumberInputFont: Bool
     var displaysUnitInNumberInput: Bool
-}
-
-extension RangeFilterInfo {
-    typealias RangeBoundsOffsets = (lowerBoundOffset: Int, upperBoundOffset: Int)
-    typealias ReferenceValues = [Int]
-    typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
-    typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
     init(parameterName: String, title: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
         self.parameterName = parameterName

@@ -93,6 +93,14 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         }
         return Int(value)
     }
+
+    func updateSelectionStateForParents(of multiLevelFilter: MultiLevelListSelectionFilterInfo) {
+        guard let parent = multiLevelFilter.parent as? MultiLevelListSelectionFilterInfo else {
+            return
+        }
+        parent.updateSelectionState(self)
+        updateSelectionStateForParents(of: parent)
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource {
@@ -101,8 +109,11 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         if let rootValue = value(for: filterInfo) {
             values.append(FilterSelectionData(filter: filterInfo, value: rootValue))
         }
-        if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType {
+        if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfo, multiLevelFilterInfo.selectionState != .none {
             multiLevelFilterInfo.filters.forEach { subLevel in
+                guard let multiLevelSubLevelFilter = subLevel as? MultiLevelListSelectionFilterInfo, multiLevelSubLevelFilter.selectionState != .none else {
+                    return
+                }
                 let subLevelValues = valueAndSubLevelValues(for: subLevel)
                 values.append(contentsOf: subLevelValues)
             }
@@ -152,6 +163,11 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             setFilterSelectionValue(filterSelectionValue, for: filterKey)
         } else {
             removeSelectionValue(filterKey)
+        }
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.updateSelectionState(self)
+            updateSelectionStateForParents(of: multiLevelFilter)
         }
     }
 }

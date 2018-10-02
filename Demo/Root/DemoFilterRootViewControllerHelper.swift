@@ -10,7 +10,7 @@ class DemoFilter {
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
-        let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
+        let filterInfoBuilder = FilterInfoBuilder(filter: filterData, selectionDataSource: selectionDataSource)
 
         return filterInfoBuilder.build()
     }()

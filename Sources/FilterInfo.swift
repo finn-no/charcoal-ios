@@ -59,7 +59,7 @@ extension ListSelectionFilterValueType {
     public var showsDisclosureIndicator: Bool { return false }
 }
 
-public protocol MultiLevelListSelectionFilterInfoType: FilterInfoType, ListItem {
+public protocol MultiLevelListSelectionFilterInfoType: AnyObject, FilterInfoType, ListItem {
     var filters: [MultiLevelListSelectionFilterInfoType] { get }
     var isMultiSelect: Bool { get }
     var results: Int { get }

@@ -6,9 +6,11 @@ import Foundation
 
 public final class FilterInfoBuilder {
     let filter: FilterSetup
+    let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
 
-    public init(filter: FilterSetup) {
+    public init(filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
         self.filter = filter
+        self.selectionDataSource = selectionDataSource
     }
 
     public func build() -> [FilterInfoType] {
@@ -66,21 +68,29 @@ private extension FilterInfoBuilder {
 
     func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
         guard let filters = filterData.queries?.map({ query -> MultiLevelListSelectionFilterInfo in
-            let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter, parentParameterNames: [filterData.parameterName])
-            return MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, filters: queryFilters, title: query.title, results: query.totalResults, value: query.value, parentParameterNames: [filterData.parameterName])
+            let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter)
+            let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, results: query.totalResults, value: query.value)
+            filter.setSubLevelFilters(queryFilters)
+            return filter
         }) else {
             return nil
         }
-        return MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, filters: filters, title: filterData.title, results: 0, value: "", parentParameterNames: nil)
+        let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, results: 0, value: "")
+        filter.setSubLevelFilters(filters)
+        return filter
     }
 
-    func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData.Query.QueryFilter?, parentParameterNames: Set<String>) -> [MultiLevelListSelectionFilterInfo] {
+    func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData.Query.QueryFilter?) -> [MultiLevelListSelectionFilterInfo] {
         guard let queryFilter = queryFilter else {
             return []
         }
         let queryFilters = queryFilter.queries.map({ filterQueries -> MultiLevelListSelectionFilterInfo in
-            let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter, parentParameterNames: parentParameterNames.intersection([queryFilter.parameterName]))
-            return MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, filters: subQueryFilters, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value, parentParameterNames: parentParameterNames)
+            let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter)
+            let filter = MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
+            filter.setSubLevelFilters(subQueryFilters)
+            filter.updateSelectionState(selectionDataSource)
+
+            return filter
         })
         return queryFilters
     }

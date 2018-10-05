@@ -8,17 +8,19 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
     private let filterInfo: ListSelectionFilterInfoType
     private let listSelectionStateProvider: ListSelectionStateProvider
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
+    private let selectionDataSource: FilterSelectionDataSource
 
     public var controller: UIViewController {
         return self
     }
 
-    public init?(filterInfo: FilterInfoType) {
+    public init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
         guard let listSelectionFilterInfo = filterInfo as? ListSelectionFilterInfoType else {
             return nil
         }
 
         self.filterInfo = listSelectionFilterInfo
+        self.selectionDataSource = selectionDataSource
         listSelectionStateProvider = ListSelectionStateProvider(filterInfo: listSelectionFilterInfo, currentSelection: nil)
         super.init(title: listSelectionFilterInfo.title, items: listSelectionFilterInfo.values, allowsMultipleSelection: listSelectionFilterInfo.isMultiSelect, listItemSelectionStateProvider: listSelectionStateProvider)
         listViewControllerDelegate = self
@@ -28,7 +30,15 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let selectionValue = selectionDataSource.value(for: filterInfo) {
+            setSelectionValue(selectionValue)
+        }
+    }
+
+    private func setSelectionValue(_ selectionValue: FilterSelectionValue) {
         listSelectionStateProvider.currentSelection = selectionValue
     }
 }
@@ -38,7 +48,7 @@ extension ListSelectionFilterViewController: ListViewControllerDelegate {
     }
 
     public func listViewController(_: ListViewController, didUpdateFilterSelectionValue selectionValue: FilterSelectionValue?, whenSelectingAt indexPath: IndexPath) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: filterInfo)
+        selectionDataSource.setValue(selectionValue, for: filterInfo)
     }
 }
 

@@ -49,12 +49,14 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
     }()
 
     private let searchQueryFilterInfo: SearchQueryFilterInfoType
+    private let selectionDataSource: FilterSelectionDataSource
 
-    public required init?(filterInfo: FilterInfoType) {
+    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
         guard let searchQueryFilterInfo = filterInfo as? SearchQueryFilterInfoType else {
             return nil
         }
         self.searchQueryFilterInfo = searchQueryFilterInfo
+        self.selectionDataSource = selectionDataSource
         startText = searchQueryFilterInfo.value
         placeholder = searchQueryFilterInfo.placeholderText
         super.init(nibName: nil, bundle: nil)
@@ -65,15 +67,12 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        guard case let .singleSelection(value) = selectionValue else {
-            return
-        }
-        searchText = value
-    }
-
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let selectionValue = selectionDataSource.value(for: searchQueryFilterInfo) {
+            setSelectionValue(selectionValue)
+        }
 
         setup()
         searchBar.becomeFirstResponder()
@@ -82,12 +81,12 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
 
 extension SearchQueryViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: startText ?? ""), for: searchQueryFilterInfo)
+        selectionDataSource.setValue(.singleSelection(value: startText ?? ""), for: searchQueryFilterInfo)
         navigationController?.popViewController(animated: true)
     }
 
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: .singleSelection(value: searchText ?? ""), for: searchQueryFilterInfo)
+        selectionDataSource.setValue(.singleSelection(value: searchText ?? ""), for: searchQueryFilterInfo)
         navigationController?.popViewController(animated: true)
     }
 
@@ -155,6 +154,13 @@ private extension SearchQueryViewController {
             suggestionsTableView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
             suggestionsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+    }
+
+    func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+        guard case let .singleSelection(value) = selectionValue else {
+            return
+        }
+        searchText = value
     }
 }
 

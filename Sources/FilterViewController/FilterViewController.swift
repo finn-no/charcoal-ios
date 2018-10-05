@@ -37,17 +37,19 @@ public final class FilterViewController<ChildViewController: FilterContainerView
     }()
 
     let filterInfo: FilterInfoType
+    let selectionDataSource: FilterSelectionDataSource
     let navigator: FilterNavigator
     let showsApplySelectionButton: Bool
     let filterContainerViewController: FilterContainerViewController
     weak var delegate: FilterViewControllerDelegate?
 
-    public required init?(filterInfo: FilterInfoType, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
-        guard let child = ChildViewController(filterInfo: filterInfo) else {
+    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
+        guard let child = ChildViewController(filterInfo: filterInfo, selectionDataSource: selectionDataSource) else {
             return nil
         }
 
         self.filterInfo = filterInfo
+        self.selectionDataSource = selectionDataSource
         self.navigator = navigator
         self.showsApplySelectionButton = showsApplySelectionButton
         filterContainerViewController = child
@@ -67,12 +69,6 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         addChildViewController(childViewController)
         setup(with: childViewController.view)
         childViewController.didMove(toParentViewController: self)
-    }
-}
-
-public extension FilterViewController {
-    func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        filterContainerViewController.setSelectionValue(selectionValue)
     }
 }
 
@@ -111,14 +107,10 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
         switch filterInfo {
         case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
-            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, selectionValue: nil, delegate: delegate)) // TODO: get selection value for multiLevelSelectionFilterInfo
+            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate))
         default:
             break
         }
-    }
-
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType) {
-        delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
 }
 

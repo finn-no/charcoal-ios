@@ -7,6 +7,7 @@ import UIKit
 public class FilterRootViewController: UIViewController {
     private let navigator: RootFilterNavigator
     private let dataSource: FilterDataSource
+    public let selectionDataSource: FilterSelectionDataSource
     private weak var delegate: FilterDelegate?
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
@@ -39,9 +40,10 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, delegate: FilterDelegate?) {
+    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, delegate: FilterDelegate?) {
         self.navigator = navigator
         self.dataSource = dataSource
+        self.selectionDataSource = selectionDataSource
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         self.title = title
@@ -102,15 +104,14 @@ private extension FilterRootViewController {
 extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let filterInfo = self.filterInfo(at: indexPath.row)
-        let selectionValue = selectionValueForFilterInfo(at: indexPath.row)
 
         switch filterInfo {
         case let listSelectionFilterInfo as ListSelectionFilterInfoType:
-            navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, selectionValue: selectionValue, delegate: self))
+            navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, delegate: self))
         case let multiLevelListSelectionFilterInfo as MultiLevelListSelectionFilterInfoType:
-            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, selectionValue: selectionValue, delegate: self))
+            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
         case let rangeFilterInfo as RangeFilterInfoType:
-            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, selectionValue: selectionValue, delegate: self))
+            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
         case let searchQueryFilterInfo as SearchQueryFilterInfoType:
             navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
         default:
@@ -229,9 +230,7 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 
         preferenceSelectionView.setPreference(at: index, selected: true)
 
-        let selectionValue = selectionValueForFilterInfo(at: index) // TODO, is this correct?
-
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, selectionValue: selectionValue, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
+        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
 
             guard let preferenceSelectionView = preferenceSelectionView, let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
                 return

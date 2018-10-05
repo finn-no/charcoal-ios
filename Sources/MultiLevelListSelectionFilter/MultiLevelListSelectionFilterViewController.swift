@@ -6,6 +6,7 @@ import Foundation
 
 public final class MultiLevelListSelectionFilterViewController: ListViewController, FilterContainerViewController {
     private let filterInfo: MultiLevelListSelectionFilterInfoType
+    private let selectionDataSource: FilterSelectionDataSource
     private let listSelectionStateProvider: MultiLevelListSelectionStateProvider
 
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
@@ -14,12 +15,13 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         return self
     }
 
-    public init?(filterInfo: FilterInfoType) {
+    public init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
         guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
             return nil
         }
 
         self.filterInfo = multiLevelFilterInfo
+        self.selectionDataSource = selectionDataSource
         listSelectionStateProvider = MultiLevelListSelectionStateProvider(filterInfo: multiLevelFilterInfo)
         super.init(title: multiLevelFilterInfo.title, items: multiLevelFilterInfo.filters, allowsMultipleSelection: multiLevelFilterInfo.isMultiSelect, listItemSelectionStateProvider: listSelectionStateProvider)
         listViewControllerDelegate = self
@@ -29,7 +31,15 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let selectionValue = selectionDataSource.value(for: filterInfo) {
+            setSelectionValue(selectionValue)
+        }
+    }
+
+    private func setSelectionValue(_ selectionValue: FilterSelectionValue) {
         listSelectionStateProvider.currentSelection = selectionValue
     }
 }
@@ -46,7 +56,7 @@ extension MultiLevelListSelectionFilterViewController: ListViewControllerDelegat
         guard let sublevelFilterInfo = filterInfo.filters[safe: indexPath.row] else {
             return
         }
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: sublevelFilterInfo)
+        selectionDataSource.setValue(selectionValue, for: sublevelFilterInfo)
     }
 }
 

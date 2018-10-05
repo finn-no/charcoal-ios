@@ -12,21 +12,16 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     let preferenceInfo: PreferenceInfoType
+    private let selectionDataSource: FilterSelectionDataSource
 
-    public required init?(filterInfo: FilterInfoType) {
+    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
         guard let preferenceInfo = filterInfo as? PreferenceInfoType else {
             return nil
         }
 
         self.preferenceInfo = preferenceInfo
-
+        self.selectionDataSource = selectionDataSource
         super.init(title: preferenceInfo.preferenceName, items: preferenceInfo.values, allowsMultipleSelection: preferenceInfo.isMultiSelect)
-    }
-
-    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-
-        // MARK: TODO
-
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -46,8 +41,6 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
             }
         }
 
-        if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: preferenceInfo)
-        }
+        selectionDataSource.setValue(selectionValue, for: preferenceInfo)
     }
 }

@@ -167,5 +167,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             multiLevelFilter.updateSelectionState(self)
             updateSelectionStateForParents(of: multiLevelFilter)
         }
+
+        DebugLog.write(self)
     }
 }

@@ -131,6 +131,12 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
     }
 }
 
+extension MultiLevelListSelectionFilterInfo: CustomDebugStringConvertible {
+    var debugDescription: String {
+        return "<\(type(of: self)): \(Unmanaged.passUnretained(self).toOpaque())> parameter: \(parameterName), title: \(title), subfilters: \(filters.count)"
+    }
+}
+
 class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
     typealias RangeBoundsOffsets = (lowerBoundOffset: Int, upperBoundOffset: Int)
     typealias ReferenceValues = [Int]

@@ -54,22 +54,21 @@ private class MultiLevelListSelectionStateProvider: ListItemSelectionStateProvid
     }
 
     func toggleSelection(for listItem: ListItem) {
-        guard let item = listItem as? MultiLevelListSelectionFilterInfoType else {
+        guard let item = listItem as? MultiLevelListSelectionFilterInfoType, filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) else {
             return
         }
-        if filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) {
-            var currentSelectionValues = [String]()
-            if let currentSelection = selectionDataSource.value(for: item) {
-                currentSelectionValues = currentSelection
-            }
-
-            let wasItemPreviouslySelected = currentSelectionValues.contains(item.value)
+        let wasItemPreviouslySelected = isListItemSelected(item)
+        if isMultiSelectList {
             if wasItemPreviouslySelected {
-                currentSelectionValues = currentSelectionValues.filter({ $0 != item.value })
+                selectionDataSource.clearValue(item.value, for: item)
             } else {
-                currentSelectionValues.append(item.value)
+                selectionDataSource.addValue(item.value, for: item)
             }
-            selectionDataSource.setValue(currentSelectionValues, for: item)
+        } else {
+            selectionDataSource.clearAll(for: item)
+            if !wasItemPreviouslySelected {
+                selectionDataSource.setValue([item.value], for: item)
+            }
         }
     }
 

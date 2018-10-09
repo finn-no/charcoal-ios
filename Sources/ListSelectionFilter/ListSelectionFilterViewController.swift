@@ -52,18 +52,19 @@ private class ListSelectionStateProvider: ListItemSelectionStateProvider {
         guard let item = listItem as? ListSelectionFilterValueType else {
             return
         }
-        var currentSelectionValues = [String]()
-        if let currentSelection = selectionDataSource.value(for: filterInfo) {
-            currentSelectionValues = currentSelection
-        }
-
-        let wasItemPreviouslySelected = currentSelectionValues.contains(item.value)
-        if wasItemPreviouslySelected {
-            currentSelectionValues = currentSelectionValues.filter({ $0 != item.value })
+        let wasItemPreviouslySelected = isListItemSelected(item)
+        if isMultiSelectList {
+            if wasItemPreviouslySelected {
+                selectionDataSource.clearValue(item.value, for: filterInfo)
+            } else {
+                selectionDataSource.addValue(item.value, for: filterInfo)
+            }
         } else {
-            currentSelectionValues.append(item.value)
+            selectionDataSource.clearAll(for: filterInfo)
+            if !wasItemPreviouslySelected {
+                selectionDataSource.setValue([item.value], for: filterInfo)
+            }
         }
-        selectionDataSource.setValue(currentSelectionValues, for: filterInfo)
     }
 
     public func isListItemSelected(_ listItem: ListItem) -> Bool {

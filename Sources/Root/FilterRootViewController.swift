@@ -155,6 +155,7 @@ extension FilterRootViewController: UITableViewDataSource {
             cell.filterName = rangeInfo.title
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
+            cell.delegate = self
             return cell
         default:
             fatalError("Unimplemented component \(String(describing: filterInfo))")
@@ -240,8 +241,9 @@ extension FilterRootViewController: FilterCellDelegate {
         guard let indexPath = tableView.indexPath(for: filterCell), let filterInfo = filterInfo(at: indexPath.row) else {
             return
         }
-        // TODO: That filterInfo is probably not the correct one
-        selectionDataSource.clearValue(for: filterInfo)
+        // TODO: That filterInfo is not always the correct one
+        selectionDataSource.clearAll(for: filterInfo)
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 }
 
@@ -263,7 +265,7 @@ extension FilterRootViewController: SearchQueryCellDelegate {
         guard let searchQueryFilterInfo = self.filterInfo(at: indexPath.row) as? SearchQueryFilterInfoType else {
             return
         }
-        selectionDataSource.clearValue(for: searchQueryFilterInfo)
+        selectionDataSource.clearAll(for: searchQueryFilterInfo)
     }
 }
 

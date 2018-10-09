@@ -110,7 +110,7 @@ private extension RangeFilterViewController {
         if let rangeValue = rangeValue {
             selectionDataSource.setValue(rangeValue, for: filterInfo)
         } else {
-            selectionDataSource.clearValue(for: filterInfo)
+            selectionDataSource.clearAll(for: filterInfo)
         }
     }
 }

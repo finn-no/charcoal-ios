@@ -44,7 +44,24 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         setSelectionValues([value], for: key)
     }
 
-    func removeSelectionValue(_ key: String) {
+    func addSelectionValue(_ value: String, for key: String) {
+        var values: [String]
+        if let previousValues = selectionValues[key] {
+            values = previousValues
+        } else {
+            values = []
+        }
+        values.append(value)
+        setSelectionValues(values, for: key)
+    }
+
+    func removeSelectionValue(_ value: String, for key: String) {
+        if let previousValues = selectionValues[key] {
+            setSelectionValues(previousValues.filter({ $0 != value }), for: key)
+        }
+    }
+
+    func removeSelectionValues(_ key: String) {
         selectionValues.removeValue(forKey: key)
     }
 
@@ -59,25 +76,23 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         return nil
     }
 
-    func setStringValue(_ value: String?, for key: String) {
-        if let value = value, !value.isEmpty {
-            setSelectionValue(value, for: key)
-        } else {
-            removeSelectionValue(key)
-        }
+    func setStringValue(_ value: String, for key: String) {
+        setSelectionValue(value, for: key)
     }
 
     func setRangeSelectionValue(_ range: RangeValue, for key: String) {
+        let lowKey = rangeFilterKeyLow(fromBaseKey: key)
+        let highKey = rangeFilterKeyHigh(fromBaseKey: key)
         switch range {
         case let .minimum(lowValue):
-            setStringValue(lowValue.description, for: key + "_from")
-            removeSelectionValue(key + "_to")
+            setStringValue(lowValue.description, for: lowKey)
+            removeSelectionValues(highKey)
         case let .maximum(highValue):
-            removeSelectionValue(key + "_from")
-            setStringValue(highValue.description, for: key + "_to")
+            removeSelectionValues(lowKey)
+            setStringValue(highValue.description, for: highKey)
         case let .closed(lowValue, highValue):
-            setStringValue(lowValue.description, for: key + "_from")
-            setStringValue(highValue.description, for: key + "_to")
+            setStringValue(lowValue.description, for: lowKey)
+            setStringValue(highValue.description, for: highKey)
         }
     }
 
@@ -107,6 +122,14 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
             return true
         }
         return isAncestor(ancestor, to: multiLevelFilterParent)
+    }
+
+    func rangeFilterKeyLow(fromBaseKey filterKey: String) -> String {
+        return filterKey + "_from"
+    }
+
+    func rangeFilterKeyHigh(fromBaseKey filterKey: String) -> String {
+        return filterKey + "_to"
     }
 }
 
@@ -168,7 +191,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         if let filterSelectionValue = filterSelectionValue {
             setSelectionValues(filterSelectionValue, for: filterKey)
         } else {
-            removeSelectionValue(filterKey)
+            removeSelectionValues(filterKey)
         }
 
         if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
@@ -179,21 +202,46 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         DebugLog.write(self)
     }
 
-    public func clearValue(for filterInfo: FilterInfoType) {
-        // TODO: this needs to handle multiple filters using same parameter name (e.g. location)
+    public func addValue(_ value: String, for filterInfo: FilterInfoType) {
         guard let filterKey = filterParameter(for: filterInfo) else {
             return
         }
-        removeSelectionValue(filterKey)
+        addSelectionValue(value, for: filterKey)
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.updateSelectionState(self)
+            updateSelectionStateForParents(of: multiLevelFilter)
+        }
+
         DebugLog.write(self)
+    }
+
+    public func clearAll(for filterInfo: FilterInfoType) {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        if filterInfo is RangeFilterInfoType {
+            removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
+            removeSelectionValues(rangeFilterKeyHigh(fromBaseKey: filterKey))
+        } else {
+            removeSelectionValues(filterKey)
+        }
+        DebugLog.write(self)
+    }
+
+    public func clearValue(_ value: String, for filterInfo: FilterInfoType) {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        removeSelectionValue(value, for: filterKey)
     }
 
     public func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {
         guard let filterKey = filterParameter(for: filterInfo) else {
             return nil
         }
-        let low = intOrNil(from: selectionValues(for: filterKey + "_from").first)
-        let high = intOrNil(from: selectionValues(for: filterKey + "_to").first)
+        let low = intOrNil(from: selectionValues(for: rangeFilterKeyLow(fromBaseKey: filterKey)).first)
+        let high = intOrNil(from: selectionValues(for: rangeFilterKeyHigh(fromBaseKey: filterKey)).first)
         if let low = low, let high = high {
             return .closed(lowValue: low, highValue: high)
         } else if let low = low {

@@ -2,11 +2,6 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public protocol ListItemFilterInfoType {
-    var values: [ListItem] { get }
-    var isMultiSelect: Bool { get }
-}
-
 public protocol ListSelectionFilterInfoType: FilterInfoType {
     var values: [ListSelectionFilterValueType] { get }
     var isMultiSelect: Bool { get }

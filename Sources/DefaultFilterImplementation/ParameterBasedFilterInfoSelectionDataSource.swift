@@ -145,9 +145,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
                 selectionValuesAndKey.value.forEach({ selectionValue in
                     if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfo.LookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
                         if selectedFilterInfo === multiLevelFilterInfo || isAncestor(multiLevelFilterInfo, to: selectedFilterInfo.parent) {
-                            if let selectionValuesForFilter = value(for: selectedFilterInfo) {
-                                values.append(FilterSelectionDataInfo(filter: multiLevelFilterInfo, value: selectionValuesForFilter))
-                            }
+                            values.append(FilterSelectionDataInfo(filter: selectedFilterInfo, value: [selectedFilterInfo.value]))
                         }
                     }
                 })

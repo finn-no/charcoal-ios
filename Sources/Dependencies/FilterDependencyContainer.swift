@@ -7,13 +7,11 @@ import Foundation
 public class FilterDependencyContainer {
     private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
-    weak var delegate: FilterDelegate?
     private let searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
 
-    public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, delegate: FilterDelegate, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?) {
+    public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?) {
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
-        self.delegate = delegate
         self.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
     }
 }
@@ -62,7 +60,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
-        return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, selectionDataSource: selectionDataSource, delegate: delegate)
+        return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, selectionDataSource: selectionDataSource)
     }
 
     public func makeSearchQueryFilterViewController(from searchQueryFilterInfo: SearchQueryFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {

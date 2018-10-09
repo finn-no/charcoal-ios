@@ -174,7 +174,7 @@ enum ComponentViews: String {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, delegate: demoFilter, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
+            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             rootFilterNavigator.start()
@@ -233,7 +233,7 @@ enum FullscreenViews: String {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, delegate: demoFilter, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
+        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         rootFilterNavigator.start()
@@ -266,14 +266,24 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
 }
 
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
-    func value(for filterInfo: FilterInfoType) -> FilterSelectionValue? {
+    func value(for filterInfo: FilterInfoType) -> [String]? {
         return nil
     }
 
-    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionData] {
+    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo] {
         return []
     }
 
-    func setValue(_ filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType) {
+    func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType) {
+    }
+
+    func clearValue(for filterInfo: FilterInfoType) {
+    }
+
+    func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {
+        return nil
+    }
+
+    func setValue(_ range: RangeValue, for filterInfo: RangeFilterInfoType) {
     }
 }

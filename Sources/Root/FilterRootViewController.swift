@@ -8,7 +8,6 @@ public class FilterRootViewController: UIViewController {
     private let navigator: RootFilterNavigator
     private let dataSource: FilterDataSource
     public let selectionDataSource: FilterSelectionDataSource
-    private weak var delegate: FilterDelegate?
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -40,11 +39,10 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, delegate: FilterDelegate?) {
+    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         self.navigator = navigator
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
-        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
@@ -94,10 +92,6 @@ private extension FilterRootViewController {
 
     func selectionValuesForFilterComponent(at index: Int) -> [String] {
         return dataSource.selectionValueTitlesForFilterInfoAndSubFilters(at: index)
-    }
-
-    func selectionValueForFilterInfo(at index: Int) -> FilterSelectionValue? {
-        return dataSource.selectionValueForFilterInfo(at: index)
     }
 }
 
@@ -247,7 +241,7 @@ extension FilterRootViewController: FilterCellDelegate {
             return
         }
         // TODO: That filterInfo is probably not the correct one
-        delegate?.filterSelectionValueChanged(nil, forFilterWithFilterInfo: filterInfo)
+        selectionDataSource.clearValue(for: filterInfo)
     }
 }
 
@@ -269,18 +263,13 @@ extension FilterRootViewController: SearchQueryCellDelegate {
         guard let searchQueryFilterInfo = self.filterInfo(at: indexPath.row) as? SearchQueryFilterInfoType else {
             return
         }
-        delegate?.filterSelectionValueChanged(.singleSelection(value: ""), forFilterWithFilterInfo: searchQueryFilterInfo)
+        selectionDataSource.clearValue(for: searchQueryFilterInfo)
     }
 }
 
 extension FilterRootViewController: FilterViewControllerDelegate {
     public func applyFilterButtonTapped() {
-        delegate?.applyFilterSelectionValue()
         navigator.navigate(to: .root)
-    }
-
-    public func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
     }
 }
 

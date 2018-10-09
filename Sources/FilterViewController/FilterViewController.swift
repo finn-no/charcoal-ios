@@ -5,7 +5,6 @@
 import Foundation
 
 public protocol FilterViewControllerDelegate: AnyObject {
-    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType)
     func applyFilterButtonTapped()
 }
 

@@ -81,12 +81,12 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
 
 extension SearchQueryViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        selectionDataSource.setValue(.singleSelection(value: startText ?? ""), for: searchQueryFilterInfo)
+        selectionDataSource.setValue([startText ?? ""], for: searchQueryFilterInfo)
         navigationController?.popViewController(animated: true)
     }
 
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        selectionDataSource.setValue(.singleSelection(value: searchText ?? ""), for: searchQueryFilterInfo)
+        selectionDataSource.setValue([searchText ?? ""], for: searchQueryFilterInfo)
         navigationController?.popViewController(animated: true)
     }
 
@@ -156,8 +156,8 @@ private extension SearchQueryViewController {
         ])
     }
 
-    func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        guard case let .singleSelection(value) = selectionValue else {
+    func setSelectionValue(_ selectionValues: [String]?) {
+        guard let value = selectionValues?.first else {
             return
         }
         searchText = value

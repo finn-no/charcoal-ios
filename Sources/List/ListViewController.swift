@@ -132,14 +132,3 @@ public extension ListViewController {
         return indexesForSelectedListItems()?.first
     }
 }
-
-private extension FilterSelectionValue {
-    func valuesArrayIfSingeOrMultiSelectionData() -> [String]? {
-        if case let .singleSelection(value) = self {
-            return [value]
-        } else if case let .multipleSelection(values) = self {
-            return values
-        }
-        return nil
-    }
-}

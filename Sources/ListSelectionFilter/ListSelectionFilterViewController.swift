@@ -52,17 +52,9 @@ private class ListSelectionStateProvider: ListItemSelectionStateProvider {
         guard let item = listItem as? ListSelectionFilterValueType else {
             return
         }
-        let currentSelection = selectionDataSource.value(for: filterInfo)
         var currentSelectionValues = [String]()
-        if let currentSelection = currentSelection {
-            switch currentSelection {
-            case let .singleSelection(value):
-                currentSelectionValues = [value]
-            case let .multipleSelection(values):
-                currentSelectionValues = values
-            case .rangeSelection:
-                break
-            }
+        if let currentSelection = selectionDataSource.value(for: filterInfo) {
+            currentSelectionValues = currentSelection
         }
 
         let wasItemPreviouslySelected = currentSelectionValues.contains(item.value)
@@ -71,7 +63,7 @@ private class ListSelectionStateProvider: ListItemSelectionStateProvider {
         } else {
             currentSelectionValues.append(item.value)
         }
-        selectionDataSource.setValue(.multipleSelection(values: currentSelectionValues), for: filterInfo)
+        selectionDataSource.setValue(currentSelectionValues, for: filterInfo)
     }
 
     public func isListItemSelected(_ listItem: ListItem) -> Bool {
@@ -85,13 +77,6 @@ private class ListSelectionStateProvider: ListItemSelectionStateProvider {
         guard let currentSelection = selectionDataSource.value(for: filterInfo) else {
             return false
         }
-        switch currentSelection {
-        case let .singleSelection(value):
-            return value == item.value
-        case let .multipleSelection(values):
-            return values.contains(item.value)
-        case .rangeSelection:
-            return false
-        }
+        return currentSelection.contains(item.value)
     }
 }

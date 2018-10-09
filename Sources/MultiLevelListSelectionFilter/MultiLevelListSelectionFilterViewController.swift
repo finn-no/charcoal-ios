@@ -58,17 +58,9 @@ private class MultiLevelListSelectionStateProvider: ListItemSelectionStateProvid
             return
         }
         if filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) {
-            let currentSelection = selectionDataSource.value(for: item)
             var currentSelectionValues = [String]()
-            if let currentSelection = currentSelection {
-                switch currentSelection {
-                case let .singleSelection(value):
-                    currentSelectionValues = [value]
-                case let .multipleSelection(values):
-                    currentSelectionValues = values
-                case .rangeSelection:
-                    break
-                }
+            if let currentSelection = selectionDataSource.value(for: item) {
+                currentSelectionValues = currentSelection
             }
 
             let wasItemPreviouslySelected = currentSelectionValues.contains(item.value)
@@ -77,7 +69,7 @@ private class MultiLevelListSelectionStateProvider: ListItemSelectionStateProvid
             } else {
                 currentSelectionValues.append(item.value)
             }
-            selectionDataSource.setValue(.multipleSelection(values: currentSelectionValues), for: item)
+            selectionDataSource.setValue(currentSelectionValues, for: item)
         }
     }
 
@@ -93,14 +85,7 @@ private class MultiLevelListSelectionStateProvider: ListItemSelectionStateProvid
             return false
         }
         if filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) {
-            switch currentSelection {
-            case let .singleSelection(value):
-                return value == item.value
-            case let .multipleSelection(values):
-                return values.contains(item.value)
-            case .rangeSelection:
-                return false
-            }
+            return currentSelection.contains(item.value)
         }
         return false
     }

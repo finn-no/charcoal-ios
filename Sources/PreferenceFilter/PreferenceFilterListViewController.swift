@@ -29,18 +29,14 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
     }
 
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var selectionValue: FilterSelectionValue?
-
         if preferenceInfo.isMultiSelect {
             if let values = tableView.indexPathsForSelectedRows?.map({ preferenceInfo.values[$0.row].value }) {
-                selectionValue = .multipleSelection(values: values)
+                selectionDataSource.setValue(values, for: preferenceInfo)
             }
         } else {
             if let value = tableView.indexPathForSelectedRow.map({ preferenceInfo.values[$0.row].value }) {
-                selectionValue = .singleSelection(value: value)
+                selectionDataSource.setValue([value], for: preferenceInfo)
             }
         }
-
-        selectionDataSource.setValue(selectionValue, for: preferenceInfo)
     }
 }

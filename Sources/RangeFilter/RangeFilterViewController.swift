@@ -60,7 +60,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
         setup()
 
-        if let selectionValue = selectionDataSource.value(for: filterInfo) {
+        if let selectionValue = selectionDataSource.rangeValue(for: filterInfo) {
             setSelectionValue(selectionValue)
         }
     }
@@ -81,11 +81,7 @@ private extension RangeFilterViewController {
         ])
     }
 
-    func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        guard case let .rangeSelection(range) = selectionValue else {
-            return
-        }
-
+    func setSelectionValue(_ range: RangeValue) {
         switch range {
         case let .minimum(lowValue):
             rangeFilterView.setLowValue(lowValue, animated: false)
@@ -112,9 +108,9 @@ private extension RangeFilterViewController {
         }
 
         if let rangeValue = rangeValue {
-            selectionDataSource.setValue(.rangeSelection(range: rangeValue), for: filterInfo)
+            selectionDataSource.setValue(rangeValue, for: filterInfo)
         } else {
-            selectionDataSource.setValue(nil, for: filterInfo)
+            selectionDataSource.clearValue(for: filterInfo)
         }
     }
 }

@@ -11,14 +11,12 @@ public protocol ListItem {
     var value: String { get }
 }
 
-public protocol ListItemSelectionStateProvider: AnyObject {
-    func isListItemSelected(_ listItem: ListItem) -> Bool
-    func toggleSelection(for listItem: ListItem)
-    var isMultiSelectList: Bool { get }
+protocol SelectionListItemCellConfigurator: AnyObject {
+    func configure(_ cell: SelectionListItemCell, listItem: ListItem)
 }
 
-public protocol ListViewControllerDelegate: AnyObject {
-    func listViewController(_: ListViewController, didSelectDrillDownItem listItem: ListItem, at indexPath: IndexPath)
+protocol ListViewControllerDelegate: AnyObject {
+    func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView)
 }
 
 public class ListViewController: UIViewController {
@@ -30,40 +28,37 @@ public class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
-        tableView.register(SelectionListItemCell.self)
-
+        tableView.allowsSelection = true
+        registerCells(for: tableView)
         return tableView
     }()
 
     public let listItems: [ListItem]
-    public let listItemSelectionStateProvider: ListItemSelectionStateProvider?
-    public weak var listViewControllerDelegate: ListViewControllerDelegate?
+    weak var selectionListItemCellConfigurator: SelectionListItemCellConfigurator?
+    weak var listViewControllerDelegate: ListViewControllerDelegate?
 
-    public init(title: String, items: [ListItem], allowsMultipleSelection: Bool = false, listItemSelectionStateProvider: ListItemSelectionStateProvider? = nil) {
+    public init(title: String, items: [ListItem]) {
         listItems = items
-        self.listItemSelectionStateProvider = listItemSelectionStateProvider
         super.init(nibName: nil, bundle: nil)
         self.title = title
-        tableView.allowsMultipleSelection = allowsMultipleSelection
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        listItems = []
-        listItemSelectionStateProvider = nil
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        fatalError("init(nibName:bundle:) has not been implemented")
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        listItems = []
-        listItemSelectionStateProvider = nil
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
+    }
+
+    func registerCells(for tableView: UITableView) {
+        tableView.register(SelectionListItemCell.self)
     }
 }
 
@@ -76,10 +71,7 @@ extension ListViewController: UITableViewDataSource {
         let listItem = listItems[indexPath.row]
 
         let cell = tableView.dequeue(SelectionListItemCell.self, for: indexPath)
-        cell.configure(for: listItem)
-        cell.selectionIndicatorType = tableView.allowsMultipleSelection ? .checkbox : .radioButton
-        cell.setSelectionMarker(visible: isItemSelected(listItem))
-
+        selectionListItemCellConfigurator?.configure(cell, listItem: listItem)
         return cell
     }
 }
@@ -89,16 +81,7 @@ extension ListViewController: UITableViewDelegate {
         guard let listItem = listItems[safe: indexPath.row] else {
             return
         }
-        if listItem.showsDisclosureIndicator {
-            listViewControllerDelegate?.listViewController(self, didSelectDrillDownItem: listItem, at: indexPath)
-        } else {
-            guard let listItemSelectionStateProvider = listItemSelectionStateProvider else {
-                return
-            }
-
-            listItemSelectionStateProvider.toggleSelection(for: listItem)
-            tableView.reloadRows(at: [indexPath], with: .fade)
-        }
+        listViewControllerDelegate?.listViewController(self, didSelectListItem: listItem, at: indexPath, in: tableView)
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -116,19 +99,5 @@ private extension ListViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-    }
-}
-
-public extension ListViewController {
-    func isItemSelected(_ listItem: ListItem) -> Bool {
-        return listItemSelectionStateProvider?.isListItemSelected(listItem) ?? false
-    }
-
-    final func indexesForSelectedListItems() -> [Int]? {
-        return listItems.enumerated().compactMap({ isItemSelected($0.element) ? $0.offset : nil })
-    }
-
-    final func indexForSelectedListItem() -> Int? {
-        return indexesForSelectedListItems()?.first
     }
 }

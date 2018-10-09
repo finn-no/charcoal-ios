@@ -3,12 +3,6 @@
 //
 
 class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
-    enum SelectionState {
-        case none
-        case partial
-        case selected
-    }
-
     struct LookupKey: Hashable {
         let parameterName: String
         let value: String
@@ -21,7 +15,7 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
     let results: Int
     let value: String
     private(set) weak var parent: MultiLevelListSelectionFilterInfoType?
-    private(set) var selectionState: SelectionState
+    private(set) var selectionState: MultiLevelListItemSelectionState
 
     init(parameterName: String, title: String, isMultiSelect: Bool = true, results: Int, value: String) {
         self.parameterName = parameterName

@@ -23,7 +23,14 @@ public enum RangeValue {
     case closed(lowValue: Int, highValue: Int)
 }
 
+public enum MultiLevelListItemSelectionState {
+    case none
+    case partial
+    case selected
+}
+
 public protocol FilterSelectionDataSource: AnyObject {
+    func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState
     func value(for filterInfo: FilterInfoType) -> [String]?
     func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo]
     func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType)

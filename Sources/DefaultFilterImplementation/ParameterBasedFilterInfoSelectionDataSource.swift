@@ -134,6 +134,13 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
 }
 
 extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource {
+    public func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState {
+        guard let filter = filterInfo as? MultiLevelListSelectionFilterInfo else {
+            return .none
+        }
+        return filter.selectionState
+    }
+
     public func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo] {
         if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfo {
             guard multiLevelFilterInfo.selectionState != .none else {

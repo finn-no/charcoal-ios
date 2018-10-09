@@ -11,42 +11,31 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
 
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
-    let preferenceInfo: PreferenceInfoType
+    let filterInfo: PreferenceInfoType
     private let selectionDataSource: FilterSelectionDataSource
 
     public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
-        guard let preferenceInfo = filterInfo as? PreferenceInfoType else {
+        guard let filterInfo = filterInfo as? PreferenceInfoType else {
             return nil
         }
 
-        self.preferenceInfo = preferenceInfo
+        self.filterInfo = filterInfo
         self.selectionDataSource = selectionDataSource
-        super.init(title: preferenceInfo.preferenceName, items: preferenceInfo.values, allowsMultipleSelection: preferenceInfo.isMultiSelect, listItemSelectionStateProvider: PreferenceSelectionStateProvider(filterInfo: preferenceInfo, selectionDataSource: selectionDataSource))
+        super.init(title: filterInfo.preferenceName, items: filterInfo.values)
+        listViewControllerDelegate = self
+        selectionListItemCellConfigurator = self
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
 
-private class PreferenceSelectionStateProvider: ListItemSelectionStateProvider {
-    private let filterInfo: PreferenceInfoType
-    let selectionDataSource: FilterSelectionDataSource
-    var isMultiSelectList: Bool {
-        return filterInfo.isMultiSelect
-    }
-
-    init(filterInfo: PreferenceInfoType, selectionDataSource: FilterSelectionDataSource) {
-        self.filterInfo = filterInfo
-        self.selectionDataSource = selectionDataSource
-    }
-
-    func toggleSelection(for listItem: ListItem) {
+    private func toggleSelection(for listItem: ListItem) {
         guard let item = listItem as? PreferenceValueType else {
             return
         }
         let wasItemPreviouslySelected = isListItemSelected(item)
-        if isMultiSelectList {
+        if filterInfo.isMultiSelect {
             if wasItemPreviouslySelected {
                 selectionDataSource.clearValue(item.value, for: filterInfo)
             } else {
@@ -60,7 +49,7 @@ private class PreferenceSelectionStateProvider: ListItemSelectionStateProvider {
         }
     }
 
-    public func isListItemSelected(_ listItem: ListItem) -> Bool {
+    private func isListItemSelected(_ listItem: ListItem) -> Bool {
         guard let item = listItem as? PreferenceValueType else {
             return false
         }
@@ -72,5 +61,20 @@ private class PreferenceSelectionStateProvider: ListItemSelectionStateProvider {
             return false
         }
         return currentSelection.contains(item.value)
+    }
+}
+
+extension PreferenceFilterListViewController: ListViewControllerDelegate {
+    func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
+        toggleSelection(for: listItem)
+        tableView.reloadRows(at: [indexPath], with: .fade)
+    }
+}
+
+extension PreferenceFilterListViewController: SelectionListItemCellConfigurator {
+    func configure(_ cell: SelectionListItemCell, listItem: ListItem) {
+        cell.configure(for: listItem)
+        cell.selectionIndicatorType = filterInfo.isMultiSelect ? .checkbox : .radioButton
+        cell.setSelectionMarker(visible: isListItemSelected(listItem))
     }
 }

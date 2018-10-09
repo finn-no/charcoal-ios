@@ -17,6 +17,12 @@ public struct FilterRangeSelectionInfo: FilterSelectionInfo {
     public let value: RangeValue
 }
 
+public enum RangeValue {
+    case minimum(lowValue: Int)
+    case maximum(highValue: Int)
+    case closed(lowValue: Int, highValue: Int)
+}
+
 public protocol FilterSelectionDataSource: AnyObject {
     func value(for filterInfo: FilterInfoType) -> [String]?
     func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo]

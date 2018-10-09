@@ -7,7 +7,7 @@ import Foundation
 public final class FilterInfoBuilder {
     let filter: FilterSetup
     let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
-    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfoLookupKey: MultiLevelListSelectionFilterInfo]
+    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo]
 
     public init(filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
         self.filter = filter

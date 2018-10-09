@@ -100,6 +100,11 @@
 		9BAF4F81212AEC45003DD663 /* SearchQueryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F80212AEC45003DD663 /* SearchQueryViewController.swift */; };
 		9BAF4F87212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */; };
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
+		9BB8279E216C9C060014028C /* SearchQueryFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8279D216C9C060014028C /* SearchQueryFilterInfo.swift */; };
+		9BB827A0216C9C360014028C /* PreferenceFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8279F216C9C360014028C /* PreferenceFilterInfo.swift */; };
+		9BB827A2216C9C800014028C /* ListSelectionFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A1216C9C800014028C /* ListSelectionFilterInfo.swift */; };
+		9BB827A4216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A3216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift */; };
+		9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */; };
 		9BBCEDFE212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBCEDFD212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift */; };
 		9BC45F742153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC45F732153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift */; };
 		9BD637632124432E00AB9DFE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0562091D26E0000632B /* Identifiable.swift */; };
@@ -260,6 +265,11 @@
 		9BAF4F80212AEC45003DD663 /* SearchQueryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryViewController.swift; sourceTree = "<group>"; };
 		9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchQuerySuggestionsHelper.swift; sourceTree = "<group>"; };
 		9BB82799216B57730014028C /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
+		9BB8279D216C9C060014028C /* SearchQueryFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryFilterInfo.swift; sourceTree = "<group>"; };
+		9BB8279F216C9C360014028C /* PreferenceFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFilterInfo.swift; sourceTree = "<group>"; };
+		9BB827A1216C9C800014028C /* ListSelectionFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSelectionFilterInfo.swift; sourceTree = "<group>"; };
+		9BB827A3216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelListSelectionFilterInfo.swift; sourceTree = "<group>"; };
+		9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterInfo.swift; sourceTree = "<group>"; };
 		9BBCEDFD212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuerySuggestionCell.swift; sourceTree = "<group>"; };
 		9BC45F732153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterBasedFilterInfoSelectionDataSource.swift; sourceTree = "<group>"; };
 		9BD6377C21244C0B00AB9DFE /* ColorDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorDemoView.swift; sourceTree = "<group>"; };
@@ -592,11 +602,11 @@
 		559C61F620DA4CAA0083A574 /* DefaultFilterImplementation */ = {
 			isa = PBXGroup;
 			children = (
+				9BB8279C216C9BCB0014028C /* FilterInfo */,
 				559C61F220DA4C3B0083A574 /* FilterBuilder */,
 				55BDA76C20DBC43F00331FFC /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */,
-				55BDA77120DBD99600331FFC /* ParameterBasedFilterInfo.swift */,
 				9BC45F732153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift */,
 			);
 			path = DefaultFilterImplementation;
@@ -696,6 +706,19 @@
 				9BB82799216B57730014028C /* DebugLog.swift */,
 			);
 			path = Logger;
+			sourceTree = "<group>";
+		};
+		9BB8279C216C9BCB0014028C /* FilterInfo */ = {
+			isa = PBXGroup;
+			children = (
+				55BDA77120DBD99600331FFC /* ParameterBasedFilterInfo.swift */,
+				9BB8279D216C9C060014028C /* SearchQueryFilterInfo.swift */,
+				9BB8279F216C9C360014028C /* PreferenceFilterInfo.swift */,
+				9BB827A1216C9C800014028C /* ListSelectionFilterInfo.swift */,
+				9BB827A3216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift */,
+				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
+			);
+			path = FilterInfo;
 			sourceTree = "<group>";
 		};
 		9BD6377921244C0B00AB9DFE /* DNA */ = {
@@ -1040,11 +1063,13 @@
 				9BD6378C21244C0B00AB9DFE /* Spacing.swift in Sources */,
 				559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */,
 				55E869DE20E2674B008B921E /* RangeFilterViewController.swift in Sources */,
+				9BB827A0216C9C360014028C /* PreferenceFilterInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				9BD6378E21244C0B00AB9DFE /* Font.swift in Sources */,
 				55E869DC20E2587E008B921E /* FilterSelectionValue.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
 				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
+				9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */,
 				55858A1320AAC26400B100EA /* FilterInfo.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
 				55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */,
@@ -1071,12 +1096,14 @@
 				55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */,
 				55893234209C743100512FF8 /* UITableViewExtensions.swift in Sources */,
 				55E869E420E3D246008B921E /* ListSelectionFilterViewController.swift in Sources */,
+				9BB827A2216C9C800014028C /* ListSelectionFilterInfo.swift in Sources */,
 				55893231209C579000512FF8 /* ListViewController.swift in Sources */,
 				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */,
+				9BB827A4216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift in Sources */,
 				55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */,
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
 				9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */,
@@ -1084,6 +1111,7 @@
 				559C61F820DA4D860083A574 /* FilterSetup.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				55E869D720E24498008B921E /* FilterViewController.swift in Sources */,
+				9BB8279E216C9C060014028C /* SearchQueryFilterInfo.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
 				55BDA77320DBD99600331FFC /* ParameterBasedFilterInfo.swift in Sources */,

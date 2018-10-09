@@ -4,20 +4,9 @@
 
 import Foundation
 
-struct MultiLevelListSelectionFilterInfoLookupKey: Hashable {
-    let parameterName: String
-    let value: String
-}
-
-extension MultiLevelListSelectionFilterInfo {
-    var lookupKey: MultiLevelListSelectionFilterInfoLookupKey {
-        return MultiLevelListSelectionFilterInfoLookupKey(parameterName: parameterName, value: value)
-    }
-}
-
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
     private var selectionValues: [String: [String]]
-    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfoLookupKey: MultiLevelListSelectionFilterInfo] = [:]
+    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo] = [:]
 
     public init(queryItems: [URLQueryItem]) {
         var selectionValues = [String: [String]]()
@@ -138,7 +127,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
 
             selectionValues.forEach { selectionValuesAndKey in
                 selectionValuesAndKey.value.forEach({ selectionValue in
-                    if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfoLookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
+                    if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfo.LookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
                         if selectedFilterInfo === multiLevelFilterInfo || isAncestor(multiLevelFilterInfo, to: selectedFilterInfo.parent) {
                             if let selectionValueEhhh = value(for: selectedFilterInfo) {
                                 values.append(FilterSelectionData(filter: multiLevelFilterInfo, value: selectionValueEhhh))

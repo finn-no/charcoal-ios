@@ -21,7 +21,7 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
 
         self.filterInfo = listSelectionFilterInfo
         self.selectionDataSource = selectionDataSource
-        listSelectionStateProvider = ListSelectionStateProvider(filterInfo: listSelectionFilterInfo, currentSelection: nil)
+        listSelectionStateProvider = ListSelectionStateProvider(filterInfo: listSelectionFilterInfo, selectionDataSource: selectionDataSource)
         super.init(title: listSelectionFilterInfo.title, items: listSelectionFilterInfo.values, allowsMultipleSelection: listSelectionFilterInfo.isMultiSelect, listItemSelectionStateProvider: listSelectionStateProvider)
         listViewControllerDelegate = self
     }
@@ -29,39 +29,49 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if let selectionValue = selectionDataSource.value(for: filterInfo) {
-            setSelectionValue(selectionValue)
-        }
-    }
-
-    private func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        listSelectionStateProvider.currentSelection = selectionValue
-    }
 }
 
 extension ListSelectionFilterViewController: ListViewControllerDelegate {
     public func listViewController(_: ListViewController, didSelectDrillDownItem listItem: ListItem, at indexPath: IndexPath) {
     }
-
-    public func listViewController(_: ListViewController, didUpdateFilterSelectionValue selectionValue: FilterSelectionValue?, whenSelectingAt indexPath: IndexPath) {
-        selectionDataSource.setValue(selectionValue, for: filterInfo)
-    }
 }
 
 private class ListSelectionStateProvider: ListItemSelectionStateProvider {
     private let filterInfo: ListSelectionFilterInfoType
-    var currentSelection: FilterSelectionValue?
+    let selectionDataSource: FilterSelectionDataSource
     var isMultiSelectList: Bool {
         return filterInfo.isMultiSelect
     }
 
-    init(filterInfo: ListSelectionFilterInfoType, currentSelection: FilterSelectionValue? = nil) {
+    init(filterInfo: ListSelectionFilterInfoType, selectionDataSource: FilterSelectionDataSource) {
         self.filterInfo = filterInfo
-        self.currentSelection = currentSelection
+        self.selectionDataSource = selectionDataSource
+    }
+
+    func toggleSelection(for listItem: ListItem) {
+        guard let item = listItem as? ListSelectionFilterValueType else {
+            return
+        }
+        let currentSelection = selectionDataSource.value(for: filterInfo)
+        var currentSelectionValues = [String]()
+        if let currentSelection = currentSelection {
+            switch currentSelection {
+            case let .singleSelection(value):
+                currentSelectionValues = [value]
+            case let .multipleSelection(values):
+                currentSelectionValues = values
+            case .rangeSelection:
+                break
+            }
+        }
+
+        let wasItemPreviouslySelected = currentSelectionValues.contains(item.value)
+        if wasItemPreviouslySelected {
+            currentSelectionValues = currentSelectionValues.filter({ $0 != item.value })
+        } else {
+            currentSelectionValues.append(item.value)
+        }
+        selectionDataSource.setValue(.multipleSelection(values: currentSelectionValues), for: filterInfo)
     }
 
     public func isListItemSelected(_ listItem: ListItem) -> Bool {
@@ -72,19 +82,16 @@ private class ListSelectionStateProvider: ListItemSelectionStateProvider {
     }
 
     private func isListSelectionFilterValueSelected(_ item: ListSelectionFilterValueType) -> Bool {
-        guard let currentSelection = currentSelection else {
+        guard let currentSelection = selectionDataSource.value(for: filterInfo) else {
             return false
         }
-        if filterInfo.values.contains(where: { $0.title == item.title && $0.value == item.value }) {
-            switch currentSelection {
-            case let .singleSelection(value):
-                return value == item.value
-            case let .multipleSelection(values):
-                return values.contains(item.value)
-            case .rangeSelection:
-                return false
-            }
+        switch currentSelection {
+        case let .singleSelection(value):
+            return value == item.value
+        case let .multipleSelection(values):
+            return values.contains(item.value)
+        case .rangeSelection:
+            return false
         }
-        return false
     }
 }

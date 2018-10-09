@@ -13,13 +13,12 @@ public protocol ListItem {
 
 public protocol ListItemSelectionStateProvider: AnyObject {
     func isListItemSelected(_ listItem: ListItem) -> Bool
-    var currentSelection: FilterSelectionValue? { get set }
+    func toggleSelection(for listItem: ListItem)
     var isMultiSelectList: Bool { get }
 }
 
 public protocol ListViewControllerDelegate: AnyObject {
     func listViewController(_: ListViewController, didSelectDrillDownItem listItem: ListItem, at indexPath: IndexPath)
-    func listViewController(_: ListViewController, didUpdateFilterSelectionValue selectionValue: FilterSelectionValue?, whenSelectingAt indexPath: IndexPath)
 }
 
 public class ListViewController: UIViewController {
@@ -96,39 +95,9 @@ extension ListViewController: UITableViewDelegate {
             guard let listItemSelectionStateProvider = listItemSelectionStateProvider else {
                 return
             }
-            var indexPathsToUpdate = [indexPath]
-            let wasSelected = listItemSelectionStateProvider.isListItemSelected(listItem)
-            var selectionValue: FilterSelectionValue?
 
-            if wasSelected {
-                if listItemSelectionStateProvider.isMultiSelectList {
-                    let previousSelectionValues = listItemSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() ?? []
-                    selectionValue = .multipleSelection(values: previousSelectionValues.filter({ $0 != listItem.value }))
-                } else {
-                    selectionValue = nil
-                }
-            } else {
-                if listItemSelectionStateProvider.isMultiSelectList {
-                    let previousSelectionValues = listItemSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() ?? []
-                    selectionValue = .multipleSelection(values: previousSelectionValues + [listItem.value])
-                } else {
-                    if let previousSelectionValues = listItemSelectionStateProvider.currentSelection?.valuesArrayIfSingeOrMultiSelectionData() {
-                        let matches = listItems.enumerated().filter({ (_, item) -> Bool in
-                            return previousSelectionValues.contains(item.value)
-                        })
-                        let matchingIndexPaths = matches.map({ (index, _) -> IndexPath in
-                            return IndexPath(row: index, section: 0)
-                        })
-                        indexPathsToUpdate.append(contentsOf: matchingIndexPaths)
-                    }
-                    selectionValue = .singleSelection(value: listItem.value)
-                }
-            }
-
-            listViewControllerDelegate?.listViewController(self, didUpdateFilterSelectionValue: selectionValue, whenSelectingAt: indexPath)
-            listItemSelectionStateProvider.currentSelection = selectionValue
-
-            tableView.reloadRows(at: indexPathsToUpdate, with: .fade)
+            listItemSelectionStateProvider.toggleSelection(for: listItem)
+            tableView.reloadRows(at: [indexPath], with: .fade)
         }
     }
 

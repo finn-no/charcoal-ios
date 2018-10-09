@@ -22,25 +22,13 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
 
         self.filterInfo = multiLevelFilterInfo
         self.selectionDataSource = selectionDataSource
-        listSelectionStateProvider = MultiLevelListSelectionStateProvider(filterInfo: multiLevelFilterInfo)
+        listSelectionStateProvider = MultiLevelListSelectionStateProvider(filterInfo: multiLevelFilterInfo, selectionDataSource: selectionDataSource)
         super.init(title: multiLevelFilterInfo.title, items: multiLevelFilterInfo.filters, allowsMultipleSelection: multiLevelFilterInfo.isMultiSelect, listItemSelectionStateProvider: listSelectionStateProvider)
         listViewControllerDelegate = self
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if let selectionValue = selectionDataSource.value(for: filterInfo) {
-            setSelectionValue(selectionValue)
-        }
-    }
-
-    private func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        listSelectionStateProvider.currentSelection = selectionValue
     }
 }
 
@@ -51,25 +39,46 @@ extension MultiLevelListSelectionFilterViewController: ListViewControllerDelegat
         }
         filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: sublevelFilterInfo)
     }
-
-    public func listViewController(_: ListViewController, didUpdateFilterSelectionValue selectionValue: FilterSelectionValue?, whenSelectingAt indexPath: IndexPath) {
-        guard let sublevelFilterInfo = filterInfo.filters[safe: indexPath.row] else {
-            return
-        }
-        selectionDataSource.setValue(selectionValue, for: sublevelFilterInfo)
-    }
 }
 
 private class MultiLevelListSelectionStateProvider: ListItemSelectionStateProvider {
     private let filterInfo: MultiLevelListSelectionFilterInfoType
-    var currentSelection: FilterSelectionValue?
+    let selectionDataSource: FilterSelectionDataSource
     var isMultiSelectList: Bool {
         return filterInfo.isMultiSelect
     }
 
-    init(filterInfo: MultiLevelListSelectionFilterInfoType, currentSelection: FilterSelectionValue? = nil) {
+    init(filterInfo: MultiLevelListSelectionFilterInfoType, selectionDataSource: FilterSelectionDataSource) {
         self.filterInfo = filterInfo
-        self.currentSelection = currentSelection
+        self.selectionDataSource = selectionDataSource
+    }
+
+    func toggleSelection(for listItem: ListItem) {
+        guard let item = listItem as? MultiLevelListSelectionFilterInfoType else {
+            return
+        }
+        if filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) {
+            let currentSelection = selectionDataSource.value(for: item)
+            var currentSelectionValues = [String]()
+            if let currentSelection = currentSelection {
+                switch currentSelection {
+                case let .singleSelection(value):
+                    currentSelectionValues = [value]
+                case let .multipleSelection(values):
+                    currentSelectionValues = values
+                case .rangeSelection:
+                    break
+                }
+            }
+
+            let wasItemPreviouslySelected = currentSelectionValues.contains(item.value)
+            if wasItemPreviouslySelected {
+                currentSelectionValues = currentSelectionValues.filter({ $0 != item.value })
+            } else {
+                currentSelectionValues.append(item.value)
+            }
+            selectionDataSource.setValue(.multipleSelection(values: currentSelectionValues), for: item)
+        }
     }
 
     public func isListItemSelected(_ listItem: ListItem) -> Bool {
@@ -80,7 +89,7 @@ private class MultiLevelListSelectionStateProvider: ListItemSelectionStateProvid
     }
 
     private func isListSelectionFilterValueSelected(_ item: MultiLevelListSelectionFilterInfoType) -> Bool {
-        guard let currentSelection = currentSelection else {
+        guard let currentSelection = selectionDataSource.value(for: item) else {
             return false
         }
         if filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) {

@@ -7,13 +7,16 @@ import Foundation
 public final class FilterInfoBuilder {
     let filter: FilterSetup
     let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
+    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfoLookupKey: MultiLevelListSelectionFilterInfo]
 
     public init(filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
         self.filter = filter
         self.selectionDataSource = selectionDataSource
+        multiLevelFilterLookup = [:]
     }
 
     public func build() -> [FilterInfoType] {
+        multiLevelFilterLookup = [:]
         var info = [FilterInfoType]()
 
         guard let market = FilterMarket(market: filter.market) else {
@@ -31,6 +34,7 @@ public final class FilterInfoBuilder {
         let remainingFilters = buildFilterInfo(fromKeys: market.supportedFiltersKeys)
         info.append(contentsOf: remainingFilters)
 
+        selectionDataSource.multiLevelFilterLookup = multiLevelFilterLookup
         return info
     }
 }
@@ -71,12 +75,14 @@ private extension FilterInfoBuilder {
             let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter)
             let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, results: query.totalResults, value: query.value)
             filter.setSubLevelFilters(queryFilters)
+            multiLevelFilterLookup[filter.lookupKey] = filter
             return filter
         }) else {
             return nil
         }
         let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, results: 0, value: "")
         filter.setSubLevelFilters(filters)
+        multiLevelFilterLookup[filter.lookupKey] = filter
         return filter
     }
 
@@ -89,7 +95,7 @@ private extension FilterInfoBuilder {
             let filter = MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
             filter.setSubLevelFilters(subQueryFilters)
             filter.updateSelectionState(selectionDataSource)
-
+            multiLevelFilterLookup[filter.lookupKey] = filter
             return filter
         })
         return queryFilters

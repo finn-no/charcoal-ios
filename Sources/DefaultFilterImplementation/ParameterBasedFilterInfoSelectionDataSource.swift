@@ -4,8 +4,20 @@
 
 import Foundation
 
+struct MultiLevelListSelectionFilterInfoLookupKey: Hashable {
+    let parameterName: String
+    let value: String
+}
+
+extension MultiLevelListSelectionFilterInfo {
+    var lookupKey: MultiLevelListSelectionFilterInfoLookupKey {
+        return MultiLevelListSelectionFilterInfoLookupKey(parameterName: parameterName, value: value)
+    }
+}
+
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
     private var selectionValues: [String: [String]]
+    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfoLookupKey: MultiLevelListSelectionFilterInfo] = [:]
 
     public init(queryItems: [URLQueryItem]) {
         var selectionValues = [String: [String]]()
@@ -101,24 +113,46 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         parent.updateSelectionState(self)
         updateSelectionStateForParents(of: parent)
     }
+
+    func isAncestor(_ ancestor: MultiLevelListSelectionFilterInfo, to multiLevelFilter: MultiLevelListSelectionFilterInfoType?) -> Bool {
+        guard let multiLevelFilter = multiLevelFilter as? MultiLevelListSelectionFilterInfo else {
+            return false
+        }
+        guard let multiLevelFilterParent = multiLevelFilter.parent as? MultiLevelListSelectionFilterInfo else {
+            return false
+        }
+        if multiLevelFilterParent === ancestor {
+            return true
+        }
+        return isAncestor(ancestor, to: multiLevelFilterParent)
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource {
     public func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionData] {
-        var values = [FilterSelectionData]()
-        if let rootValue = value(for: filterInfo) {
-            values.append(FilterSelectionData(filter: filterInfo, value: rootValue))
-        }
-        if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfo, multiLevelFilterInfo.selectionState != .none {
-            multiLevelFilterInfo.filters.forEach { subLevel in
-                guard let multiLevelSubLevelFilter = subLevel as? MultiLevelListSelectionFilterInfo, multiLevelSubLevelFilter.selectionState != .none else {
-                    return
-                }
-                let subLevelValues = valueAndSubLevelValues(for: subLevel)
-                values.append(contentsOf: subLevelValues)
+        if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfo {
+            guard multiLevelFilterInfo.selectionState != .none else {
+                return []
             }
+            var values = [FilterSelectionData]()
+
+            selectionValues.forEach { selectionValuesAndKey in
+                selectionValuesAndKey.value.forEach({ selectionValue in
+                    if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfoLookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
+                        if selectedFilterInfo === multiLevelFilterInfo || isAncestor(multiLevelFilterInfo, to: selectedFilterInfo.parent) {
+                            if let selectionValueEhhh = value(for: selectedFilterInfo) {
+                                values.append(FilterSelectionData(filter: multiLevelFilterInfo, value: selectionValueEhhh))
+                            }
+                        }
+                    }
+                })
+            }
+
+            return values
+        } else if let rootValue = value(for: filterInfo) {
+            return [FilterSelectionData(filter: filterInfo, value: rootValue)]
         }
-        return values
+        return []
     }
 
     public func value(for filterInfo: FilterInfoType) -> FilterSelectionValue? {
@@ -139,6 +173,14 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             }
         } else {
             let values = selectionValues(for: filterKey)
+
+            /* if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfo {
+             let isCurrentFilterValueSelected = values.contains(multiLevelFilterInfo.value)
+             if !isCurrentFilterValueSelected {
+             return nil
+             }
+             } */
+
             if values.count < 1 {
                 return nil
             }

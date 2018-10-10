@@ -17,6 +17,7 @@ enum ImageAsset: String {
     case arrowDown
     case checkboxOff
     case checkboxOn
+    case checkboxPartial
     case disclosureIndicator
     case popoverArrow
     case radioButtonOff
@@ -31,6 +32,7 @@ enum ImageAsset: String {
             .arrowDown,
             .checkboxOff,
             .checkboxOn,
+            .checkboxPartial,
             .disclosureIndicator,
             .popoverArrow,
             .radioButtonOff,

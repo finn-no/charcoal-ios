@@ -4,30 +4,23 @@
 
 import UIKit
 
-class SelectionListItemCell: UITableViewCell {
-    enum SelectionIndicatorType {
-        case radioButton
-        case checkbox
+class MultiLevelSelectionListItemCell: UITableViewCell {
+    enum SelectionState {
+        case none
+        case partial
+        case selected
+    }
 
-        var normalStateImageAsset: ImageAsset {
-            switch self {
-            case .radioButton:
-                return .radioButtonOff
-            case .checkbox:
-                return .checkboxOff
-            }
-        }
+    private var normalStateImageAsset: ImageAsset {
+        return .checkboxOff
+    }
 
-        var selectedStateImageAsset: ImageAsset {
-            switch self {
-            case .radioButton:
-                return .radioButtonOn
-            case .checkbox:
-                return .checkboxOn
-            }
-        }
+    private var partiallySelectedStateImageAsset: ImageAsset {
+        return .checkboxPartial
+    }
 
-        static let `default` = SelectionIndicatorType.checkbox
+    private var selectedStateImageAsset: ImageAsset {
+        return .checkboxOn
     }
 
     private lazy var separatorLine: UIView = {
@@ -37,12 +30,6 @@ class SelectionListItemCell: UITableViewCell {
 
         return separatorLine
     }()
-
-    var selectionIndicatorType = SelectionIndicatorType.default {
-        didSet {
-            setSelectionIndicator(selected: isSelected)
-        }
-    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
@@ -54,21 +41,31 @@ class SelectionListItemCell: UITableViewCell {
     }
 
     public override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    }
 
-        textLabel?.textColor = selected ? .primaryBlue : .licorice
-        setSelectionIndicator(selected: selected)
+    func setSelectionState(_ selectionState: SelectionState) {
+        switch selectionState {
+        case .none:
+            imageView?.image = UIImage(named: normalStateImageAsset)
+            textLabel?.textColor = .licorice
+        case .partial:
+            imageView?.image = UIImage(named: partiallySelectedStateImageAsset)
+            textLabel?.textColor = .primaryBlue
+        case .selected:
+            imageView?.image = UIImage(named: selectedStateImageAsset)
+            textLabel?.textColor = .licorice
+        }
     }
 }
 
-private extension SelectionListItemCell {
+private extension MultiLevelSelectionListItemCell {
     func setup() {
         selectionStyle = .none
         textLabel?.font = .body
         textLabel?.textColor = .licorice
         detailTextLabel?.font = .detail
         detailTextLabel?.textColor = .stone
-        imageView?.image = UIImage(named: selectionIndicatorType.normalStateImageAsset)
+        imageView?.image = UIImage(named: normalStateImageAsset)
 
         addSubview(separatorLine)
 
@@ -79,13 +76,9 @@ private extension SelectionListItemCell {
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
-
-    func setSelectionIndicator(selected: Bool) {
-        imageView?.image = selected ? UIImage(named: selectionIndicatorType.selectedStateImageAsset) : UIImage(named: selectionIndicatorType.normalStateImageAsset)
-    }
 }
 
-extension SelectionListItemCell {
+extension MultiLevelSelectionListItemCell {
     func configure(for listItem: ListItem) {
         textLabel?.text = listItem.title
         detailTextLabel?.text = listItem.detail

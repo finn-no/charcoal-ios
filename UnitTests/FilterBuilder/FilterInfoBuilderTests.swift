@@ -15,7 +15,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         let filter = decodedTestFilter
         let builder: FilterInfoBuilder?
         if let filter = filter {
-            builder = FilterInfoBuilder(filter: filter)
+            builder = FilterInfoBuilder(filter: filter, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource(queryItems: []))
         } else {
             builder = nil
         }
@@ -45,7 +45,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         let filter = decodedTestFilter
         let builder: FilterInfoBuilder?
         if let filter = filter {
-            builder = FilterInfoBuilder(filter: filter)
+            builder = FilterInfoBuilder(filter: filter, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource(queryItems: []))
         } else {
             builder = nil
         }
@@ -87,7 +87,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         let filter = decodedTestFilter
         let builder: FilterInfoBuilder?
         if let filter = filter {
-            builder = FilterInfoBuilder(filter: filter)
+            builder = FilterInfoBuilder(filter: filter, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource(queryItems: []))
         } else {
             builder = nil
         }
@@ -133,7 +133,7 @@ class FilterInfoBuilderTests: BaseDecodingTestCase {
         let filter = decodedTestFilter
         let builder: FilterInfoBuilder?
         if let filter = filter {
-            builder = FilterInfoBuilder(filter: filter)
+            builder = FilterInfoBuilder(filter: filter, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource(queryItems: []))
         } else {
             builder = nil
         }

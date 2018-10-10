@@ -5,7 +5,7 @@
 import Foundation
 
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
-    private var selectionValues: [String: [String]]
+    private(set) var selectionValues: [String: [String]]
     var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo] = [:]
 
     public init(queryItems: [URLQueryItem]) {

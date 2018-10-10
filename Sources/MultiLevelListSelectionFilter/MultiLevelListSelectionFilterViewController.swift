@@ -23,11 +23,23 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         self.selectionDataSource = selectionDataSource
         super.init(title: multiLevelFilterInfo.title, items: multiLevelFilterInfo.filters)
         listViewControllerDelegate = self
-        selectionListItemCellConfigurator = self
+        selectionListItemCellConfigurator = nil
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func registerCells(for tableView: UITableView) {
+        tableView.register(MultiLevelSelectionListItemCell.self)
+    }
+
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let listItem = listItems[indexPath.row]
+
+        let cell = tableView.dequeue(MultiLevelSelectionListItemCell.self, for: indexPath)
+        configure(cell, listItem: listItem)
+        return cell
     }
 
     private func didSelectDrillDownItem(_ listItem: ListItem, at indexPath: IndexPath) {
@@ -80,10 +92,11 @@ extension MultiLevelListSelectionFilterViewController: ListViewControllerDelegat
     }
 }
 
-extension MultiLevelListSelectionFilterViewController: SelectionListItemCellConfigurator {
-    func configure(_ cell: SelectionListItemCell, listItem: ListItem) {
+extension MultiLevelListSelectionFilterViewController {
+    func configure(_ cell: MultiLevelSelectionListItemCell, listItem: ListItem) {
         cell.configure(for: listItem)
-        cell.selectionIndicatorType = filterInfo.isMultiSelect ? .checkbox : .radioButton
-        cell.setSelectionMarker(visible: isListItemSelected(listItem))
+        if let item = listItem as? MultiLevelListSelectionFilterInfoType {
+            cell.setSelectionState(selectionDataSource.selectionState(item))
+        }
     }
 }

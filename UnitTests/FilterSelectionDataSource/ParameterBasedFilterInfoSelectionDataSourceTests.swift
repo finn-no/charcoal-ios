@@ -10,7 +10,6 @@ import XCTest
  func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState
  func value(for filterInfo: FilterInfoType) -> [String]?
  func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo]
-
  }
  */
 
@@ -168,12 +167,38 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         XCTAssertEqual(1, maxValues!.count)
         XCTAssertEqual("2", maxValues!.first!)
     }
+
+    func testSelectionDataSourceShouldSupportClearing1FilterOnlyWhenMultiLevelFiltersShareParameter() {
+        let parentFilter = createMultiLevelFilter(parameterName: "foo", title: "Foo", multiSelect: true, value: "123")
+        let childFilter = createMultiLevelFilter(parameterName: "bar", title: "Bar", multiSelect: true, value: "456")
+        parentFilter.setSubLevelFilters([childFilter])
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: parentFilter.parameterName, value: parentFilter.value), URLQueryItem(name: childFilter.parameterName, value: childFilter.value)])
+        childFilter.updateSelectionState(selectionDataSource)
+        parentFilter.updateSelectionState(selectionDataSource)
+        selectionDataSource.multiLevelFilterLookup = [parentFilter.lookupKey: parentFilter, childFilter.lookupKey: childFilter]
+
+        selectionDataSource.clearValue(parentFilter.value, for: parentFilter)
+
+        let selectionValues = selectionDataSource.valueAndSubLevelValues(for: parentFilter)
+        XCTAssertEqual(1, selectionValues.count)
+        guard let selectionValue = selectionValues.first as? FilterSelectionDataInfo else {
+            XCTAssertTrue(false, "Casting failed")
+            return
+        }
+        XCTAssertEqual(1, selectionValue.value.count)
+        XCTAssertEqual("456", selectionValue.value.first!)
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSourceTests {
     func createRangeFilter(parameterName: String, title: String) -> RangeFilterInfo {
         let rangeFilter = RangeFilterInfo(parameterName: parameterName, title: title, lowValue: 10, highValue: 100, steps: 10, rangeBoundsOffsets: (lowerBoundOffset: 10, upperBoundOffset: 10), unit: "unit", referenceValues: [20, 50, 90], accesibilityValues: (accessibilitySteps: nil, accessibilityValueSuffix: nil), appearanceProperties: (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false))
         return rangeFilter
+    }
+
+    func createMultiLevelFilter(parameterName: String, title: String, multiSelect: Bool, value: String) -> MultiLevelListSelectionFilterInfo {
+        let filter = MultiLevelListSelectionFilterInfo(parameterName: parameterName, title: title, isMultiSelect: multiSelect, results: 0, value: value)
+        return filter
     }
 }
 

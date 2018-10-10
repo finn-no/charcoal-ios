@@ -5,7 +5,12 @@
 @testable import FilterKit
 import XCTest
 
-class BaseDecodingTestCase: XCTestCase {
+protocol TestDataDecoder {
+    func dataFromJSONFile(named name: String) -> Data?
+    func filterDataFromJSONFile(named name: String) -> FilterSetup?
+}
+
+extension TestDataDecoder {
     func dataFromJSONFile(named name: String) -> Data? {
         let bundle = Bundle(for: FilterDecodingTests.self)
 

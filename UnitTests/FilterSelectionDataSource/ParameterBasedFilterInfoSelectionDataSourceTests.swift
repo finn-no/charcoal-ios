@@ -10,19 +10,13 @@ import XCTest
  func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState
  func value(for filterInfo: FilterInfoType) -> [String]?
  func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo]
- func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType)
- func addValue(_ value: String, for filterInfo: FilterInfoType)
- func clearAll(for filterInfo: FilterInfoType)
- func clearValue(_ value: String, for filterInfo: FilterInfoType)
 
- func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue?
- func setValue(_ range: RangeValue, for filterInfo: RangeFilterInfoType)
  }
  */
 
 class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     func testSelectionDataSourceShouldPreserveInitValues() {
-        let filter = MockParameterBasedFilterInfo(parameterName: "test", title: "Test")
+        let filter = MockFilterInfo(parameterName: "test", title: "Test")
 
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName, value: "value"), URLQueryItem(name: "foo", value: "bar")])
 
@@ -33,7 +27,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     }
 
     func testSelectionDataSourceShouldSupportMultipleValuesForFilterAtInit() {
-        let filter = MockParameterBasedFilterInfo(parameterName: "test", title: "Test")
+        let filter = MockFilterInfo(parameterName: "test", title: "Test")
 
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName, value: "value"), URLQueryItem(name: filter.parameterName, value: "value2"), URLQueryItem(name: "foo", value: "bar")])
 
@@ -45,7 +39,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     }
 
     func testSelectionDataSourceShouldSupportRemovingAllSelectionValues() {
-        let filter = MockParameterBasedFilterInfo(parameterName: "test", title: "Test")
+        let filter = MockFilterInfo(parameterName: "test", title: "Test")
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName, value: "value"), URLQueryItem(name: filter.parameterName, value: "value2"), URLQueryItem(name: "foo", value: "bar")])
 
         selectionDataSource.clearAll(for: filter)
@@ -55,7 +49,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     }
 
     func testSelectionDataSourceShouldSupportRemovingOnly1SelectionValue() {
-        let filter = MockParameterBasedFilterInfo(parameterName: "test", title: "Test")
+        let filter = MockFilterInfo(parameterName: "test", title: "Test")
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName, value: "value"), URLQueryItem(name: filter.parameterName, value: "value2"), URLQueryItem(name: "foo", value: "bar")])
 
         selectionDataSource.clearValue("value", for: filter)
@@ -67,7 +61,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     }
 
     func testSelectionDataSourceShouldSupportOverridingMultipleValuesWithNewValues() {
-        let filter = MockParameterBasedFilterInfo(parameterName: "test", title: "Test")
+        let filter = MockFilterInfo(parameterName: "test", title: "Test")
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName, value: "value"), URLQueryItem(name: filter.parameterName, value: "value2"), URLQueryItem(name: "foo", value: "bar")])
 
         selectionDataSource.setValue(["new", "new2"], for: filter)
@@ -78,9 +72,112 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         XCTAssertTrue(values!.contains("new"))
         XCTAssertTrue(values!.contains("new2"))
     }
+
+    func testSelectionDataSourceShouldSupportAddingToExistingValues() {
+        let filter = MockFilterInfo(parameterName: "test", title: "Test")
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName, value: "value"), URLQueryItem(name: filter.parameterName, value: "value2"), URLQueryItem(name: "foo", value: "bar")])
+
+        selectionDataSource.addValue("new", for: filter)
+
+        let values = selectionDataSource.value(for: filter)
+        XCTAssertNotNil(values)
+        XCTAssertEqual(3, values!.count)
+        XCTAssertTrue(values!.contains("new"))
+    }
+
+    func testSelectionDataSourceShouldSupportGettingClosedRangeValue() {
+        let filter = createRangeFilter(parameterName: "test", title: "Test")
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName + "_from", value: "10"), URLQueryItem(name: filter.parameterName + "_to", value: "20"), URLQueryItem(name: "foo", value: "bar")])
+
+        let range = selectionDataSource.rangeValue(for: filter)
+
+        XCTAssertNotNil(range)
+        guard case let .closed(min, max) = range! else {
+            XCTAssertTrue(false)
+            return
+        }
+        XCTAssertEqual(10, min)
+        XCTAssertEqual(20, max)
+    }
+
+    func testSelectionDataSourceShouldSupportGettingMinRangeValue() {
+        let filter = createRangeFilter(parameterName: "test", title: "Test")
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName + "_from", value: "10"), URLQueryItem(name: "foo", value: "bar")])
+
+        let range = selectionDataSource.rangeValue(for: filter)
+
+        XCTAssertNotNil(range)
+        guard case let .minimum(min) = range! else {
+            XCTAssertTrue(false)
+            return
+        }
+        XCTAssertEqual(10, min)
+    }
+
+    func testSelectionDataSourceShouldSupportGettingMaxRangeValue() {
+        let filter = createRangeFilter(parameterName: "test", title: "Test")
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName + "_to", value: "20"), URLQueryItem(name: "foo", value: "bar")])
+
+        let range = selectionDataSource.rangeValue(for: filter)
+
+        XCTAssertNotNil(range)
+        guard case let .maximum(max) = range! else {
+            XCTAssertTrue(false)
+            return
+        }
+        XCTAssertEqual(20, max)
+    }
+
+    func testSelectionDataSourceShouldSupportSettingMaxRangeValue() {
+        let filter = createRangeFilter(parameterName: "test", title: "Test")
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [])
+
+        selectionDataSource.setValue(.maximum(highValue: 30), for: filter)
+
+        let filterValues = selectionDataSource.selectionValues[filter.parameterName + "_to"]
+        XCTAssertNotNil(filterValues)
+        XCTAssertEqual(1, filterValues!.count)
+        XCTAssertEqual("30", filterValues!.first!)
+    }
+
+    func testSelectionDataSourceShouldSupportSettingMinRangeValue() {
+        let filter = createRangeFilter(parameterName: "test", title: "Test")
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [])
+
+        selectionDataSource.setValue(.minimum(lowValue: 30), for: filter)
+
+        let filterValues = selectionDataSource.selectionValues[filter.parameterName + "_from"]
+        XCTAssertNotNil(filterValues)
+        XCTAssertEqual(1, filterValues!.count)
+        XCTAssertEqual("30", filterValues!.first!)
+    }
+
+    func testSelectionDataSourceShouldSupportSettingClosedRangeValue() {
+        let filter = createRangeFilter(parameterName: "test", title: "Test")
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [])
+
+        selectionDataSource.setValue(.closed(lowValue: 1, highValue: 2), for: filter)
+
+        let minValues = selectionDataSource.selectionValues[filter.parameterName + "_from"]
+        XCTAssertNotNil(minValues)
+        XCTAssertEqual(1, minValues!.count)
+        XCTAssertEqual("1", minValues!.first!)
+
+        let maxValues = selectionDataSource.selectionValues[filter.parameterName + "_to"]
+        XCTAssertNotNil(maxValues)
+        XCTAssertEqual(1, maxValues!.count)
+        XCTAssertEqual("2", maxValues!.first!)
+    }
 }
 
-class MockParameterBasedFilterInfo: ParameterBasedFilterInfo {
+extension ParameterBasedFilterInfoSelectionDataSourceTests {
+    func createRangeFilter(parameterName: String, title: String) -> RangeFilterInfo {
+        let rangeFilter = RangeFilterInfo(parameterName: parameterName, title: title, lowValue: 10, highValue: 100, steps: 10, rangeBoundsOffsets: (lowerBoundOffset: 10, upperBoundOffset: 10), unit: "unit", referenceValues: [20, 50, 90], accesibilityValues: (accessibilitySteps: nil, accessibilityValueSuffix: nil), appearanceProperties: (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false))
+        return rangeFilter
+    }
+}
+
+private class MockFilterInfo: ParameterBasedFilterInfo {
     var parameterName: String
     var title: String
 

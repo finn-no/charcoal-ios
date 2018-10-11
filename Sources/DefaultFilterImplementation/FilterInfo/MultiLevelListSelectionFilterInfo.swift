@@ -59,6 +59,8 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
                 selectionState = .selected
             } else if childsWithFullSelection > 0 {
                 selectionState = .partial
+            } else if let _ = selectionDataSource.value(for: self) {
+                selectionState = .selected
             }
         } else if let _ = selectionDataSource.value(for: self) {
             selectionState = .selected
@@ -69,6 +71,12 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
 extension MultiLevelListSelectionFilterInfo: CustomDebugStringConvertible {
     var debugDescription: String {
         return "<\(type(of: self)): \(Unmanaged.passUnretained(self).toOpaque())> parameter: \(parameterName), title: \(title), subfilters: \(filters.count)"
+    }
+}
+
+extension MultiLevelListSelectionFilterInfo: Equatable {
+    static func == (lhs: MultiLevelListSelectionFilterInfo, rhs: MultiLevelListSelectionFilterInfo) -> Bool {
+        return lhs.parameterName == rhs.parameterName && lhs.value == rhs.value && lhs.filters.count == rhs.filters.count
     }
 }
 

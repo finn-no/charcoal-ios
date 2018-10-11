@@ -8,8 +8,6 @@ import XCTest
 /*
  public protocol FilterSelectionDataSource: AnyObject {
  func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState
- func value(for filterInfo: FilterInfoType) -> [String]?
- func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo]
  }
  */
 
@@ -121,7 +119,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
 
         XCTAssertNotNil(range)
         guard case let .maximum(max) = range! else {
-            XCTAssertTrue(false)
+            XCTAssertTrue(false, "Casting failed")
             return
         }
         XCTAssertEqual(20, max)
@@ -168,7 +166,67 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         XCTAssertEqual("2", maxValues!.first!)
     }
 
+    func testSelectionDataSourceShouldSupportInitWithFiltersSharingParameterName() {
+        let parentFilter = createMultiLevelFilter(parameterName: "foo", title: "Foo", multiSelect: true, value: "foo")
+        let childFilter = createMultiLevelFilter(parameterName: "foo", title: "Bar", multiSelect: true, value: "bar")
+
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: parentFilter.parameterName, value: parentFilter.value), URLQueryItem(name: childFilter.parameterName, value: childFilter.value)])
+
+        let selectionValues = selectionDataSource.selectionValues["foo"]
+        guard let fooValues = selectionValues else {
+            XCTAssertTrue(false, "Casting failed")
+            return
+        }
+        XCTAssertEqual(2, fooValues.count)
+        XCTAssertTrue(fooValues.contains("foo"))
+        XCTAssertTrue(fooValues.contains("bar"))
+    }
+
+    func testSelectionDataSourceShouldSupportGettingSubLevelValuesForMultiLevelFilters() {
+        let createdObjects = createCategoryLevels()
+        let selectionDataSource = createdObjects.selectionDataSource
+        let category = createdObjects.category
+        let kitchenTables = createdObjects.kitchenTables
+        let otherTables = createdObjects.otherTables
+        let animals = createdObjects.animals
+
+        selectionDataSource.addValue(kitchenTables.value, for: kitchenTables)
+        selectionDataSource.addValue(otherTables.value, for: otherTables)
+        selectionDataSource.addValue(animals.value, for: animals)
+
+        let selectionValues = selectionDataSource.valueAndSubLevelValues(for: category)
+        XCTAssertEqual(3, selectionValues.count)
+        guard let selectionDataValues = selectionValues as? [FilterSelectionDataInfo] else {
+            XCTAssertTrue(false, "Casting failed")
+            return
+        }
+        XCTAssertTrue(selectionDataValues.contains(where: { ($0.filter as? MultiLevelListSelectionFilterInfo) == kitchenTables }))
+        XCTAssertTrue(selectionDataValues.contains(where: { ($0.filter as? MultiLevelListSelectionFilterInfo) == otherTables }))
+        XCTAssertTrue(selectionDataValues.contains(where: { ($0.filter as? MultiLevelListSelectionFilterInfo) == animals }))
+    }
+
     func testSelectionDataSourceShouldSupportClearing1FilterOnlyWhenMultiLevelFiltersShareParameter() {
+        let parentFilter = createMultiLevelFilter(parameterName: "foo", title: "Foo", multiSelect: true, value: "123")
+        let childFilter = createMultiLevelFilter(parameterName: "foo", title: "Bar", multiSelect: true, value: "456")
+        parentFilter.setSubLevelFilters([childFilter])
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: parentFilter.parameterName, value: parentFilter.value), URLQueryItem(name: childFilter.parameterName, value: childFilter.value)])
+        childFilter.updateSelectionState(selectionDataSource)
+        parentFilter.updateSelectionState(selectionDataSource)
+        selectionDataSource.multiLevelFilterLookup = [parentFilter.lookupKey: parentFilter, childFilter.lookupKey: childFilter]
+
+        selectionDataSource.clearValue(parentFilter.value, for: parentFilter)
+
+        let selectionValues = selectionDataSource.valueAndSubLevelValues(for: parentFilter)
+        XCTAssertEqual(1, selectionValues.count)
+        guard let selectionValue = selectionValues.first as? FilterSelectionDataInfo else {
+            XCTAssertTrue(false, "Casting failed")
+            return
+        }
+        XCTAssertEqual(1, selectionValue.value.count)
+        XCTAssertEqual("456", selectionValue.value.first!)
+    }
+
+    func testSelectionDataSourceShouldSupportClearing1FilterOnlyWhenMultiLevelFiltersDoesntShareParameter() {
         let parentFilter = createMultiLevelFilter(parameterName: "foo", title: "Foo", multiSelect: true, value: "123")
         let childFilter = createMultiLevelFilter(parameterName: "bar", title: "Bar", multiSelect: true, value: "456")
         parentFilter.setSubLevelFilters([childFilter])
@@ -188,6 +246,24 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         XCTAssertEqual(1, selectionValue.value.count)
         XCTAssertEqual("456", selectionValue.value.first!)
     }
+
+    func testSelectionDataSourceShouldSupportGettingSelectionStateForMultiLevelFilters() {
+        let createdObjects = createCategoryLevels()
+        let selectionDataSource = createdObjects.selectionDataSource
+        let category = createdObjects.category
+        let kitchenTables = createdObjects.kitchenTables
+        let otherTables = createdObjects.otherTables
+        let animals = createdObjects.animals
+
+        selectionDataSource.addValue(kitchenTables.value, for: kitchenTables)
+        selectionDataSource.addValue(animals.value, for: animals)
+
+        XCTAssertEqual(.partial, selectionDataSource.selectionState(category))
+        XCTAssertEqual(.partial, selectionDataSource.selectionState(kitchenTables.parent!))
+        XCTAssertEqual(.selected, selectionDataSource.selectionState(animals))
+        XCTAssertEqual(.selected, selectionDataSource.selectionState(kitchenTables))
+        XCTAssertEqual(.none, selectionDataSource.selectionState(otherTables))
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSourceTests {
@@ -199,6 +275,27 @@ extension ParameterBasedFilterInfoSelectionDataSourceTests {
     func createMultiLevelFilter(parameterName: String, title: String, multiSelect: Bool, value: String) -> MultiLevelListSelectionFilterInfo {
         let filter = MultiLevelListSelectionFilterInfo(parameterName: parameterName, title: title, isMultiSelect: multiSelect, results: 0, value: value)
         return filter
+    }
+
+    func createCategoryLevels() -> (selectionDataSource: ParameterBasedFilterInfoSelectionDataSource, category: MultiLevelListSelectionFilterInfo, kitchenTables: MultiLevelListSelectionFilterInfo, otherTables: MultiLevelListSelectionFilterInfo, animals: MultiLevelListSelectionFilterInfo) {
+        let category = createMultiLevelFilter(parameterName: "category", title: "Kategori", multiSelect: true, value: "")
+        let furniture = createMultiLevelFilter(parameterName: "category", title: "Møbler", multiSelect: true, value: "Møbler")
+        let tables = createMultiLevelFilter(parameterName: "sub_category", title: "Bord", multiSelect: true, value: "Bord")
+        let kitchenTables = createMultiLevelFilter(parameterName: "product_type", title: "Kjøkkenbord", multiSelect: true, value: "Kjøkkenbord")
+        let otherTables = createMultiLevelFilter(parameterName: "product_type", title: "Andre bord", multiSelect: true, value: "Andre bord")
+        let animals = createMultiLevelFilter(parameterName: "category", title: "Dyr", multiSelect: true, value: "Dyr")
+        let fishes = createMultiLevelFilter(parameterName: "sub_category", title: "Fisker", multiSelect: true, value: "Fisker")
+        let birds = createMultiLevelFilter(parameterName: "sub_category", title: "Fugler", multiSelect: true, value: "Fugler")
+
+        category.setSubLevelFilters([furniture, animals])
+        furniture.setSubLevelFilters([tables])
+        tables.setSubLevelFilters([kitchenTables, otherTables])
+        animals.setSubLevelFilters([fishes, birds])
+
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [])
+        selectionDataSource.multiLevelFilterLookup = [furniture.lookupKey: furniture, tables.lookupKey: tables, kitchenTables.lookupKey: kitchenTables, otherTables.lookupKey: otherTables, animals.lookupKey: animals, fishes.lookupKey: fishes, birds.lookupKey: birds]
+
+        return (selectionDataSource, category, kitchenTables, otherTables, animals)
     }
 }
 

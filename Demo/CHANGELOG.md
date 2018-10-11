@@ -1,3 +1,8 @@
+## [0.6] - 2018-10-11
+- Selections should work for most filter types and be remembered for the "lifetime of that bottomsheet"
+- 3 selection states for multilevel filters
+- Bottom sheet presentation and dismiss animation is quicker
+
 ## [0.5] - 2018-09-05
 - Updated bottom sheet swipe handle
 - Fixed UI issue when iOS version < 11

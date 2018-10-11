@@ -29,11 +29,12 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
         view.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
 
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
+        view.delegate = self
 
         return view
     }()
 
+    var currentRangeValue: RangeValue?
     let filterInfo: RangeFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
 
@@ -93,24 +94,27 @@ private extension RangeFilterViewController {
         }
     }
 
-    @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        let rangeValue: RangeValue?
-        if let lowValue = rangeFilterView.lowValue {
-            if let highValue = rangeFilterView.highValue {
-                rangeValue = .closed(lowValue: lowValue, highValue: highValue)
-            } else {
-                rangeValue = .minimum(lowValue: lowValue)
-            }
-        } else if let highValue = rangeFilterView.highValue {
-            rangeValue = .maximum(highValue: highValue)
-        } else {
-            rangeValue = nil
-        }
-
-        if let rangeValue = rangeValue {
+    func updateSelectionDataSource() {
+        if let rangeValue = currentRangeValue {
             selectionDataSource.setValue(rangeValue, for: filterInfo)
         } else {
             selectionDataSource.clearAll(for: filterInfo)
+        }
+    }
+}
+
+extension RangeFilterViewController: RangeFilterViewDelegate {
+    public func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
+        if lowValue != currentRangeValue?.lowValue {
+            currentRangeValue = RangeValue.create(lowValue: lowValue, highValue: currentRangeValue?.highValue)
+            updateSelectionDataSource()
+        }
+    }
+
+    public func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?) {
+        if highValue != currentRangeValue?.highValue {
+            currentRangeValue = RangeValue.create(lowValue: currentRangeValue?.lowValue, highValue: highValue)
+            updateSelectionDataSource()
         }
     }
 }

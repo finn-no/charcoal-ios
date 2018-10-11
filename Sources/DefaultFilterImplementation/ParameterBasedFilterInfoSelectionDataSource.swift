@@ -230,6 +230,11 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             removeSelectionValues(rangeFilterKeyHigh(fromBaseKey: filterKey))
         } else {
             removeSelectionValues(filterKey)
+
+            if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+                multiLevelFilter.updateSelectionState(self)
+                updateSelectionStateForParents(of: multiLevelFilter)
+            }
         }
         DebugLog.write(self)
     }
@@ -239,6 +244,13 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             return
         }
         removeSelectionValue(value, for: filterKey)
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.updateSelectionState(self)
+            updateSelectionStateForParents(of: multiLevelFilter)
+        }
+
+        DebugLog.write(self)
     }
 
     public func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {

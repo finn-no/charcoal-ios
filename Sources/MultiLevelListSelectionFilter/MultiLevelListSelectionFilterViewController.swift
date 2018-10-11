@@ -7,6 +7,7 @@ import Foundation
 public final class MultiLevelListSelectionFilterViewController: ListViewController, FilterContainerViewController {
     private let filterInfo: MultiLevelListSelectionFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
+    private var indexPathToRefreshOnViewWillAppear: IndexPath?
 
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
@@ -30,6 +31,20 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let indexPathToRefreshOnViewWillAppear = indexPathToRefreshOnViewWillAppear {
+            updateCell(at: indexPathToRefreshOnViewWillAppear)
+        }
+        indexPathToRefreshOnViewWillAppear = nil
+    }
+
+    override func updateCell(at indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? MultiLevelSelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
+            configure(cell, listItem: listItem)
+        }
+    }
+
     override func registerCells(for tableView: UITableView) {
         tableView.register(MultiLevelSelectionListItemCell.self)
     }
@@ -47,6 +62,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
             return
         }
         filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: sublevelFilterInfo)
+        indexPathToRefreshOnViewWillAppear = indexPath
     }
 
     private func toggleSelection(for listItem: ListItem) {
@@ -87,7 +103,7 @@ extension MultiLevelListSelectionFilterViewController: ListViewControllerDelegat
             didSelectDrillDownItem(listItem, at: indexPath)
         } else {
             toggleSelection(for: listItem)
-            tableView.reloadRows(at: [indexPath], with: .fade) // TODO: update cell without reload?
+            updateCell(at: indexPath)
         }
     }
 }

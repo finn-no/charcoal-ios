@@ -22,7 +22,7 @@ protocol ListViewControllerDelegate: AnyObject {
 public class ListViewController: UIViewController {
     private static var rowHeight: CGFloat = 48.0
 
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
@@ -60,6 +60,12 @@ public class ListViewController: UIViewController {
     func registerCells(for tableView: UITableView) {
         tableView.register(SelectionListItemCell.self)
     }
+
+    func updateCell(at indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? SelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
+            selectionListItemCellConfigurator?.configure(cell, listItem: listItem)
+        }
+    }
 }
 
 extension ListViewController: UITableViewDataSource {
@@ -68,10 +74,10 @@ extension ListViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let listItem = listItems[indexPath.row]
-
         let cell = tableView.dequeue(SelectionListItemCell.self, for: indexPath)
-        selectionListItemCellConfigurator?.configure(cell, listItem: listItem)
+        if let listItem = listItems[safe: indexPath.row] {
+            selectionListItemCellConfigurator?.configure(cell, listItem: listItem)
+        }
         return cell
     }
 }

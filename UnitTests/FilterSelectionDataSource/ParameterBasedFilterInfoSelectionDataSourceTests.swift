@@ -264,6 +264,26 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         XCTAssertEqual(.selected, selectionDataSource.selectionState(kitchenTables))
         XCTAssertEqual(.none, selectionDataSource.selectionState(otherTables))
     }
+
+    func testSelectionDataSourceShouldSupportResettingSelectionStateForMultiLevelFilters() {
+        let createdObjects = createCategoryLevels()
+        let selectionDataSource = createdObjects.selectionDataSource
+        let kitchenTables = createdObjects.kitchenTables
+        let animals = createdObjects.animals
+
+        selectionDataSource.addValue(kitchenTables.value, for: kitchenTables)
+        selectionDataSource.addValue(animals.value, for: animals)
+        XCTAssertEqual(.partial, selectionDataSource.selectionState(kitchenTables.parent!))
+        XCTAssertEqual(.selected, selectionDataSource.selectionState(kitchenTables))
+
+        selectionDataSource.clearValue(kitchenTables.value, for: kitchenTables)
+        XCTAssertEqual(.none, selectionDataSource.selectionState(kitchenTables.parent!))
+        XCTAssertEqual(.none, selectionDataSource.selectionState(kitchenTables))
+
+        XCTAssertEqual(.selected, selectionDataSource.selectionState(animals))
+        selectionDataSource.clearAll(for: animals)
+        XCTAssertEqual(.none, selectionDataSource.selectionState(animals))
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSourceTests {

@@ -61,9 +61,13 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
                 selectionState = .partial
             } else if let _ = selectionDataSource.value(for: self) {
                 selectionState = .selected
+            } else {
+                selectionState = .none
             }
         } else if let _ = selectionDataSource.value(for: self) {
             selectionState = .selected
+        } else {
+            selectionState = .none
         }
     }
 }

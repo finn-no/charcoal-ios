@@ -5,8 +5,7 @@
 import Foundation
 
 public protocol FilterViewControllerDelegate: AnyObject {
-    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType)
-    func applyFilterButtonTapped(with filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType)
+    func applyFilterButtonTapped()
 }
 
 public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController {
@@ -28,7 +27,7 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         }
     }()
 
-    private lazy var applySelectionButton: FilterBottomButtonView = {
+    private lazy var applySelectionButton: FilterBottomButtonView = { // TODO: change name, it is not really `apply` since we update as soon as values change, `done` is probably better
         let buttonView = FilterBottomButtonView()
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.delegate = self
@@ -37,18 +36,19 @@ public final class FilterViewController<ChildViewController: FilterContainerView
     }()
 
     let filterInfo: FilterInfoType
+    let selectionDataSource: FilterSelectionDataSource
     let navigator: FilterNavigator
     let showsApplySelectionButton: Bool
     let filterContainerViewController: FilterContainerViewController
     weak var delegate: FilterViewControllerDelegate?
-    private(set) var filterSelectionValue: FilterSelectionValue?
 
-    public required init?(filterInfo: FilterInfoType, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
-        guard let child = ChildViewController(filterInfo: filterInfo) else {
+    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
+        guard let child = ChildViewController(filterInfo: filterInfo, selectionDataSource: selectionDataSource) else {
             return nil
         }
 
         self.filterInfo = filterInfo
+        self.selectionDataSource = selectionDataSource
         self.navigator = navigator
         self.showsApplySelectionButton = showsApplySelectionButton
         filterContainerViewController = child
@@ -68,12 +68,6 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         addChildViewController(childViewController)
         setup(with: childViewController.view)
         childViewController.didMove(toParentViewController: self)
-    }
-}
-
-public extension FilterViewController {
-    func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-        filterContainerViewController.setSelectionValue(selectionValue)
     }
 }
 
@@ -117,15 +111,10 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
             break
         }
     }
-
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType) {
-        self.filterSelectionValue = filterSelectionValue
-        delegate?.filterSelectionValueChanged(filterSelectionValue, forFilterWithFilterInfo: filterInfo)
-    }
 }
 
 extension FilterViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.applyFilterButtonTapped(with: filterSelectionValue, forFilterWithFilterInfo: filterInfo)
+        delegate?.applyFilterButtonTapped()
     }
 }

@@ -5,12 +5,6 @@
 import UIKit
 
 class MultiLevelSelectionListItemCell: UITableViewCell {
-    enum SelectionState {
-        case none
-        case partial
-        case selected
-    }
-
     private var normalStateImageAsset: ImageAsset {
         return .checkboxOff
     }
@@ -43,7 +37,7 @@ class MultiLevelSelectionListItemCell: UITableViewCell {
     public override func setSelected(_ selected: Bool, animated: Bool) {
     }
 
-    func setSelectionState(_ selectionState: SelectionState) {
+    func setSelectionState(_ selectionState: MultiLevelListItemSelectionState) {
         switch selectionState {
         case .none:
             imageView?.image = UIImage(named: normalStateImageAsset)

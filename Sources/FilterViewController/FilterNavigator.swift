@@ -28,7 +28,6 @@ public class FilterNavigator: Navigator {
             guard let sublevelViewController = factory.makeSublevelViewController(for: filterInfo, navigator: self, delegate: delegate) else {
                 return
             }
-
             navigationController.pushViewController(sublevelViewController, animated: true)
         }
     }

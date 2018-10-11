@@ -174,7 +174,7 @@ enum ComponentViews: String {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
+            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             rootFilterNavigator.start()
@@ -195,7 +195,7 @@ enum ComponentViews: String {
             return ViewController<RangeFilterDemoView>()
 
         case .searchQuery:
-            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"))!
+            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
             let navigationController = UINavigationController(rootViewController: searchQueryViewController)
             return navigationController
         }
@@ -233,7 +233,7 @@ enum FullscreenViews: String {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: demoFilter, delegate: demoFilter, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
+        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         rootFilterNavigator.start()
@@ -263,4 +263,37 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
     var value: String?
     var placeholderText: String
     var title: String
+}
+
+class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
+    func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState {
+        return .none
+    }
+
+    func value(for filterInfo: FilterInfoType) -> [String]? {
+        return nil
+    }
+
+    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo] {
+        return []
+    }
+
+    func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType) {
+    }
+
+    func addValue(_ value: String, for filterInfo: FilterInfoType) {
+    }
+
+    func clearAll(for filterInfo: FilterInfoType) {
+    }
+
+    func clearValue(_ value: String, for filterInfo: FilterInfoType) {
+    }
+
+    func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {
+        return nil
+    }
+
+    func setValue(_ range: RangeValue, for filterInfo: RangeFilterInfoType) {
+    }
 }

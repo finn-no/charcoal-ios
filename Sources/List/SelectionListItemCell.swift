@@ -54,10 +54,12 @@ class SelectionListItemCell: UITableViewCell {
     }
 
     public override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        super.setSelected(false, animated: false)
+    }
 
-        textLabel?.textColor = selected ? .primaryBlue : .licorice
-        setSelectionIndicator(selected: selected)
+    public func setSelectionMarker(visible: Bool) {
+        textLabel?.textColor = visible ? .primaryBlue : .licorice
+        setSelectionIndicator(selected: visible)
     }
 }
 

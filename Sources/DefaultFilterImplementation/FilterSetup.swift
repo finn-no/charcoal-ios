@@ -70,13 +70,13 @@ extension FilterData {
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             title = try container.decode(String.self, forKey: CodingKeys.title)
-            parameterName = try container.decode(String.self, forKey: CodingKeys.name)
+            parameterName = try container.decode(String.self, forKey: CodingKeys.parameterName)
             isRange = try container.decodeIfPresent(Bool.self, forKey: CodingKeys.isRange) ?? false
             queries = try container.decodeIfPresent([Query].self, forKey: CodingKeys.queries)
         }
 
         enum CodingKeys: String, CodingKey {
-            case title, isRange = "range", queries, name
+            case title, isRange = "range", queries, parameterName = "name"
         }
     }
 }

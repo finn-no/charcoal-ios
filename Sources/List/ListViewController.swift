@@ -8,46 +8,63 @@ public protocol ListItem {
     var title: String { get }
     var detail: String? { get }
     var showsDisclosureIndicator: Bool { get }
+    var value: String { get }
+}
+
+protocol SelectionListItemCellConfigurator: AnyObject {
+    func configure(_ cell: SelectionListItemCell, listItem: ListItem)
+}
+
+protocol ListViewControllerDelegate: AnyObject {
+    func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView)
 }
 
 public class ListViewController: UIViewController {
     private static var rowHeight: CGFloat = 48.0
 
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.allowsMultipleSelection = true
-        tableView.register(SelectionListItemCell.self)
-
+        tableView.allowsSelection = true
+        registerCells(for: tableView)
         return tableView
     }()
 
     public let listItems: [ListItem]
+    weak var selectionListItemCellConfigurator: SelectionListItemCellConfigurator?
+    weak var listViewControllerDelegate: ListViewControllerDelegate?
 
-    public init(title: String, items: [ListItem], allowsMultipleSelection: Bool = false) {
+    public init(title: String, items: [ListItem]) {
         listItems = items
         super.init(nibName: nil, bundle: nil)
         self.title = title
-        tableView.allowsMultipleSelection = allowsMultipleSelection
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        listItems = []
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        fatalError("init(nibName:bundle:) has not been implemented")
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        listItems = []
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
+    }
+
+    func registerCells(for tableView: UITableView) {
+        tableView.register(SelectionListItemCell.self)
+    }
+
+    func updateCell(at indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? SelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
+            selectionListItemCellConfigurator?.configure(cell, listItem: listItem)
+        }
     }
 }
 
@@ -57,18 +74,20 @@ extension ListViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let listItem = listItems[indexPath.row]
-
         let cell = tableView.dequeue(SelectionListItemCell.self, for: indexPath)
-        cell.configure(for: listItem)
-        cell.selectionIndicatorType = tableView.allowsMultipleSelection ? .checkbox : .radioButton
-
+        if let listItem = listItems[safe: indexPath.row] {
+            selectionListItemCellConfigurator?.configure(cell, listItem: listItem)
+        }
         return cell
     }
 }
 
 extension ListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let listItem = listItems[safe: indexPath.row] else {
+            return
+        }
+        listViewControllerDelegate?.listViewController(self, didSelectListItem: listItem, at: indexPath, in: tableView)
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,15 +105,5 @@ private extension ListViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-    }
-}
-
-public extension ListViewController {
-    final func indexesForSelectedListItems() -> [Int]? {
-        return tableView.indexPathsForSelectedRows?.map({ $0.row })
-    }
-
-    final func indexForSelectedListItem() -> Int? {
-        return tableView.indexPathForSelectedRow?.row
     }
 }

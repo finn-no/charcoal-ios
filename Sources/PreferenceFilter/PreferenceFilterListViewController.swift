@@ -11,43 +11,70 @@ public class PreferenceFilterListViewController: ListViewController, FilterConta
 
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
-    let preferenceInfo: PreferenceInfoType
+    let filterInfo: PreferenceInfoType
+    private let selectionDataSource: FilterSelectionDataSource
 
-    public required init?(filterInfo: FilterInfoType) {
-        guard let preferenceInfo = filterInfo as? PreferenceInfoType else {
+    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
+        guard let filterInfo = filterInfo as? PreferenceInfoType else {
             return nil
         }
 
-        self.preferenceInfo = preferenceInfo
-
-        super.init(title: preferenceInfo.preferenceName, items: preferenceInfo.values, allowsMultipleSelection: preferenceInfo.isMultiSelect)
-    }
-
-    public func setSelectionValue(_ selectionValue: FilterSelectionValue) {
-
-        // MARK: TODO
-
+        self.filterInfo = filterInfo
+        self.selectionDataSource = selectionDataSource
+        super.init(title: filterInfo.preferenceName, items: filterInfo.values)
+        listViewControllerDelegate = self
+        selectionListItemCellConfigurator = self
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var selectionValue: FilterSelectionValue?
-
-        if preferenceInfo.isMultiSelect {
-            if let values = tableView.indexPathsForSelectedRows?.map({ preferenceInfo.values[$0.row].value }) {
-                selectionValue = .multipleSelection(values: values)
+    private func toggleSelection(for listItem: ListItem) {
+        guard let item = listItem as? PreferenceValueType else {
+            return
+        }
+        let wasItemPreviouslySelected = isListItemSelected(item)
+        if filterInfo.isMultiSelect {
+            if wasItemPreviouslySelected {
+                selectionDataSource.clearValue(item.value, for: filterInfo)
+            } else {
+                selectionDataSource.addValue(item.value, for: filterInfo)
             }
         } else {
-            if let value = tableView.indexPathForSelectedRow.map({ preferenceInfo.values[$0.row].value }) {
-                selectionValue = .singleSelection(value: value)
+            selectionDataSource.clearAll(for: filterInfo)
+            if !wasItemPreviouslySelected {
+                selectionDataSource.setValue([item.value], for: filterInfo)
             }
         }
+    }
 
-        if let selectionValue = selectionValue {
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, didUpdateFilterSelectionValue: selectionValue, for: preferenceInfo)
+    private func isListItemSelected(_ listItem: ListItem) -> Bool {
+        guard let item = listItem as? PreferenceValueType else {
+            return false
         }
+        return isListSelectionFilterValueSelected(item)
+    }
+
+    private func isListSelectionFilterValueSelected(_ item: PreferenceValueType) -> Bool {
+        guard let currentSelection = selectionDataSource.value(for: filterInfo) else {
+            return false
+        }
+        return currentSelection.contains(item.value)
+    }
+}
+
+extension PreferenceFilterListViewController: ListViewControllerDelegate {
+    func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
+        toggleSelection(for: listItem)
+        updateCell(at: indexPath)
+    }
+}
+
+extension PreferenceFilterListViewController: SelectionListItemCellConfigurator {
+    func configure(_ cell: SelectionListItemCell, listItem: ListItem) {
+        cell.configure(for: listItem)
+        cell.selectionIndicatorType = filterInfo.isMultiSelect ? .checkbox : .radioButton
+        cell.setSelectionMarker(visible: isListItemSelected(listItem))
     }
 }

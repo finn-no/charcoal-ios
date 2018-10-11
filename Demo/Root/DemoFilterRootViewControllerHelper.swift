@@ -10,7 +10,7 @@ class DemoFilter {
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
-        let filterInfoBuilder = FilterInfoBuilder(filter: filterData)
+        let filterInfoBuilder = FilterInfoBuilder(filter: filterData, selectionDataSource: selectionDataSource)
 
         return filterInfoBuilder.build()
     }()
@@ -67,21 +67,5 @@ extension DemoFilter: FilterDataSource {
             result.append(contentsOf: filterSelectionTitleProvider.titlesForSelection(selectionData))
         }
         return result
-    }
-}
-
-extension DemoFilter: FilterDelegate {
-    func filterSelectionValueChanged(_ filterSelectionValue: FilterSelectionValue, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let _ = filterInfo as? ParameterBasedFilterInfo {
-            selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
-            print(selectionDataSource)
-        }
-    }
-
-    func applyFilterSelectionValue(_ filterSelectionValue: FilterSelectionValue?, forFilterWithFilterInfo filterInfo: FilterInfoType) {
-        if let _ = filterInfo as? ParameterBasedFilterInfo {
-            selectionDataSource.setValue(filterSelectionValue, for: filterInfo)
-            print(selectionDataSource)
-        }
     }
 }

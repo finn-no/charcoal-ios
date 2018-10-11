@@ -10,6 +10,7 @@ struct ListViewControllerDemo {
         var title: String
         var detail: String?
         var showsDisclosureIndicator: Bool
+        let value: String = ""
     }
 
     static let listItems: [ListItem] = {

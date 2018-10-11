@@ -5,7 +5,8 @@
 import Foundation
 
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
-    private var selectionValues: [String: [String]]
+    private(set) var selectionValues: [String: [String]]
+    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo] = [:]
 
     public init(queryItems: [URLQueryItem]) {
         var selectionValues = [String: [String]]()
@@ -43,7 +44,24 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         setSelectionValues([value], for: key)
     }
 
-    func removeSelectionValue(_ key: String) {
+    func addSelectionValue(_ value: String, for key: String) {
+        var values: [String]
+        if let previousValues = selectionValues[key] {
+            values = previousValues
+        } else {
+            values = []
+        }
+        values.append(value)
+        setSelectionValues(values, for: key)
+    }
+
+    func removeSelectionValue(_ value: String, for key: String) {
+        if let previousValues = selectionValues[key] {
+            setSelectionValues(previousValues.filter({ $0 != value }), for: key)
+        }
+    }
+
+    func removeSelectionValues(_ key: String) {
         selectionValues.removeValue(forKey: key)
     }
 
@@ -58,32 +76,23 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         return nil
     }
 
-    func setStringValue(_ value: String?, for key: String) {
-        if let value = value, !value.isEmpty {
-            setSelectionValue(value, for: key)
-        } else {
-            removeSelectionValue(key)
-        }
+    func setStringValue(_ value: String, for key: String) {
+        setSelectionValue(value, for: key)
     }
 
-    func setFilterSelectionValue(_ value: FilterSelectionValue, for key: String) {
-        switch value {
-        case let .singleSelection(value):
-            setStringValue(value, for: key)
-        case let .multipleSelection(values):
-            setSelectionValues(values, for: key)
-        case let .rangeSelection(range):
-            switch range {
-            case let .minimum(lowValue):
-                setStringValue(lowValue.description, for: key + "_from")
-                removeSelectionValue(key + "_to")
-            case let .maximum(highValue):
-                removeSelectionValue(key + "_from")
-                setStringValue(highValue.description, for: key + "_to")
-            case let .closed(lowValue, highValue):
-                setStringValue(lowValue.description, for: key + "_from")
-                setStringValue(highValue.description, for: key + "_to")
-            }
+    func setRangeSelectionValue(_ range: RangeValue, for key: String) {
+        let lowKey = rangeFilterKeyLow(fromBaseKey: key)
+        let highKey = rangeFilterKeyHigh(fromBaseKey: key)
+        switch range {
+        case let .minimum(lowValue):
+            setStringValue(lowValue.description, for: lowKey)
+            removeSelectionValues(highKey)
+        case let .maximum(highValue):
+            removeSelectionValues(lowKey)
+            setStringValue(highValue.description, for: highKey)
+        case let .closed(lowValue, highValue):
+            setStringValue(lowValue.description, for: lowKey)
+            setStringValue(highValue.description, for: highKey)
         }
     }
 
@@ -93,63 +102,179 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         }
         return Int(value)
     }
+
+    func updateSelectionStateForParents(of multiLevelFilter: MultiLevelListSelectionFilterInfo) {
+        guard let parent = multiLevelFilter.parent as? MultiLevelListSelectionFilterInfo else {
+            return
+        }
+        parent.updateSelectionState(self)
+        updateSelectionStateForParents(of: parent)
+    }
+
+    func isAncestor(_ ancestor: MultiLevelListSelectionFilterInfo, to multiLevelFilter: MultiLevelListSelectionFilterInfoType?) -> Bool {
+        guard let multiLevelFilter = multiLevelFilter as? MultiLevelListSelectionFilterInfo else {
+            return false
+        }
+        guard let multiLevelFilterParent = multiLevelFilter.parent as? MultiLevelListSelectionFilterInfo else {
+            return false
+        }
+        if multiLevelFilterParent === ancestor {
+            return true
+        }
+        return isAncestor(ancestor, to: multiLevelFilterParent)
+    }
+
+    func rangeFilterKeyLow(fromBaseKey filterKey: String) -> String {
+        return filterKey + "_from"
+    }
+
+    func rangeFilterKeyHigh(fromBaseKey filterKey: String) -> String {
+        return filterKey + "_to"
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource {
-    public func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionData] {
-        var values = [FilterSelectionData]()
-        if let rootValue = value(for: filterInfo) {
-            values.append(FilterSelectionData(filter: filterInfo, value: rootValue))
+    public func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState {
+        guard let filter = filterInfo as? MultiLevelListSelectionFilterInfo else {
+            return .none
         }
-        if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType {
-            multiLevelFilterInfo.filters.forEach { subLevel in
-                let subLevelValues = valueAndSubLevelValues(for: subLevel)
-                values.append(contentsOf: subLevelValues)
-            }
-        }
-        return values
+        return filter.selectionState
     }
 
-    public func value(for filterInfo: FilterInfoType) -> FilterSelectionValue? {
+    public func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo] {
+        if let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfo {
+            guard multiLevelFilterInfo.selectionState != .none else {
+                return []
+            }
+            var values = [FilterSelectionInfo]()
+
+            selectionValues.forEach { selectionValuesAndKey in
+                selectionValuesAndKey.value.forEach({ selectionValue in
+                    if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfo.LookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
+                        if selectedFilterInfo === multiLevelFilterInfo || isAncestor(multiLevelFilterInfo, to: selectedFilterInfo) {
+                            values.append(FilterSelectionDataInfo(filter: selectedFilterInfo, value: [selectedFilterInfo.value]))
+                        }
+                    }
+                })
+            }
+
+            return values
+        } else if let rangeFilterInfo = filterInfo as? RangeFilterInfo, let value = rangeValue(for: rangeFilterInfo) {
+            return [FilterRangeSelectionInfo(filter: rangeFilterInfo, value: value)]
+        } else if let rootValue = value(for: filterInfo) {
+            return [FilterSelectionDataInfo(filter: filterInfo, value: rootValue)]
+        }
+        return []
+    }
+
+    public func value(for filterInfo: FilterInfoType) -> [String]? {
         guard let filterKey = filterParameter(for: filterInfo) else {
             return nil
         }
         if filterInfo is RangeFilterInfoType {
-            let low = intOrNil(from: selectionValues(for: filterKey + "_from").first)
-            let high = intOrNil(from: selectionValues(for: filterKey + "_to").first)
-            if let low = low, let high = high {
-                return .rangeSelection(range: .closed(lowValue: low, highValue: high))
-            } else if let low = low {
-                return .rangeSelection(range: .minimum(lowValue: low))
-            } else if let high = high {
-                return .rangeSelection(range: .maximum(highValue: high))
-            } else {
-                return nil
-            }
         } else {
             let values = selectionValues(for: filterKey)
+
             if values.count < 1 {
                 return nil
             }
             if values.count > 1 {
-                return .multipleSelection(values: values)
+                return values
             } else {
                 if let value = values.first {
-                    return .singleSelection(value: value)
+                    return [value]
                 }
             }
-            return nil
         }
+        return nil
     }
 
-    public func setValue(_ filterSelectionValue: FilterSelectionValue?, for filterInfo: FilterInfoType) {
+    public func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType) {
         guard let filterKey = filterParameter(for: filterInfo) else {
             return
         }
         if let filterSelectionValue = filterSelectionValue {
-            setFilterSelectionValue(filterSelectionValue, for: filterKey)
+            setSelectionValues(filterSelectionValue, for: filterKey)
         } else {
-            removeSelectionValue(filterKey)
+            removeSelectionValues(filterKey)
         }
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.updateSelectionState(self)
+            updateSelectionStateForParents(of: multiLevelFilter)
+        }
+
+        DebugLog.write(self)
+    }
+
+    public func addValue(_ value: String, for filterInfo: FilterInfoType) {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        addSelectionValue(value, for: filterKey)
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.updateSelectionState(self)
+            updateSelectionStateForParents(of: multiLevelFilter)
+        }
+
+        DebugLog.write(self)
+    }
+
+    public func clearAll(for filterInfo: FilterInfoType) {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        if filterInfo is RangeFilterInfoType {
+            removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
+            removeSelectionValues(rangeFilterKeyHigh(fromBaseKey: filterKey))
+        } else {
+            removeSelectionValues(filterKey)
+
+            if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+                multiLevelFilter.updateSelectionState(self)
+                updateSelectionStateForParents(of: multiLevelFilter)
+            }
+        }
+        DebugLog.write(self)
+    }
+
+    public func clearValue(_ value: String, for filterInfo: FilterInfoType) {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        removeSelectionValue(value, for: filterKey)
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.updateSelectionState(self)
+            updateSelectionStateForParents(of: multiLevelFilter)
+        }
+
+        DebugLog.write(self)
+    }
+
+    public func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return nil
+        }
+        let low = intOrNil(from: selectionValues(for: rangeFilterKeyLow(fromBaseKey: filterKey)).first)
+        let high = intOrNil(from: selectionValues(for: rangeFilterKeyHigh(fromBaseKey: filterKey)).first)
+        if let low = low, let high = high {
+            return .closed(lowValue: low, highValue: high)
+        } else if let low = low {
+            return .minimum(lowValue: low)
+        } else if let high = high {
+            return .maximum(highValue: high)
+        } else {
+            return nil
+        }
+    }
+
+    public func setValue(_ range: RangeValue, for filterInfo: RangeFilterInfoType) {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        setRangeSelectionValue(range, for: filterKey)
+        DebugLog.write(self)
     }
 }

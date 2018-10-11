@@ -9,98 +9,52 @@ public struct FilterSelectionTitleProvider {
     public init() {
     }
 
-    public func titlesForSelection(_ selectionData: FilterSelectionData) -> [String] {
-        if let filter = selectionData.filter as? PreferenceInfoType {
-            return titlesForSelectionValue(selectionData.value, in: filter)
-        } else if let filter = selectionData.filter as? ListSelectionFilterInfoType {
-            return titlesForSelectionValue(selectionData.value, in: filter)
-        } else if let filter = selectionData.filter as? MultiLevelListSelectionFilterInfoType {
-            return titlesForSelectionValue(selectionData.value, in: filter)
-        } else if let filter = selectionData.filter as? RangeFilterInfoType {
-            return titlesForSelectionValue(selectionData.value, in: filter)
+    public func titlesForSelection(_ selectionData: FilterSelectionInfo) -> [String] {
+        if let selectionData = selectionData as? FilterSelectionDataInfo {
+            if selectionData.filter is ListSelectionFilterInfoType {
+                return titlesForListFilterSelectionValue(selectionData)
+            } else {
+                return [titleForMultiLevelFilterSelectionValue(selectionData)]
+            }
+        } else if let selectionData = selectionData as? FilterRangeSelectionInfo {
+            return [titlesForRangeSelectionValue(selectionData.value, in: selectionData.filter)]
         }
         return []
     }
 }
 
 private extension FilterSelectionTitleProvider {
-    func titlesForSelectionValue(_ selectionValue: FilterSelectionValue, in filter: PreferenceInfoType) -> [String] {
-        switch selectionValue {
-        case let .singleSelection(value):
-            if let valueType = filter.values.first(where: { $0.value == value }) {
-                return [valueType.title]
-            }
-        case let .multipleSelection(values):
-            let titles = values.compactMap { (value) -> String? in
-                return filter.values.first(where: { $0.value == value })?.title
-            }
-            return titles
-        case .rangeSelection:
-            break
+    func titlesForListFilterSelectionValue(_ selection: FilterSelectionDataInfo) -> [String] {
+        guard let listFilter = selection.filter as? ListSelectionFilterInfoType else {
+            return []
         }
-        return []
+
+        let selectedValues = listFilter.values.filter({ selection.value.contains($0.value) })
+        return selectedValues.map({ $0.title })
     }
 
-    func titlesForSelectionValue(_ selectionValue: FilterSelectionValue, in filter: ListSelectionFilterInfoType) -> [String] {
-        switch selectionValue {
-        case let .singleSelection(value):
-            if let valueType = filter.values.first(where: { $0.value == value }) {
-                return [valueType.title]
-            }
-        case let .multipleSelection(values):
-            let titles = values.compactMap { (value) -> String? in
-                return filter.values.first(where: { $0.value == value })?.title
-            }
-            return titles
-        case .rangeSelection:
-            break
-        }
-        return []
+    func titleForMultiLevelFilterSelectionValue(_ selection: FilterSelectionDataInfo) -> String {
+        return selection.filter.title
     }
 
-    func titlesForSelectionValue(_ selectionValue: FilterSelectionValue, in filter: MultiLevelListSelectionFilterInfoType) -> [String] {
-        var result = [String]()
-        if let filterValue = filter.value {
-            switch selectionValue {
-            case let .singleSelection(value):
-                if filterValue == value {
-                    result.append(filter.title)
-                }
-            case let .multipleSelection(values):
-                if values.contains(filterValue) {
-                    result.append(filter.title)
-                }
-            case .rangeSelection:
-                break
-            }
+    func titlesForRangeSelectionValue(_ range: RangeValue, in filter: RangeFilterInfoType) -> String {
+        let formatter: RangeFilterValueFormatter
+        if filter.isCurrencyValueRange {
+            formatter = rangeCurrencyFormatter
+        } else {
+            formatter = rangeFormatter
         }
-        filter.filters.forEach { subFilter in
-            result.append(contentsOf: titlesForSelectionValue(selectionValue, in: subFilter))
+        switch range {
+        case let .minimum(lowValue):
+            let lowValue = formatter.string(from: lowValue) ?? ""
+            return "\(lowValue) - ..."
+        case let .maximum(highValue):
+            let highValue = formatter.string(from: highValue) ?? ""
+            return "... - \(highValue)"
+        case let .closed(lowValue, highValue):
+            let lowValue = formatter.string(from: lowValue) ?? ""
+            let highValue = formatter.string(from: highValue) ?? ""
+            return "\(lowValue) - \(highValue)"
         }
-        return result
-    }
-
-    func titlesForSelectionValue(_ selectionValue: FilterSelectionValue, in filter: RangeFilterInfoType) -> [String] {
-        if case let .rangeSelection(range) = selectionValue {
-            let formatter: RangeFilterValueFormatter
-            if filter.isCurrencyValueRange {
-                formatter = rangeCurrencyFormatter
-            } else {
-                formatter = rangeFormatter
-            }
-            switch range {
-            case let .minimum(lowValue):
-                let lowValue = formatter.string(from: lowValue) ?? ""
-                return ["\(lowValue) - ..."]
-            case let .maximum(highValue):
-                let highValue = formatter.string(from: highValue) ?? ""
-                return ["... - \(highValue)"]
-            case let .closed(lowValue, highValue):
-                let lowValue = formatter.string(from: lowValue) ?? ""
-                let highValue = formatter.string(from: highValue) ?? ""
-                return ["\(lowValue) - \(highValue)"]
-            }
-        }
-        return []
     }
 }

@@ -5,13 +5,11 @@
 import Foundation
 
 public protocol FilterContainerViewControllerDelegate: AnyObject {
-    func filterContainerViewController(filterContainerViewController: FilterContainerViewController, didUpdateFilterSelectionValue filterSelectionValue: FilterSelectionValue, for filterInfo: FilterInfoType)
     func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType)
 }
 
 public protocol FilterContainerViewController: AnyObject {
     var filterSelectionDelegate: FilterContainerViewControllerDelegate? { get set }
-    init?(filterInfo: FilterInfoType)
-    func setSelectionValue(_ selectionValue: FilterSelectionValue)
+    init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource)
     var controller: UIViewController { get }
 }

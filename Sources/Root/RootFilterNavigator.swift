@@ -41,7 +41,6 @@ public class RootFilterNavigator: NSObject, Navigator {
             guard let multiLevelListViewController = factory.makeMultiLevelListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
-
             navigationController.pushViewController(multiLevelListViewController, animated: true)
         case let .preferenceFilterInPopover(preferenceInfo, sourceView, delegate, popoverWillDismiss):
             presentPreference(with: preferenceInfo, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
@@ -50,14 +49,12 @@ public class RootFilterNavigator: NSObject, Navigator {
             guard let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
-
             navigationController.pushViewController(rangeFilterViewController, animated: true)
         case let .selectionListFilter(filterInfo, delegate):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController)
             guard let listSelectionViewController = factory.makeListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
-
             navigationController.pushViewController(listSelectionViewController, animated: true)
         case let .searchQueryFilter(filterInfo, delegate):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController)

@@ -10,18 +10,14 @@ final class RangeSliderView: UIControl {
     private lazy var lowValueSlider: SteppedSlider = {
         let slider = SteppedSlider(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-        slider.roundedStepValueChangedHandler = roundedStepValueChanged
-
+        slider.delegate = self
         return slider
     }()
 
     private lazy var highValueSlider: SteppedSlider = {
         let slider = SteppedSlider(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-        slider.roundedStepValueChangedHandler = roundedStepValueChanged
-
+        slider.delegate = self
         return slider
     }()
 
@@ -199,15 +195,6 @@ private extension RangeSliderView {
         updateAccesibilityValues()
     }
 
-    func roundedStepValueChanged(_ slider: SteppedSlider) {
-        sendActions(for: .valueChanged)
-    }
-
-    @objc func sliderValueChanged(_ slider: SteppedSlider) {
-        updateActiveTrackRange()
-        updateAccesibilityValues()
-    }
-
     var lowestValueSlider: SteppedSlider {
         return lowValueSlider.value <= highValueSlider.value ? lowValueSlider : highValueSlider
     }
@@ -236,5 +223,16 @@ private extension RangeSliderView {
     func updateAccesibilityValues() {
         lowestValueSlider.accessibilityLabel = "range_slider_view_low_value_slider_accessibility_label".localized()
         highestValueSlider.accessibilityLabel = "range_slider_view_high_value_slider_accessibility_label".localized()
+    }
+}
+
+extension RangeSliderView: SteppedSliderDelegate {
+    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue) {
+        sendActions(for: .valueChanged)
+    }
+
+    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeValue value: Float) {
+        updateActiveTrackRange()
+        updateAccesibilityValues()
     }
 }

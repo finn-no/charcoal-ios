@@ -4,12 +4,15 @@
 
 import UIKit
 
+protocol SteppedSliderDelegate: AnyObject {
+    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeValue value: Float)
+    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue)
+}
+
 class SteppedSlider: UISlider {
     let steps: Int
     let range: RangeSliderView.SliderRange
     let effectiveRange: RangeSliderView.SliderRange
-
-    var roundedStepValueChangedHandler: ((SteppedSlider) -> Void)?
     var generatesHapticFeedbackOnValueChange = true
 
     var accessibilityValueSuffix: String? {
@@ -33,6 +36,7 @@ class SteppedSlider: UISlider {
     }
 
     private var previousRoundedStepValue: RangeSliderView.RangeValue?
+    weak var delegate: SteppedSliderDelegate?
 
     init(range: RangeSliderView.SliderRange, additionalLowerBoundOffset: RangeSliderView.RangeValue = 0, additionalUpperBoundOffset: RangeSliderView.RangeValue = 0, steps: Int) {
         self.range = range
@@ -89,14 +93,14 @@ class SteppedSlider: UISlider {
         let incrementedValue = roundedStepValue + accessibilityStepIncrement
         value = Float(incrementedValue)
         updateAccessibilityValue()
-        sendActions(for: .valueChanged)
+        delegate?.steppedSlider(self, didChangeValue: value)
     }
 
     override func accessibilityDecrement() {
         let decrementedValue = roundedStepValue - accessibilityStepIncrement
         value = Float(decrementedValue)
         updateAccessibilityValue()
-        sendActions(for: .valueChanged)
+        delegate?.steppedSlider(self, didChangeValue: value)
     }
 
     var currentTrackRect: CGRect {
@@ -132,8 +136,7 @@ class SteppedSlider: UISlider {
 
             value = Float(newValue)
             previousRoundedStepValue = newValue
-            roundedStepValueChangedHandler?(self)
-            roundedStepValueChangedHandler?(self)
+            delegate?.steppedSlider(self, didChangeRoundedStepValue: newValue)
 
             updateAccessibilityValue()
 
@@ -145,6 +148,7 @@ class SteppedSlider: UISlider {
             previousRoundedStepValue = newValue
             updateAccessibilityValue()
         }
+        delegate?.steppedSlider(self, didChangeValue: value)
     }
 
     private var accessibilityStepIncrement: Int {

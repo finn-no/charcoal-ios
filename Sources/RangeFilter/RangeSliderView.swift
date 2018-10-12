@@ -4,6 +4,10 @@
 
 import UIKit
 
+protocol RangeSliderViewDelegate: AnyObject {
+    func rangeSliderViewDidChangeValue(_ rangeSliderView: RangeSliderView)
+}
+
 final class RangeSliderView: UIControl {
     public static let minimumViewHeight: CGFloat = 28.0
 
@@ -84,6 +88,8 @@ final class RangeSliderView: UIControl {
             highValueSlider.accessibilityFrame = accessibilityFrame
         }
     }
+
+    weak var delegate: RangeSliderViewDelegate?
 
     init(range: SliderRange, additionalLowerBoundOffset: RangeValue, additionalUpperBoundOffset: RangeValue, steps: Int?) {
         self.range = range
@@ -228,7 +234,7 @@ private extension RangeSliderView {
 
 extension RangeSliderView: SteppedSliderDelegate {
     func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue) {
-        sendActions(for: .valueChanged)
+        delegate?.rangeSliderViewDidChangeValue(self)
     }
 
     func steppedSlider(_ steppedSlider: SteppedSlider, didChangeValue value: Float) {

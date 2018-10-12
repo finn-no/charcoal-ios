@@ -24,7 +24,7 @@ public final class RangeFilterView: UIControl {
     private lazy var sliderInputView: RangeSliderView = {
         let rangeSliderView = RangeSliderView(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
         rangeSliderView.translatesAutoresizingMaskIntoConstraints = false
-        rangeSliderView.addTarget(self, action: #selector(sliderInputValueChanged(_:)), for: .valueChanged)
+        rangeSliderView.delegate = self
         return rangeSliderView
     }()
 
@@ -68,7 +68,7 @@ public final class RangeFilterView: UIControl {
     }
 
     private var inputValues = [InputValue: RangeValue]()
-    private var referenceValueViews = [ReferenceValueView]()
+    private var referenceValueViews = [RangeReferenceValueView]()
 
     public typealias RangeValue = Int
     public typealias InputRange = ClosedRange<RangeValue>
@@ -191,7 +191,7 @@ private extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        referenceValueViews = referenceValues.map({ ReferenceValueView(value: $0, unit: unit, formatter: formatter) })
+        referenceValueViews = referenceValues.map({ RangeReferenceValueView(value: $0, unit: unit, formatter: formatter) })
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -229,7 +229,7 @@ private extension RangeFilterView {
         }
     }
 
-    @objc func sliderInputValueChanged(_ sender: RangeSliderView) {
+    func sliderInputValueChanged(_ sender: RangeSliderView) {
         if let lowValue = sender.lowValue {
             updateNumberInput(for: .low, with: lowValue)
             inputValues[.low] = lowValue
@@ -321,62 +321,8 @@ private extension RangeFilterView {
     }
 }
 
-private final class ReferenceValueView: UIView {
-    lazy var indicatorView: UIView = {
-        let view = UIView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .sardine
-        view.layer.cornerRadius = 2.0
-        return view
-    }()
-
-    weak var leadingConstraint: NSLayoutConstraint?
-
-    lazy var referenceLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: FontType.light.rawValue, size: 12)
-        label.textColor = .licorice
-        label.textAlignment = .center
-
-        return label
-    }()
-
-    let value: RangeFilterView.RangeValue
-    let unit: String
-    let formatter: RangeFilterValueFormatter
-
-    init(value: RangeFilterView.RangeValue, unit: String, formatter: RangeFilterValueFormatter) {
-        self.value = value
-        self.unit = unit
-        self.formatter = formatter
-        super.init(frame: .zero)
-
-        setup()
-    }
-
-    func setup() {
-        referenceLabel.text = formatter.string(from: value)?.appending(" \(unit)")
-
-        addSubview(indicatorView)
-        addSubview(referenceLabel)
-
-        NSLayoutConstraint.activate([
-            indicatorView.topAnchor.constraint(equalTo: topAnchor),
-            indicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            indicatorView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            indicatorView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-            indicatorView.widthAnchor.constraint(equalToConstant: 4),
-            indicatorView.heightAnchor.constraint(equalToConstant: 4),
-
-            referenceLabel.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: .mediumSpacing),
-            referenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            referenceLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            referenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-        ])
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+extension RangeFilterView: RangeSliderViewDelegate {
+    func rangeSliderViewDidChangeValue(_ rangeSliderView: RangeSliderView) {
+        sliderInputValueChanged(rangeSliderView)
     }
 }

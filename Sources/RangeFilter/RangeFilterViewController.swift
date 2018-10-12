@@ -61,9 +61,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
         setup()
 
-        if let selectionValue = selectionDataSource.rangeValue(for: filterInfo) {
-            setSelectionValue(selectionValue)
-        }
+        setSelectionValue(selectionDataSource.rangeValue(for: filterInfo))
     }
 }
 
@@ -82,16 +80,10 @@ private extension RangeFilterViewController {
         ])
     }
 
-    func setSelectionValue(_ range: RangeValue) {
-        switch range {
-        case let .minimum(lowValue):
-            rangeFilterView.setLowValue(lowValue, animated: false)
-        case let .maximum(highValue):
-            rangeFilterView.setHighValue(highValue, animated: false)
-        case let .closed(lowValue, highValue):
-            rangeFilterView.setLowValue(lowValue, animated: false)
-            rangeFilterView.setHighValue(highValue, animated: false)
-        }
+    func setSelectionValue(_ range: RangeValue?) {
+        currentRangeValue = range
+        rangeFilterView.setLowValue(range?.lowValue, animated: false)
+        rangeFilterView.setHighValue(range?.highValue, animated: false)
     }
 
     func updateSelectionDataSource() {

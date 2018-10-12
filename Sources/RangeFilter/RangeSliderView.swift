@@ -5,7 +5,8 @@
 import UIKit
 
 protocol RangeSliderViewDelegate: AnyObject {
-    func rangeSliderViewDidChangeValue(_ rangeSliderView: RangeSliderView)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue: RangeSliderView.RangeValue?)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue: RangeSliderView.RangeValue?)
 }
 
 final class RangeSliderView: UIControl {
@@ -127,11 +128,19 @@ final class RangeSliderView: UIControl {
 
 extension RangeSliderView: RangeControl {
     var lowValue: RangeValue? {
-        return RangeSliderView.RangeValue(min(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue))
+        let lowValue = min(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue)
+        if lowValue < range.lowerBound {
+            return nil
+        }
+        return RangeSliderView.RangeValue(lowValue)
     }
 
     var highValue: RangeValue? {
-        return RangeSliderView.RangeValue(max(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue))
+        let highValue = max(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue)
+        if highValue > range.upperBound {
+            return nil
+        }
+        return RangeSliderView.RangeValue(highValue)
     }
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
@@ -234,7 +243,11 @@ private extension RangeSliderView {
 
 extension RangeSliderView: SteppedSliderDelegate {
     func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue) {
-        delegate?.rangeSliderViewDidChangeValue(self)
+        if steppedSlider == highValueSlider {
+            delegate?.rangeSliderView(self, didChangeHighValue: highValue)
+        } else {
+            delegate?.rangeSliderView(self, didChangeLowValue: lowValue)
+        }
     }
 
     func steppedSlider(_ steppedSlider: SteppedSlider, didChangeValue value: Float) {

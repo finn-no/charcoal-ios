@@ -65,9 +65,9 @@ public final class FilterViewController<ChildViewController: FilterContainerView
 
         let childViewController = filterContainerViewController.controller
 
-        addChildViewController(childViewController)
+        addChild(childViewController)
         setup(with: childViewController.view)
-        childViewController.didMove(toParentViewController: self)
+        childViewController.didMove(toParent: self)
     }
 }
 

@@ -25,7 +25,7 @@ class SearchQueryCell: UITableViewCell {
         return nil
     }
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
@@ -102,8 +102,8 @@ private extension SearchQueryCell {
         private static let setupSearchQuerySearchBarAppereanceOnce: () = {
             let appearance = UITextField.appearance(whenContainedInInstancesOf: [SearchQueryCellSearchBar.self])
             appearance.defaultTextAttributes = [
-                NSAttributedStringKey.foregroundColor.rawValue: UIColor.primaryBlue,
-                NSAttributedStringKey.font.rawValue: UIFont.title4,
+                NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
+                NSAttributedString.Key.font: UIFont.title4,
             ]
         }()
 

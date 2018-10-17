@@ -303,7 +303,7 @@ private extension RangeFilterView {
     static func effectiveRange(from range: InputRange, with lowerBoundOffset: RangeValue, and upperBoundOffset: RangeValue) -> InputRange {
         let newLowerBound = range.lowerBound - lowerBoundOffset
         let newUpperBound = range.upperBound + upperBoundOffset
-        return InputRange(newLowerBound ... newUpperBound)
+        return newLowerBound ... newUpperBound
     }
 }
 

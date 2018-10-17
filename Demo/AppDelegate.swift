@@ -9,7 +9,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         BITHockeyManager.shared().configure(withIdentifier: "dcb11108644344b5ae22b778ed0fcf9d")
         BITHockeyManager.shared().crashManager.crashManagerStatus = .autoSend
         BITHockeyManager.shared().logLevel = .warning

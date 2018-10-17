@@ -178,6 +178,6 @@ class SteppedSlider: UISlider {
         let newLowerBound = range.lowerBound - lowerBoundOffset
         let newUpperBound = range.upperBound + upperBoundOffset
 
-        return RangeSliderView.SliderRange(newLowerBound ... newUpperBound)
+        return newLowerBound ... newUpperBound
     }
 }

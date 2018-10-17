@@ -29,11 +29,12 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
         view.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
 
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
+        view.delegate = self
 
         return view
     }()
 
+    var currentRangeValue: RangeValue?
     let filterInfo: RangeFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
 
@@ -60,9 +61,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
         setup()
 
-        if let selectionValue = selectionDataSource.rangeValue(for: filterInfo) {
-            setSelectionValue(selectionValue)
-        }
+        setSelectionValue(selectionDataSource.rangeValue(for: filterInfo))
     }
 }
 
@@ -81,36 +80,33 @@ private extension RangeFilterViewController {
         ])
     }
 
-    func setSelectionValue(_ range: RangeValue) {
-        switch range {
-        case let .minimum(lowValue):
-            rangeFilterView.setLowValue(lowValue, animated: false)
-        case let .maximum(highValue):
-            rangeFilterView.setHighValue(highValue, animated: false)
-        case let .closed(lowValue, highValue):
-            rangeFilterView.setLowValue(lowValue, animated: false)
-            rangeFilterView.setHighValue(highValue, animated: false)
-        }
+    func setSelectionValue(_ range: RangeValue?) {
+        currentRangeValue = range
+        rangeFilterView.setLowValue(range?.lowValue, animated: false)
+        rangeFilterView.setHighValue(range?.highValue, animated: false)
     }
 
-    @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        let rangeValue: RangeValue?
-        if let lowValue = rangeFilterView.lowValue {
-            if let highValue = rangeFilterView.highValue {
-                rangeValue = .closed(lowValue: lowValue, highValue: highValue)
-            } else {
-                rangeValue = .minimum(lowValue: lowValue)
-            }
-        } else if let highValue = rangeFilterView.highValue {
-            rangeValue = .maximum(highValue: highValue)
-        } else {
-            rangeValue = nil
-        }
-
-        if let rangeValue = rangeValue {
+    func updateSelectionDataSource() {
+        if let rangeValue = currentRangeValue {
             selectionDataSource.setValue(rangeValue, for: filterInfo)
         } else {
             selectionDataSource.clearAll(for: filterInfo)
+        }
+    }
+}
+
+extension RangeFilterViewController: RangeFilterViewDelegate {
+    public func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
+        if lowValue != currentRangeValue?.lowValue {
+            currentRangeValue = RangeValue.create(lowValue: lowValue, highValue: currentRangeValue?.highValue)
+            updateSelectionDataSource()
+        }
+    }
+
+    public func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?) {
+        if highValue != currentRangeValue?.highValue {
+            currentRangeValue = RangeValue.create(lowValue: currentRangeValue?.lowValue, highValue: highValue)
+            updateSelectionDataSource()
         }
     }
 }

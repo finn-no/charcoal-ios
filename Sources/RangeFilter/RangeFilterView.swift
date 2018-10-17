@@ -4,6 +4,11 @@
 
 import UIKit
 
+public protocol RangeFilterViewDelegate: AnyObject {
+    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?)
+    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?)
+}
+
 public final class RangeFilterView: UIControl {
     private let formatter: RangeFilterValueFormatter
 
@@ -19,7 +24,7 @@ public final class RangeFilterView: UIControl {
     private lazy var sliderInputView: RangeSliderView = {
         let rangeSliderView = RangeSliderView(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
         rangeSliderView.translatesAutoresizingMaskIntoConstraints = false
-        rangeSliderView.addTarget(self, action: #selector(sliderInputValueChanged(_:)), for: .valueChanged)
+        rangeSliderView.delegate = self
         return rangeSliderView
     }()
 
@@ -63,7 +68,7 @@ public final class RangeFilterView: UIControl {
     }
 
     private var inputValues = [InputValue: RangeValue]()
-    private var referenceValueViews = [ReferenceValueView]()
+    private var referenceValueViews = [RangeReferenceValueView]()
 
     public typealias RangeValue = Int
     public typealias InputRange = ClosedRange<RangeValue>
@@ -77,6 +82,8 @@ public final class RangeFilterView: UIControl {
     let referenceValues: [RangeValue]
     let usesSmallNumberInputFont: Bool
     let displaysUnitInNumberInput: Bool
+
+    public weak var delegate: RangeFilterViewDelegate?
 
     public init(range: InputRange, additionalLowerBoundOffset: RangeValue = 0, additionalUpperBoundOffset: RangeValue = 0, steps: Int, unit: String, isValueCurrency: Bool, referenceValues: [RangeValue], usesSmallNumberInputFont: Bool = false, displaysUnitInNumberInput: Bool = true) {
         self.range = range
@@ -136,7 +143,7 @@ public final class RangeFilterView: UIControl {
     }
 }
 
-extension RangeFilterView: RangeControl {
+extension RangeFilterView {
     public var lowValue: RangeValue? {
         return inputValues[.low]
     }
@@ -145,18 +152,16 @@ extension RangeFilterView: RangeControl {
         return inputValues[.high]
     }
 
-    public func setLowValue(_ value: RangeValue, animated: Bool) {
-        let lowValue = (value < range.lowerBound) ? effectiveRange.lowerBound : value
-        updateNumberInput(for: .low, with: lowValue)
-        updateSliderLowValue(with: lowValue)
-        inputValues[.low] = lowValue
+    public func setLowValue(_ value: RangeValue?, animated: Bool) {
+        updateNumberInput(for: .low, with: value, fromSlider: false)
+        updateSliderLowValue(with: value ?? effectiveRange.lowerBound)
+        inputValues[.low] = value
     }
 
-    public func setHighValue(_ value: RangeValue, animated: Bool) {
-        let highValue = (value > range.upperBound) ? effectiveRange.upperBound : value
-        updateNumberInput(for: .high, with: highValue)
-        updateSliderHighValue(with: highValue)
-        inputValues[.high] = highValue
+    public func setHighValue(_ value: RangeValue?, animated: Bool) {
+        updateNumberInput(for: .high, with: value, fromSlider: false)
+        updateSliderHighValue(with: value ?? effectiveRange.upperBound)
+        inputValues[.high] = value
     }
 }
 
@@ -182,7 +187,7 @@ private extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        referenceValueViews = referenceValues.map({ ReferenceValueView(value: $0, unit: unit, formatter: formatter) })
+        referenceValueViews = referenceValues.map({ RangeReferenceValueView(value: $0, unit: unit, formatter: formatter) })
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -205,29 +210,33 @@ private extension RangeFilterView {
             updateSliderLowValue(with: lowValue)
             numberInputView.setLowValueHint(text: "")
             inputValues[.low] = lowValue
+            delegate?.rangeFilterView(self, didSetLowValue: lowValue)
+        } else {
+            delegate?.rangeFilterView(self, didSetLowValue: nil)
         }
 
         if let highValue = sender.highValue {
             updateSliderHighValue(with: highValue)
             numberInputView.setHighValueHint(text: "")
             inputValues[.high] = highValue
+            delegate?.rangeFilterView(self, didSetHighValue: highValue)
+        } else {
+            delegate?.rangeFilterView(self, didSetHighValue: nil)
         }
-
-        sendActions(for: .valueChanged)
     }
 
-    @objc func sliderInputValueChanged(_ sender: RangeSliderView) {
-        if let lowValue = sender.lowValue {
-            updateNumberInput(for: .low, with: lowValue)
-            inputValues[.low] = lowValue
+    func isSliderLowValueInValidRange(_ lowValue: RangeValue) -> Bool {
+        if lowValue >= range.lowerBound {
+            if lowValue == 0 && range.lowerBound == 0 {
+                return false
+            }
+            return true
         }
+        return false
+    }
 
-        if let highValue = sender.highValue {
-            inputValues[.high] = highValue
-            updateNumberInput(for: .high, with: highValue)
-        }
-
-        sendActions(for: .valueChanged)
+    func isSliderHighValueInValidRange(_ highValue: RangeValue) -> Bool {
+        return highValue <= range.upperBound
     }
 
     func updateSliderLowValue(with value: RangeValue) {
@@ -242,21 +251,37 @@ private extension RangeFilterView {
         sliderInputView.setHighValue(newValue, animated: false)
     }
 
-    private func updateNumberInput(for inputValue: InputValue, with value: RangeValue) {
-        let isValueLowerThanRangeLowerBound = value < range.lowerBound
-        let isValueIsHigherThaRangeUpperBound = value > range.upperBound
+    private func updateNumberInput(for inputValue: InputValue, with value: RangeValue?, fromSlider: Bool) {
         let newValue: RangeValue
         let hintText: String
 
-        if isValueLowerThanRangeLowerBound {
-            newValue = range.lowerBound
-            hintText = (value == effectiveRange.lowerBound) ? "Under" : ""
-        } else if isValueIsHigherThaRangeUpperBound {
-            newValue = range.upperBound
-            hintText = (value == effectiveRange.upperBound) ? "Over" : ""
+        if let value = value {
+            if fromSlider {
+                let isValueLowerThanRangeLowerBound = value < range.lowerBound
+                let isValueIsHigherThaRangeUpperBound = value > range.upperBound
+
+                if isValueLowerThanRangeLowerBound {
+                    newValue = range.lowerBound
+                    hintText = (value == effectiveRange.lowerBound) ? "Under" : ""
+                } else if isValueIsHigherThaRangeUpperBound {
+                    newValue = range.upperBound
+                    hintText = (value == effectiveRange.upperBound) ? "Over" : ""
+                } else {
+                    newValue = value
+                    hintText = ""
+                }
+            } else {
+                newValue = value
+                hintText = ""
+            }
         } else {
-            newValue = value
-            hintText = ""
+            if inputValue == .low {
+                newValue = range.lowerBound
+                hintText = (range.lowerBound > effectiveRange.lowerBound) ? "Under" : ""
+            } else {
+                newValue = range.upperBound
+                hintText = (range.upperBound < effectiveRange.upperBound) ? "Over" : ""
+            }
         }
 
         switch inputValue {
@@ -282,62 +307,40 @@ private extension RangeFilterView {
     }
 }
 
-private final class ReferenceValueView: UIView {
-    lazy var indicatorView: UIView = {
-        let view = UIView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .sardine
-        view.layer.cornerRadius = 2.0
-        return view
-    }()
-
-    weak var leadingConstraint: NSLayoutConstraint?
-
-    lazy var referenceLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: FontType.light.rawValue, size: 12)
-        label.textColor = .licorice
-        label.textAlignment = .center
-
-        return label
-    }()
-
-    let value: RangeFilterView.RangeValue
-    let unit: String
-    let formatter: RangeFilterValueFormatter
-
-    init(value: RangeFilterView.RangeValue, unit: String, formatter: RangeFilterValueFormatter) {
-        self.value = value
-        self.unit = unit
-        self.formatter = formatter
-        super.init(frame: .zero)
-
-        setup()
+extension RangeFilterView: RangeSliderViewDelegate {
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue lowValue: RangeSliderView.RangeValue?) {
+        if let lowValue = lowValue {
+            let didValueChange = inputValues[.low] != lowValue
+            if didValueChange {
+                updateNumberInput(for: .low, with: lowValue, fromSlider: true)
+                inputValues[.low] = lowValue
+                if isSliderLowValueInValidRange(lowValue) {
+                    delegate?.rangeFilterView(self, didSetLowValue: lowValue)
+                } else {
+                    delegate?.rangeFilterView(self, didSetLowValue: nil)
+                }
+            }
+        } else {
+            updateNumberInput(for: .low, with: lowValue, fromSlider: true)
+            delegate?.rangeFilterView(self, didSetLowValue: nil)
+        }
     }
 
-    func setup() {
-        referenceLabel.text = formatter.string(from: value)?.appending(" \(unit)")
-
-        addSubview(indicatorView)
-        addSubview(referenceLabel)
-
-        NSLayoutConstraint.activate([
-            indicatorView.topAnchor.constraint(equalTo: topAnchor),
-            indicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            indicatorView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            indicatorView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-            indicatorView.widthAnchor.constraint(equalToConstant: 4),
-            indicatorView.heightAnchor.constraint(equalToConstant: 4),
-
-            referenceLabel.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: .mediumSpacing),
-            referenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            referenceLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            referenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-        ])
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue highValue: RangeSliderView.RangeValue?) {
+        if let highValue = highValue {
+            let didValueChange = inputValues[.high] != highValue
+            if didValueChange {
+                inputValues[.high] = highValue
+                updateNumberInput(for: .high, with: highValue, fromSlider: true)
+                if isSliderHighValueInValidRange(highValue) {
+                    delegate?.rangeFilterView(self, didSetHighValue: highValue)
+                } else {
+                    delegate?.rangeFilterView(self, didSetHighValue: nil)
+                }
+            }
+        } else {
+            updateNumberInput(for: .high, with: highValue, fromSlider: true)
+            delegate?.rangeFilterView(self, didSetHighValue: nil)
+        }
     }
 }

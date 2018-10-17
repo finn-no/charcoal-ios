@@ -20,7 +20,7 @@ public class FilterRootViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: .zero)
 
         if UIDevice.isPreiOS11 {
-            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.rowHeight = UITableView.automaticDimension
             tableView.estimatedRowHeight = 44
         }
         return tableView

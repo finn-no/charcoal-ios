@@ -390,9 +390,9 @@ private extension RangeNumberInputView {
         style.lineBreakMode = .byCharWrapping
 
         let attributes = [
-            NSAttributedStringKey.font: font ?? UIFont.systemFont(ofSize: inputFontSize),
-            NSAttributedStringKey.foregroundColor: RangeNumberInputView.Style.textColor,
-            NSAttributedStringKey.paragraphStyle: style,
+            NSAttributedString.Key.font: font ?? UIFont.systemFont(ofSize: inputFontSize),
+            NSAttributedString.Key.foregroundColor: RangeNumberInputView.Style.textColor,
+            NSAttributedString.Key.paragraphStyle: style,
         ]
 
         return NSAttributedString(string: string, attributes: attributes)

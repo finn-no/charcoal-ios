@@ -111,7 +111,7 @@ public extension PreferenceSelectionView {
             return
         }
 
-        let state = selected ? UIControlState.selected : .normal
+        let state = selected ? UIControl.State.selected : .normal
         let attributedTitle = attributedButtonTitle(from: button.currentAttributedTitle?.string, for: state)
         let showsBorder = state == .selected ? false : true
 
@@ -176,7 +176,7 @@ private extension PreferenceSelectionView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(buttonTapped(sender:forEvent:)), for: .touchUpInside)
 
-        let buttonStates = [UIControlState.normal, .highlighted, .selected]
+        let buttonStates = [UIControl.State.normal, .highlighted, .selected]
 
         buttonStates.forEach({ state in
             let attributedTitle = attributedButtonTitle(from: title, for: state)
@@ -193,7 +193,7 @@ private extension PreferenceSelectionView {
         ])
     }
 
-    func attributedButtonTitle(from string: String?, for state: UIControlState) -> NSAttributedString? {
+    func attributedButtonTitle(from string: String?, for state: UIControl.State) -> NSAttributedString? {
         guard let string = string else {
             return nil
         }
@@ -204,7 +204,7 @@ private extension PreferenceSelectionView {
         return attributedTitle
     }
 
-    func titleAttributes(for state: UIControlState) -> [NSAttributedStringKey: Any]? {
+    func titleAttributes(for state: UIControl.State) -> [NSAttributedString.Key: Any]? {
         let font: UIFont = .title5
         let foregroundColor: UIColor
 
@@ -219,7 +219,7 @@ private extension PreferenceSelectionView {
             return nil
         }
 
-        return [NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: foregroundColor]
+        return [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: foregroundColor]
     }
 
     func sizeForButton(with attributedTitle: NSAttributedString?) -> CGSize {

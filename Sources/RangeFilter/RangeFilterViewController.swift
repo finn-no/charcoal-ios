@@ -12,7 +12,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     lazy var rangeFilterView: RangeFilterView = {
-        let range = RangeFilterView.InputRange(filterInfo.lowValue ... filterInfo.highValue)
+        let range = filterInfo.lowValue ... filterInfo.highValue
         let view = RangeFilterView(
             range: range,
             additionalLowerBoundOffset: filterInfo.additionalLowerBoundOffset,

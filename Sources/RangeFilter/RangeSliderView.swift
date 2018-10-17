@@ -243,7 +243,7 @@ private extension RangeSliderView {
 
 extension RangeSliderView: SteppedSliderDelegate {
     func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue) {
-        if steppedSlider == highValueSlider {
+        if steppedSlider == highestValueSlider {
             delegate?.rangeSliderView(self, didChangeHighValue: highValue)
         } else {
             delegate?.rangeSliderView(self, didChangeLowValue: lowValue)

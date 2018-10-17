@@ -6,6 +6,7 @@ import Foundation
 
 public protocol FilterContainerViewControllerDelegate: AnyObject {
     func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType)
+    func filterContainerViewControllerDidChangeSelection(filterContainerViewController: FilterContainerViewController)
 }
 
 public protocol FilterContainerViewController: AnyObject {

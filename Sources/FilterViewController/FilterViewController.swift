@@ -27,7 +27,7 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         }
     }()
 
-    private lazy var applySelectionButton: FilterBottomButtonView = { // TODO: change name, it is not really `apply` since we update as soon as values change, `done` is probably better
+    private lazy var applySelectionButton: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.delegate = self
@@ -35,12 +35,23 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         return buttonView
     }()
 
+    private var applySelectionButtonBottomConstraint: NSLayoutConstraint?
+
     let filterInfo: FilterInfoType
     let selectionDataSource: FilterSelectionDataSource
     let navigator: FilterNavigator
-    let showsApplySelectionButton: Bool
     let filterContainerViewController: FilterContainerViewController
     weak var delegate: FilterViewControllerDelegate?
+
+    var showsApplySelectionButton: Bool {
+        didSet {
+            view.layoutIfNeeded()
+            applySelectionButtonBottomConstraint?.constant = showsApplySelectionButton ? 0 : applySelectionButton.height
+            UIView.animate(withDuration: 0.25) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
 
     public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
         guard let child = ChildViewController(filterInfo: filterInfo, selectionDataSource: selectionDataSource) else {
@@ -79,30 +90,32 @@ private extension FilterViewController {
         filterView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterView)
 
-        if showsApplySelectionButton {
-            view.addSubview(applySelectionButton)
+        view.addSubview(applySelectionButton)
+        let applySelectionButtonBottomConstraint = applySelectionButton.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor, constant: applySelectionButton.height)
+        self.applySelectionButtonBottomConstraint = applySelectionButtonBottomConstraint
 
-            NSLayoutConstraint.activate([
-                filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-                filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                filterView.bottomAnchor.constraint(greaterThanOrEqualTo: applySelectionButton.topAnchor),
-                applySelectionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                applySelectionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                applySelectionButton.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-                filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                filterView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor),
-            ])
+        NSLayoutConstraint.activate([
+            filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            filterView.bottomAnchor.constraint(greaterThanOrEqualTo: safeLayoutGuide.bottomAnchor),
+            filterView.bottomAnchor.constraint(greaterThanOrEqualTo: applySelectionButton.topAnchor),
+            applySelectionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            applySelectionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            applySelectionButtonBottomConstraint,
+        ])
+
+        if showsApplySelectionButton {
+            applySelectionButtonBottomConstraint.constant = 0
         }
     }
 }
 
 extension FilterViewController: FilterContainerViewControllerDelegate {
+    public func filterContainerViewControllerDidChangeSelection(filterContainerViewController: FilterContainerViewController) {
+        showsApplySelectionButton = true
+    }
+
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
         switch filterInfo {
         case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:

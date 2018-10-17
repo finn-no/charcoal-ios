@@ -8,7 +8,11 @@ public protocol FilterViewControllerDelegate: AnyObject {
     func applyFilterButtonTapped()
 }
 
-public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController {
+public protocol ApplySelectionButtonOwner: AnyObject {
+    var showsApplySelectionButton: Bool { get set }
+}
+
+public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController, ApplySelectionButtonOwner {
     private lazy var safeLayoutGuide: UILayoutGuide = {
         if #available(iOS 11.0, *) {
             return view.safeAreaLayoutGuide
@@ -42,14 +46,16 @@ public final class FilterViewController<ChildViewController: FilterContainerView
     let navigator: FilterNavigator
     let filterContainerViewController: FilterContainerViewController
     weak var delegate: FilterViewControllerDelegate?
+    weak var parentApplySelectionButtonOwner: ApplySelectionButtonOwner?
 
-    var showsApplySelectionButton: Bool {
+    public var showsApplySelectionButton: Bool {
         didSet {
             view.layoutIfNeeded()
             applySelectionButtonBottomConstraint?.constant = showsApplySelectionButton ? 0 : applySelectionButton.height
             UIView.animate(withDuration: 0.25) {
                 self.view.layoutIfNeeded()
             }
+            parentApplySelectionButtonOwner?.showsApplySelectionButton = showsApplySelectionButton
         }
     }
 
@@ -119,7 +125,7 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
     public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
         switch filterInfo {
         case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
-            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate))
+            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate, parent: self))
         default:
             break
         }
@@ -128,6 +134,7 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
 
 extension FilterViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.applyFilterButtonTapped()
+        // TODO: Apply current selection
+        navigator.navigate(to: .root)
     }
 }

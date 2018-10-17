@@ -8,8 +8,6 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
     private let filterInfo: MultiLevelListSelectionFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
-    weak var previousMultiLevelListSelectionFilterViewController: MultiLevelListSelectionFilterViewController?
-
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     public var controller: UIViewController {

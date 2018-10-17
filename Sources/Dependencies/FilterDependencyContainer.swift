@@ -28,7 +28,7 @@ extension FilterDependencyContainer: NavigatorFactory {
 
 extension FilterDependencyContainer: ViewControllerFactory {
     public func makeListSelectionFilterViewController(from listSelectionListFilterInfo: ListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<ListSelectionFilterViewController>? {
-        let filterViewController = FilterViewController<ListSelectionFilterViewController>(filterInfo: listSelectionListFilterInfo, selectionDataSource: selectionDataSource, navigator: navigator, showsApplySelectionButton: true)
+        let filterViewController = FilterViewController<ListSelectionFilterViewController>(filterInfo: listSelectionListFilterInfo, selectionDataSource: selectionDataSource, navigator: navigator, showsApplySelectionButton: false)
         filterViewController?.delegate = delegate
         return filterViewController
     }
@@ -48,7 +48,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<RangeFilterViewController>? {
-        let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo, selectionDataSource: selectionDataSource, navigator: navigator, showsApplySelectionButton: true)
+        let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo, selectionDataSource: selectionDataSource, navigator: navigator, showsApplySelectionButton: false)
         filterViewController?.delegate = delegate
         return filterViewController
     }

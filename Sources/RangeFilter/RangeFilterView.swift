@@ -262,10 +262,10 @@ private extension RangeFilterView {
 
                 if isValueLowerThanRangeLowerBound {
                     newValue = range.lowerBound
-                    hintText = (value == effectiveRange.lowerBound) ? "Under" : ""
+                    hintText = (value == effectiveRange.lowerBound) ? "range_below_lower_bound_title".localized() : ""
                 } else if isValueIsHigherThaRangeUpperBound {
                     newValue = range.upperBound
-                    hintText = (value == effectiveRange.upperBound) ? "Over" : ""
+                    hintText = (value == effectiveRange.upperBound) ? "range_above_upper_bound_title".localized() : ""
                 } else {
                     newValue = value
                     hintText = ""
@@ -277,10 +277,10 @@ private extension RangeFilterView {
         } else {
             if inputValue == .low {
                 newValue = range.lowerBound
-                hintText = (range.lowerBound > effectiveRange.lowerBound) ? "Under" : ""
+                hintText = (range.lowerBound > effectiveRange.lowerBound) ? "range_below_lower_bound_title".localized() : ""
             } else {
                 newValue = range.upperBound
-                hintText = (range.upperBound < effectiveRange.upperBound) ? "Over" : ""
+                hintText = (range.upperBound < effectiveRange.upperBound) ? "range_above_upper_bound_title".localized() : ""
             }
         }
 

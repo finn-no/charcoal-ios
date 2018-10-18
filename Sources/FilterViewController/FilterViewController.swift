@@ -35,7 +35,7 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         let buttonView = FilterBottomButtonView()
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.delegate = self
-        buttonView.buttonTitle = "Bruk"
+        buttonView.buttonTitle = "apply-button-title".localized()
         return buttonView
     }()
 

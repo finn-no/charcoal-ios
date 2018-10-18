@@ -29,6 +29,7 @@ public class FilterNavigator {
             guard let sublevelViewController = factory.makeSublevelViewController(for: filterInfo, navigator: self, delegate: delegate) else {
                 return
             }
+            sublevelViewController.showsApplySelectionButton = parent.showsApplySelectionButton
             sublevelViewController.parentApplySelectionButtonOwner = parent
             navigationController.pushViewController(sublevelViewController, animated: true)
         case .root:

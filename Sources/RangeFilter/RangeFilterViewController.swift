@@ -92,6 +92,7 @@ private extension RangeFilterViewController {
         } else {
             selectionDataSource.clearAll(for: filterInfo)
         }
+        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 }
 

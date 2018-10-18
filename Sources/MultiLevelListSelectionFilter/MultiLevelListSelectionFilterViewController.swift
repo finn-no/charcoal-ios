@@ -8,7 +8,6 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
     private let filterInfo: MultiLevelListSelectionFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
-
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     public var controller: UIViewController {
@@ -82,6 +81,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
                 selectionDataSource.setValue([item.value], for: item)
             }
         }
+        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
     private func isListItemSelected(_ listItem: ListItem) -> Bool {

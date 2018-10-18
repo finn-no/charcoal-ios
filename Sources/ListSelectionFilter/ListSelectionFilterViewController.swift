@@ -46,6 +46,7 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
                 selectionDataSource.setValue([item.value], for: filterInfo)
             }
         }
+        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
     private func isListItemSelected(_ listItem: ListItem) -> Bool {

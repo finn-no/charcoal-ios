@@ -21,6 +21,12 @@ class FilterBottomButtonView: UIView {
         return button
     }()
 
+    private let buttonHeight: CGFloat = 52
+
+    var height: CGFloat {
+        return buttonHeight + .mediumLargeSpacing * 2.0
+    }
+
     init() {
         super.init(frame: .zero)
         setup()
@@ -48,7 +54,7 @@ private extension FilterBottomButtonView {
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
             button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumLargeSpacing),
-            button.heightAnchor.constraint(equalToConstant: 52),
+            button.heightAnchor.constraint(equalToConstant: buttonHeight),
 
             separatorLine.topAnchor.constraint(equalTo: topAnchor),
             separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),

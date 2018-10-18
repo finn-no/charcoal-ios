@@ -1,5 +1,6 @@
 ## [Unreleased] 
 - Improved range view
+- Showing apply button when a selection has changed
 
 ## [0.6] - 2018-10-11
 - Selections should work for most filter types and be remembered for the "lifetime of that bottomsheet"

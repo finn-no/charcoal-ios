@@ -59,7 +59,7 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         }
     }
 
-    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator, showsApplySelectionButton: Bool) {
+    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         guard let child = ChildViewController(filterInfo: filterInfo, selectionDataSource: selectionDataSource) else {
             return nil
         }
@@ -67,7 +67,7 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         self.filterInfo = filterInfo
         self.selectionDataSource = selectionDataSource
         self.navigator = navigator
-        self.showsApplySelectionButton = showsApplySelectionButton
+        showsApplySelectionButton = false
         filterContainerViewController = child
         super.init(nibName: nil, bundle: nil)
         child.filterSelectionDelegate = self

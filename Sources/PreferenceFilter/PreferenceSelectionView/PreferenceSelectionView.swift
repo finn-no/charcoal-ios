@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol PreferenceSelectionViewDataSource: AnyObject {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String?
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String
     func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int
 }
 
@@ -14,8 +14,7 @@ public protocol PreferenceSelectionViewDelegate: AnyObject {
 }
 
 public final class PreferenceSelectionView: UIView {
-    public static var defaultButtonHeight: CGFloat = 38
-    static var defaultButtonBorderWidth: CGFloat = 1.5
+    public static let defaultButtonHeight: CGFloat = ExpandablePreferenceButton.height
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -42,10 +41,6 @@ public final class PreferenceSelectionView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         return view
-    }()
-
-    private lazy var buttonImage: UIImage = {
-        return UIImage(named: .arrowDown)
     }()
 
     public var dataSource: PreferenceSelectionViewDataSource? {
@@ -106,22 +101,16 @@ public extension PreferenceSelectionView {
     }
 
     func setPreference(at index: Int, selected: Bool) {
-        guard let button = container.arrangedSubview(atSafeIndex: index) as? UIButton else {
+        guard let button = container.arrangedSubviews[safe: index] as? ExpandablePreferenceButton else {
             assertionFailure("Expected subviews to be array of only buttons ")
             return
         }
 
-        let state = selected ? UIControl.State.selected : .normal
-        let attributedTitle = attributedButtonTitle(from: button.currentAttributedTitle?.string, for: state)
-        let showsBorder = state == .selected ? false : true
-
         button.isSelected = selected
-        button.setAttributedTitle(attributedTitle, for: state)
-        button.layer.borderWidth = showsBorder ? PreferenceSelectionView.defaultButtonBorderWidth : 0.0
     }
 
     func rectForPreference(at index: Int, convertedToRectInView view: UIView? = nil) -> CGRect? {
-        guard let rect = container.arrangedSubview(atSafeIndex: index)?.frame else {
+        guard let rect = container.arrangedSubviews[safe: index]?.frame else {
             return nil
         }
 
@@ -133,7 +122,7 @@ public extension PreferenceSelectionView {
     }
 
     func viewForPreference(at index: Int) -> UIView? {
-        return container.arrangedSubview(atSafeIndex: index)
+        return container.arrangedSubviews[safe: index]
     }
 
     var indexesForSelectedPreferences: [Int] {
@@ -149,7 +138,7 @@ public extension PreferenceSelectionView {
     }
 
     func isPreferenceSelected(at index: Int) -> Bool {
-        guard let button = container.arrangedSubview(atSafeIndex: index) as? UIButton else {
+        guard let button = container.arrangedSubviews[safe: index] as? UIButton else {
             return false
         }
 
@@ -171,68 +160,19 @@ private extension PreferenceSelectionView {
         buttonTitlesToDisplay.forEach { layoutButton(with: $0) }
     }
 
-    func layoutButton(with title: String?) {
-        let button = UIButton(with: buttonImage)
+    func layoutButton(with title: String) {
+        let button = ExpandablePreferenceButton(title: title)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(buttonTapped(sender:forEvent:)), for: .touchUpInside)
 
-        let buttonStates = [UIControl.State.normal, .highlighted, .selected]
-
-        buttonStates.forEach({ state in
-            let attributedTitle = attributedButtonTitle(from: title, for: state)
-            button.setAttributedTitle(attributedTitle, for: state)
-        })
-
         container.addArrangedSubview(button)
 
-        let buttonSize = sizeForButton(with: attributedButtonTitle(from: title, for: .normal))
+        let buttonSize = button.sizeForButtonExpandingHorizontally()
 
         NSLayoutConstraint.activate([
             button.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 1, constant: 0),
             button.widthAnchor.constraint(equalToConstant: buttonSize.width),
         ])
-    }
-
-    func attributedButtonTitle(from string: String?, for state: UIControl.State) -> NSAttributedString? {
-        guard let string = string else {
-            return nil
-        }
-
-        let attributes = titleAttributes(for: state)
-        let attributedTitle = NSAttributedString(string: string, attributes: attributes)
-
-        return attributedTitle
-    }
-
-    func titleAttributes(for state: UIControl.State) -> [NSAttributedString.Key: Any]? {
-        let font: UIFont = .title5
-        let foregroundColor: UIColor
-
-        switch state {
-        case .normal:
-            foregroundColor = .stone
-        case .highlighted:
-            foregroundColor = UIColor.stone.withAlphaComponent(0.8)
-        case .selected:
-            foregroundColor = .primaryBlue
-        default:
-            return nil
-        }
-
-        return [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: foregroundColor]
-    }
-
-    func sizeForButton(with attributedTitle: NSAttributedString?) -> CGSize {
-        guard let attributedTitle = attributedTitle else {
-            return .zero
-        }
-
-        let boundingRectSize = CGSize(width: CGFloat.infinity, height: PreferenceSelectionView.defaultButtonHeight)
-        let rect = attributedTitle.boundingRect(with: boundingRectSize, options: .usesLineFragmentOrigin, context: nil)
-        let verticalSpacings: CGFloat = .mediumSpacing + .mediumSpacing + 18 + .mediumSpacing
-        let size = CGSize(width: rect.width + verticalSpacings, height: rect.height)
-
-        return size
     }
 
     @objc func buttonTapped(sender: UIButton, forEvent: UIEvent) {
@@ -242,33 +182,5 @@ private extension PreferenceSelectionView {
         }
 
         delegate?.preferenceSelectionView(self, didTapPreferenceAtIndex: index)
-    }
-}
-
-private extension UIButton {
-    convenience init(with image: UIImage?) {
-        self.init(type: .custom)
-        backgroundColor = .milk
-        contentEdgeInsets = UIEdgeInsets(top: .mediumSpacing, left: .mediumSpacing, bottom: .mediumSpacing, right: .mediumSpacing)
-        semanticContentAttribute = .forceRightToLeft
-        layer.borderWidth = PreferenceSelectionView.defaultButtonBorderWidth
-        layer.borderColor = .stone
-        layer.cornerRadius = PreferenceSelectionView.defaultButtonHeight / 2
-        imageView?.tintColor = .stone
-        imageView?.contentMode = .scaleAspectFit
-        setImage(image, for: .normal)
-        setImage(image, for: .highlighted)
-        setImage(image, for: .selected)
-        imageEdgeInsets = UIEdgeInsets(top: 0, left: .mediumSpacing, bottom: 0, right: 0)
-    }
-}
-
-private extension UIStackView {
-    func arrangedSubview(atSafeIndex safeIndex: Int) -> UIView? {
-        guard arrangedSubviews.indices.contains(safeIndex) else {
-            return nil
-        }
-
-        return arrangedSubviews[safeIndex]
     }
 }

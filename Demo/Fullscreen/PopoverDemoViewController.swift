@@ -96,7 +96,7 @@ extension PopoverDemoViewController: PreferenceSelectionViewDataSource {
         ]
     }
 
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String? {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String {
         return PopoverDemoViewController.preferenceFilters[index].name
     }
 

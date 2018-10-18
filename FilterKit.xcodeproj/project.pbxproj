@@ -89,6 +89,7 @@
 		55F97D1220AC4FD5002BABC9 /* PreferenceFilterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
+		9B863F0E2178AB240089CCBC /* ExpandablePreferenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */; };
 		9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */; };
 		9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */; };
 		9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
@@ -261,6 +262,7 @@
 		55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFilterListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
+		9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandablePreferenceButton.swift; sourceTree = "<group>"; };
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
 		9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionTitleProvider.swift; sourceTree = "<group>"; };
 		9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 			children = (
 				55646DB320933D22006AA2DA /* PreferenceSelectionView */,
 				55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */,
+				9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */,
 			);
 			path = PreferenceFilter;
 			sourceTree = "<group>";
@@ -1110,6 +1113,7 @@
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
 				55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */,
 				5589322E209C3CD500512FF8 /* Layout.swift in Sources */,
+				9B863F0E2178AB240089CCBC /* ExpandablePreferenceButton.swift in Sources */,
 				5525324820A300A6000CBD21 /* FilterNavigationController.swift in Sources */,
 				55E869E020E26764008B921E /* FilterContainerViewController.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,

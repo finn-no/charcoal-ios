@@ -39,7 +39,7 @@ final class PreferenceSelectionViewDemoView: UIView {
 extension PreferenceSelectionViewDemoView: PreferenceSelectionViewDataSource {
     static var titles = ["Type søk", "Tilstand", "Selger", "Publisert"]
 
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String? {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String {
         return PreferenceSelectionViewDemoView.titles[index]
     }
 

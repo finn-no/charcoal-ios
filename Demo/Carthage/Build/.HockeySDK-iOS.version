@@ -8,11 +8,11 @@
   "tvOS" : [
 
   ],
-  "commitish" : "5.1.2",
+  "commitish" : "5.1.4",
   "iOS" : [
     {
       "name" : "HockeySDK",
-      "hash" : "e2b2f97e355087b773902677f935e05d5ed854d7ca302bb1e1fb7c455557cf95"
+      "hash" : "675a69b0053c168f244338ac6a45c4022e2ddbc8eb7424be034c1bc08b16a32a"
     }
   ]
 }

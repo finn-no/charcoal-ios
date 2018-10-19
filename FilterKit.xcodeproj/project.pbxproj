@@ -507,14 +507,6 @@
 			path = RangeFilter;
 			sourceTree = "<group>";
 		};
-		55646DB320933D22006AA2DA /* PreferenceSelectionView */ = {
-			isa = PBXGroup;
-			children = (
-				55646DAB2091C572006AA2DA /* PreferenceSelectionView.swift */,
-			);
-			path = PreferenceSelectionView;
-			sourceTree = "<group>";
-		};
 		55646DB420933D4C006AA2DA /* PreferenceSelectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -697,11 +689,11 @@
 		55F97D1320AC51FD002BABC9 /* PreferenceFilter */ = {
 			isa = PBXGroup;
 			children = (
-				55646DB320933D22006AA2DA /* PreferenceSelectionView */,
-				55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */,
 				9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */,
-				9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */,
+				55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */,
+				55646DAB2091C572006AA2DA /* PreferenceSelectionView.swift */,
 				9B863F112179D00C0089CCBC /* PreferenceValueSelectionButton.swift */,
+				9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */,
 			);
 			path = PreferenceFilter;
 			sourceTree = "<group>";

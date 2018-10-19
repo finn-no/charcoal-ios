@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ExpandablePreferenceButton: UIButton {
+public final class ExpandablePreferenceButton: UIButton {
     private let borderWidth: CGFloat = 1.5
     static let height: CGFloat = 38
 
@@ -31,7 +31,7 @@ class ExpandablePreferenceButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var isSelected: Bool {
+    public override var isSelected: Bool {
         set {
             super.isSelected = newValue
             layer.borderWidth = newValue ? 0 : borderWidth

@@ -64,9 +64,8 @@ extension PreferenceSelectionViewDemoView {
 }
 
 extension PreferenceSelectionViewDemoView: PreferenceSelectionViewDelegate {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandablePreferenceButton) {
         print("Button at index \(index) with title \(PreferenceSelectionViewDemoView.preferenceFilters[index].title) was tapped")
-        let isSelected = preferenceSelectionView.isPreferenceSelected(at: index)
-        preferenceSelectionView.setPreference(at: index, selected: !isSelected)
+        view.isSelected = true
     }
 }

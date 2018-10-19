@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol PreferenceSelectionViewDelegate: AnyObject {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int)
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandablePreferenceButton)
 }
 
 public final class PreferenceSelectionView: UIView {
@@ -85,15 +85,16 @@ public final class PreferenceSelectionView: UIView {
 }
 
 public extension PreferenceSelectionView {
-    func setPreference(at index: Int, selected: Bool) {
-        guard let button = container.arrangedSubviews[safe: index] as? ExpandablePreferenceButton else {
-            assertionFailure("Expected subviews to be array of only buttons ")
-            return
+    func expandablePreferenceClosed() {
+        container.arrangedSubviews.forEach { view in
+            if let expandableButton = view as? ExpandablePreferenceButton {
+                expandableButton.isSelected = false
+            }
         }
-
-        button.isSelected = selected
     }
+}
 
+private extension PreferenceSelectionView {
     func rectForPreference(at index: Int, convertedToRectInView view: UIView? = nil) -> CGRect? {
         guard let rect = container.arrangedSubviews[safe: index]?.frame else {
             return nil
@@ -116,8 +117,8 @@ public extension PreferenceSelectionView {
             return []
         }
 
-        let seletectedButtons = buttons.filter({ $0.isSelected })
-        let indexesOfSelectedButtons = seletectedButtons.compactMap({ buttons.index(of: $0) })
+        let selectedButtons = buttons.filter({ $0.isSelected })
+        let indexesOfSelectedButtons = selectedButtons.compactMap({ buttons.index(of: $0) })
 
         return indexesOfSelectedButtons
     }
@@ -191,11 +192,11 @@ private extension PreferenceSelectionView {
     }
 
     @objc func buttonTapped(sender: UIButton, forEvent: UIEvent) {
-        guard let index = container.arrangedSubviews.index(of: sender) else {
+        guard let index = container.arrangedSubviews.index(of: sender), let button = sender as? ExpandablePreferenceButton else {
             assertionFailure("No index for \(sender)")
             return
         }
 
-        delegate?.preferenceSelectionView(self, didTapPreferenceAtIndex: index)
+        delegate?.preferenceSelectionView(self, didTapExpandablePreferenceAtIndex: index, view: button)
     }
 }

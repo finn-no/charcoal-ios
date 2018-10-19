@@ -73,11 +73,7 @@ private extension PopoverDemoViewController {
     }
 
     func willDismissPopoverHandler(_ popoverPresentationController: UIPopoverPresentationController) {
-        guard let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
-            return
-        }
-
-        preferenceSelectionView.setPreference(at: selectedIndex, selected: false)
+        preferenceSelectionView.expandablePreferenceClosed()
     }
 }
 
@@ -109,12 +105,10 @@ extension PopoverDemoViewController {
 }
 
 extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandablePreferenceButton) {
         print("Button at index \(index) with title \(PopoverDemoViewController.preferenceFilters[index].title) was tapped")
 
-        let isSelected = preferenceSelectionView.isPreferenceSelected(at: index)
-        preferenceSelectionView.setPreference(at: index, selected: !isSelected)
-        selectedPreferenceView = preferenceSelectionView.viewForPreference(at: index)
+        view.isSelected = !view.isSelected
 
         let preferenceFilter = PopoverDemoViewController.preferenceFilters[index]
         let listItems = preferenceFilter.values

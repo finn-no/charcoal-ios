@@ -132,8 +132,7 @@ extension FilterRootViewController: UITableViewDataSource {
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
-            cell.preferenceSelectionViewDataSource = PreferenceFilterDataSource(preferences: preferenceInfo.preferences)
-            cell.preferenceSelectionViewDelegate = self
+            cell.setupWith(preferences: preferenceInfo.preferences, delegate: self, selectionDataSource: selectionDataSource)
             cell.selectionStyle = .none
             return cell
         case let listSelectionInfo as ListSelectionFilterInfoType:
@@ -218,20 +217,14 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
 }
 
 extension FilterRootViewController: PreferenceSelectionViewDelegate {
-    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
-        guard let dataSource = preferenceSelectionView.dataSource as? PreferenceFilterDataSource, let preferenceInfo = dataSource.preferences[safe: index], let sourceView = preferenceSelectionView.viewForPreference(at: index) else {
+    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandablePreferenceButton) {
+        guard let preferences = preferenceSelectionView.preferences, let preferenceInfo = preferences[safe: index] else {
             return
         }
+        sourceButton.isSelected = true
 
-        preferenceSelectionView.setPreference(at: index, selected: true)
-
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceView, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
-
-            guard let preferenceSelectionView = preferenceSelectionView, let selectedIndex = preferenceSelectionView.indexesForSelectedPreferences.first else {
-                return
-            }
-
-            preferenceSelectionView.setPreference(at: selectedIndex, selected: false)
+        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
+            preferenceSelectionView?.expandablePreferenceClosed()
         }))
     }
 }
@@ -272,23 +265,5 @@ extension FilterRootViewController: SearchQueryCellDelegate {
 extension FilterRootViewController: FilterViewControllerDelegate {
     public func applyFilterButtonTapped() {
         navigator.navigate(to: .root)
-    }
-}
-
-extension FilterRootViewController {
-    class PreferenceFilterDataSource: PreferenceSelectionViewDataSource {
-        let preferences: [PreferenceInfoType]
-
-        init(preferences: [PreferenceInfoType]) {
-            self.preferences = preferences
-        }
-
-        func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String? {
-            return preferences[index].preferenceName
-        }
-
-        func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {
-            return preferences.count
-        }
     }
 }

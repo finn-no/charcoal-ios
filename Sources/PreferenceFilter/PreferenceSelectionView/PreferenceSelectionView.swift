@@ -51,6 +51,7 @@ public final class PreferenceSelectionView: UIView {
     }
 
     public weak var delegate: PreferenceSelectionViewDelegate?
+    weak var selectionDataSource: FilterSelectionDataSource?
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -185,13 +186,13 @@ private extension PreferenceSelectionView {
 
     func layoutValueSectionView(with preference: PreferenceInfoType) {
         let valueSelectionView = PreferenceValueSelectionView(preference: preference)
+        valueSelectionView.selectionDataSource = selectionDataSource
         valueSelectionView.translatesAutoresizingMaskIntoConstraints = false
 
         container.addArrangedSubview(valueSelectionView)
 
         NSLayoutConstraint.activate([
             valueSelectionView.heightAnchor.constraint(equalToConstant: valueSelectionView.height),
-            // button.widthAnchor.constraint(equalToConstant: buttonSize.width),
         ])
     }
 

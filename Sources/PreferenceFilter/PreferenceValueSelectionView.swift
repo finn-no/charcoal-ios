@@ -17,6 +17,7 @@ class PreferenceValueSelectionView: UIView {
         view.layer.cornerRadius = height / 2
         view.layer.borderColor = .stone
         view.layer.borderWidth = 1.5
+        view.clipsToBounds = true
         return view
     }()
 
@@ -40,25 +41,16 @@ class PreferenceValueSelectionView: UIView {
 
         var constraints = [NSLayoutConstraint]()
 
-        for (index, _) in preference.values.enumerated() {
+        for (index, value) in preference.values.enumerated() {
             let isFirst = index == 0
             let isLast = index == preference.values.count - 1
             let shouldBeSelected = isValueSelected(at: index)
 
-            let button = UIButton(type: .custom)
-            button.backgroundColor = .milk
-            button.setTitleColor(.stone, for: .normal)
-            button.setTitleColor(.milk, for: .selected)
-            button.setTitle(valueTitle(at: index), for: .normal)
-            button.setTitle(valueTitle(at: index), for: .selected)
-            if !isFirst && !isLast {
-                button.layer.borderWidth = contentView.layer.borderWidth
-                button.layer.borderColor = contentView.layer.borderColor
-            }
+            let button = PreferenceValueSelectionButton(preferenceValue: value)
+            button.addTarget(self, action: #selector(didTapButton(button:)), for: .touchUpInside)
 
             if shouldBeSelected {
-                button.backgroundColor = .primaryBlue
-                button.isSelected = true
+                button.isPreferenceValueSelected = true
             }
 
             button.contentEdgeInsets = UIEdgeInsets(top: 0, left: isFirst ? .mediumLargeSpacing : .mediumSpacing, bottom: 0, right: isLast ? .mediumLargeSpacing : .mediumSpacing)
@@ -73,6 +65,19 @@ class PreferenceValueSelectionView: UIView {
                 button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
                 button.leadingAnchor.constraint(equalTo: previousHorizontalAnchor),
             ])
+
+            if !isLast {
+                let separatorLine = UIView(frame: .zero)
+                separatorLine.backgroundColor = .stone
+                separatorLine.translatesAutoresizingMaskIntoConstraints = false
+                contentView.addSubview(separatorLine)
+                constraints.append(contentsOf: [
+                    separatorLine.topAnchor.constraint(equalTo: contentView.topAnchor),
+                    separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                    separatorLine.leadingAnchor.constraint(equalTo: button.trailingAnchor),
+                    separatorLine.widthAnchor.constraint(equalToConstant: contentView.layer.borderWidth),
+                ])
+            }
         }
 
         constraints.append(contentsOf: [
@@ -98,5 +103,21 @@ class PreferenceValueSelectionView: UIView {
             return false
         }
         return selectionsForPreference.contains(value.value)
+    }
+
+    @objc private func didTapButton(button: UIButton) {
+        guard let button = button as? PreferenceValueSelectionButton else {
+            return
+        }
+        guard let selectionDataSource = selectionDataSource else {
+            return
+        }
+        if let selectionsForPreference = selectionDataSource.value(for: preference), selectionsForPreference.contains(button.preferenceValue.value) {
+            selectionDataSource.clearValue(button.preferenceValue.value, for: preference)
+            button.isPreferenceValueSelected = false
+        } else {
+            selectionDataSource.addValue(button.preferenceValue.value, for: preference)
+            button.isPreferenceValueSelected = true
+        }
     }
 }

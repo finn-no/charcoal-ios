@@ -132,6 +132,7 @@ extension FilterRootViewController: UITableViewDataSource {
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
+            cell.selectionDataSource = selectionDataSource
             cell.preferenceSelectionViewDataSource = PreferenceFilterDataSource(preferences: preferenceInfo.preferences)
             cell.preferenceSelectionViewDelegate = self
             cell.selectionStyle = .none

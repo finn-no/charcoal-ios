@@ -5,8 +5,15 @@
 import UIKit
 
 class PreferencesCell: UITableViewCell {
+    weak var selectionDataSource: FilterSelectionDataSource? {
+        didSet {
+            preferenceSelectionView.selectionDataSource = selectionDataSource
+        }
+    }
+
     private lazy var preferenceSelectionView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
+        view.selectionDataSource = selectionDataSource
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

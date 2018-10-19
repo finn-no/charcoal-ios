@@ -9,7 +9,7 @@ final class PopoverDemoViewController: UIViewController {
     lazy var preferenceSelectionView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.dataSource = self
+        view.preferences = PopoverDemoViewController.preferenceFilters
         view.delegate = self
         return view
     }()
@@ -81,11 +81,7 @@ private extension PopoverDemoViewController {
     }
 }
 
-extension PopoverDemoViewController: PreferenceSelectionViewDataSource {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, preferenceAtIndex index: Int) -> PreferenceInfoType? {
-        return PopoverDemoViewController.preferenceFilters[safe: index]
-    }
-
+extension PopoverDemoViewController {
     static var preferenceFilters: [PreferenceInfoDemo] {
         return [
             PreferenceInfoDemo(preferenceName: "Type søk", values:
@@ -109,14 +105,6 @@ extension PopoverDemoViewController: PreferenceSelectionViewDataSource {
             PreferenceInfoDemo(preferenceName: "Publisert", values:
                 [PreferenceValueTypeDemo(title: "Nye i dag", value: "1", results: 1)], isMultiSelect: false, title: "Publisert"),
         ]
-    }
-
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String {
-        return PopoverDemoViewController.preferenceFilters[index].title
-    }
-
-    func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {
-        return PopoverDemoViewController.preferenceFilters.count
     }
 }
 

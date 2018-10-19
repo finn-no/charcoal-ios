@@ -5,15 +5,10 @@
 import UIKit
 
 class PreferencesCell: UITableViewCell {
-    weak var selectionDataSource: FilterSelectionDataSource? {
-        didSet {
-            preferenceSelectionView.selectionDataSource = selectionDataSource
-        }
-    }
+    private var preferences: [PreferenceInfoType]?
 
     private lazy var preferenceSelectionView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
-        view.selectionDataSource = selectionDataSource
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -34,8 +29,23 @@ class PreferencesCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        preferenceSelectionView.dataSource = nil
+        preferenceSelectionView.preferences = nil
         preferenceSelectionView.delegate = nil
+    }
+
+    func setupWith(preferences: [PreferenceInfoType], delegate: PreferenceSelectionViewDelegate, selectionDataSource: FilterSelectionDataSource) {
+        preferenceSelectionView.delegate = delegate
+        preferenceSelectionView.selectionDataSource = selectionDataSource
+
+        var preferencesChanged = true
+        if let previousPreferences = preferenceSelectionView.preferences {
+            preferencesChanged = previousPreferences.elementsEqual(preferences) { (lhs, rhs) -> Bool in
+                return lhs.preferenceName == rhs.preferenceName && lhs.title == rhs.title && lhs.values.elementsEqual(rhs.values, by: { $0.value == $1.value })
+            }
+        }
+        if preferencesChanged {
+            preferenceSelectionView.preferences = preferences
+        }
     }
 }
 
@@ -52,25 +62,5 @@ private extension PreferencesCell {
             preferenceSelectionView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             preferenceSelectionView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
         ])
-    }
-}
-
-extension PreferencesCell {
-    var preferenceSelectionViewDataSource: PreferenceSelectionViewDataSource? {
-        get {
-            return preferenceSelectionView.dataSource
-        }
-        set {
-            preferenceSelectionView.dataSource = newValue
-        }
-    }
-
-    var preferenceSelectionViewDelegate: PreferenceSelectionViewDelegate? {
-        get {
-            return preferenceSelectionView.delegate
-        }
-        set {
-            preferenceSelectionView.delegate = newValue
-        }
     }
 }

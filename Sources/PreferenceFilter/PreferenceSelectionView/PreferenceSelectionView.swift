@@ -4,12 +4,6 @@
 
 import Foundation
 
-public protocol PreferenceSelectionViewDataSource: AnyObject {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String
-    func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, preferenceAtIndex index: Int) -> PreferenceInfoType?
-}
-
 public protocol PreferenceSelectionViewDelegate: AnyObject {
     func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int)
 }
@@ -44,7 +38,7 @@ public final class PreferenceSelectionView: UIView {
         return view
     }()
 
-    public var dataSource: PreferenceSelectionViewDataSource? {
+    public var preferences: [PreferenceInfoType]? {
         didSet {
             reload()
         }
@@ -63,7 +57,7 @@ public final class PreferenceSelectionView: UIView {
         setup()
     }
 
-    func setup() {
+    private func setup() {
         backgroundColor = .clear
 
         addSubview(scrollView)
@@ -91,17 +85,6 @@ public final class PreferenceSelectionView: UIView {
 }
 
 public extension PreferenceSelectionView {
-    func reload() {
-        layoutButtonGroup()
-    }
-
-    func removeAllPreferences() {
-        container.arrangedSubviews.forEach({ arrangedSubview in
-            container.removeArrangedSubview(arrangedSubview)
-            arrangedSubview.removeFromSuperview()
-        })
-    }
-
     func setPreference(at index: Int, selected: Bool) {
         guard let button = container.arrangedSubviews[safe: index] as? ExpandablePreferenceButton else {
             assertionFailure("Expected subviews to be array of only buttons ")
@@ -149,19 +132,30 @@ public extension PreferenceSelectionView {
 }
 
 private extension PreferenceSelectionView {
+    func reload() {
+        layoutButtonGroup()
+    }
+
+    func removeAllPreferences() {
+        container.arrangedSubviews.forEach({ arrangedSubview in
+            container.removeArrangedSubview(arrangedSubview)
+            arrangedSubview.removeFromSuperview()
+        })
+    }
+
     func layoutButtonGroup() {
         removeAllPreferences()
 
-        guard let dataSource = dataSource else {
+        guard let preferences = preferences else {
             return
         }
 
-        let rangeOfItems = 0 ..< dataSource.numberOfPreferences(self)
+        let rangeOfItems = 0 ..< preferences.count
         // let buttonTitlesToDisplay = rangeOfItems.map { dataSource.preferenceSelectionView(self, titleForPreferenceAtIndex: $0) }
         // buttonTitlesToDisplay.forEach { layoutButton(with: $0) }
 
         rangeOfItems.forEach { index in
-            if let preference = dataSource.preferenceSelectionView(self, preferenceAtIndex: index) {
+            if let preference = preferences[safe: index] {
                 if preference.values.count > 0 {
                     layoutValueSectionView(with: preference)
                 }

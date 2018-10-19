@@ -22,7 +22,16 @@ class PreferenceValueSelectionView: UIView {
     }()
 
     private let preference: PreferenceInfoType
-    weak var selectionDataSource: FilterSelectionDataSource?
+    weak var selectionDataSource: FilterSelectionDataSource? {
+        didSet {
+            contentView.subviews.forEach { subview in
+                guard let button = subview as? PreferenceValueSelectionButton else {
+                    return
+                }
+                button.isPreferenceValueSelected = isValueSelected(for: button.preferenceValue)
+            }
+        }
+    }
 
     init(preference: PreferenceInfoType) {
         self.preference = preference
@@ -105,6 +114,13 @@ class PreferenceValueSelectionView: UIView {
         return selectionsForPreference.contains(value.value)
     }
 
+    private func isValueSelected(for value: PreferenceValueType) -> Bool {
+        guard let selectionDataSource = selectionDataSource, let selectionsForPreference = selectionDataSource.value(for: preference) else {
+            return false
+        }
+        return selectionsForPreference.contains(value.value)
+    }
+
     @objc private func didTapButton(button: UIButton) {
         guard let button = button as? PreferenceValueSelectionButton else {
             return
@@ -112,7 +128,7 @@ class PreferenceValueSelectionView: UIView {
         guard let selectionDataSource = selectionDataSource else {
             return
         }
-        if let selectionsForPreference = selectionDataSource.value(for: preference), selectionsForPreference.contains(button.preferenceValue.value) {
+        if isValueSelected(for: button.preferenceValue) {
             selectionDataSource.clearValue(button.preferenceValue.value, for: preference)
             button.isPreferenceValueSelected = false
         } else {

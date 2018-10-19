@@ -132,9 +132,7 @@ extension FilterRootViewController: UITableViewDataSource {
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
-            cell.selectionDataSource = selectionDataSource
-            cell.preferenceSelectionViewDataSource = PreferenceFilterDataSource(preferences: preferenceInfo.preferences)
-            cell.preferenceSelectionViewDelegate = self
+            cell.setupWith(preferences: preferenceInfo.preferences, delegate: self, selectionDataSource: selectionDataSource)
             cell.selectionStyle = .none
             return cell
         case let listSelectionInfo as ListSelectionFilterInfoType:
@@ -220,7 +218,7 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
 
 extension FilterRootViewController: PreferenceSelectionViewDelegate {
     public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
-        guard let dataSource = preferenceSelectionView.dataSource as? PreferenceFilterDataSource, let preferenceInfo = dataSource.preferences[safe: index], let sourceView = preferenceSelectionView.viewForPreference(at: index) else {
+        guard let preferences = preferenceSelectionView.preferences, let preferenceInfo = preferences[safe: index], let sourceView = preferenceSelectionView.viewForPreference(at: index) else {
             return
         }
 
@@ -273,27 +271,5 @@ extension FilterRootViewController: SearchQueryCellDelegate {
 extension FilterRootViewController: FilterViewControllerDelegate {
     public func applyFilterButtonTapped() {
         navigator.navigate(to: .root)
-    }
-}
-
-extension FilterRootViewController {
-    class PreferenceFilterDataSource: PreferenceSelectionViewDataSource {
-        let preferences: [PreferenceInfoType]
-
-        init(preferences: [PreferenceInfoType]) {
-            self.preferences = preferences
-        }
-
-        func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String {
-            return preferences[safe: index]?.preferenceName ?? ""
-        }
-
-        func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, preferenceAtIndex index: Int) -> PreferenceInfoType? {
-            return preferences[safe: index]
-        }
-
-        func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {
-            return preferences.count
-        }
     }
 }

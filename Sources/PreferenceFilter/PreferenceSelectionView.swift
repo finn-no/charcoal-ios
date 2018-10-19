@@ -95,44 +95,6 @@ public extension PreferenceSelectionView {
 }
 
 private extension PreferenceSelectionView {
-    func rectForPreference(at index: Int, convertedToRectInView view: UIView? = nil) -> CGRect? {
-        guard let rect = container.arrangedSubviews[safe: index]?.frame else {
-            return nil
-        }
-
-        if let conversionView = view {
-            return convert(rect, to: conversionView)
-        } else {
-            return rect
-        }
-    }
-
-    func viewForPreference(at index: Int) -> UIView? {
-        return container.arrangedSubviews[safe: index]
-    }
-
-    var indexesForSelectedPreferences: [Int] {
-        guard let buttons = container.arrangedSubviews as? [UIButton] else {
-            assertionFailure("Expected subviews to be array of only buttons ")
-            return []
-        }
-
-        let selectedButtons = buttons.filter({ $0.isSelected })
-        let indexesOfSelectedButtons = selectedButtons.compactMap({ buttons.index(of: $0) })
-
-        return indexesOfSelectedButtons
-    }
-
-    func isPreferenceSelected(at index: Int) -> Bool {
-        guard let button = container.arrangedSubviews[safe: index] as? UIButton else {
-            return false
-        }
-
-        return button.isSelected
-    }
-}
-
-private extension PreferenceSelectionView {
     func reload() {
         layoutButtonGroup()
     }

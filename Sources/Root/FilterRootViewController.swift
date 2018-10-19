@@ -287,6 +287,10 @@ extension FilterRootViewController {
             return preferences[safe: index]?.preferenceName ?? ""
         }
 
+        func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, preferenceAtIndex index: Int) -> PreferenceInfoType? {
+            return preferences[safe: index]
+        }
+
         func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {
             return preferences.count
         }

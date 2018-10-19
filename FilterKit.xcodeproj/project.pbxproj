@@ -90,6 +90,7 @@
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
 		9B863F0E2178AB240089CCBC /* ExpandablePreferenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */; };
+		9B863F102178C1610089CCBC /* PreferenceValueSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */; };
 		9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */; };
 		9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */; };
 		9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
@@ -263,6 +264,7 @@
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandablePreferenceButton.swift; sourceTree = "<group>"; };
+		9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceValueSelectionView.swift; sourceTree = "<group>"; };
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
 		9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionTitleProvider.swift; sourceTree = "<group>"; };
 		9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 				55646DB320933D22006AA2DA /* PreferenceSelectionView */,
 				55F97D1120AC4FD5002BABC9 /* PreferenceFilterListViewController.swift */,
 				9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */,
+				9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */,
 			);
 			path = PreferenceFilter;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				9BD6378C21244C0B00AB9DFE /* Spacing.swift in Sources */,
 				559C61F520DA4C8D0083A574 /* FilterInfoBuilder.swift in Sources */,
 				55E869DE20E2674B008B921E /* RangeFilterViewController.swift in Sources */,
+				9B863F102178C1610089CCBC /* PreferenceValueSelectionView.swift in Sources */,
 				9BB827A0216C9C360014028C /* PreferenceFilterInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				9BD6378E21244C0B00AB9DFE /* Font.swift in Sources */,

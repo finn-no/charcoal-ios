@@ -7,6 +7,7 @@ import Foundation
 public protocol PreferenceSelectionViewDataSource: AnyObject {
     func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String
     func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, preferenceAtIndex index: Int) -> PreferenceInfoType?
 }
 
 public protocol PreferenceSelectionViewDelegate: AnyObject {
@@ -154,10 +155,17 @@ private extension PreferenceSelectionView {
             return
         }
 
-        let rangeOfButtons = 0 ..< dataSource.numberOfPreferences(self)
-        let buttonTitlesToDisplay = rangeOfButtons.map { dataSource.preferenceSelectionView(self, titleForPreferenceAtIndex: $0) }
+        let rangeOfItems = 0 ..< dataSource.numberOfPreferences(self)
+        // let buttonTitlesToDisplay = rangeOfItems.map { dataSource.preferenceSelectionView(self, titleForPreferenceAtIndex: $0) }
+        // buttonTitlesToDisplay.forEach { layoutButton(with: $0) }
 
-        buttonTitlesToDisplay.forEach { layoutButton(with: $0) }
+        rangeOfItems.forEach { index in
+            if let preference = dataSource.preferenceSelectionView(self, preferenceAtIndex: index) {
+                if preference.values.count > 0 {
+                    layoutValueSectionView(with: preference)
+                }
+            }
+        }
     }
 
     func layoutButton(with title: String) {
@@ -170,8 +178,20 @@ private extension PreferenceSelectionView {
         let buttonSize = button.sizeForButtonExpandingHorizontally()
 
         NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 1, constant: 0),
+            button.heightAnchor.constraint(equalToConstant: ExpandablePreferenceButton.height),
             button.widthAnchor.constraint(equalToConstant: buttonSize.width),
+        ])
+    }
+
+    func layoutValueSectionView(with preference: PreferenceInfoType) {
+        let valueSelectionView = PreferenceValueSelectionView(preference: preference)
+        valueSelectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        container.addArrangedSubview(valueSelectionView)
+
+        NSLayoutConstraint.activate([
+            valueSelectionView.heightAnchor.constraint(equalToConstant: valueSelectionView.height),
+            // button.widthAnchor.constraint(equalToConstant: buttonSize.width),
         ])
     }
 

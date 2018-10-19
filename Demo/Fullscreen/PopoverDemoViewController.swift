@@ -82,22 +82,37 @@ private extension PopoverDemoViewController {
 }
 
 extension PopoverDemoViewController: PreferenceSelectionViewDataSource {
-    struct PreferenceFilter {
-        let name: String
-        let values: [String]
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, preferenceAtIndex index: Int) -> PreferenceInfoType? {
+        return PopoverDemoViewController.preferenceFilters[safe: index]
     }
 
-    static var preferenceFilters: [PreferenceFilter] {
+    static var preferenceFilters: [PreferenceInfoDemo] {
         return [
-            PreferenceFilter(name: "Type søk", values: ["Til salgs", "Gis bort", "Ønskes kjøpt"]),
-            PreferenceFilter(name: "Tilstand", values: ["Alle", "Brukt", "Nytt"]),
-            PreferenceFilter(name: "Selger", values: ["Alle", "Forhandler", "Privat"]),
-            PreferenceFilter(name: "Publisert", values: ["Nye i dag"]),
+            PreferenceInfoDemo(preferenceName: "Type søk", values:
+                [
+                    PreferenceValueTypeDemo(title: "Til salgs", value: "1", results: 1),
+                    PreferenceValueTypeDemo(title: "Gis bort", value: "2", results: 1),
+                    PreferenceValueTypeDemo(title: "Ønskes kjøpt", value: "3", results: 1),
+            ], isMultiSelect: true, title: "Type søk"),
+            PreferenceInfoDemo(preferenceName: "Tilstand", values:
+                [
+                    PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
+                    PreferenceValueTypeDemo(title: "Brukt", value: "2", results: 1),
+                    PreferenceValueTypeDemo(title: "Nytt", value: "3", results: 1),
+            ], isMultiSelect: false, title: "Tilstand"),
+            PreferenceInfoDemo(preferenceName: "Selger", values:
+                [
+                    PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
+                    PreferenceValueTypeDemo(title: "Forhandler", value: "2", results: 1),
+                    PreferenceValueTypeDemo(title: "Privat", value: "3", results: 1),
+            ], isMultiSelect: false, title: "Selger"),
+            PreferenceInfoDemo(preferenceName: "Publisert", values:
+                [PreferenceValueTypeDemo(title: "Nye i dag", value: "1", results: 1)], isMultiSelect: false, title: "Publisert"),
         ]
     }
 
     func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, titleForPreferenceAtIndex index: Int) -> String {
-        return PopoverDemoViewController.preferenceFilters[index].name
+        return PopoverDemoViewController.preferenceFilters[index].title
     }
 
     func numberOfPreferences(_ preferenceSelectionView: PreferenceSelectionView) -> Int {
@@ -107,15 +122,15 @@ extension PopoverDemoViewController: PreferenceSelectionViewDataSource {
 
 extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
     func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapPreferenceAtIndex index: Int) {
-        print("Button at index \(index) with title \(PreferenceSelectionViewDemoView.titles[index]) was tapped")
+        print("Button at index \(index) with title \(PopoverDemoViewController.preferenceFilters[index].title) was tapped")
 
         let isSelected = preferenceSelectionView.isPreferenceSelected(at: index)
         preferenceSelectionView.setPreference(at: index, selected: !isSelected)
         selectedPreferenceView = preferenceSelectionView.viewForPreference(at: index)
 
         let preferenceFilter = PopoverDemoViewController.preferenceFilters[index]
-        let listItems = preferenceFilter.values.map(PopoverDemoListItem.init)
-        let popover = ListViewController(title: preferenceFilter.name, items: listItems)
+        let listItems = preferenceFilter.values
+        let popover = ListViewController(title: preferenceFilter.title, items: listItems)
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom
         popoverPresentationTransitioningDelegate.sourceView = selectedPreferenceView
@@ -125,11 +140,15 @@ extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
     }
 }
 
-private extension PopoverDemoViewController {
-    struct PopoverDemoListItem: ListItem {
-        var title: String
-        let detail: String? = nil
-        let showsDisclosureIndicator: Bool = false
-        let value: String = ""
-    }
+struct PreferenceInfoDemo: PreferenceInfoType {
+    var preferenceName: String
+    var values: [PreferenceValueType]
+    var isMultiSelect: Bool
+    var title: String
+}
+
+struct PreferenceValueTypeDemo: PreferenceValueType {
+    var title: String
+    var value: String
+    var results: Int
 }

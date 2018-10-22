@@ -99,7 +99,6 @@
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9B9C16FF209B3288007BCBBC /* ValueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9C16FE209B3288007BCBBC /* ValueSelectionViewController.swift */; };
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
-		9B9C1709209C78BA007BCBBC /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9BAF4F81212AEC45003DD663 /* SearchQueryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F80212AEC45003DD663 /* SearchQueryViewController.swift */; };
 		9BAF4F87212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */; };
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
@@ -164,7 +163,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9B9C1709209C78BA007BCBBC /* HockeySDK.framework in Embed Frameworks */,
 				44ECE68F208F7FF90017AC82 /* FilterKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -935,6 +933,7 @@
 				44ECE668208F7FD00017AC82 /* Frameworks */,
 				44ECE669208F7FD00017AC82 /* Resources */,
 				44ECE692208F7FF90017AC82 /* Embed Frameworks */,
+				9B5E8761217E06D000793A1A /* Run Script (carthage) */,
 			);
 			buildRules = (
 			);
@@ -1075,6 +1074,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "sh \"${SRCROOT}/Scripts/format.sh\"";
+		};
+		9B5E8761217E06D000793A1A /* Run Script (carthage) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Demo/Carthage/Build/iOS/HockeySDK.framework",
+			);
+			name = "Run Script (carthage)";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/HockeySDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/bin/sh\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

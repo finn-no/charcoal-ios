@@ -8,7 +8,7 @@ class DemoFilter {
     let filterData: FilterSetup
     let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
-    var verticalSetup: VerticalSetup = {
+    var verticalSetup: VerticalSetupDemo = {
         let verticalsCarNorway = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: true), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: false)]
         let verticalsCarAbroad = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: false), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: true)]
         let verticals = VerticalSetupDemo(verticals: ["car-norway": verticalsCarNorway, "car-abroad": verticalsCarAbroad])

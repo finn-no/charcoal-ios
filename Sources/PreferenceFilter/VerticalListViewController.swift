@@ -34,7 +34,7 @@ public class VerticalListViewController: ListViewController {
 
 extension VerticalListViewController: ListViewControllerDelegate {
     func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
-        // TODO
+        // TODO:
     }
 }
 

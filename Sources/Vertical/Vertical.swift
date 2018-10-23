@@ -1,5 +1,5 @@
 //
-//  Copyright © FINN.no. All rights reserved.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
 public protocol Vertical: ListItem {
@@ -12,8 +12,4 @@ extension Vertical {
     public var value: String { return "" }
     public var detail: String? { return nil }
     public var showsDisclosureIndicator: Bool { return false }
-}
-
-public protocol VerticalSetup {
-    func subVerticals(for market: String) -> [Vertical]
 }

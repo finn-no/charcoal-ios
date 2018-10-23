@@ -4,7 +4,7 @@
 
 import FilterKit
 
-struct VerticalSetupDemo: VerticalSetup {
+struct VerticalSetupDemo {
     let verticals: [String: [Vertical]]
     func subVerticals(for market: String) -> [Vertical] {
         return verticals[market] ?? []

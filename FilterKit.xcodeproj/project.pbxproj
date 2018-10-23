@@ -32,7 +32,7 @@
 		4670268D2170D38D00B9C952 /* SteppedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268C2170D38D00B9C952 /* SteppedSlider.swift */; };
 		4670268F2170DD3900B9C952 /* RangeReferenceValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268E2170DD3900B9C952 /* RangeReferenceValueView.swift */; };
 		46905233217F0D6000F8E7FD /* VerticalSetupDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */; };
-		46905237217F5C5D00F8E7FD /* VerticalSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905236217F5C5D00F8E7FD /* VerticalSetup.swift */; };
+		4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905239217F5CD000F8E7FD /* Vertical.swift */; };
 		46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A93B6E216D5C4900985139 /* MultiLevelSelectionListItemCell.swift */; };
 		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
 		5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525323F20A2D9B2000CBD21 /* Navigator.swift */; };
@@ -209,7 +209,7 @@
 		4670268C2170D38D00B9C952 /* SteppedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppedSlider.swift; sourceTree = "<group>"; };
 		4670268E2170DD3900B9C952 /* RangeReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeReferenceValueView.swift; sourceTree = "<group>"; };
 		46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSetupDemo.swift; sourceTree = "<group>"; };
-		46905236217F5C5D00F8E7FD /* VerticalSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSetup.swift; sourceTree = "<group>"; };
+		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
 		46A93B6E216D5C4900985139 /* MultiLevelSelectionListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelSelectionListItemCell.swift; sourceTree = "<group>"; };
 		5525323F20A2D9B2000CBD21 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		5525324120A2DB02000CBD21 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -387,7 +387,7 @@
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				9BE0A0402091BE750000632B /* Root */,
 				9BAF4F7F212AEB99003DD663 /* SearchQuery */,
-				46905236217F5C5D00F8E7FD /* VerticalSetup.swift */,
+				46905238217F5CB500F8E7FD /* Vertical */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -485,6 +485,14 @@
 				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		46905238217F5CB500F8E7FD /* Vertical */ = {
+			isa = PBXGroup;
+			children = (
+				46905239217F5CD000F8E7FD /* Vertical.swift */,
+			);
+			path = Vertical;
 			sourceTree = "<group>";
 		};
 		5510EDAA20BFCCFE006E4A0F /* CompactList */ = {
@@ -1181,8 +1189,8 @@
 				55E869D720E24498008B921E /* FilterViewController.swift in Sources */,
 				9BB8279E216C9C060014028C /* SearchQueryFilterInfo.swift in Sources */,
 				9B863F122179D00C0089CCBC /* PreferenceValueSelectionButton.swift in Sources */,
-				46905237217F5C5D00F8E7FD /* VerticalSetup.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
+				4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
 				55BDA77320DBD99600331FFC /* ParameterBasedFilterInfo.swift in Sources */,
 				55E869E220E39373008B921E /* FilterNavigator.swift in Sources */,

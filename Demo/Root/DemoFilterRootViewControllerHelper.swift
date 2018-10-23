@@ -10,6 +10,8 @@ class DemoFilter {
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
+        let carVerticals = [VerticalDemo(id: "car-norway", title: "Biler i Norge"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet")]
+        let verticals = VerticalSetupDemo(verticals: ["car-norway": carVerticals, "car-abroad": carVerticals])
         let filterInfoBuilder = FilterInfoBuilder(verticalSetup: VerticalSetupDemo(verticals: [:]), filter: filterData, selectionDataSource: selectionDataSource)
 
         return filterInfoBuilder.build()

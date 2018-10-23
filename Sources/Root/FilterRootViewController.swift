@@ -4,10 +4,15 @@
 
 import UIKit
 
+public protocol FilterRootViewControllerDelegate: AnyObject {
+    func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical)
+}
+
 public class FilterRootViewController: UIViewController {
     private let navigator: RootFilterNavigator
     private let dataSource: FilterDataSource
     public let selectionDataSource: FilterSelectionDataSource
+    weak var delegate: FilterRootViewControllerDelegate?
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -31,6 +36,20 @@ public class FilterRootViewController: UIViewController {
         buttonView.delegate = self
         buttonView.buttonTitle = "Vis \(dataSource.numberOfHits) treff"
         return buttonView
+    }()
+
+    private lazy var loadingView: UIView = {
+        let coverView = UIView(frame: .zero)
+        coverView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        let activityIndicator = UIActivityIndicatorView(style: .white)
+        coverView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: coverView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: coverView.centerYAnchor),
+        ])
+        activityIndicator.startAnimating()
+        return coverView
     }()
 
     public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
@@ -265,5 +284,20 @@ extension FilterRootViewController: SearchQueryCellDelegate {
 extension FilterRootViewController: FilterViewControllerDelegate {
     public func applyFilterButtonTapped() {
         navigator.navigate(to: .root)
+    }
+}
+
+extension FilterRootViewController: VerticalListViewControllerDelegate {
+    public func verticalListViewController(_: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int) {
+        let vc = UIViewController(nibName: nil, bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        vc.view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.fillInSuperview()
+
+        presentedViewController?.present(vc, animated: true, completion: nil)
+
+        delegate?.filterRootViewController(self, didChangeVertical: vertical)
     }
 }

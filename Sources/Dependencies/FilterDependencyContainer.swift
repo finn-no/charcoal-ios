@@ -8,6 +8,7 @@ public class FilterDependencyContainer {
     private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
     private let searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
+    private weak var filterRootViewControllerDelegate: FilterRootViewControllerDelegate?
 
     public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?) {
         self.dataSource = dataSource
@@ -53,14 +54,16 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return filterViewController
     }
 
-    public func makeVerticalListViewController(with verticals: [Vertical], navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> VerticalListViewController? {
+    public func makeVerticalListViewController(with verticals: [Vertical], delegate: VerticalListViewControllerDelegate) -> VerticalListViewController? {
         let verticalListViewController = VerticalListViewController(verticals: verticals)
-        // verticalListViewController.delegate = delegate
+        verticalListViewController.delegate = delegate
         return verticalListViewController
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
-        return FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, selectionDataSource: selectionDataSource)
+        let rootViewController = FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, selectionDataSource: selectionDataSource)
+        rootViewController.delegate = filterRootViewControllerDelegate
+        return rootViewController
     }
 
     public func makeSearchQueryFilterViewController(from searchQueryFilterInfo: SearchQueryFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {

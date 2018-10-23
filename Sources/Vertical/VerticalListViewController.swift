@@ -4,8 +4,12 @@
 
 import Foundation
 
+public protocol VerticalListViewControllerDelegate: AnyObject {
+    func verticalListViewController(_: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int)
+}
+
 public class VerticalListViewController: ListViewController {
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
+    public var delegate: VerticalListViewControllerDelegate?
 
     let verticals: [Vertical]
 
@@ -34,7 +38,10 @@ public class VerticalListViewController: ListViewController {
 
 extension VerticalListViewController: ListViewControllerDelegate {
     func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
-        // TODO:
+        if let vertical = verticals[safe: indexPath.item] {
+            delegate?.verticalListViewController(self, didSelectVertical: vertical, at: indexPath.item)
+        }
+        updateCell(at: indexPath)
     }
 }
 

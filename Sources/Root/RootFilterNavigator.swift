@@ -9,7 +9,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case root
         case selectionListFilter(filterInfo: ListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
         case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
-        case verticalSelectionInPopover(verticals: [Vertical], sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
+        case verticalSelectionInPopover(verticals: [Vertical], sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
         case searchQueryFilter(filterInfo: SearchQueryFilterInfoType, delegate: FilterViewControllerDelegate)
     }
@@ -83,9 +83,8 @@ private extension RootFilterNavigator {
         }
     }
 
-    func presentVerticals(with verticals: [Vertical], and sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
-        let navigator = factory.makeFilterNavigator(navigationController: navigationController)
-        guard let preferencelistViewController = factory.makeVerticalListViewController(with: verticals, navigator: navigator, delegate: delegate), let filterRootViewController = filterRootViewController else {
+    func presentVerticals(with verticals: [Vertical], and sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
+        guard let preferencelistViewController = factory.makeVerticalListViewController(with: verticals, delegate: delegate), let filterRootViewController = filterRootViewController else {
             return
         }
 

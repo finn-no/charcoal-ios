@@ -5,17 +5,13 @@
 import Foundation
 
 public class VerticalListViewController: ListViewController {
-    public var controller: UIViewController {
-        return self
-    }
-
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     let verticals: [Vertical]
 
     public required init(verticals: [Vertical]) {
         self.verticals = verticals
-        super.init(title: "", items: [])
+        super.init(title: "", items: verticals)
         listViewControllerDelegate = self
         selectionListItemCellConfigurator = self
     }
@@ -38,15 +34,16 @@ public class VerticalListViewController: ListViewController {
 
 extension VerticalListViewController: ListViewControllerDelegate {
     func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
-        //toggleSelection(for: listItem)
-        // updateCell(at: indexPath)
+        // TODO
     }
 }
 
 extension VerticalListViewController: SelectionListItemCellConfigurator {
     func configure(_ cell: SelectionListItemCell, listItem: ListItem) {
+        cell.selectionIndicatorType = .radioButton
         cell.configure(for: listItem)
-        // cell.selectionIndicatorType = filterInfo.isMultiSelect ? .checkbox : .radioButton
-        // cell.setSelectionMarker(visible: isListItemSelected(listItem))
+        if let vertical = listItem as? Vertical {
+            cell.setSelectionMarker(visible: vertical.isCurrent)
+        }
     }
 }

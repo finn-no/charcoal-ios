@@ -54,9 +54,9 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeVerticalListViewController(with verticals: [Vertical], navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> VerticalListViewController? {
-        // let filterViewController = FilterViewController<PreferenceFilterListViewController>(filterInfo: preferenceInfo, selectionDataSource: selectionDataSource, navigator: navigator)
-        // filterViewController?.delegate = delegate
-        return nil
+        let verticalListViewController = VerticalListViewController(verticals: verticals)
+        // verticalListViewController.delegate = delegate
+        return verticalListViewController
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {

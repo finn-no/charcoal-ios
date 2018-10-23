@@ -14,4 +14,5 @@ struct VerticalSetupDemo: VerticalSetup {
 struct VerticalDemo: Vertical {
     let id: String
     let title: String
+    let isCurrent: Bool
 }

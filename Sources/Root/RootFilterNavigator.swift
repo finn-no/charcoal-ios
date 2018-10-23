@@ -9,7 +9,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case root
         case selectionListFilter(filterInfo: ListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
         case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
-        case preferenceFilterInPopover(preferenceInfo: PreferenceInfoType, sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
+        case verticalSelectionInPopover(verticals: [Vertical], sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
         case searchQueryFilter(filterInfo: SearchQueryFilterInfoType, delegate: FilterViewControllerDelegate)
     }
@@ -42,8 +42,8 @@ public class RootFilterNavigator: NSObject, Navigator {
                 return
             }
             navigationController.pushViewController(multiLevelListViewController, animated: true)
-        case let .preferenceFilterInPopover(preferenceInfo, sourceView, delegate, popoverWillDismiss):
-            presentPreference(with: preferenceInfo, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
+        case let .verticalSelectionInPopover(verticals, sourceView, delegate, popoverWillDismiss):
+            presentVerticals(with: verticals, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
         case let .rangeFilter(filterInfo, delegate):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController)
             guard let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else {
@@ -83,9 +83,9 @@ private extension RootFilterNavigator {
         }
     }
 
-    func presentPreference(with preferenceInfo: PreferenceInfoType, and sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
+    func presentVerticals(with verticals: [Vertical], and sourceView: UIView, delegate: FilterViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
         let navigator = factory.makeFilterNavigator(navigationController: navigationController)
-        guard let preferencelistViewController = factory.makePreferenceFilterListViewController(with: preferenceInfo, navigator: navigator, delegate: delegate), let filterRootViewController = filterRootViewController else {
+        guard let preferencelistViewController = factory.makeVerticalListViewController(with: verticals, navigator: navigator, delegate: delegate), let filterRootViewController = filterRootViewController else {
             return
         }
 

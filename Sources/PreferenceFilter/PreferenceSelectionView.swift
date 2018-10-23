@@ -38,12 +38,8 @@ public final class PreferenceSelectionView: UIView {
         return view
     }()
 
-    public var preferences: [PreferenceInfoType]? {
-        didSet {
-            reload()
-        }
-    }
-
+    private(set) var verticals: [Vertical]?
+    public private(set) var preferences: [PreferenceInfoType]?
     public weak var delegate: PreferenceSelectionViewDelegate?
     weak var selectionDataSource: FilterSelectionDataSource?
 
@@ -85,6 +81,12 @@ public final class PreferenceSelectionView: UIView {
 }
 
 public extension PreferenceSelectionView {
+    func load(verticals: [Vertical]?, preferences: [PreferenceInfoType]?) {
+        self.verticals = verticals
+        self.preferences = preferences
+        reload()
+    }
+
     func expandablePreferenceClosed() {
         container.arrangedSubviews.forEach { view in
             if let expandableButton = view as? ExpandablePreferenceButton {
@@ -113,10 +115,9 @@ private extension PreferenceSelectionView {
             return
         }
 
-        let rangeOfItems = 0 ..< preferences.count
-        // let buttonTitlesToDisplay = rangeOfItems.map { dataSource.preferenceSelectionView(self, titleForPreferenceAtIndex: $0) }
-        // buttonTitlesToDisplay.forEach { layoutButton(with: $0) }
+        layoutVerticalButton()
 
+        let rangeOfItems = 0 ..< preferences.count
         rangeOfItems.forEach { index in
             if let preference = preferences[safe: index] {
                 if preference.values.count > 0 {
@@ -126,8 +127,12 @@ private extension PreferenceSelectionView {
         }
     }
 
-    func layoutButton(with title: String) {
-        let button = ExpandablePreferenceButton(title: title)
+    func layoutVerticalButton() {
+        guard let verticals = verticals, let currentVertical = verticals.first(where: { $0.isCurrent }), verticals.count > 1 else {
+            return
+        }
+
+        let button = ExpandablePreferenceButton(title: currentVertical.title)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(buttonTapped(sender:forEvent:)), for: .touchUpInside)
 

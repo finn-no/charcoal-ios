@@ -8,11 +8,15 @@ class DemoFilter {
     let filterData: FilterSetup
     let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
+    var verticalSetup: VerticalSetup = {
+        let verticalsCarNorway = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: true), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: false)]
+        let verticalsCarAbroad = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: false), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: true)]
+        let verticals = VerticalSetupDemo(verticals: ["car-norway": verticalsCarNorway, "car-abroad": verticalsCarAbroad])
+        return verticals
+    }()
 
     lazy var loadedFilterInfo: [FilterInfoType] = {
-        let carVerticals = [VerticalDemo(id: "car-norway", title: "Biler i Norge"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet")]
-        let verticals = VerticalSetupDemo(verticals: ["car-norway": carVerticals, "car-abroad": carVerticals])
-        let filterInfoBuilder = FilterInfoBuilder(verticalSetup: VerticalSetupDemo(verticals: [:]), filter: filterData, selectionDataSource: selectionDataSource)
+        let filterInfoBuilder = FilterInfoBuilder(filter: filterData, selectionDataSource: selectionDataSource)
 
         return filterInfoBuilder.build()
     }()
@@ -46,6 +50,10 @@ class DemoFilter {
 }
 
 extension DemoFilter: FilterDataSource {
+    var verticals: [Vertical] {
+        return verticalSetup.subVerticals(for: filterData.market)
+    }
+
     var filterTitle: String {
         return filterData.filterTitle
     }

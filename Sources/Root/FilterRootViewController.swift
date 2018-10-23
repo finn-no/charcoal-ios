@@ -132,7 +132,7 @@ extension FilterRootViewController: UITableViewDataSource {
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
-            cell.setupWith(preferences: preferenceInfo.preferences, delegate: self, selectionDataSource: selectionDataSource)
+            cell.setupWith(verticals: dataSource.verticals, preferences: preferenceInfo.preferences, delegate: self, selectionDataSource: selectionDataSource)
             cell.selectionStyle = .none
             return cell
         case let listSelectionInfo as ListSelectionFilterInfoType:
@@ -218,12 +218,12 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
 
 extension FilterRootViewController: PreferenceSelectionViewDelegate {
     public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandablePreferenceButton) {
-        guard let preferences = preferenceSelectionView.preferences, let preferenceInfo = preferences[safe: index] else {
+        guard let verticals = preferenceSelectionView.verticals else {
             return
         }
         sourceButton.isSelected = true
 
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
+        navigator.navigate(to: .verticalSelectionInPopover(verticals: verticals, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
             preferenceSelectionView?.expandablePreferenceClosed()
         }))
     }

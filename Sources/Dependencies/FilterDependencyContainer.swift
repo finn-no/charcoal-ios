@@ -53,10 +53,10 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return filterViewController
     }
 
-    public func makePreferenceFilterListViewController(with preferenceInfo: PreferenceInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<PreferenceFilterListViewController>? {
-        let filterViewController = FilterViewController<PreferenceFilterListViewController>(filterInfo: preferenceInfo, selectionDataSource: selectionDataSource, navigator: navigator)
-        filterViewController?.delegate = delegate
-        return filterViewController
+    public func makeVerticalListViewController(with verticals: [Vertical], navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> VerticalListViewController? {
+        // let filterViewController = FilterViewController<PreferenceFilterListViewController>(filterInfo: preferenceInfo, selectionDataSource: selectionDataSource, navigator: navigator)
+        // filterViewController?.delegate = delegate
+        return nil
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {

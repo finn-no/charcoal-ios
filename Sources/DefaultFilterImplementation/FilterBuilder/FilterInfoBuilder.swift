@@ -4,12 +4,22 @@
 
 import Foundation
 
-public final class FilterInfoBuilder {
-    let filter: FilterSetup
-    let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
-    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo]
+public protocol Vertical {
+    var title: String { get }
+}
 
-    public init(filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
+public protocol VerticalSetup {
+    func subVerticals(for market: String) -> [Vertical]
+}
+
+public final class FilterInfoBuilder {
+    private let filter: FilterSetup
+    private let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
+    private(set) var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo]
+    private let verticalSetup: VerticalSetup
+
+    public init(verticalSetup: VerticalSetup, filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
+        self.verticalSetup = verticalSetup
         self.filter = filter
         self.selectionDataSource = selectionDataSource
         multiLevelFilterLookup = [:]

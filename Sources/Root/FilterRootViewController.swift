@@ -217,7 +217,7 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
 }
 
 extension FilterRootViewController: PreferenceSelectionViewDelegate {
-    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandablePreferenceButton) {
+    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandableSelectionButton) {
         guard let verticals = preferenceSelectionView.verticals else {
             return
         }

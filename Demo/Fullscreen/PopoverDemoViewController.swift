@@ -105,7 +105,7 @@ extension PopoverDemoViewController {
 }
 
 extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandablePreferenceButton) {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandableSelectionButton) {
         print("Button at index \(index) with title \(PopoverDemoViewController.preferenceFilters[index].title) was tapped")
 
         view.isSelected = !view.isSelected

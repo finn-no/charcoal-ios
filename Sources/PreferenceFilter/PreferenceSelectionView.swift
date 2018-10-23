@@ -5,11 +5,11 @@
 import Foundation
 
 public protocol PreferenceSelectionViewDelegate: AnyObject {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandablePreferenceButton)
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandableSelectionButton)
 }
 
 public final class PreferenceSelectionView: UIView {
-    public static let defaultButtonHeight: CGFloat = ExpandablePreferenceButton.height
+    public static let defaultButtonHeight: CGFloat = ExpandableSelectionButton.height
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -89,7 +89,7 @@ public extension PreferenceSelectionView {
 
     func expandablePreferenceClosed() {
         container.arrangedSubviews.forEach { view in
-            if let expandableButton = view as? ExpandablePreferenceButton {
+            if let expandableButton = view as? ExpandableSelectionButton {
                 expandableButton.isSelected = false
             }
         }
@@ -132,7 +132,7 @@ private extension PreferenceSelectionView {
             return
         }
 
-        let button = ExpandablePreferenceButton(title: currentVertical.title)
+        let button = ExpandableSelectionButton(title: currentVertical.title)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(buttonTapped(sender:forEvent:)), for: .touchUpInside)
 
@@ -141,7 +141,7 @@ private extension PreferenceSelectionView {
         let buttonSize = button.sizeForButtonExpandingHorizontally()
 
         NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalToConstant: ExpandablePreferenceButton.height),
+            button.heightAnchor.constraint(equalToConstant: ExpandableSelectionButton.height),
             button.widthAnchor.constraint(equalToConstant: buttonSize.width),
         ])
     }
@@ -159,7 +159,7 @@ private extension PreferenceSelectionView {
     }
 
     @objc func buttonTapped(sender: UIButton, forEvent: UIEvent) {
-        guard let index = container.arrangedSubviews.index(of: sender), let button = sender as? ExpandablePreferenceButton else {
+        guard let index = container.arrangedSubviews.index(of: sender), let button = sender as? ExpandableSelectionButton else {
             assertionFailure("No index for \(sender)")
             return
         }

@@ -91,7 +91,7 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
-		9B863F0E2178AB240089CCBC /* ExpandablePreferenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */; };
+		9B863F0E2178AB240089CCBC /* ExpandableSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0D2178AB240089CCBC /* ExpandableSelectionButton.swift */; };
 		9B863F102178C1610089CCBC /* PreferenceValueSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */; };
 		9B863F122179D00C0089CCBC /* PreferenceValueSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F112179D00C0089CCBC /* PreferenceValueSelectionButton.swift */; };
 		9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */; };
@@ -266,7 +266,7 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
-		9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandablePreferenceButton.swift; sourceTree = "<group>"; };
+		9B863F0D2178AB240089CCBC /* ExpandableSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSelectionButton.swift; sourceTree = "<group>"; };
 		9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceValueSelectionView.swift; sourceTree = "<group>"; };
 		9B863F112179D00C0089CCBC /* PreferenceValueSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceValueSelectionButton.swift; sourceTree = "<group>"; };
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
@@ -490,6 +490,7 @@
 		46905238217F5CB500F8E7FD /* Vertical */ = {
 			isa = PBXGroup;
 			children = (
+				55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */,
 				46905239217F5CD000F8E7FD /* Vertical.swift */,
 			);
 			path = Vertical;
@@ -700,8 +701,7 @@
 		55F97D1320AC51FD002BABC9 /* PreferenceFilter */ = {
 			isa = PBXGroup;
 			children = (
-				9B863F0D2178AB240089CCBC /* ExpandablePreferenceButton.swift */,
-				55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */,
+				9B863F0D2178AB240089CCBC /* ExpandableSelectionButton.swift */,
 				55646DAB2091C572006AA2DA /* PreferenceSelectionView.swift */,
 				9B863F112179D00C0089CCBC /* PreferenceValueSelectionButton.swift */,
 				9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */,
@@ -1145,7 +1145,7 @@
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
 				55858A2020AAD18400B100EA /* NavigatorFactory.swift in Sources */,
 				5589322E209C3CD500512FF8 /* Layout.swift in Sources */,
-				9B863F0E2178AB240089CCBC /* ExpandablePreferenceButton.swift in Sources */,
+				9B863F0E2178AB240089CCBC /* ExpandableSelectionButton.swift in Sources */,
 				5525324820A300A6000CBD21 /* FilterNavigationController.swift in Sources */,
 				55E869E020E26764008B921E /* FilterContainerViewController.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,

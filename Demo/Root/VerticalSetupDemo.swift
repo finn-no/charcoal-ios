@@ -15,4 +15,5 @@ struct VerticalDemo: Vertical {
     let id: String
     let title: String
     let isCurrent: Bool
+    let isExternal: Bool
 }

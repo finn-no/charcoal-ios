@@ -5,6 +5,7 @@
 public protocol Vertical: ListItem {
     var title: String { get }
     var isCurrent: Bool { get }
+    var isExternal: Bool { get }
 }
 
 extension Vertical {

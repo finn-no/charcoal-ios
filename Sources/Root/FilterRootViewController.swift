@@ -298,6 +298,11 @@ extension FilterRootViewController: VerticalListViewControllerDelegate {
 
         presentedViewController?.present(vc, animated: true, completion: nil)
 
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.dismiss(animated: true, completion: {
+            })
+        }
+
         delegate?.filterRootViewController(self, didChangeVertical: vertical)
     }
 }

@@ -91,6 +91,7 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
+		9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */; };
 		9B863F0E2178AB240089CCBC /* ExpandableSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0D2178AB240089CCBC /* ExpandableSelectionButton.swift */; };
 		9B863F102178C1610089CCBC /* PreferenceValueSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */; };
 		9B863F122179D00C0089CCBC /* PreferenceValueSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F112179D00C0089CCBC /* PreferenceValueSelectionButton.swift */; };
@@ -266,6 +267,7 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
+		9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectionCell.swift; sourceTree = "<group>"; };
 		9B863F0D2178AB240089CCBC /* ExpandableSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableSelectionButton.swift; sourceTree = "<group>"; };
 		9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceValueSelectionView.swift; sourceTree = "<group>"; };
 		9B863F112179D00C0089CCBC /* PreferenceValueSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceValueSelectionButton.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 			children = (
 				55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */,
 				46905239217F5CD000F8E7FD /* Vertical.swift */,
+				9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */,
 			);
 			path = Vertical;
 			sourceTree = "<group>";
@@ -1164,6 +1167,7 @@
 				9BAF4F81212AEC45003DD663 /* SearchQueryViewController.swift in Sources */,
 				55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */,
 				46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */,
+				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,

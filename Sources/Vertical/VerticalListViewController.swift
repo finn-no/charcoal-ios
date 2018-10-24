@@ -17,7 +17,6 @@ public class VerticalListViewController: ListViewController {
         self.verticals = verticals
         super.init(title: "", items: verticals)
         listViewControllerDelegate = self
-        selectionListItemCellConfigurator = self
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -34,6 +33,18 @@ public class VerticalListViewController: ListViewController {
     private func isListSelectionFilterValueSelected(_ item: ListItem) -> Bool {
         return false
     }
+
+    override func registerCells(for tableView: UITableView) {
+        tableView.register(VerticalSelectionCell.self)
+    }
+
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue(VerticalSelectionCell.self, for: indexPath)
+        if let listItem = listItems[safe: indexPath.row] {
+            configure(cell, listItem: listItem)
+        }
+        return cell
+    }
 }
 
 extension VerticalListViewController: ListViewControllerDelegate {
@@ -45,12 +56,11 @@ extension VerticalListViewController: ListViewControllerDelegate {
     }
 }
 
-extension VerticalListViewController: SelectionListItemCellConfigurator {
-    func configure(_ cell: SelectionListItemCell, listItem: ListItem) {
-        cell.selectionIndicatorType = .radioButton
-        cell.configure(for: listItem)
-        if let vertical = listItem as? Vertical {
-            cell.setSelectionMarker(visible: vertical.isCurrent)
+extension VerticalListViewController {
+    func configure(_ cell: VerticalSelectionCell, listItem: ListItem) {
+        guard let vertical = listItem as? Vertical else {
+            return
         }
+        cell.configure(for: vertical)
     }
 }

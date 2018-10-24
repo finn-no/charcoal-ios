@@ -11,7 +11,27 @@ class DemoFilter {
     var verticalSetup: VerticalSetupDemo = {
         let verticalsCarNorway = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: true), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: false)]
         let verticalsCarAbroad = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: false), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: true)]
-        let verticals = VerticalSetupDemo(verticals: ["car-norway": verticalsCarNorway, "car-abroad": verticalsCarAbroad])
+        let verticalsRealestateHomes = [
+            VerticalDemo(id: "realestate-homes", title: "Bolig til salgs", isCurrent: true),
+            VerticalDemo(id: "1", title: "Nye boliger", isCurrent: false),
+            VerticalDemo(id: "2", title: "Boligtomter", isCurrent: false),
+            VerticalDemo(id: "3", title: "Fritidsbolig til salgs", isCurrent: false),
+            VerticalDemo(id: "1", title: "Bolig i utlandet", isCurrent: false),
+            VerticalDemo(id: "1", title: "Fritidstomter", isCurrent: false),
+            VerticalDemo(id: "1", title: "Bolig til leie", isCurrent: false),
+            VerticalDemo(id: "1", title: "Bolig ønskes leid", isCurrent: false),
+            VerticalDemo(id: "1", title: "Næringseiendom til salgs", isCurrent: false),
+            VerticalDemo(id: "1", title: "Næringseiendom til leie", isCurrent: false),
+            VerticalDemo(id: "1", title: "Næringstomt", isCurrent: false),
+            VerticalDemo(id: "1", title: "Bedrifter til salgs", isCurrent: false),
+            VerticalDemo(id: "1", title: "Feriehus og hytter", isCurrent: false),
+        ]
+
+        let verticals = VerticalSetupDemo(verticals: [
+            "car-norway": verticalsCarNorway,
+            "car-abroad": verticalsCarAbroad,
+            "realestate-homes": verticalsRealestateHomes,
+        ])
         return verticals
     }()
 

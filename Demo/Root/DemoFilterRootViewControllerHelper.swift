@@ -13,18 +13,18 @@ class DemoFilter {
         let verticalsCarAbroad = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: false), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: true)]
         let verticalsRealestateHomes = [
             VerticalDemo(id: "realestate-homes", title: "Bolig til salgs", isCurrent: true),
-            VerticalDemo(id: "1", title: "Nye boliger", isCurrent: false),
-            VerticalDemo(id: "2", title: "Boligtomter", isCurrent: false),
-            VerticalDemo(id: "3", title: "Fritidsbolig til salgs", isCurrent: false),
-            VerticalDemo(id: "1", title: "Bolig i utlandet", isCurrent: false),
-            VerticalDemo(id: "1", title: "Fritidstomter", isCurrent: false),
-            VerticalDemo(id: "1", title: "Bolig til leie", isCurrent: false),
-            VerticalDemo(id: "1", title: "Bolig ønskes leid", isCurrent: false),
-            VerticalDemo(id: "1", title: "Næringseiendom til salgs", isCurrent: false),
-            VerticalDemo(id: "1", title: "Næringseiendom til leie", isCurrent: false),
-            VerticalDemo(id: "1", title: "Næringstomt", isCurrent: false),
-            VerticalDemo(id: "1", title: "Bedrifter til salgs", isCurrent: false),
-            VerticalDemo(id: "1", title: "Feriehus og hytter", isCurrent: false),
+            VerticalDemo(id: "realestate-development", title: "Nye boliger", isCurrent: false),
+            VerticalDemo(id: "realestate-plot", title: "Boligtomter", isCurrent: false),
+            VerticalDemo(id: "realestate-leisure-sale", title: "Fritidsbolig til salgs", isCurrent: false),
+            VerticalDemo(id: "realestate-leisure-sale-abroad", title: "Bolig i utlandet", isCurrent: false),
+            VerticalDemo(id: "realestate-leisure-plot", title: "Fritidstomter", isCurrent: false),
+            VerticalDemo(id: "realestate-letting", title: "Bolig til leie", isCurrent: false),
+            VerticalDemo(id: "realestate-letting-wanted", title: "Bolig ønskes leid", isCurrent: false),
+            VerticalDemo(id: "realestate-business-sale", title: "Næringseiendom til salgs", isCurrent: false),
+            VerticalDemo(id: "realestate-business-letting", title: "Næringseiendom til leie", isCurrent: false),
+            VerticalDemo(id: "realestate-business-plot", title: "Næringstomt", isCurrent: false),
+            VerticalDemo(id: "realestate-company-for-sale", title: "Bedrifter til salgs", isCurrent: false),
+            VerticalDemo(id: "realestate-travel-fhh", title: "Feriehus og hytter", isCurrent: false),
         ]
 
         let verticals = VerticalSetupDemo(verticals: [

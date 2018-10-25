@@ -4,10 +4,15 @@
 
 import UIKit
 
+public protocol FilterRootViewControllerDelegate: AnyObject {
+    func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical)
+}
+
 public class FilterRootViewController: UIViewController {
     private let navigator: RootFilterNavigator
     private let dataSource: FilterDataSource
     public let selectionDataSource: FilterSelectionDataSource
+    weak var delegate: FilterRootViewControllerDelegate?
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -31,6 +36,20 @@ public class FilterRootViewController: UIViewController {
         buttonView.delegate = self
         buttonView.buttonTitle = "Vis \(dataSource.numberOfHits) treff"
         return buttonView
+    }()
+
+    private lazy var loadingView: UIView = {
+        let coverView = UIView(frame: .zero)
+        coverView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        let activityIndicator = UIActivityIndicatorView(style: .white)
+        coverView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: coverView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: coverView.centerYAnchor),
+        ])
+        activityIndicator.startAnimating()
+        return coverView
     }()
 
     public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
@@ -132,7 +151,7 @@ extension FilterRootViewController: UITableViewDataSource {
             return cell
         case let preferenceInfo as PreferenceFilterInfoType:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
-            cell.setupWith(preferences: preferenceInfo.preferences, delegate: self, selectionDataSource: selectionDataSource)
+            cell.setupWith(verticals: dataSource.verticals, preferences: preferenceInfo.preferences, delegate: self, selectionDataSource: selectionDataSource)
             cell.selectionStyle = .none
             return cell
         case let listSelectionInfo as ListSelectionFilterInfoType:
@@ -217,13 +236,10 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
 }
 
 extension FilterRootViewController: PreferenceSelectionViewDelegate {
-    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandablePreferenceButton) {
-        guard let preferences = preferenceSelectionView.preferences, let preferenceInfo = preferences[safe: index] else {
-            return
-        }
+    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandableSelectionButton) {
         sourceButton.isSelected = true
 
-        navigator.navigate(to: .preferenceFilterInPopover(preferenceInfo: preferenceInfo, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
+        navigator.navigate(to: .verticalSelectionInPopover(verticals: preferenceSelectionView.verticals, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
             preferenceSelectionView?.expandablePreferenceClosed()
         }))
     }
@@ -265,5 +281,25 @@ extension FilterRootViewController: SearchQueryCellDelegate {
 extension FilterRootViewController: FilterViewControllerDelegate {
     public func applyFilterButtonTapped() {
         navigator.navigate(to: .root)
+    }
+}
+
+extension FilterRootViewController: VerticalListViewControllerDelegate {
+    public func verticalListViewController(_: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int) {
+        let vc = UIViewController(nibName: nil, bundle: nil)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        vc.view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.fillInSuperview()
+
+        presentedViewController?.present(vc, animated: true, completion: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.dismiss(animated: true, completion: {
+            })
+        }
+
+        delegate?.filterRootViewController(self, didChangeVertical: vertical)
     }
 }

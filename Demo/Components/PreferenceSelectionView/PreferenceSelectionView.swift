@@ -9,7 +9,7 @@ final class PreferenceSelectionViewDemoView: UIView {
     lazy var demoView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.preferences = PreferenceSelectionViewDemoView.preferenceFilters
+        view.load(verticals: [], preferences: PreferenceSelectionViewDemoView.preferenceFilters)
         view.delegate = self
         return view
     }()
@@ -64,7 +64,7 @@ extension PreferenceSelectionViewDemoView {
 }
 
 extension PreferenceSelectionViewDemoView: PreferenceSelectionViewDelegate {
-    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandablePreferenceButton) {
+    func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view: ExpandableSelectionButton) {
         print("Button at index \(index) with title \(PreferenceSelectionViewDemoView.preferenceFilters[index].title) was tapped")
         view.isSelected = true
     }

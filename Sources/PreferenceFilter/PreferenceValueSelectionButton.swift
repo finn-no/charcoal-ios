@@ -33,6 +33,6 @@ class PreferenceValueSelectionButton: UIButton {
         backgroundColor = .milk
         setTitleColor(.stone, for: .normal)
         setTitle(preferenceValue.title, for: .normal)
-        titleLabel?.font = .title4
+        titleLabel?.font = .title5
     }
 }

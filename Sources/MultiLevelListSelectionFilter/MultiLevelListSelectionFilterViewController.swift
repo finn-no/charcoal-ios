@@ -49,10 +49,10 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let listItem = listItems[indexPath.row]
-
         let cell = tableView.dequeue(MultiLevelSelectionListItemCell.self, for: indexPath)
-        configure(cell, listItem: listItem)
+        if let listItem = listItems[safe: indexPath.row] {
+            configure(cell, listItem: listItem)
+        }
         return cell
     }
 

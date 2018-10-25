@@ -5,9 +5,9 @@
 import Foundation
 
 public final class FilterInfoBuilder {
-    let filter: FilterSetup
-    let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
-    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo]
+    private let filter: FilterSetup
+    private let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
+    private(set) var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo]
 
     public init(filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
         self.filter = filter

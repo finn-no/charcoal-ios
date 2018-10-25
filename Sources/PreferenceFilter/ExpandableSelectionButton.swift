@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class ExpandablePreferenceButton: UIButton {
+public final class ExpandableSelectionButton: UIButton {
     private let borderWidth: CGFloat = 1.5
     static let height: CGFloat = 38
 
@@ -15,15 +15,15 @@ public final class ExpandablePreferenceButton: UIButton {
         semanticContentAttribute = .forceRightToLeft
         layer.borderWidth = borderWidth
         layer.borderColor = .stone
-        layer.cornerRadius = ExpandablePreferenceButton.height / 2
+        layer.cornerRadius = ExpandableSelectionButton.height / 2
         imageView?.tintColor = .stone
         imageView?.contentMode = .scaleAspectFit
         setImage(UIImage(named: .arrowDown), for: .normal)
         setImage(UIImage(named: .arrowDown), for: .highlighted)
         setImage(UIImage(named: .arrowDown), for: .selected)
         imageEdgeInsets = UIEdgeInsets(top: 0, left: .mediumSpacing, bottom: 0, right: 0)
-        setAttributedTitle(attributedButtonTitle(from: title, for: .normal), for: .normal)
-        setAttributedTitle(attributedButtonTitle(from: title, for: .highlighted), for: .highlighted)
+        setAttributedTitle(attributedButtonTitle(from: title, for: .selected), for: .normal)
+        setAttributedTitle(attributedButtonTitle(from: title, for: .selected), for: .highlighted)
         setAttributedTitle(attributedButtonTitle(from: title, for: .selected), for: .selected)
     }
 
@@ -42,7 +42,7 @@ public final class ExpandablePreferenceButton: UIButton {
     }
 
     func sizeForButtonExpandingHorizontally() -> CGSize {
-        let boundingRectSize = CGSize(width: .infinity, height: ExpandablePreferenceButton.height)
+        let boundingRectSize = CGSize(width: .infinity, height: ExpandableSelectionButton.height)
         let attributedTitle = self.attributedTitle(for: .normal) ?? NSAttributedString()
         let rect = attributedTitle.boundingRect(with: boundingRectSize, options: .usesLineFragmentOrigin, context: nil)
         let verticalSpacings: CGFloat = .mediumSpacing + .mediumSpacing + 18 + .mediumSpacing
@@ -52,7 +52,7 @@ public final class ExpandablePreferenceButton: UIButton {
     }
 }
 
-private extension ExpandablePreferenceButton {
+private extension ExpandableSelectionButton {
     private func attributedButtonTitle(from string: String, for state: UIControl.State) -> NSAttributedString {
         let attributes = titleAttributes(for: state)
         let attributedTitle = NSAttributedString(string: string, attributes: attributes)

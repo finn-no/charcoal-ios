@@ -16,7 +16,7 @@ public struct FilterSetup: Decodable {
     }
 
     public init(from data: Data) throws {
-        self = try JSONDecoder().decode(FilterSetup.self, from: data)
+        self = try JSONDecoder().decode(type(of: self).self, from: data)
     }
 
     public init(from decoder: Decoder) throws {

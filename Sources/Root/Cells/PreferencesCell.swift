@@ -29,22 +29,32 @@ class PreferencesCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        preferenceSelectionView.preferences = nil
         preferenceSelectionView.delegate = nil
+        preferenceSelectionView.load(verticals: [], preferences: [])
     }
 
-    func setupWith(preferences: [PreferenceInfoType], delegate: PreferenceSelectionViewDelegate, selectionDataSource: FilterSelectionDataSource) {
+    func setupWith(verticals: [Vertical], preferences: [PreferenceInfoType], delegate: PreferenceSelectionViewDelegate, selectionDataSource: FilterSelectionDataSource) {
         preferenceSelectionView.delegate = delegate
         preferenceSelectionView.selectionDataSource = selectionDataSource
 
-        var preferencesChanged = true
-        if let previousPreferences = preferenceSelectionView.preferences {
-            preferencesChanged = previousPreferences.elementsEqual(preferences) { (lhs, rhs) -> Bool in
-                return lhs.preferenceName == rhs.preferenceName && lhs.title == rhs.title && lhs.values.elementsEqual(rhs.values, by: { $0.value == $1.value })
+        let previousVerticals = preferenceSelectionView.verticals
+        let previousPreferences = preferenceSelectionView.preferences
+
+        var dataChanged = verticals.count != previousVerticals.count || preferences.count != previousPreferences.count
+
+        if !dataChanged {
+            dataChanged = previousVerticals.elementsEqual(verticals) { (lhs, rhs) -> Bool in
+                return lhs.title == rhs.title
             }
         }
-        if preferencesChanged {
-            preferenceSelectionView.preferences = preferences
+
+        if !dataChanged {
+            dataChanged = previousPreferences.elementsEqual(preferences) { (lhs, rhs) -> Bool in
+                return lhs.preferenceName == rhs.preferenceName && lhs.title == rhs.title && lhs.values.count == rhs.values.count && lhs.values.elementsEqual(rhs.values, by: { $0.value == $1.value })
+            }
+        }
+        if dataChanged {
+            preferenceSelectionView.load(verticals: verticals, preferences: preferences)
         }
     }
 }

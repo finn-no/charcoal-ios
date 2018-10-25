@@ -92,6 +92,7 @@
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
 		9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */; };
+		9B5E87692182114F00793A1A /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
 		9B863F0E2178AB240089CCBC /* ExpandableSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0D2178AB240089CCBC /* ExpandableSelectionButton.swift */; };
 		9B863F102178C1610089CCBC /* PreferenceValueSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F0F2178C1610089CCBC /* PreferenceValueSelectionView.swift */; };
 		9B863F122179D00C0089CCBC /* PreferenceValueSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863F112179D00C0089CCBC /* PreferenceValueSelectionButton.swift */; };
@@ -1211,6 +1212,7 @@
 			files = (
 				9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */,
 				55646DAE2091E1E1006AA2DA /* PreferenceSelectionView.swift in Sources */,
+				9B5E87692182114F00793A1A /* Layout.swift in Sources */,
 				55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */,
 				9BD6379621244EDE00AB9DFE /* Font.swift in Sources */,
 				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,

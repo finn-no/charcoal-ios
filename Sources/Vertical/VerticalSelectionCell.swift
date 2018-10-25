@@ -69,9 +69,11 @@ extension VerticalSelectionCell {
         textLabel?.text = vertical.title
         setSelectionIndicator(selected: vertical.isCurrent)
         if vertical.isExternal {
+            detailTextLabel?.text = "opens_in_browser".localized()
             accessoryView = UIImageView(image: UIImage(named: .externalLink))
         } else {
             accessoryView = nil
+            detailTextLabel?.text = nil
         }
     }
 }

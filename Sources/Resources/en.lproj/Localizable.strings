@@ -11,4 +11,5 @@
 "range_number_input_view_high_value_textfield_accessibility_label" = "Tekstfelt for høy verdi";
 "range_above_upper_bound_title" = "Over";
 "range_below_lower_bound_title" = "Under";
-"apply-button-title" = "Bruk";
+"apply_button_title" = "Bruk";
+"opens_in_browser" = "Åpnes i nettleseren";

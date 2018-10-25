@@ -9,9 +9,9 @@ public protocol VerticalListViewControllerDelegate: AnyObject {
 }
 
 public class VerticalListViewController: ListViewController {
-    public var delegate: VerticalListViewControllerDelegate?
+    public weak var delegate: VerticalListViewControllerDelegate?
 
-    let verticals: [Vertical]
+    private let verticals: [Vertical]
 
     public required init(verticals: [Vertical]) {
         self.verticals = verticals
@@ -21,17 +21,6 @@ public class VerticalListViewController: ListViewController {
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func isListItemSelected(_ listItem: ListItem) -> Bool {
-        guard let item = listItem as? PreferenceValueType else {
-            return false
-        }
-        return isListSelectionFilterValueSelected(item)
-    }
-
-    private func isListSelectionFilterValueSelected(_ item: ListItem) -> Bool {
-        return false
     }
 
     override func registerCells(for tableView: UITableView) {

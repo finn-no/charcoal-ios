@@ -9,7 +9,7 @@ final class PreferenceSelectionViewDemoView: UIView {
     lazy var demoView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.load(verticals: nil, preferences: PreferenceSelectionViewDemoView.preferenceFilters)
+        view.load(verticals: [], preferences: PreferenceSelectionViewDemoView.preferenceFilters)
         view.delegate = self
         return view
     }()

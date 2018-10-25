@@ -38,8 +38,8 @@ public final class PreferenceSelectionView: UIView {
         return view
     }()
 
-    private(set) var verticals: [Vertical]?
-    public private(set) var preferences: [PreferenceInfoType]?
+    private(set) var verticals: [Vertical] = []
+    public private(set) var preferences: [PreferenceInfoType] = []
     public weak var delegate: PreferenceSelectionViewDelegate?
     weak var selectionDataSource: FilterSelectionDataSource?
 
@@ -81,7 +81,7 @@ public final class PreferenceSelectionView: UIView {
 }
 
 public extension PreferenceSelectionView {
-    func load(verticals: [Vertical]?, preferences: [PreferenceInfoType]?) {
+    func load(verticals: [Vertical], preferences: [PreferenceInfoType]) {
         self.verticals = verticals
         self.preferences = preferences
         reload()
@@ -111,10 +111,6 @@ private extension PreferenceSelectionView {
     func layoutButtonGroup() {
         removeAllPreferences()
 
-        guard let preferences = preferences else {
-            return
-        }
-
         layoutVerticalButton()
 
         let rangeOfItems = 0 ..< preferences.count
@@ -128,7 +124,7 @@ private extension PreferenceSelectionView {
     }
 
     func layoutVerticalButton() {
-        guard let verticals = verticals, let currentVertical = verticals.first(where: { $0.isCurrent }), verticals.count > 1 else {
+        guard let currentVertical = verticals.first(where: { $0.isCurrent }), verticals.count > 1 else {
             return
         }
 

@@ -237,12 +237,9 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
 
 extension FilterRootViewController: PreferenceSelectionViewDelegate {
     public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandableSelectionButton) {
-        guard let verticals = preferenceSelectionView.verticals else {
-            return
-        }
         sourceButton.isSelected = true
 
-        navigator.navigate(to: .verticalSelectionInPopover(verticals: verticals, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
+        navigator.navigate(to: .verticalSelectionInPopover(verticals: preferenceSelectionView.verticals, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
             preferenceSelectionView?.expandablePreferenceClosed()
         }))
     }

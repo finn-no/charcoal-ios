@@ -30,22 +30,27 @@ class PreferencesCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         preferenceSelectionView.delegate = nil
-        preferenceSelectionView.load(verticals: nil, preferences: nil)
+        preferenceSelectionView.load(verticals: [], preferences: [])
     }
 
     func setupWith(verticals: [Vertical], preferences: [PreferenceInfoType], delegate: PreferenceSelectionViewDelegate, selectionDataSource: FilterSelectionDataSource) {
         preferenceSelectionView.delegate = delegate
         preferenceSelectionView.selectionDataSource = selectionDataSource
 
-        var dataChanged = true
-        if let previousVerticals = preferenceSelectionView.verticals {
+        let previousVerticals = preferenceSelectionView.verticals
+        let previousPreferences = preferenceSelectionView.preferences
+
+        var dataChanged = verticals.count != previousVerticals.count || preferences.count != previousPreferences.count
+
+        if !dataChanged {
             dataChanged = previousVerticals.elementsEqual(verticals) { (lhs, rhs) -> Bool in
                 return lhs.title == rhs.title
             }
         }
-        if !dataChanged, let previousPreferences = preferenceSelectionView.preferences {
+
+        if !dataChanged {
             dataChanged = previousPreferences.elementsEqual(preferences) { (lhs, rhs) -> Bool in
-                return lhs.preferenceName == rhs.preferenceName && lhs.title == rhs.title && lhs.values.elementsEqual(rhs.values, by: { $0.value == $1.value })
+                return lhs.preferenceName == rhs.preferenceName && lhs.title == rhs.title && lhs.values.count == rhs.values.count && lhs.values.elementsEqual(rhs.values, by: { $0.value == $1.value })
             }
         }
         if dataChanged {

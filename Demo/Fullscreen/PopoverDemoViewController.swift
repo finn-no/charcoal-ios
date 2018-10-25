@@ -9,7 +9,7 @@ final class PopoverDemoViewController: UIViewController {
     lazy var preferenceSelectionView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.load(verticals: nil, preferences: PopoverDemoViewController.preferenceFilters)
+        view.load(verticals: [], preferences: PopoverDemoViewController.preferenceFilters)
         view.delegate = self
         return view
     }()

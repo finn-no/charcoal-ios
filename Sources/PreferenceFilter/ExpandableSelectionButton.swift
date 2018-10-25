@@ -22,8 +22,8 @@ public final class ExpandableSelectionButton: UIButton {
         setImage(UIImage(named: .arrowDown), for: .highlighted)
         setImage(UIImage(named: .arrowDown), for: .selected)
         imageEdgeInsets = UIEdgeInsets(top: 0, left: .mediumSpacing, bottom: 0, right: 0)
-        setAttributedTitle(attributedButtonTitle(from: title, for: .normal), for: .normal)
-        setAttributedTitle(attributedButtonTitle(from: title, for: .highlighted), for: .highlighted)
+        setAttributedTitle(attributedButtonTitle(from: title, for: .selected), for: .normal)
+        setAttributedTitle(attributedButtonTitle(from: title, for: .selected), for: .highlighted)
         setAttributedTitle(attributedButtonTitle(from: title, for: .selected), for: .selected)
     }
 

@@ -69,7 +69,7 @@ public struct FilterSetup: Decodable {
         }
         let elementKeys = rawFilterKeys.compactMap({ FilterKey(stringValue: $0) })
         let filters = elementKeys.compactMap { elementKey -> FilterData? in
-            guard let partial = FilterData.PartialFilterDataElement.decode(from: filterDataDict[elementKey] as? [AnyHashable: Any]) else {
+            guard let partial = FilterData.PartialFilterDataElement.decode(from: filterDataDict[elementKey.stringValue] as? [AnyHashable: Any]) else {
                 return nil
             }
             return FilterData(key: elementKey, partial: partial)

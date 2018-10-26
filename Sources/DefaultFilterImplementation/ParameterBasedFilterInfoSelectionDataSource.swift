@@ -4,9 +4,14 @@
 
 import Foundation
 
+public protocol ParameterBasedFilterInfoSelectionDataSourceDelegate: AnyObject {
+    func parameterBasedFilterInfoSelectionDataSourceDidChange(_: ParameterBasedFilterInfoSelectionDataSource)
+}
+
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
-    private(set) var selectionValues: [String: [String]]
+    public private(set) var selectionValues: [String: [String]]
     var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo] = [:]
+    public weak var delegate: ParameterBasedFilterInfoSelectionDataSourceDelegate?
 
     public init(queryItems: [URLQueryItem]) {
         var selectionValues = [String: [String]]()
@@ -28,16 +33,29 @@ public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
     }
 
     public override var description: String {
+        return selectionAsQueryString
+    }
+
+    public var selectionAsQueryString: String {
         return selectionValues.compactMap({ (keyAndValues) -> String? in
             return keyAndValues.value.map({ keyAndValues.key + "=" + $0 })
                 .joined(separator: "&")
         }).joined(separator: "&")
+    }
+
+    public var selectionAsQueryItems: [URLQueryItem] {
+        var queryItems = [URLQueryItem]()
+        selectionValues.forEach({ keyAndValues in
+            queryItems.append(contentsOf: keyAndValues.value.map({ URLQueryItem(name: keyAndValues.key, value: $0) }))
+        })
+        return queryItems
     }
 }
 
 private extension ParameterBasedFilterInfoSelectionDataSource {
     func setSelectionValues(_ values: [String], for key: String) {
         selectionValues[key] = values
+        delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
     }
 
     func setSelectionValue(_ value: String, for key: String) {
@@ -63,6 +81,7 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
 
     func removeSelectionValues(_ key: String) {
         selectionValues.removeValue(forKey: key)
+        delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
     }
 
     func selectionValues(for name: String) -> [String] {

@@ -11,8 +11,16 @@ public struct FilterSetup: Decodable {
     let rawFilterKeys: [String]
     let filters: [FilterData]
 
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey, CaseIterable {
         case market, hits, filterTitle = "label", rawFilterKeys = "filters", filterData = "filter-data"
+    }
+
+    private init(market: String, hits: Int, filterTitle: String, rawFilterKeys: [String], filters: [FilterData]) {
+        self.market = market
+        self.hits = hits
+        self.filterTitle = filterTitle
+        self.rawFilterKeys = rawFilterKeys
+        self.filters = filters
     }
 
     public init(from data: Data) throws {
@@ -37,6 +45,37 @@ public struct FilterSetup: Decodable {
 
             return FilterData(key: elementKey, partial: partial)
         }
+    }
+
+    public static func decode(from dict: [AnyHashable: Any]?) -> FilterSetup? {
+        // TODO: Write tests for decoding from dictionary
+        guard let dict = dict else {
+            return nil
+        }
+        guard let market = dict[CodingKeys.market.rawValue] as? String else {
+            return nil
+        }
+        guard let hits = dict[CodingKeys.hits.rawValue] as? Int else {
+            return nil
+        }
+        guard let filterTitle = dict[CodingKeys.filterTitle.rawValue] as? String else {
+            return nil
+        }
+        guard let rawFilterKeys = dict[CodingKeys.rawFilterKeys.rawValue] as? [String] else {
+            return nil
+        }
+        guard let filterDataDict = dict[CodingKeys.filterData.rawValue] as? [AnyHashable: Any] else {
+            return nil
+        }
+        let elementKeys = rawFilterKeys.compactMap({ FilterKey(stringValue: $0) })
+        let filters = elementKeys.compactMap { elementKey -> FilterData? in
+            guard let partial = FilterData.PartialFilterDataElement.decode(from: filterDataDict[elementKey.stringValue] as? [AnyHashable: Any]) else {
+                return nil
+            }
+            return FilterData(key: elementKey, partial: partial)
+        }
+
+        return FilterSetup(market: market, hits: hits, filterTitle: filterTitle, rawFilterKeys: rawFilterKeys, filters: filters)
     }
 
     func filterData(forKey key: FilterKey) -> FilterData? {
@@ -67,6 +106,13 @@ extension FilterData {
         let isRange: Bool
         let queries: [FilterData.Query]?
 
+        private init(title: String, parameterName: String, isRange: Bool, queries: [FilterData.Query]?) {
+            self.title = title
+            self.parameterName = parameterName
+            self.isRange = isRange
+            self.queries = queries
+        }
+
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             title = try container.decode(String.self, forKey: CodingKeys.title)
@@ -77,6 +123,23 @@ extension FilterData {
 
         enum CodingKeys: String, CodingKey {
             case title, isRange = "range", queries, parameterName = "name"
+        }
+
+        static func decode(from dict: [AnyHashable: Any]?) -> PartialFilterDataElement? {
+            guard let dict = dict else {
+                return nil
+            }
+            guard let title = dict[CodingKeys.title.rawValue] as? String else {
+                return nil
+            }
+            guard let parameterName = dict[CodingKeys.parameterName.rawValue] as? String else {
+                return nil
+            }
+            let isRange = dict[CodingKeys.isRange.rawValue] as? Bool ?? false
+            let queriesArray = dict[CodingKeys.queries.rawValue] as? [[AnyHashable: Any]]
+            let queries = FilterData.Query.decode(from: queriesArray)
+
+            return PartialFilterDataElement(title: title, parameterName: parameterName, isRange: isRange, queries: queries)
         }
     }
 }
@@ -91,6 +154,31 @@ extension FilterData {
         enum CodingKeys: String, CodingKey {
             case title, value, totalResults = "total-results", filter
         }
+
+        static func decode(from dict: [AnyHashable: Any]?) -> Query? {
+            guard let dict = dict else {
+                return nil
+            }
+            guard let title = dict[CodingKeys.title.rawValue] as? String else {
+                return nil
+            }
+            guard let value = dict[CodingKeys.value.rawValue] as? String else {
+                return nil
+            }
+            let totalResults = dict[CodingKeys.totalResults.rawValue] as? Int
+            let filter = QueryFilter.decode(from: dict[CodingKeys.filter.rawValue] as? [AnyHashable: Any])
+
+            return Query(title: title, value: value, totalResults: totalResults ?? 0, filter: filter)
+        }
+
+        static func decode(from array: [[AnyHashable: Any]]?) -> [Query]? {
+            guard let array = array else {
+                return nil
+            }
+            return array.compactMap { (dict) -> Query? in
+                return Query.decode(from: dict)
+            }
+        }
     }
 }
 
@@ -102,6 +190,22 @@ extension FilterData.Query {
 
         enum CodingKeys: String, CodingKey {
             case title, parameterName = "name", queries
+        }
+
+        static func decode(from dict: [AnyHashable: Any]?) -> QueryFilter? {
+            guard let dict = dict else {
+                return nil
+            }
+            guard let title = dict[CodingKeys.title.rawValue] as? String else {
+                return nil
+            }
+            guard let parameterName = dict[CodingKeys.parameterName.rawValue] as? String else {
+                return nil
+            }
+            let queriesArray = dict[CodingKeys.queries.rawValue] as? [[AnyHashable: Any]]
+            let queries = FilterData.Query.decode(from: queriesArray)
+
+            return QueryFilter(title: title, parameterName: parameterName, queries: queries ?? [])
         }
     }
 }

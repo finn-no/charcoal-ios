@@ -63,9 +63,12 @@ class DemoFilter {
 
     static func filterDataFromJSONFile(named name: String) -> FilterSetup {
         let data = dataFromJSONFile(named: name)
-        // let jsonDecoder = JSONDecoder()
 
+        // Use this to test decoding directly from data
+        // let jsonDecoder = JSONDecoder()
         // return try! jsonDecoder.decode(FilterSetup.self, from: data)
+
+        // Use this to test decoding from pre-parsed data (dictionary)
         let jsonObj = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
         return FilterSetup.decode(from: jsonObj as? [AnyHashable: Any])!
     }

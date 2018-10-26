@@ -48,6 +48,7 @@ public struct FilterSetup: Decodable {
     }
 
     public static func decode(from dict: [AnyHashable: Any]?) -> FilterSetup? {
+        // TODO: Write tests for decoding from dictionary
         guard let dict = dict else {
             return nil
         }
@@ -63,7 +64,6 @@ public struct FilterSetup: Decodable {
         guard let rawFilterKeys = dict[CodingKeys.rawFilterKeys.rawValue] as? [String] else {
             return nil
         }
-
         guard let filterDataDict = dict[CodingKeys.filterData.rawValue] as? [AnyHashable: Any] else {
             return nil
         }
@@ -129,16 +129,17 @@ extension FilterData {
             guard let dict = dict else {
                 return nil
             }
-            let title = dict[CodingKeys.title.rawValue] as? String
-            let parameterName = dict[CodingKeys.parameterName.rawValue] as? String
+            guard let title = dict[CodingKeys.title.rawValue] as? String else {
+                return nil
+            }
+            guard let parameterName = dict[CodingKeys.parameterName.rawValue] as? String else {
+                return nil
+            }
             let isRange = dict[CodingKeys.isRange.rawValue] as? Bool ?? false
             let queriesArray = dict[CodingKeys.queries.rawValue] as? [[AnyHashable: Any]]
             let queries = FilterData.Query.decode(from: queriesArray)
 
-            if let title = title, let parameterName = parameterName {
-                return PartialFilterDataElement(title: title, parameterName: parameterName, isRange: isRange, queries: queries)
-            }
-            return nil
+            return PartialFilterDataElement(title: title, parameterName: parameterName, isRange: isRange, queries: queries)
         }
     }
 }
@@ -158,15 +159,16 @@ extension FilterData {
             guard let dict = dict else {
                 return nil
             }
-            let title = dict[CodingKeys.title.rawValue] as? String
-            let value = dict[CodingKeys.value.rawValue] as? String
+            guard let title = dict[CodingKeys.title.rawValue] as? String else {
+                return nil
+            }
+            guard let value = dict[CodingKeys.value.rawValue] as? String else {
+                return nil
+            }
             let totalResults = dict[CodingKeys.totalResults.rawValue] as? Int
             let filter = QueryFilter.decode(from: dict[CodingKeys.filter.rawValue] as? [AnyHashable: Any])
 
-            if let title = title, let value = value {
-                return Query(title: title, value: value, totalResults: totalResults ?? 0, filter: filter)
-            }
-            return nil
+            return Query(title: title, value: value, totalResults: totalResults ?? 0, filter: filter)
         }
 
         static func decode(from array: [[AnyHashable: Any]]?) -> [Query]? {
@@ -194,15 +196,16 @@ extension FilterData.Query {
             guard let dict = dict else {
                 return nil
             }
-            let title = dict[CodingKeys.title.rawValue] as? String
-            let parameterName = dict[CodingKeys.parameterName.rawValue] as? String
+            guard let title = dict[CodingKeys.title.rawValue] as? String else {
+                return nil
+            }
+            guard let parameterName = dict[CodingKeys.parameterName.rawValue] as? String else {
+                return nil
+            }
             let queriesArray = dict[CodingKeys.queries.rawValue] as? [[AnyHashable: Any]]
             let queries = FilterData.Query.decode(from: queriesArray)
 
-            if let title = title, let parameterName = parameterName {
-                return QueryFilter(title: title, parameterName: parameterName, queries: queries ?? [])
-            }
-            return nil
+            return QueryFilter(title: title, parameterName: parameterName, queries: queries ?? [])
         }
     }
 }

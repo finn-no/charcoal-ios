@@ -8,6 +8,7 @@ import XCTest
 protocol TestDataDecoder {
     func dataFromJSONFile(named name: String) -> Data?
     func filterDataFromJSONFile(named name: String) -> FilterSetup?
+    func filterDataFromDictionaryDecodedFromJSONFile(named name: String) -> FilterSetup?
 }
 
 extension TestDataDecoder {
@@ -27,5 +28,17 @@ extension TestDataDecoder {
         }
 
         return try? JSONDecoder().decode(FilterSetup.self, from: data)
+    }
+
+    func filterDataFromDictionaryDecodedFromJSONFile(named name: String) -> FilterSetup? {
+        guard let data = dataFromJSONFile(named: name) else {
+            return nil
+        }
+
+        guard let decodedData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any] else {
+            return nil
+        }
+
+        return FilterSetup.decode(from: decodedData)
     }
 }

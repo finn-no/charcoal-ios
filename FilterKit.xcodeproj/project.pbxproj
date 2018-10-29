@@ -140,6 +140,9 @@
 		9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A069209724D70000632B /* PreferencesCell.swift */; };
 		9BFC08912134088C00AB8A11 /* ContentSizeModeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */; };
 		9BFC089421341FFA00AB8A11 /* FilterSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */; };
+		DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */; };
+		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
+		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +314,9 @@
 		9BE0A069209724D70000632B /* PreferencesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCell.swift; sourceTree = "<group>"; };
 		9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeModeTest.swift; sourceTree = "<group>"; };
 		9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionDataSource.swift; sourceTree = "<group>"; };
+		DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterViewController.swift; sourceTree = "<group>"; };
+		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
+		DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterDemoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -386,6 +392,7 @@
 				55F97D1320AC51FD002BABC9 /* PreferenceFilter */,
 				9BE0A0552091D2530000632B /* Protocols */,
 				5515EA4320BD5B5600AC98A3 /* RangeFilter */,
+				DAF3CA6E218301B3007235B0 /* StepperFilter */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				9BE0A0402091BE750000632B /* Root */,
 				9BAF4F7F212AEB99003DD663 /* SearchQuery */,
@@ -411,6 +418,7 @@
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
 				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
+				DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */,
 				5598F20E20C008F900E148E0 /* Resources */,
 				9BE0A0502091CED70000632B /* Root */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
@@ -907,6 +915,15 @@
 			path = FilterBuilder;
 			sourceTree = "<group>";
 		};
+		DAF3CA6E218301B3007235B0 /* StepperFilter */ = {
+			isa = PBXGroup;
+			children = (
+				DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */,
+				DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */,
+			);
+			path = StepperFilter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1180,6 +1197,7 @@
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
+				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
 				559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */,
 				9BB827A4216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift in Sources */,
 				55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */,
@@ -1199,6 +1217,7 @@
 				55BDA77320DBD99600331FFC /* ParameterBasedFilterInfo.swift in Sources */,
 				55E869E220E39373008B921E /* FilterNavigator.swift in Sources */,
 				4670268F2170DD3900B9C952 /* RangeReferenceValueView.swift in Sources */,
+				DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */,
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
 				559C61F320DA4C8D0083A574 /* (null) in Sources */,
@@ -1229,6 +1248,7 @@
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
 				9BD637632124432E00AB9DFE /* Identifiable.swift in Sources */,
 				9BD6379021244C1100AB9DFE /* ColorDemoView.swift in Sources */,
+				DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */,
 				44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */,
 				9BD6379521244EDB00AB9DFE /* Spacing.swift in Sources */,
 				9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */,

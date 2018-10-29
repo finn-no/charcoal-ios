@@ -87,6 +87,8 @@ enum Sections: String {
                 return .bottomSheet
             case .rangeFilter:
                 return .bottomSheet
+            case .stepperFilter:
+                return .bottomSheet
             case .searchQuery:
                 return .none
             }
@@ -159,6 +161,7 @@ enum ComponentViews: String {
     case list
     case compactListFilter
     case rangeFilter
+    case stepperFilter
     case searchQuery
 
     var viewController: UIViewController {
@@ -193,6 +196,8 @@ enum ComponentViews: String {
 
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
+        case .stepperFilter:
+            return ViewController<StepperFilterDemoView>()
 
         case .searchQuery:
             let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
@@ -209,6 +214,7 @@ enum ComponentViews: String {
             .list,
             .compactListFilter,
             .rangeFilter,
+            .stepperFilter,
             .searchQuery,
         ]
     }

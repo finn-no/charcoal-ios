@@ -174,7 +174,7 @@ enum ComponentViews: String {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
+            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil)
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             rootFilterNavigator.start()
@@ -233,7 +233,7 @@ enum FullscreenViews: String {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource())
+        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil)
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         rootFilterNavigator.start()

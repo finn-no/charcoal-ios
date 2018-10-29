@@ -6,6 +6,7 @@ import UIKit
 
 public protocol FilterRootViewControllerDelegate: AnyObject {
     func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical)
+    func filterRootViewControllerShouldShowResults(_: FilterRootViewController)
 }
 
 public class FilterRootViewController: UIViewController {
@@ -183,6 +184,7 @@ extension FilterRootViewController: UITableViewDataSource {
 
 extension FilterRootViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        delegate?.filterRootViewControllerShouldShowResults(self)
     }
 }
 

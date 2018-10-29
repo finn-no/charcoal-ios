@@ -10,10 +10,11 @@ public class FilterDependencyContainer {
     private let searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
     private weak var filterRootViewControllerDelegate: FilterRootViewControllerDelegate?
 
-    public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?) {
+    public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?, filterDelegate: FilterRootViewControllerDelegate?) {
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         self.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
+        filterRootViewControllerDelegate = filterDelegate
     }
 }
 

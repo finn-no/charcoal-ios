@@ -127,21 +127,13 @@ public final class BottomSheetPresentationController: UIPresentationController {
         }
 
         containerView.addSubview(dimmingView)
-        containerView.addSubview(swipeHandleContainer)
+        presentedView?.addSubview(swipeHandleContainer)
+        presentedView?.sendSubviewToBack(swipeHandleContainer)
         swipeHandleContainer.addSubview(swipeHandle)
 
-        let finalFrame = frameOfPresentedViewInContainerView
-        let swipeHandleContainerSize = CGSize(width: finalFrame.width, height: BottomSheetPresentationController.swipeHandleSize.height + .mediumSpacing)
-        let swipeHandleContainerFinalOrigin = CGPoint(x: 0, y: finalFrame.origin.y - swipeHandleContainerSize.height)
-        let dismissalTransitionRect = self.dismissalTransitionRect(in: containerView.frame)
-        let offSceenTransform = CGAffineTransform(translationX: 0, y: dismissalTransitionRect.height)
-
-        swipeHandleContainer.frame = CGRect(origin: swipeHandleContainerFinalOrigin, size: swipeHandleContainerSize)
-        swipeHandleContainer.transform = offSceenTransform
         dimmingView.alpha = 0.0
 
-        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
-            self?.swipeHandleContainer.transform = .identity
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             self?.dimmingView.alpha = 1.0
         }, completion: nil)
 
@@ -168,14 +160,7 @@ public final class BottomSheetPresentationController: UIPresentationController {
     }
 
     public override func dismissalTransitionWillBegin() {
-        guard let containerView = containerView, let presentedView = presentedView else {
-            return
-        }
-
-        let offSceenTransform = CGAffineTransform(translationX: 0, y: containerView.frame.maxY - presentedView.frame.origin.y)
-
-        presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
-            self?.swipeHandleContainer.transform = offSceenTransform
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             self?.dimmingView.alpha = 0.0
         }, completion: nil)
     }

@@ -56,8 +56,8 @@ public final class BottomSheetPresentationController: UIPresentationController {
 
     private var presentedViewTopAnchorConstraint: NSLayoutConstraint?
 
-    /// The percentage of the tranisitioning threshold. Value between 0.0 and 1.0
-    public var transitionThresholdInPercentage: CGFloat = 0.25
+    /// The percentage of the tranisitioning threshold when panning between expanded and compact. Value between 0.0 and 1.0
+    public var transitionThresholdInPercentage: CGFloat = 0.40
     /// The percentage of the dismissal threshold. Value between 0.0 and 1.0
     public var dismisalThresholdInPercentage: CGFloat = 0.5
     /// The current content size mode of the bottomsheet
@@ -274,10 +274,10 @@ private extension BottomSheetPresentationController {
         switch contententSizeMode {
         case .compact:
             let thresholdInPoints = transitioningRect.height * transitioningThreshold
-            return CGRect(x: transitioningRect.origin.x, y: transitioningRect.origin.y + thresholdInPoints, width: transitioningRect.width, height: transitioningRect.height - thresholdInPoints)
+            return CGRect(x: transitioningRect.origin.x, y: transitioningRect.maxY - thresholdInPoints, width: transitioningRect.width, height: rect.height - (transitioningRect.maxY - thresholdInPoints))
         case .expanded:
             let thresholdInPoints = transitioningRect.height * transitioningThreshold
-            return CGRect(x: transitioningRect.origin.x, y: transitioningRect.origin.y, width: transitioningRect.width, height: transitioningRect.height - thresholdInPoints)
+            return CGRect(x: transitioningRect.origin.x, y: 0, width: transitioningRect.width, height: transitioningRect.minY + thresholdInPoints)
         }
     }
 

@@ -4,9 +4,17 @@
 
 import FilterKit
 
+struct StepperData: StepperFilterInfoType {
+    let unit = "soverom"
+    let steps = 1
+    let lowerLimit = 1
+    let upperLimit = 6
+    let title = "Antall Soverom"
+}
+
 class StepperFilterDemoView: UIView {
     private lazy var stepperFilterView: StepperFilterView = {
-        let view = StepperFilterView()
+        let view = StepperFilterView(filterInfo: StepperData())
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

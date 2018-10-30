@@ -11,14 +11,18 @@ extension StepperFilterView {
 }
 
 public class StepperFilterView: UIControl {
+
+    // MARK: - Public properties
+
     public var value = 1
-    public var steps = 1
-    public var unit = "soverom"
-    public var lowerLimit = 0
+
+    // MARK: - Private properties
+
+    private let filterInfo: StepperFilterInfoType
 
     private lazy var textLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "\(value)+ \(unit)"
+        label.text = "\(value)+ \(filterInfo.unit)"
         label.font = .title2
         label.textColor = .licorice
         label.numberOfLines = 0
@@ -26,11 +30,16 @@ public class StepperFilterView: UIControl {
         return label
     }()
 
-    private lazy var minusButton: UIButton = button(withTitle: "—", and: .minus)
-    private lazy var plusButton: UIButton = button(withTitle: "+", and: .plus)
+    private let activeColor = UIColor.primaryBlue
+    private let deactiveColor = UIColor.primaryBlue.withAlphaComponent(0.2)
+    private lazy var minusButton: UIButton = button(with: .minusButton, and: .minus, and: deactiveColor)
+    private lazy var plusButton: UIButton = button(with: .plusButton, and: .plus, and: activeColor)
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Setup
+
+    public init(filterInfo: StepperFilterInfoType) {
+        self.filterInfo = filterInfo
+        super.init(frame: .zero)
         setup()
     }
 
@@ -43,28 +52,34 @@ private extension StepperFilterView {
     @objc func handleButtonPressed(sender: UIButton) {
         switch sender.type {
         case .minus:
-            guard value > lowerLimit else { return }
-            value -= steps
+            guard value > filterInfo.lowerLimit else { return }
+            value -= filterInfo.steps
             sendActions(for: .valueChanged)
         case .plus:
-            value += steps
+            guard value < filterInfo.upperLimit else { return }
+            value += filterInfo.steps
             sendActions(for: .valueChanged)
         default:
             break
         }
-        textLabel.text = "\(value)+ \(unit)"
+        textLabel.text = "\(value)+ \(filterInfo.unit)"
+        switch value {
+        case filterInfo.lowerLimit:
+            minusButton.tintColor = deactiveColor
+        case filterInfo.upperLimit:
+            plusButton.tintColor = deactiveColor
+        default:
+            minusButton.tintColor = activeColor
+            plusButton.tintColor = activeColor
+        }
     }
 
-    func button(withTitle title: String, and type: ButtonType) -> UIButton {
+    func button(with asset: ImageAsset, and type: ButtonType, and color: UIColor) -> UIButton {
         let button = UIButton(type: .system)
         button.tag = type.rawValue
+        button.tintColor = color
+        button.setImage(UIImage(named: asset), for: .normal)
         button.addTarget(self, action: #selector(handleButtonPressed(sender:)), for: .touchUpInside)
-        button.setTitle(title, for: .normal)
-        button.titleLabel?.font = UIFont.title1
-        button.tintColor = .primaryBlue
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.primaryBlue.cgColor
-        button.layer.cornerRadius = 29
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }

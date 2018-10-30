@@ -8,17 +8,18 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
     public var controller: UIViewController { return self }
 
-    private let filterInfo: FilterInfoType
+    private let filterInfo: StepperFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
 
     private lazy var stepperFilterView: StepperFilterView = {
-        let view = StepperFilterView()
+        let view = StepperFilterView(filterInfo: filterInfo)
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
+        guard let filterInfo = filterInfo as? StepperFilterInfoType else { return nil }
         self.filterInfo = filterInfo
         self.selectionDataSource = selectionDataSource
         super.init(nibName: nil, bundle: nil)

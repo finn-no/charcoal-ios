@@ -12,6 +12,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case verticalSelectionInPopover(verticals: [Vertical], sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
         case searchQueryFilter(filterInfo: SearchQueryFilterInfoType, delegate: FilterViewControllerDelegate)
+        case stepperFilter(filterInfo: StepperFilterInfoType, delegate: FilterViewControllerDelegate)
     }
 
     public typealias Factory = ViewControllerFactory & FilterNavigtorFactory
@@ -68,6 +69,10 @@ public class RootFilterNavigator: NSObject, Navigator {
             } else {
                 navigationController.pushViewController(searchQueryViewController, animated: true)
             }
+        case let .stepperFilter(filterInfo, delegate):
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            guard let stepperFilterViewController = factory.makeStepperFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else { return }
+            navigationController.pushViewController(stepperFilterViewController, animated: true)
         }
     }
 }

@@ -32,8 +32,24 @@ public class StepperFilterView: UIControl {
 
     private let activeColor = UIColor.primaryBlue
     private let deactiveColor = UIColor.primaryBlue.withAlphaComponent(0.2)
-    private lazy var minusButton: UIButton = button(with: .minusButton, and: .minus, and: deactiveColor)
-    private lazy var plusButton: UIButton = button(with: .plusButton, and: .plus, and: activeColor)
+
+    private lazy var minusButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = deactiveColor
+        button.setImage(UIImage(named: .minusButton), for: .normal)
+        button.addTarget(self, action: #selector(minusButtonPressed(sender:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var plusButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = activeColor
+        button.setImage(UIImage(named: .plusButton), for: .normal)
+        button.addTarget(self, action: #selector(plusButtonPressed(sender:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     // MARK: - Setup
 
@@ -49,39 +65,47 @@ public class StepperFilterView: UIControl {
 }
 
 private extension StepperFilterView {
-    @objc func handleButtonPressed(sender: UIButton) {
-        switch sender.type {
+    @objc func minusButtonPressed(sender: UIButton) {
+        handleButtonPressed(with: .minus)
+    }
+
+    @objc func plusButtonPressed(sender: UIButton) {
+        handleButtonPressed(with: .plus)
+    }
+
+    func handleButtonPressed(with type: ButtonType) {
+        switch type {
         case .minus:
             guard value > filterInfo.lowerLimit else { return }
-            value -= filterInfo.steps
+            value = max(filterInfo.lowerLimit, value - filterInfo.steps)
             sendActions(for: .valueChanged)
         case .plus:
             guard value < filterInfo.upperLimit else { return }
-            value += filterInfo.steps
+            value = min(filterInfo.upperLimit, value + filterInfo.steps)
             sendActions(for: .valueChanged)
         default:
             break
         }
+
         textLabel.text = "\(value)+ \(filterInfo.unit)"
+
         switch value {
-        case filterInfo.lowerLimit:
-            minusButton.tintColor = deactiveColor
-        case filterInfo.upperLimit:
-            plusButton.tintColor = deactiveColor
+        case filterInfo.lowerLimit: deactivateButton(minusButton)
+        case filterInfo.upperLimit: deactivateButton(plusButton)
         default:
-            minusButton.tintColor = activeColor
-            plusButton.tintColor = activeColor
+            activateButton(minusButton)
+            activateButton(plusButton)
         }
     }
 
-    func button(with asset: ImageAsset, and type: ButtonType, and color: UIColor) -> UIButton {
-        let button = UIButton(type: .system)
-        button.tag = type.rawValue
-        button.tintColor = color
-        button.setImage(UIImage(named: asset), for: .normal)
-        button.addTarget(self, action: #selector(handleButtonPressed(sender:)), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    func deactivateButton(_ button: UIButton) {
+        button.tintColor = deactiveColor
+        button.isUserInteractionEnabled = false
+    }
+
+    func activateButton(_ button: UIButton) {
+        button.tintColor = activeColor
+        button.isUserInteractionEnabled = true
     }
 
     func setup() {
@@ -105,11 +129,5 @@ private extension StepperFilterView {
             plusButton.widthAnchor.constraint(equalToConstant: 58),
             plusButton.heightAnchor.constraint(equalToConstant: 58),
         ])
-    }
-}
-
-extension UIButton {
-    var type: StepperFilterView.ButtonType {
-        return StepperFilterView.ButtonType(rawValue: tag) ?? .none
     }
 }

@@ -31,6 +31,10 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        let stringValue = String(stepperFilterView.value)
+        selectionDataSource.setValue([stringValue], for: filterInfo)
+
         view.addSubview(stepperFilterView)
         stepperFilterView.fillInSuperview()
     }
@@ -38,6 +42,6 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
 
 private extension StepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
-        print("Value:", sender.value)
+        selectionDataSource.setValue([String(sender.value)], for: filterInfo)
     }
 }

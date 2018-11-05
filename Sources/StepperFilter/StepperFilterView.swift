@@ -6,7 +6,7 @@ import UIKit
 
 extension StepperFilterView {
     enum ButtonType: Int {
-        case minus, plus, none
+        case minus, plus
     }
 }
 
@@ -14,7 +14,12 @@ public class StepperFilterView: UIControl {
 
     // MARK: - Public properties
 
-    public var value = 1
+    public var value = 1 {
+        didSet {
+            setText(withValue: value)
+            updateButtons(forValue: value)
+        }
+    }
 
     // MARK: - Private properties
 
@@ -83,12 +88,17 @@ private extension StepperFilterView {
             guard value < filterInfo.upperLimit else { return }
             value = min(filterInfo.upperLimit, value + filterInfo.steps)
             sendActions(for: .valueChanged)
-        default:
-            break
         }
 
-        textLabel.text = "\(value)+ \(filterInfo.unit)"
+        setText(withValue: value)
+        updateButtons(forValue: value)
+    }
 
+    func setText(withValue value: Int) {
+        textLabel.text = "\(value)+ \(filterInfo.unit)"
+    }
+
+    func updateButtons(forValue value: Int) {
         switch value {
         case filterInfo.lowerLimit: deactivateButton(minusButton)
         case filterInfo.upperLimit: deactivateButton(plusButton)

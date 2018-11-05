@@ -57,7 +57,7 @@ extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelega
         }
     }
 
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTransitionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
         switch (current, new) {
         case (_, .compact):
             tableView.isScrollEnabled = false

@@ -5,10 +5,7 @@
 import UIKit
 
 public class FilterNavigationController: UINavigationController {
-    var onViewDidLoad: ((FilterNavigationController) -> Void)?
-
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        onViewDidLoad?(self)
+    public var currentFilterViewController: AnyFilterViewController? {
+        return topViewController as? AnyFilterViewController
     }
 }

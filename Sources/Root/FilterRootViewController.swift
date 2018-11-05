@@ -222,8 +222,15 @@ extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
             } else {
                 return false
             }
-        default:
-            return true
+        case .compact:
+            let isUpwardTranslation = translation.y < 0.0
+
+            if isUpwardTranslation {
+                isScrollEnabled = false
+                return isScrolledToTop
+            } else {
+                return false
+            }
         }
     }
 

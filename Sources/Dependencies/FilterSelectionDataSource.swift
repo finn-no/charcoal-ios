@@ -17,6 +17,11 @@ public struct FilterRangeSelectionInfo: FilterSelectionInfo {
     public let value: RangeValue
 }
 
+public struct FilterStepperSelectionInfo: FilterSelectionInfo {
+    public let filter: StepperFilterInfoType
+    public let value: Int
+}
+
 public enum RangeValue {
     case minimum(lowValue: Int)
     case maximum(highValue: Int)
@@ -74,5 +79,7 @@ public protocol FilterSelectionDataSource: AnyObject {
     func clearValue(_ value: String, for filterInfo: FilterInfoType)
 
     func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue?
-    func setValue(_ range: RangeValue, for filterInfo: RangeFilterInfoType)
+    func setValue(_ range: RangeValue, for filterInfo: FilterInfoType)
+
+    func stepperValue(for filterInfo: StepperFilterInfoType) -> Int?
 }

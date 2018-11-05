@@ -34,14 +34,13 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
         view.addSubview(stepperFilterView)
         stepperFilterView.fillInSuperview()
 
-        if let stringValue = selectionDataSource.value(for: filterInfo)?.first, let value = Int(stringValue) {
-            stepperFilterView.value = value
-        }
+        guard let value = selectionDataSource.stepperValue(for: filterInfo) else { return }
+        stepperFilterView.value = value
     }
 }
 
 private extension StepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
-        selectionDataSource.setValue([String(sender.value)], for: filterInfo)
+        selectionDataSource.setValue(RangeValue.minimum(lowValue: sender.value), for: filterInfo)
     }
 }

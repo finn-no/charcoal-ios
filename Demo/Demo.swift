@@ -272,6 +272,10 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
 }
 
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
+    func stepperValue(for filterInfo: StepperFilterInfoType) -> Int? {
+        return nil
+    }
+
     func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState {
         return .none
     }
@@ -300,6 +304,6 @@ class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
         return nil
     }
 
-    func setValue(_ range: RangeValue, for filterInfo: RangeFilterInfoType) {
+    func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
     }
 }

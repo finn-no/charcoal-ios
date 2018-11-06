@@ -4,11 +4,19 @@
 
 import Foundation
 
+private class SelectAllItem: ListItem {
+    let title = "all_items_title".localized()
+    var detail: String?
+    let showsDisclosureIndicator = false
+    var value: String = ""
+}
+
 public final class MultiLevelListSelectionFilterViewController: ListViewController, FilterContainerViewController {
     private let filterInfo: MultiLevelListSelectionFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
+    private let isSelectAllIncluded: Bool
 
     public var controller: UIViewController {
         return self
@@ -21,7 +29,15 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
 
         self.filterInfo = multiLevelFilterInfo
         self.selectionDataSource = selectionDataSource
-        super.init(title: multiLevelFilterInfo.title, items: multiLevelFilterInfo.filters)
+        var filters: [ListItem] = multiLevelFilterInfo.filters
+        isSelectAllIncluded = !multiLevelFilterInfo.value.isEmpty
+        if isSelectAllIncluded {
+            let selectAllItem = SelectAllItem()
+            selectAllItem.value = multiLevelFilterInfo.value
+            selectAllItem.detail = "\(multiLevelFilterInfo.results)"
+            filters.insert(selectAllItem, at: 0)
+        }
+        super.init(title: multiLevelFilterInfo.title, items: filters)
         listViewControllerDelegate = self
         selectionListItemCellConfigurator = nil
     }
@@ -57,7 +73,8 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
     }
 
     private func didSelectDrillDownItem(_ listItem: ListItem, at indexPath: IndexPath) {
-        guard let sublevelFilterInfo = filterInfo.filters[safe: indexPath.row] else {
+        let filterIndex = isSelectAllIncluded ? indexPath.row - 1 : indexPath.row
+        guard let sublevelFilterInfo = filterInfo.filters[safe: filterIndex] else {
             return
         }
         filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: sublevelFilterInfo)
@@ -65,6 +82,12 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
     }
 
     private func toggleSelection(for listItem: ListItem) {
+        if listItem is SelectAllItem {
+            selectionDataSource.clearAll(for: filterInfo)
+            selectionDataSource.addValue(filterInfo.value, for: filterInfo)
+            return
+        }
+
         guard let item = listItem as? MultiLevelListSelectionFilterInfoType, filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) else {
             return
         }
@@ -85,15 +108,19 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
     }
 
     private func isListItemSelected(_ listItem: ListItem) -> Bool {
+        if listItem is SelectAllItem {
+            return selectionDataSource.selectionState(filterInfo) == .selected
+        }
+
         guard let item = listItem as? MultiLevelListSelectionFilterInfoType else {
             return false
         }
-        return isListSelectionFilterValueSelected(item)
+        return !isListSelectionFilterValueNotSelected(item)
     }
 
-    private func isListSelectionFilterValueSelected(_ item: MultiLevelListSelectionFilterInfoType) -> Bool {
+    private func isListSelectionFilterValueNotSelected(_ item: MultiLevelListSelectionFilterInfoType) -> Bool {
         let selectionState = selectionDataSource.selectionState(item)
-        return selectionState != .none
+        return selectionState == .none
     }
 }
 
@@ -104,6 +131,9 @@ extension MultiLevelListSelectionFilterViewController: ListViewControllerDelegat
         } else {
             toggleSelection(for: listItem)
             updateCell(at: indexPath)
+            if isSelectAllIncluded {
+                updateCell(at: IndexPath(row: 0, section: 0))
+            }
         }
     }
 }
@@ -113,6 +143,12 @@ extension MultiLevelListSelectionFilterViewController {
         cell.configure(for: listItem)
         if let item = listItem as? MultiLevelListSelectionFilterInfoType {
             cell.setSelectionState(selectionDataSource.selectionState(item))
+        } else if listItem is SelectAllItem {
+            if selectionDataSource.selectionState(filterInfo) == .selected {
+                cell.setSelectionState(.selected)
+            } else {
+                cell.setSelectionState(.none)
+            }
         }
     }
 }

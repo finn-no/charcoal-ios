@@ -4,11 +4,6 @@
 
 import Foundation
 
-public protocol AnyFilterViewController: AnyObject, BottomSheetPresentationControllerDelegate {
-    var mainScrollableContentView: UIScrollView? { get }
-    var isMainScrollableViewScrolledToTop: Bool { get }
-}
-
 public protocol FilterViewControllerDelegate: AnyObject {
     func applyFilterButtonTapped()
 }

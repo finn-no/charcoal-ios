@@ -50,6 +50,16 @@ public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
         })
         return queryItems
     }
+
+    func updateSelectionStateForFilter(_ filter: MultiLevelListSelectionFilterInfo) {
+        if let childrenSelectionState = filter.selectionStateOfChildren(), childrenSelectionState != .none {
+            filter.selectionState = childrenSelectionState
+        } else {
+            if let filterSelectionValue = value(for: filter), filterSelectionValue.contains(filter.value) {
+                filter.selectionState = .selected
+            }
+        }
+    }
 }
 
 private extension ParameterBasedFilterInfoSelectionDataSource {

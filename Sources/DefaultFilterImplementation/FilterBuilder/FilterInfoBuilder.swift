@@ -76,6 +76,7 @@ private extension FilterInfoBuilder {
             let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, results: query.totalResults, value: query.value)
             filter.setSubLevelFilters(queryFilters)
             multiLevelFilterLookup[filter.lookupKey] = filter
+            selectionDataSource.updateSelectionStateForFilter(filter)
             return filter
         }) else {
             return nil
@@ -83,6 +84,7 @@ private extension FilterInfoBuilder {
         let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, results: 0, value: "")
         filter.setSubLevelFilters(filters)
         multiLevelFilterLookup[filter.lookupKey] = filter
+        selectionDataSource.updateSelectionStateForFilter(filter)
         return filter
     }
 
@@ -94,14 +96,8 @@ private extension FilterInfoBuilder {
             let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter)
             let filter = MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
             filter.setSubLevelFilters(subQueryFilters)
-            if let childrenSelectionState = filter.selectionStateOfChildren(), childrenSelectionState != .none {
-                filter.selectionState = childrenSelectionState
-            } else {
-                if let filterSelectionValue = selectionDataSource.value(for: filter), filterSelectionValue.contains(filter.value) {
-                    filter.selectionState = .selected
-                }
-            }
             multiLevelFilterLookup[filter.lookupKey] = filter
+            selectionDataSource.updateSelectionStateForFilter(filter)
             return filter
         })
         return queryFilters

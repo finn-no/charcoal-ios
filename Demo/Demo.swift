@@ -266,6 +266,9 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
 }
 
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
+    func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
+    }
+
     func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState {
         return .none
     }

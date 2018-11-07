@@ -15,7 +15,10 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
     let results: Int
     let value: String
     private(set) weak var parent: MultiLevelListSelectionFilterInfoType?
-    private(set) var selectionState: MultiLevelListItemSelectionState
+    var selectionState: MultiLevelListItemSelectionState
+    var hasParent: Bool {
+        return parent != nil
+    }
 
     init(parameterName: String, title: String, isMultiSelect: Bool = true, results: Int, value: String) {
         self.parameterName = parameterName
@@ -50,24 +53,20 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
         }).count
     }
 
-    func updateSelectionState(_ selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
+    func selectionStateOfChildren() -> MultiLevelListItemSelectionState? {
         if childFilterHasPartialSelectionState() {
-            selectionState = .partial
+            return .partial
         } else if filters.count > 0 {
             let childsWithFullSelection = numberOfChildFilterWithFullSelectionState()
             if childsWithFullSelection == filters.count {
-                selectionState = .selected
+                return .selected
             } else if childsWithFullSelection > 0 {
-                selectionState = .partial
-            } else if let _ = selectionDataSource.value(for: self) {
-                selectionState = .selected
+                return .partial
             } else {
-                selectionState = .none
+                return .none
             }
-        } else if let _ = selectionDataSource.value(for: self) {
-            selectionState = .selected
         } else {
-            selectionState = .none
+            return nil
         }
     }
 }

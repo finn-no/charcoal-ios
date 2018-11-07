@@ -94,7 +94,13 @@ private extension FilterInfoBuilder {
             let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter)
             let filter = MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
             filter.setSubLevelFilters(subQueryFilters)
-            filter.updateSelectionState(selectionDataSource)
+            if let childrenSelectionState = filter.selectionStateOfChildren(), childrenSelectionState != .none {
+                filter.selectionState = childrenSelectionState
+            } else {
+                if let filterSelectionValue = selectionDataSource.value(for: filter), filterSelectionValue.contains(filter.value) {
+                    filter.selectionState = .selected
+                }
+            }
             multiLevelFilterLookup[filter.lookupKey] = filter
             return filter
         })

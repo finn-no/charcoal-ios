@@ -52,11 +52,23 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
             updateCell(at: indexPathToRefreshOnViewWillAppear)
         }
         indexPathToRefreshOnViewWillAppear = nil
+        if isSelectAllIncluded {
+            updateCell(at: IndexPath(row: 0, section: 0))
+        }
     }
 
     override func updateCell(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? MultiLevelSelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
             configure(cell, listItem: listItem)
+        }
+    }
+
+    func updateAllCells() {
+        for index in 0 ..< listItems.count {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) as? MultiLevelSelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
+                configure(cell, listItem: listItem)
+            }
         }
     }
 
@@ -81,10 +93,21 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         indexPathToRefreshOnViewWillAppear = indexPath
     }
 
+    private func toggleSelectAllSelection(for listItem: ListItem) {
+        let wasItemPreviouslySelected = isListItemSelected(listItem)
+        if listItem is SelectAllItem {
+            if wasItemPreviouslySelected {
+                selectionDataSource.clearValue(filterInfo.value, for: filterInfo)
+            } else {
+                selectionDataSource.clearValueAndValueForChildren(for: filterInfo)
+                selectionDataSource.addValue(filterInfo.value, for: filterInfo)
+            }
+        }
+    }
+
     private func toggleSelection(for listItem: ListItem) {
         if listItem is SelectAllItem {
-            selectionDataSource.clearAll(for: filterInfo)
-            selectionDataSource.addValue(filterInfo.value, for: filterInfo)
+            toggleSelectAllSelection(for: listItem)
             return
         }
 
@@ -92,6 +115,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
             return
         }
         let wasItemPreviouslySelected = isListItemSelected(item)
+
         if filterInfo.isMultiSelect {
             if wasItemPreviouslySelected {
                 selectionDataSource.clearValue(item.value, for: item)
@@ -128,6 +152,9 @@ extension MultiLevelListSelectionFilterViewController: ListViewControllerDelegat
     func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
         if listItem.showsDisclosureIndicator {
             didSelectDrillDownItem(listItem, at: indexPath)
+        } else if listItem is SelectAllItem {
+            toggleSelectAllSelection(for: listItem)
+            updateAllCells()
         } else {
             toggleSelection(for: listItem)
             updateCell(at: indexPath)

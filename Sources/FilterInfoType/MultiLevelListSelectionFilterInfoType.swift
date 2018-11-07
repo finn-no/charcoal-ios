@@ -7,6 +7,7 @@ public protocol MultiLevelListSelectionFilterInfoType: AnyObject, FilterInfoType
     var isMultiSelect: Bool { get }
     var results: Int { get }
     var value: String { get }
+    var hasParent: Bool { get }
 }
 
 // MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation

@@ -49,24 +49,26 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let indexPathToRefreshOnViewWillAppear = indexPathToRefreshOnViewWillAppear {
-            updateCell(at: indexPathToRefreshOnViewWillAppear)
+            updateCellIfVisible(at: indexPathToRefreshOnViewWillAppear)
         }
         indexPathToRefreshOnViewWillAppear = nil
         if isSelectAllIncluded {
-            updateCell(at: IndexPath(row: 0, section: 0))
+            updateCellIfVisible(at: IndexPath(row: 0, section: 0))
         }
     }
 
-    override func updateCell(at indexPath: IndexPath) {
+    override func updateCellIfVisible(at indexPath: IndexPath) {
+        guard tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else {
+            return
+        }
         if let cell = tableView.cellForRow(at: indexPath) as? MultiLevelSelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
             configure(cell, listItem: listItem)
         }
     }
 
-    func updateAllCells() {
-        for index in 0 ..< listItems.count {
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) as? MultiLevelSelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
+    func updateAllVisibleCells() {
+        for cell in tableView.visibleCells {
+            if let indexPath = tableView.indexPath(for: cell), let listItem = listItems[safe: indexPath.row], let cell = cell as? MultiLevelSelectionListItemCell {
                 configure(cell, listItem: listItem)
             }
         }
@@ -123,7 +125,7 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
                 selectionDataSource.addValue(item.value, for: item)
             }
         } else {
-            selectionDataSource.clearAll(for: item)
+            selectionDataSource.clearValueAndValueForChildren(for: filterInfo)
             if !wasItemPreviouslySelected {
                 selectionDataSource.setValue([item.value], for: item)
             }
@@ -154,12 +156,16 @@ extension MultiLevelListSelectionFilterViewController: ListViewControllerDelegat
             didSelectDrillDownItem(listItem, at: indexPath)
         } else if listItem is SelectAllItem {
             toggleSelectAllSelection(for: listItem)
-            updateAllCells()
+            updateAllVisibleCells()
         } else {
             toggleSelection(for: listItem)
-            updateCell(at: indexPath)
-            if isSelectAllIncluded {
-                updateCell(at: IndexPath(row: 0, section: 0))
+            if filterInfo.isMultiSelect {
+                updateCellIfVisible(at: indexPath)
+                if isSelectAllIncluded {
+                    updateCellIfVisible(at: IndexPath(row: 0, section: 0))
+                }
+            } else {
+                updateAllVisibleCells()
             }
         }
     }

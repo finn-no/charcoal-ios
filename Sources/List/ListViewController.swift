@@ -61,7 +61,10 @@ public class ListViewController: UIViewController {
         tableView.register(SelectionListItemCell.self)
     }
 
-    func updateCell(at indexPath: IndexPath) {
+    func updateCellIfVisible(at indexPath: IndexPath) {
+        guard tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else {
+            return
+        }
         if let cell = tableView.cellForRow(at: indexPath) as? SelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
             selectionListItemCellConfigurator?.configure(cell, listItem: listItem)
         }

@@ -67,7 +67,7 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
 extension ListSelectionFilterViewController: ListViewControllerDelegate {
     func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
         toggleSelection(for: listItem)
-        updateCell(at: indexPath)
+        updateCellIfVisible(at: indexPath)
     }
 }
 

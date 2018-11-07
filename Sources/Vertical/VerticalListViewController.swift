@@ -41,7 +41,7 @@ extension VerticalListViewController: ListViewControllerDelegate {
         if let vertical = verticals[safe: indexPath.item] {
             delegate?.verticalListViewController(self, didSelectVertical: vertical, at: indexPath.item)
         }
-        updateCell(at: indexPath)
+        updateCellIfVisible(at: indexPath)
     }
 }
 

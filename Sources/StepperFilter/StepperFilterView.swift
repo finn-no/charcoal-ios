@@ -78,16 +78,19 @@ private extension StepperFilterView {
     func handleButtonPressed(with type: ButtonType) {
         switch type {
         case .minus:
-            value = max(filterInfo.lowerLimit, value - filterInfo.steps)
-            updateUI(forValue: value)
-            guard value > filterInfo.lowerLimit else { return }
-            sendActions(for: .valueChanged)
+            let newValue = max(filterInfo.lowerLimit, value - filterInfo.steps)
+            sendActionIfNeeded(forValue: newValue)
         case .plus:
-            value = min(filterInfo.upperLimit, value + filterInfo.steps)
-            updateUI(forValue: value)
-            guard value < filterInfo.upperLimit else { return }
-            sendActions(for: .valueChanged)
+            let newValue = min(filterInfo.upperLimit, value + filterInfo.steps)
+            sendActionIfNeeded(forValue: newValue)
         }
+    }
+
+    func sendActionIfNeeded(forValue newValue: Int) {
+        guard newValue != value else { return }
+        updateUI(forValue: newValue)
+        value = newValue
+        sendActions(for: .valueChanged)
     }
 
     func updateUI(forValue value: Int) {

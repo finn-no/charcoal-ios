@@ -63,7 +63,8 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
             } else if childsWithFullSelection > 0 {
                 return .partial
             } else {
-                return .none
+                // Use full enum name, so compiler doesn't mistake intent to be the Optional.none (nil)
+                return MultiLevelListItemSelectionState.none
             }
         } else {
             return nil

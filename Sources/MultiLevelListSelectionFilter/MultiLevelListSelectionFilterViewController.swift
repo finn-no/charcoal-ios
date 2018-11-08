@@ -105,14 +105,10 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
                 selectionDataSource.addValue(filterInfo.value, for: filterInfo)
             }
         }
+        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
     private func toggleSelection(for listItem: ListItem) {
-        if listItem is SelectAllItem {
-            toggleSelectAllSelection(for: listItem)
-            return
-        }
-
         guard let item = listItem as? MultiLevelListSelectionFilterInfoType, filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) else {
             return
         }

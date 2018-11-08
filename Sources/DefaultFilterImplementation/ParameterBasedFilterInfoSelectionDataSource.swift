@@ -195,6 +195,10 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
 
         if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
             multiLevelFilter.selectionState = .none
+            if let selectionStateOfChildren = multiLevelFilter.selectionStateOfChildren() {
+                multiLevelFilter.selectionState = selectionStateOfChildren
+            }
+
             updateSelectionStateForAncestors(of: multiLevelFilter)
         }
     }
@@ -218,6 +222,12 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             selectionValues.forEach { selectionValuesAndKey in
                 selectionValuesAndKey.value.forEach({ selectionValue in
                     if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfo.LookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
+                        guard selectedFilterInfo.selectionState == .selected else {
+                            return
+                        }
+                        if let parent = selectedFilterInfo.parent as? MultiLevelListSelectionFilterInfo, parent.selectionState == .selected {
+                            return
+                        }
                         if selectedFilterInfo === multiLevelFilterInfo || isAncestor(multiLevelFilterInfo, to: selectedFilterInfo) {
                             values.append(FilterSelectionDataInfo(filter: selectedFilterInfo, value: [selectedFilterInfo.value]))
                         }

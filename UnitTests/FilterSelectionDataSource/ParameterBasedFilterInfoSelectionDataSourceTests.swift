@@ -208,10 +208,11 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     func testSelectionDataSourceShouldSupportClearing1FilterOnlyWhenMultiLevelFiltersShareParameter() {
         let parentFilter = createMultiLevelFilter(parameterName: "foo", title: "Foo", multiSelect: true, value: "123")
         let childFilter = createMultiLevelFilter(parameterName: "foo", title: "Bar", multiSelect: true, value: "456")
-        parentFilter.setSubLevelFilters([childFilter])
+        let child2Filter = createMultiLevelFilter(parameterName: "foobar", title: "Foobar", multiSelect: true, value: "789")
+        parentFilter.setSubLevelFilters([childFilter, child2Filter])
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: parentFilter.parameterName, value: parentFilter.value), URLQueryItem(name: childFilter.parameterName, value: childFilter.value)])
-        childFilter.updateSelectionState(selectionDataSource)
-        parentFilter.updateSelectionState(selectionDataSource)
+        childFilter.selectionState = .selected
+        parentFilter.selectionState = .selected
         selectionDataSource.multiLevelFilterLookup = [parentFilter.lookupKey: parentFilter, childFilter.lookupKey: childFilter]
 
         selectionDataSource.clearValue(parentFilter.value, for: parentFilter)
@@ -229,10 +230,12 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     func testSelectionDataSourceShouldSupportClearing1FilterOnlyWhenMultiLevelFiltersDoesntShareParameter() {
         let parentFilter = createMultiLevelFilter(parameterName: "foo", title: "Foo", multiSelect: true, value: "123")
         let childFilter = createMultiLevelFilter(parameterName: "bar", title: "Bar", multiSelect: true, value: "456")
-        parentFilter.setSubLevelFilters([childFilter])
+        let child2Filter = createMultiLevelFilter(parameterName: "foobar", title: "Foobar", multiSelect: true, value: "789")
+        parentFilter.setSubLevelFilters([childFilter, child2Filter])
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: parentFilter.parameterName, value: parentFilter.value), URLQueryItem(name: childFilter.parameterName, value: childFilter.value)])
-        childFilter.updateSelectionState(selectionDataSource)
-        parentFilter.updateSelectionState(selectionDataSource)
+        childFilter.selectionState = .selected
+        parentFilter.selectionState = .selected
+
         selectionDataSource.multiLevelFilterLookup = [parentFilter.lookupKey: parentFilter, childFilter.lookupKey: childFilter]
 
         selectionDataSource.clearValue(parentFilter.value, for: parentFilter)
@@ -298,18 +301,20 @@ extension ParameterBasedFilterInfoSelectionDataSourceTests {
     }
 
     func createCategoryLevels() -> (selectionDataSource: ParameterBasedFilterInfoSelectionDataSource, category: MultiLevelListSelectionFilterInfo, kitchenTables: MultiLevelListSelectionFilterInfo, otherTables: MultiLevelListSelectionFilterInfo, animals: MultiLevelListSelectionFilterInfo) {
-        let category = createMultiLevelFilter(parameterName: "category", title: "Kategori", multiSelect: true, value: "")
-        let furniture = createMultiLevelFilter(parameterName: "category", title: "Møbler", multiSelect: true, value: "Møbler")
-        let tables = createMultiLevelFilter(parameterName: "sub_category", title: "Bord", multiSelect: true, value: "Bord")
+        let category = createMultiLevelFilter(parameterName: "category", title: "Kategori", multiSelect: false, value: "")
+        let furniture = createMultiLevelFilter(parameterName: "category", title: "Møbler", multiSelect: false, value: "Møbler")
+        let tables = createMultiLevelFilter(parameterName: "sub_category", title: "Bord", multiSelect: false, value: "Bord")
         let kitchenTables = createMultiLevelFilter(parameterName: "product_type", title: "Kjøkkenbord", multiSelect: true, value: "Kjøkkenbord")
+        let desks = createMultiLevelFilter(parameterName: "product_type", title: "Skrivebord", multiSelect: true, value: "Skrivebord")
         let otherTables = createMultiLevelFilter(parameterName: "product_type", title: "Andre bord", multiSelect: true, value: "Andre bord")
-        let animals = createMultiLevelFilter(parameterName: "category", title: "Dyr", multiSelect: true, value: "Dyr")
-        let fishes = createMultiLevelFilter(parameterName: "sub_category", title: "Fisker", multiSelect: true, value: "Fisker")
-        let birds = createMultiLevelFilter(parameterName: "sub_category", title: "Fugler", multiSelect: true, value: "Fugler")
+        let animals = createMultiLevelFilter(parameterName: "category", title: "Dyr", multiSelect: false, value: "Dyr")
+        let fishes = createMultiLevelFilter(parameterName: "sub_category", title: "Fisker", multiSelect: false, value: "Fisker")
+        let birds = createMultiLevelFilter(parameterName: "sub_category", title: "Fugler", multiSelect: false, value: "Fugler")
+        let parentsAndKids = createMultiLevelFilter(parameterName: "category", title: "Foreldre og barn", multiSelect: false, value: "Foreldre og barn")
 
-        category.setSubLevelFilters([furniture, animals])
+        category.setSubLevelFilters([furniture, animals, parentsAndKids])
         furniture.setSubLevelFilters([tables])
-        tables.setSubLevelFilters([kitchenTables, otherTables])
+        tables.setSubLevelFilters([kitchenTables, otherTables, desks])
         animals.setSubLevelFilters([fishes, birds])
 
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [])

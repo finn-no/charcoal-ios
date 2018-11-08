@@ -15,10 +15,7 @@ public class StepperFilterView: UIControl {
     // MARK: - Public properties
 
     public var value = 1 {
-        didSet {
-            setText(withValue: value)
-            updateButtons(forValue: value)
-        }
+        didSet { updateUI(forValue: value) }
     }
 
     // MARK: - Private properties
@@ -40,7 +37,7 @@ public class StepperFilterView: UIControl {
 
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)
-        button.tintColor = deactiveColor
+        button.tintColor = activeColor
         button.setImage(UIImage(named: .minusButton), for: .normal)
         button.addTarget(self, action: #selector(minusButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -81,21 +78,26 @@ private extension StepperFilterView {
     func handleButtonPressed(with type: ButtonType) {
         switch type {
         case .minus:
-            guard value > filterInfo.lowerLimit else { return }
             value = max(filterInfo.lowerLimit, value - filterInfo.steps)
+            updateUI(forValue: value)
+            guard value > filterInfo.lowerLimit else { return }
             sendActions(for: .valueChanged)
         case .plus:
-            guard value < filterInfo.upperLimit else { return }
             value = min(filterInfo.upperLimit, value + filterInfo.steps)
+            updateUI(forValue: value)
+            guard value < filterInfo.upperLimit else { return }
             sendActions(for: .valueChanged)
         }
+    }
 
+    func updateUI(forValue value: Int) {
         setText(withValue: value)
         updateButtons(forValue: value)
     }
 
     func setText(withValue value: Int) {
-        textLabel.text = "\(value)+ \(filterInfo.unit)"
+        if value > filterInfo.lowerLimit { textLabel.text = "\(value)+ \(filterInfo.unit)" }
+        else { textLabel.text = "Alle" }
     }
 
     func updateButtons(forValue value: Int) {

@@ -7,7 +7,7 @@ import FilterKit
 struct StepperData: StepperFilterInfoType {
     let unit = "soverom"
     let steps = 1
-    let lowerLimit = 1
+    let lowerLimit = 0
     let upperLimit = 6
     let title = "Antall Soverom"
 }

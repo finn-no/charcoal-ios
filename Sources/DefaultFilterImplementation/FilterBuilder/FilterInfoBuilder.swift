@@ -45,7 +45,7 @@ private extension FilterInfoBuilder {
     }
 
     func buildStepperFilterInfo(from filterData: FilterData) -> StepperFilterInfoType {
-        return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 1, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
+        return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
     }
 
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {

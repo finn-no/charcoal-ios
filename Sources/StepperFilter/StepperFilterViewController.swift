@@ -41,6 +41,12 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
 
 private extension StepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
-        selectionDataSource.setValue(RangeValue.minimum(lowValue: sender.value), for: filterInfo)
+        switch sender.value {
+        case filterInfo.lowerLimit:
+            selectionDataSource.clearAll(for: filterInfo)
+        default:
+            selectionDataSource.setValue(RangeValue.minimum(lowValue: sender.value), for: filterInfo)
+            filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+        }
     }
 }

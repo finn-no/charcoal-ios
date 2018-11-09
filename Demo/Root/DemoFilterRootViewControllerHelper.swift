@@ -90,17 +90,4 @@ extension DemoFilter: FilterDataSource {
     var filterInfo: [FilterInfoType] {
         return loadedFilterInfo
     }
-
-    func selectionValueTitlesForFilterInfoAndSubFilters(at index: Int) -> [String] {
-        guard let filter = filterInfo[safe: index] else {
-            return []
-        }
-        let selectionValues = selectionDataSource.valueAndSubLevelValues(for: filter)
-
-        var result = [String]()
-        for selectionData in selectionValues {
-            result.append(contentsOf: filterSelectionTitleProvider.titlesForSelection(selectionData))
-        }
-        return result
-    }
 }

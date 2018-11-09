@@ -41,11 +41,11 @@ class FilterCell: UITableViewCell {
         }
     }
 
-    var selectedValues: [String]? {
+    var selectedValues: [SelectionWithTitle]? {
         didSet {
             currentValuesContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
             selectedValues?.forEach { selectedValue in
-                let button = RemoveFilterValueButton(title: selectedValue)
+                let button = RemoveFilterValueButton(title: selectedValue.title)
                 button.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([button.heightAnchor.constraint(equalToConstant: 30)])
                 currentValuesContainer.addArrangedSubview(button)
@@ -107,6 +107,11 @@ private extension FilterCell {
         }
         delegate?.filterCell(self, didTapRemoveSelectedValueAtIndex: tappedIndex)
     }
+}
+
+struct SelectionWithTitle {
+    let selectionInfo: FilterSelectionInfo
+    let title: String
 }
 
 private class RemoveFilterValueButton: UIButton {

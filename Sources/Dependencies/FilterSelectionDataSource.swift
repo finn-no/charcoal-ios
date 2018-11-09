@@ -9,7 +9,7 @@ public protocol FilterSelectionInfo {
 
 public struct FilterSelectionDataInfo: FilterSelectionInfo {
     public let filter: FilterInfoType
-    public let value: [String]
+    public let value: String
 }
 
 public struct FilterRangeSelectionInfo: FilterSelectionInfo {
@@ -78,6 +78,7 @@ public protocol FilterSelectionDataSource: AnyObject {
     func clearAll(for filterInfo: FilterInfoType)
     func clearValue(_ value: String, for filterInfo: FilterInfoType)
     func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType)
+    func clearSelection(at selectionValueIndex: Int, in selectionInfo: FilterSelectionInfo)
 
     func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue?
     func setValue(_ range: RangeValue, for filterInfo: FilterInfoType)

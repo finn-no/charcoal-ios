@@ -229,7 +229,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
                             return
                         }
                         if selectedFilterInfo === multiLevelFilterInfo || isAncestor(multiLevelFilterInfo, to: selectedFilterInfo) {
-                            values.append(FilterSelectionDataInfo(filter: selectedFilterInfo, value: [selectedFilterInfo.value]))
+                            values.append(FilterSelectionDataInfo(filter: selectedFilterInfo, value: selectedFilterInfo.value))
                         }
                     }
                 })
@@ -240,8 +240,8 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             return [FilterRangeSelectionInfo(filter: rangeFilterInfo, value: value)]
         } else if let stepperFilterInfo = filterInfo as? StepperFilterInfo, let value = stepperValue(for: stepperFilterInfo) {
             return [FilterStepperSelectionInfo(filter: stepperFilterInfo, value: value)]
-        } else if let rootValue = value(for: filterInfo) {
-            return [FilterSelectionDataInfo(filter: filterInfo, value: rootValue)]
+        } else if let rootValues = value(for: filterInfo) {
+            return rootValues.map({ FilterSelectionDataInfo(filter: filterInfo, value: $0) })
         }
         return []
     }
@@ -334,6 +334,16 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
     public func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
         removeValueAndValueForChildren(for: filterInfo, updateSelectionStateForParent: true)
         DebugLog.write(self)
+    }
+
+    public func clearSelection(at selectionValueIndex: Int, in selectionInfo: FilterSelectionInfo) {
+        if let selectionData = selectionInfo as? FilterSelectionDataInfo {
+            clearValue(selectionData.value, for: selectionData.filter)
+        } else if let selectionData = selectionInfo as? FilterRangeSelectionInfo {
+            clearAll(for: selectionData.filter)
+        } else if let selectionData = selectionInfo as? FilterStepperSelectionInfo {
+            clearAll(for: selectionData.filter)
+        }
     }
 
     public func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {

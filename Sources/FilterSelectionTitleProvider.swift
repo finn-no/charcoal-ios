@@ -9,30 +9,30 @@ public struct FilterSelectionTitleProvider {
     public init() {
     }
 
-    public func titlesForSelection(_ selectionData: FilterSelectionInfo) -> [String] {
+    public func titleForSelection(_ selectionData: FilterSelectionInfo) -> String {
         if let selectionData = selectionData as? FilterSelectionDataInfo {
             if selectionData.filter is ListSelectionFilterInfoType {
                 return titlesForListFilterSelectionValue(selectionData)
             } else {
-                return [titleForMultiLevelFilterSelectionValue(selectionData)]
+                return titleForMultiLevelFilterSelectionValue(selectionData)
             }
         } else if let selectionData = selectionData as? FilterRangeSelectionInfo {
-            return [titlesForRangeSelectionValue(selectionData.value, in: selectionData.filter)]
+            return titlesForRangeSelectionValue(selectionData.value, in: selectionData.filter)
         } else if let selectionData = selectionData as? FilterStepperSelectionInfo {
-            return [titleForStepperSelectionValue(selectionData.value, in: selectionData.filter)]
+            return titleForStepperSelectionValue(selectionData.value, in: selectionData.filter)
         }
-        return []
+        return ""
     }
 }
 
 private extension FilterSelectionTitleProvider {
-    func titlesForListFilterSelectionValue(_ selection: FilterSelectionDataInfo) -> [String] {
+    func titlesForListFilterSelectionValue(_ selection: FilterSelectionDataInfo) -> String {
         guard let listFilter = selection.filter as? ListSelectionFilterInfoType else {
-            return []
+            return ""
         }
 
-        let selectedValues = listFilter.values.filter({ selection.value.contains($0.value) })
-        return selectedValues.map({ $0.title })
+        let selectedValue = listFilter.values.first(where: { $0.value == selection.value })
+        return selectedValue?.title ?? ""
     }
 
     func titleForMultiLevelFilterSelectionValue(_ selection: FilterSelectionDataInfo) -> String {

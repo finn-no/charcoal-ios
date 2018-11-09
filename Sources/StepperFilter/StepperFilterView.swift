@@ -14,7 +14,7 @@ public class StepperFilterView: UIControl {
 
     // MARK: - Public properties
 
-    public var value = 1 {
+    public var value: Int {
         didSet { updateUI(forValue: value) }
     }
 
@@ -57,8 +57,10 @@ public class StepperFilterView: UIControl {
 
     public init(filterInfo: StepperFilterInfoType) {
         self.filterInfo = filterInfo
+        value = filterInfo.lowerLimit
         super.init(frame: .zero)
         setup()
+        updateUI(forValue: value)
     }
 
     required init?(coder aDecoder: NSCoder) {

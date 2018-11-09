@@ -230,6 +230,8 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         if filterInfo is RangeFilterInfoType {
             removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
             removeSelectionValues(rangeFilterKeyHigh(fromBaseKey: filterKey))
+        } else if filterInfo is StepperFilterInfoType {
+            removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
         } else {
             removeSelectionValues(filterKey)
 

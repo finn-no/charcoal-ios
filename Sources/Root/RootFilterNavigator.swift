@@ -24,8 +24,6 @@ public class RootFilterNavigator: NSObject, Navigator {
         self.navigationController = navigationController
         self.factory = factory
         super.init()
-
-        navigationController.onViewDidLoad = navigationControllerViewDidLoad
     }
 
     public func start() {
@@ -80,12 +78,6 @@ public class RootFilterNavigator: NSObject, Navigator {
 private extension RootFilterNavigator {
     var filterRootViewController: FilterRootViewController? {
         return navigationController.viewControllers.first as? FilterRootViewController
-    }
-
-    func navigationControllerViewDidLoad(_ filterNavigationController: FilterNavigationController) {
-        if let bottomSheetPresentationController = filterNavigationController.presentationController as? BottomSheetPresentationController {
-            bottomSheetPresentationController.delegate = filterRootViewController
-        }
     }
 
     func presentVerticals(with verticals: [Vertical], and sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {

@@ -55,7 +55,6 @@ public class FilterRootViewController: UIViewController {
 
     public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
         let delegate = BottomSheetTransitioningDelegate(for: self)
-        delegate.presentationControllerDelegate = self
         return delegate
     }()
 
@@ -219,30 +218,13 @@ private extension FilterRootViewController {
     }
 }
 
-extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
-    public func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomSheetPresentationController.ContentSizeMode) -> Bool {
-        switch contentSizeMode {
-        case .expanded:
-            let isDownwardTranslation = translation.y > 0.0
-
-            if isDownwardTranslation {
-                isScrollEnabled = !isScrolledToTop
-                return isScrolledToTop
-            } else {
-                return false
-            }
-        default:
-            return true
-        }
+extension FilterRootViewController: AnyFilterViewController {
+    public var mainScrollableContentView: UIScrollView? {
+        return tableView
     }
 
-    public func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
-        switch (current, new) {
-        case (_, .compact):
-            isScrollEnabled = false
-        case (_, .expanded):
-            isScrollEnabled = true
-        }
+    public var isMainScrollableViewScrolledToTop: Bool {
+        return isScrolledToTop
     }
 }
 
@@ -255,6 +237,8 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
         }))
     }
 }
+
+// MARK: -
 
 extension FilterRootViewController: FilterCellDelegate {
     func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int) {

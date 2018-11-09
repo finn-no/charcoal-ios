@@ -18,6 +18,8 @@ public struct FilterSelectionTitleProvider {
             }
         } else if let selectionData = selectionData as? FilterRangeSelectionInfo {
             return [titlesForRangeSelectionValue(selectionData.value, in: selectionData.filter)]
+        } else if let selectionData = selectionData as? FilterStepperSelectionInfo {
+            return [titleForStepperSelectionValue(selectionData.value, in: selectionData.filter)]
         }
         return []
     }
@@ -35,6 +37,10 @@ private extension FilterSelectionTitleProvider {
 
     func titleForMultiLevelFilterSelectionValue(_ selection: FilterSelectionDataInfo) -> String {
         return selection.filter.title
+    }
+
+    func titleForStepperSelectionValue(_ value: Int, in filter: StepperFilterInfoType) -> String {
+        return "\(value)+"
     }
 
     func titlesForRangeSelectionValue(_ range: RangeValue, in filter: RangeFilterInfoType) -> String {

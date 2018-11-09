@@ -128,6 +128,8 @@ extension FilterRootViewController: UITableViewDelegate {
             navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
         case let searchQueryFilterInfo as SearchQueryFilterInfoType:
             navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
+        case let stepperFilterInfo as StepperFilterInfoType:
+            navigator.navigate(to: .stepperFilter(filterInfo: stepperFilterInfo, delegate: self))
         default:
             break
         }
@@ -172,6 +174,13 @@ extension FilterRootViewController: UITableViewDataSource {
         case let rangeInfo as RangeFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = rangeInfo.title
+            cell.selectedValues = selectionValues
+            cell.accessoryType = .disclosureIndicator
+            cell.delegate = self
+            return cell
+        case let stepperInfo as StepperFilterInfoType:
+            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
+            cell.filterName = stepperInfo.title
             cell.selectedValues = selectionValues
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self

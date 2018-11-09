@@ -44,6 +44,10 @@ private extension FilterInfoBuilder {
         return SearchQueryFilterInfo(parameterName: "q", value: nil, placeholderText: "Ord i annonsen", title: "Filtrer søket")
     }
 
+    func buildStepperFilterInfo(from filterData: FilterData) -> StepperFilterInfoType {
+        return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
+    }
+
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
@@ -109,7 +113,10 @@ private extension FilterInfoBuilder {
                 return
             }
 
-            if filterData.isRange {
+            if key == .noOfBedrooms {
+                let stepperFilterInfo = buildStepperFilterInfo(from: filterData)
+                filterInfo.append(stepperFilterInfo)
+            } else if filterData.isRange {
                 let rangeInfoFilterBuilder = RangeFilterInfoBuilder(filter: filter)
                 if let rangeFilterInfo = rangeInfoFilterBuilder.buildRangeFilterInfo(from: filterData) {
                     filterInfo.append(rangeFilterInfo)

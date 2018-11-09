@@ -74,4 +74,10 @@ extension FilterDependencyContainer: ViewControllerFactory {
 
         return filterViewController
     }
+
+    public func makeStepperFilterViewController(with filterInfo: StepperFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<StepperFilterViewController>? {
+        let filterViewController = FilterViewController<StepperFilterViewController>(filterInfo: filterInfo, selectionDataSource: selectionDataSource, navigator: navigator)
+        filterViewController?.delegate = delegate
+        return filterViewController
+    }
 }

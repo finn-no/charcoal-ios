@@ -30,7 +30,7 @@ class DemoViewsTableViewController: UITableViewController {
 
         if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
             let transitionStyle = Sections.transitionStyle(for: indexPath)
-            presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
+            presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         }
     }
 
@@ -70,7 +70,7 @@ extension DemoViewsTableViewController {
         Sections.lastSelectedIndexPath = indexPath
         if let viewController = Sections.viewController(for: indexPath) {
             let transitionStyle = Sections.transitionStyle(for: indexPath)
-            presentViewControllerWithDismissGesture(viewController, transitionStyle: transitionStyle)
+            presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         }
     }
 
@@ -89,7 +89,7 @@ extension DemoViewsTableViewController {
 }
 
 extension DemoViewsTableViewController {
-    func presentViewControllerWithDismissGesture(_ viewController: UIViewController, transitionStyle: TransitionStyle) {
+    func presentViewControllerWithPossibleDismissGesture(_ viewController: UIViewController, transitionStyle: TransitionStyle) {
         switch transitionStyle {
         case .bottomSheet:
             bottomsheetTransitioningDelegate = BottomSheetTransitioningDelegate(for: self)
@@ -100,9 +100,11 @@ extension DemoViewsTableViewController {
         }
 
         present(viewController, animated: true) {
-            let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(self.closeCurrentlyPresentedViewController))
-            dismissGesture.numberOfTapsRequired = 2
-            viewController.view.addGestureRecognizer(dismissGesture)
+            if transitionStyle != .bottomSheet {
+                let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(self.closeCurrentlyPresentedViewController))
+                dismissGesture.numberOfTapsRequired = 2
+                viewController.view.addGestureRecognizer(dismissGesture)
+            }
         }
     }
 

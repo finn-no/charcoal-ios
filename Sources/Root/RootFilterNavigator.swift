@@ -12,6 +12,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         case verticalSelectionInPopover(verticals: [Vertical], sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
         case searchQueryFilter(filterInfo: SearchQueryFilterInfoType, delegate: FilterViewControllerDelegate)
+        case stepperFilter(filterInfo: StepperFilterInfoType, delegate: FilterViewControllerDelegate)
     }
 
     public typealias Factory = ViewControllerFactory & FilterNavigtorFactory
@@ -23,8 +24,6 @@ public class RootFilterNavigator: NSObject, Navigator {
         self.navigationController = navigationController
         self.factory = factory
         super.init()
-
-        navigationController.onViewDidLoad = navigationControllerViewDidLoad
     }
 
     public func start() {
@@ -68,6 +67,10 @@ public class RootFilterNavigator: NSObject, Navigator {
             } else {
                 navigationController.pushViewController(searchQueryViewController, animated: true)
             }
+        case let .stepperFilter(filterInfo, delegate):
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            guard let stepperFilterViewController = factory.makeStepperFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else { return }
+            navigationController.pushViewController(stepperFilterViewController, animated: true)
         }
     }
 }
@@ -75,12 +78,6 @@ public class RootFilterNavigator: NSObject, Navigator {
 private extension RootFilterNavigator {
     var filterRootViewController: FilterRootViewController? {
         return navigationController.viewControllers.first as? FilterRootViewController
-    }
-
-    func navigationControllerViewDidLoad(_ filterNavigationController: FilterNavigationController) {
-        if let bottomSheetPresentationController = filterNavigationController.presentationController as? BottomSheetPresentationController {
-            bottomSheetPresentationController.delegate = filterRootViewController
-        }
     }
 
     func presentVerticals(with verticals: [Vertical], and sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {

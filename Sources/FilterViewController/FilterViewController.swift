@@ -12,7 +12,7 @@ public protocol ApplySelectionButtonOwner: AnyObject {
     var showsApplySelectionButton: Bool { get set }
 }
 
-public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController, ApplySelectionButtonOwner {
+public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController, ApplySelectionButtonOwner, AnyFilterViewController {
     private lazy var safeLayoutGuide: UILayoutGuide = {
         if #available(iOS 11.0, *) {
             return view.safeAreaLayoutGuide
@@ -57,6 +57,14 @@ public final class FilterViewController<ChildViewController: FilterContainerView
             }
             parentApplySelectionButtonOwner?.showsApplySelectionButton = showsApplySelectionButton
         }
+    }
+
+    public var mainScrollableContentView: UIScrollView? {
+        return (filterContainerViewController as? ScrollableContainerViewController)?.mainScrollableView
+    }
+
+    public var isMainScrollableViewScrolledToTop: Bool {
+        return (filterContainerViewController as? ScrollableContainerViewController)?.isMainScrollableViewScrolledToTop ?? true
     }
 
     public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {

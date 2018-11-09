@@ -41,6 +41,9 @@ class BottomSheetDemoViewController: UITableViewController {
 }
 
 extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelegate {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, didTransitionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
+    }
+
     func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomSheetPresentationController.ContentSizeMode) -> Bool {
         switch contentSizeMode {
         case .expanded:
@@ -57,7 +60,7 @@ extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelega
         }
     }
 
-    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTransitionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
         switch (current, new) {
         case (_, .compact):
             tableView.isScrollEnabled = false

@@ -110,3 +110,9 @@ private extension ListViewController {
         ])
     }
 }
+
+extension ListViewController: ScrollableContainerViewController {
+    public var mainScrollableView: UIScrollView {
+        return tableView
+    }
+}

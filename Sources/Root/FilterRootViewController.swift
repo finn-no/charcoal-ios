@@ -55,7 +55,6 @@ public class FilterRootViewController: UIViewController {
 
     public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
         let delegate = BottomSheetTransitioningDelegate(for: self)
-        delegate.presentationControllerDelegate = self
         return delegate
     }()
 
@@ -128,6 +127,8 @@ extension FilterRootViewController: UITableViewDelegate {
             navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
         case let searchQueryFilterInfo as SearchQueryFilterInfoType:
             navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
+        case let stepperFilterInfo as StepperFilterInfoType:
+            navigator.navigate(to: .stepperFilter(filterInfo: stepperFilterInfo, delegate: self))
         default:
             break
         }
@@ -176,6 +177,13 @@ extension FilterRootViewController: UITableViewDataSource {
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
+        case let stepperInfo as StepperFilterInfoType:
+            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
+            cell.filterName = stepperInfo.title
+            cell.selectedValues = selectionValues
+            cell.accessoryType = .disclosureIndicator
+            cell.delegate = self
+            return cell
         default:
             fatalError("Unimplemented component \(String(describing: filterInfo))")
         }
@@ -210,30 +218,13 @@ private extension FilterRootViewController {
     }
 }
 
-extension FilterRootViewController: BottomSheetPresentationControllerDelegate {
-    public func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomSheetPresentationController.ContentSizeMode) -> Bool {
-        switch contentSizeMode {
-        case .expanded:
-            let isDownwardTranslation = translation.y > 0.0
-
-            if isDownwardTranslation {
-                isScrollEnabled = !isScrolledToTop
-                return isScrolledToTop
-            } else {
-                return false
-            }
-        default:
-            return true
-        }
+extension FilterRootViewController: AnyFilterViewController {
+    public var mainScrollableContentView: UIScrollView? {
+        return tableView
     }
 
-    public func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTranstionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
-        switch (current, new) {
-        case (_, .compact):
-            isScrollEnabled = false
-        case (_, .expanded):
-            isScrollEnabled = true
-        }
+    public var isMainScrollableViewScrolledToTop: Bool {
+        return isScrolledToTop
     }
 }
 
@@ -246,6 +237,8 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
         }))
     }
 }
+
+// MARK: -
 
 extension FilterRootViewController: FilterCellDelegate {
     func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int) {

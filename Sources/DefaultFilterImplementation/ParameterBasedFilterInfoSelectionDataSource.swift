@@ -238,6 +238,8 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             return values
         } else if let rangeFilterInfo = filterInfo as? RangeFilterInfo, let value = rangeValue(for: rangeFilterInfo) {
             return [FilterRangeSelectionInfo(filter: rangeFilterInfo, value: value)]
+        } else if let stepperFilterInfo = filterInfo as? StepperFilterInfo, let value = stepperValue(for: stepperFilterInfo) {
+            return [FilterStepperSelectionInfo(filter: stepperFilterInfo, value: value)]
         } else if let rootValue = value(for: filterInfo) {
             return [FilterSelectionDataInfo(filter: filterInfo, value: rootValue)]
         }
@@ -311,6 +313,8 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         if filterInfo is RangeFilterInfoType {
             removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
             removeSelectionValues(rangeFilterKeyHigh(fromBaseKey: filterKey))
+        } else if filterInfo is StepperFilterInfoType {
+            removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
         } else {
             removeSelectionValues(filterKey)
 
@@ -349,11 +353,19 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         }
     }
 
-    public func setValue(_ range: RangeValue, for filterInfo: RangeFilterInfoType) {
+    public func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
         guard let filterKey = filterParameter(for: filterInfo) else {
             return
         }
         setRangeSelectionValue(range, for: filterKey)
         DebugLog.write(self)
+    }
+
+    public func stepperValue(for filterInfo: StepperFilterInfoType) -> Int? {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return nil
+        }
+        let low = intOrNil(from: selectionValues(for: rangeFilterKeyLow(fromBaseKey: filterKey)).first)
+        return low
     }
 }

@@ -77,16 +77,18 @@ private extension FilterInfoBuilder {
     func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
         guard let filters = filterData.queries?.map({ query -> MultiLevelListSelectionFilterInfo in
             let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter)
-            let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, results: query.totalResults, value: query.value)
+            let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, isMultiSelect: filterData.key != .category, results: query.totalResults, value: query.value)
             filter.setSubLevelFilters(queryFilters)
             multiLevelFilterLookup[filter.lookupKey] = filter
+            selectionDataSource.updateSelectionStateForFilter(filter)
             return filter
         }) else {
             return nil
         }
-        let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, results: 0, value: "")
+        let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, isMultiSelect: filterData.key != .category, results: 0, value: "")
         filter.setSubLevelFilters(filters)
         multiLevelFilterLookup[filter.lookupKey] = filter
+        selectionDataSource.updateSelectionStateForFilter(filter)
         return filter
     }
 
@@ -96,10 +98,10 @@ private extension FilterInfoBuilder {
         }
         let queryFilters = queryFilter.queries.map({ filterQueries -> MultiLevelListSelectionFilterInfo in
             let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter)
-            let filter = MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, title: filterQueries.title, results: filterQueries.totalResults, value: filterQueries.value)
+            let filter = MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, title: filterQueries.title, isMultiSelect: true, results: filterQueries.totalResults, value: filterQueries.value)
             filter.setSubLevelFilters(subQueryFilters)
-            filter.updateSelectionState(selectionDataSource)
             multiLevelFilterLookup[filter.lookupKey] = filter
+            selectionDataSource.updateSelectionStateForFilter(filter)
             return filter
         })
         return queryFilters

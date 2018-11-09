@@ -50,12 +50,24 @@ public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
         })
         return queryItems
     }
+
+    func updateSelectionStateForFilter(_ filter: MultiLevelListSelectionFilterInfo) {
+        if let childrenSelectionState = filter.selectionStateOfChildren(), childrenSelectionState != .none {
+            filter.selectionState = childrenSelectionState
+        } else {
+            if let filterSelectionValue = value(for: filter), filterSelectionValue.contains(filter.value) {
+                filter.selectionState = .selected
+            }
+        }
+    }
 }
 
 private extension ParameterBasedFilterInfoSelectionDataSource {
-    func setSelectionValues(_ values: [String], for key: String) {
+    func setSelectionValues(_ values: [String], for key: String, callDelegate: Bool = true) {
         selectionValues[key] = values
-        delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
+        if callDelegate {
+            delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
+        }
     }
 
     func setSelectionValue(_ value: String, for key: String) {
@@ -73,9 +85,9 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         setSelectionValues(values, for: key)
     }
 
-    func removeSelectionValue(_ value: String, for key: String) {
+    func removeSelectionValue(_ value: String, for key: String, callDelegate: Bool = true) {
         if let previousValues = selectionValues[key] {
-            setSelectionValues(previousValues.filter({ $0 != value }), for: key)
+            setSelectionValues(previousValues.filter({ $0 != value }), for: key, callDelegate: callDelegate)
         }
     }
 
@@ -122,12 +134,17 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         return Int(value)
     }
 
-    func updateSelectionStateForParents(of multiLevelFilter: MultiLevelListSelectionFilterInfo) {
+    func updateSelectionStateForAncestors(of multiLevelFilter: MultiLevelListSelectionFilterInfo) {
         guard let parent = multiLevelFilter.parent as? MultiLevelListSelectionFilterInfo else {
             return
         }
-        parent.updateSelectionState(self)
-        updateSelectionStateForParents(of: parent)
+        if let selectionStateOfChildren = parent.selectionStateOfChildren() {
+            parent.selectionState = selectionStateOfChildren
+            if selectionStateOfChildren == .none {
+                clearValue(parent.value, for: parent)
+            }
+        }
+        updateSelectionStateForAncestors(of: parent)
     }
 
     func isAncestor(_ ancestor: MultiLevelListSelectionFilterInfo, to multiLevelFilter: MultiLevelListSelectionFilterInfoType?) -> Bool {
@@ -150,6 +167,41 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
     func rangeFilterKeyHigh(fromBaseKey filterKey: String) -> String {
         return filterKey + "_to"
     }
+
+    func removeValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType, updateSelectionStateForParent: Bool) {
+        for childFilter in filterInfo.filters {
+            removeValueAndValueForChildren(for: childFilter, updateSelectionStateForParent: false)
+            if let filterKey = filterParameter(for: childFilter) {
+                removeSelectionValue(childFilter.value, for: filterKey, callDelegate: false)
+            }
+        }
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.selectionState = .none
+            removeValue(multiLevelFilter.value, for: multiLevelFilter)
+
+            if updateSelectionStateForParent {
+                updateSelectionStateForAncestors(of: multiLevelFilter)
+            }
+        }
+        delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
+    }
+
+    func removeValue(_ value: String, for filterInfo: FilterInfoType) {
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        removeSelectionValue(value, for: filterKey)
+
+        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+            multiLevelFilter.selectionState = .none
+            if let selectionStateOfChildren = multiLevelFilter.selectionStateOfChildren() {
+                multiLevelFilter.selectionState = selectionStateOfChildren
+            }
+
+            updateSelectionStateForAncestors(of: multiLevelFilter)
+        }
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource {
@@ -170,6 +222,12 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             selectionValues.forEach { selectionValuesAndKey in
                 selectionValuesAndKey.value.forEach({ selectionValue in
                     if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfo.LookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
+                        guard selectedFilterInfo.selectionState == .selected else {
+                            return
+                        }
+                        if let parent = selectedFilterInfo.parent as? MultiLevelListSelectionFilterInfo, parent.selectionState == .selected {
+                            return
+                        }
                         if selectedFilterInfo === multiLevelFilterInfo || isAncestor(multiLevelFilterInfo, to: selectedFilterInfo) {
                             values.append(FilterSelectionDataInfo(filter: selectedFilterInfo, value: [selectedFilterInfo.value]))
                         }
@@ -221,8 +279,11 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         }
 
         if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
-            multiLevelFilter.updateSelectionState(self)
-            updateSelectionStateForParents(of: multiLevelFilter)
+            if let parent = multiLevelFilter.parent as? MultiLevelListSelectionFilterInfo, parent.hasParent, parent.selectionState == .none {
+                addValue(parent.value, for: parent)
+            }
+            multiLevelFilter.selectionState = .selected
+            updateSelectionStateForAncestors(of: multiLevelFilter)
         }
 
         DebugLog.write(self)
@@ -235,8 +296,11 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         addSelectionValue(value, for: filterKey)
 
         if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
-            multiLevelFilter.updateSelectionState(self)
-            updateSelectionStateForParents(of: multiLevelFilter)
+            multiLevelFilter.selectionState = .selected
+            if let parent = multiLevelFilter.parent as? MultiLevelListSelectionFilterInfo, parent.hasParent, parent.selectionState == .none {
+                addValue(parent.value, for: parent)
+            }
+            updateSelectionStateForAncestors(of: multiLevelFilter)
         }
 
         DebugLog.write(self)
@@ -255,24 +319,20 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
             removeSelectionValues(filterKey)
 
             if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
-                multiLevelFilter.updateSelectionState(self)
-                updateSelectionStateForParents(of: multiLevelFilter)
+                multiLevelFilter.selectionState = .none
+                updateSelectionStateForAncestors(of: multiLevelFilter)
             }
         }
         DebugLog.write(self)
     }
 
     public func clearValue(_ value: String, for filterInfo: FilterInfoType) {
-        guard let filterKey = filterParameter(for: filterInfo) else {
-            return
-        }
-        removeSelectionValue(value, for: filterKey)
+        removeValue(value, for: filterInfo)
+        DebugLog.write(self)
+    }
 
-        if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
-            multiLevelFilter.updateSelectionState(self)
-            updateSelectionStateForParents(of: multiLevelFilter)
-        }
-
+    public func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
+        removeValueAndValueForChildren(for: filterInfo, updateSelectionStateForParent: true)
         DebugLog.write(self)
     }
 

@@ -250,15 +250,12 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 // MARK: -
 
 extension FilterRootViewController: FilterCellDelegate {
-    func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex selectionValueIndex: Int) {
+    func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValue selectionValue: SelectionWithTitle) {
         guard let indexPath = tableView.indexPath(for: filterCell), let filterInfo = filterInfo(at: indexPath.row) else {
             return
         }
         if filterInfo is ListSelectionFilterInfo || filterInfo is MultiLevelListSelectionFilterInfo {
-            // TODO: That filterInfo is not always the correct one
-            if let selectionValue = filterCell.selectedValues?[safe: selectionValueIndex] {
-                selectionDataSource.clearSelection(at: 0, in: selectionValue.selectionInfo)
-            }
+            selectionDataSource.clearSelection(at: 0, in: selectionValue.selectionInfo)
         } else {
             selectionDataSource.clearAll(for: filterInfo)
         }

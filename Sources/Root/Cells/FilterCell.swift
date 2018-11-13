@@ -39,7 +39,7 @@ class FilterCell: UITableViewCell {
 
     var selectedValues: [SelectionWithTitle]? {
         didSet {
-            currentValuesContainer.selectedValues = selectedValues
+            currentValuesContainer.configure(with: selectedValues)
         }
     }
 
@@ -90,8 +90,8 @@ private extension FilterCell {
     }
 }
 
-extension FilterCell: CurrentSelectionValuesContainerViewDelegate {
-    func currentSelectionValuesContainerView(_: CurrentSelectionValuesContainerView, didTapRemoveSelection selection: SelectionWithTitle) {
+extension FilterCell: CurrentSelectionValuesContainerDelegate {
+    func currentSelectionValuesContainerView(_: CurrentSelectionValuesContainer, didTapRemoveSelection selection: SelectionWithTitle) {
         delegate?.filterCell(self, didTapRemoveSelectedValue: selection)
     }
 }

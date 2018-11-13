@@ -46,7 +46,7 @@ enum Sections: String {
         case .fullscreen:
             rawClassName = FullscreenViews.all[indexPath.row].rawValue
         }
-
+ 
         return rawClassName.replacingOccurrences(of: "DemoView", with: "").capitalizingFirstLetter
     }
 

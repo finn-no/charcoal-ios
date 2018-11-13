@@ -1,0 +1,9 @@
+{
+  "commitish" : "04a8dd388c09d407e4723d5f9c6b783051ef1d12",
+  "iOS" : [
+    {
+      "name" : "FinniversKit",
+      "hash" : "dbf608cd14041cd46994bf0cc0def958833d2e4eac07e305cc600dc3af70cb29"
+    }
+  ]
+}

@@ -3,3 +3,9 @@
 # Charcoal
 
 Filter UI for iOS
+
+# Demo
+
+<p align="center">
+  <img src="/GitHub/demo.gif"/>
+</p>

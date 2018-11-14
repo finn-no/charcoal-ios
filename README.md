@@ -1,6 +1,6 @@
 <p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/Charcoal.png" width="100%" /></p>
 
-**Charcoal** is a library that simplifies the creation of modern filtering experiences. It's a declarative framework that allows you in a flexible way to represent complex filtering flows in just a few steps. When building Charcoal we have taken major steps to ensure every UI element is refined to provide a great experience to your users.
+**Charcoal** is a declarative library that simplifies the creation of modern filtering experiences. It allows you in a flexible way to represent complex filtering flows in just a few steps. When building Charcoal we have taken major steps to ensure every UI element is refined to provide a great experience to your users.
 
 At FINN, filtering is one of the key elements of our native apps and we believe we are not alone on this, this is why we have taken the time and effort to share our countless hours of iterations and redesigns to share with you what we believe is one of the best filtering experiences, say hi to **Charcoal**.
 

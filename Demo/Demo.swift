@@ -177,7 +177,7 @@ enum ComponentViews: String {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil)
+            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             rootFilterNavigator.start()
@@ -239,7 +239,7 @@ enum FullscreenViews: String {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil)
+        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         rootFilterNavigator.start()
@@ -273,6 +273,9 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
 
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
     func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
+    }
+
+    func clearSelection(at selectionValueIndex: Int, in selectionInfo: FilterSelectionInfo) {
     }
 
     func stepperValue(for filterInfo: StepperFilterInfoType) -> Int? {

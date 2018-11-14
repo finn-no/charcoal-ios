@@ -5,12 +5,6 @@
 @testable import FilterKit
 import XCTest
 
-/*
- public protocol FilterSelectionDataSource: AnyObject {
- func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState
- }
- */
-
 class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     func testSelectionDataSourceShouldPreserveInitValues() {
         let filter = MockFilterInfo(parameterName: "test", title: "Test")
@@ -223,8 +217,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
             XCTAssertTrue(false, "Casting failed")
             return
         }
-        XCTAssertEqual(1, selectionValue.value.count)
-        XCTAssertEqual("456", selectionValue.value.first!)
+        XCTAssertEqual("456", selectionValue.value)
     }
 
     func testSelectionDataSourceShouldSupportClearing1FilterOnlyWhenMultiLevelFiltersDoesntShareParameter() {
@@ -246,8 +239,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
             XCTAssertTrue(false, "Casting failed")
             return
         }
-        XCTAssertEqual(1, selectionValue.value.count)
-        XCTAssertEqual("456", selectionValue.value.first!)
+        XCTAssertEqual("456", selectionValue.value)
     }
 
     func testSelectionDataSourceShouldSupportGettingSelectionStateForMultiLevelFilters() {

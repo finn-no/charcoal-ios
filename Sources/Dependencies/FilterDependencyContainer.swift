@@ -9,12 +9,14 @@ public class FilterDependencyContainer {
     private let selectionDataSource: FilterSelectionDataSource
     private let searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
     private weak var filterRootViewControllerDelegate: FilterRootViewControllerDelegate?
+    private let filterSelectionTitleProvider: FilterSelectionTitleProvider
 
-    public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?, filterDelegate: FilterRootViewControllerDelegate?) {
+    public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?, filterDelegate: FilterRootViewControllerDelegate?, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         self.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
         filterRootViewControllerDelegate = filterDelegate
+        self.filterSelectionTitleProvider = filterSelectionTitleProvider
     }
 }
 
@@ -62,7 +64,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeFilterRootViewController(navigator: RootFilterNavigator) -> FilterRootViewController {
-        let rootViewController = FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, selectionDataSource: selectionDataSource)
+        let rootViewController = FilterRootViewController(title: dataSource.filterTitle, navigator: navigator, dataSource: dataSource, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider)
         rootViewController.delegate = filterRootViewControllerDelegate
         return rootViewController
     }

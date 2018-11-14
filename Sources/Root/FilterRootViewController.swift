@@ -14,6 +14,7 @@ public class FilterRootViewController: UIViewController {
     private let dataSource: FilterDataSource
     public let selectionDataSource: FilterSelectionDataSource
     weak var delegate: FilterRootViewControllerDelegate?
+    let filterSelectionTitleProvider: FilterSelectionTitleProvider
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
@@ -58,10 +59,11 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
+    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
         self.navigator = navigator
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
+        self.filterSelectionTitleProvider = filterSelectionTitleProvider
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
@@ -109,8 +111,11 @@ private extension FilterRootViewController {
         return dataSource.filterInfo[safe: index]
     }
 
-    func selectionValuesForFilterComponent(at index: Int) -> [String] {
-        return dataSource.selectionValueTitlesForFilterInfoAndSubFilters(at: index)
+    func selectionValuesForFilterComponent(at index: Int) -> [FilterSelectionInfo] {
+        guard let filterInfo = self.filterInfo(at: index) else {
+            return []
+        }
+        return selectionDataSource.valueAndSubLevelValues(for: filterInfo)
     }
 }
 
@@ -147,7 +152,11 @@ extension FilterRootViewController: UITableViewDataSource {
         switch filterInfo {
         case let searchQueryInfo as SearchQueryFilterInfoType:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            cell.searchText = selectionValues.first
+            if let selectionValue = selectionValues.first {
+                cell.searchText = filterSelectionTitleProvider.titleForSelection(selectionValue)
+            } else {
+                cell.searchText = nil
+            }
             cell.placeholderText = searchQueryInfo.placeholderText
             cell.delegate = self
             return cell
@@ -159,28 +168,28 @@ extension FilterRootViewController: UITableViewDataSource {
         case let listSelectionInfo as ListSelectionFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = listSelectionInfo.title
-            cell.selectedValues = selectionValues
+            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
         case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = multiLevelListSelectionInfo.title
-            cell.selectedValues = selectionValues
+            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
         case let rangeInfo as RangeFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = rangeInfo.title
-            cell.selectedValues = selectionValues
+            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
         case let stepperInfo as StepperFilterInfoType:
             let cell = tableView.dequeue(FilterCell.self, for: indexPath)
             cell.filterName = stepperInfo.title
-            cell.selectedValues = selectionValues
+            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
             cell.accessoryType = .disclosureIndicator
             cell.delegate = self
             return cell
@@ -241,12 +250,15 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 // MARK: -
 
 extension FilterRootViewController: FilterCellDelegate {
-    func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValueAtIndex: Int) {
+    func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValue selectionValue: SelectionWithTitle) {
         guard let indexPath = tableView.indexPath(for: filterCell), let filterInfo = filterInfo(at: indexPath.row) else {
             return
         }
-        // TODO: That filterInfo is not always the correct one
-        selectionDataSource.clearAll(for: filterInfo)
+        if filterInfo is ListSelectionFilterInfo || filterInfo is MultiLevelListSelectionFilterInfo {
+            selectionDataSource.clearSelection(at: 0, in: selectionValue.selectionInfo)
+        } else {
+            selectionDataSource.clearAll(for: filterInfo)
+        }
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
 }

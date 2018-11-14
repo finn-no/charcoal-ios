@@ -1,3 +1,11 @@
+## [0.8] - Unreleased 
+- Added UI for a verticals selector
+- Fixed swipe handle animation not connected to bottomsheet 
+- Added stepper (-/+) UI for "number of bedrooms" filter
+- Tweaked how bottomsheet handles being panned up/down
+- Added an "all" item to multilevel filter
+- Removed the double-tap to close swipe gesture for views presented inside a bottomsheet, close them by tapping outside of bottomsheet instead
+
 ## [0.7] - 2018-10-19 
 - Improved range view
 - Showing apply button when a selection has changed

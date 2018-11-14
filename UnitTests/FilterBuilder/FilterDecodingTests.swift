@@ -106,15 +106,15 @@ private extension FilterDecodingTests {
         let filterDataElement = filterSetup?.filterData(forKey: .make)
 
         // When
-        let firstQueryElement = filterDataElement?.queries?.first
+        let firstQueryElement = filterDataElement?.queries.first
 
         // Then
         XCTAssertNotNil(filterDataElement)
-        XCTAssertEqual(filterDataElement?.key, .make)
+        XCTAssertEqual(FilterKey(stringValue: filterDataElement?.parameterName ?? ""), .make)
         XCTAssertEqual(filterDataElement?.parameterName, "make")
-        XCTAssertEqual(filterDataElement?.isRange, false)
+        XCTAssertNotEqual(filterDataElement?.isRange, true)
         XCTAssertEqual(filterDataElement?.title, "Merke")
-        XCTAssertEqual(filterDataElement?.queries?.count, 84)
+        XCTAssertEqual(filterDataElement?.queries.count, 84)
 
         XCTAssertNotNil(firstQueryElement)
         XCTAssertEqual(firstQueryElement?.title, "Abarth")
@@ -138,12 +138,12 @@ private extension FilterDecodingTests {
 
         // Then
         XCTAssertNotNil(filterDataElement)
-        XCTAssertEqual(filterDataElement?.key, .numberOfSeats)
+        XCTAssertEqual(FilterKey(stringValue: filterDataElement?.parameterName ?? ""), .numberOfSeats)
         XCTAssertEqual(filterDataElement?.parameterName, "number_of_seats")
         XCTAssertEqual(filterDataElement?.title, "Antall seter")
 
         XCTAssertEqual(filterDataElement?.isRange, true)
-        XCTAssertNil(filterDataElement?.queries)
+        XCTAssertEqual(filterDataElement?.queries.count, 0)
     }
 
     func testFilterDataWithQueriesWithoutFilterIsDecodedWithExpectedValues(filterSetup: FilterSetup?) {
@@ -151,14 +151,14 @@ private extension FilterDecodingTests {
         let filterDataElement = filterSetup?.filterData(forKey: .transmission)
 
         // When
-        let firstQueryElement = filterDataElement?.queries?.first
+        let firstQueryElement = filterDataElement?.queries.first
 
         // Then
         XCTAssertNotNil(filterDataElement)
-        XCTAssertEqual(filterDataElement?.key, .transmission)
+        XCTAssertEqual(FilterKey(stringValue: filterDataElement?.parameterName ?? ""), .transmission)
         XCTAssertEqual(filterDataElement?.parameterName, "transmission")
         XCTAssertEqual(filterDataElement?.title, "Girkasse")
-        XCTAssertEqual(filterDataElement?.isRange, false)
+        XCTAssertNotEqual(filterDataElement?.isRange, true)
 
         XCTAssertNotNil(firstQueryElement)
         XCTAssertEqual(firstQueryElement?.title, "Automat")

@@ -70,16 +70,16 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertEqual(publishedPreference?.preferenceName, publishedFilterData?.title)
 
         XCTAssertEqual(publishedPreference?.values.count, 1)
-        XCTAssertEqual(publishedPreference?.values.count, publishedFilterData?.queries?.count)
+        XCTAssertEqual(publishedPreference?.values.count, publishedFilterData?.queries.count)
 
         XCTAssertNotNil(publishedPreference?.values.first)
-        XCTAssertNotNil(publishedFilterData?.queries?.first)
+        XCTAssertNotNil(publishedFilterData?.queries.first)
 
         XCTAssertEqual(publishedPreference?.values.first?.title, "Nye i dag")
-        XCTAssertEqual(publishedPreference?.values.first?.title, publishedFilterData?.queries?.first?.title)
+        XCTAssertEqual(publishedPreference?.values.first?.title, publishedFilterData?.queries.first?.title)
 
         XCTAssertEqual(publishedPreference?.values.first?.results, 2307)
-        XCTAssertEqual(publishedPreference?.values.first?.results, publishedFilterData?.queries?.first?.totalResults)
+        XCTAssertEqual(publishedPreference?.values.first?.results, publishedFilterData?.queries.first?.totalResults)
     }
 
     func testFilterInfoBuilderBuildsMultiLevelFilterInfoWithExpectedValues() {
@@ -104,28 +104,28 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertEqual(makeMultiLevelFilterInfo?.title, "Merke")
         XCTAssertEqual(makeMultiLevelFilterInfo?.title, makeFilterData?.title)
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.count, 84)
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.count, makeFilterData?.queries?.count)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.count, makeFilterData?.queries.count)
 
         XCTAssertNotNil(makeMultiLevelFilterInfo?.filters.first)
-        XCTAssertNotNil(makeFilterData?.queries?.first)
+        XCTAssertNotNil(makeFilterData?.queries.first)
 
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.title, "Abarth")
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.title, makeFilterData?.queries?.first?.title)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.title, makeFilterData?.queries.first?.title)
 
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.results, 9)
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.results, makeFilterData?.queries?.first?.totalResults)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.results, makeFilterData?.queries.first?.totalResults)
 
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.count, 3)
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.count, makeFilterData?.queries?.first?.filter?.queries.count)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.count, makeFilterData?.queries.first?.filter?.queries.count)
 
         XCTAssertNotNil(makeMultiLevelFilterInfo?.filters.first?.filters.first)
-        XCTAssertNotNil(makeFilterData?.queries?.first?.filter?.queries.first)
+        XCTAssertNotNil(makeFilterData?.queries.first?.filter?.queries.first)
 
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.title, "124 Spider")
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.title, makeFilterData?.queries?.first?.filter?.queries.first?.title)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.title, makeFilterData?.queries.first?.filter?.queries.first?.title)
 
         XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.results, 2)
-        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.results, makeFilterData?.queries?.first?.filter?.queries.first?.totalResults)
+        XCTAssertEqual(makeMultiLevelFilterInfo?.filters.first?.filters.first?.results, makeFilterData?.queries.first?.filter?.queries.first?.totalResults)
     }
 
     func testFilterInfoBuilderBuildsRangeFilterInfoIfFilterDataIsRange() {
@@ -140,7 +140,7 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
 
         // When
         let filterInfoElements = builder?.build()
-        let rangeFilterData = filter?.filters.first(where: { $0.isRange })
+        let rangeFilterData = filter?.filters.first(where: { $0.isRange == true })
         let rangeFilterName = rangeFilterData?.title
         let rangeFilterInfo = filterInfoElements?.first(where: { $0.title == rangeFilterName }) as? RangeFilterInfoType
 
@@ -166,11 +166,16 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
 
     func testFilterDataWithQueriesWithFiltersiltersIsMultiLevelListSelectionFilter() {
         // Given
-        let filterDataElement = decodedTestFilter?.filterData(forKey: .make)
+        let filterDataElementOrNil = decodedTestFilter?.filterData(forKey: .make)
+
+        guard let filterDataElement = filterDataElementOrNil else {
+            XCTAssertNotNil(filterDataElementOrNil)
+            return
+        }
 
         // When
-        let isSelectionFilter = FilterInfoBuilder.isListSelectionFilter(filterData: filterDataElement!)
-        let isMultiLevelSelectionFilter = FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterDataElement!)
+        let isSelectionFilter = FilterInfoBuilder.isListSelectionFilter(filterData: filterDataElement)
+        let isMultiLevelSelectionFilter = FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterDataElement)
 
         XCTAssertNotNil(isSelectionFilter)
         XCTAssertEqual(isSelectionFilter, false)

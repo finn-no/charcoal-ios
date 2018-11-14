@@ -19,6 +19,14 @@ struct FilterData: Decodable {
         self.queries = queries ?? []
     }
 
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        title = try container.decode(String.self, forKey: CodingKeys.title)
+        parameterName = try container.decode(String.self, forKey: CodingKeys.parameterName)
+        isRange = try container.decodeIfPresent(Bool.self, forKey: CodingKeys.isRange)
+        queries = try container.decodeIfPresent([FilterDataQuery].self, forKey: CodingKeys.queries) ?? []
+    }
+
     static func decode(from dict: [AnyHashable: Any]?) -> FilterData? {
         guard let dict = dict else {
             return nil

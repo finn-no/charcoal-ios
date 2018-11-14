@@ -2,17 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-class PreferenceFilterInfo: PreferenceFilterInfoType {
-    let preferences: [PreferenceInfoType]
-    let title: String
-
-    init(preferences: [PreferenceInfoType], title: String) {
-        self.preferences = preferences
-        self.title = title
-    }
-}
-
-class PreferenceInfo: PreferenceInfoType, ParameterBasedFilterInfo {
+class PreferenceFilterInfo: PreferenceFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let title: String
     let values: [PreferenceValueType]

@@ -5,7 +5,7 @@
 import UIKit
 
 class PreferencesCell: UITableViewCell {
-    private var preferences: [PreferenceInfoType]?
+    private var preferences: [PreferenceFilterInfoType]?
 
     private lazy var preferenceSelectionView: PreferenceSelectionView = {
         let view = PreferenceSelectionView(frame: .zero)
@@ -33,7 +33,7 @@ class PreferencesCell: UITableViewCell {
         preferenceSelectionView.load(verticals: [], preferences: [])
     }
 
-    func setupWith(verticals: [Vertical], preferences: [PreferenceInfoType], delegate: PreferenceSelectionViewDelegate, selectionDataSource: FilterSelectionDataSource) {
+    func setupWith(verticals: [Vertical], preferences: [PreferenceFilterInfoType], delegate: PreferenceSelectionViewDelegate, selectionDataSource: FilterSelectionDataSource) {
         preferenceSelectionView.delegate = delegate
         preferenceSelectionView.selectionDataSource = selectionDataSource
 

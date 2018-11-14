@@ -5,8 +5,10 @@
 import Foundation
 
 public protocol FilterDataSource {
+    var searchQuery: SearchQueryFilterInfoType? { get }
     var verticals: [Vertical] { get }
-    var filterInfo: [FilterInfoType] { get }
+    var preferences: [PreferenceFilterInfoType] { get }
+    var filters: [FilterInfoType] { get }
     var numberOfHits: Int { get }
     var filterTitle: String { get }
 }

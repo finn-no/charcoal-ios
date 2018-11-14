@@ -21,7 +21,7 @@ class PreferenceValueSelectionView: UIView {
         return view
     }()
 
-    private let preference: PreferenceInfoType
+    private let preference: PreferenceFilterInfoType
     weak var selectionDataSource: FilterSelectionDataSource? {
         didSet {
             contentView.subviews.forEach { subview in
@@ -33,7 +33,7 @@ class PreferenceValueSelectionView: UIView {
         }
     }
 
-    init(preference: PreferenceInfoType) {
+    init(preference: PreferenceFilterInfoType) {
         self.preference = preference
         super.init(frame: .zero)
         setup()

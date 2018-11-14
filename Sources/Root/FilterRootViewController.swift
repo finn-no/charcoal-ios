@@ -10,6 +10,12 @@ public protocol FilterRootViewControllerDelegate: AnyObject {
 }
 
 public class FilterRootViewController: UIViewController {
+    enum Section: Int, CaseIterable {
+        case searchQuery = 0
+        case preferences
+        case filters
+    }
+
     private let navigator: RootFilterNavigator
     private let dataSource: FilterDataSource
     public let selectionDataSource: FilterSelectionDataSource
@@ -107,12 +113,22 @@ private extension FilterRootViewController {
         ])
     }
 
-    func filterInfo(at index: Int) -> FilterInfoType? {
-        return dataSource.filterInfo[safe: index]
+    func filterInfo(at indexPath: IndexPath) -> FilterInfoType? {
+        guard let section = Section(rawValue: indexPath.section) else {
+            return nil
+        }
+        switch section {
+        case .searchQuery:
+            return dataSource.searchQuery
+        case .preferences:
+            return nil
+        case .filters:
+            return dataSource.filters[safe: indexPath.row]
+        }
     }
 
-    func selectionValuesForFilterComponent(at index: Int) -> [FilterSelectionInfo] {
-        guard let filterInfo = self.filterInfo(at: index) else {
+    func selectionValuesForFilterComponent(at indexPath: IndexPath) -> [FilterSelectionInfo] {
+        guard let filterInfo = self.filterInfo(at: indexPath) else {
             return []
         }
         return selectionDataSource.valueAndSubLevelValues(for: filterInfo)
@@ -121,80 +137,112 @@ private extension FilterRootViewController {
 
 extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let filterInfo = self.filterInfo(at: indexPath.row)
+        guard let section = Section(rawValue: indexPath.section) else {
+            return
+        }
+        switch section {
+        case .searchQuery:
+            if let searchQuery = dataSource.searchQuery {
+                navigator.navigate(to: .searchQueryFilter(filterInfo: searchQuery, delegate: self))
+            }
+        case .preferences:
+            return
+        case .filters:
+            let filterInfo = self.filterInfo(at: indexPath)
 
-        switch filterInfo {
-        case let listSelectionFilterInfo as ListSelectionFilterInfoType:
-            navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, delegate: self))
-        case let multiLevelListSelectionFilterInfo as MultiLevelListSelectionFilterInfoType:
-            navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
-        case let rangeFilterInfo as RangeFilterInfoType:
-            navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
-        case let searchQueryFilterInfo as SearchQueryFilterInfoType:
-            navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
-        case let stepperFilterInfo as StepperFilterInfoType:
-            navigator.navigate(to: .stepperFilter(filterInfo: stepperFilterInfo, delegate: self))
-        default:
-            break
+            switch filterInfo {
+            case let listSelectionFilterInfo as ListSelectionFilterInfoType:
+                navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, delegate: self))
+            case let multiLevelListSelectionFilterInfo as MultiLevelListSelectionFilterInfoType:
+                navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
+            case let rangeFilterInfo as RangeFilterInfoType:
+                navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
+            case let stepperFilterInfo as StepperFilterInfoType:
+                navigator.navigate(to: .stepperFilter(filterInfo: stepperFilterInfo, delegate: self))
+            default:
+                break
+            }
         }
     }
 }
 
 extension FilterRootViewController: UITableViewDataSource {
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.allCases.count
+    }
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.filterInfo.count
+        guard let section = Section(rawValue: section) else {
+            return 0
+        }
+        switch section {
+        case .searchQuery:
+            return dataSource.searchQuery != nil ? 1 : 0
+        case .preferences:
+            return dataSource.preferences.count > 0 ? 1 : 0
+        case .filters:
+            return dataSource.filters.count
+        }
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let filterInfo = self.filterInfo(at: indexPath.row)
-        let selectionValues = selectionValuesForFilterComponent(at: indexPath.row)
-
-        switch filterInfo {
-        case let searchQueryInfo as SearchQueryFilterInfoType:
+        guard let section = Section(rawValue: indexPath.section) else {
+            fatalError("Unknown section")
+        }
+        switch section {
+        case .searchQuery:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            if let selectionValue = selectionValues.first {
+            if let searchQuery = dataSource.searchQuery, let selectionValue = selectionDataSource.valueAndSubLevelValues(for: searchQuery).first {
                 cell.searchText = filterSelectionTitleProvider.titleForSelection(selectionValue)
             } else {
                 cell.searchText = nil
             }
-            cell.placeholderText = searchQueryInfo.placeholderText
+            cell.placeholderText = dataSource.searchQuery?.placeholderText
             cell.delegate = self
             return cell
-        case let preferenceInfo as PreferenceFilterInfoType:
+
+        case .preferences:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
-            cell.setupWith(verticals: dataSource.verticals, preferences: preferenceInfo.preferences, delegate: self, selectionDataSource: selectionDataSource)
+            cell.setupWith(verticals: dataSource.verticals, preferences: dataSource.preferences, delegate: self, selectionDataSource: selectionDataSource)
             cell.selectionStyle = .none
             return cell
-        case let listSelectionInfo as ListSelectionFilterInfoType:
-            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
-            cell.filterName = listSelectionInfo.title
-            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
-            cell.accessoryType = .disclosureIndicator
-            cell.delegate = self
-            return cell
-        case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
-            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
-            cell.filterName = multiLevelListSelectionInfo.title
-            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
-            cell.accessoryType = .disclosureIndicator
-            cell.delegate = self
-            return cell
-        case let rangeInfo as RangeFilterInfoType:
-            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
-            cell.filterName = rangeInfo.title
-            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
-            cell.accessoryType = .disclosureIndicator
-            cell.delegate = self
-            return cell
-        case let stepperInfo as StepperFilterInfoType:
-            let cell = tableView.dequeue(FilterCell.self, for: indexPath)
-            cell.filterName = stepperInfo.title
-            cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
-            cell.accessoryType = .disclosureIndicator
-            cell.delegate = self
-            return cell
-        default:
-            fatalError("Unimplemented component \(String(describing: filterInfo))")
+
+        case .filters:
+            let filterInfo = self.filterInfo(at: indexPath)
+            let selectionValues = selectionValuesForFilterComponent(at: indexPath)
+
+            switch filterInfo {
+            case let listSelectionInfo as ListSelectionFilterInfoType:
+                let cell = tableView.dequeue(FilterCell.self, for: indexPath)
+                cell.filterName = listSelectionInfo.title
+                cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
+                cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
+                return cell
+            case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
+                let cell = tableView.dequeue(FilterCell.self, for: indexPath)
+                cell.filterName = multiLevelListSelectionInfo.title
+                cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
+                cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
+                return cell
+            case let rangeInfo as RangeFilterInfoType:
+                let cell = tableView.dequeue(FilterCell.self, for: indexPath)
+                cell.filterName = rangeInfo.title
+                cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
+                cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
+                return cell
+            case let stepperInfo as StepperFilterInfoType:
+                let cell = tableView.dequeue(FilterCell.self, for: indexPath)
+                cell.filterName = stepperInfo.title
+                cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
+                cell.accessoryType = .disclosureIndicator
+                cell.delegate = self
+                return cell
+            default:
+                fatalError("Unimplemented component \(String(describing: filterInfo))")
+            }
         }
     }
 }
@@ -251,7 +299,7 @@ extension FilterRootViewController: PreferenceSelectionViewDelegate {
 
 extension FilterRootViewController: FilterCellDelegate {
     func filterCell(_ filterCell: FilterCell, didTapRemoveSelectedValue selectionValue: SelectionWithTitle) {
-        guard let indexPath = tableView.indexPath(for: filterCell), let filterInfo = filterInfo(at: indexPath.row) else {
+        guard let indexPath = tableView.indexPath(for: filterCell), let filterInfo = filterInfo(at: indexPath) else {
             return
         }
         if filterInfo is ListSelectionFilterInfo || filterInfo is MultiLevelListSelectionFilterInfo {
@@ -268,7 +316,7 @@ extension FilterRootViewController: SearchQueryCellDelegate {
         guard let indexPath = tableView.indexPath(for: searchQueryCell) else {
             return
         }
-        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath.row) as? SearchQueryFilterInfoType else {
+        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath) as? SearchQueryFilterInfoType else {
             return
         }
         navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
@@ -278,7 +326,7 @@ extension FilterRootViewController: SearchQueryCellDelegate {
         guard let indexPath = tableView.indexPath(for: searchQueryCell) else {
             return
         }
-        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath.row) as? SearchQueryFilterInfoType else {
+        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath) as? SearchQueryFilterInfoType else {
             return
         }
         selectionDataSource.clearAll(for: searchQueryFilterInfo)

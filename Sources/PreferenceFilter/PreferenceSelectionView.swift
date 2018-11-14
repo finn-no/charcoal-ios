@@ -39,7 +39,7 @@ public final class PreferenceSelectionView: UIView {
     }()
 
     private(set) var verticals: [Vertical] = []
-    public private(set) var preferences: [PreferenceInfoType] = []
+    public private(set) var preferences: [PreferenceFilterInfoType] = []
     public weak var delegate: PreferenceSelectionViewDelegate?
     weak var selectionDataSource: FilterSelectionDataSource?
 
@@ -81,7 +81,7 @@ public final class PreferenceSelectionView: UIView {
 }
 
 public extension PreferenceSelectionView {
-    func load(verticals: [Vertical], preferences: [PreferenceInfoType]) {
+    func load(verticals: [Vertical], preferences: [PreferenceFilterInfoType]) {
         self.verticals = verticals
         self.preferences = preferences
         reload()
@@ -142,7 +142,7 @@ private extension PreferenceSelectionView {
         ])
     }
 
-    func layoutValueSectionView(with preference: PreferenceInfoType) {
+    func layoutValueSectionView(with preference: PreferenceFilterInfoType) {
         let valueSelectionView = PreferenceValueSelectionView(preference: preference)
         valueSelectionView.selectionDataSource = selectionDataSource
         valueSelectionView.translatesAutoresizingMaskIntoConstraints = false

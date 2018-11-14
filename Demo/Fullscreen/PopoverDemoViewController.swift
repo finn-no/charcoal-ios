@@ -122,7 +122,7 @@ extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
     }
 }
 
-struct PreferenceInfoDemo: PreferenceInfoType {
+struct PreferenceInfoDemo: PreferenceFilterInfoType {
     var preferenceName: String
     var values: [PreferenceValueType]
     var isMultiSelect: Bool

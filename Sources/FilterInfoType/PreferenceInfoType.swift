@@ -2,14 +2,10 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public protocol PreferenceInfoType: FilterInfoType {
+public protocol PreferenceFilterInfoType: FilterInfoType {
     var preferenceName: String { get }
     var values: [PreferenceValueType] { get }
     var isMultiSelect: Bool { get }
-}
-
-public protocol PreferenceFilterInfoType: FilterInfoType {
-    var preferences: [PreferenceInfoType] { get }
 }
 
 public protocol PreferenceValueType: ListItem {

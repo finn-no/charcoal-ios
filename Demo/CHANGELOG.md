@@ -5,6 +5,9 @@
 - Tweaked how bottomsheet handles being panned up/down
 - Added an "all" item to multilevel filter
 - Removed the double-tap to close swipe gesture for views presented inside a bottomsheet, close them by tapping outside of bottomsheet instead
+- Removing curent selection values from root filter page should always work now
+- If current selection remove buttons doesn't fit they collapse into 1 view
+- Update UI, fonts, separators, colors, swipe handle etc.
 
 ## [0.7] - 2018-10-19 
 - Improved range view

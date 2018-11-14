@@ -126,15 +126,23 @@ extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
 
 struct PreferenceInfoDemo: PreferenceFilterInfoType {
     var title: String
-    var values: [PreferenceValueType]
+    var values: [FilterValueType]
     var isMultiSelect: Bool
 }
 
-struct PreferenceValueTypeDemo: PreferenceValueType {
+struct PreferenceValueTypeDemo: FilterValueType {
     var title: String
     var value: String
     var results: Int
     var parentFilterInfo: FilterInfoType? {
         return nil
+    }
+
+    var detail: String? {
+        return String(results)
+    }
+
+    var showsDisclosureIndicator: Bool {
+        return false
     }
 }

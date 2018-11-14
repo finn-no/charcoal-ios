@@ -114,7 +114,7 @@ class PreferenceValueSelectionView: UIView {
         return selectionsForPreference.contains(value.value)
     }
 
-    private func isValueSelected(for value: PreferenceValueType) -> Bool {
+    private func isValueSelected(for value: FilterValueType) -> Bool {
         guard let selectionDataSource = selectionDataSource, let selectionsForPreference = selectionDataSource.value(for: preference) else {
             return false
         }

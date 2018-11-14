@@ -30,7 +30,7 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
     }
 
     private func toggleSelection(for listItem: ListItem) {
-        guard let item = listItem as? ListSelectionFilterValueType else {
+        guard let item = listItem as? FilterValueType else {
             return
         }
         let wasItemPreviouslySelected = isListItemSelected(item)
@@ -50,13 +50,13 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
     }
 
     private func isListItemSelected(_ listItem: ListItem) -> Bool {
-        guard let item = listItem as? ListSelectionFilterValueType else {
+        guard let item = listItem as? FilterValueType else {
             return false
         }
         return isListSelectionFilterValueSelected(item)
     }
 
-    private func isListSelectionFilterValueSelected(_ item: ListSelectionFilterValueType) -> Bool {
+    private func isListSelectionFilterValueSelected(_ item: FilterValueType) -> Bool {
         guard let currentSelection = selectionDataSource.value(for: filterInfo) else {
             return false
         }

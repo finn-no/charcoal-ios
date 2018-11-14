@@ -5,10 +5,10 @@
 class ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilterInfo {
     let parameterName: String
     let title: String
-    let values: [ListSelectionFilterValueType]
+    let values: [FilterValueType]
     let isMultiSelect: Bool
 
-    init(parameterName: String, title: String, values: [ListSelectionFilterValueType], isMultiSelect: Bool) {
+    init(parameterName: String, title: String, values: [FilterValueType], isMultiSelect: Bool) {
         self.parameterName = parameterName
         self.title = title
         self.values = values
@@ -18,7 +18,7 @@ class ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilter
     }
 }
 
-class FilterValue: ListSelectionFilterValueType, PreferenceValueType {
+class FilterValue: FilterValueType {
     let title: String
     let results: Int
     let value: String

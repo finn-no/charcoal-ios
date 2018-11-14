@@ -40,7 +40,10 @@ private extension RangeFilterInfoBuilder {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        switch filterData.key {
+        guard let filterKey = FilterKey(stringValue: filterData.parameterName) else {
+            return nil
+        }
+        switch filterKey {
         case .year:
             lowValue = 1950
             highValue = Calendar.current.component(.year, from: Date())
@@ -116,7 +119,10 @@ private extension RangeFilterInfoBuilder {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        switch filterData.key {
+        guard let filterKey = FilterKey(stringValue: filterData.parameterName) else {
+            return nil
+        }
+        switch filterKey {
         case .price, .priceCollective:
             lowValue = 0
             highValue = 10_000_000
@@ -201,7 +207,10 @@ private extension RangeFilterInfoBuilder {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        switch filterData.key {
+        guard let filterKey = FilterKey(stringValue: filterData.parameterName) else {
+            return nil
+        }
+        switch filterKey {
         case .price:
             lowValue = 0
             highValue = 30000

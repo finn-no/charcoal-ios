@@ -29,6 +29,8 @@
 		44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */; };
 		462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462EC166212D746900E6085C /* UIViewControllerExtensions.swift */; };
 		462EC168212D763B00E6085C /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893233209C743100512FF8 /* UITableViewExtensions.swift */; };
+		465F616B219B7A1900CF568B /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465F616A219B7A1900CF568B /* FilterData.swift */; };
+		465F616F219B7B8B00CF568B /* FilterDataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465F616E219B7B8B00CF568B /* FilterDataQuery.swift */; };
 		4670268D2170D38D00B9C952 /* SteppedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268C2170D38D00B9C952 /* SteppedSlider.swift */; };
 		4670268F2170DD3900B9C952 /* RangeReferenceValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268E2170DD3900B9C952 /* RangeReferenceValueView.swift */; };
 		46905233217F0D6000F8E7FD /* VerticalSetupDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */; };
@@ -217,6 +219,8 @@
 		44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Regular.ttf"; sourceTree = "<group>"; };
 		44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Bold.ttf"; sourceTree = "<group>"; };
 		462EC166212D746900E6085C /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		465F616A219B7A1900CF568B /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
+		465F616E219B7B8B00CF568B /* FilterDataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataQuery.swift; sourceTree = "<group>"; };
 		4670268C2170D38D00B9C952 /* SteppedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppedSlider.swift; sourceTree = "<group>"; };
 		4670268E2170DD3900B9C952 /* RangeReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeReferenceValueView.swift; sourceTree = "<group>"; };
 		46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSetupDemo.swift; sourceTree = "<group>"; };
@@ -387,7 +391,7 @@
 				44ECE693208F80320017AC82 /* BottomSheet */,
 				5510EDAA20BFCCFE006E4A0F /* CompactList */,
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
-				559C61F620DA4CAA0083A574 /* DefaultFilterImplementation */,
+				559C61F620DA4CAA0083A574 /* FINNFilterImplementation */,
 				55858A1E20AACFF000B100EA /* Dependencies */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				9BB827A7216CCF7D0014028C /* FilterInfoType */,
@@ -508,6 +512,16 @@
 				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		465F6167219B6ECF00CF568B /* BackendModel */ = {
+			isa = PBXGroup;
+			children = (
+				465F616A219B7A1900CF568B /* FilterData.swift */,
+				465F616E219B7B8B00CF568B /* FilterDataQuery.swift */,
+				55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */,
+			);
+			path = BackendModel;
 			sourceTree = "<group>";
 		};
 		46905238217F5CB500F8E7FD /* Vertical */ = {
@@ -647,17 +661,17 @@
 			path = FilterBuilder;
 			sourceTree = "<group>";
 		};
-		559C61F620DA4CAA0083A574 /* DefaultFilterImplementation */ = {
+		559C61F620DA4CAA0083A574 /* FINNFilterImplementation */ = {
 			isa = PBXGroup;
 			children = (
+				465F6167219B6ECF00CF568B /* BackendModel */,
 				9BB8279C216C9BCB0014028C /* FilterInfo */,
 				559C61F220DA4C3B0083A574 /* FilterBuilder */,
 				55BDA76C20DBC43F00331FFC /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
-				55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */,
 				9BC45F732153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift */,
 			);
-			path = DefaultFilterImplementation;
+			path = FINNFilterImplementation;
 			sourceTree = "<group>";
 		};
 		559C620120DA88330083A574 /* Test Data */ = {
@@ -1167,6 +1181,7 @@
 				55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */,
 				5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */,
 				5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */,
+				465F616B219B7A1900CF568B /* FilterData.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
 				559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
@@ -1230,6 +1245,7 @@
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
+				465F616F219B7B8B00CF568B /* FilterDataQuery.swift in Sources */,
 				559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */,
 				9BB827A4216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift in Sources */,
 				46F642542199C83B00C1D864 /* SelectionWithTitle.swift in Sources */,

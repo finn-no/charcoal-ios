@@ -1,5 +1,5 @@
 <p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/cover.gif" width="40%" /></p>
 
-# FilterKit
+# Charcoal
 
-Filter UI for iOS 
+Filter UI for iOS

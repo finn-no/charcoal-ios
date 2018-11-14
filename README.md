@@ -1,8 +1,12 @@
 <p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/Charcoal.png" width="100%" /></p>
 
-# Charcoal
+**Charcoal** is a library that simplifies the creation of modern filtering experiences. It's a declarative framework that allows you in a flexible way to represent complex filtering flows in just a few steps. When building Charcoal we have taken major steps to ensure every UI element is refined to provide a great experience to your users.
 
-Filter UI for iOS
+At FINN, filtering is one of the key elements of our native apps and we believe we are not alone on this, this is why we have taken the time and effort to share our countless hours of iterations and redesigns to share with you what we believe is one of the best filtering experiences, say hi to **Charcoal**.
+
+**Why Charcoal?**
+
+_Charcoal_ /ˈtʃɑːkəʊl/: _a porous black solid, consisting of an amorphous form of carbon, obtained as a residue when wood, bone, or other organic matter is heated in the absence of air. Used among other things as an effective component of filtering._
 
 # Demo
 

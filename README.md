@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/cover.gif" width="40%" /></p>
+<p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/Charcoal.png" width="40%" /></p>
 
 # Charcoal
 

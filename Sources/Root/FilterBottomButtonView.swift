@@ -59,7 +59,7 @@ private extension FilterBottomButtonView {
             separatorLine.topAnchor.constraint(equalTo: topAnchor),
             separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
         ])
     }
 

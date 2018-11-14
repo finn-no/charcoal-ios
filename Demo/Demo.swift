@@ -274,7 +274,7 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
     func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
     }
-      
+
     func stepperValue(for filterInfo: StepperFilterInfoType) -> Int? {
         return nil
     }

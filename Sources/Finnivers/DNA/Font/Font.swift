@@ -74,6 +74,11 @@ extension UIFont {
         return font.scaledFont(forTextStyle: .callout)
     }
 
+    static var regularBody: UIFont {
+        registerCustomFonts()
+        return UIFont(name: FontType.regular.rawValue, size: 16)!.scaledFont(forTextStyle: .callout)
+    }
+
     /// FINNTypeWebStrippet-Light with a size of 14 scaled for UIFontTextStyle.footnote
     ///
     /// ## Usage:

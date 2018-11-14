@@ -35,6 +35,7 @@ public final class BottomSheetPresentationController: UIPresentationController {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .milk
+        view.layer.cornerRadius = .mediumLargeSpacing
         view.isUserInteractionEnabled = false
         return view
     }()
@@ -106,11 +107,11 @@ public final class BottomSheetPresentationController: UIPresentationController {
             dimmingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
 
             swipeHandleContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            swipeHandleContainer.bottomAnchor.constraint(equalTo: presentedView.topAnchor),
+            swipeHandleContainer.bottomAnchor.constraint(equalTo: presentedView.topAnchor, constant: .mediumLargeSpacing),
             swipeHandleContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            swipeHandleContainer.topAnchor.constraint(equalTo: presentedView.topAnchor, constant: -.mediumLargeSpacing),
 
-            swipeHandle.topAnchor.constraint(equalTo: swipeHandleContainer.topAnchor, constant: .mediumSpacing),
-            swipeHandle.bottomAnchor.constraint(equalTo: swipeHandleContainer.bottomAnchor),
+            swipeHandle.bottomAnchor.constraint(equalTo: presentedView.topAnchor),
             swipeHandle.centerXAnchor.constraint(equalTo: swipeHandleContainer.centerXAnchor),
             swipeHandle.widthAnchor.constraint(equalToConstant: BottomSheetPresentationController.swipeHandleSize.width),
             swipeHandle.heightAnchor.constraint(equalToConstant: BottomSheetPresentationController.swipeHandleSize.height),

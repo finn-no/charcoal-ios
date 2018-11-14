@@ -15,7 +15,7 @@ class PreferenceValueSelectionView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         view.layer.cornerRadius = height / 2
-        view.layer.borderColor = .stone
+        view.layer.borderColor = .silver
         view.layer.borderWidth = 1.5
         view.clipsToBounds = true
         return view
@@ -77,7 +77,7 @@ class PreferenceValueSelectionView: UIView {
 
             if !isLast {
                 let separatorLine = UIView(frame: .zero)
-                separatorLine.backgroundColor = .stone
+                separatorLine.backgroundColor = .silver
                 separatorLine.translatesAutoresizingMaskIntoConstraints = false
                 contentView.addSubview(separatorLine)
                 constraints.append(contentsOf: [

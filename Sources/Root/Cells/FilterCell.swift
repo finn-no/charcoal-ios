@@ -12,7 +12,7 @@ class FilterCell: UITableViewCell {
     private lazy var nameLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .body
+        label.font = .regularBody
         label.textColor = .licorice
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
         return label
@@ -75,16 +75,16 @@ private extension FilterCell {
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             nameLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: .mediumSpacing),
 
             currentValuesContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             currentValuesContainer.topAnchor.constraint(greaterThanOrEqualTo: contentView.layoutMarginsGuide.topAnchor),
             currentValuesContainer.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: .mediumLargeSpacing),
             currentValuesContainer.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
 
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
+            separatorLine.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }

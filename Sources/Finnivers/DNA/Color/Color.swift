@@ -61,6 +61,14 @@ extension UIColor {
         return UIColor(r: 104, g: 226, b: 184)!
     }
 
+    class var silver: UIColor {
+        return UIColor(red: 212 / 255, green: 228 / 255, blue: 242 / 255, alpha: 1.0)
+    }
+
+    class var spaceGray: UIColor {
+        return UIColor(red: 128 / 255, green: 143 / 255, blue: 166 / 255, alpha: 1.0)
+    }
+
     convenience init?(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) {
         self.init(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
     }
@@ -121,6 +129,10 @@ extension CGColor {
 
     class var pea: CGColor {
         return UIColor.pea.cgColor
+    }
+
+    class var silver: CGColor {
+        return UIColor.silver.cgColor
     }
 }
 

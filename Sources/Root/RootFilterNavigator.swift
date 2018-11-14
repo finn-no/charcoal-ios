@@ -24,6 +24,7 @@ public class RootFilterNavigator: NSObject, Navigator {
         self.navigationController = navigationController
         self.factory = factory
         super.init()
+        navigationController.navigationBar.shadowImage = UIImage()
     }
 
     public func start() {

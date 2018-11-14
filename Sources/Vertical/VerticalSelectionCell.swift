@@ -52,7 +52,7 @@ private extension VerticalSelectionCell {
         addSubview(separatorLine)
 
         NSLayoutConstraint.activate([
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
             separatorLine.leadingAnchor.constraint(equalTo: textLabel?.leadingAnchor ?? leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),

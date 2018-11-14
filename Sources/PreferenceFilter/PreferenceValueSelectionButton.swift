@@ -14,7 +14,7 @@ class PreferenceValueSelectionButton: UIButton {
                 setTitleColor(.milk, for: .normal)
             } else {
                 backgroundColor = .milk
-                setTitleColor(.stone, for: .normal)
+                setTitleColor(.spaceGray, for: .normal)
             }
         }
     }
@@ -31,8 +31,8 @@ class PreferenceValueSelectionButton: UIButton {
 
     private func setup() {
         backgroundColor = .milk
-        setTitleColor(.stone, for: .normal)
+        setTitleColor(.spaceGray, for: .normal)
         setTitle(preferenceValue.title, for: .normal)
-        titleLabel?.font = .title5
+        titleLabel?.font = .title4
     }
 }

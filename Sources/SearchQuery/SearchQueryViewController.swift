@@ -173,7 +173,7 @@ private extension SearchQueryViewController {
             let appearance = UITextField.appearance(whenContainedInInstancesOf: [SearchQueryViewControllerSearchBar.self])
             appearance.defaultTextAttributes = [
                 NSAttributedString.Key.foregroundColor: UIColor.licorice,
-                NSAttributedString.Key.font: UIFont.title4,
+                NSAttributedString.Key.font: UIFont.regularBody,
             ]
         }()
 

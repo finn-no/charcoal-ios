@@ -103,7 +103,7 @@ private extension SearchQueryCell {
             let appearance = UITextField.appearance(whenContainedInInstancesOf: [SearchQueryCellSearchBar.self])
             appearance.defaultTextAttributes = [
                 NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
-                NSAttributedString.Key.font: UIFont.title4,
+                NSAttributedString.Key.font: UIFont.regularBody,
             ]
         }()
 

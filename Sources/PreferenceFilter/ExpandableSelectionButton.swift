@@ -14,7 +14,7 @@ public final class ExpandableSelectionButton: UIButton {
         contentEdgeInsets = UIEdgeInsets(top: .mediumSpacing, left: .mediumSpacing, bottom: .mediumSpacing, right: .mediumSpacing)
         semanticContentAttribute = .forceRightToLeft
         layer.borderWidth = borderWidth
-        layer.borderColor = .stone
+        layer.borderColor = .silver
         layer.cornerRadius = ExpandableSelectionButton.height / 2
         imageView?.tintColor = .stone
         imageView?.contentMode = .scaleAspectFit
@@ -61,14 +61,14 @@ private extension ExpandableSelectionButton {
     }
 
     private func titleAttributes(for state: UIControl.State) -> [NSAttributedString.Key: Any]? {
-        let font: UIFont = .title5
+        let font: UIFont = .title4
         let foregroundColor: UIColor
 
         switch state {
         case .normal:
-            foregroundColor = .stone
+            foregroundColor = .spaceGray
         case .highlighted:
-            foregroundColor = UIColor.stone.withAlphaComponent(0.8)
+            foregroundColor = UIColor.spaceGray.withAlphaComponent(0.8)
         case .selected:
             foregroundColor = .primaryBlue
         default:

@@ -66,7 +66,7 @@ class SelectionListItemCell: UITableViewCell {
 private extension SelectionListItemCell {
     func setup() {
         selectionStyle = .none
-        textLabel?.font = .body
+        textLabel?.font = .regularBody
         textLabel?.textColor = .licorice
         detailTextLabel?.font = .detail
         detailTextLabel?.textColor = .stone
@@ -75,7 +75,7 @@ private extension SelectionListItemCell {
         addSubview(separatorLine)
 
         NSLayoutConstraint.activate([
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / contentScaleFactor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
             separatorLine.leadingAnchor.constraint(equalTo: textLabel?.leadingAnchor ?? leadingAnchor),
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),

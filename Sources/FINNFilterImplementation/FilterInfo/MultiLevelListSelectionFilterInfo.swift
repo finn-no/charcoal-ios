@@ -20,6 +20,10 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
         return parent != nil
     }
 
+    var parentFilterInfo: FilterInfoType? {
+        return parent
+    }
+
     init(parameterName: String, title: String, isMultiSelect: Bool = true, results: Int, value: String) {
         self.parameterName = parameterName
         self.title = title

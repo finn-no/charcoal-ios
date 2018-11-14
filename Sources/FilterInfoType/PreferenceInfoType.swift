@@ -3,12 +3,11 @@
 //
 
 public protocol PreferenceFilterInfoType: FilterInfoType {
-    var preferenceName: String { get }
     var values: [PreferenceValueType] { get }
     var isMultiSelect: Bool { get }
 }
 
-public protocol PreferenceValueType: ListItem {
+public protocol PreferenceValueType: FilterValueType, ListItem {
     var title: String { get }
     var value: String { get }
     var results: Int { get }

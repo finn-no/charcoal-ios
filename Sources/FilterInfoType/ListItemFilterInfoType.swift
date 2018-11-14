@@ -7,7 +7,7 @@ public protocol ListSelectionFilterInfoType: FilterInfoType {
     var isMultiSelect: Bool { get }
 }
 
-public protocol ListSelectionFilterValueType: ListItem {
+public protocol ListSelectionFilterValueType: FilterValueType, ListItem {
     var title: String { get }
     var results: Int { get }
     var value: String { get }

@@ -57,7 +57,7 @@ private extension FilterInfoBuilder {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
         let preferences = filterDataArray.compactMap { filter -> PreferenceFilterInfoType? in
-            let values = filter.queries.map({ PreferenceValue(title: $0.title, results: $0.totalResults, value: $0.value) })
+            let values = filter.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value) })
 
             return PreferenceFilterInfo(parameterName: filter.parameterName, title: filter.title, values: values)
         }
@@ -66,7 +66,7 @@ private extension FilterInfoBuilder {
     }
 
     func buildSelectionListFilterInfo(from filterData: FilterData) -> ListSelectionFilterInfo? {
-        let values = filterData.queries.map({ ListSelectionFilterValue(title: $0.title, results: $0.totalResults, value: $0.value) })
+        let values = filterData.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value) })
 
         return ListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true)
     }

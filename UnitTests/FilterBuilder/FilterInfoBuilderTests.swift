@@ -52,7 +52,7 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         // When
         let buildResult = builder?.build()
         let preferenceFilterInfos = buildResult?.preferences
-        let publishedPreference = preferenceFilterInfos?.first(where: { $0.preferenceName == "Publisert" })
+        let publishedPreference = preferenceFilterInfos?.first(where: { $0.title == "Publisert" })
         let publishedFilterData = filter?.filterData(forKey: .published)
 
         // Then
@@ -63,8 +63,8 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertEqual(preferenceFilterInfos?.count, FilterMarket.car.preferenceFilterKeys.count)
 
         XCTAssertNotNil(publishedPreference)
-        XCTAssertEqual(publishedPreference?.preferenceName, "Publisert")
-        XCTAssertEqual(publishedPreference?.preferenceName, publishedFilterData?.title)
+        XCTAssertEqual(publishedPreference?.title, "Publisert")
+        XCTAssertEqual(publishedPreference?.title, publishedFilterData?.title)
 
         XCTAssertEqual(publishedPreference?.values.count, 1)
         XCTAssertEqual(publishedPreference?.values.count, publishedFilterData?.queries.count)

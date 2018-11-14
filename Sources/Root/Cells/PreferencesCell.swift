@@ -50,7 +50,7 @@ class PreferencesCell: UITableViewCell {
 
         if !dataChanged {
             dataChanged = previousPreferences.elementsEqual(preferences) { (lhs, rhs) -> Bool in
-                return lhs.preferenceName == rhs.preferenceName && lhs.title == rhs.title && lhs.values.count == rhs.values.count && lhs.values.elementsEqual(rhs.values, by: { $0.value == $1.value })
+                return lhs.title == rhs.title && lhs.title == rhs.title && lhs.values.count == rhs.values.count && lhs.values.elementsEqual(rhs.values, by: { $0.value == $1.value })
             }
         }
         if dataChanged {

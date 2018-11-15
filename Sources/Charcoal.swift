@@ -5,26 +5,26 @@
 import Foundation
 
 /// Class for referencing the framework bundle
-public class FilterKit {
+public class Charcoal {
     static var bundle: Bundle {
-        return Bundle(for: FilterKit.self)
+        return Bundle(for: Charcoal.self)
     }
 
     public static var isDynamicTypeEnabled: Bool = true
 }
 
 public extension Bundle {
-    static var filterKit: Bundle {
-        return FilterKit.bundle
+    static var charcoal: Bundle {
+        return Charcoal.bundle
     }
 }
 
 extension UIFont {
     var isDynamicTypeEnabled: Bool {
-        return FilterKit.isDynamicTypeEnabled
+        return Charcoal.isDynamicTypeEnabled
     }
 
     static var bundle: Bundle {
-        return .filterKit
+        return .charcoal
     }
 }

@@ -4,7 +4,7 @@ default_platform :ios
 
 platform :ios do
   
-  app_identifier = "no.finn.FilterKitDemo"
+  app_identifier = "no.finn.CharcoalDemo"
   username = "apps-enterprise@finn.no"
   team_id = '7KGFK8HSHU'
   git_url = "ssh://git@github.schibsted.io/finn/ios-app-certs-enterprise.git"

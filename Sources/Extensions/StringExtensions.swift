@@ -4,6 +4,6 @@
 
 extension String {
     func localized(withComment comment: String = "") -> String {
-        return NSLocalizedString(self, tableName: nil, bundle: FilterKit.bundle, value: "", comment: comment)
+        return NSLocalizedString(self, tableName: nil, bundle: Charcoal.bundle, value: "", comment: comment)
     }
 }

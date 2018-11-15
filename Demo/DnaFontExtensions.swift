@@ -2,15 +2,15 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
+import Charcoal
 import UIKit
 
 extension UIFont {
     var isDynamicTypeEnabled: Bool {
-        return FilterKit.isDynamicTypeEnabled
+        return Charcoal.isDynamicTypeEnabled
     }
 
     static var bundle: Bundle {
-        return .filterKit
+        return .charcoal
     }
 }

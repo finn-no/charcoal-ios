@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
+import Charcoal
 
 public class AssetsDemoView: UIView {
     let images = ImageAsset.imageNames

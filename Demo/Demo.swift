@@ -200,7 +200,7 @@ enum ComponentViews: String {
             return ViewController<StepperFilterDemoView>()
 
         case .searchQuery:
-            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
+            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"), dataSource: DemoEmptyDataSource(), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
             let navigationController = UINavigationController(rootViewController: searchQueryViewController)
             return navigationController
         }
@@ -311,5 +311,23 @@ class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
     }
 
     func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
+    }
+}
+
+struct DemoEmptyDataSource: FilterDataSource {
+    var searchQuery: SearchQueryFilterInfoType?
+
+    var verticals: [Vertical] = []
+
+    var preferences: [PreferenceFilterInfoType] = []
+
+    var filters: [FilterInfoType] = []
+
+    var numberOfHits: Int = 0
+
+    var filterTitle: String = "Demo"
+
+    func numberOfHits(for filterValue: FilterValueType) -> Int {
+        return 0
     }
 }

@@ -13,6 +13,7 @@ private class SelectAllItem: ListItem {
 
 public final class MultiLevelListSelectionFilterViewController: ListViewController, FilterContainerViewController {
     private let filterInfo: MultiLevelListSelectionFilterInfoType
+    private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
@@ -22,19 +23,21 @@ public final class MultiLevelListSelectionFilterViewController: ListViewControll
         return self
     }
 
-    public init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
+    public init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
             return nil
         }
 
         self.filterInfo = multiLevelFilterInfo
+        self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         var filters: [ListItem] = multiLevelFilterInfo.filters
         isSelectAllIncluded = !multiLevelFilterInfo.value.isEmpty
         if isSelectAllIncluded {
             let selectAllItem = SelectAllItem()
             selectAllItem.value = multiLevelFilterInfo.value
-            selectAllItem.detail = "\(multiLevelFilterInfo.results)"
+            let numberOfHits = dataSource.numberOfHits(for: multiLevelFilterInfo)
+            selectAllItem.detail = "\(numberOfHits)"
             filters.insert(selectAllItem, at: 0)
         }
         super.init(title: multiLevelFilterInfo.title, items: filters)

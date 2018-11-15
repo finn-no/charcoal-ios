@@ -28,6 +28,6 @@ public protocol FilterContainerViewControllerDelegate: AnyObject {
 
 public protocol FilterContainerViewController: AnyObject {
     var filterSelectionDelegate: FilterContainerViewControllerDelegate? { get set }
-    init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource)
+    init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource)
     var controller: UIViewController { get }
 }

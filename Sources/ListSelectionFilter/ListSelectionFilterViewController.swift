@@ -8,17 +8,19 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
     private let filterInfo: ListSelectionFilterInfoType
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
     private let selectionDataSource: FilterSelectionDataSource
+    private let dataSource: FilterDataSource
 
     public var controller: UIViewController {
         return self
     }
 
-    public init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
+    public init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         guard let listSelectionFilterInfo = filterInfo as? ListSelectionFilterInfoType else {
             return nil
         }
 
         self.filterInfo = listSelectionFilterInfo
+        self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         super.init(title: listSelectionFilterInfo.title, items: listSelectionFilterInfo.values)
         listViewControllerDelegate = self

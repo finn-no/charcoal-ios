@@ -67,8 +67,8 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         return (filterContainerViewController as? ScrollableContainerViewController)?.isMainScrollableViewScrolledToTop ?? true
     }
 
-    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
-        guard let child = ChildViewController(filterInfo: filterInfo, selectionDataSource: selectionDataSource) else {
+    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
+        guard let child = ChildViewController(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource) else {
             return nil
         }
 

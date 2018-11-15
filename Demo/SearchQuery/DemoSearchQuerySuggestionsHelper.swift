@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
+import Charcoal
 
 class DemoSearchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource {
     func searchQueryViewController(_: SearchQueryViewController, didRequestSuggestionsFor searchQuery: String, completion: @escaping ((String, [String]) -> Void)) {

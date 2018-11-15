@@ -8,6 +8,7 @@
 - Removing curent selection values from root filter page should always work now
 - If current selection remove buttons doesn't fit they collapse into 1 view
 - Update UI, fonts, separators, colors, swipe handle etc.
+- Renamed project to Charcoal
 
 ## [0.7] - 2018-10-19 
 - Improved range view

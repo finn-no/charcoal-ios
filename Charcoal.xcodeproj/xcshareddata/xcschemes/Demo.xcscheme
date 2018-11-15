@@ -17,7 +17,7 @@
                BlueprintIdentifier = "44ECE66A208F7FD00017AC82"
                BuildableName = "Demo.app"
                BlueprintName = "Demo"
-               ReferencedContainer = "container:FilterKit.xcodeproj">
+               ReferencedContainer = "container:Charcoal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "44ECE680208F7FDE0017AC82"
                BuildableName = "UnitTests.xctest"
                BlueprintName = "UnitTests"
-               ReferencedContainer = "container:FilterKit.xcodeproj">
+               ReferencedContainer = "container:Charcoal.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "44ECE66A208F7FD00017AC82"
             BuildableName = "Demo.app"
             BlueprintName = "Demo"
-            ReferencedContainer = "container:FilterKit.xcodeproj">
+            ReferencedContainer = "container:Charcoal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,7 +68,7 @@
             BlueprintIdentifier = "44ECE66A208F7FD00017AC82"
             BuildableName = "Demo.app"
             BlueprintName = "Demo"
-            ReferencedContainer = "container:FilterKit.xcodeproj">
+            ReferencedContainer = "container:Charcoal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -87,7 +87,7 @@
             BlueprintIdentifier = "44ECE66A208F7FD00017AC82"
             BuildableName = "Demo.app"
             BlueprintName = "Demo"
-            ReferencedContainer = "container:FilterKit.xcodeproj">
+            ReferencedContainer = "container:Charcoal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

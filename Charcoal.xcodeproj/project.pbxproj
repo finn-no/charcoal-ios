@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44ECE663208F7FA20017AC82 /* FilterKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 44ECE661208F7FA20017AC82 /* FilterKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		44ECE663208F7FA20017AC82 /* Charcoal.h in Headers */ = {isa = PBXBuildFile; fileRef = 44ECE661208F7FA20017AC82 /* Charcoal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE66D208F7FD00017AC82 /* AppDelegate.swift */; };
 		44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE674208F7FD20017AC82 /* Assets.xcassets */; };
 		44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */; };
-		44ECE686208F7FDE0017AC82 /* FilterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* FilterKit.framework */; };
-		44ECE68E208F7FF90017AC82 /* FilterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* FilterKit.framework */; };
-		44ECE68F208F7FF90017AC82 /* FilterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* FilterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44ECE686208F7FDE0017AC82 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
+		44ECE68E208F7FF90017AC82 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
+		44ECE68F208F7FF90017AC82 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE694208F80320017AC82 /* BottomSheetPresentationController.swift */; };
 		44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE695208F80320017AC82 /* BottomSheetTransitioningDelegate.swift */; };
 		44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */; };
 		44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */; };
-		44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE698208F80320017AC82 /* FilterKit.swift */; };
+		44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE698208F80320017AC82 /* Charcoal.swift */; };
 		44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A6208F816D0017AC82 /* ViewController.swift */; };
 		44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A7208F816D0017AC82 /* Demo.swift */; };
 		44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */; };
@@ -178,7 +178,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44ECE68F208F7FF90017AC82 /* FilterKit.framework in Embed Frameworks */,
+				44ECE68F208F7FF90017AC82 /* Charcoal.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,8 +195,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		44ECE65F208F7FA20017AC82 /* FilterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FilterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		44ECE661208F7FA20017AC82 /* FilterKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterKit.h; sourceTree = "<group>"; };
+		44ECE65F208F7FA20017AC82 /* Charcoal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charcoal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44ECE661208F7FA20017AC82 /* Charcoal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Charcoal.h; sourceTree = "<group>"; };
 		44ECE662208F7FA20017AC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44ECE66B208F7FD00017AC82 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44ECE66D208F7FD00017AC82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 		44ECE695208F80320017AC82 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
 		44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetInteractiveDismissalController.swift; sourceTree = "<group>"; };
 		44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningAnimator.swift; sourceTree = "<group>"; };
-		44ECE698208F80320017AC82 /* FilterKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterKit.swift; sourceTree = "<group>"; };
+		44ECE698208F80320017AC82 /* Charcoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charcoal.swift; sourceTree = "<group>"; };
 		44ECE6A6208F816D0017AC82 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		44ECE6A7208F816D0017AC82 /* Demo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewsTableViewController.swift; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */,
-				44ECE68E208F7FF90017AC82 /* FilterKit.framework in Frameworks */,
+				44ECE68E208F7FF90017AC82 /* Charcoal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +357,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44ECE686208F7FDE0017AC82 /* FilterKit.framework in Frameworks */,
+				44ECE686208F7FDE0017AC82 /* Charcoal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +378,7 @@
 		44ECE650208F7F7B0017AC82 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE65F208F7FA20017AC82 /* FilterKit.framework */,
+				44ECE65F208F7FA20017AC82 /* Charcoal.framework */,
 				44ECE66B208F7FD00017AC82 /* Demo.app */,
 				44ECE681208F7FDE0017AC82 /* UnitTests.xctest */,
 			);
@@ -395,8 +395,8 @@
 				55858A1E20AACFF000B100EA /* Dependencies */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				9BB827A7216CCF7D0014028C /* FilterInfoType */,
-				44ECE661208F7FA20017AC82 /* FilterKit.h */,
-				44ECE698208F80320017AC82 /* FilterKit.swift */,
+				44ECE661208F7FA20017AC82 /* Charcoal.h */,
+				44ECE698208F80320017AC82 /* Charcoal.swift */,
 				9B8D53AF2153BC1800FB9573 /* FilterSelectionTitleProvider.swift */,
 				55E869D820E25598008B921E /* FilterViewController */,
 				44ECE699208F80320017AC82 /* Finnivers */,
@@ -972,16 +972,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44ECE663208F7FA20017AC82 /* FilterKit.h in Headers */,
+				44ECE663208F7FA20017AC82 /* Charcoal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		44ECE65E208F7FA20017AC82 /* FilterKit */ = {
+		44ECE65E208F7FA20017AC82 /* Charcoal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 44ECE664208F7FA20017AC82 /* Build configuration list for PBXNativeTarget "FilterKit" */;
+			buildConfigurationList = 44ECE664208F7FA20017AC82 /* Build configuration list for PBXNativeTarget "Charcoal" */;
 			buildPhases = (
 				44ECE65A208F7FA20017AC82 /* Sources */,
 				44ECE65B208F7FA20017AC82 /* Frameworks */,
@@ -995,9 +995,9 @@
 			);
 			dependencies = (
 			);
-			name = FilterKit;
+			name = Charcoal;
 			productName = FilterKit;
-			productReference = 44ECE65F208F7FA20017AC82 /* FilterKit.framework */;
+			productReference = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		44ECE66A208F7FD00017AC82 /* Demo */ = {
@@ -1062,7 +1062,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 44ECE649208F7F7B0017AC82 /* Build configuration list for PBXProject "FilterKit" */;
+			buildConfigurationList = 44ECE649208F7F7B0017AC82 /* Build configuration list for PBXProject "Charcoal" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1075,7 +1075,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				44ECE65E208F7FA20017AC82 /* FilterKit */,
+				44ECE65E208F7FA20017AC82 /* Charcoal */,
 				44ECE66A208F7FD00017AC82 /* Demo */,
 				44ECE680208F7FDE0017AC82 /* UnitTests */,
 			);
@@ -1231,7 +1231,7 @@
 				55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */,
 				46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */,
 				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
-				44ECE6A2208F80320017AC82 /* FilterKit.swift in Sources */,
+				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				9BB827AD216CD0310014028C /* ListItemFilterInfoType.swift in Sources */,
@@ -1324,12 +1324,12 @@
 /* Begin PBXTargetDependency section */
 		44ECE688208F7FDE0017AC82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 44ECE65E208F7FA20017AC82 /* FilterKit */;
+			target = 44ECE65E208F7FA20017AC82 /* Charcoal */;
 			targetProxy = 44ECE687208F7FDE0017AC82 /* PBXContainerItemProxy */;
 		};
 		44ECE691208F7FF90017AC82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 44ECE65E208F7FA20017AC82 /* FilterKit */;
+			target = 44ECE65E208F7FA20017AC82 /* Charcoal */;
 			targetProxy = 44ECE690208F7FF90017AC82 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1493,7 +1493,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKit;
+				PRODUCT_BUNDLE_IDENTIFIER = no.finn.Charcoal;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1520,7 +1520,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKit;
+				PRODUCT_BUNDLE_IDENTIFIER = no.finn.Charcoal;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -1548,7 +1548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = no.finn.CharcoalDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1577,10 +1577,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FilterKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = no.finn.CharcoalDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b168bcd2-214e-4a39-9f69-186660630719";
-				PROVISIONING_PROFILE_SPECIFIER = "match InHouse no.finn.FilterKitDemo";
+				PROVISIONING_PROFILE_SPECIFIER = "match InHouse no.finn.CharcoalDemo";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1625,7 +1625,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		44ECE649208F7F7B0017AC82 /* Build configuration list for PBXProject "FilterKit" */ = {
+		44ECE649208F7F7B0017AC82 /* Build configuration list for PBXProject "Charcoal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				44ECE655208F7F7B0017AC82 /* Debug */,
@@ -1634,7 +1634,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		44ECE664208F7FA20017AC82 /* Build configuration list for PBXNativeTarget "FilterKit" */ = {
+		44ECE664208F7FA20017AC82 /* Build configuration list for PBXNativeTarget "Charcoal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				44ECE665208F7FA20017AC82 /* Debug */,

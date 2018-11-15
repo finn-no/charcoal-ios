@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-@testable import FilterKit
+@testable import Charcoal
 import XCTest
 
 protocol TestDataDecoder {

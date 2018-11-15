@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
+import Charcoal
 import Foundation
 
 struct ListViewControllerDemo {

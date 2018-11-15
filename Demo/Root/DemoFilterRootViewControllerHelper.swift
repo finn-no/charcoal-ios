@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FilterKit
+import Charcoal
 
 class DemoFilter {
     let filterData: FilterSetup

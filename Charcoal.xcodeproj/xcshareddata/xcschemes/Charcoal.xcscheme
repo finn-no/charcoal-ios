@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "44ECE65E208F7FA20017AC82"
-               BuildableName = "FilterKit.framework"
-               BlueprintName = "FilterKit"
-               ReferencedContainer = "container:FilterKit.xcodeproj">
+               BuildableName = "Charcoal.framework"
+               BlueprintName = "Charcoal"
+               ReferencedContainer = "container:Charcoal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "44ECE65E208F7FA20017AC82"
-            BuildableName = "FilterKit.framework"
-            BlueprintName = "FilterKit"
-            ReferencedContainer = "container:FilterKit.xcodeproj">
+            BuildableName = "Charcoal.framework"
+            BlueprintName = "Charcoal"
+            ReferencedContainer = "container:Charcoal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,9 +64,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "44ECE65E208F7FA20017AC82"
-            BuildableName = "FilterKit.framework"
-            BlueprintName = "FilterKit"
-            ReferencedContainer = "container:FilterKit.xcodeproj">
+            BuildableName = "Charcoal.framework"
+            BlueprintName = "Charcoal"
+            ReferencedContainer = "container:Charcoal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

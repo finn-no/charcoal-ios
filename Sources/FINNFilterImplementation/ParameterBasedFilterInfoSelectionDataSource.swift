@@ -10,7 +10,7 @@ public protocol ParameterBasedFilterInfoSelectionDataSourceDelegate: AnyObject {
 
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
     public private(set) var selectionValues: [String: [String]]
-    var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo] = [:]
+    var multiLevelFilterLookup: [FilterValueUniqueKey: FilterValueType] = [:]
     public weak var delegate: ParameterBasedFilterInfoSelectionDataSourceDelegate?
 
     public init(queryItems: [URLQueryItem]) {
@@ -221,7 +221,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
 
             selectionValues.forEach { selectionValuesAndKey in
                 selectionValuesAndKey.value.forEach({ selectionValue in
-                    if let selectedFilterInfo = multiLevelFilterLookup[MultiLevelListSelectionFilterInfo.LookupKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] {
+                    if let selectedFilterInfo = multiLevelFilterLookup[FilterValueUniqueKey(parameterName: selectionValuesAndKey.key, value: selectionValue)] as? MultiLevelListSelectionFilterInfo {
                         guard selectedFilterInfo.selectionState == .selected else {
                             return
                         }

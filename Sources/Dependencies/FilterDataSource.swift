@@ -11,4 +11,5 @@ public protocol FilterDataSource {
     var filters: [FilterInfoType] { get }
     var numberOfHits: Int { get }
     var filterTitle: String { get }
+    func numberOfHits(for filterValue: FilterValueType) -> Int
 }

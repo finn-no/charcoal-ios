@@ -8,9 +8,20 @@ public protocol FilterInfoType {
     var title: String { get }
 }
 
+public struct FilterValueUniqueKey: Hashable {
+    private let parameterName: String
+    private let value: String
+
+    public init(parameterName: String, value: String) {
+        self.parameterName = parameterName
+        self.value = value
+    }
+}
+
 public protocol FilterValueType: ListItem {
     var parentFilterInfo: FilterInfoType? { get }
     var title: String { get }
     var results: Int { get }
     var value: String { get }
+    var lookupKey: FilterValueUniqueKey { get }
 }

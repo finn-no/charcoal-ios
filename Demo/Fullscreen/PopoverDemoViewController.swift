@@ -138,6 +138,10 @@ struct PreferenceValueTypeDemo: FilterValueType {
         return nil
     }
 
+    var lookupKey: FilterValueUniqueKey {
+        return FilterValueUniqueKey(parameterName: "demo" + title, value: value)
+    }
+
     var detail: String? {
         return String(results)
     }

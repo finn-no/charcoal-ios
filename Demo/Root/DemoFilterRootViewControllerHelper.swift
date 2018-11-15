@@ -98,4 +98,8 @@ extension DemoFilter: FilterDataSource {
     var numberOfHits: Int {
         return filterData.hits
     }
+
+    func numberOfHits(for filterValue: FilterValueType) -> Int {
+        return 42
+    }
 }

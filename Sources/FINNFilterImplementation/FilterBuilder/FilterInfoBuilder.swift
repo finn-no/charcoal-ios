@@ -13,7 +13,7 @@ public struct FilterInfoBuilderResult {
 public final class FilterInfoBuilder {
     private let filter: FilterSetup
     private let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
-    private(set) var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo]
+    private(set) var multiLevelFilterLookup: [FilterValueUniqueKey: FilterValueType]
 
     public init(filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
         self.filter = filter
@@ -57,7 +57,7 @@ private extension FilterInfoBuilder {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
         let preferences = filterDataArray.compactMap { filter -> PreferenceFilterInfoType? in
-            let values = filter.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value) })
+            let values = filter.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value, parameterName: filter.parameterName) })
 
             return PreferenceFilterInfo(parameterName: filter.parameterName, title: filter.title, values: values)
         }
@@ -66,7 +66,7 @@ private extension FilterInfoBuilder {
     }
 
     func buildSelectionListFilterInfo(from filterData: FilterData) -> ListSelectionFilterInfo? {
-        let values = filterData.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value) })
+        let values = filterData.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value, parameterName: filterData.parameterName) })
 
         return ListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true)
     }

@@ -3,11 +3,6 @@
 //
 
 class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
-    struct LookupKey: Hashable {
-        let parameterName: String
-        let value: String
-    }
-
     let parameterName: String
     private(set) var filters: [MultiLevelListSelectionFilterInfoType]
     let title: String
@@ -22,6 +17,10 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
 
     var parentFilterInfo: FilterInfoType? {
         return parent
+    }
+
+    var lookupKey: FilterValueUniqueKey {
+        return FilterValueUniqueKey(parameterName: parameterName, value: value)
     }
 
     init(parameterName: String, title: String, isMultiSelect: Bool = true, results: Int, value: String) {
@@ -85,11 +84,5 @@ extension MultiLevelListSelectionFilterInfo: CustomDebugStringConvertible {
 extension MultiLevelListSelectionFilterInfo: Equatable {
     static func == (lhs: MultiLevelListSelectionFilterInfo, rhs: MultiLevelListSelectionFilterInfo) -> Bool {
         return lhs.parameterName == rhs.parameterName && lhs.value == rhs.value && lhs.filters.count == rhs.filters.count
-    }
-}
-
-extension MultiLevelListSelectionFilterInfo {
-    var lookupKey: MultiLevelListSelectionFilterInfo.LookupKey {
-        return LookupKey(parameterName: parameterName, value: value)
     }
 }

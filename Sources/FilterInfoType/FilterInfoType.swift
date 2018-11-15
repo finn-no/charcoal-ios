@@ -21,7 +21,6 @@ public struct FilterValueUniqueKey: Hashable {
 public protocol FilterValueType {
     var parentFilterInfo: FilterInfoType? { get }
     var title: String { get }
-    var results: Int { get }
     var value: String { get }
     var lookupKey: FilterValueUniqueKey { get }
 }

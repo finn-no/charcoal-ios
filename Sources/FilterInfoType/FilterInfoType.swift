@@ -18,7 +18,7 @@ public struct FilterValueUniqueKey: Hashable {
     }
 }
 
-public protocol FilterValueType: ListItem {
+public protocol FilterValueType {
     var parentFilterInfo: FilterInfoType? { get }
     var title: String { get }
     var results: Int { get }

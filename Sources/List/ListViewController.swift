@@ -6,9 +6,6 @@ import UIKit
 
 public protocol ListItem {
     var title: String { get }
-    var detail: String? { get }
-    var showsDisclosureIndicator: Bool { get }
-    var value: String { get }
 }
 
 protocol SelectionListItemCellConfigurator: AnyObject {

@@ -121,7 +121,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
         tableView.register(MultiLevelSelectionListItemCell.self)
     }
 
-    private func didSelectDrillDownItem(_ listItem: ListItem, at indexPath: IndexPath) {
+    private func didSelectDrillDownItem(_ listItem: MultiLevelListSelectionFilterInfoType, at indexPath: IndexPath) {
         let filterIndex = isSelectAllIncluded ? indexPath.row - 1 : indexPath.row
         guard let sublevelFilterInfo = filterInfo.filters[safe: filterIndex] else {
             return
@@ -141,8 +141,8 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
         filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
-    private func toggleSelection(for listItem: ListItem) {
-        guard let item = listItem as? MultiLevelListSelectionFilterInfoType, filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) else {
+    private func toggleSelection(for item: MultiLevelListSelectionFilterInfoType) {
+        guard filterInfo.filters.contains(where: { $0.title == item.title && $0.value == item.value }) else {
             return
         }
         let wasItemPreviouslySelected = isListItemSelected(item)

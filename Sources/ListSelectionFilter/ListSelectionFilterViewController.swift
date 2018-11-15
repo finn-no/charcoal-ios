@@ -4,7 +4,7 @@
 
 import Foundation
 
-public final class ListSelectionFilterViewController: ListViewController, FilterContainerViewController {
+public final class ListSelectionFilterViewController: UIViewController, FilterContainerViewController {
     private let filterInfo: ListSelectionFilterInfoType
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
     private let selectionDataSource: FilterSelectionDataSource
@@ -14,6 +14,21 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         return self
     }
 
+    private static var rowHeight: CGFloat = 48.0
+
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = true
+        registerCells(for: tableView)
+        return tableView
+    }()
+
+    private let listItems: [FilterValueType]
+
     public init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         guard let listSelectionFilterInfo = filterInfo as? ListSelectionFilterInfoType else {
             return nil
@@ -22,19 +37,46 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         self.filterInfo = listSelectionFilterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
-        super.init(title: listSelectionFilterInfo.title, items: listSelectionFilterInfo.values)
-        listViewControllerDelegate = self
-        selectionListItemCellConfigurator = self
+        listItems = listSelectionFilterInfo.values
+        super.init(nibName: nil, bundle: nil)
+        title = title
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func toggleSelection(for listItem: ListItem) {
-        guard let item = listItem as? FilterValueType else {
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setup()
+    }
+
+    private func setup() {
+        view.addSubview(tableView)
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+    }
+
+    private func registerCells(for tableView: UITableView) {
+        tableView.register(SelectionListItemCell.self)
+    }
+
+    private func updateCellIfVisible(at indexPath: IndexPath) {
+        guard tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else {
             return
         }
+        if let cell = tableView.cellForRow(at: indexPath) as? SelectionListItemCell, let listItem = listItems[safe: indexPath.row] {
+            configure(cell, listItem: listItem)
+        }
+    }
+
+    private func toggleSelection(for item: FilterValueType) {
         let wasItemPreviouslySelected = isListItemSelected(item)
         if filterInfo.isMultiSelect {
             if wasItemPreviouslySelected {
@@ -51,32 +93,50 @@ public final class ListSelectionFilterViewController: ListViewController, Filter
         filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
-    private func isListItemSelected(_ listItem: ListItem) -> Bool {
-        guard let item = listItem as? FilterValueType else {
-            return false
-        }
-        return isListSelectionFilterValueSelected(item)
-    }
-
-    private func isListSelectionFilterValueSelected(_ item: FilterValueType) -> Bool {
+    private func isListItemSelected(_ item: FilterValueType) -> Bool {
         guard let currentSelection = selectionDataSource.value(for: filterInfo) else {
             return false
         }
         return currentSelection.contains(item.value)
     }
-}
 
-extension ListSelectionFilterViewController: ListViewControllerDelegate {
-    func listViewController(_: ListViewController, didSelectListItem listItem: ListItem, at indexPath: IndexPath, in tableView: UITableView) {
-        toggleSelection(for: listItem)
-        updateCellIfVisible(at: indexPath)
+    private func configure(_ cell: SelectionListItemCell, listItem: FilterValueType) {
+        cell.configure(title: listItem.title, hits: dataSource.numberOfHits(for: listItem), showDisclosureIndicator: false)
+        cell.selectionIndicatorType = filterInfo.isMultiSelect ? .checkbox : .radioButton
+        cell.setSelectionMarker(visible: isListItemSelected(listItem))
     }
 }
 
-extension ListSelectionFilterViewController: SelectionListItemCellConfigurator {
-    func configure(_ cell: SelectionListItemCell, listItem: ListItem) {
-        cell.configure(for: listItem)
-        cell.selectionIndicatorType = filterInfo.isMultiSelect ? .checkbox : .radioButton
-        cell.setSelectionMarker(visible: isListItemSelected(listItem))
+extension ListSelectionFilterViewController: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return listItems.count
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue(SelectionListItemCell.self, for: indexPath)
+        if let listItem = listItems[safe: indexPath.row] {
+            configure(cell, listItem: listItem)
+        }
+        return cell
+    }
+}
+
+extension ListSelectionFilterViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let listItem = listItems[safe: indexPath.row] else {
+            return
+        }
+        toggleSelection(for: listItem)
+        updateCellIfVisible(at: indexPath)
+    }
+
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return type(of: self).rowHeight
+    }
+}
+
+extension ListSelectionFilterViewController: ScrollableContainerViewController {
+    public var mainScrollableView: UIScrollView {
+        return tableView
     }
 }

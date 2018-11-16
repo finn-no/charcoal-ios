@@ -81,7 +81,7 @@ enum Sections: String {
                 return .none
             case .preferenceFilter:
                 return .none
-            case .list:
+            case .listSelection:
                 return .none
             case .compactListFilter:
                 return .bottomSheet
@@ -158,7 +158,7 @@ enum ComponentViews: String {
     case bottomSheet
     case rootFilters
     case preferenceFilter
-    case list
+    case listSelection
     case compactListFilter
     case rangeFilter
     case stepperFilter
@@ -188,8 +188,8 @@ enum ComponentViews: String {
             let popoverDemoViewController = PopoverDemoViewController()
             return popoverDemoViewController
 
-        case .list:
-            let viewController = ListViewController(title: "Kategori", items: ListViewControllerDemo.listItems)
+        case .listSelection:
+            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoEmptyDataSource(), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
             return viewController
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
@@ -211,7 +211,7 @@ enum ComponentViews: String {
             .bottomSheet,
             .rootFilters,
             .preferenceFilter,
-            .list,
+            .listSelection,
             .compactListFilter,
             .rangeFilter,
             .stepperFilter,

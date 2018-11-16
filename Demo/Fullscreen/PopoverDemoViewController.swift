@@ -112,7 +112,7 @@ extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
 
         view.isSelected = !view.isSelected
 
-        let popover = ListViewController(title: "Verticals", items: verticalSetup())
+        let popover = VerticalListViewController(verticals: verticalSetup())
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom
         popoverPresentationTransitioningDelegate.sourceView = selectedPreferenceView

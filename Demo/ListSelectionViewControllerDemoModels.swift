@@ -5,15 +5,20 @@
 import Charcoal
 import Foundation
 
-struct ListViewControllerDemo {
-    struct DemoListItem: ListItem {
-        var title: String
-        var detail: String?
-        var showsDisclosureIndicator: Bool
-        let value: String = ""
+struct DemoListSelectionFilterInfo: ListSelectionFilterInfoType {
+    var values: [FilterValueType] {
+        return DemoListSelectionFilterInfo.listItems
     }
 
-    static let listItems: [ListItem] = {
+    var isMultiSelect: Bool {
+        return true
+    }
+
+    var title: String {
+        return "Topp kategori"
+    }
+
+    static let listItems: [FilterValueType] = {
         return [
             DemoListItem(title: "Antikviteter og kunst", detail: "64 769", showsDisclosureIndicator: true),
             DemoListItem(title: "Dyr og utstyr", detail: "21 684", showsDisclosureIndicator: true),
@@ -28,4 +33,19 @@ struct ListViewControllerDemo {
             DemoListItem(title: "Utstyr til bil, bår og MC", detail: "64 769", showsDisclosureIndicator: false),
         ]
     }()
+}
+
+struct DemoListItem: FilterValueType {
+    var title: String
+    var detail: String?
+    var showsDisclosureIndicator: Bool
+    let value: String = ""
+
+    var parentFilterInfo: FilterInfoType? {
+        return nil
+    }
+
+    var lookupKey: FilterValueUniqueKey {
+        return FilterValueUniqueKey(parameterName: "param", value: value)
+    }
 }

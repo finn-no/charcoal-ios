@@ -1,12 +1,20 @@
-force_cast: error
-force_try: error
+force_cast: warning
+force_try: warning
 force_unwrapping: error
 type_name:
   min_length: 2
 identifier_name:
   min_length: 2
   max_length: 80
+  excluded:
+    - x
+    - y
+    - a
+    - r
+    - g
+    - b
 cyclomatic_complexity: 10
+conditional_returns_on_newline: warning
 
 disabled_rules:
   - line_length

@@ -47,11 +47,25 @@ public final class FilterViewController<ChildViewController: FilterContainerView
     let filterContainerViewController: FilterContainerViewController
     weak var delegate: FilterViewControllerDelegate?
     weak var parentApplySelectionButtonOwner: ApplySelectionButtonOwner?
+    var applyButtonHiddenConstraintConstant: CGFloat {
+        return applySelectionButton.height
+    }
 
     public var showsApplySelectionButton: Bool {
         didSet {
+            guard showsApplySelectionButton != oldValue else {
+                return
+            }
             view.layoutIfNeeded()
-            applySelectionButtonBottomConstraint?.constant = showsApplySelectionButton ? 0 : applySelectionButton.height
+            applySelectionButton.alpha = showsApplySelectionButton ? 0 : 1
+            applySelectionButton.isHidden = false
+            applySelectionButtonBottomConstraint?.constant = showsApplySelectionButton ? 0 : applyButtonHiddenConstraintConstant
+            UIView.animate(withDuration: 0.25, animations: { [applySelectionButton, showsApplySelectionButton] in
+                applySelectionButton.alpha = showsApplySelectionButton ? 1 : 0
+                self.view.layoutIfNeeded()
+            }) { [applySelectionButton, showsApplySelectionButton] _ in
+                applySelectionButton.isHidden = !showsApplySelectionButton
+            }
             UIView.animate(withDuration: 0.25) {
                 self.view.layoutIfNeeded()
             }
@@ -105,7 +119,7 @@ private extension FilterViewController {
         view.addSubview(filterView)
 
         view.addSubview(applySelectionButton)
-        let applySelectionButtonBottomConstraint = applySelectionButton.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor, constant: applySelectionButton.height)
+        let applySelectionButtonBottomConstraint = applySelectionButton.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor, constant: applyButtonHiddenConstraintConstant)
         self.applySelectionButtonBottomConstraint = applySelectionButtonBottomConstraint
 
         NSLayoutConstraint.activate([
@@ -120,6 +134,8 @@ private extension FilterViewController {
 
         if showsApplySelectionButton {
             applySelectionButtonBottomConstraint.constant = 0
+        } else {
+            applySelectionButton.isHidden = true
         }
     }
 }

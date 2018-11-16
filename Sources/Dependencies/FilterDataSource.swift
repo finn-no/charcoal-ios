@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol FilterDataSource {
+public protocol FilterDataSource: AnyObject {
     var searchQuery: SearchQueryFilterInfoType? { get }
     var verticals: [Vertical] { get }
     var preferences: [PreferenceFilterInfoType] { get }

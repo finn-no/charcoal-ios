@@ -314,7 +314,7 @@ class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
     }
 }
 
-struct DemoEmptyDataSource: FilterDataSource {
+class DemoEmptyDataSource: FilterDataSource {
     var searchQuery: SearchQueryFilterInfoType?
 
     var verticals: [Vertical] = []

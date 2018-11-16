@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo {
+class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, ParameterBasedFilterInfo, NumberOfHitsCompatible {
     let parameterName: String
     private(set) var filters: [MultiLevelListSelectionFilterInfoType]
     let title: String

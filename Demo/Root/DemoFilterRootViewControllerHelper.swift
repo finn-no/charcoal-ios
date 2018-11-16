@@ -100,6 +100,6 @@ extension DemoFilter: FilterDataSource {
     }
 
     func numberOfHits(for filterValue: FilterValueType) -> Int {
-        return 42
+        return loadedFilter?.filterValueLookup[filterValue.lookupKey]?.results ?? 0
     }
 }

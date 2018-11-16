@@ -4,11 +4,13 @@
 
 import Foundation
 
+public typealias FilterValueWithNumberOfHitsType = FilterValueType & NumberOfHitsCompatible
+
 public struct FilterInfoBuilderResult {
     public let searchQuery: SearchQueryFilterInfoType?
     public let preferences: [PreferenceFilterInfoType]
     public let filters: [FilterInfoType]
-    public let filterValueLookup: [FilterValueUniqueKey: FilterValueType]
+    public let filterValueLookup: [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]
 }
 
 public final class FilterInfoBuilder {
@@ -34,7 +36,7 @@ public final class FilterInfoBuilder {
 
         let preferences = buildPreferenceFilterInfo(fromKeys: market.preferenceFilterKeys)
 
-        var lookup = [FilterValueUniqueKey: FilterValueType]()
+        var lookup = [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]()
         let filters = buildFilterInfo(fromKeys: market.supportedFiltersKeys, addValuesTo: &lookup)
 
         selectionDataSource.multiLevelFilterLookup = lookup
@@ -63,14 +65,14 @@ private extension FilterInfoBuilder {
         return preferences
     }
 
-    func buildSelectionListFilterInfo(from filterData: FilterData, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueType]) -> ListSelectionFilterInfo? {
+    func buildSelectionListFilterInfo(from filterData: FilterData, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> ListSelectionFilterInfo? {
         let values = filterData.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value, parameterName: filterData.parameterName) })
         values.forEach({ lookup[$0.lookupKey] = $0 })
 
         return ListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true)
     }
 
-    func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueType]) -> MultiLevelListSelectionFilterInfo? {
+    func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> MultiLevelListSelectionFilterInfo? {
         let filters = filterData.queries.map({ query -> MultiLevelListSelectionFilterInfo in
             let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter, addValuesTo: &lookup)
             let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, isMultiSelect: true, results: query.totalResults, value: query.value)
@@ -87,7 +89,7 @@ private extension FilterInfoBuilder {
         return filter
     }
 
-    func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData?, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueType]) -> [MultiLevelListSelectionFilterInfo] {
+    func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData?, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [MultiLevelListSelectionFilterInfo] {
         guard let queryFilter = queryFilter else {
             return []
         }
@@ -102,7 +104,7 @@ private extension FilterInfoBuilder {
         return queryFilters
     }
 
-    func buildFilterInfo(fromKeys keys: [FilterKey], addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueType]) -> [FilterInfoType] {
+    func buildFilterInfo(fromKeys keys: [FilterKey], addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [FilterInfoType] {
         var filterInfo = [FilterInfoType]()
 
         keys.forEach({ key in

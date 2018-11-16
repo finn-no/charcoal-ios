@@ -18,7 +18,7 @@ class ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilter
     }
 }
 
-class FilterValue: FilterValueType {
+class FilterValue: FilterValueType, NumberOfHitsCompatible {
     let title: String
     let results: Int
     let value: String

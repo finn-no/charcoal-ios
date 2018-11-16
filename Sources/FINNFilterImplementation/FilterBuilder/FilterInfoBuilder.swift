@@ -33,10 +33,10 @@ public final class FilterInfoBuilder {
         } else {
             searchQuery = nil
         }
-
-        let preferences = buildPreferenceFilterInfo(fromKeys: market.preferenceFilterKeys)
-
         var lookup = [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]()
+
+        let preferences = buildPreferenceFilterInfo(fromKeys: market.preferenceFilterKeys, addValuesTo: &lookup)
+
         let filters = buildFilterInfo(fromKeys: market.supportedFiltersKeys, addValuesTo: &lookup)
 
         selectionDataSource.multiLevelFilterLookup = lookup
@@ -53,11 +53,12 @@ private extension FilterInfoBuilder {
         return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
     }
 
-    func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> [PreferenceFilterInfoType] {
+    func buildPreferenceFilterInfo(fromKeys keys: [FilterKey], addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [PreferenceFilterInfoType] {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
         let preferences = filterDataArray.compactMap { filter -> PreferenceFilterInfoType? in
             let values = filter.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value, parameterName: filter.parameterName) })
+            values.forEach({ lookup[$0.lookupKey] = $0 })
 
             return PreferenceFilterInfo(parameterName: filter.parameterName, title: filter.title, values: values)
         }

@@ -75,8 +75,12 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertEqual(publishedPreference?.values.first?.title, "Nye i dag")
         XCTAssertEqual(publishedPreference?.values.first?.title, publishedFilterData?.queries.first?.title)
 
-        XCTAssertEqual(publishedPreference?.values.first?.results, 2307)
-        XCTAssertEqual(publishedPreference?.values.first?.results, publishedFilterData?.queries.first?.totalResults)
+        guard let firstValue = publishedPreference?.values.first else {
+            return
+        }
+        let numberOfHitsForFirstValue = buildResult?.filterValueLookup[firstValue.lookupKey]?.results
+        XCTAssertEqual(numberOfHitsForFirstValue, 2307)
+        XCTAssertEqual(numberOfHitsForFirstValue, publishedFilterData?.queries.first?.totalResults)
     }
 
     func testFilterInfoBuilderBuildsMultiLevelFilterInfoWithExpectedValues() {

@@ -172,7 +172,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
     }
 
     private func configure(_ cell: MultiLevelSelectionListItemCell, listItem: MultiLevelListSelectionFilterInfoType) {
-        cell.configure(title: listItem.title, hits: dataSource.numberOfHits(for: listItem), showDisclosureIndicator: listItem.filters.count > 0, selectionState: selectionDataSource.selectionState(listItem))
+        cell.configure(title: listItem.title, hits: dataSource.numberOfHits(for: listItem), showDisclosureIndicator: listItem.showDisclosureIndicator, selectionState: selectionDataSource.selectionState(listItem))
     }
 
     private func configureSelectAll(for cell: MultiLevelSelectionListItemCell) {
@@ -226,7 +226,7 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
             updateAllVisibleCells()
         case .values:
             if let listItem = listItems[safe: indexPath.row] {
-                if listItem.showsDisclosureIndicator {
+                if listItem.showDisclosureIndicator {
                     didSelectDrillDownItem(listItem, at: indexPath)
                 } else {
                     toggleSelection(for: listItem)
@@ -249,5 +249,11 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
 extension MultiLevelListSelectionFilterViewController: ScrollableContainerViewController {
     public var mainScrollableView: UIScrollView {
         return tableView
+    }
+}
+
+private extension MultiLevelListSelectionFilterInfoType {
+    var showDisclosureIndicator: Bool {
+        return filters.count > 0
     }
 }

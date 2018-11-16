@@ -9,10 +9,3 @@ public protocol MultiLevelListSelectionFilterInfoType: AnyObject, FilterInfoType
     var value: String { get }
     var hasParent: Bool { get }
 }
-
-// MARK: - MultiLevelSelectionFilterInfoType: ListItem default implementation
-
-extension MultiLevelListSelectionFilterInfoType {
-    public var detail: String? { return String(results) }
-    public var showsDisclosureIndicator: Bool { return filters.count > 0 }
-}

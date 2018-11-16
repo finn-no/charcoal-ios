@@ -5,7 +5,7 @@
 import Charcoal
 import Foundation
 
-struct DemoListSelectionFilterInfo: ListSelectionFilterInfoType {
+class DemoListSelectionFilterInfo: ListSelectionFilterInfoType {
     var values: [FilterValueType] {
         return DemoListSelectionFilterInfo.listItems
     }
@@ -18,28 +18,31 @@ struct DemoListSelectionFilterInfo: ListSelectionFilterInfoType {
         return "Topp kategori"
     }
 
-    static let listItems: [FilterValueType] = {
+    static let listItems: [DemoListItem] = {
         return [
-            DemoListItem(title: "Antikviteter og kunst", detail: "64 769", showsDisclosureIndicator: true),
-            DemoListItem(title: "Dyr og utstyr", detail: "21 684", showsDisclosureIndicator: true),
-            DemoListItem(title: "Elektronikk og hvitevarer", detail: "94 895", showsDisclosureIndicator: true),
-            DemoListItem(title: "Foreldre og barn", detail: "64 769", showsDisclosureIndicator: true),
-            DemoListItem(title: "Fritid, hobby og underholdning", detail: "4 769", showsDisclosureIndicator: true),
-            DemoListItem(title: "Hage, oppussing og hus", detail: "6 769", showsDisclosureIndicator: true),
-            DemoListItem(title: "Klær, kosmetikk og accessoirer", detail: "4 712", showsDisclosureIndicator: true),
-            DemoListItem(title: "Møbler og interiør", detail: "64 769", showsDisclosureIndicator: true),
-            DemoListItem(title: "Næringsvirksomhet", detail: "64 769", showsDisclosureIndicator: true),
-            DemoListItem(title: "Sport og fritidsliv", detail: "64 769", showsDisclosureIndicator: true),
-            DemoListItem(title: "Utstyr til bil, bår og MC", detail: "64 769", showsDisclosureIndicator: false),
+            DemoListItem(title: "Antikviteter og kunst", results: 64769, isSelected: false),
+            DemoListItem(title: "Dyr og utstyr", results: 21684, isSelected: false),
+            DemoListItem(title: "Elektronikk og hvitevarer", results: 94895, isSelected: true),
+            DemoListItem(title: "Foreldre og barn", results: 64769, isSelected: false),
+            DemoListItem(title: "Fritid, hobby og underholdning", results: 4769, isSelected: false),
+            DemoListItem(title: "Hage, oppussing og hus", results: 6769, isSelected: false),
+            DemoListItem(title: "Klær, kosmetikk og accessoirer", results: 4712, isSelected: false),
+            DemoListItem(title: "Møbler og interiør", results: 64769, isSelected: false),
+            DemoListItem(title: "Næringsvirksomhet", results: 64769, isSelected: false),
+            DemoListItem(title: "Sport og fritidsliv", results: 64769, isSelected: false),
+            DemoListItem(title: "Utstyr til bil, bår og MC", results: 64769, isSelected: false),
         ]
     }()
 }
 
-struct DemoListItem: FilterValueType {
-    var title: String
-    var detail: String?
-    var showsDisclosureIndicator: Bool
-    let value: String = ""
+class DemoListItem: FilterValueType, NumberOfHitsCompatible {
+    var title: String = ""
+    var results: Int = 0
+    var value: String {
+        return title
+    }
+
+    var isSelected: Bool = false
 
     var parentFilterInfo: FilterInfoType? {
         return nil
@@ -47,5 +50,85 @@ struct DemoListItem: FilterValueType {
 
     var lookupKey: FilterValueUniqueKey {
         return FilterValueUniqueKey(parameterName: "param", value: value)
+    }
+
+    init(title: String, results: Int, isSelected: Bool) {
+        self.title = title
+        self.results = results
+        self.isSelected = isSelected
+    }
+}
+
+class DemoListFilterSelectionDataSource: FilterSelectionDataSource {
+    var filterValues: [DemoListItem] = DemoListSelectionFilterInfo.listItems
+
+    func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
+    }
+
+    func clearSelection(at selectionValueIndex: Int, in selectionInfo: FilterSelectionInfo) {
+        let sel = selectionInfo as! FilterSelectionDataInfo
+        filterValues.first(where: { $0.value == sel.value })?.isSelected = false
+    }
+
+    func stepperValue(for filterInfo: StepperFilterInfoType) -> Int? {
+        return nil
+    }
+
+    func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState {
+        return .none
+    }
+
+    func value(for filterInfo: FilterInfoType) -> [String]? {
+        return filterValues.compactMap({ $0.isSelected ? $0.value : nil })
+    }
+
+    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo] {
+        return []
+    }
+
+    func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType) {
+        guard let val = filterSelectionValue?.first else {
+            return
+        }
+        filterValues.first(where: { $0.value == val })?.isSelected = true
+    }
+
+    func addValue(_ value: String, for filterInfo: FilterInfoType) {
+        filterValues.first(where: { $0.value == value })?.isSelected = true
+    }
+
+    func clearAll(for filterInfo: FilterInfoType) {
+        filterValues.forEach({ $0.isSelected = false })
+    }
+
+    func clearValue(_ value: String, for filterInfo: FilterInfoType) {
+        filterValues.first(where: { $0.value == value })?.isSelected = false
+    }
+
+    func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {
+        return nil
+    }
+
+    func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
+    }
+}
+
+class DemoListDataSource: FilterDataSource {
+    var searchQuery: SearchQueryFilterInfoType?
+
+    var verticals: [Vertical] = []
+
+    var preferences: [PreferenceFilterInfoType] = []
+
+    var filters: [FilterInfoType] = []
+
+    var numberOfHits: Int = 0
+
+    var filterTitle: String = "Demo"
+
+    var filterValuesForHits: [FilterValueType] = DemoListSelectionFilterInfo.listItems
+
+    func numberOfHits(for filterValue: FilterValueType) -> Int {
+        return (filterValuesForHits.first(where: { $0.title == filterValue.title }) as? NumberOfHitsCompatible)?.results ?? 0
     }
 }

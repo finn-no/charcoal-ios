@@ -189,7 +189,7 @@ enum ComponentViews: String {
             return popoverDemoViewController
 
         case .listSelection:
-            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoEmptyDataSource(), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
+            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
             return viewController
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
@@ -328,6 +328,6 @@ class DemoEmptyDataSource: FilterDataSource {
     var filterTitle: String = "Demo"
 
     func numberOfHits(for filterValue: FilterValueType) -> Int {
-        return 0
+        return 42
     }
 }

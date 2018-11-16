@@ -10,7 +10,7 @@ public protocol ParameterBasedFilterInfoSelectionDataSourceDelegate: AnyObject {
 
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
     public private(set) var selectionValues: [String: [String]]
-    var multiLevelFilterLookup: [FilterValueUniqueKey: FilterValueType] = [:]
+    var multiLevelFilterLookup: [FilterValueUniqueKey: FilterValueWithNumberOfHitsType] = [:]
     public weak var delegate: ParameterBasedFilterInfoSelectionDataSourceDelegate?
 
     public init(queryItems: [URLQueryItem]) {

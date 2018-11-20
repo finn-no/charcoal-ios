@@ -1,4 +1,4 @@
-## [0.8] - Unreleased 
+## [0.8] - 2018-11-20 
 - Added UI for a verticals selector
 - Fixed swipe handle animation not connected to bottomsheet 
 - Added stepper (-/+) UI for "number of bedrooms" filter
@@ -9,6 +9,7 @@
 - If current selection remove buttons doesn't fit they collapse into 1 view
 - Update UI, fonts, separators, colors, swipe handle etc.
 - Renamed project to Charcoal
+- When apply button should be hidden it is also completely hidden on iPhone X form factors
 
 ## [0.7] - 2018-10-19 
 - Improved range view

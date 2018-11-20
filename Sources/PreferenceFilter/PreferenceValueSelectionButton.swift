@@ -5,7 +5,7 @@
 import UIKit
 
 class PreferenceValueSelectionButton: UIButton {
-    let preferenceValue: PreferenceValueType
+    let preferenceValue: FilterValueType
 
     var isPreferenceValueSelected: Bool = false {
         didSet {
@@ -19,7 +19,7 @@ class PreferenceValueSelectionButton: UIButton {
         }
     }
 
-    init(preferenceValue: PreferenceValueType) {
+    init(preferenceValue: FilterValueType) {
         self.preferenceValue = preferenceValue
         super.init(frame: .zero)
         setup()

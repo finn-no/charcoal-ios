@@ -81,7 +81,7 @@ enum Sections: String {
                 return .none
             case .preferenceFilter:
                 return .none
-            case .list:
+            case .listSelection:
                 return .none
             case .compactListFilter:
                 return .bottomSheet
@@ -158,7 +158,7 @@ enum ComponentViews: String {
     case bottomSheet
     case rootFilters
     case preferenceFilter
-    case list
+    case listSelection
     case compactListFilter
     case rangeFilter
     case stepperFilter
@@ -188,8 +188,8 @@ enum ComponentViews: String {
             let popoverDemoViewController = PopoverDemoViewController()
             return popoverDemoViewController
 
-        case .list:
-            let viewController = ListViewController(title: "Kategori", items: ListViewControllerDemo.listItems)
+        case .listSelection:
+            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
             return viewController
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
@@ -200,7 +200,7 @@ enum ComponentViews: String {
             return ViewController<StepperFilterDemoView>()
 
         case .searchQuery:
-            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
+            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(value: nil, placeholderText: "Søk etter ord", title: "Filtrer søket"), dataSource: DemoEmptyDataSource(), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
             let navigationController = UINavigationController(rootViewController: searchQueryViewController)
             return navigationController
         }
@@ -211,7 +211,7 @@ enum ComponentViews: String {
             .bottomSheet,
             .rootFilters,
             .preferenceFilter,
-            .list,
+            .listSelection,
             .compactListFilter,
             .rangeFilter,
             .stepperFilter,
@@ -311,5 +311,23 @@ class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
     }
 
     func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
+    }
+}
+
+class DemoEmptyDataSource: FilterDataSource {
+    var searchQuery: SearchQueryFilterInfoType?
+
+    var verticals: [Vertical] = []
+
+    var preferences: [PreferenceFilterInfoType] = []
+
+    var filters: [FilterInfoType] = []
+
+    var numberOfHits: Int = 0
+
+    var filterTitle: String = "Demo"
+
+    func numberOfHits(for filterValue: FilterValueType) -> Int {
+        return 42
     }
 }

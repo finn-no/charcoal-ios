@@ -36,18 +36,20 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
     var currentRangeValue: RangeValue?
     let filterInfo: RangeFilterInfoType
+    private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
+    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         guard let rangeFilterInfo = filterInfo as? RangeFilterInfoType else {
             return nil
         }
 
         self.filterInfo = rangeFilterInfo
+        self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         super.init(nibName: nil, bundle: nil)
     }

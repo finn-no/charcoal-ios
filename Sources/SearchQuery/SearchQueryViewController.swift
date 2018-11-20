@@ -49,13 +49,15 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
     }()
 
     private let searchQueryFilterInfo: SearchQueryFilterInfoType
+    private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
 
-    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
+    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         guard let searchQueryFilterInfo = filterInfo as? SearchQueryFilterInfoType else {
             return nil
         }
         self.searchQueryFilterInfo = searchQueryFilterInfo
+        self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         startText = searchQueryFilterInfo.value
         placeholder = searchQueryFilterInfo.placeholderText

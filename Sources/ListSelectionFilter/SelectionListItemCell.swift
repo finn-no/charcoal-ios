@@ -88,9 +88,13 @@ private extension SelectionListItemCell {
 }
 
 extension SelectionListItemCell {
-    func configure(for listItem: ListItem) {
-        textLabel?.text = listItem.title
-        detailTextLabel?.text = listItem.detail
-        accessoryType = listItem.showsDisclosureIndicator ? .disclosureIndicator : .none
+    func configure(title: String, hits: Int?, showDisclosureIndicator: Bool) {
+        textLabel?.text = title
+        if let hits = hits {
+            detailTextLabel?.text = String(hits)
+        } else {
+            detailTextLabel?.text = nil
+        }
+        accessoryType = showDisclosureIndicator ? .disclosureIndicator : .none
     }
 }

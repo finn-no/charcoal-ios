@@ -35,7 +35,7 @@ class DemoFilter {
         return verticals
     }()
 
-    lazy var loadedFilterInfo: [FilterInfoType] = {
+    lazy var loadedFilter: FilterInfoBuilderResult? = {
         let filterInfoBuilder = FilterInfoBuilder(filter: filterData, selectionDataSource: selectionDataSource)
 
         return filterInfoBuilder.build()
@@ -75,6 +75,18 @@ class DemoFilter {
 }
 
 extension DemoFilter: FilterDataSource {
+    var searchQuery: SearchQueryFilterInfoType? {
+        return loadedFilter?.searchQuery
+    }
+
+    var preferences: [PreferenceFilterInfoType] {
+        return loadedFilter?.preferences ?? []
+    }
+
+    var filters: [FilterInfoType] {
+        return loadedFilter?.filters ?? []
+    }
+
     var verticals: [Vertical] {
         return verticalSetup.subVerticals(for: filterData.market)
     }
@@ -87,7 +99,7 @@ extension DemoFilter: FilterDataSource {
         return filterData.hits
     }
 
-    var filterInfo: [FilterInfoType] {
-        return loadedFilterInfo
+    func numberOfHits(for filterValue: FilterValueType) -> Int {
+        return loadedFilter?.filterValueLookup[filterValue.lookupKey]?.results ?? 0
     }
 }

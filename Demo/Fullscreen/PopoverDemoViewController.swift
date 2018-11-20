@@ -80,26 +80,28 @@ private extension PopoverDemoViewController {
 extension PopoverDemoViewController {
     static var preferenceFilters: [PreferenceInfoDemo] {
         return [
-            PreferenceInfoDemo(preferenceName: "Type søk", values:
+            PreferenceInfoDemo(title: "Type søk", values:
                 [
                     PreferenceValueTypeDemo(title: "Til salgs", value: "1", results: 1),
                     PreferenceValueTypeDemo(title: "Gis bort", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Ønskes kjøpt", value: "3", results: 1),
-            ], isMultiSelect: true, title: "Type søk"),
-            PreferenceInfoDemo(preferenceName: "Tilstand", values:
+            ], isMultiSelect: true),
+            PreferenceInfoDemo(title: "Tilstand", values:
                 [
                     PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
                     PreferenceValueTypeDemo(title: "Brukt", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Nytt", value: "3", results: 1),
-            ], isMultiSelect: false, title: "Tilstand"),
-            PreferenceInfoDemo(preferenceName: "Selger", values:
+            ], isMultiSelect: false),
+            PreferenceInfoDemo(title: "Selger", values:
                 [
                     PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
                     PreferenceValueTypeDemo(title: "Forhandler", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Privat", value: "3", results: 1),
-            ], isMultiSelect: false, title: "Selger"),
-            PreferenceInfoDemo(preferenceName: "Publisert", values:
-                [PreferenceValueTypeDemo(title: "Nye i dag", value: "1", results: 1)], isMultiSelect: false, title: "Publisert"),
+            ], isMultiSelect: false),
+            PreferenceInfoDemo(title: "Publisert", values:
+                [
+                    PreferenceValueTypeDemo(title: "Nye i dag", value: "1", results: 1),
+            ], isMultiSelect: false),
         ]
     }
 }
@@ -110,9 +112,7 @@ extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
 
         view.isSelected = !view.isSelected
 
-        let preferenceFilter = PopoverDemoViewController.preferenceFilters[index]
-        let listItems = preferenceFilter.values
-        let popover = ListViewController(title: preferenceFilter.title, items: listItems)
+        let popover = VerticalListViewController(verticals: verticalSetup())
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom
         popoverPresentationTransitioningDelegate.sourceView = selectedPreferenceView
@@ -120,17 +120,51 @@ extension PopoverDemoViewController: PreferenceSelectionViewDelegate {
 
         present(popover, animated: true, completion: nil)
     }
+
+    func verticalSetup() -> [VerticalDemo] {
+        let verticalsRealestateHomes = [
+            VerticalDemo(id: "realestate-homes", title: "Bolig til salgs", isCurrent: true, isExternal: false),
+            VerticalDemo(id: "realestate-development", title: "Nye boliger", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-plot", title: "Boligtomter", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-leisure-sale", title: "Fritidsbolig til salgs", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-leisure-sale-abroad", title: "Bolig i utlandet", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-leisure-plot", title: "Fritidstomter", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-letting", title: "Bolig til leie", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-letting-wanted", title: "Bolig ønskes leid", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-business-sale", title: "Næringseiendom til salgs", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-business-letting", title: "Næringseiendom til leie", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-business-plot", title: "Næringstomt", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-company-for-sale", title: "Bedrifter til salgs", isCurrent: false, isExternal: false),
+            VerticalDemo(id: "realestate-travel-fhh", title: "Feriehus og hytter", isCurrent: false, isExternal: true),
+        ]
+
+        return verticalsRealestateHomes
+    }
 }
 
-struct PreferenceInfoDemo: PreferenceInfoType {
-    var preferenceName: String
-    var values: [PreferenceValueType]
-    var isMultiSelect: Bool
+struct PreferenceInfoDemo: PreferenceFilterInfoType {
     var title: String
+    var values: [FilterValueType]
+    var isMultiSelect: Bool
 }
 
-struct PreferenceValueTypeDemo: PreferenceValueType {
+struct PreferenceValueTypeDemo: FilterValueType {
     var title: String
     var value: String
     var results: Int
+    var parentFilterInfo: FilterInfoType? {
+        return nil
+    }
+
+    var lookupKey: FilterValueUniqueKey {
+        return FilterValueUniqueKey(parameterName: "demo" + title, value: value)
+    }
+
+    var detail: String? {
+        return String(results)
+    }
+
+    var showsDisclosureIndicator: Bool {
+        return false
+    }
 }

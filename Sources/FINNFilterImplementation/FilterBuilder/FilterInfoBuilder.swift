@@ -4,43 +4,48 @@
 
 import Foundation
 
+public typealias FilterValueWithNumberOfHitsType = FilterValueType & NumberOfHitsCompatible
+
+public struct FilterInfoBuilderResult {
+    public let searchQuery: SearchQueryFilterInfoType?
+    public let preferences: [PreferenceFilterInfoType]
+    public let filters: [FilterInfoType]
+    public let filterValueLookup: [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]
+}
+
 public final class FilterInfoBuilder {
     private let filter: FilterSetup
     private let selectionDataSource: ParameterBasedFilterInfoSelectionDataSource
-    private(set) var multiLevelFilterLookup: [MultiLevelListSelectionFilterInfo.LookupKey: MultiLevelListSelectionFilterInfo]
 
     public init(filter: FilterSetup, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
         self.filter = filter
         self.selectionDataSource = selectionDataSource
-        multiLevelFilterLookup = [:]
     }
 
-    public func build() -> [FilterInfoType] {
-        multiLevelFilterLookup = [:]
-        var info = [FilterInfoType]()
-
+    public func build() -> FilterInfoBuilderResult? {
         guard let market = FilterMarket(market: filter.market) else {
-            return []
+            return nil
         }
 
+        let searchQuery: SearchQueryFilterInfoType?
         if filter.rawFilterKeys.contains(FilterKey.query.rawValue) {
-            info.append(buildSearchQueryFilterInfo())
+            searchQuery = buildSearchQueryFilterInfo()
+        } else {
+            searchQuery = nil
         }
+        var lookup = [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]()
 
-        if let preferenceFilterInfo = buildPreferenceFilterInfo(fromKeys: market.preferenceFilterKeys) {
-            info.append(preferenceFilterInfo)
-        }
+        let preferences = buildPreferenceFilterInfo(fromKeys: market.preferenceFilterKeys, addValuesTo: &lookup)
 
-        let remainingFilters = buildFilterInfo(fromKeys: market.supportedFiltersKeys)
-        info.append(contentsOf: remainingFilters)
+        let filters = buildFilterInfo(fromKeys: market.supportedFiltersKeys, addValuesTo: &lookup)
 
-        selectionDataSource.multiLevelFilterLookup = multiLevelFilterLookup
-        return info
+        selectionDataSource.multiLevelFilterLookup = lookup
+        return FilterInfoBuilderResult(searchQuery: searchQuery, preferences: preferences, filters: filters, filterValueLookup: lookup)
     }
 }
 
 private extension FilterInfoBuilder {
-    func buildSearchQueryFilterInfo() -> FilterInfoType {
+    func buildSearchQueryFilterInfo() -> SearchQueryFilterInfoType {
         return SearchQueryFilterInfo(parameterName: "q", value: nil, placeholderText: "Ord i annonsen", title: "Filtrer søket")
     }
 
@@ -48,64 +53,59 @@ private extension FilterInfoBuilder {
         return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
     }
 
-    func buildPreferenceFilterInfo(fromKeys keys: [FilterKey]) -> PreferenceFilterInfo? {
+    func buildPreferenceFilterInfo(fromKeys keys: [FilterKey], addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [PreferenceFilterInfoType] {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
-        let preferences = filterDataArray.compactMap { filter -> PreferenceInfoType? in
-            let values = filter.queries.map({ PreferenceValue(title: $0.title, results: $0.totalResults, value: $0.value) })
+        let preferences = filterDataArray.compactMap { filter -> PreferenceFilterInfoType? in
+            let values = filter.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value, parameterName: filter.parameterName) })
+            values.forEach({ lookup[$0.lookupKey] = $0 })
 
-            return PreferenceInfo(parameterName: filter.parameterName, title: filter.title, values: values)
+            return PreferenceFilterInfo(parameterName: filter.parameterName, title: filter.title, values: values)
         }
 
-        if preferences.isEmpty {
-            return nil
-        }
-
-        return PreferenceFilterInfo(preferences: preferences, title: "Preferences")
+        return preferences
     }
 
-    func buildSelectionListFilterInfo(from filterData: FilterData) -> ListSelectionFilterInfo? {
-        let values = filterData.queries.map({ ListSelectionFilterValue(title: $0.title, results: $0.totalResults, value: $0.value) })
+    func buildSelectionListFilterInfo(from filterData: FilterData, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> ListSelectionFilterInfo? {
+        let values = filterData.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value, parameterName: filterData.parameterName) })
+        values.forEach({ lookup[$0.lookupKey] = $0 })
 
         return ListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true)
     }
 
-    func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData) -> MultiLevelListSelectionFilterInfo? {
-        guard let filterKey = FilterKey(stringValue: filterData.parameterName) else {
-            return nil
-        }
+    func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> MultiLevelListSelectionFilterInfo? {
         let filters = filterData.queries.map({ query -> MultiLevelListSelectionFilterInfo in
-            let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter)
-            let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, isMultiSelect: filterKey != .category, results: query.totalResults, value: query.value)
+            let queryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: query.filter, addValuesTo: &lookup)
+            let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: query.title, isMultiSelect: true, results: query.totalResults, value: query.value)
             filter.setSubLevelFilters(queryFilters)
-            multiLevelFilterLookup[filter.lookupKey] = filter
+            lookup[filter.lookupKey] = filter
             selectionDataSource.updateSelectionStateForFilter(filter)
             return filter
         })
 
-        let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, isMultiSelect: filterKey != .category, results: 0, value: "")
+        let filter = MultiLevelListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, isMultiSelect: true, results: 0, value: "")
         filter.setSubLevelFilters(filters)
-        multiLevelFilterLookup[filter.lookupKey] = filter
+        lookup[filter.lookupKey] = filter
         selectionDataSource.updateSelectionStateForFilter(filter)
         return filter
     }
 
-    func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData?) -> [MultiLevelListSelectionFilterInfo] {
+    func buildMultiLevelListSelectionFilterInfo(fromQueryFilter queryFilter: FilterData?, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [MultiLevelListSelectionFilterInfo] {
         guard let queryFilter = queryFilter else {
             return []
         }
         let queryFilters = queryFilter.queries.map({ filterQueries -> MultiLevelListSelectionFilterInfo in
-            let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter)
+            let subQueryFilters = buildMultiLevelListSelectionFilterInfo(fromQueryFilter: filterQueries.filter, addValuesTo: &lookup)
             let filter = MultiLevelListSelectionFilterInfo(parameterName: queryFilter.parameterName, title: filterQueries.title, isMultiSelect: true, results: filterQueries.totalResults, value: filterQueries.value)
             filter.setSubLevelFilters(subQueryFilters)
-            multiLevelFilterLookup[filter.lookupKey] = filter
+            lookup[filter.lookupKey] = filter
             selectionDataSource.updateSelectionStateForFilter(filter)
             return filter
         })
         return queryFilters
     }
 
-    func buildFilterInfo(fromKeys keys: [FilterKey]) -> [FilterInfoType] {
+    func buildFilterInfo(fromKeys keys: [FilterKey], addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [FilterInfoType] {
         var filterInfo = [FilterInfoType]()
 
         keys.forEach({ key in
@@ -122,11 +122,11 @@ private extension FilterInfoBuilder {
                     filterInfo.append(rangeFilterInfo)
                 }
             } else if FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterData) {
-                if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(fromFilterData: filterData) {
+                if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(fromFilterData: filterData, addValuesTo: &lookup) {
                     filterInfo.append(mulitLevelSelectionFilterInfo)
                 }
             } else if FilterInfoBuilder.isListSelectionFilter(filterData: filterData) {
-                if let selectionListFilterInfo = buildSelectionListFilterInfo(from: filterData) {
+                if let selectionListFilterInfo = buildSelectionListFilterInfo(from: filterData, addValuesTo: &lookup) {
                     filterInfo.append(selectionListFilterInfo)
                 }
             }

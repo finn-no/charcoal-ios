@@ -9,6 +9,7 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
     public var controller: UIViewController { return self }
 
     private let filterInfo: StepperFilterInfoType
+    private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
 
     private lazy var stepperFilterView: StepperFilterView = {
@@ -18,9 +19,10 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
         return view
     }()
 
-    public required init?(filterInfo: FilterInfoType, selectionDataSource: FilterSelectionDataSource) {
+    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         guard let filterInfo = filterInfo as? StepperFilterInfoType else { return nil }
         self.filterInfo = filterInfo
+        self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         super.init(nibName: nil, bundle: nil)
     }

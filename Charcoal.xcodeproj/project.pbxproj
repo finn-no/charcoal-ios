@@ -55,9 +55,8 @@
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */; };
 		5589322E209C3CD500512FF8 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
-		55893231209C579000512FF8 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893230209C579000512FF8 /* ListViewController.swift */; };
 		55893234209C743100512FF8 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893233209C743100512FF8 /* UITableViewExtensions.swift */; };
-		55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */; };
+		55893236209C7ECF00512FF8 /* ListSelectionViewControllerDemoModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893235209C7ECF00512FF8 /* ListSelectionViewControllerDemoModels.swift */; };
 		5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589323720A02E1900512FF8 /* SelectionListItemCell.swift */; };
 		55946B7E20970237008AB7CE /* PopoverDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */; };
 		559C61F320DA4C8D0083A574 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -94,6 +93,8 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
+		9B5A66F0219EBF79005C9118 /* NumberOfHitsCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66EF219EBF79005C9118 /* NumberOfHitsCompatible.swift */; };
+		9B5A66F4219EF263005C9118 /* FilterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F3219EF263005C9118 /* FilterValue.swift */; };
 		9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */; };
 		9B5E87692182114F00793A1A /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
 		9B5E876D2191CE4F00793A1A /* AnyFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E876C2191CE4F00793A1A /* AnyFilterViewController.swift */; };
@@ -117,7 +118,7 @@
 		9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */; };
 		9BB827A9216CCFA10014028C /* SearchQueryFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A8216CCFA10014028C /* SearchQueryFilterInfoType.swift */; };
 		9BB827AB216CCFCA0014028C /* PreferenceInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827AA216CCFCA0014028C /* PreferenceInfoType.swift */; };
-		9BB827AD216CD0310014028C /* ListItemFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827AC216CD0310014028C /* ListItemFilterInfoType.swift */; };
+		9BB827AD216CD0310014028C /* ListSelectionFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827AC216CD0310014028C /* ListSelectionFilterInfoType.swift */; };
 		9BB827AF216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827AE216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift */; };
 		9BB827B1216CD0860014028C /* RangeFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827B0216CD0860014028C /* RangeFilterInfoType.swift */; };
 		9BB827B4216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827B3216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift */; };
@@ -245,9 +246,8 @@
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
 		5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		5589322C209C3CD500512FF8 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
-		55893230209C579000512FF8 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		55893233209C743100512FF8 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
-		55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerDemo.swift; sourceTree = "<group>"; };
+		55893235209C7ECF00512FF8 /* ListSelectionViewControllerDemoModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSelectionViewControllerDemoModels.swift; sourceTree = "<group>"; };
 		5589323720A02E1900512FF8 /* SelectionListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionListItemCell.swift; sourceTree = "<group>"; };
 		55946B7D20970237008AB7CE /* PopoverDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDemoViewController.swift; sourceTree = "<group>"; };
 		5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfoBuilder.swift; sourceTree = "<group>"; };
@@ -282,6 +282,8 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
+		9B5A66EF219EBF79005C9118 /* NumberOfHitsCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfHitsCompatible.swift; sourceTree = "<group>"; };
+		9B5A66F3219EF263005C9118 /* FilterValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterValue.swift; sourceTree = "<group>"; };
 		9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectionCell.swift; sourceTree = "<group>"; };
 		9B5E876C2191CE4F00793A1A /* AnyFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyFilterViewController.swift; sourceTree = "<group>"; };
 		9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSelectionValuesContainerView.swift; sourceTree = "<group>"; };
@@ -304,7 +306,7 @@
 		9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterInfo.swift; sourceTree = "<group>"; };
 		9BB827A8216CCFA10014028C /* SearchQueryFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryFilterInfoType.swift; sourceTree = "<group>"; };
 		9BB827AA216CCFCA0014028C /* PreferenceInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceInfoType.swift; sourceTree = "<group>"; };
-		9BB827AC216CD0310014028C /* ListItemFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemFilterInfoType.swift; sourceTree = "<group>"; };
+		9BB827AC216CD0310014028C /* ListSelectionFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSelectionFilterInfoType.swift; sourceTree = "<group>"; };
 		9BB827AE216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelListSelectionFilterInfoType.swift; sourceTree = "<group>"; };
 		9BB827B0216CD0860014028C /* RangeFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterInfoType.swift; sourceTree = "<group>"; };
 		9BB827B3216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterBasedFilterInfoSelectionDataSourceTests.swift; sourceTree = "<group>"; };
@@ -401,7 +403,6 @@
 				55E869D820E25598008B921E /* FilterViewController */,
 				44ECE699208F80320017AC82 /* Finnivers */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
-				55893232209C651A00512FF8 /* List */,
 				55E869E520E3D285008B921E /* ListSelectionFilter */,
 				9BB82798216B57630014028C /* Logger */,
 				55858A2220AB086200B100EA /* MultiLevelListSelectionFilter */,
@@ -433,7 +434,7 @@
 				44ECE6A9208F816D0017AC82 /* Fullscreen */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
-				55893235209C7ECF00512FF8 /* ListViewControllerDemo.swift */,
+				55893235209C7ECF00512FF8 /* ListSelectionViewControllerDemoModels.swift */,
 				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
 				DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */,
 				5598F20E20C008F900E148E0 /* Resources */,
@@ -633,15 +634,6 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		55893232209C651A00512FF8 /* List */ = {
-			isa = PBXGroup;
-			children = (
-				55893230209C579000512FF8 /* ListViewController.swift */,
-				5589323720A02E1900512FF8 /* SelectionListItemCell.swift */,
-			);
-			path = List;
-			sourceTree = "<group>";
-		};
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +725,7 @@
 			isa = PBXGroup;
 			children = (
 				55E869E320E3D246008B921E /* ListSelectionFilterViewController.swift */,
+				5589323720A02E1900512FF8 /* SelectionListItemCell.swift */,
 			);
 			path = ListSelectionFilter;
 			sourceTree = "<group>";
@@ -776,8 +769,10 @@
 		9BB8279C216C9BCB0014028C /* FilterInfo */ = {
 			isa = PBXGroup;
 			children = (
+				9B5A66F3219EF263005C9118 /* FilterValue.swift */,
 				9BB827A1216C9C800014028C /* ListSelectionFilterInfo.swift */,
 				9BB827A3216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift */,
+				9B5A66EF219EBF79005C9118 /* NumberOfHitsCompatible.swift */,
 				55BDA77120DBD99600331FFC /* ParameterBasedFilterInfo.swift */,
 				9BB8279F216C9C360014028C /* PreferenceFilterInfo.swift */,
 				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
@@ -791,7 +786,7 @@
 			isa = PBXGroup;
 			children = (
 				55858A1220AAC26400B100EA /* FilterInfoType.swift */,
-				9BB827AC216CD0310014028C /* ListItemFilterInfoType.swift */,
+				9BB827AC216CD0310014028C /* ListSelectionFilterInfoType.swift */,
 				9BB827AE216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift */,
 				9BB827AA216CCFCA0014028C /* PreferenceInfoType.swift */,
 				9BB827B0216CD0860014028C /* RangeFilterInfoType.swift */,
@@ -1234,12 +1229,12 @@
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
-				9BB827AD216CD0310014028C /* ListItemFilterInfoType.swift in Sources */,
+				9BB827AD216CD0310014028C /* ListSelectionFilterInfoType.swift in Sources */,
 				9B5E876D2191CE4F00793A1A /* AnyFilterViewController.swift in Sources */,
+				9B5A66F0219EBF79005C9118 /* NumberOfHitsCompatible.swift in Sources */,
 				55893234209C743100512FF8 /* UITableViewExtensions.swift in Sources */,
 				55E869E420E3D246008B921E /* ListSelectionFilterViewController.swift in Sources */,
 				9BB827A2216C9C800014028C /* ListSelectionFilterInfo.swift in Sources */,
-				55893231209C579000512FF8 /* ListViewController.swift in Sources */,
 				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
@@ -1253,6 +1248,7 @@
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
 				9BB827AF216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift in Sources */,
 				4670268D2170D38D00B9C952 /* SteppedSlider.swift in Sources */,
+				9B5A66F4219EF263005C9118 /* FilterValue.swift in Sources */,
 				9BC45F742153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift in Sources */,
 				559C61F820DA4D860083A574 /* FilterSetup.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
@@ -1294,7 +1290,7 @@
 				9BD6379421244EC100AB9DFE /* Color.swift in Sources */,
 				9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */,
 				462EC168212D763B00E6085C /* UITableViewExtensions.swift in Sources */,
-				55893236209C7ECF00512FF8 /* ListViewControllerDemo.swift in Sources */,
+				55893236209C7ECF00512FF8 /* ListSelectionViewControllerDemoModels.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
 				9BD637632124432E00AB9DFE /* Identifiable.swift in Sources */,
 				9BD6379021244C1100AB9DFE /* ColorDemoView.swift in Sources */,

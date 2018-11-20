@@ -39,26 +39,28 @@ final class PreferenceSelectionViewDemoView: UIView {
 extension PreferenceSelectionViewDemoView {
     static var preferenceFilters: [PreferenceInfoDemo] {
         return [
-            PreferenceInfoDemo(preferenceName: "Type søk", values:
+            PreferenceInfoDemo(title: "Type søk", values:
                 [
                     PreferenceValueTypeDemo(title: "Til salgs", value: "1", results: 1),
                     PreferenceValueTypeDemo(title: "Gis bort", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Ønskes kjøpt", value: "3", results: 1),
-            ], isMultiSelect: true, title: "Type søk"),
-            PreferenceInfoDemo(preferenceName: "Tilstand", values:
+            ], isMultiSelect: true),
+            PreferenceInfoDemo(title: "Tilstand", values:
                 [
                     PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
                     PreferenceValueTypeDemo(title: "Brukt", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Nytt", value: "3", results: 1),
-            ], isMultiSelect: false, title: "Tilstand"),
-            PreferenceInfoDemo(preferenceName: "Selger", values:
+            ], isMultiSelect: false),
+            PreferenceInfoDemo(title: "Selger", values:
                 [
                     PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
                     PreferenceValueTypeDemo(title: "Forhandler", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Privat", value: "3", results: 1),
-            ], isMultiSelect: false, title: "Selger"),
-            PreferenceInfoDemo(preferenceName: "Publisert", values:
-                [PreferenceValueTypeDemo(title: "Nye i dag", value: "1", results: 1)], isMultiSelect: false, title: "Publisert"),
+            ], isMultiSelect: false),
+            PreferenceInfoDemo(title: "Publisert", values:
+                [
+                    PreferenceValueTypeDemo(title: "Nye i dag", value: "1", results: 1),
+            ], isMultiSelect: false),
         ]
     }
 }

@@ -21,20 +21,19 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         }
 
         // When
-        let filterInfoElements = builder?.build()
-        let numberOfSearchQueryFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is SearchQueryFilterInfoType) ? $0 + 1 : $0 })
-        let numberOfPreferenceFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is PreferenceFilterInfoType) ? $0 + 1 : $0 })
-        let numberOfRangeFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is RangeFilterInfoType) ? $0 + 1 : $0 })
-        let numberOfMultiLevelListSelectionFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is MultiLevelListSelectionFilterInfo) ? $0 + 1 : $0 })
-        let numberOfListSelectionFilterInfoElements = filterInfoElements?.reduce(0, { ($1 is ListSelectionFilterInfo) ? $0 + 1 : $0 })
+        let buildResult = builder?.build()
+        let numberOfSearchQueryFilterInfoElements = buildResult?.searchQuery != nil ? 1 : 0
+        let numberOfPreferenceFilterInfoElements = buildResult?.preferences.count
+        let numberOfRangeFilterInfoElements = buildResult?.filters.reduce(0, { ($1 is RangeFilterInfoType) ? $0 + 1 : $0 })
+        let numberOfMultiLevelListSelectionFilterInfoElements = buildResult?.filters.reduce(0, { ($1 is MultiLevelListSelectionFilterInfo) ? $0 + 1 : $0 })
+        let numberOfListSelectionFilterInfoElements = buildResult?.filters.reduce(0, { ($1 is ListSelectionFilterInfo) ? $0 + 1 : $0 })
 
         // Then
         XCTAssertNotNil(filter)
         XCTAssertNotNil(builder)
-        XCTAssertNotNil(filterInfoElements)
-        XCTAssertEqual(filterInfoElements?.count, 19)
+        XCTAssertNotNil(buildResult)
         XCTAssertEqual(numberOfSearchQueryFilterInfoElements, 1)
-        XCTAssertEqual(numberOfPreferenceFilterInfoElements, 1)
+        XCTAssertEqual(numberOfPreferenceFilterInfoElements, 4)
         XCTAssertEqual(numberOfRangeFilterInfoElements, 5)
         XCTAssertEqual(numberOfMultiLevelListSelectionFilterInfoElements, 1)
         XCTAssertEqual(numberOfListSelectionFilterInfoElements, 11)
@@ -51,23 +50,21 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         }
 
         // When
-        let filterInfoElements = builder?.build()
-        let preferenceFilterInfo = filterInfoElements?.first(where: { $0 is PreferenceFilterInfoType }) as? PreferenceFilterInfoType
-        let preferenceFilterInfoPreferences = preferenceFilterInfo?.preferences
-        let publishedPreference = preferenceFilterInfoPreferences?.first(where: { $0.preferenceName == "Publisert" })
+        let buildResult = builder?.build()
+        let preferenceFilterInfos = buildResult?.preferences
+        let publishedPreference = preferenceFilterInfos?.first(where: { $0.title == "Publisert" })
         let publishedFilterData = filter?.filterData(forKey: .published)
 
         // Then
-        XCTAssertNotNil(filterInfoElements)
-        XCTAssertNotNil(preferenceFilterInfo)
-        XCTAssertNotNil(preferenceFilterInfoPreferences)
+        XCTAssertNotNil(buildResult)
+        XCTAssertNotNil(preferenceFilterInfos)
         XCTAssertNotNil(publishedFilterData)
 
-        XCTAssertEqual(preferenceFilterInfoPreferences?.count, FilterMarket.car.preferenceFilterKeys.count)
+        XCTAssertEqual(preferenceFilterInfos?.count, FilterMarket.car.preferenceFilterKeys.count)
 
         XCTAssertNotNil(publishedPreference)
-        XCTAssertEqual(publishedPreference?.preferenceName, "Publisert")
-        XCTAssertEqual(publishedPreference?.preferenceName, publishedFilterData?.title)
+        XCTAssertEqual(publishedPreference?.title, "Publisert")
+        XCTAssertEqual(publishedPreference?.title, publishedFilterData?.title)
 
         XCTAssertEqual(publishedPreference?.values.count, 1)
         XCTAssertEqual(publishedPreference?.values.count, publishedFilterData?.queries.count)
@@ -78,8 +75,12 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertEqual(publishedPreference?.values.first?.title, "Nye i dag")
         XCTAssertEqual(publishedPreference?.values.first?.title, publishedFilterData?.queries.first?.title)
 
-        XCTAssertEqual(publishedPreference?.values.first?.results, 2307)
-        XCTAssertEqual(publishedPreference?.values.first?.results, publishedFilterData?.queries.first?.totalResults)
+        guard let firstValue = publishedPreference?.values.first else {
+            return
+        }
+        let numberOfHitsForFirstValue = buildResult?.filterValueLookup[firstValue.lookupKey]?.results
+        XCTAssertEqual(numberOfHitsForFirstValue, 2307)
+        XCTAssertEqual(numberOfHitsForFirstValue, publishedFilterData?.queries.first?.totalResults)
     }
 
     func testFilterInfoBuilderBuildsMultiLevelFilterInfoWithExpectedValues() {
@@ -93,12 +94,12 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         }
 
         // When
-        let filterInfoElements = builder?.build()
-        let makeMultiLevelFilterInfo = filterInfoElements?.first(where: { $0.title == "Merke" }) as? MultiLevelListSelectionFilterInfoType
+        let buildResult = builder?.build()
+        let makeMultiLevelFilterInfo = buildResult?.filters.first(where: { $0.title == "Merke" }) as? MultiLevelListSelectionFilterInfoType
         let makeFilterData = filter?.filterData(forKey: .make)
 
         // Then
-        XCTAssertNotNil(filterInfoElements)
+        XCTAssertNotNil(buildResult)
         XCTAssertNotNil(makeMultiLevelFilterInfo)
         XCTAssertNotNil(makeFilterData)
         XCTAssertEqual(makeMultiLevelFilterInfo?.title, "Merke")
@@ -139,13 +140,13 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         }
 
         // When
-        let filterInfoElements = builder?.build()
+        let buildResult = builder?.build()
         let rangeFilterData = filter?.filters.first(where: { $0.isRange == true })
         let rangeFilterName = rangeFilterData?.title
-        let rangeFilterInfo = filterInfoElements?.first(where: { $0.title == rangeFilterName }) as? RangeFilterInfoType
+        let rangeFilterInfo = buildResult?.filters.first(where: { $0.title == rangeFilterName }) as? RangeFilterInfoType
 
         // Then
-        XCTAssertNotNil(filterInfoElements)
+        XCTAssertNotNil(buildResult)
         XCTAssertNotNil(rangeFilterData)
         XCTAssertNotNil(rangeFilterName)
         XCTAssertNotNil(rangeFilterInfo)

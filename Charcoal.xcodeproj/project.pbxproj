@@ -146,6 +146,7 @@
 		9BE0A061209200410000632B /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A05F2091FFA50000632B /* FilterCell.swift */; };
 		9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */; };
 		9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A069209724D70000632B /* PreferencesCell.swift */; };
+		9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0D54021A4509F00F0B63B /* car-abroad.json */; };
 		9BE9A060219ADC2000059C19 /* CollapsedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */; };
 		9BE9A062219ADC4F00059C19 /* ExpandedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */; };
 		9BFC08912134088C00AB8A11 /* ContentSizeModeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */; };
@@ -331,6 +332,7 @@
 		9BE0A05F2091FFA50000632B /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomButtonView.swift; sourceTree = "<group>"; };
 		9BE0A069209724D70000632B /* PreferencesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCell.swift; sourceTree = "<group>"; };
+		9BE0D54021A4509F00F0B63B /* car-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-abroad.json"; sourceTree = "<group>"; };
 		9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeModeTest.swift; sourceTree = "<group>"; };
@@ -641,9 +643,10 @@
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
 				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
+				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
+				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1106,6 +1109,7 @@
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
 				55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */,
 				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
+				9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

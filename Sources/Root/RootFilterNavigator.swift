@@ -28,8 +28,8 @@ public class RootFilterNavigator: NSObject, Navigator {
     }
 
     public func start() {
-        let filterRootViewController = factory.makeFilterRootViewController(navigator: self)
-        navigationController.setViewControllers([filterRootViewController], animated: false)
+        let filterRootStateController = factory.makeFilterRootStateController(navigator: self)
+        navigationController.setViewControllers([filterRootStateController], animated: false)
     }
 
     public func navigate(to destination: RootFilterNavigator.Destination) {

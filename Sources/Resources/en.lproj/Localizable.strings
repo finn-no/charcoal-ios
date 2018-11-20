@@ -14,3 +14,5 @@
 "apply_button_title" = "Bruk";
 "opens_in_browser" = "Åpnes i nettleseren";
 "all_items_title" = "Alle";
+"show_hits_button_title" = "Vis treff";
+"show_x_hits_button_title" = "Vis %i treff";

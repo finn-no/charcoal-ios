@@ -3,6 +3,5 @@
 //
 
 public protocol SearchQueryFilterInfoType: FilterInfoType {
-    var value: String? { get }
     var placeholderText: String { get }
 }

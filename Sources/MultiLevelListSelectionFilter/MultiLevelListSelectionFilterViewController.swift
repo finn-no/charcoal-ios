@@ -122,11 +122,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
     }
 
     private func didSelectDrillDownItem(_ listItem: MultiLevelListSelectionFilterInfoType, at indexPath: IndexPath) {
-        let filterIndex = isSelectAllIncluded ? indexPath.row - 1 : indexPath.row
-        guard let sublevelFilterInfo = filterInfo.filters[safe: filterIndex] else {
-            return
-        }
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: sublevelFilterInfo)
+        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: listItem)
         indexPathToRefreshOnViewWillAppear = indexPath
     }
 

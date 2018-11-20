@@ -446,20 +446,7 @@ extension FilterRootViewController: FilterViewControllerDelegate {
 
 extension FilterRootViewController: VerticalListViewControllerDelegate {
     public func verticalListViewController(_: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int) {
-        let vc = UIViewController(nibName: nil, bundle: nil)
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.view.addSubview(loadingView)
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.fillInSuperview()
-
-        presentedViewController?.present(vc, animated: true, completion: nil)
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-            self.dismiss(animated: true, completion: {
-            })
-        }
-
+        dismiss(animated: true, completion: nil)
         delegate?.filterRootViewController(self, didChangeVertical: vertical)
     }
 }

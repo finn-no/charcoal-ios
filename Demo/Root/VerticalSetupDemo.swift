@@ -16,4 +16,5 @@ struct VerticalDemo: Vertical {
     let title: String
     let isCurrent: Bool
     let isExternal: Bool
+    let file: String?
 }

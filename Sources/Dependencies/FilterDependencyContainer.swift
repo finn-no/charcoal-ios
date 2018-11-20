@@ -34,7 +34,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     public func makeFilterRootStateController(navigator: RootFilterNavigator) -> FilterRootStateController {
         let rootStateController = FilterRootStateController(navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider)
         rootStateController.delegate = filterRootStateControllerDelegate
-        rootStateController.state = .filtersLoaded(filter: dataSource) // TODO: This should not happen here, will be refactored
+        rootStateController.loadFilters(dataSource) // TODO: This should not happen here, will be refactored
         return rootStateController
     }
 

@@ -78,7 +78,8 @@ public class RootFilterNavigator: NSObject, Navigator {
 
 private extension RootFilterNavigator {
     var filterRootViewController: FilterRootViewController? {
-        return navigationController.viewControllers.first as? FilterRootViewController
+        let stateController = navigationController.viewControllers.first as? FilterRootStateController
+        return stateController?.children.first as? FilterRootViewController
     }
 
     func presentVerticals(with verticals: [Vertical], and sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {

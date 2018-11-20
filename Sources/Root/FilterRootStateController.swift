@@ -29,7 +29,7 @@ public class FilterRootStateController: UIViewController {
         return vc
     }()
 
-    var state = State.loading {
+    private var state = State.loading {
         didSet {
             if isViewLoaded {
                 configure(for: state)
@@ -48,9 +48,20 @@ public class FilterRootStateController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override var title: String? {
+        get {
+            return children.first?.title
+        }
+        set {}
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         configure(for: state)
+    }
+
+    public func loadFilters(_ filterDataSource: FilterDataSource) {
+        state = .filtersLoaded(filter: filterDataSource)
     }
 
     // MARK: - State handling

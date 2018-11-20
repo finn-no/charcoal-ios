@@ -59,7 +59,7 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
         self.searchQueryFilterInfo = searchQueryFilterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
-        startText = searchQueryFilterInfo.value
+        startText = selectionDataSource.value(for: searchQueryFilterInfo)?.first
         placeholder = searchQueryFilterInfo.placeholderText
         super.init(nibName: nil, bundle: nil)
         title = searchQueryFilterInfo.title
@@ -74,6 +74,7 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
 
         if let selectionValue = selectionDataSource.value(for: searchQueryFilterInfo) {
             setSelectionValue(selectionValue)
+            startText = searchText
         }
 
         setup()

@@ -4,7 +4,7 @@
 
 import UIKit
 
-public protocol FilterRootViewControllerDelegate: AnyObject {
+protocol FilterRootViewControllerDelegate: AnyObject {
     func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical)
     func filterRootViewControllerShouldShowResults(_: FilterRootViewController)
 }
@@ -17,8 +17,53 @@ public class FilterRootViewController: UIViewController {
     }
 
     private let navigator: RootFilterNavigator
-    private let dataSource: FilterDataSource
-    public let selectionDataSource: FilterSelectionDataSource
+
+    var searchQueryFilter: SearchQueryFilterInfoType? {
+        didSet {
+            if isViewLoaded && hasUIChanges(lhs: oldValue, rhs: searchQueryFilter) {
+                tableView.reloadSections([Section.searchQuery.rawValue], with: .fade)
+            }
+        }
+    }
+
+    var verticalsFilters: [Vertical] = [] {
+        didSet {
+            if isViewLoaded && hasUIChanges(lhs: oldValue, rhs: verticalsFilters) {
+                tableView.reloadSections([Section.preferences.rawValue], with: .fade)
+            }
+        }
+    }
+
+    var preferenceFilters: [PreferenceFilterInfoType] = [] {
+        didSet {
+            if isViewLoaded && hasUIChanges(lhs: oldValue, rhs: preferenceFilters) {
+                tableView.reloadSections([Section.preferences.rawValue], with: .fade)
+            }
+        }
+    }
+
+    var filters: [FilterInfoType] = [] {
+        didSet {
+            if isViewLoaded && hasUIChanges(lhs: oldValue, rhs: filters) {
+                tableView.reloadSections([Section.filters.rawValue], with: .fade)
+            }
+        }
+    }
+
+    var numberOfHits: Int? {
+        didSet {
+            if isViewLoaded {
+                showResultsButtonView.buttonTitle = showResultsButtonViewTitle()
+            }
+        }
+    }
+
+    var selectionDataSource: FilterSelectionDataSource? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+
     weak var delegate: FilterRootViewControllerDelegate?
     let filterSelectionTitleProvider: FilterSelectionTitleProvider
 
@@ -42,7 +87,7 @@ public class FilterRootViewController: UIViewController {
     private lazy var showResultsButtonView: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.delegate = self
-        buttonView.buttonTitle = "Vis \(dataSource.numberOfHits) treff"
+        buttonView.buttonTitle = showResultsButtonViewTitle()
         return buttonView
     }()
 
@@ -65,9 +110,8 @@ public class FilterRootViewController: UIViewController {
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
+    public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
         self.navigator = navigator
-        self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         self.filterSelectionTitleProvider = filterSelectionTitleProvider
         super.init(nibName: nil, bundle: nil)
@@ -119,11 +163,11 @@ private extension FilterRootViewController {
         }
         switch section {
         case .searchQuery:
-            return dataSource.searchQuery
+            return searchQueryFilter
         case .preferences:
             return nil
         case .filters:
-            return dataSource.filters[safe: indexPath.row]
+            return filters[safe: indexPath.row]
         }
     }
 
@@ -131,9 +175,70 @@ private extension FilterRootViewController {
         guard let filterInfo = self.filterInfo(at: indexPath) else {
             return []
         }
-        return selectionDataSource.valueAndSubLevelValues(for: filterInfo)
+        return selectionDataSource?.valueAndSubLevelValues(for: filterInfo) ?? []
+    }
+
+    func showResultsButtonViewTitle() -> String? {
+        if let numberOfHits = numberOfHits {
+            return String(format: "show_x_hits_button_title".localized(), numberOfHits)
+        } else {
+            return "show_hits_button_title".localized()
+        }
     }
 }
+
+// MARK: - Helpers to check if UI needs to be updated
+
+private extension FilterRootViewController {
+    private func hasUIChanges(lhs lhsOrNil: SearchQueryFilterInfoType?, rhs rhsOrNil: SearchQueryFilterInfoType?) -> Bool {
+        guard let lhs = lhsOrNil, let rhs = rhsOrNil else {
+            return lhsOrNil != nil || rhsOrNil != nil
+        }
+        return lhs.title != rhs.title || lhs.placeholderText != rhs.placeholderText
+    }
+
+    private func hasUIChanges(lhs: [Vertical], rhs: [Vertical]) -> Bool {
+        if lhs.count != rhs.count {
+            return true
+        }
+        return !lhs.elementsEqual(rhs, by: { hasUIChanges(lhs: $0, rhs: $1) })
+    }
+
+    private func hasUIChanges(lhs: Vertical, rhs: Vertical) -> Bool {
+        return lhs.title != rhs.title || lhs.isCurrent != rhs.isCurrent || lhs.isExternal != rhs.isExternal
+    }
+
+    private func hasUIChanges(lhs: [PreferenceFilterInfoType], rhs: [PreferenceFilterInfoType]) -> Bool {
+        if lhs.count != rhs.count {
+            return true
+        }
+        return !lhs.elementsEqual(rhs, by: { hasUIChanges(lhs: $0, rhs: $1) })
+    }
+
+    private func hasUIChanges(lhs: PreferenceFilterInfoType, rhs: PreferenceFilterInfoType) -> Bool {
+        if lhs.title != rhs.title || lhs.isMultiSelect != rhs.isMultiSelect || lhs.values.count != rhs.values.count {
+            return true
+        }
+        return !lhs.values.elementsEqual(rhs.values, by: { hasUIChanges(lhs: $0, rhs: $1) })
+    }
+
+    private func hasUIChanges(lhs: FilterValueType, rhs: FilterValueType) -> Bool {
+        return lhs.title != rhs.title
+    }
+
+    private func hasUIChanges(lhs: [FilterInfoType], rhs: [FilterInfoType]) -> Bool {
+        if lhs.count != rhs.count {
+            return true
+        }
+        return !lhs.elementsEqual(rhs, by: { hasUIChanges(lhs: $0, rhs: $1) })
+    }
+
+    private func hasUIChanges(lhs: FilterInfoType, rhs: FilterInfoType) -> Bool {
+        return lhs.title != rhs.title
+    }
+}
+
+// MARK: -
 
 extension FilterRootViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -142,7 +247,7 @@ extension FilterRootViewController: UITableViewDelegate {
         }
         switch section {
         case .searchQuery:
-            if let searchQuery = dataSource.searchQuery {
+            if let searchQuery = searchQueryFilter {
                 navigator.navigate(to: .searchQueryFilter(filterInfo: searchQuery, delegate: self))
             }
         case .preferences:
@@ -177,11 +282,11 @@ extension FilterRootViewController: UITableViewDataSource {
         }
         switch section {
         case .searchQuery:
-            return dataSource.searchQuery != nil ? 1 : 0
+            return searchQueryFilter != nil ? 1 : 0
         case .preferences:
-            return dataSource.preferences.count > 0 ? 1 : 0
+            return preferenceFilters.count > 0 ? 1 : 0
         case .filters:
-            return dataSource.filters.count
+            return filters.count
         }
     }
 
@@ -192,18 +297,18 @@ extension FilterRootViewController: UITableViewDataSource {
         switch section {
         case .searchQuery:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            if let searchQuery = dataSource.searchQuery, let selectionValue = selectionDataSource.valueAndSubLevelValues(for: searchQuery).first {
+            if let searchQuery = searchQueryFilter, let selectionValue = selectionDataSource?.valueAndSubLevelValues(for: searchQuery).first {
                 cell.searchText = filterSelectionTitleProvider.titleForSelection(selectionValue)
             } else {
                 cell.searchText = nil
             }
-            cell.placeholderText = dataSource.searchQuery?.placeholderText
+            cell.placeholderText = searchQueryFilter?.placeholderText
             cell.delegate = self
             return cell
 
         case .preferences:
             let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
-            cell.setupWith(verticals: dataSource.verticals, preferences: dataSource.preferences, delegate: self, selectionDataSource: selectionDataSource)
+            cell.setupWith(verticals: verticalsFilters, preferences: preferenceFilters, delegate: self, selectionDataSource: selectionDataSource)
             cell.selectionStyle = .none
             return cell
 
@@ -303,9 +408,9 @@ extension FilterRootViewController: FilterCellDelegate {
             return
         }
         if filterInfo is ListSelectionFilterInfo || filterInfo is MultiLevelListSelectionFilterInfo {
-            selectionDataSource.clearSelection(at: 0, in: selectionValue.selectionInfo)
+            selectionDataSource?.clearSelection(at: 0, in: selectionValue.selectionInfo)
         } else {
-            selectionDataSource.clearAll(for: filterInfo)
+            selectionDataSource?.clearAll(for: filterInfo)
         }
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
@@ -329,7 +434,7 @@ extension FilterRootViewController: SearchQueryCellDelegate {
         guard let searchQueryFilterInfo = self.filterInfo(at: indexPath) as? SearchQueryFilterInfoType else {
             return
         }
-        selectionDataSource.clearAll(for: searchQueryFilterInfo)
+        selectionDataSource?.clearAll(for: searchQueryFilterInfo)
     }
 }
 

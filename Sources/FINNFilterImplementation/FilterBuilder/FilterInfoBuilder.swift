@@ -46,7 +46,7 @@ public final class FilterInfoBuilder {
 
 private extension FilterInfoBuilder {
     func buildSearchQueryFilterInfo() -> SearchQueryFilterInfoType {
-        return SearchQueryFilterInfo(parameterName: "q", value: nil, placeholderText: "Ord i annonsen", title: "Filtrer søket")
+        return SearchQueryFilterInfo(parameterName: "q", placeholderText: "Ord i annonsen", title: "Filtrer søket")
     }
 
     func buildStepperFilterInfo(from filterData: FilterData) -> StepperFilterInfoType {

@@ -95,6 +95,8 @@
 		55FFB38B20C15697002D593A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */; };
 		9B5A66F0219EBF79005C9118 /* NumberOfHitsCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66EF219EBF79005C9118 /* NumberOfHitsCompatible.swift */; };
 		9B5A66F4219EF263005C9118 /* FilterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F3219EF263005C9118 /* FilterValue.swift */; };
+		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
+		9B5A66F821A2E26C005C9118 /* FilterRootStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */; };
 		9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */; };
 		9B5E87692182114F00793A1A /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322C209C3CD500512FF8 /* Layout.swift */; };
 		9B5E876D2191CE4F00793A1A /* AnyFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E876C2191CE4F00793A1A /* AnyFilterViewController.swift */; };
@@ -284,6 +286,8 @@
 		55FFB38A20C15697002D593A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		9B5A66EF219EBF79005C9118 /* NumberOfHitsCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfHitsCompatible.swift; sourceTree = "<group>"; };
 		9B5A66F3219EF263005C9118 /* FilterValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterValue.swift; sourceTree = "<group>"; };
+		9B5A66F521A2E122005C9118 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRootStateController.swift; sourceTree = "<group>"; };
 		9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectionCell.swift; sourceTree = "<group>"; };
 		9B5E876C2191CE4F00793A1A /* AnyFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyFilterViewController.swift; sourceTree = "<group>"; };
 		9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSelectionValuesContainerView.swift; sourceTree = "<group>"; };
@@ -876,10 +880,12 @@
 		9BE0A0402091BE750000632B /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				9BE9A05E219ADBCA00059C19 /* CurrentSelection */,
 				9BE0A068209724AF0000632B /* Cells */,
+				9BE9A05E219ADBCA00059C19 /* CurrentSelection */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
+				9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */,
 				9BE0A0452091BE750000632B /* FilterRootViewController.swift */,
+				9B5A66F521A2E122005C9118 /* LoadingViewController.swift */,
 				5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */,
 			);
 			path = Root;
@@ -1213,6 +1219,7 @@
 				9BBCEDFE212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift in Sources */,
 				9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */,
 				9BB827A9216CCFA10014028C /* SearchQueryFilterInfoType.swift in Sources */,
+				9B5A66F821A2E26C005C9118 /* FilterRootStateController.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,
 				9BB827B1216CD0860014028C /* RangeFilterInfoType.swift in Sources */,
 				55BDA76D20DBC43F00331FFC /* FilterKey.swift in Sources */,
@@ -1259,6 +1266,7 @@
 				4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
 				55BDA77320DBD99600331FFC /* ParameterBasedFilterInfo.swift in Sources */,
+				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				55E869E220E39373008B921E /* FilterNavigator.swift in Sources */,
 				4670268F2170DD3900B9C952 /* RangeReferenceValueView.swift in Sources */,
 				DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */,

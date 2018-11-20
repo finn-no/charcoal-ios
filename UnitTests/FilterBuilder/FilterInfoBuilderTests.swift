@@ -60,7 +60,7 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertNotNil(preferenceFilterInfos)
         XCTAssertNotNil(publishedFilterData)
 
-        XCTAssertEqual(preferenceFilterInfos?.count, FilterMarket.car.preferenceFilterKeys.count)
+        XCTAssertEqual(preferenceFilterInfos?.count, FilterMarket.car(.norway).preferenceFilterKeys.count)
 
         XCTAssertNotNil(publishedPreference)
         XCTAssertEqual(publishedPreference?.title, "Publisert")

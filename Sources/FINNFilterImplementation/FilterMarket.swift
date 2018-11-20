@@ -4,9 +4,19 @@
 
 import Foundation
 
-enum FilterMarket: VerticalConfiguration {
-    enum Bap: String, VerticalConfiguration, CaseIterable {
+protocol FilterConfiguration {
+    var verticalId: String { get }
+    var preferenceFilterKeys: [FilterKey] { get }
+    var supportedFiltersKeys: [FilterKey] { get }
+}
+
+enum FilterMarket: FilterConfiguration {
+    enum Bap: String, FilterConfiguration, CaseIterable {
         case bap = "bap-webstore"
+
+        var verticalId: String {
+            return rawValue
+        }
 
         var preferenceFilterKeys: [FilterKey] {
             return [.searchType, .segment, .condition, .published]
@@ -21,8 +31,12 @@ enum FilterMarket: VerticalConfiguration {
         }
     }
 
-    enum Realestate: String, VerticalConfiguration, CaseIterable {
+    enum Realestate: String, FilterConfiguration, CaseIterable {
         case homes = "realestate-homes"
+
+        var verticalId: String {
+            return rawValue
+        }
 
         var preferenceFilterKeys: [FilterKey] {
             return [.published, .isSold, .isNewProperty, .isSold]
@@ -48,9 +62,13 @@ enum FilterMarket: VerticalConfiguration {
         }
     }
 
-    enum Car: String, VerticalConfiguration, CaseIterable {
+    enum Car: String, FilterConfiguration, CaseIterable {
         case norway = "car-norway"
         case abroad = "car-abroad"
+
+        var verticalId: String {
+            return rawValue
+        }
 
         var preferenceFilterKeys: [FilterKey] {
             switch self {
@@ -119,37 +137,27 @@ enum FilterMarket: VerticalConfiguration {
         self = market
     }
 
-    var verticalId: String {
+    private var currentFilterConfig: FilterConfiguration {
         switch self {
         case let .bap(bap):
-            return bap.rawValue
+            return bap
         case let .realestate(realestate):
-            return realestate.rawValue
+            return realestate
         case let .car(car):
-            return car.rawValue
+            return car
         }
+    }
+
+    var verticalId: String {
+        return currentFilterConfig.verticalId
     }
 
     var preferenceFilterKeys: [FilterKey] {
-        switch self {
-        case let .bap(bap):
-            return bap.preferenceFilterKeys
-        case let .realestate(realestate):
-            return realestate.preferenceFilterKeys
-        case let .car(car):
-            return car.preferenceFilterKeys
-        }
+        return currentFilterConfig.preferenceFilterKeys
     }
 
     var supportedFiltersKeys: [FilterKey] {
-        switch self {
-        case let .bap(bap):
-            return bap.supportedFiltersKeys
-        case let .realestate(realestate):
-            return realestate.supportedFiltersKeys
-        case let .car(car):
-            return car.supportedFiltersKeys
-        }
+        return currentFilterConfig.supportedFiltersKeys
     }
 }
 
@@ -159,9 +167,4 @@ extension FilterMarket: CaseIterable {
             + Realestate.allCases.map(FilterMarket.realestate)
             + Car.allCases.map(FilterMarket.car)
     }
-}
-
-protocol VerticalConfiguration {
-    var preferenceFilterKeys: [FilterKey] { get }
-    var supportedFiltersKeys: [FilterKey] { get }
 }

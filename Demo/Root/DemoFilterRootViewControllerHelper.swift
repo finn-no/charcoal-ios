@@ -111,16 +111,17 @@ extension DemoFilter: FilterDataSource {
 extension DemoFilter: FilterRootStateControllerDelegate {
     func filterRootStateController(_ stateController: FilterRootStateController, shouldChangeVertical vertical: Vertical) {
         guard let verticalDemo = vertical as? VerticalDemo, let verticalFile = verticalDemo.file else {
-            stateController.state = .failed(error: .unableToLoadFilterData, action: .ok(action: { stateController.state = .filtersOrEmpty }))
+            stateController.change(to: .failed(error: .unableToLoadFilterData, action: .ok(action: { stateController.change(to: .filters) })))
             return
         }
+        stateController.change(to: .loading)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self, weak stateController] in
             guard let self = self else {
                 return
             }
             let filterSetup = DemoFilter.filterDataFromJSONFile(named: verticalFile)
             self.loadFilterSetup(filterSetup)
-            stateController?.state = .filtersLoaded(filter: self)
+            stateController?.change(to: .loadFreshFilters(data: self))
         }
     }
 

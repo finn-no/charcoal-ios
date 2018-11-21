@@ -9,7 +9,7 @@ final class LoadingViewController: UIViewController {
     private var presentationDelay = 0.5
 
     private lazy var loadingIndicatorView: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .white)
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()

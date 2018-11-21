@@ -5,17 +5,17 @@
 import Foundation
 
 protocol FilterConfiguration {
-    var verticalId: String { get }
+    func handlesVerticalId(_ vertical: String) -> Bool
     var preferenceFilterKeys: [FilterKey] { get }
     var supportedFiltersKeys: [FilterKey] { get }
 }
 
 enum FilterMarket: FilterConfiguration {
     enum Bap: String, FilterConfiguration, CaseIterable {
-        case bap = "bap-webstore"
+        case bap
 
-        var verticalId: String {
-            return rawValue
+        func handlesVerticalId(_ vertical: String) -> Bool {
+            return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
         }
 
         var preferenceFilterKeys: [FilterKey] {
@@ -34,8 +34,8 @@ enum FilterMarket: FilterConfiguration {
     enum Realestate: String, FilterConfiguration, CaseIterable {
         case homes = "realestate-homes"
 
-        var verticalId: String {
-            return rawValue
+        func handlesVerticalId(_ vertical: String) -> Bool {
+            return rawValue == vertical
         }
 
         var preferenceFilterKeys: [FilterKey] {
@@ -66,8 +66,8 @@ enum FilterMarket: FilterConfiguration {
         case norway = "car-norway"
         case abroad = "car-abroad"
 
-        var verticalId: String {
-            return rawValue
+        func handlesVerticalId(_ vertical: String) -> Bool {
+            return rawValue == vertical
         }
 
         var preferenceFilterKeys: [FilterKey] {
@@ -130,7 +130,7 @@ enum FilterMarket: FilterConfiguration {
     case car(Car)
 
     init?(market: String) {
-        guard let market = FilterMarket.allCases.first(where: { market == $0.verticalId }) else {
+        guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
             return nil
         }
 
@@ -148,8 +148,8 @@ enum FilterMarket: FilterConfiguration {
         }
     }
 
-    var verticalId: String {
-        return currentFilterConfig.verticalId
+    func handlesVerticalId(_ vertical: String) -> Bool {
+        return currentFilterConfig.handlesVerticalId(vertical)
     }
 
     var preferenceFilterKeys: [FilterKey] {

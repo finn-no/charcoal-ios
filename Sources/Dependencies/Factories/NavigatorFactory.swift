@@ -11,5 +11,5 @@ public protocol RootFilterNavigatorFactory {
 }
 
 public protocol FilterNavigtorFactory {
-    func makeFilterNavigator(navigationController: UINavigationController) -> FilterNavigator
+    func makeFilterNavigator(navigationController: UINavigationController, dataSource: FilterDataSource) -> FilterNavigator
 }

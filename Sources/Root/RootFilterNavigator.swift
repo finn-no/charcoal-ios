@@ -19,6 +19,7 @@ public class RootFilterNavigator: NSObject, Navigator {
 
     private let navigationController: FilterNavigationController
     private let factory: Factory
+    private var filterRootStateController: FilterRootStateController?
 
     public init(navigationController: FilterNavigationController, factory: Factory) {
         self.navigationController = navigationController
@@ -27,17 +28,23 @@ public class RootFilterNavigator: NSObject, Navigator {
         navigationController.navigationBar.shadowImage = UIImage()
     }
 
-    public func start() {
+    public func start() -> FilterRootStateController {
         let filterRootStateController = factory.makeFilterRootStateController(navigator: self)
+        self.filterRootStateController = filterRootStateController
         navigationController.setViewControllers([filterRootStateController], animated: false)
+        return filterRootStateController
     }
 
     public func navigate(to destination: RootFilterNavigator.Destination) {
+        guard let filterDataSource = filterRootStateController?.currentFilterDataSource else {
+            // We can't navigate to subfilters without having a filter data source
+            return
+        }
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
         case let .multiLevelSelectionListFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let multiLevelListViewController = factory.makeMultiLevelListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
@@ -45,19 +52,19 @@ public class RootFilterNavigator: NSObject, Navigator {
         case let .verticalSelectionInPopover(verticals, sourceView, delegate, popoverWillDismiss):
             presentVerticals(with: verticals, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
         case let .rangeFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
             navigationController.pushViewController(rangeFilterViewController, animated: true)
         case let .selectionListFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let listSelectionViewController = factory.makeListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
             navigationController.pushViewController(listSelectionViewController, animated: true)
         case let .searchQueryFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let searchQueryViewController = factory.makeSearchQueryFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
@@ -69,7 +76,7 @@ public class RootFilterNavigator: NSObject, Navigator {
                 navigationController.pushViewController(searchQueryViewController, animated: true)
             }
         case let .stepperFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let stepperFilterViewController = factory.makeStepperFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else { return }
             navigationController.pushViewController(stepperFilterViewController, animated: true)
         }

@@ -14,10 +14,12 @@ public class FilterNavigator {
 
     let navigationController: UINavigationController
     let factory: Factory
+    let dataSource: FilterDataSource
 
-    init(navigationController: UINavigationController, factory: Factory) {
+    init(navigationController: UINavigationController, factory: Factory, dataSource: FilterDataSource) {
         self.navigationController = navigationController
         self.factory = factory
+        self.dataSource = dataSource
     }
 
     public func start() {

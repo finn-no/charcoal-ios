@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol FilterRootViewControllerDelegate: AnyObject {
+public protocol FilterRootViewControllerDelegate: AnyObject {
     func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical)
     func filterRootViewControllerShouldShowResults(_: FilterRootViewController)
 }
@@ -105,15 +105,16 @@ public class FilterRootViewController: UIViewController {
         return coverView
     }()
 
-    public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
+    lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
         let delegate = BottomSheetTransitioningDelegate(for: self)
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
+    public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider, delegate: FilterRootViewControllerDelegate? = nil) {
         self.navigator = navigator
         self.selectionDataSource = selectionDataSource
         self.filterSelectionTitleProvider = filterSelectionTitleProvider
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }

@@ -446,7 +446,11 @@ extension FilterRootViewController: FilterViewControllerDelegate {
 
 extension FilterRootViewController: VerticalListViewControllerDelegate {
     public func verticalListViewController(_: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int) {
-        dismiss(animated: true, completion: nil)
-        delegate?.filterRootViewController(self, didChangeVertical: vertical)
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.delegate?.filterRootViewController(self, didChangeVertical: vertical)
+        }
     }
 }

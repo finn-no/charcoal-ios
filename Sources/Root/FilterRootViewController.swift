@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol FilterRootViewControllerDelegate: AnyObject {
+public protocol FilterRootViewControllerDelegate: AnyObject {
     func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical)
     func filterRootViewControllerShouldShowResults(_: FilterRootViewController)
 }
@@ -105,15 +105,16 @@ public class FilterRootViewController: UIViewController {
         return coverView
     }()
 
-    public lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
+    lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
         let delegate = BottomSheetTransitioningDelegate(for: self)
         return delegate
     }()
 
-    public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
+    public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider, delegate: FilterRootViewControllerDelegate? = nil) {
         self.navigator = navigator
         self.selectionDataSource = selectionDataSource
         self.filterSelectionTitleProvider = filterSelectionTitleProvider
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
@@ -446,20 +447,11 @@ extension FilterRootViewController: FilterViewControllerDelegate {
 
 extension FilterRootViewController: VerticalListViewControllerDelegate {
     public func verticalListViewController(_: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int) {
-        let vc = UIViewController(nibName: nil, bundle: nil)
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.view.addSubview(loadingView)
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.fillInSuperview()
-
-        presentedViewController?.present(vc, animated: true, completion: nil)
-
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-            self.dismiss(animated: true, completion: {
-            })
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.delegate?.filterRootViewController(self, didChangeVertical: vertical)
         }
-
-        delegate?.filterRootViewController(self, didChangeVertical: vertical)
     }
 }

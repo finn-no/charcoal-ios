@@ -10,10 +10,18 @@ public protocol FilterRootStateControllerDelegate: AnyObject {
 }
 
 public class FilterRootStateController: UIViewController {
-    enum State {
+    private enum State {
         case loading
-        case filtersLoaded(filter: FilterDataSource)
-        case failed(error: FilterRootError)
+        case filter
+        case error
+    }
+
+    public enum StateChange {
+        case loading
+        case filters
+        case filtersUpdated(data: FilterDataSource)
+        case loadFreshFilters(data: FilterDataSource)
+        case failed(error: FilterRootError, action: FilterRootErrorAction)
     }
 
     private let navigator: RootFilterNavigator
@@ -23,17 +31,29 @@ public class FilterRootStateController: UIViewController {
 
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .white, presentationDelay: 0)
 
+    private lazy var errorViewController = ErrorViewController(backgroundColor: .white, textColor: .licorice, actionTextColor: .primaryBlue)
+
     private lazy var filterRootViewController: FilterRootViewController = {
-        let vc = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider)
-        vc.delegate = self
+        let vc = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider, delegate: self)
         return vc
     }()
 
-    var state = State.loading {
+    private var state = State.loading {
         didSet {
             if isViewLoaded {
                 configure(for: state)
             }
+        }
+    }
+
+    private(set) var currentFilterDataSource: FilterDataSource? {
+        didSet {
+            filterRootViewController.searchQueryFilter = currentFilterDataSource?.searchQuery
+            filterRootViewController.preferenceFilters = currentFilterDataSource?.preferences ?? []
+            filterRootViewController.filters = currentFilterDataSource?.filters ?? []
+            filterRootViewController.numberOfHits = currentFilterDataSource?.numberOfHits
+            filterRootViewController.title = currentFilterDataSource?.filterTitle
+            filterRootViewController.verticalsFilters = currentFilterDataSource?.verticals ?? []
         }
     }
 
@@ -53,36 +73,62 @@ public class FilterRootStateController: UIViewController {
         configure(for: state)
     }
 
+    // MARK: -
+
+    private func createFilterRootViewController() -> FilterRootViewController {
+        let vc = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider)
+        vc.delegate = self
+        return vc
+    }
+
     // MARK: - State handling
 
-    private func configure(for state: State) {
-        loadingViewController.remove()
-
-        switch state {
+    public func change(to change: StateChange) {
+        switch change {
         case .loading:
-            add(loadingViewController)
-        case let .filtersLoaded(dataSource):
-            add(filterRootViewController)
-            filterRootViewController.searchQueryFilter = dataSource.searchQuery
-            filterRootViewController.preferenceFilters = dataSource.preferences
-            filterRootViewController.filters = dataSource.filters
-            filterRootViewController.numberOfHits = dataSource.numberOfHits
-            filterRootViewController.title = dataSource.filterTitle
-            filterRootViewController.verticalsFilters = dataSource.verticals
-        case let .failed(error):
-            handleError(error)
+            state = .loading
+        case .filters:
+            state = .filter
+        case let .filtersUpdated(dataSource):
+            currentFilterDataSource = dataSource
+            state = .filter
+        case let .loadFreshFilters(dataSource):
+            filterRootViewController.remove()
+            filterRootViewController = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider, delegate: self)
+            currentFilterDataSource = dataSource
+            state = .filter
+        case let .failed(error, action):
+            errorViewController.showError(error.errorMessage, actionTitle: action.title, actionCallback: action.action)
+            state = .error
         }
     }
 
-    private func handleError(_ error: FilterRootError) {
-        DebugLog.write("Filter root error: \(error)")
-        // TODO:
+    private func configure(for state: State) {
+        loadingViewController.remove()
+        errorViewController.remove()
+
+        let viewControllerShown: UIViewController
+        switch state {
+        case .loading:
+            errorViewController.remove()
+            add(loadingViewController)
+            viewControllerShown = loadingViewController
+        case .filter:
+            loadingViewController.remove()
+            errorViewController.remove()
+            add(filterRootViewController)
+            viewControllerShown = filterRootViewController
+        case .error:
+            loadingViewController.remove()
+            add(errorViewController)
+            viewControllerShown = errorViewController
+        }
+        title = viewControllerShown.title
     }
 }
 
 extension FilterRootStateController: FilterRootViewControllerDelegate {
     public func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical) {
-        state = .loading
         delegate?.filterRootStateController(self, shouldChangeVertical: vertical)
     }
 
@@ -91,25 +137,39 @@ extension FilterRootStateController: FilterRootViewControllerDelegate {
     }
 }
 
-private extension UIViewController {
-    func add(_ childViewController: UIViewController) {
-        guard childViewController.parent == nil else { return }
+public enum FilterRootError: Error {
+    case unableToLoadFilterData
+    case undefined
 
-        addChild(childViewController)
-        childViewController.view.frame = view.bounds
-        childViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(childViewController.view)
-        childViewController.didMove(toParent: self)
-    }
-
-    func remove() {
-        guard parent != nil else { return }
-
-        willMove(toParent: nil)
-        removeFromParent()
-        view.removeFromSuperview()
+    var errorMessage: String {
+        switch self {
+        case .undefined:
+            return "unkown_error".localized()
+        case .unableToLoadFilterData:
+            return "unable_to_load_filter_data_error".localized()
+        }
     }
 }
 
-enum FilterRootError: Error {
+public enum FilterRootErrorAction {
+    case retry(action: () -> Void)
+    case ok(action: () -> Void)
+
+    var action: () -> Void {
+        switch self {
+        case let .retry(action):
+            return action
+        case let .ok(action):
+            return action
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .retry:
+            return "try_again_button_title".localized()
+        case .ok:
+            return "ok_button_title".localized()
+        }
+    }
 }

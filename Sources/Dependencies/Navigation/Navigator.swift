@@ -7,6 +7,6 @@ import Foundation
 public protocol Navigator {
     associatedtype Destination
 
-    func start()
+    func start() -> FilterRootStateController
     func navigate(to destination: Destination)
 }

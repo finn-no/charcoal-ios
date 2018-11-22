@@ -108,7 +108,17 @@ private extension RootFilterNavigator {
 
         filterRootViewController.popoverPresentationTransitioningDelegate = transitioningDelegate
 
-        preferencelistViewController.preferredContentSize = CGSize(width: filterRootViewController.view.frame.size.width, height: 144)
+        let sourceViewBottom = filterRootViewController.view.convert(CGPoint(x: 0, y: sourceView.bounds.maxY), from: sourceView).y
+        let popoverHeight: CGFloat
+        let maxHeightForPopover = filterRootViewController.view.bounds.height - sourceViewBottom - 20
+        let numberOfRowsFitting = maxHeightForPopover / VerticalListViewController.rowHeight
+        if numberOfRowsFitting < CGFloat(verticals.count) {
+            popoverHeight = (floor(numberOfRowsFitting) - 0.5) * VerticalListViewController.rowHeight
+        } else {
+            popoverHeight = CGFloat(verticals.count) * VerticalListViewController.rowHeight
+        }
+
+        preferencelistViewController.preferredContentSize = CGSize(width: filterRootViewController.view.frame.size.width, height: popoverHeight)
         preferencelistViewController.modalPresentationStyle = .custom
         preferencelistViewController.transitioningDelegate = transitioningDelegate
 

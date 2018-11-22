@@ -285,7 +285,8 @@ extension FilterRootViewController: UITableViewDataSource {
         case .searchQuery:
             return searchQueryFilter != nil ? 1 : 0
         case .preferences:
-            return preferenceFilters.count > 0 ? 1 : 0
+            let hasData = !verticalsFilters.isEmpty || !preferenceFilters.isEmpty
+            return hasData ? 1 : 0
         case .filters:
             return filters.count
         }

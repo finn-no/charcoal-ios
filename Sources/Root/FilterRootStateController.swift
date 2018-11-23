@@ -21,11 +21,12 @@ public class FilterRootStateController: UIViewController {
         case filters
         case filtersUpdated(data: FilterDataSource)
         case loadFreshFilters(data: FilterDataSource)
+        case newSelectionDataSource(data: FilterSelectionDataSource)
         case failed(error: FilterRootError, action: FilterRootErrorAction)
     }
 
     private let navigator: RootFilterNavigator
-    private let selectionDataSource: FilterSelectionDataSource
+    private var selectionDataSource: FilterSelectionDataSource
     private let filterSelectionTitleProvider: FilterSelectionTitleProvider
     weak var delegate: FilterRootStateControllerDelegate?
 
@@ -73,14 +74,6 @@ public class FilterRootStateController: UIViewController {
         configure(for: state)
     }
 
-    // MARK: -
-
-    private func createFilterRootViewController() -> FilterRootViewController {
-        let vc = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider)
-        vc.delegate = self
-        return vc
-    }
-
     // MARK: - State handling
 
     public func change(to change: StateChange) {
@@ -97,6 +90,9 @@ public class FilterRootStateController: UIViewController {
             filterRootViewController = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider, delegate: self)
             currentFilterDataSource = dataSource
             state = .filter
+        case let .newSelectionDataSource(newSelectionDataSource):
+            selectionDataSource = newSelectionDataSource
+            filterRootViewController.selectionDataSource = newSelectionDataSource
         case let .failed(error, action):
             errorViewController.showError(error.errorMessage, actionTitle: action.title, actionCallback: action.action)
             state = .error

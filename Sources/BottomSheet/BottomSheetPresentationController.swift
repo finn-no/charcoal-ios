@@ -365,6 +365,14 @@ extension BottomSheetPresentationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer === panGestureRecognizer {
             let translation = panGestureRecognizer.translation(in: containerView)
+
+            // Let's only recognize if the user seems to be panning in y mainly
+            if translation.y == 0 {
+                return false
+            } else if abs(translation.x) > abs(translation.y) {
+                return false
+            }
+
             return bottomSheetPresentationControllerDelegate?.bottomsheetPresentationController(self, shouldBeginTransitionWithTranslation: translation, from: currentContentSizeMode) ?? true
         }
 

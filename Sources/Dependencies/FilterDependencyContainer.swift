@@ -34,6 +34,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     public func makeFilterRootStateController(navigator: RootFilterNavigator) -> FilterRootStateController {
         let rootStateController = FilterRootStateController(navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider)
         rootStateController.delegate = filterRootStateControllerDelegate
+        rootStateController.searchQuerySuggestionDataSource = searchQuerySuggestionsDataSource
         rootStateController.state = .filtersLoaded(filter: dataSource) // TODO: This should not happen here, will be refactored
         return rootStateController
     }
@@ -71,11 +72,12 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeSearchQueryFilterViewController(from searchQueryFilterInfo: SearchQueryFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
-        let filterViewController = FilterViewController<SearchQueryViewController>(filterInfo: searchQueryFilterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
-        filterViewController?.delegate = delegate
-        (filterViewController?.filterContainerViewController as? SearchQueryViewController)?.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
-
-        return filterViewController
+//        let filterViewController = FilterViewController<SearchQueryViewController>(filterInfo: searchQueryFilterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+//        filterViewController?.delegate = delegate
+//        (filterViewController?.filterContainerViewController as? SearchQueryViewController)?.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
+//
+//        return filterViewController
+        return nil
     }
 
     public func makeStepperFilterViewController(with filterInfo: StepperFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<StepperFilterViewController>? {

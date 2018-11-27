@@ -67,10 +67,10 @@ private extension PreferencesCell {
         contentView.addSubview(preferenceSelectionView)
         NSLayoutConstraint.activate([
             preferenceSelectionView.heightAnchor.constraint(equalToConstant: PreferenceSelectionView.defaultButtonHeight),
-            preferenceSelectionView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            preferenceSelectionView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-            preferenceSelectionView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            preferenceSelectionView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            preferenceSelectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumSpacing),
+            preferenceSelectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumSpacing),
+            preferenceSelectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing),
+            preferenceSelectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -.mediumLargeSpacing),
         ])
     }
 }

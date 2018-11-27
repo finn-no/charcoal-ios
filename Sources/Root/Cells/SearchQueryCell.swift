@@ -4,25 +4,9 @@
 
 import UIKit
 
-protocol SearchQueryCellDelegate: AnyObject {
-    func searchQueryCellDidTapSearchBar(_ searchQueryCell: SearchQueryCell)
-    func searchQueryCellDidTapRemoveSelectedValue(_ searchQueryCell: SearchQueryCell)
-}
-
 class SearchQueryCell: UITableViewCell {
-    weak var delegate: SearchQueryCellDelegate?
-
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = SearchQueryCellSearchBar(frame: .zero)
-        searchBar.searchBarStyle = .minimal
-        searchBar.delegate = self
-        return searchBar
-    }()
-
-    private var hasTappedClearButton = false
-
-    override var textLabel: UILabel? {
-        return nil
+    var searchBar: UISearchBar? {
+        didSet { didSet(searchBar) }
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,63 +18,23 @@ class SearchQueryCell: UITableViewCell {
         super.init(coder: aDecoder)
         setup()
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        searchText = nil
-        placeholderText = nil
-    }
 }
 
 private extension SearchQueryCell {
-    func setup() {
-        preservesSuperviewLayoutMargins = true
-        contentView.preservesSuperviewLayoutMargins = true
-        selectionStyle = .none
-
+    func didSet(_ searchBar: UISearchBar?) {
+        guard let searchBar = searchBar else { return }
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            searchBar.layoutMarginsGuide.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            searchBar.layoutMarginsGuide.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
         ])
     }
-}
 
-extension SearchQueryCell: UISearchBarDelegate {
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        if !hasTappedClearButton {
-            delegate?.searchQueryCellDidTapSearchBar(self)
-        }
-        hasTappedClearButton = false
-        return false
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        delegate?.searchQueryCellDidTapRemoveSelectedValue(self)
-        hasTappedClearButton = true
-    }
-}
-
-extension SearchQueryCell {
-    var searchText: String? {
-        get {
-            return searchBar.text
-        }
-        set {
-            searchBar.text = newValue
-        }
-    }
-
-    var placeholderText: String? {
-        get {
-            return searchBar.placeholder
-        }
-        set {
-            searchBar.placeholder = newValue
-        }
+    func setup() {
+        selectionStyle = .none
     }
 }
 

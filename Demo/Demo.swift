@@ -200,8 +200,8 @@ enum ComponentViews: String {
             return ViewController<StepperFilterDemoView>()
 
         case .searchQuery:
-            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(placeholderText: "Søk etter ord", title: "Filtrer søket"), dataSource: DemoEmptyDataSource(), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
-            let navigationController = UINavigationController(rootViewController: searchQueryViewController)
+//            let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(placeholderText: "Søk etter ord", title: "Filtrer søket"), dataSource: DemoEmptyDataSource(), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
+            let navigationController = UINavigationController()
             return navigationController
         }
     }

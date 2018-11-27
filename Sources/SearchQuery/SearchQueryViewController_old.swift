@@ -8,7 +8,7 @@ public protocol SearchQuerySuggestionsDataSource: AnyObject {
     func searchQueryViewController(_ searchQueryViewController: SearchQueryViewController, didRequestSuggestionsFor searchQuery: String, completion: @escaping ((_ text: String, _ suggestions: [String]) -> Void))
 }
 
-public class SearchQueryViewController: UIViewController, FilterContainerViewController {
+public class SearchQueryViewController_old: UIViewController, FilterContainerViewController {
     public var searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
@@ -16,21 +16,20 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
         return self
     }
 
-    private var startText: String?
-
-    private var placeholder: String?
-
-    private lazy var searchBar: UISearchBar = {
+    lazy var searchBar: UISearchBar = {
         let searchBar = SearchQueryViewControllerSearchBar(frame: .zero)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.searchBarStyle = .minimal
-        searchBar.showsScopeBar = false
         searchBar.text = startText
         searchBar.placeholder = placeholder
         searchBar.delegate = self
         searchBar.sizeToFit()
         return searchBar
     }()
+
+    private var startText: String?
+
+    private var placeholder: String?
 
     private static var rowHeight: CGFloat = 48.0
 
@@ -76,13 +75,15 @@ public class SearchQueryViewController: UIViewController, FilterContainerViewCon
             setSelectionValue(selectionValue)
             startText = searchText
         }
+    }
 
+    public override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
         setup()
-        searchBar.becomeFirstResponder()
     }
 }
 
-extension SearchQueryViewController: UISearchBarDelegate {
+extension SearchQueryViewController_old: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         selectionDataSource.setValue([startText ?? ""], for: searchQueryFilterInfo)
         navigationController?.popViewController(animated: true)
@@ -96,18 +97,18 @@ extension SearchQueryViewController: UISearchBarDelegate {
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         suggestions.removeAll()
         suggestionsTableView.reloadData()
-        searchQuerySuggestionsDataSource?.searchQueryViewController(self, didRequestSuggestionsFor: searchText, completion: { text, suggestions in
-            DispatchQueue.main.async {
-                if searchText == text {
-                    self.suggestions = suggestions
-                    self.suggestionsTableView.reloadData()
-                }
-            }
-        })
+//        searchQuerySuggestionsDataSource?.searchQueryViewController(self, didRequestSuggestionsFor: searchText, completion: { text, suggestions in
+//            DispatchQueue.main.async {
+//                if searchText == text {
+//                    self.suggestions = suggestions
+//                    self.suggestionsTableView.reloadData()
+//                }
+//            }
+//        })
     }
 }
 
-extension SearchQueryViewController: UITableViewDataSource {
+extension SearchQueryViewController_old: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return suggestions.count
     }
@@ -120,7 +121,7 @@ extension SearchQueryViewController: UITableViewDataSource {
     }
 }
 
-extension SearchQueryViewController: UITableViewDelegate {
+extension SearchQueryViewController_old: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let suggestion = suggestions[safe: indexPath.row] {
             searchText = suggestion
@@ -133,7 +134,7 @@ extension SearchQueryViewController: UITableViewDelegate {
     }
 }
 
-private extension SearchQueryViewController {
+private extension SearchQueryViewController_old {
     var searchText: String? {
         set {
             searchBar.text = newValue
@@ -149,9 +150,11 @@ private extension SearchQueryViewController {
         view.addSubview(suggestionsTableView)
 
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: safeTopAnchor),
-            searchBar.layoutMarginsGuide.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            searchBar.layoutMarginsGuide.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.topAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 44),
+
             suggestionsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             suggestionsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             suggestionsTableView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
@@ -169,7 +172,7 @@ private extension SearchQueryViewController {
 
 // MARK: - Private class
 
-private extension SearchQueryViewController {
+private extension SearchQueryViewController_old {
     class SearchQueryViewControllerSearchBar: UISearchBar {
         // Makes sure to setup appearance proxy one time and one time only
         private static let setupSearchQuerySearchBarAppereanceOnce: () = {

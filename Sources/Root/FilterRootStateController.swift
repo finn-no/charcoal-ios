@@ -20,6 +20,7 @@ public class FilterRootStateController: UIViewController {
     private let selectionDataSource: FilterSelectionDataSource
     private let filterSelectionTitleProvider: FilterSelectionTitleProvider
     weak var delegate: FilterRootStateControllerDelegate?
+    var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource?
 
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .white, presentationDelay: 0)
 
@@ -63,6 +64,7 @@ public class FilterRootStateController: UIViewController {
             add(loadingViewController)
         case let .filtersLoaded(dataSource):
             add(filterRootViewController)
+            filterRootViewController.searchQuerySuggestionDataSource = searchQuerySuggestionDataSource
             filterRootViewController.searchQueryFilter = dataSource.searchQuery
             filterRootViewController.preferenceFilters = dataSource.preferences
             filterRootViewController.filters = dataSource.filters

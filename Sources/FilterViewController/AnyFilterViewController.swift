@@ -48,4 +48,11 @@ public extension BottomSheetPresentationControllerDelegate where Self: AnyFilter
             }
         }
     }
+
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, panningBeyondExpandedState additionalVerticalPan: CGFloat) {
+        guard let scrollView = mainScrollableContentView else {
+            return
+        }
+        scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: additionalVerticalPan)
+    }
 }

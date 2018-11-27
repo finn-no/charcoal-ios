@@ -41,6 +41,9 @@ class BottomSheetDemoViewController: UITableViewController {
 }
 
 extension BottomSheetDemoViewController: BottomSheetPresentationControllerDelegate {
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, panningBeyondExpandedState additionalVerticalPan: CGFloat) {
+    }
+
     func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, didTransitionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode) {
     }
 

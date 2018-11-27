@@ -4,6 +4,10 @@
 
 import UIKit
 
+public protocol SearchQuerySuggestionsDataSource: AnyObject {
+    func searchQueryViewController(_ searchQueryViewController: SearchQueryViewController, didRequestSuggestionsFor searchQuery: String, completion: @escaping ((_ text: String, _ suggestions: [String]) -> Void))
+}
+
 public protocol SearchViewControllerDelegate: class {
     func presentSearchViewController(_ searchViewController: SearchQueryViewController)
     func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController)

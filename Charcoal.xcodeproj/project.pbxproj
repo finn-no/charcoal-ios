@@ -110,7 +110,6 @@
 		9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9B9C1708209C78BA007BCBBC /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9C1707209C78BA007BCBBC /* HockeySDK.framework */; };
-		9BAF4F81212AEC45003DD663 /* SearchQueryViewController_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F80212AEC45003DD663 /* SearchQueryViewController_old.swift */; };
 		9BAF4F87212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */; };
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
 		9BB8279E216C9C060014028C /* SearchQueryFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB8279D216C9C060014028C /* SearchQueryFilterInfo.swift */; };
@@ -301,7 +300,6 @@
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9B9C1705209C759E007BCBBC /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		9B9C1707209C78BA007BCBBC /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Demo/Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
-		9BAF4F80212AEC45003DD663 /* SearchQueryViewController_old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryViewController_old.swift; sourceTree = "<group>"; };
 		9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchQuerySuggestionsHelper.swift; sourceTree = "<group>"; };
 		9BB82799216B57730014028C /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		9BB8279D216C9C060014028C /* SearchQueryFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryFilterInfo.swift; sourceTree = "<group>"; };
@@ -419,7 +417,6 @@
 				DAF3CA6E218301B3007235B0 /* StepperFilter */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				9BE0A0402091BE750000632B /* Root */,
-				9BAF4F7F212AEB99003DD663 /* SearchQuery */,
 				46905238217F5CB500F8E7FD /* Vertical */,
 			);
 			path = Sources;
@@ -747,15 +744,6 @@
 			path = PreferenceFilter;
 			sourceTree = "<group>";
 		};
-		9BAF4F7F212AEB99003DD663 /* SearchQuery */ = {
-			isa = PBXGroup;
-			children = (
-				9BAF4F80212AEC45003DD663 /* SearchQueryViewController_old.swift */,
-				9BBCEDFD212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift */,
-			);
-			path = SearchQuery;
-			sourceTree = "<group>";
-		};
 		9BAF4F85212EE64F003DD663 /* SearchQuery */ = {
 			isa = PBXGroup;
 			children = (
@@ -890,6 +878,7 @@
 				9B5A66F521A2E122005C9118 /* LoadingViewController.swift */,
 				5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */,
 				DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */,
+				9BBCEDFD212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -1231,7 +1220,6 @@
 				9BE0A05B2091E7F30000632B /* Identifiable.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,
 				55646DAC2091C572006AA2DA /* PreferenceSelectionView.swift in Sources */,
-				9BAF4F81212AEC45003DD663 /* SearchQueryViewController_old.swift in Sources */,
 				DA3F763D2188812700D21C3A /* StepperFilterInfo.swift in Sources */,
 				55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */,
 				46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */,

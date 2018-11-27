@@ -11,7 +11,6 @@ public class RootFilterNavigator: NSObject, Navigator {
         case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
         case verticalSelectionInPopover(verticals: [Vertical], sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
         case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
-        case searchQueryFilter(filterInfo: SearchQueryFilterInfoType, delegate: FilterViewControllerDelegate)
         case stepperFilter(filterInfo: StepperFilterInfoType, delegate: FilterViewControllerDelegate)
     }
 
@@ -56,18 +55,6 @@ public class RootFilterNavigator: NSObject, Navigator {
                 return
             }
             navigationController.pushViewController(listSelectionViewController, animated: true)
-        case let .searchQueryFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
-            guard let searchQueryViewController = factory.makeSearchQueryFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
-                return
-            }
-
-            if let bottomSheetPresentationController = navigationController.presentationController as? BottomSheetPresentationController, bottomSheetPresentationController.currentContentSizeMode != .expanded {
-                navigationController.pushViewController(searchQueryViewController, animated: false)
-                bottomSheetPresentationController.transition(to: .expanded)
-            } else {
-                navigationController.pushViewController(searchQueryViewController, animated: true)
-            }
         case let .stepperFilter(filterInfo, delegate):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController)
             guard let stepperFilterViewController = factory.makeStepperFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else { return }

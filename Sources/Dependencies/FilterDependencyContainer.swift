@@ -71,15 +71,6 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return verticalListViewController
     }
 
-    public func makeSearchQueryFilterViewController(from searchQueryFilterInfo: SearchQueryFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> UIViewController? {
-//        let filterViewController = FilterViewController<SearchQueryViewController>(filterInfo: searchQueryFilterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
-//        filterViewController?.delegate = delegate
-//        (filterViewController?.filterContainerViewController as? SearchQueryViewController)?.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
-//
-//        return filterViewController
-        return nil
-    }
-
     public func makeStepperFilterViewController(with filterInfo: StepperFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<StepperFilterViewController>? {
         let filterViewController = FilterViewController<StepperFilterViewController>(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         filterViewController?.delegate = delegate

@@ -37,6 +37,7 @@ public class FilterRootStateController: UIViewController {
 
     private lazy var filterRootViewController: FilterRootViewController = {
         let vc = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider, delegate: self)
+        vc.searchQuerySuggestionDataSource = searchQuerySuggestionDataSource
         return vc
     }()
 
@@ -89,6 +90,7 @@ public class FilterRootStateController: UIViewController {
         case let .loadFreshFilters(dataSource):
             filterRootViewController.remove()
             filterRootViewController = FilterRootViewController(title: "", navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider, delegate: self)
+            filterRootViewController.searchQuerySuggestionDataSource = searchQuerySuggestionDataSource
             currentFilterDataSource = dataSource
             state = .filter
         case let .newSelectionDataSource(newSelectionDataSource):

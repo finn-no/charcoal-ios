@@ -145,6 +145,9 @@
 		9BE0A061209200410000632B /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A05F2091FFA50000632B /* FilterCell.swift */; };
 		9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */; };
 		9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A069209724D70000632B /* PreferencesCell.swift */; };
+		9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0D54021A4509F00F0B63B /* car-abroad.json */; };
+		9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */; };
+		9BE0D54521A5696100F0B63B /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0D54421A5696100F0B63B /* ErrorViewController.swift */; };
 		9BE9A060219ADC2000059C19 /* CollapsedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */; };
 		9BE9A062219ADC4F00059C19 /* ExpandedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */; };
 		9BFC08912134088C00AB8A11 /* ContentSizeModeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */; };
@@ -330,6 +333,9 @@
 		9BE0A05F2091FFA50000632B /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomButtonView.swift; sourceTree = "<group>"; };
 		9BE0A069209724D70000632B /* PreferencesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCell.swift; sourceTree = "<group>"; };
+		9BE0D54021A4509F00F0B63B /* car-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-abroad.json"; sourceTree = "<group>"; };
+		9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketTests.swift; sourceTree = "<group>"; };
+		9BE0D54421A5696100F0B63B /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeModeTest.swift; sourceTree = "<group>"; };
@@ -640,9 +646,10 @@
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
 				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
+				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
+				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -872,6 +879,7 @@
 			children = (
 				9BE0A068209724AF0000632B /* Cells */,
 				9BE9A05E219ADBCA00059C19 /* CurrentSelection */,
+				9BE0D54421A5696100F0B63B /* ErrorViewController.swift */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */,
 				9BE0A0452091BE750000632B /* FilterRootViewController.swift */,
@@ -944,6 +952,7 @@
 			children = (
 				559C61FB20DA87330083A574 /* FilterDecodingTests.swift */,
 				55BDA76020DB7E8C00331FFC /* FilterInfoBuilderTests.swift */,
+				9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */,
 				55BDA76720DB9A7300331FFC /* RangeFilterBuilderTests.swift */,
 			);
 			path = FilterBuilder;
@@ -1098,6 +1107,7 @@
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
 				55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */,
 				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
+				9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1214,6 +1224,7 @@
 				9B5A66F821A2E26C005C9118 /* FilterRootStateController.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,
 				9BB827B1216CD0860014028C /* RangeFilterInfoType.swift in Sources */,
+				9BE0D54521A5696100F0B63B /* ErrorViewController.swift in Sources */,
 				55BDA76D20DBC43F00331FFC /* FilterKey.swift in Sources */,
 				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
@@ -1310,6 +1321,7 @@
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
 				55BDA76820DB9A7300331FFC /* RangeFilterBuilderTests.swift in Sources */,
 				559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */,
+				9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */,
 				55BDA76120DB7E8C00331FFC /* FilterInfoBuilderTests.swift in Sources */,
 				9BB827B4216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift in Sources */,
 			);

@@ -1,7 +1,7 @@
 /* 
   Localizable.strings
   FilterKit
- 
+
   Copyright © FINN.no. All rights reserved.
 */
 
@@ -16,4 +16,8 @@
 "all_items_title" = "Alle";
 "show_hits_button_title" = "Vis treff";
 "show_x_hits_button_title" = "Vis %i treff";
+"unkown_error" = "En ukjent feil har oppstått";
+"unable_to_load_filter_data_error" = "Beklager, nå er det rusk i maskineriet. Prøv igjen om litt eller få mer informasjon hos Hjelpesenteret";
+"try_again_button_title" = "Prøv igjen";
+"ok_button_title" = "OK";
 "cancel" = "Avbryt";

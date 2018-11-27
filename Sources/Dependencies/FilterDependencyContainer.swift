@@ -5,14 +5,12 @@
 import Foundation
 
 public class FilterDependencyContainer {
-    private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
     private let searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
     private weak var filterRootStateControllerDelegate: FilterRootStateControllerDelegate?
     private let filterSelectionTitleProvider: FilterSelectionTitleProvider
 
-    public init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?, filterDelegate: FilterRootStateControllerDelegate?, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
-        self.dataSource = dataSource
+    public init(selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?, filterDelegate: FilterRootStateControllerDelegate?, filterSelectionTitleProvider: FilterSelectionTitleProvider) {
         self.selectionDataSource = selectionDataSource
         self.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
         filterRootStateControllerDelegate = filterDelegate
@@ -21,8 +19,8 @@ public class FilterDependencyContainer {
 }
 
 extension FilterDependencyContainer: NavigatorFactory {
-    public func makeFilterNavigator(navigationController: UINavigationController) -> FilterNavigator {
-        return FilterNavigator(navigationController: navigationController, factory: self)
+    public func makeFilterNavigator(navigationController: UINavigationController, dataSource: FilterDataSource) -> FilterNavigator {
+        return FilterNavigator(navigationController: navigationController, factory: self, dataSource: dataSource)
     }
 
     public func makeRootFilterNavigator(navigationController: FilterNavigationController) -> RootFilterNavigator {
@@ -35,18 +33,17 @@ extension FilterDependencyContainer: ViewControllerFactory {
         let rootStateController = FilterRootStateController(navigator: navigator, selectionDataSource: selectionDataSource, filterSelectionTitleProvider: filterSelectionTitleProvider)
         rootStateController.delegate = filterRootStateControllerDelegate
         rootStateController.searchQuerySuggestionDataSource = searchQuerySuggestionsDataSource
-        rootStateController.state = .filtersLoaded(filter: dataSource) // TODO: This should not happen here, will be refactored
         return rootStateController
     }
 
     public func makeListSelectionFilterViewController(from listSelectionListFilterInfo: ListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<ListSelectionFilterViewController>? {
-        let filterViewController = FilterViewController<ListSelectionFilterViewController>(filterInfo: listSelectionListFilterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        let filterViewController = FilterViewController<ListSelectionFilterViewController>(filterInfo: listSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         filterViewController?.delegate = delegate
         return filterViewController
     }
 
     public func makeMultiLevelListSelectionFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<MultiLevelListSelectionFilterViewController>? {
-        let filterViewController = FilterViewController<MultiLevelListSelectionFilterViewController>(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        let filterViewController = FilterViewController<MultiLevelListSelectionFilterViewController>(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         filterViewController?.delegate = delegate
         return filterViewController
     }
@@ -60,7 +57,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<RangeFilterViewController>? {
-        let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         filterViewController?.delegate = delegate
         return filterViewController
     }
@@ -72,7 +69,7 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeStepperFilterViewController(with filterInfo: StepperFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<StepperFilterViewController>? {
-        let filterViewController = FilterViewController<StepperFilterViewController>(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        let filterViewController = FilterViewController<StepperFilterViewController>(filterInfo: filterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         filterViewController?.delegate = delegate
         return filterViewController
     }

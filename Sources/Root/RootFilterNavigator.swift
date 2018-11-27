@@ -18,6 +18,7 @@ public class RootFilterNavigator: NSObject, Navigator {
 
     private let navigationController: FilterNavigationController
     private let factory: Factory
+    private var filterRootStateController: FilterRootStateController?
 
     public init(navigationController: FilterNavigationController, factory: Factory) {
         self.navigationController = navigationController
@@ -26,17 +27,23 @@ public class RootFilterNavigator: NSObject, Navigator {
         navigationController.navigationBar.shadowImage = UIImage()
     }
 
-    public func start() {
+    public func start() -> FilterRootStateController {
         let filterRootStateController = factory.makeFilterRootStateController(navigator: self)
+        self.filterRootStateController = filterRootStateController
         navigationController.setViewControllers([filterRootStateController], animated: false)
+        return filterRootStateController
     }
 
     public func navigate(to destination: RootFilterNavigator.Destination) {
+        guard let filterDataSource = filterRootStateController?.currentFilterDataSource else {
+            // We can't navigate to subfilters without having a filter data source
+            return
+        }
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
         case let .multiLevelSelectionListFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let multiLevelListViewController = factory.makeMultiLevelListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
@@ -44,19 +51,19 @@ public class RootFilterNavigator: NSObject, Navigator {
         case let .verticalSelectionInPopover(verticals, sourceView, delegate, popoverWillDismiss):
             presentVerticals(with: verticals, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
         case let .rangeFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
             navigationController.pushViewController(rangeFilterViewController, animated: true)
         case let .selectionListFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let listSelectionViewController = factory.makeListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
                 return
             }
             navigationController.pushViewController(listSelectionViewController, animated: true)
         case let .stepperFilter(filterInfo, delegate):
-            let navigator = factory.makeFilterNavigator(navigationController: navigationController)
+            let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
             guard let stepperFilterViewController = factory.makeStepperFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else { return }
             navigationController.pushViewController(stepperFilterViewController, animated: true)
         }
@@ -65,7 +72,8 @@ public class RootFilterNavigator: NSObject, Navigator {
 
 private extension RootFilterNavigator {
     var filterRootViewController: FilterRootViewController? {
-        return navigationController.viewControllers.first as? FilterRootViewController
+        let stateController = navigationController.viewControllers.first as? FilterRootStateController
+        return stateController?.children.first as? FilterRootViewController
     }
 
     func presentVerticals(with verticals: [Vertical], and sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?) {
@@ -87,7 +95,17 @@ private extension RootFilterNavigator {
 
         filterRootViewController.popoverPresentationTransitioningDelegate = transitioningDelegate
 
-        preferencelistViewController.preferredContentSize = CGSize(width: filterRootViewController.view.frame.size.width, height: 144)
+        let sourceViewBottom = filterRootViewController.view.convert(CGPoint(x: 0, y: sourceView.bounds.maxY), from: sourceView).y
+        let popoverHeight: CGFloat
+        let maxHeightForPopover = filterRootViewController.view.bounds.height - sourceViewBottom - 20
+        let numberOfRowsFitting = maxHeightForPopover / VerticalListViewController.rowHeight
+        if numberOfRowsFitting < CGFloat(verticals.count) {
+            popoverHeight = (floor(numberOfRowsFitting) - 0.5) * VerticalListViewController.rowHeight
+        } else {
+            popoverHeight = CGFloat(verticals.count) * VerticalListViewController.rowHeight
+        }
+
+        preferencelistViewController.preferredContentSize = CGSize(width: filterRootViewController.view.frame.size.width, height: popoverHeight)
         preferencelistViewController.modalPresentationStyle = .custom
         preferencelistViewController.transitioningDelegate = transitioningDelegate
 

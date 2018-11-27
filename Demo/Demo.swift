@@ -174,10 +174,11 @@ enum ComponentViews: String {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider())
+            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
-            rootFilterNavigator.start()
+            let stateController = rootFilterNavigator.start()
+            stateController.change(to: .loadFreshFilters(data: demoFilter))
 
             return navigationController
 
@@ -230,10 +231,11 @@ enum FullscreenViews: String {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(dataSource: demoFilter, selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider())
+        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
-        rootFilterNavigator.start()
+        let stateController = rootFilterNavigator.start()
+        stateController.change(to: .loadFreshFilters(data: demoFilter))
 
         return navigationController
     }

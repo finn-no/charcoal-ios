@@ -109,6 +109,7 @@ public class FilterRootViewController: UIViewController {
     lazy var searchViewController: SearchQueryViewController = {
         let searchViewController = SearchQueryViewController()
         searchViewController.delegate = self
+        searchViewController.searchQuerySuggestionDataSource = searchQuerySuggestionDataSource
         return searchViewController
     }()
 
@@ -311,11 +312,10 @@ extension FilterRootViewController: UITableViewDataSource {
         }
         switch section {
         case .searchQuery:
-            guard let searchQueryFilter = searchQueryFilter else {
+            guard let searchQueryFilter = searchQueryFilter, let value = selectionDataSource?.value(for: searchQueryFilter)?.first else {
                 return searchQueryCell
             }
-            let value = selectionDataSource?.value(for: searchQueryFilter)?.first
-            searchQueryCell.searchBar?.text = "Test" // value
+            searchViewController.searchBar.text = value
             return searchQueryCell
 
         case .preferences:
@@ -430,7 +430,6 @@ extension FilterRootViewController: FilterCellDelegate {
 
 extension FilterRootViewController: SearchViewControllerDelegate {
     public func presentSearchViewController(_ searchViewController: SearchQueryViewController) {
-        searchViewController.searchQuerySuggestionDataSource = searchQuerySuggestionDataSource
         // Add view controller as child view controller
         addChild(searchViewController)
         view.addSubview(searchViewController.view)

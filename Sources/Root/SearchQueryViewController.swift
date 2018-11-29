@@ -16,13 +16,13 @@ public protocol SearchViewControllerDelegate: class {
 
 public class SearchQueryViewController: UIViewController {
 
-    // MARK: - Public
+    // MARK: - Public Properties
 
     public weak var delegate: SearchViewControllerDelegate?
     public var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource?
     public var previousSizeMode: BottomSheetPresentationController.ContentSizeMode = .compact
 
-    // MARK: - Private
+    // MARK: - Private Properties
 
     private var suggestions: [String] = []
     private var currentQuery: String?

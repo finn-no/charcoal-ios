@@ -370,7 +370,7 @@ private extension FilterRootViewController {
         } else {
             scrollPos = (tableView.contentOffset.y + tableView.contentInset.top)
         }
-        return scrollPos < 1
+        return scrollPos <= 1
     }
 
     var isScrollEnabled: Bool {

@@ -21,7 +21,6 @@ public class SearchQueryViewController: UIViewController {
     public weak var delegate: SearchViewControllerDelegate?
     public var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource?
     public var previousSizeMode: BottomSheetPresentationController.ContentSizeMode = .compact
-    public var isActive = false
 
     // MARK: - Private
 
@@ -91,7 +90,6 @@ extension SearchQueryViewController: UISearchBarDelegate {
             setup()
             delegate?.presentSearchViewController(self)
         }
-        isActive = true
         return true
     }
 
@@ -123,7 +121,7 @@ extension SearchQueryViewController: UISearchBarDelegate {
 
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // If not active, the user clicked the x-button while not editing and the search should be cancelled
-        if !isActive, searchText.isEmpty {
+        if !searchBar.isDescendant(of: view), searchText.isEmpty {
             didClearText = true
             delegate?.searchViewControllerDidCancelSearch(self)
             currentQuery = nil
@@ -148,7 +146,6 @@ private extension SearchQueryViewController {
         if previousSizeMode == .compact, let presentationController = navigationController?.presentationController as? BottomSheetPresentationController {
             presentationController.transition(to: .compact)
         }
-        isActive = false
         willMove(toParent: nil)
         view.removeFromSuperview()
         removeFromParent()

@@ -13,3 +13,9 @@ _Charcoal_ /ˈtʃɑːkəʊl/: _a porous black solid, consisting of an amorphous 
 <p align="center">
   <img src="/GitHub/demo.gif"/>
 </p>
+
+## Making a new Demo release
+1. Update Demo/CHANGELOG.md
+2. Update version for Demo target in Xcode
+3. Run `sh Scripts/version.sh` to update build number
+4. Run `fastlane` and follow instructions

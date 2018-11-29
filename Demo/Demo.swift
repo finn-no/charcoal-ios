@@ -91,6 +91,8 @@ enum Sections: String {
                 return .bottomSheet
             case .searchQuery:
                 return .none
+            case .inlineFilter:
+                return .none
             }
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]
@@ -163,6 +165,7 @@ enum ComponentViews: String {
     case rangeFilter
     case stepperFilter
     case searchQuery
+    case inlineFilter
 
     var viewController: UIViewController {
         switch self {
@@ -204,6 +207,20 @@ enum ComponentViews: String {
             let searchQueryViewController = SearchQueryViewController(filterInfo: DemoSearchQueryFilterInfo(placeholderText: "Søk etter ord", title: "Filtrer søket"), dataSource: DemoEmptyDataSource(), selectionDataSource: DemoEmptyFilterSelectionDataSource())!
             let navigationController = UINavigationController(rootViewController: searchQueryViewController)
             return navigationController
+
+        case .inlineFilter:
+            let controller = UIViewController(nibName: nil, bundle: nil)
+            controller.view.backgroundColor = .white
+            let segment = Segment(titles: ["Hei"]) // , "Sann", "Hopp", "Sann"])
+            segment.translatesAutoresizingMaskIntoConstraints = false
+            controller.view.addSubview(segment)
+            NSLayoutConstraint.activate([
+                segment.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor, constant: 32),
+                segment.centerYAnchor.constraint(equalTo: controller.view.centerYAnchor),
+                segment.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor, constant: -32),
+                segment.heightAnchor.constraint(equalToConstant: 48),
+            ])
+            return controller
         }
     }
 
@@ -217,6 +234,7 @@ enum ComponentViews: String {
             .rangeFilter,
             .stepperFilter,
             .searchQuery,
+            .inlineFilter,
         ]
     }
 }

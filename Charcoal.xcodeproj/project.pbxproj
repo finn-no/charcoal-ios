@@ -158,6 +158,9 @@
 		DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
+		DAFD7A0F21AE970800A468B2 /* InlineFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD7A0E21AE970800A468B2 /* InlineFilterView.swift */; };
+		DAFD7A1121AE974B00A468B2 /* InlineFilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD7A1021AE974B00A468B2 /* InlineFilterViewCell.swift */; };
+		DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD7A1221AE976D00A468B2 /* Segment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -346,6 +349,9 @@
 		DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
 		DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterDemoView.swift; sourceTree = "<group>"; };
+		DAFD7A0E21AE970800A468B2 /* InlineFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineFilterView.swift; sourceTree = "<group>"; };
+		DAFD7A1021AE974B00A468B2 /* InlineFilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineFilterViewCell.swift; sourceTree = "<group>"; };
+		DAFD7A1221AE976D00A468B2 /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +423,7 @@
 				9BB82798216B57630014028C /* Logger */,
 				55858A2220AB086200B100EA /* MultiLevelListSelectionFilter */,
 				55858A1A20AAC73A00B100EA /* NavigationController */,
+				DAFD7A0D21AE96CE00A468B2 /* InlineFilter */,
 				55F97D1320AC51FD002BABC9 /* PreferenceFilter */,
 				9BE0A0552091D2530000632B /* Protocols */,
 				5515EA4320BD5B5600AC98A3 /* RangeFilter */,
@@ -975,6 +982,16 @@
 			path = StepperFilter;
 			sourceTree = "<group>";
 		};
+		DAFD7A0D21AE96CE00A468B2 /* InlineFilter */ = {
+			isa = PBXGroup;
+			children = (
+				DAFD7A0E21AE970800A468B2 /* InlineFilterView.swift */,
+				DAFD7A1021AE974B00A468B2 /* InlineFilterViewCell.swift */,
+				DAFD7A1221AE976D00A468B2 /* Segment.swift */,
+			);
+			path = InlineFilter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1213,6 +1230,7 @@
 				9BB827A0216C9C360014028C /* PreferenceFilterInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				9BD6378E21244C0B00AB9DFE /* Font.swift in Sources */,
+				DAFD7A0F21AE970800A468B2 /* InlineFilterView.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
 				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
 				9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */,
@@ -1223,6 +1241,7 @@
 				9B863F0E2178AB240089CCBC /* ExpandableSelectionButton.swift in Sources */,
 				5525324820A300A6000CBD21 /* FilterNavigationController.swift in Sources */,
 				55E869E020E26764008B921E /* FilterContainerViewController.swift in Sources */,
+				DAFD7A1121AE974B00A468B2 /* InlineFilterViewCell.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				9BE9A060219ADC2000059C19 /* CollapsedSelectionValuesView.swift in Sources */,
@@ -1237,6 +1256,7 @@
 				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				9BE0A05B2091E7F30000632B /* Identifiable.swift in Sources */,
+				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,
 				55646DAC2091C572006AA2DA /* PreferenceSelectionView.swift in Sources */,
 				9BAF4F81212AEC45003DD663 /* SearchQueryViewController.swift in Sources */,

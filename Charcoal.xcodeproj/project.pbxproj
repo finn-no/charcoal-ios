@@ -154,6 +154,7 @@
 		9BFC08912134088C00AB8A11 /* ContentSizeModeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */; };
 		9BFC089421341FFA00AB8A11 /* FilterSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */; };
 		DA3F763D2188812700D21C3A /* StepperFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3F763C2188812700D21C3A /* StepperFilterInfo.swift */; };
+		DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */; };
 		DAE69E282187435B0084F37C /* StepperFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE69E272187435B0084F37C /* StepperFilterInfoType.swift */; };
 		DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
@@ -345,6 +346,7 @@
 		9BFC08902134088C00AB8A11 /* ContentSizeModeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeModeTest.swift; sourceTree = "<group>"; };
 		9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionDataSource.swift; sourceTree = "<group>"; };
 		DA3F763C2188812700D21C3A /* StepperFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterInfo.swift; sourceTree = "<group>"; };
+		DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentButton.swift; sourceTree = "<group>"; };
 		DAE69E272187435B0084F37C /* StepperFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterInfoType.swift; sourceTree = "<group>"; };
 		DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 				DAFD7A0E21AE970800A468B2 /* InlineFilterView.swift */,
 				DAFD7A1021AE974B00A468B2 /* InlineFilterViewCell.swift */,
 				DAFD7A1221AE976D00A468B2 /* Segment.swift */,
+				DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */,
 			);
 			path = InlineFilter;
 			sourceTree = "<group>";
@@ -1274,6 +1277,7 @@
 				55E869E420E3D246008B921E /* ListSelectionFilterViewController.swift in Sources */,
 				9BB827A2216C9C800014028C /* ListSelectionFilterInfo.swift in Sources */,
 				9BE0A06A209724D70000632B /* PreferencesCell.swift in Sources */,
+				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,

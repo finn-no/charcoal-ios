@@ -211,7 +211,7 @@ enum ComponentViews: String {
         case .inlineFilter:
             let controller = UIViewController(nibName: nil, bundle: nil)
             controller.view.backgroundColor = .white
-            let segment = Segment(titles: ["Hei"]) // , "Sann", "Hopp", "Sann"])
+            let segment = Segment(titles: ["Hei", "Sann", "Hopp"])
             segment.translatesAutoresizingMaskIntoConstraints = false
             controller.view.addSubview(segment)
             NSLayoutConstraint.activate([

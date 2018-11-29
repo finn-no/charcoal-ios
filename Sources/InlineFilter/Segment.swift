@@ -8,7 +8,8 @@ public class Segment: UIControl {
     var selectedItems: [Int] = []
 
     private let titles: [String]
-    private var arrangedSubviews: [UIView] = []
+    private var buttons: [SegmentButton] = []
+    private var splitLines: [UIView] = []
 
     public init(titles: [String]) {
         self.titles = titles
@@ -19,81 +20,85 @@ public class Segment: UIControl {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        for (i, view) in arrangedSubviews.enumerated() {
-            border(for: view, atIndex: i, lineWidth: 4, strokeColor: .silver)
-        }
-    }
 }
 
 private extension Segment {
     func setup() {
-        var previousLeadingAnchor = leadingAnchor
+        addButtons()
+        addSplitLines()
+        layoutButtonsAndLines()
+    }
+
+    @objc func handleButton(sender: SegmentButton) {
+        guard let index = buttons.firstIndex(of: sender) else {
+            return
+        }
+        sender.isSelected = !sender.isSelected
+        // Update the selected values
+        if sender.isSelected {
+            selectedItems.append(index)
+        } else {
+            selectedItems.removeAll { $0 == index }
+        }
+        // Notfify target of event
+        sendActions(for: .valueChanged)
+        // Hide split lines based on wheter the two surrounding buttons are selected or not
+        for i in buttons.startIndex ..< buttons.endIndex - 1 {
+            if (buttons[i].isSelected && buttons[i + 1].isSelected) ||
+                (!buttons[i].isSelected && !buttons[i + 1].isSelected) {
+                splitLines[i].isHidden = false
+            } else {
+                splitLines[i].isHidden = true
+            }
+        }
+    }
+
+    func addButtons() {
         for title in titles {
-            let button = UIButton(type: .custom)
-            button.titleLabel?.font = .regularBody
-            button.setTitle(title, for: .normal)
-            button.setTitleColor(.spaceGray, for: .normal)
-            button.setTitleColor(.milk, for: .selected)
+            let button = SegmentButton(title: title)
             button.addTarget(self, action: #selector(handleButton(sender:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             addSubview(button)
-            arrangedSubviews.append(button)
+            buttons.append(button)
+        }
+        // Set positions of the button to draw correct borders
+        buttons.first?.position = .first
+        buttons.last?.position = .last
+    }
+
+    func addSplitLines() {
+        for _ in 1 ..< buttons.count {
+            let splitLine = UIView(frame: .zero)
+            splitLine.backgroundColor = SegmentButton.borderColor
+            splitLine.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(splitLine)
+            splitLines.append(splitLine)
+        }
+    }
+
+    func layoutButtonsAndLines() {
+        var previousLeadingAnchor = leadingAnchor
+        var currentIndex = splitLines.startIndex
+
+        for button in buttons {
             NSLayoutConstraint.activate([
                 button.topAnchor.constraint(equalTo: topAnchor),
                 button.leadingAnchor.constraint(equalTo: previousLeadingAnchor),
                 button.heightAnchor.constraint(equalTo: heightAnchor),
-                button.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / CGFloat(titles.count)),
+                button.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / CGFloat(buttons.count)),
             ])
             previousLeadingAnchor = button.trailingAnchor
+            // setup split line
+            guard currentIndex != splitLines.endIndex else { continue }
+            let line = splitLines[currentIndex]
+            currentIndex = splitLines.index(after: currentIndex)
+
+            NSLayoutConstraint.activate([
+                line.topAnchor.constraint(equalTo: topAnchor),
+                line.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: SegmentButton.borderWidth / 2),
+                line.heightAnchor.constraint(equalTo: heightAnchor),
+                line.widthAnchor.constraint(equalToConstant: SegmentButton.borderWidth),
+            ])
         }
-    }
-
-    func border(for view: UIView, atIndex index: Int, lineWidth: CGFloat, strokeColor: CGColor) {
-        var radius = 16 as CGFloat
-        let width = view.frame.width
-        let height = view.frame.height
-
-        var corners: UIRectCorner = [.topRight]
-
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = view.bounds
-        maskLayer.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius)).cgPath
-        view.layer.mask = maskLayer
-
-        let path = CGMutablePath()
-        // Top border line
-        var point = corners.contains(.topLeft) ? CGPoint(x: radius, y: 0) : .zero
-        path.move(to: point)
-        var r = corners.contains(.topRight) ? radius : 0
-        line(length: width - r, radius: r, transform: .identity, path: path)
-
-//        path.addLine(to: CGPoint(x: view.bounds.width, y: height))
-//        path.addLine(to: CGPoint(x: 0, y: height))
-//        path.addLine(to: CGPoint(x: 0, y: 0))
-
-        let borderLayer = CAShapeLayer()
-        borderLayer.frame = view.bounds
-        borderLayer.path = path
-        borderLayer.lineWidth = lineWidth
-        borderLayer.strokeColor = .licorice // strokeColor
-        borderLayer.fillColor = UIColor.clear.cgColor
-        view.layer.addSublayer(borderLayer)
-    }
-
-    func line(length: CGFloat, radius: CGFloat, transform: CGAffineTransform, path: CGMutablePath) {
-        path.addLine(to: CGPoint(x: length - radius, y: 0), transform: transform)
-        if radius != 0 {
-            path.addArc(center: CGPoint(x: length, y: radius), radius: radius, startAngle: 3 * .pi / 2, endAngle: 4 * .pi / 2, clockwise: false, transform: transform)
-        }
-    }
-
-    @objc func handleButton(sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        sender.backgroundColor = sender.isSelected ? .primaryBlue : .milk
-        guard let index = arrangedSubviews.firstIndex(of: sender) else { return }
-        border(for: sender, atIndex: index, lineWidth: 2, strokeColor: sender.isSelected ? .primaryBlue : .silver)
     }
 }

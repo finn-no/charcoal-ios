@@ -26,6 +26,7 @@ private extension SearchQueryCell {
     func setupSearchBar(_ searchBar: UISearchBar?) {
         guard let searchBar = searchBar else { return }
         searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.removeFromSuperview()
         contentView.addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -42,25 +43,32 @@ private extension SearchQueryCell {
 
 // MARK: - Private class
 
-private extension SearchQueryCell {
-    class SearchQueryCellSearchBar: UISearchBar {
-        // Makes sure to setup appearance proxy one time and one time only
-        private static let setupSearchQuerySearchBarAppereanceOnce: () = {
-            let appearance = UITextField.appearance(whenContainedInInstancesOf: [SearchQueryCellSearchBar.self])
-            appearance.defaultTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
-                NSAttributedString.Key.font: UIFont.regularBody,
-            ]
-        }()
+class SearchQueryCellSearchBar: UISearchBar {
+    // Makes sure to setup appearance proxy one time and one time only
+    private static let setupSearchQuerySearchBarAppereanceOnce: () = {
+        let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableViewCell.self])
+        textFieldAppearanceInRoot.defaultTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
+            NSAttributedString.Key.font: UIFont.regularBody,
+        ]
 
-        override init(frame: CGRect) {
-            _ = SearchQueryCellSearchBar.setupSearchQuerySearchBarAppereanceOnce
-            super.init(frame: frame)
-        }
+        let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [SearchQueryViewController.self])
+        textFieldAppearanceInSearch.defaultTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.licorice,
+            NSAttributedString.Key.font: UIFont.regularBody,
+        ]
 
-        required init?(coder aDecoder: NSCoder) {
-            _ = SearchQueryCellSearchBar.setupSearchQuerySearchBarAppereanceOnce
-            super.init(coder: aDecoder)
-        }
+        let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [SearchQueryCellSearchBar.self])
+        barButtondAppearance.title = "cancel".localized()
+    }()
+
+    override init(frame: CGRect) {
+        _ = SearchQueryCellSearchBar.setupSearchQuerySearchBarAppereanceOnce
+        super.init(frame: frame)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        _ = SearchQueryCellSearchBar.setupSearchQuerySearchBarAppereanceOnce
+        super.init(coder: aDecoder)
     }
 }

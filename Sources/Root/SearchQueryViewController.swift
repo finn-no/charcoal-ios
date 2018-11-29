@@ -30,10 +30,9 @@ public class SearchQueryViewController: UIViewController {
     private var didClearText = false
 
     private(set) lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar(frame: .zero)
+        let searchBar = SearchQueryCellSearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
-        searchBar.cancelButtonText = "cancel".localized()
         searchBar.backgroundColor = .milk
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
@@ -145,11 +144,14 @@ private extension SearchQueryViewController {
     func returnToSuperView() {
         searchBar.endEditing(false)
         searchBar.setShowsCancelButton(false, animated: false)
-        view.removeFromSuperview()
-        isActive = false
         // Transition to compact mode if needed
-        guard previousSizeMode == .compact, let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else { return }
-        presentationController.transition(to: .compact)
+        if previousSizeMode == .compact, let presentationController = navigationController?.presentationController as? BottomSheetPresentationController {
+            presentationController.transition(to: .compact)
+        }
+        isActive = false
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
     }
 
     func suggestions(forSearchText searchText: String?) {
@@ -168,6 +170,7 @@ private extension SearchQueryViewController {
     }
 
     func setup() {
+        searchBar.removeFromSuperview()
         view.addSubview(searchBar)
         view.addSubview(tableView)
 
@@ -181,14 +184,5 @@ private extension SearchQueryViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-    }
-}
-
-// MARK: - SearchBar Extensions
-
-extension UISearchBar {
-    var cancelButtonText: String {
-        get { return value(forKey: "_cancelButtonText") as! String }
-        set { setValue(newValue, forKey: "_cancelButtonText") }
     }
 }

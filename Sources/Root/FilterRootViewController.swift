@@ -152,9 +152,6 @@ private extension FilterRootViewController {
     func setup() {
         view.backgroundColor = .milk
 
-        addChild(searchViewController)
-        searchViewController.didMove(toParent: self)
-
         tableView.register(SearchQueryCell.self)
         tableView.register(FilterCell.self)
         tableView.register(PreferencesCell.self)
@@ -314,6 +311,11 @@ extension FilterRootViewController: UITableViewDataSource {
         }
         switch section {
         case .searchQuery:
+            guard let searchQueryFilter = searchQueryFilter else {
+                return searchQueryCell
+            }
+            let value = selectionDataSource?.value(for: searchQueryFilter)?.first
+            searchQueryCell.searchBar?.text = "Test" // value
             return searchQueryCell
 
         case .preferences:
@@ -429,9 +431,12 @@ extension FilterRootViewController: FilterCellDelegate {
 extension FilterRootViewController: SearchViewControllerDelegate {
     public func presentSearchViewController(_ searchViewController: SearchQueryViewController) {
         searchViewController.searchQuerySuggestionDataSource = searchQuerySuggestionDataSource
+        // Add view controller as child view controller
+        addChild(searchViewController)
         view.addSubview(searchViewController.view)
         searchViewController.view.fillInSuperview()
         view.layoutIfNeeded()
+        searchViewController.didMove(toParent: self)
         // Expand bottom sheet if needed
         guard let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else {
             return

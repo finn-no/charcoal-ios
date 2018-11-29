@@ -6,7 +6,9 @@ import UIKit
 
 class SearchQueryCell: UITableViewCell {
     var searchBar: UISearchBar? {
-        didSet { didSet(searchBar) }
+        didSet {
+            setupSearchBar(searchBar)
+        }
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -21,15 +23,15 @@ class SearchQueryCell: UITableViewCell {
 }
 
 private extension SearchQueryCell {
-    func didSet(_ searchBar: UISearchBar?) {
+    func setupSearchBar(_ searchBar: UISearchBar?) {
         guard let searchBar = searchBar else { return }
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumSpacing),
+            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -.mediumSpacing),
         ])
     }
 

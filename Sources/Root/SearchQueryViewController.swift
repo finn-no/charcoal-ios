@@ -20,11 +20,14 @@ public class SearchQueryViewController: UIViewController {
 
     public weak var delegate: SearchViewControllerDelegate?
     public var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource?
+    public var previousSizeMode: BottomSheetPresentationController.ContentSizeMode = .compact
+    public var isActive = false
+
+    // MARK: - Private
 
     private var suggestions: [String] = []
     private var currentQuery: String?
-
-    var previousSizeMode: BottomSheetPresentationController.ContentSizeMode = .compact
+    private var didClearText = false
 
     private(set) lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar(frame: .zero)
@@ -36,7 +39,7 @@ public class SearchQueryViewController: UIViewController {
         return searchBar
     }()
 
-    private(set) lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
@@ -66,7 +69,7 @@ extension SearchQueryViewController: UITableViewDataSource {
 
 extension SearchQueryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let query = suggestions[indexPath.row]
+        let query = suggestions[safe: indexPath.row]
         searchBar.text = query
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.searchViewController(self, didSelectQuery: query)
@@ -79,11 +82,17 @@ extension SearchQueryViewController: UITableViewDelegate {
 
 extension SearchQueryViewController: UISearchBarDelegate {
     public func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        // User clicked the x-button and cleared the text -> should not begin editing
+        guard !didClearText else {
+            didClearText = false
+            return false
+        }
         // Present if needed
         if searchBar.superview != view {
             setup()
             delegate?.presentSearchViewController(self)
         }
+        isActive = true
         return true
     }
 
@@ -99,6 +108,7 @@ extension SearchQueryViewController: UISearchBarDelegate {
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let currentQuery = currentQuery {
+            // return to previous search
             delegate?.searchViewController(self, didSelectQuery: nil)
             searchBar.text = currentQuery
             suggestions(forSearchText: currentQuery)
@@ -113,6 +123,15 @@ extension SearchQueryViewController: UISearchBarDelegate {
     }
 
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // If not active, the user clicked the x-button while not editing and the search should be cancelled
+        if !isActive, searchText.isEmpty {
+            didClearText = true
+            delegate?.searchViewControllerDidCancelSearch(self)
+            currentQuery = nil
+            suggestions(forSearchText: nil)
+            return
+        }
+        // If the user clears the search field and then hits cancel, the search is cancelled
         if let _ = currentQuery, searchText.isEmpty {
             currentQuery = nil
         }
@@ -127,6 +146,7 @@ private extension SearchQueryViewController {
         searchBar.endEditing(false)
         searchBar.setShowsCancelButton(false, animated: false)
         view.removeFromSuperview()
+        isActive = false
         // Transition to compact mode if needed
         guard previousSizeMode == .compact, let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else { return }
         presentationController.transition(to: .compact)

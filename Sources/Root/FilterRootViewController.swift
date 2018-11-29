@@ -433,21 +433,29 @@ extension FilterRootViewController: SearchViewControllerDelegate {
         searchViewController.view.fillInSuperview()
         view.layoutIfNeeded()
         // Expand bottom sheet if needed
-        guard let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else { return }
+        guard let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else {
+            return
+        }
         searchViewController.previousSizeMode = presentationController.currentContentSizeMode
-        guard presentationController.currentContentSizeMode == .compact else { return }
+        guard presentationController.currentContentSizeMode == .compact else {
+            return
+        }
         presentationController.transition(to: .expanded)
     }
 
     public func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String?) {
         searchQueryCell.searchBar = searchViewController.searchBar
-        guard let query = query, let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else { return }
+        guard let query = query, let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else {
+            return
+        }
         selectionDataSource?.setValue([query], for: searchQueryFilterInfo)
     }
 
     public func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController) {
         searchQueryCell.searchBar = searchViewController.searchBar
-        guard let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else { return }
+        guard let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else {
+            return
+        }
         selectionDataSource?.clearAll(for: searchQueryFilterInfo)
     }
 }

@@ -1,4 +1,4 @@
-## [0.9] - Unreleased
+## [0.9] - 2018-11-29
 - Improvement to switching verticals and demo data for one more car vertical added
 - Range control should now work when the slider is all the way to the left (slide to go back should not interfer anymore)
 - Continuing to slide finger when expanding bottomsheet will now switch to scroll content when bottomsheet has reached its expanded state 

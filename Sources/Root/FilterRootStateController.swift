@@ -133,6 +133,22 @@ extension FilterRootStateController: FilterRootViewControllerDelegate {
     }
 }
 
+extension FilterRootStateController: AnyFilterViewController {
+    public var mainScrollableContentView: UIScrollView? {
+        guard state == .filter else {
+            return nil
+        }
+        return filterRootViewController.mainScrollableContentView
+    }
+
+    public var isMainScrollableViewScrolledToTop: Bool {
+        guard state == .filter else {
+            return true
+        }
+        return filterRootViewController.isMainScrollableViewScrolledToTop
+    }
+}
+
 public enum FilterRootError: Error {
     case unableToLoadFilterData
     case undefined

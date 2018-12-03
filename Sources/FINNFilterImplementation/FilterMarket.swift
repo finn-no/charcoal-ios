@@ -8,6 +8,7 @@ protocol FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool
     var preferenceFilterKeys: [FilterKey] { get }
     var supportedFiltersKeys: [FilterKey] { get }
+    var mapFilterKey: FilterKey? { get }
 }
 
 enum FilterMarket: FilterConfiguration {
@@ -28,6 +29,10 @@ enum FilterMarket: FilterConfiguration {
                 .category,
                 .price,
             ]
+        }
+
+        var mapFilterKey: FilterKey? {
+            return .location
         }
     }
 
@@ -59,6 +64,10 @@ enum FilterMarket: FilterConfiguration {
                 .energyLabel,
                 .plotArea,
             ]
+        }
+
+        var mapFilterKey: FilterKey? {
+            return .location
         }
     }
 
@@ -123,6 +132,10 @@ enum FilterMarket: FilterConfiguration {
                 ]
             }
         }
+
+        var mapFilterKey: FilterKey? {
+            return .location
+        }
     }
 
     case bap(Bap)
@@ -158,6 +171,10 @@ enum FilterMarket: FilterConfiguration {
 
     var supportedFiltersKeys: [FilterKey] {
         return currentFilterConfig.supportedFiltersKeys
+    }
+
+    var mapFilterKey: FilterKey? {
+        return currentFilterConfig.mapFilterKey
     }
 }
 

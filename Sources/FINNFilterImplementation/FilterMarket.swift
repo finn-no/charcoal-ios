@@ -39,7 +39,7 @@ enum FilterMarket: FilterConfiguration {
         }
 
         var preferenceFilterKeys: [FilterKey] {
-            return [.published, .isSold, .isNewProperty, .isSold]
+            return [.published, .isSold, .isNewProperty, .isPrivateBroker]
         }
 
         var supportedFiltersKeys: [FilterKey] {

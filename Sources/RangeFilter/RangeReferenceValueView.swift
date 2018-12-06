@@ -21,26 +21,31 @@ final class RangeReferenceValueView: UIView {
         label.font = UIFont(name: FontType.light.rawValue, size: 12)
         label.textColor = .licorice
         label.textAlignment = .center
+        label.text = text
 
         return label
     }()
 
-    let value: RangeFilterView.RangeValue
-    let unit: String
-    let formatter: RangeFilterValueFormatter
+    let value: Int
+    let text: String?
 
     init(value: RangeFilterView.RangeValue, unit: String, formatter: RangeFilterValueFormatter) {
         self.value = value
-        self.unit = unit
-        self.formatter = formatter
+        text = formatter.string(from: value)?.appending(" \(unit)")
+        super.init(frame: .zero)
+
+        setup()
+    }
+
+    init(value: RangeFilterView.RangeValue, text: String) {
+        self.value = value
+        self.text = text
         super.init(frame: .zero)
 
         setup()
     }
 
     func setup() {
-        referenceLabel.text = formatter.string(from: value)?.appending(" \(unit)")
-
         addSubview(indicatorView)
         addSubview(referenceLabel)
 

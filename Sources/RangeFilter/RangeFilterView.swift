@@ -14,7 +14,7 @@ public final class RangeFilterView: UIControl {
 
     private lazy var numberInputView: RangeNumberInputView = {
         let inputFontSize = usesSmallNumberInputFont ? RangeNumberInputView.InputFontSize.small : RangeNumberInputView.InputFontSize.large
-        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit, formatter: formatter, inputFontSize: inputFontSize, displaysUnitInNumberInput: displaysUnitInNumberInput)
+        let rangeNumberInputView = RangeNumberInputView(minValue: range.lowerBound, unit: unit, formatter: formatter, inputFontSize: inputFontSize, displaysUnitInNumberInput: displaysUnitInNumberInput)
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
 
@@ -131,6 +131,8 @@ public final class RangeFilterView: UIControl {
     }
 
     public override func layoutSubviews() {
+        super.layoutSubviews()
+
         referenceValueViews.forEach({ view in
             let thumbRectForValue = sliderInputView.thumbRect(for: view.value)
             let leadingConstant = thumbRectForValue.midX - (view.frame.width / 2)

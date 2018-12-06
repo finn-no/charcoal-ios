@@ -5,66 +5,59 @@
 import Charcoal
 import UIKit
 
-enum Sections: String {
+enum Sections: String, CaseIterable {
     case components
     case fullscreen
-
-    static var all: [Sections] {
-        return [
-            .components,
-            .fullscreen,
-        ]
-    }
 
     var numberOfItems: Int {
         switch self {
         case .components:
-            return ComponentViews.all.count
+            return ComponentViews.allCases.count
         case .fullscreen:
-            return FullscreenViews.all.count
+            return FullscreenViews.allCases.count
         }
     }
 
     static func formattedName(for section: Int) -> String {
-        let section = Sections.all[section]
+        let section = Sections.allCases[section]
         let rawClassName = section.rawValue
         return rawClassName.capitalizingFirstLetter
     }
 
     static func formattedName(for indexPath: IndexPath) -> String {
-        let section = Sections.all[indexPath.section]
-        var rawClassName: String
+        let section = Sections.allCases[indexPath.section]
+        var rawClassName: String?
         switch section {
         case .components:
-            rawClassName = ComponentViews.all[indexPath.row].rawValue
+            rawClassName = ComponentViews.allCases[safe: indexPath.row]?.rawValue
         case .fullscreen:
-            rawClassName = FullscreenViews.all[indexPath.row].rawValue
+            rawClassName = FullscreenViews.allCases[safe: indexPath.row]?.rawValue
         }
 
-        return rawClassName.replacingOccurrences(of: "DemoView", with: "").capitalizingFirstLetter
+        return rawClassName?.replacingOccurrences(of: "DemoView", with: "").capitalizingFirstLetter ?? "Unknown"
     }
 
     static func viewController(for indexPath: IndexPath) -> UIViewController? {
-        guard let section = Sections.all[safe: indexPath.section] else {
+        guard let section = Sections.allCases[safe: indexPath.section] else {
             return nil
         }
         let selectedViewController: UIViewController?
         switch section {
         case .components:
-            let selectedView = ComponentViews.all[safe: indexPath.row]
+            let selectedView = ComponentViews.allCases[safe: indexPath.row]
             selectedViewController = selectedView?.viewController
         case .fullscreen:
-            let selectedView = FullscreenViews.all[safe: indexPath.row]
+            let selectedView = FullscreenViews.allCases[safe: indexPath.row]
             selectedViewController = selectedView?.viewController
         }
         return selectedViewController
     }
 
     static func transitionStyle(for indexPath: IndexPath) -> TransitionStyle {
-        let section = Sections.all[indexPath.section]
+        let section = Sections.allCases[indexPath.section]
         switch section {
         case .components:
-            let selectedView = ComponentViews.all[indexPath.row]
+            let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
             case .bottomSheet:
                 return .bottomSheet
@@ -80,9 +73,11 @@ enum Sections: String {
                 return .bottomSheet
             case .inlineFilter:
                 return .none
+            case .mapFilter:
+                return .none
             }
         case .fullscreen:
-            let selectedView = FullscreenViews.all[indexPath.row]
+            let selectedView = FullscreenViews.allCases[indexPath.row]
             switch selectedView {
             case .torget, .bil, .eiendom:
                 return .bottomSheet
@@ -116,7 +111,7 @@ enum Sections: String {
     }
 }
 
-enum ComponentViews: String {
+enum ComponentViews: String, CaseIterable {
     case bottomSheet
     case rootFilters
     case listSelection
@@ -124,6 +119,7 @@ enum ComponentViews: String {
     case rangeFilter
     case stepperFilter
     case inlineFilter
+    case mapFilter
 
     var viewController: UIViewController {
         switch self {
@@ -161,23 +157,14 @@ enum ComponentViews: String {
             let controller = InlineFilterDemoViewController()
             controller.selectionDataSource = DemoEmptyFilterSelectionDataSource()
             return controller
-        }
-    }
 
-    static var all: [ComponentViews] {
-        return [
-            .bottomSheet,
-            .rootFilters,
-            .listSelection,
-            .compactListFilter,
-            .rangeFilter,
-            .stepperFilter,
-            .inlineFilter,
-        ]
+        case .mapFilter:
+            return ViewController<MapFilterView>()
+        }
     }
 }
 
-enum FullscreenViews: String {
+enum FullscreenViews: String, CaseIterable {
     case torget
     case bil
     case eiendom
@@ -203,12 +190,6 @@ enum FullscreenViews: String {
         stateController.change(to: .loadFreshFilters(data: demoFilter))
 
         return navigationController
-    }
-
-    static var all: [FullscreenViews] {
-        return [
-            .torget, .bil, .eiendom,
-        ]
     }
 }
 

@@ -19,11 +19,11 @@ public class InlineFilterView: UICollectionView {
 
     private var segments: [Segment] = []
     private let preferences: [PreferenceFilterInfoType]
-    private let verticals: [Vertical]?
+    private let verticals: [Vertical]
 
     // MARK: - Setup
 
-    public init(verticals: [Vertical]? = nil, preferences: [PreferenceFilterInfoType]) {
+    public init(verticals: [Vertical] = [], preferences: [PreferenceFilterInfoType]) {
         self.verticals = verticals
         self.preferences = preferences
         let layout = UICollectionViewFlowLayout()
@@ -74,7 +74,7 @@ private extension InlineFilterView {
     }
 
     var hasVerticals: Int {
-        return verticals != nil ? 1 : 0
+        return verticals.isEmpty ? 0 : 1
     }
 
     @objc func handleValueChanged(segment: Segment) {
@@ -95,7 +95,7 @@ private extension InlineFilterView {
     }
 
     func setupItems() {
-        if let vertical = verticals?.first(where: { $0.isCurrent }) {
+        if let vertical = verticals.first(where: { $0.isCurrent }) {
             let segment = Segment(titles: [vertical.title], isExpandable: true)
             segment.addTarget(self, action: #selector(handleSegmentPressed(segment:)), for: .touchUpInside)
             segments.append(segment)

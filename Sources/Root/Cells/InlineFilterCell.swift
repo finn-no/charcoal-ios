@@ -4,7 +4,7 @@
 
 import UIKit
 
-class InlineCell: UITableViewCell {
+class InlineFilterCell: UITableViewCell {
     let inlineFilterView: InlineFilterView
 
     init(inlineFilterView: InlineFilterView) {
@@ -18,7 +18,7 @@ class InlineCell: UITableViewCell {
     }
 }
 
-private extension InlineCell {
+private extension InlineFilterCell {
     func setup() {
         contentView.addSubview(inlineFilterView)
         NSLayoutConstraint.activate([

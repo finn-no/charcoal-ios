@@ -129,8 +129,8 @@ public class FilterRootViewController: UIViewController {
         return view
     }()
 
-    lazy var preferenceCell: InlineCell = {
-        let cell = InlineCell(inlineFilterView: inlineFilterView)
+    lazy var preferenceCell: InlineFilterCell = {
+        let cell = InlineFilterCell(inlineFilterView: inlineFilterView)
         return cell
     }()
 

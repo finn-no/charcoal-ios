@@ -79,8 +79,6 @@ enum Sections: String {
                 return .bottomSheet
             case .rootFilters:
                 return .none
-            case .preferenceFilter:
-                return .none
             case .listSelection:
                 return .none
             case .compactListFilter:
@@ -157,7 +155,6 @@ public enum DnaViews: String {
 enum ComponentViews: String {
     case bottomSheet
     case rootFilters
-    case preferenceFilter
     case listSelection
     case compactListFilter
     case rangeFilter
@@ -185,9 +182,6 @@ enum ComponentViews: String {
 
             return navigationController
 
-        case .preferenceFilter:
-            return ViewController<InlineFilterView>()
-
         case .listSelection:
             let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
             return viewController
@@ -200,18 +194,8 @@ enum ComponentViews: String {
             return ViewController<StepperFilterDemoView>()
 
         case .inlineFilter:
-            let controller = UIViewController(nibName: nil, bundle: nil)
-            controller.view.backgroundColor = .white
-            let inlineFilterView = InlineFilterView(preferences: PopoverDemoViewController.preferenceFilters)
-            inlineFilterView.selectionDataSource = DemoEmptyFilterSelectionDataSource()
-            inlineFilterView.translatesAutoresizingMaskIntoConstraints = false
-            controller.view.addSubview(inlineFilterView)
-            NSLayoutConstraint.activate([
-                inlineFilterView.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
-                inlineFilterView.centerYAnchor.constraint(equalTo: controller.view.centerYAnchor),
-                inlineFilterView.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
-                inlineFilterView.heightAnchor.constraint(equalToConstant: 54),
-            ])
+            let controller = InlineFilterDemoViewController()
+            controller.selectionDataSource = DemoEmptyFilterSelectionDataSource()
             return controller
         }
     }
@@ -220,7 +204,6 @@ enum ComponentViews: String {
         return [
             .bottomSheet,
             .rootFilters,
-            .preferenceFilter,
             .listSelection,
             .compactListFilter,
             .rangeFilter,

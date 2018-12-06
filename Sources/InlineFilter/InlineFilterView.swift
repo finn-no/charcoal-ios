@@ -28,7 +28,8 @@ public class InlineFilterView: UICollectionView {
         self.preferences = preferences
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = CGSize(width: 300, height: 38)
+        layout.minimumInteritemSpacing = .mediumLargeSpacing
+        layout.estimatedItemSize = CGSize(width: 300, height: InlineFilterViewCell.cellHeight)
         super.init(frame: .zero, collectionViewLayout: layout)
         setup()
     }
@@ -52,14 +53,6 @@ extension InlineFilterView: UICollectionViewDataSource {
     }
 }
 
-// MARK: - Collection flow delegate
-
-extension InlineFilterView: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return .mediumSpacing
-    }
-}
-
 // MARK: - Private methods
 
 private extension InlineFilterView {
@@ -67,18 +60,13 @@ private extension InlineFilterView {
         backgroundColor = .milk
         showsHorizontalScrollIndicator = false
         dataSource = self
-        delegate = self
-        contentInset = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
         register(InlineFilterViewCell.self)
         setupItems()
     }
 
-    var hasVerticals: Int {
-        return verticals.isEmpty ? 0 : 1
-    }
-
     @objc func handleValueChanged(segment: Segment) {
         guard let index = segments.firstIndex(of: segment) else { return }
+        let hasVerticals = !verticals.isEmpty ? 1 : 0
         let preference = preferences[index - hasVerticals]
         let values = segment.selectedItems.map { index -> String in
             return preference.values[index].value

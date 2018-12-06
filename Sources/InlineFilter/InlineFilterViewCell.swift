@@ -5,7 +5,7 @@
 import Foundation
 
 class InlineFilterViewCell: UICollectionViewCell {
-    let cellHeight = 38 as CGFloat
+    static let cellHeight = 38 as CGFloat
 
     var segment: Segment? {
         didSet {
@@ -28,7 +28,7 @@ private extension InlineFilterViewCell {
             view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             view.topAnchor.constraint(equalTo: contentView.topAnchor),
             view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            view.heightAnchor.constraint(equalToConstant: cellHeight),
+            view.heightAnchor.constraint(equalToConstant: InlineFilterViewCell.cellHeight),
             view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }

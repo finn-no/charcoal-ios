@@ -75,6 +75,7 @@ extension InlineFilterDemoViewController: InlineFilterViewDelegate {
         let popover = VerticalListViewController(verticals: verticalSetup())
         popover.preferredContentSize = CGSize(width: view.frame.size.width, height: 144)
         popover.modalPresentationStyle = .custom
+        popover.delegate = self
         popoverPresentationTransitioningDelegate.sourceView = segment
         popoverPresentationTransitioningDelegate.willDismissPopoverHandler = { _ in
             segment.selectedItems = []
@@ -101,6 +102,12 @@ extension InlineFilterDemoViewController: InlineFilterViewDelegate {
         ]
 
         return verticalsRealestateHomes
+    }
+}
+
+extension InlineFilterDemoViewController: VerticalListViewControllerDelegate {
+    func verticalListViewController(_ vc: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int) {
+        vc.dismiss(animated: true)
     }
 }
 

@@ -40,6 +40,10 @@ public class SegmentButton: UIButton {
         setTitleColor(.milk, for: .selected)
         backgroundColor = .milk
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
+
+        borderLayer.lineWidth = SegmentButton.borderWidth
+        borderLayer.strokeColor = SegmentButton.borderColor.cgColor
+        borderLayer.fillColor = UIColor.clear.cgColor
         layer.addSublayer(borderLayer)
         layer.mask = maskLayer
     }
@@ -71,6 +75,7 @@ private extension SegmentButton {
         setTitleColor(.primaryBlue, for: .selected)
         semanticContentAttribute = .forceRightToLeft
         setImage(UIImage(named: .arrowDown), for: .normal)
+
         let spacing = .smallSpacing / 2
         imageEdgeInsets = UIEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: -spacing)
         titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
@@ -113,11 +118,7 @@ private extension SegmentButton {
         }
 
         maskLayer.path = maskPath
-        borderLayer.frame = bounds
         borderLayer.path = borderPath
-        borderLayer.lineWidth = SegmentButton.borderWidth
-        borderLayer.strokeColor = SegmentButton.borderColor.cgColor
-        borderLayer.fillColor = UIColor.clear.cgColor
     }
 
     func path(with size: CGSize, roundedEdge: Bool = false, transform: CGAffineTransform = .identity) -> CGPath {

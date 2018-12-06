@@ -211,14 +211,15 @@ enum ComponentViews: String {
         case .inlineFilter:
             let controller = UIViewController(nibName: nil, bundle: nil)
             controller.view.backgroundColor = .white
-            let segment = Segment(titles: ["Hei", "Sann", "Hopp"])
-            segment.translatesAutoresizingMaskIntoConstraints = false
-            controller.view.addSubview(segment)
+            let inlineFilterView = InlineFilterView(preferences: PopoverDemoViewController.preferenceFilters)
+            inlineFilterView.selectionDataSource = DemoEmptyFilterSelectionDataSource()
+            inlineFilterView.translatesAutoresizingMaskIntoConstraints = false
+            controller.view.addSubview(inlineFilterView)
             NSLayoutConstraint.activate([
-                segment.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor, constant: 32),
-                segment.centerYAnchor.constraint(equalTo: controller.view.centerYAnchor),
-                segment.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor, constant: -32),
-                segment.heightAnchor.constraint(equalToConstant: 48),
+                inlineFilterView.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
+                inlineFilterView.centerYAnchor.constraint(equalTo: controller.view.centerYAnchor),
+                inlineFilterView.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
+                inlineFilterView.heightAnchor.constraint(equalToConstant: 54),
             ])
             return controller
         }

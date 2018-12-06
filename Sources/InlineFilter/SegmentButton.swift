@@ -5,39 +5,47 @@
 import Foundation
 
 extension SegmentButton {
-    enum Position {
-        case first, middle, last
+    public enum Position {
+        case first, middle, last, none
     }
 }
 
-class SegmentButton: UIButton {
-    static let borderColor: UIColor = .silver
-    static let borderWidth = 2 as CGFloat
+public class SegmentButton: UIButton {
+    public static let borderColor: UIColor = .silver
+    public static let borderWidth = 1.5 as CGFloat
 
-    var position: Position = .middle
+    public var position: Position = .middle
 
-    override var isSelected: Bool {
+    public var isExpandable = false {
+        didSet {
+            setupExpandable()
+        }
+    }
+
+    public override var isSelected: Bool {
         didSet {
             setupForSelected(isSelected)
         }
     }
 
     private var borderLayer: CAShapeLayer?
-    private let selectedBackgroundColor: UIColor = .primaryBlue
+    private var selectedBackgroundColor: UIColor = .primaryBlue
 
-    init(title: String) {
+    public init(title: String) {
         super.init(frame: .zero)
         titleLabel?.font = .regularBody
         setTitle(title, for: .normal)
         setTitleColor(.spaceGray, for: .normal)
         setTitleColor(.milk, for: .selected)
+        backgroundColor = .milk
+        contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         setupBorder()
     }
@@ -54,6 +62,18 @@ private extension SegmentButton {
         }
     }
 
+    func setupExpandable() {
+        guard isExpandable else { return }
+        selectedBackgroundColor = .milk
+        setTitleColor(.spaceGray, for: .selected)
+        semanticContentAttribute = .forceRightToLeft
+        setImage(UIImage(named: .arrowDown), for: .normal)
+        let spacing = .mediumSpacing / 2
+        imageEdgeInsets = UIEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: -spacing)
+        titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
+        contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing + spacing, bottom: 0, trailing: .mediumLargeSpacing + spacing)
+    }
+
     func setupBorder() {
         guard self.borderLayer == nil else {
             return
@@ -66,7 +86,9 @@ private extension SegmentButton {
         switch position {
         case .first:
             radius = frame.height / 2
-            maskPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.bottomLeft, .topLeft], cornerRadii: CGSize(width: radius, height: radius)).cgPath
+            maskPath = UIBezierPath(roundedRect: bounds,
+                                    byRoundingCorners: [.bottomLeft, .topLeft],
+                                    cornerRadii: CGSize(width: radius, height: radius)).cgPath
             borderPath = path(with: CGSize(width: frame.width - radius, height: frame.height),
                               roundedEdge: true,
                               transform: CGAffineTransform.identity.translatedBy(x: frame.width, y: frame.height).rotated(by: .pi))
@@ -78,9 +100,17 @@ private extension SegmentButton {
 
         case .last:
             radius = frame.height / 2
-            maskPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.bottomRight, .topRight], cornerRadii: CGSize(width: radius, height: radius)).cgPath
+            maskPath = UIBezierPath(roundedRect: bounds,
+                                    byRoundingCorners: [.bottomRight, .topRight],
+                                    cornerRadii: CGSize(width: radius, height: radius)).cgPath
             borderPath = path(with: CGSize(width: frame.width - radius, height: frame.height),
                               roundedEdge: true)
+        case .none:
+            radius = frame.height / 2
+            maskPath = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath
+            let borderWidth = SegmentButton.borderWidth
+            borderPath = UIBezierPath(roundedRect: CGRect(x: borderWidth / 2, y: borderWidth / 2, width: bounds.width - borderWidth, height: bounds.height - borderWidth),
+                                      cornerRadius: radius - borderWidth / 2).cgPath
         }
 
         let maskLayer = CAShapeLayer()
@@ -103,7 +133,12 @@ private extension SegmentButton {
         path.move(to: CGPoint(x: 0, y: lineWidth / 2), transform: transform)
         path.addLine(to: CGPoint(x: size.width, y: lineWidth / 2), transform: transform)
         if roundedEdge {
-            path.addArc(center: CGPoint(x: size.width, y: size.height / 2), radius: (size.height - lineWidth) / 2, startAngle: 3 * .pi / 2, endAngle: 5 * .pi / 2, clockwise: false, transform: transform)
+            path.addArc(center: CGPoint(x: size.width, y: size.height / 2),
+                        radius: (size.height - lineWidth) / 2,
+                        startAngle: 3 * .pi / 2,
+                        endAngle: 5 * .pi / 2,
+                        clockwise: false,
+                        transform: transform)
         } else {
             path.move(to: CGPoint(x: size.width, y: size.height - lineWidth / 2), transform: transform)
         }

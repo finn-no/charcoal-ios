@@ -4,6 +4,30 @@
 
 import UIKit
 
+class InlineCell: UITableViewCell {
+    let inlineFilterView: InlineFilterView
+
+    init(inlineFilterView: InlineFilterView) {
+        self.inlineFilterView = inlineFilterView
+        super.init(style: .default, reuseIdentifier: nil)
+        setup()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setup() {
+        contentView.addSubview(inlineFilterView)
+        NSLayoutConstraint.activate([
+            inlineFilterView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            inlineFilterView.topAnchor.constraint(equalTo: topAnchor),
+            inlineFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            inlineFilterView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+}
+
 class PreferencesCell: UITableViewCell {
     private var preferences: [PreferenceFilterInfoType]?
 

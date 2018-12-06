@@ -5,16 +5,22 @@
 import Foundation
 
 public class Segment: UIControl {
-    var selectedItems: [Int] = []
+    var selectedItems: [Int] = [] {
+        didSet {
+            updateSelected()
+        }
+    }
 
+    private let isExpandable: Bool
     private let titles: [String]
     private var buttons: [SegmentButton] = []
     private var splitLines: [UIView] = []
 
-    public init(titles: [String]) {
+    public init(titles: [String], isExpandable: Bool = false) {
         self.titles = titles
+        self.isExpandable = isExpandable
         super.init(frame: .zero)
-        setup()
+        setup(isExpandable: isExpandable)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -23,13 +29,23 @@ public class Segment: UIControl {
 }
 
 private extension Segment {
-    func setup() {
-        addButtons()
+    func setup(isExpandable: Bool) {
+        addButtons(isExpandable: isExpandable)
         addSplitLines()
         layoutButtonsAndLines()
     }
 
+    func updateSelected() {
+        buttons.forEach { $0.isSelected = false }
+        selectedItems.forEach { buttons[$0].isSelected = true }
+    }
+
     @objc func handleButton(sender: SegmentButton) {
+        if isExpandable {
+            sender.isSelected = !isSelected
+            sendActions(for: .touchUpInside)
+            return
+        }
         guard let index = buttons.firstIndex(of: sender) else {
             return
         }
@@ -42,7 +58,7 @@ private extension Segment {
         }
         // Notfify target of event
         sendActions(for: .valueChanged)
-        // Hide split lines based on wheter the two surrounding buttons are selected or not
+        // Hide split lines based on whether the two surrounding buttons are selected or not
         for i in buttons.startIndex ..< buttons.endIndex - 1 {
             if (buttons[i].isSelected && buttons[i + 1].isSelected) ||
                 (!buttons[i].isSelected && !buttons[i + 1].isSelected) {
@@ -53,9 +69,10 @@ private extension Segment {
         }
     }
 
-    func addButtons() {
+    func addButtons(isExpandable: Bool) {
         for title in titles {
             let button = SegmentButton(title: title)
+            button.isExpandable = isExpandable
             button.addTarget(self, action: #selector(handleButton(sender:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             addSubview(button)
@@ -63,10 +80,11 @@ private extension Segment {
         }
         // Set positions of the button to draw correct borders
         buttons.first?.position = .first
-        buttons.last?.position = .last
+        buttons.last?.position = buttons.count == 1 ? .none : .last
     }
 
     func addSplitLines() {
+        guard buttons.count > 0 else { return }
         for _ in 1 ..< buttons.count {
             let splitLine = UIView(frame: .zero)
             splitLine.backgroundColor = SegmentButton.borderColor
@@ -85,10 +103,9 @@ private extension Segment {
                 button.topAnchor.constraint(equalTo: topAnchor),
                 button.leadingAnchor.constraint(equalTo: previousLeadingAnchor),
                 button.heightAnchor.constraint(equalTo: heightAnchor),
-                button.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / CGFloat(buttons.count)),
             ])
             previousLeadingAnchor = button.trailingAnchor
-            // setup split line
+            // layout split line
             guard currentIndex != splitLines.endIndex else { continue }
             let line = splitLines[currentIndex]
             currentIndex = splitLines.index(after: currentIndex)
@@ -100,5 +117,8 @@ private extension Segment {
                 line.widthAnchor.constraint(equalToConstant: SegmentButton.borderWidth),
             ])
         }
+        // Need this constraint to for the segments frame to be fully defined
+        guard let last = buttons.last else { return }
+        last.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 }

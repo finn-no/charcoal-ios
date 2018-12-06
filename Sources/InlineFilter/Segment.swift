@@ -17,6 +17,7 @@ public class Segment: UIControl {
     private var splitLines: [UIView] = []
 
     public init(titles: [String], isExpandable: Bool = false) {
+        print("T ", titles)
         self.titles = titles
         self.isExpandable = isExpandable
         super.init(frame: .zero)
@@ -117,7 +118,7 @@ private extension Segment {
                 line.widthAnchor.constraint(equalToConstant: SegmentButton.borderWidth),
             ])
         }
-        // Need this constraint to for the segments frame to be fully defined
+        // Need this constraint for the segments frame to be fully defined
         guard let last = buttons.last else { return }
         last.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }

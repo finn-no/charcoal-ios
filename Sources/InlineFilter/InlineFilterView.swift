@@ -38,6 +38,7 @@ extension InlineFilterView: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(InlineFilterViewCell.self, for: indexPath)
+        print(indexPath, cell)
         cell.segment = segments[indexPath.item]
         return cell
     }

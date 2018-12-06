@@ -120,11 +120,6 @@ public class FilterRootViewController: UIViewController {
         return cell
     }()
 
-    lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
-        let delegate = BottomSheetTransitioningDelegate(for: self)
-        return delegate
-    }()
-
     lazy var inlineFilterView: InlineFilterView = {
         let view = InlineFilterView(verticals: verticalsFilters, preferences: preferenceFilters)
         view.selectionDataSource = selectionDataSource
@@ -136,6 +131,11 @@ public class FilterRootViewController: UIViewController {
     lazy var preferenceCell: InlineCell = {
         let cell = InlineCell(inlineFilterView: inlineFilterView)
         return cell
+    }()
+
+    lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
+        let delegate = BottomSheetTransitioningDelegate(for: self)
+        return delegate
     }()
 
     public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider, delegate: FilterRootViewControllerDelegate? = nil) {

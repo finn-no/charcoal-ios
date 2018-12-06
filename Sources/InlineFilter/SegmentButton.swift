@@ -28,7 +28,8 @@ public class SegmentButton: UIButton {
         }
     }
 
-    private var borderLayer: CAShapeLayer?
+    private var borderLayer = CAShapeLayer()
+    private var maskLayer = CAShapeLayer()
     private var selectedBackgroundColor: UIColor = .primaryBlue
 
     public init(title: String) {
@@ -39,6 +40,8 @@ public class SegmentButton: UIButton {
         setTitleColor(.milk, for: .selected)
         backgroundColor = .milk
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
+        layer.addSublayer(borderLayer)
+        layer.mask = maskLayer
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -54,7 +57,6 @@ public class SegmentButton: UIButton {
 private extension SegmentButton {
     func setupForSelected(_ selected: Bool) {
         backgroundColor = selected ? selectedBackgroundColor : .milk
-        guard let borderLayer = borderLayer else { return }
         if selected {
             borderLayer.removeFromSuperlayer()
         } else {
@@ -75,10 +77,6 @@ private extension SegmentButton {
     }
 
     func setupBorder() {
-        guard self.borderLayer == nil else {
-            return
-        }
-
         let borderPath: CGPath
         let maskPath: CGPath
         let radius: CGFloat
@@ -113,18 +111,12 @@ private extension SegmentButton {
                                       cornerRadius: radius - borderWidth / 2).cgPath
         }
 
-        let maskLayer = CAShapeLayer()
         maskLayer.path = maskPath
-        layer.mask = maskLayer
-
-        let borderLayer = CAShapeLayer()
         borderLayer.frame = bounds
         borderLayer.path = borderPath
         borderLayer.lineWidth = SegmentButton.borderWidth
         borderLayer.strokeColor = SegmentButton.borderColor.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor
-        layer.addSublayer(borderLayer)
-        self.borderLayer = borderLayer
     }
 
     func path(with size: CGSize, roundedEdge: Bool = false, transform: CGAffineTransform = .identity) -> CGPath {

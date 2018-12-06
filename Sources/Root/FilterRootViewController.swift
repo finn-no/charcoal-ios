@@ -65,6 +65,7 @@ public class FilterRootViewController: UIViewController {
     }
 
     weak var delegate: FilterRootViewControllerDelegate?
+    var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource?
     let filterSelectionTitleProvider: FilterSelectionTitleProvider
 
     var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
@@ -103,6 +104,20 @@ public class FilterRootViewController: UIViewController {
         ])
         activityIndicator.startAnimating()
         return coverView
+    }()
+
+    lazy var searchViewController: SearchQueryViewController = {
+        let searchViewController = SearchQueryViewController()
+        searchViewController.delegate = self
+        searchViewController.searchQuerySuggestionDataSource = searchQuerySuggestionDataSource
+        return searchViewController
+    }()
+
+    lazy var searchQueryCell: SearchQueryCell = {
+        let cell = SearchQueryCell(frame: .zero)
+        cell.searchBar = searchViewController.searchBar
+        cell.searchBar?.placeholder = searchQueryFilter?.placeholderText
+        return cell
     }()
 
     lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
@@ -150,6 +165,7 @@ public class FilterRootViewController: UIViewController {
 private extension FilterRootViewController {
     func setup() {
         view.backgroundColor = .milk
+
         tableView.register(SearchQueryCell.self)
         tableView.register(FilterCell.self)
         tableView.register(PreferencesCell.self)
@@ -261,9 +277,7 @@ extension FilterRootViewController: UITableViewDelegate {
         }
         switch section {
         case .searchQuery:
-            if let searchQuery = searchQueryFilter {
-                navigator.navigate(to: .searchQueryFilter(filterInfo: searchQuery, delegate: self))
-            }
+            return
         case .preferences:
             return
         case .filters:
@@ -311,15 +325,11 @@ extension FilterRootViewController: UITableViewDataSource {
         }
         switch section {
         case .searchQuery:
-            let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            if let searchQuery = searchQueryFilter, let selectionValue = selectionDataSource?.valueAndSubLevelValues(for: searchQuery).first {
-                cell.searchText = filterSelectionTitleProvider.titleForSelection(selectionValue)
-            } else {
-                cell.searchText = nil
+            guard let searchQueryFilter = searchQueryFilter, let value = selectionDataSource?.value(for: searchQueryFilter)?.first else {
+                return searchQueryCell
             }
-            cell.placeholderText = searchQueryFilter?.placeholderText
-            cell.delegate = self
-            return cell
+            searchViewController.searchBar.text = value
+            return searchQueryCell
 
         case .preferences:
             return preferenceCell
@@ -380,7 +390,7 @@ private extension FilterRootViewController {
         } else {
             scrollPos = (tableView.contentOffset.y + tableView.contentInset.top)
         }
-        return scrollPos < 1
+        return scrollPos <= 1
     }
 
     var isScrollEnabled: Bool {
@@ -426,22 +436,36 @@ extension FilterRootViewController: FilterCellDelegate {
     }
 }
 
-extension FilterRootViewController: SearchQueryCellDelegate {
-    func searchQueryCellDidTapSearchBar(_ searchQueryCell: SearchQueryCell) {
-        guard let indexPath = tableView.indexPath(for: searchQueryCell) else {
+extension FilterRootViewController: SearchViewControllerDelegate {
+    public func presentSearchViewController(_ searchViewController: SearchQueryViewController) {
+        // Add view controller as child view controller
+        addChild(searchViewController)
+        view.addSubview(searchViewController.view)
+        searchViewController.view.fillInSuperview()
+        view.layoutIfNeeded()
+        searchViewController.didMove(toParent: self)
+        // Expand bottom sheet if needed
+        guard let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else {
             return
         }
-        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath) as? SearchQueryFilterInfoType else {
+        searchViewController.previousSizeMode = presentationController.currentContentSizeMode
+        guard presentationController.currentContentSizeMode == .compact else {
             return
         }
-        navigator.navigate(to: .searchQueryFilter(filterInfo: searchQueryFilterInfo, delegate: self))
+        presentationController.transition(to: .expanded)
     }
 
-    func searchQueryCellDidTapRemoveSelectedValue(_ searchQueryCell: SearchQueryCell) {
-        guard let indexPath = tableView.indexPath(for: searchQueryCell) else {
+    public func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String?) {
+        searchQueryCell.searchBar = searchViewController.searchBar
+        guard let query = query, let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else {
             return
         }
-        guard let searchQueryFilterInfo = self.filterInfo(at: indexPath) as? SearchQueryFilterInfoType else {
+        selectionDataSource?.setValue([query], for: searchQueryFilterInfo)
+    }
+
+    public func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController) {
+        searchQueryCell.searchBar = searchViewController.searchBar
+        guard let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else {
             return
         }
         selectionDataSource?.clearAll(for: searchQueryFilterInfo)

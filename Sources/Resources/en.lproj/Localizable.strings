@@ -1,7 +1,7 @@
 /* 
   Localizable.strings
   FilterKit
- 
+
   Copyright © FINN.no. All rights reserved.
 */
 
@@ -20,3 +20,4 @@
 "unable_to_load_filter_data_error" = "Beklager, nå er det rusk i maskineriet. Prøv igjen om litt eller få mer informasjon hos Hjelpesenteret";
 "try_again_button_title" = "Prøv igjen";
 "ok_button_title" = "OK";
+"cancel" = "Avbryt";

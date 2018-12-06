@@ -8,6 +8,7 @@ public protocol BottomSheetPresentationControllerDelegate: UIAdaptivePresentatio
     func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, willTransitionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode)
     func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, didTransitionFromContentSizeMode current: BottomSheetPresentationController.ContentSizeMode, to new: BottomSheetPresentationController.ContentSizeMode)
     func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, shouldBeginTransitionWithTranslation translation: CGPoint, from contentSizeMode: BottomSheetPresentationController.ContentSizeMode) -> Bool
+    func bottomsheetPresentationController(_ bottomsheetPresentationController: BottomSheetPresentationController, panningBeyondExpandedState additionalVerticalPan: CGFloat)
 }
 
 public final class BottomSheetPresentationController: UIPresentationController {
@@ -315,7 +316,9 @@ private extension BottomSheetPresentationController {
             let maxTopAnchorconstant = rect(for: .compact, in: containerView.frame).minY
             presentedViewTopAnchorConstraint?.constant = min(max(newTopAnchorConstant, minTopAnchorConstant), maxTopAnchorconstant)
             containerView.layoutIfNeeded()
-
+            if panDirection == .up && newTopAnchorConstant < minTopAnchorConstant {
+                bottomSheetPresentationControllerDelegate?.bottomsheetPresentationController(self, panningBeyondExpandedState: minTopAnchorConstant - newTopAnchorConstant)
+            }
         case .ended:
             let isTransitionHandledByInteractiveDismissal = (interactiveDismissalController?.percentComplete ?? 0.0) < 0.0
 
@@ -365,6 +368,14 @@ extension BottomSheetPresentationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer === panGestureRecognizer {
             let translation = panGestureRecognizer.translation(in: containerView)
+
+            // Let's only recognize if the user seems to be panning in y mainly
+            if translation.y == 0 {
+                return false
+            } else if abs(translation.x) > abs(translation.y) {
+                return false
+            }
+
             return bottomSheetPresentationControllerDelegate?.bottomsheetPresentationController(self, shouldBeginTransitionWithTranslation: translation, from: currentContentSizeMode) ?? true
         }
 

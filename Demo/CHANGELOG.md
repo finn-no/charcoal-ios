@@ -1,3 +1,9 @@
+## [0.9] - 2018-11-29
+- Improvement to switching verticals and demo data for one more car vertical added
+- Range control should now work when the slider is all the way to the left (slide to go back should not interfer anymore)
+- Continuing to slide finger when expanding bottomsheet will now switch to scroll content when bottomsheet has reached its expanded state 
+- Improved UI for search query filter
+
 ## [0.8] - 2018-11-20 
 - Added UI for a verticals selector
 - Fixed swipe handle animation not connected to bottomsheet 

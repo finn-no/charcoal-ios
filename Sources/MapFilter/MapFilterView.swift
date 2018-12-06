@@ -19,7 +19,7 @@ public class MapFilterView: UIView {
     }()
 
     private lazy var distanceSlider: ValueSliderAndInputView = {
-        let meterValues = [250, 350, 500, 700, 1000, 1500]
+        let meterValues = [200, 300, 400, 500, 700, 1000, 1500]
         var meterValueRange = [StepValue]()
         meterValues.forEach({
             meterValueRange.append(StepValue(value: $0, displayTitle: "\($0) m"))
@@ -31,8 +31,11 @@ public class MapFilterView: UIView {
             kmValueRange.append(StepValue(value: $0 * 1000, displayTitle: "\($0) km"))
         })
 
-        let range: [StepValue] = meterValueRange + kmValueRange
-        let slider = ValueSliderAndInputView(range: range, referenceValueIndexes: [1, Int(range.count / 2), range.count - 1])
+        var range: [StepValue] = meterValueRange + kmValueRange
+        range[1].isReferenceValue = true
+        range[Int(range.count / 2)].isReferenceValue = true
+        range[range.count - 2].isReferenceValue = true
+        let slider = ValueSliderAndInputView(range: range)
         slider.translatesAutoresizingMaskIntoConstraints = false
 
         return slider

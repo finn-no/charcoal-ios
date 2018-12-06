@@ -9,6 +9,8 @@ protocol ValueSliderControlDelegate: AnyObject {
 }
 
 final class ValueSliderControl: UIControl {
+    typealias RangeValue = Int
+
     public static let minimumViewHeight: CGFloat = 28.0
 
     private lazy var valueSlider: StepSlider = {
@@ -35,6 +37,15 @@ final class ValueSliderControl: UIControl {
         return view
     }()
 
+    private lazy var referenceValuesContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = false
+        return view
+    }()
+
+    private var referenceValueViews = [RangeReferenceValueView]()
+
     private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
 
     let range: [StepValue]
@@ -52,6 +63,8 @@ final class ValueSliderControl: UIControl {
     }
 
     weak var delegate: ValueSliderControlDelegate?
+
+    private var previousValueSliderFrame: CGRect = .zero
 
     init(range: [StepValue]) {
         self.range = range
@@ -79,6 +92,22 @@ final class ValueSliderControl: UIControl {
         super.layoutSubviews()
 
         updateActiveTrackRange()
+
+        if valueSlider.frame != previousValueSliderFrame {
+            setNeedsUpdateConstraints()
+        }
+        previousValueSliderFrame = valueSlider.frame
+    }
+
+    override func updateConstraints() {
+        super.updateConstraints()
+        referenceValueViews.forEach({ view in
+            guard let step = findClosestStepInRange(with: view.value) else {
+                return
+            }
+            let thumbRectForValue = thumbRect(for: step)
+            view.midXConstraint?.constant = thumbRectForValue.midX
+        })
     }
 }
 
@@ -94,13 +123,38 @@ extension ValueSliderControl {
         updateAccesibilityValues()
     }
 
+    func findClosestStepInRange(with value: RangeValue) -> StepValue? {
+        guard let firstRange = range.first, let lastRange = range.last else {
+            return nil
+        }
+        if let higherOrEqualStepIndex = range.firstIndex(where: { $0.value >= value }) {
+            let higherOrEqualStep = range[higherOrEqualStepIndex]
+            let diffToHigherStep = higherOrEqualStep.value - value
+            if diffToHigherStep == 0 {
+                return higherOrEqualStep
+            } else if let lowerStep = range[safe: higherOrEqualStepIndex - 1] {
+                let diffToLowerStep = lowerStep.value - value
+                if diffToLowerStep < diffToHigherStep {
+                    return lowerStep
+                } else {
+                    return higherOrEqualStep
+                }
+            } else {
+                return firstRange
+            }
+        } else {
+            return lastRange
+        }
+    }
+
     func thumbRect(for value: StepValue) -> CGRect {
         let bounds = valueSlider.bounds
         let trackRect = valueSlider.trackRect(forBounds: bounds)
         let translatedValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: value)
         let thumbRect = valueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: translatedValue)
 
-        return thumbRect
+        let convertedRect = valueSlider.convert(thumbRect, to: self)
+        return convertedRect
     }
 }
 
@@ -121,8 +175,9 @@ private extension ValueSliderControl {
         addSubview(trackView)
         addSubview(activeRangeTrackView)
         addSubview(valueSlider)
+        addSubview(referenceValuesContainer)
 
-        valueSlider.fillInSuperview()
+        let referenceViewsConstraints = setupReferenceValueView()
 
         let activeRangeTrackViewLeadingAnchor = activeRangeTrackView.leadingAnchor.constraint(equalTo: trackView.leadingAnchor)
 
@@ -130,6 +185,10 @@ private extension ValueSliderControl {
         activeRangeTrackViewTrailingAnchor.identifier = activeRangeTrackViewTrailingAnchorIdentifier
 
         NSLayoutConstraint.activate([
+            valueSlider.topAnchor.constraint(equalTo: topAnchor),
+            valueSlider.leadingAnchor.constraint(equalTo: leadingAnchor),
+            valueSlider.trailingAnchor.constraint(equalTo: trailingAnchor),
+
             trackView.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor, constant: .verySmallSpacing),
             trackView.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor, constant: -.verySmallSpacing),
             trackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
@@ -138,10 +197,37 @@ private extension ValueSliderControl {
             activeRangeTrackViewTrailingAnchor,
             activeRangeTrackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
             activeRangeTrackView.heightAnchor.constraint(equalToConstant: Style.activeRangeTrackHeight),
-        ])
+
+            referenceValuesContainer.topAnchor.constraint(equalTo: valueSlider.bottomAnchor, constant: .smallSpacing),
+            referenceValuesContainer.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor),
+            referenceValuesContainer.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor),
+            referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ] + referenceViewsConstraints)
 
         accessibilityElements = [valueSlider]
         updateAccesibilityValues()
+    }
+
+    func setupReferenceValueView() -> [NSLayoutConstraint] {
+        var constraints = [NSLayoutConstraint]()
+        let referenceValues = range.filter({ $0.isReferenceValue })
+        referenceValueViews = referenceValues.map({ RangeReferenceValueView(value: $0.value, text: $0.displayTitle) })
+
+        referenceValueViews.forEach { view in
+            view.translatesAutoresizingMaskIntoConstraints = false
+            referenceValuesContainer.addSubview(view)
+
+            let centerXConstraint = view.centerXAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)
+
+            constraints.append(contentsOf: [
+                centerXConstraint,
+                view.topAnchor.constraint(equalTo: referenceValuesContainer.topAnchor),
+                view.bottomAnchor.constraint(equalTo: referenceValuesContainer.bottomAnchor),
+            ])
+
+            view.midXConstraint = centerXConstraint
+        }
+        return constraints
     }
 
     func updateActiveTrackRange() {

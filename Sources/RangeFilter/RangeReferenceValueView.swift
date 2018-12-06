@@ -14,6 +14,7 @@ final class RangeReferenceValueView: UIView {
     }()
 
     weak var leadingConstraint: NSLayoutConstraint?
+    weak var midXConstraint: NSLayoutConstraint?
 
     lazy var referenceLabel: UILabel = {
         let label = UILabel(frame: .zero)

@@ -7,6 +7,13 @@ import UIKit
 public struct StepValue: Equatable, Hashable, Comparable {
     let value: Int
     let displayTitle: String
+    var isReferenceValue: Bool
+
+    init(value: Int, displayTitle: String, isReferenceValue: Bool = false) {
+        self.value = value
+        self.displayTitle = displayTitle
+        self.isReferenceValue = isReferenceValue
+    }
 
     public static func < (lhs: StepValue, rhs: StepValue) -> Bool {
         return lhs.value < rhs.value

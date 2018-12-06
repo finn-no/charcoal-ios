@@ -186,8 +186,7 @@ enum ComponentViews: String {
             return navigationController
 
         case .preferenceFilter:
-            let popoverDemoViewController = PopoverDemoViewController()
-            return popoverDemoViewController
+            return ViewController<InlineFilterView>()
 
         case .listSelection:
             let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!

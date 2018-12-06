@@ -9,12 +9,19 @@ public protocol InlineFilterViewDelegate: class {
 }
 
 public class InlineFilterView: UICollectionView {
-    public let preferences: [PreferenceFilterInfoType]
-    public var verticals: [Vertical]?
+
+    // MARK: - Public properties
+
     public var selectionDataSource: FilterSelectionDataSource?
-    public weak var inlineDelegate: InlineFilterViewDelegate?
+    public weak var inlineFilterDelegate: InlineFilterViewDelegate?
+
+    // MARK: - Private properties
 
     private var segments: [Segment] = []
+    private let preferences: [PreferenceFilterInfoType]
+    private let verticals: [Vertical]?
+
+    // MARK: - Setup
 
     public init(verticals: [Vertical]? = nil, preferences: [PreferenceFilterInfoType]) {
         self.verticals = verticals
@@ -31,6 +38,8 @@ public class InlineFilterView: UICollectionView {
     }
 }
 
+// MARK: - Collection view data source
+
 extension InlineFilterView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return segments.count
@@ -38,17 +47,20 @@ extension InlineFilterView: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(InlineFilterViewCell.self, for: indexPath)
-        print(indexPath, cell)
         cell.segment = segments[indexPath.item]
         return cell
     }
 }
 
+// MARK: - Collection flow delegate
+
 extension InlineFilterView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
+        return .mediumSpacing
     }
 }
+
+// MARK: - Private methods
 
 private extension InlineFilterView {
     func setup() {
@@ -79,11 +91,11 @@ private extension InlineFilterView {
     }
 
     @objc func handleSegmentPressed(segment: Segment) {
-        inlineDelegate?.inlineFilterView(self, didTapExpandableSegment: segment)
+        inlineFilterDelegate?.inlineFilterView(self, didTapExpandableSegment: segment)
     }
 
     func setupItems() {
-        if let vertical = verticals?.first {
+        if let vertical = verticals?.first(where: { $0.isCurrent }) {
             let segment = Segment(titles: [vertical.title], isExpandable: true)
             segment.addTarget(self, action: #selector(handleSegmentPressed(segment:)), for: .touchUpInside)
             segments.append(segment)

@@ -34,7 +34,7 @@ public class SegmentButton: UIButton {
 
     public init(title: String) {
         super.init(frame: .zero)
-        titleLabel?.font = .regularBody
+        titleLabel?.font = .title4
         setTitle(title, for: .normal)
         setTitleColor(.spaceGray, for: .normal)
         setTitleColor(.milk, for: .selected)
@@ -67,10 +67,11 @@ private extension SegmentButton {
     func setupExpandable() {
         guard isExpandable else { return }
         selectedBackgroundColor = .milk
-        setTitleColor(.spaceGray, for: .selected)
+        setTitleColor(.primaryBlue, for: .normal)
+        setTitleColor(.primaryBlue, for: .selected)
         semanticContentAttribute = .forceRightToLeft
         setImage(UIImage(named: .arrowDown), for: .normal)
-        let spacing = .mediumSpacing / 2
+        let spacing = .smallSpacing / 2
         imageEdgeInsets = UIEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: -spacing)
         titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing + spacing, bottom: 0, trailing: .mediumLargeSpacing + spacing)

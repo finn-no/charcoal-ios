@@ -31,7 +31,7 @@ final class PreferenceSelectionViewDemoView: UIView {
             demoView.topAnchor.constraint(equalTo: topAnchor, constant: .mediumLargeSpacing),
             demoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             demoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            demoView.heightAnchor.constraint(equalToConstant: PreferenceSelectionView.defaultButtonHeight),
+            demoView.heightAnchor.constraint(equalToConstant: 38),
         ])
     }
 }

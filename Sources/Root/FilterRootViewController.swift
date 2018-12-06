@@ -121,9 +121,10 @@ public class FilterRootViewController: UIViewController {
     }()
 
     lazy var inlineFilterView: InlineFilterView = {
-        let view = InlineFilterView(verticals: verticalsFilters, preferences: preferenceFilters)
+        let preferences = preferenceFilters.filter { !$0.values.isEmpty }
+        let view = InlineFilterView(verticals: verticalsFilters, preferences: preferences)
         view.selectionDataSource = selectionDataSource
-        view.inlineDelegate = self
+        view.inlineFilterDelegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -166,9 +167,7 @@ private extension FilterRootViewController {
     func setup() {
         view.backgroundColor = .milk
 
-        tableView.register(SearchQueryCell.self)
         tableView.register(FilterCell.self)
-        tableView.register(PreferencesCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 

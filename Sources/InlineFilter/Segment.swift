@@ -5,19 +5,25 @@
 import Foundation
 
 public class Segment: UIControl {
-    var selectedItems: [Int] = [] {
+
+    // MARK: - Public properties
+
+    public var selectedItems: [Int] = [] {
         didSet {
             updateSelected()
         }
     }
+
+    // MARK: - Private properties
 
     private let isExpandable: Bool
     private let titles: [String]
     private var buttons: [SegmentButton] = []
     private var splitLines: [UIView] = []
 
+    // MARK: - Setup
+
     public init(titles: [String], isExpandable: Bool = false) {
-        print("T ", titles)
         self.titles = titles
         self.isExpandable = isExpandable
         super.init(frame: .zero)
@@ -28,6 +34,8 @@ public class Segment: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - Private methods
 
 private extension Segment {
     func setup(isExpandable: Bool) {

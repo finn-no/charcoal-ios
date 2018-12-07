@@ -5,8 +5,8 @@
 import Foundation
 
 extension SegmentButton {
-    public enum Position {
-        case first, middle, last, none
+    public enum BorderStyle {
+        case first, middle, last, single
     }
 }
 
@@ -14,7 +14,7 @@ public class SegmentButton: UIButton {
     public static let borderColor: UIColor = .silver
     public static let borderWidth = 1.5 as CGFloat
 
-    public var position: Position = .middle
+    public var borderStyle: BorderStyle = .middle
 
     public var isExpandable = false {
         didSet {
@@ -73,7 +73,9 @@ private extension SegmentButton {
     }
 
     func setupExpandable() {
-        guard isExpandable else { return }
+        guard isExpandable else {
+            return
+        }
         selectedBackgroundColor = .milk
         setTitleColor(.primaryBlue, for: .normal)
         setTitleColor(.primaryBlue, for: .selected)
@@ -91,7 +93,7 @@ private extension SegmentButton {
         let maskPath: CGPath
         let radius: CGFloat
 
-        switch position {
+        switch borderStyle {
         case .first:
             radius = frame.height / 2
             maskPath = UIBezierPath(roundedRect: bounds,
@@ -113,7 +115,7 @@ private extension SegmentButton {
                                     cornerRadii: CGSize(width: radius, height: radius)).cgPath
             borderPath = path(with: CGSize(width: frame.width - radius, height: frame.height),
                               roundedEdge: true)
-        case .none:
+        case .single:
             radius = frame.height / 2
             maskPath = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath
             let borderWidth = SegmentButton.borderWidth

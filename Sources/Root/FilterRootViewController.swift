@@ -125,7 +125,6 @@ public class FilterRootViewController: UIViewController {
         let view = InlineFilterView(verticals: verticalsFilters, preferences: preferences)
         view.selectionDataSource = selectionDataSource
         view.inlineFilterDelegate = self
-        view.contentInset = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

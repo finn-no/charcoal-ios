@@ -9,7 +9,6 @@ final class InlineFilterDemoViewController: UIViewController {
     lazy var inlineFilterView: InlineFilterView = {
         let view = InlineFilterView(verticals: verticalSetup(), preferences: InlineFilterDemoViewController.preferenceFilters)
         view.inlineFilterDelegate = self
-        view.contentInset = UIEdgeInsets(top: 0, left: .mediumLargeSpacing, bottom: 0, right: .mediumLargeSpacing)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -8,7 +8,13 @@ public protocol InlineFilterViewDelegate: class {
     func inlineFilterView(_ inlineFilterView: InlineFilterView, didTapExpandableSegment segment: Segment)
 }
 
-public class InlineFilterView: UICollectionView {
+extension InlineFilterView {
+    enum Section: Int {
+        case verticals, preference
+    }
+}
+
+public class InlineFilterView: UIView {
 
     // MARK: - Public properties
 
@@ -21,16 +27,27 @@ public class InlineFilterView: UICollectionView {
     private let preferences: [PreferenceFilterInfoType]
     private let verticals: [Vertical]
 
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = .mediumLargeSpacing
+        layout.estimatedItemSize = CGSize(width: 300, height: InlineFilterViewCell.cellHeight)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .milk
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.register(InlineFilterViewCell.self)
+        collectionView.contentInset = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+
     // MARK: - Setup
 
     public init(verticals: [Vertical] = [], preferences: [PreferenceFilterInfoType]) {
         self.verticals = verticals
         self.preferences = preferences
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = .mediumLargeSpacing
-        layout.estimatedItemSize = CGSize(width: 300, height: InlineFilterViewCell.cellHeight)
-        super.init(frame: .zero, collectionViewLayout: layout)
+        super.init(frame: .zero)
         setup()
     }
 
@@ -57,17 +74,17 @@ extension InlineFilterView: UICollectionViewDataSource {
 
 private extension InlineFilterView {
     func setup() {
-        backgroundColor = .milk
-        showsHorizontalScrollIndicator = false
-        dataSource = self
-        register(InlineFilterViewCell.self)
+        addSubview(collectionView)
+        collectionView.fillInSuperview()
         setupItems()
     }
 
     @objc func handleValueChanged(segment: Segment) {
-        guard let index = segments.firstIndex(of: segment) else { return }
-        let hasVerticals = !verticals.isEmpty ? 1 : 0
-        let preference = preferences[index - hasVerticals]
+        guard let index = segments.firstIndex(of: segment) else {
+            return
+        }
+        let preferenceIndex = verticals.isEmpty ? index : index - 1
+        let preference = preferences[preferenceIndex]
         let values = segment.selectedItems.map { index -> String in
             return preference.values[index].value
         }

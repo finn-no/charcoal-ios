@@ -65,13 +65,10 @@ private extension Segment {
         // Notfify target of event
         sendActions(for: .valueChanged)
         // Hide split lines based on whether the two surrounding buttons are selected or not
-        for i in buttons.startIndex ..< buttons.endIndex - 1 {
-            if (buttons[i].isSelected && buttons[i + 1].isSelected) ||
-                (!buttons[i].isSelected && !buttons[i + 1].isSelected) {
-                splitLines[i].isHidden = false
-            } else {
-                splitLines[i].isHidden = true
-            }
+        buttons.enumerated().forEach { index, button in
+            let isPreviousButtonSelected = buttons[safe: index - 1]?.isSelected ?? false
+            let hideLine = isPreviousButtonSelected != button.isSelected
+            splitLines[safe: index - 1]?.isHidden = hideLine
         }
     }
 
@@ -99,12 +96,14 @@ private extension Segment {
             buttons.append(button)
         }
         // Set positions of the button to draw correct borders
-        buttons.first?.position = .first
-        buttons.last?.position = buttons.count == 1 ? .none : .last
+        buttons.first?.borderStyle = .first
+        buttons.last?.borderStyle = buttons.count == 1 ? .single : .last
     }
 
     func addSplitLines() {
-        guard buttons.count > 0 else { return }
+        guard buttons.count > 0 else {
+            return
+        }
         for _ in 1 ..< buttons.count {
             let splitLine = UIView(frame: .zero)
             splitLine.backgroundColor = SegmentButton.borderColor
@@ -116,9 +115,8 @@ private extension Segment {
 
     func layoutButtonsAndLines() {
         var previousLeadingAnchor = leadingAnchor
-        var currentIndex = splitLines.startIndex
         // Going to look like: b|b|b
-        for button in buttons {
+        buttons.enumerated().forEach { index, button in
             NSLayoutConstraint.activate([
                 button.topAnchor.constraint(equalTo: topAnchor),
                 button.leadingAnchor.constraint(equalTo: previousLeadingAnchor),
@@ -126,10 +124,9 @@ private extension Segment {
             ])
             previousLeadingAnchor = button.trailingAnchor
             // layout split line
-            guard currentIndex != splitLines.endIndex else { continue }
-            let line = splitLines[currentIndex]
-            currentIndex = splitLines.index(after: currentIndex)
-
+            guard let line = splitLines[safe: index] else {
+                return
+            }
             NSLayoutConstraint.activate([
                 line.topAnchor.constraint(equalTo: topAnchor),
                 line.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: SegmentButton.borderWidth / 2),
@@ -138,7 +135,9 @@ private extension Segment {
             ])
         }
         // Need this constraint for the segments frame to be fully defined
-        guard let last = buttons.last else { return }
+        guard let last = buttons.last else {
+            return
+        }
         last.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 }

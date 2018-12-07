@@ -32,14 +32,10 @@ final class ValueSliderAndInputView: UIView {
         }
     }
 
-    var currentValue: ValueSliderControl.RangeValue {
-        return currentStepValue?.value ?? 0
-    }
-
-    private(set) var currentStepValue: StepValue? {
+    var currentValue: StepSlider.StepValueKind {
         didSet {
-            updateLabel(with: currentStepValue)
-            delegate?.valueSliderView(self, didSetValue: currentStepValue?.value ?? 0)
+            updateLabel(with: currentValue)
+            delegate?.valueSliderView(self, didSetValue: currentValue)
         }
     }
 
@@ -49,9 +45,12 @@ final class ValueSliderAndInputView: UIView {
 
     init(range: [StepValue]) {
         self.range = range
+        guard let firstInRange = range.first else {
+            fatalError("Must initialize with a range")
+        }
+        currentValue = firstInRange.value
         super.init(frame: .zero)
         setup()
-        currentStepValue = range.first
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -80,15 +79,6 @@ final class ValueSliderAndInputView: UIView {
     }
 }
 
-extension ValueSliderAndInputView {
-    func setValue(_ value: ValueSliderControl.RangeValue, animated: Bool) {
-        guard let step = sliderControl.findClosestStepInRange(with: value) else {
-            return
-        }
-        currentStepValue = step
-    }
-}
-
 private extension ValueSliderAndInputView {
     func setup() {
         addSubview(valueLabel)
@@ -111,27 +101,16 @@ private extension ValueSliderAndInputView {
         ])
     }
 
-    private func updateLabel(with value: StepValue?) {
-        guard let value = value else {
-            valueLabel.text = ""
-            return
-        }
-        valueLabel.text = value.displayTitle
+    private func updateLabel(with value: StepSlider.StepValueKind) {
+        // TODO: valueLabel.text = value.displayTitle
     }
 }
 
 extension ValueSliderAndInputView: ValueSliderControlDelegate {
-    func valueSliderControl(_ valueSliderControl: ValueSliderControl, didChangeValue value: StepValue?) {
-        if let value = value {
-            let didValueChange = currentValue != value.value
-            if didValueChange {
-                currentStepValue = value
-                updateLabel(with: value)
-                delegate?.valueSliderView(self, didSetValue: value.value)
-            }
-        } else {
-            updateLabel(with: nil)
-            delegate?.valueSliderView(self, didSetValue: 0)
+    func valueSliderControl(_ valueSliderControl: ValueSliderControl, didChangeValue value: StepSlider.StepValueKind) {
+        let didValueChange = currentValue != value
+        if didValueChange {
+            currentValue = value
         }
     }
 }

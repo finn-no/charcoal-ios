@@ -5,11 +5,11 @@
 import UIKit
 
 public struct StepValue: Equatable, Hashable, Comparable {
-    let value: Int
+    let value: StepSlider.StepValueKind
     let displayTitle: String
     var isReferenceValue: Bool
 
-    init(value: Int, displayTitle: String, isReferenceValue: Bool = false) {
+    init(value: StepSlider.StepValueKind, displayTitle: String, isReferenceValue: Bool = false) {
         self.value = value
         self.displayTitle = displayTitle
         self.isReferenceValue = isReferenceValue
@@ -22,24 +22,19 @@ public struct StepValue: Equatable, Hashable, Comparable {
 
 protocol StepSliderDelegate: AnyObject {
     func stepSlider(_ stepSlider: StepSlider, didChangeValue value: Float)
-    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: StepValue)
+    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: StepSlider.StepValueKind)
 }
 
 class StepSlider: UISlider {
-    let range: [StepValue]
+    typealias StepValueKind = Int
+    let range: [StepValueKind]
     var generatesHapticFeedbackOnValueChange = true
-    let firstValue: StepValue
 
-    private var previousRoundedStepValue: StepValue?
+    private var previousRoundedStepValue: StepValueKind?
     weak var delegate: StepSliderDelegate?
 
-    init(range: [StepValue]) {
+    init(range: [StepValueKind]) {
         self.range = range
-        if let firstValue = range.first {
-            self.firstValue = firstValue
-        } else {
-            firstValue = StepValue(value: 0, displayTitle: "")
-        }
 
         super.init(frame: .zero)
 
@@ -50,10 +45,9 @@ class StepSlider: UISlider {
         setThumbImage(RangeSliderView.Style.sliderThumbImage, for: .normal)
         setThumbImage(RangeSliderView.Style.activeSliderThumbImage, for: .highlighted)
         addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
-        accessibilityValue = firstValue.displayTitle
     }
 
-    func translateValueToNormalizedRangeStartingFromZeroValue(value: StepValue) -> Float {
+    func translateValueToNormalizedRangeStartingFromZeroValue(value: StepValueKind) -> Float {
         return Float(range.firstIndex(of: value) ?? 0)
     }
 
@@ -69,14 +63,19 @@ class StepSlider: UISlider {
         return thumbRect(forBounds: bounds, trackRect: currentTrackRect, value: value)
     }
 
-    var roundedStepValue: StepValue {
+    var roundedStepValue: StepValueKind {
         let stepValue = roundedStepValue(fromValue: value)
         return stepValue
     }
 
-    func setValueForSlider(_ value: StepValue, animated: Bool) {
-        let translatedValue = Float(range.firstIndex(of: roundedStepValue) ?? 0)
+    func setValueForSlider(_ value: StepValueKind, animated: Bool) {
+        let translatedValue = Float(range.firstIndex(of: value) ?? 0)
         setValue(translatedValue, animated: animated)
+        updateAccessibilityValue()
+    }
+
+    func setValueForSlider(_ value: Float, animated: Bool) {
+        setValue(value, animated: animated)
         updateAccessibilityValue()
     }
 
@@ -104,13 +103,13 @@ class StepSlider: UISlider {
         return 1
     }
 
-    func roundedStepValue(fromValue value: Float) -> StepValue {
+    func roundedStepValue(fromValue value: Float) -> StepValueKind {
         let index = Int(roundf(value))
-        return range[safe: index] ?? firstValue
+        return range[safe: index] ?? StepValueKind()
     }
 
     private func updateAccessibilityValue() {
-        accessibilityValue = roundedStepValue.displayTitle
+        accessibilityValue = "\(roundedStepValue)" // TODO: need to use .value and a formatter
     }
 
     private func generateFeedback() {

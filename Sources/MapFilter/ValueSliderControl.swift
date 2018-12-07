@@ -5,16 +5,14 @@
 import UIKit
 
 protocol ValueSliderControlDelegate: AnyObject {
-    func valueSliderControl(_ valueSliderControl: ValueSliderControl, didChangeValue: StepValue?)
+    func valueSliderControl(_ valueSliderControl: ValueSliderControl, didChangeValue: StepSlider.StepValueKind)
 }
 
 final class ValueSliderControl: UIControl {
-    typealias RangeValue = Int
-
     public static let minimumViewHeight: CGFloat = 28.0
 
     private lazy var valueSlider: StepSlider = {
-        let slider = StepSlider(range: range)
+        let slider = StepSlider(range: range.map({ $0.value }))
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
@@ -112,18 +110,26 @@ final class ValueSliderControl: UIControl {
 }
 
 extension ValueSliderControl {
-    var currentValue: StepValue? {
-        let value = valueSlider.roundedStepValue
-        return value
+    var currentClosestStepValue: StepValue? {
+        guard let step = findClosestStepInRange(with: valueSlider.roundedStepValue) else {
+            return nil
+        }
+        return step
     }
 
     func setCurrentValue(_ value: StepValue, animated: Bool) {
+        valueSlider.setValueForSlider(value.value, animated: animated)
+        updateActiveTrackRange()
+        updateAccesibilityValues()
+    }
+
+    func setCurrentValue(_ value: StepSlider.StepValueKind, animated: Bool) {
         valueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
 
-    func findClosestStepInRange(with value: RangeValue) -> StepValue? {
+    func findClosestStepInRange(with value: StepSlider.StepValueKind) -> StepValue? {
         guard let firstRange = range.first, let lastRange = range.last else {
             return nil
         }
@@ -147,10 +153,10 @@ extension ValueSliderControl {
         }
     }
 
-    func thumbRect(for value: StepValue) -> CGRect {
+    func thumbRect(for stepValue: StepValue) -> CGRect {
         let bounds = valueSlider.bounds
         let trackRect = valueSlider.trackRect(forBounds: bounds)
-        let translatedValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: value)
+        let translatedValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: stepValue.value)
         let thumbRect = valueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: translatedValue)
 
         let convertedRect = valueSlider.convert(thumbRect, to: self)
@@ -255,7 +261,7 @@ extension ValueSliderControl: StepSliderDelegate {
         updateAccesibilityValues()
     }
 
-    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: StepValue) {
+    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: StepSlider.StepValueKind) {
         delegate?.valueSliderControl(self, didChangeValue: value)
     }
 }

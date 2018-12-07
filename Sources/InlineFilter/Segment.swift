@@ -47,8 +47,7 @@ private extension Segment {
     }
 
     func updateSelectedItems() {
-        buttons.forEach { $0.isSelected = false }
-        selectedItems.forEach { buttons[$0].isSelected = true }
+        buttons.enumerated().forEach { $1.isSelected = selectedItems.contains($0) }
     }
 
     @objc func handleButton(sender: SegmentButton) {

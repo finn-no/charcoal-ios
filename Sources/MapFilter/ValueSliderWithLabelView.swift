@@ -15,7 +15,7 @@ final class ValueSliderAndInputView: UIView {
         label.textColor = .licorice
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.text = " "
+        label.numberOfLines = 1
         return label
     }()
 
@@ -94,12 +94,15 @@ private extension ValueSliderAndInputView {
         addSubview(valueLabel)
         addSubview(sliderControl)
 
+        valueLabel.text = " "
+        let labelHeight = valueLabel.sizeThatFits(CGSize(width: Double.greatestFiniteMagnitude, height: Double.greatestFiniteMagnitude)).height
+
         NSLayoutConstraint.activate([
             valueLabel.topAnchor.constraint(equalTo: topAnchor),
             valueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .mediumSpacing),
             valueLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.mediumSpacing),
-            valueLabel.heightAnchor.constraint(equalToConstant: 32),
             valueLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            valueLabel.heightAnchor.constraint(equalToConstant: labelHeight),
 
             sliderControl.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: .mediumSpacing),
             sliderControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),

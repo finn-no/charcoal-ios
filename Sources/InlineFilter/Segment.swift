@@ -10,9 +10,11 @@ public class Segment: UIControl {
 
     public var selectedItems: [Int] = [] {
         didSet {
-            updateSelected()
+            updateSelectedItems()
         }
     }
+
+    public var isMultiSelect = true
 
     // MARK: - Private properties
 
@@ -44,7 +46,7 @@ private extension Segment {
         layoutButtonsAndLines()
     }
 
-    func updateSelected() {
+    func updateSelectedItems() {
         buttons.forEach { $0.isSelected = false }
         selectedItems.forEach { buttons[$0].isSelected = true }
     }
@@ -59,12 +61,7 @@ private extension Segment {
             return
         }
         sender.isSelected = !sender.isSelected
-        // Update the selected values
-        if sender.isSelected {
-            selectedItems.append(index)
-        } else {
-            selectedItems.removeAll { $0 == index }
-        }
+        setSelected(sender.isSelected, atIndex: index)
         // Notfify target of event
         sendActions(for: .valueChanged)
         // Hide split lines based on whether the two surrounding buttons are selected or not
@@ -75,6 +72,20 @@ private extension Segment {
             } else {
                 splitLines[i].isHidden = true
             }
+        }
+    }
+
+    func setSelected(_ isSelected: Bool, atIndex index: Int) {
+        if isMultiSelect {
+            if isSelected {
+                selectedItems.append(index)
+            } else {
+                selectedItems.removeAll { $0 == index }
+            }
+        } else {
+            selectedItems.removeAll()
+            selectedItems.append(index)
+            updateSelectedItems()
         }
     }
 
@@ -106,7 +117,7 @@ private extension Segment {
     func layoutButtonsAndLines() {
         var previousLeadingAnchor = leadingAnchor
         var currentIndex = splitLines.startIndex
-
+        // Going to look like: b|b|b
         for button in buttons {
             NSLayoutConstraint.activate([
                 button.topAnchor.constraint(equalTo: topAnchor),

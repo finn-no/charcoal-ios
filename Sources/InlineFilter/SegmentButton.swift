@@ -24,7 +24,7 @@ public class SegmentButton: UIButton {
 
     public override var isSelected: Bool {
         didSet {
-            setupForSelected(isSelected)
+            updateSelected(isSelected)
         }
     }
 
@@ -34,6 +34,21 @@ public class SegmentButton: UIButton {
 
     public init(title: String) {
         super.init(frame: .zero)
+        setup(with: title)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        drawBorder()
+    }
+}
+
+private extension SegmentButton {
+    func setup(with title: String) {
         titleLabel?.font = .title4
         setTitle(title, for: .normal)
         setTitleColor(.spaceGray, for: .normal)
@@ -48,18 +63,7 @@ public class SegmentButton: UIButton {
         layer.mask = maskLayer
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        setupBorder()
-    }
-}
-
-private extension SegmentButton {
-    func setupForSelected(_ selected: Bool) {
+    func updateSelected(_ selected: Bool) {
         backgroundColor = selected ? selectedBackgroundColor : .milk
         if selected {
             borderLayer.removeFromSuperlayer()
@@ -73,16 +77,16 @@ private extension SegmentButton {
         selectedBackgroundColor = .milk
         setTitleColor(.primaryBlue, for: .normal)
         setTitleColor(.primaryBlue, for: .selected)
-        semanticContentAttribute = .forceRightToLeft
         setImage(UIImage(named: .arrowDown), for: .normal)
-
+        // Layout the title and image
+        semanticContentAttribute = .forceRightToLeft
         let spacing = .smallSpacing / 2
         imageEdgeInsets = UIEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: -spacing)
         titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing + spacing, bottom: 0, trailing: .mediumLargeSpacing + spacing)
     }
 
-    func setupBorder() {
+    func drawBorder() {
         let borderPath: CGPath
         let maskPath: CGPath
         let radius: CGFloat
@@ -124,6 +128,7 @@ private extension SegmentButton {
     func path(with size: CGSize, roundedEdge: Bool = false, transform: CGAffineTransform = .identity) -> CGPath {
         let lineWidth = SegmentButton.borderWidth
         let path = CGMutablePath()
+        // Need to use lineWidth / 2 because path is draw in the center of the line
         path.move(to: CGPoint(x: 0, y: lineWidth / 2), transform: transform)
         path.addLine(to: CGPoint(x: size.width, y: lineWidth / 2), transform: transform)
         if roundedEdge {

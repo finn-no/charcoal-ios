@@ -92,6 +92,7 @@ private extension InlineFilterView {
         for preference in preferences {
             let titles = preference.values.map { $0.title }
             let segment = Segment(titles: titles)
+            segment.isMultiSelect = preference.isMultiSelect
             segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
             segments.append(segment)
         }

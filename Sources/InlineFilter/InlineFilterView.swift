@@ -8,12 +8,6 @@ public protocol InlineFilterViewDelegate: class {
     func inlineFilterView(_ inlineFilterView: InlineFilterView, didTapExpandableSegment segment: Segment)
 }
 
-extension InlineFilterView {
-    enum Section: Int {
-        case verticals, preference
-    }
-}
-
 public class InlineFilterView: UIView {
 
     // MARK: - Public properties

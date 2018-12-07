@@ -2,9 +2,6 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-//
-//  Copyright © FINN.no AS, Inc. All rights reserved.
-//
 import Charcoal
 import UIKit
 

@@ -5,10 +5,10 @@
 import UIKit
 
 protocol ValueSliderViewDelegate: AnyObject {
-    func valueSliderView(_ valueSliderView: ValueSliderAndInputView, didSetValue value: Int)
+    func valueSliderView<ValueKind: ValueSliderControlValueKind>(_ valueSliderView: ValueSliderAndInputView<ValueKind>, didSetValue value: ValueKind)
 }
 
-final class ValueSliderAndInputView: UIView {
+final class ValueSliderAndInputView<ValueKind: ValueSliderControlValueKind>: UIView {
     private lazy var valueLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .title2
@@ -19,8 +19,8 @@ final class ValueSliderAndInputView: UIView {
         return label
     }()
 
-    private lazy var sliderControl: ValueSliderControl = {
-        let sliderControl = ValueSliderControl(range: range)
+    private lazy var sliderControl: ValueSliderControl<ValueKind> = {
+        let sliderControl = ValueSliderControl<ValueKind>(range: range)
         sliderControl.translatesAutoresizingMaskIntoConstraints = false
         sliderControl.delegate = self
         return sliderControl
@@ -32,18 +32,18 @@ final class ValueSliderAndInputView: UIView {
         }
     }
 
-    var currentValue: StepSlider.StepValueKind {
+    var currentValue: ValueKind {
         didSet {
             updateLabel(with: currentValue)
             delegate?.valueSliderView(self, didSetValue: currentValue)
         }
     }
 
-    private let range: [StepValue]
+    private let range: [StepValue<ValueKind>]
 
     weak var delegate: ValueSliderViewDelegate?
 
-    init(range: [StepValue]) {
+    init(range: [StepValue<ValueKind>]) {
         self.range = range
         guard let firstInRange = range.first else {
             fatalError("Must initialize with a range")
@@ -101,13 +101,17 @@ private extension ValueSliderAndInputView {
         ])
     }
 
-    private func updateLabel(with value: StepSlider.StepValueKind) {
-        // TODO: valueLabel.text = value.displayTitle
+    private func updateLabel(with value: ValueKind) {
+        // TODO: proper to string convertion
+        valueLabel.text = "\(value)"
     }
 }
 
 extension ValueSliderAndInputView: ValueSliderControlDelegate {
-    func valueSliderControl(_ valueSliderControl: ValueSliderControl, didChangeValue value: StepSlider.StepValueKind) {
+    func valueSliderControl<T: ValueSliderControlValueKind>(_ valueSliderControl: ValueSliderControl<T>, didChangeValue value: T) {
+        guard let value = value as? ValueKind else {
+            return
+        }
         let didValueChange = currentValue != value
         if didValueChange {
             currentValue = value

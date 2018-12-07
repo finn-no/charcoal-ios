@@ -4,29 +4,12 @@
 
 import UIKit
 
-public struct StepValue: Equatable, Hashable, Comparable {
-    let value: StepSlider.StepValueKind
-    let displayTitle: String
-    var isReferenceValue: Bool
-
-    init(value: StepSlider.StepValueKind, displayTitle: String, isReferenceValue: Bool = false) {
-        self.value = value
-        self.displayTitle = displayTitle
-        self.isReferenceValue = isReferenceValue
-    }
-
-    public static func < (lhs: StepValue, rhs: StepValue) -> Bool {
-        return lhs.value < rhs.value
-    }
-}
-
 protocol StepSliderDelegate: AnyObject {
-    func stepSlider(_ stepSlider: StepSlider, didChangeValue value: Float)
-    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: StepSlider.StepValueKind)
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float)
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind)
 }
 
-class StepSlider: UISlider {
-    typealias StepValueKind = Int
+class StepSlider<StepValueKind: Comparable>: UISlider {
     let range: [StepValueKind]
     var generatesHapticFeedbackOnValueChange = true
 
@@ -63,7 +46,7 @@ class StepSlider: UISlider {
         return thumbRect(forBounds: bounds, trackRect: currentTrackRect, value: value)
     }
 
-    var roundedStepValue: StepValueKind {
+    var roundedStepValue: StepValueKind? {
         let stepValue = roundedStepValue(fromValue: value)
         return stepValue
     }
@@ -79,8 +62,10 @@ class StepSlider: UISlider {
         updateAccessibilityValue()
     }
 
-    @objc func sliderValueChanged(sender: StepSlider) {
-        let newValue = roundedStepValue(fromValue: sender.value)
+    @objc func sliderValueChanged(sender: UISlider) {
+        guard let newValue = roundedStepValue(fromValue: sender.value) else {
+            return
+        }
         value = Float(range.firstIndex(of: newValue) ?? 0)
 
         if let previousValue = previousRoundedStepValue, previousValue != newValue {
@@ -103,9 +88,9 @@ class StepSlider: UISlider {
         return 1
     }
 
-    func roundedStepValue(fromValue value: Float) -> StepValueKind {
+    func roundedStepValue(fromValue value: Float) -> StepValueKind? {
         let index = Int(roundf(value))
-        return range[safe: index] ?? StepValueKind()
+        return range[safe: index]
     }
 
     private func updateAccessibilityValue() {

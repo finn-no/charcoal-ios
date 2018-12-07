@@ -84,7 +84,9 @@ private extension InlineFilterView {
             return
         }
         let preferenceIndex = verticals.isEmpty ? index : index - 1
-        let preference = preferences[preferenceIndex]
+        guard let preference = preferences[safe: preferenceIndex] else {
+            return
+        }
         let values = segment.selectedItems.map { index -> String in
             return preference.values[index].value
         }

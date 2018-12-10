@@ -120,6 +120,20 @@ public class FilterRootViewController: UIViewController {
         return cell
     }()
 
+    lazy var inlineFilterView: InlineFilterView = {
+        let preferences = preferenceFilters.filter { !$0.values.isEmpty }
+        let view = InlineFilterView(verticals: verticalsFilters, preferences: preferences)
+        view.selectionDataSource = selectionDataSource
+        view.inlineFilterDelegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    lazy var preferenceCell: InlineFilterCell = {
+        let cell = InlineFilterCell(inlineFilterView: inlineFilterView)
+        return cell
+    }()
+
     lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
         let delegate = BottomSheetTransitioningDelegate(for: self)
         return delegate
@@ -153,9 +167,7 @@ private extension FilterRootViewController {
     func setup() {
         view.backgroundColor = .milk
 
-        tableView.register(SearchQueryCell.self)
         tableView.register(FilterCell.self)
-        tableView.register(PreferencesCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 
@@ -319,10 +331,7 @@ extension FilterRootViewController: UITableViewDataSource {
             return searchQueryCell
 
         case .preferences:
-            let cell = tableView.dequeue(PreferencesCell.self, for: indexPath)
-            cell.setupWith(verticals: verticalsFilters, preferences: preferenceFilters, delegate: self, selectionDataSource: selectionDataSource)
-            cell.selectionStyle = .none
-            return cell
+            return preferenceCell
 
         case .filters:
             let filterInfo = self.filterInfo(at: indexPath)
@@ -402,12 +411,10 @@ extension FilterRootViewController: AnyFilterViewController {
     }
 }
 
-extension FilterRootViewController: PreferenceSelectionViewDelegate {
-    public func preferenceSelectionView(_ preferenceSelectionView: PreferenceSelectionView, didTapExpandablePreferenceAtIndex index: Int, view sourceButton: ExpandableSelectionButton) {
-        sourceButton.isSelected = true
-
-        navigator.navigate(to: .verticalSelectionInPopover(verticals: preferenceSelectionView.verticals, sourceView: sourceButton, delegate: self, popoverWillDismiss: { [weak preferenceSelectionView] in
-            preferenceSelectionView?.expandablePreferenceClosed()
+extension FilterRootViewController: InlineFilterViewDelegate {
+    public func inlineFilterView(_ inlineFilterView: InlineFilterView, didTapExpandableSegment segment: Segment) {
+        navigator.navigate(to: .verticalSelectionInPopover(verticals: verticalsFilters, sourceView: segment, delegate: self, popoverWillDismiss: {
+            segment.selectedItems = []
         }))
     }
 }

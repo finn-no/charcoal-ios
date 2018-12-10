@@ -1,0 +1,9 @@
+{
+  "commitish" : "5.1.4",
+  "iOS" : [
+    {
+      "name" : "HockeySDK",
+      "hash" : "83d13724711bf862e9c5cf3276e4d707a1ec3829236a4ac15c1749290711b1b3"
+    }
+  ]
+}

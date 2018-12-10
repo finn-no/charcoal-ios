@@ -1,0 +1,11 @@
+framework module FinniversKit {
+  umbrella header "FinniversKit.h"
+
+  export *
+  module * { export * }
+}
+
+module FinniversKit.Swift {
+    header "FinniversKit-Swift.h"
+    requires objc
+}

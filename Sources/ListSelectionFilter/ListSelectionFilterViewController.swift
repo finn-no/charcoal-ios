@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import FinniversKit
 
 public final class ListSelectionFilterViewController: UIViewController, FilterContainerViewController {
     private let filterInfo: ListSelectionFilterInfoType

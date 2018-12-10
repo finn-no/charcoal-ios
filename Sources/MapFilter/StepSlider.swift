@@ -9,7 +9,7 @@ protocol StepSliderDelegate: AnyObject {
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind)
 }
 
-class StepSlider<StepValueKind: Comparable>: UISlider {
+class StepSlider<StepValueKind: Comparable & SliderReferenceValue>: UISlider {
     let range: [StepValueKind]
     var generatesHapticFeedbackOnValueChange = true
 
@@ -94,7 +94,7 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
     }
 
     private func updateAccessibilityValue() {
-        accessibilityValue = "\(roundedStepValue)" // TODO: need to use .value and a formatter
+        accessibilityValue = roundedStepValue?.displayText
     }
 
     private func generateFeedback() {

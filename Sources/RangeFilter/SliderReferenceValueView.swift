@@ -4,7 +4,16 @@
 
 import UIKit
 
-final class RangeReferenceValueView: UIView {
+struct IntSliderReferenceValue: SliderReferenceValue {
+    let value: Int
+    let displayText: String
+}
+
+protocol SliderReferenceValue {
+    var displayText: String { get }
+}
+
+final class SliderReferenceValueView<ReferenceValue: SliderReferenceValue>: UIView {
     lazy var indicatorView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -22,25 +31,15 @@ final class RangeReferenceValueView: UIView {
         label.font = UIFont(name: FontType.light.rawValue, size: 12)
         label.textColor = .licorice
         label.textAlignment = .center
-        label.text = text
+        label.text = value.displayText
 
         return label
     }()
 
-    let value: Int
-    let text: String?
+    let value: ReferenceValue
 
-    init(value: RangeFilterView.RangeValue, unit: String, formatter: RangeFilterValueFormatter) {
+    init(value: ReferenceValue) {
         self.value = value
-        text = formatter.string(from: value)?.appending(" \(unit)")
-        super.init(frame: .zero)
-
-        setup()
-    }
-
-    init(value: RangeFilterView.RangeValue, text: String) {
-        self.value = value
-        self.text = text
         super.init(frame: .zero)
 
         setup()

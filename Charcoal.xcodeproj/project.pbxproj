@@ -31,7 +31,7 @@
 		465F616B219B7A1900CF568B /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465F616A219B7A1900CF568B /* FilterData.swift */; };
 		465F616F219B7B8B00CF568B /* FilterDataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465F616E219B7B8B00CF568B /* FilterDataQuery.swift */; };
 		4670268D2170D38D00B9C952 /* SteppedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268C2170D38D00B9C952 /* SteppedSlider.swift */; };
-		4670268F2170DD3900B9C952 /* RangeReferenceValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268E2170DD3900B9C952 /* RangeReferenceValueView.swift */; };
+		4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */; };
 		46905233217F0D6000F8E7FD /* VerticalSetupDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */; };
 		4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905239217F5CD000F8E7FD /* Vertical.swift */; };
 		46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A93B6E216D5C4900985139 /* MultiLevelSelectionListItemCell.swift */; };
@@ -222,7 +222,7 @@
 		465F616A219B7A1900CF568B /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
 		465F616E219B7B8B00CF568B /* FilterDataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataQuery.swift; sourceTree = "<group>"; };
 		4670268C2170D38D00B9C952 /* SteppedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppedSlider.swift; sourceTree = "<group>"; };
-		4670268E2170DD3900B9C952 /* RangeReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeReferenceValueView.swift; sourceTree = "<group>"; };
+		4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReferenceValueView.swift; sourceTree = "<group>"; };
 		46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSetupDemo.swift; sourceTree = "<group>"; };
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
 		46A93B6E216D5C4900985139 /* MultiLevelSelectionListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelSelectionListItemCell.swift; sourceTree = "<group>"; };
@@ -543,7 +543,7 @@
 				559C6CB920B83178009B734D /* RangeFilterView.swift */,
 				55E869DD20E2674B008B921E /* RangeFilterViewController.swift */,
 				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
-				4670268E2170DD3900B9C952 /* RangeReferenceValueView.swift */,
+				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
 				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
 				4670268C2170D38D00B9C952 /* SteppedSlider.swift */,
 			);
@@ -716,8 +716,8 @@
 			children = (
 				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
 				9B741D1B21B6B1CA00D18097 /* StepSlider.swift */,
-				9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */,
 				9B741D1921B6990800D18097 /* ValueSliderControl.swift */,
+				9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */,
 			);
 			path = MapFilter;
 			sourceTree = "<group>";
@@ -1196,7 +1196,7 @@
 				55BDA77320DBD99600331FFC /* ParameterBasedFilterInfo.swift in Sources */,
 				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				55E869E220E39373008B921E /* FilterNavigator.swift in Sources */,
-				4670268F2170DD3900B9C952 /* RangeReferenceValueView.swift in Sources */,
+				4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */,
 				DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */,
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,

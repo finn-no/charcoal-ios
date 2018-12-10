@@ -68,7 +68,7 @@ public final class RangeFilterView: UIControl {
     }
 
     private var inputValues = [InputValue: RangeValue]()
-    private var referenceValueViews = [RangeReferenceValueView]()
+    private var referenceValueViews = [SliderReferenceValueView<IntSliderReferenceValue>]()
 
     public typealias RangeValue = Int
     public typealias InputRange = ClosedRange<RangeValue>
@@ -134,7 +134,7 @@ public final class RangeFilterView: UIControl {
         super.layoutSubviews()
 
         referenceValueViews.forEach({ view in
-            let thumbRectForValue = sliderInputView.thumbRect(for: view.value)
+            let thumbRectForValue = sliderInputView.thumbRect(for: view.value.value)
             let leadingConstant = thumbRectForValue.midX - (view.frame.width / 2)
             view.leadingConstraint?.constant = leadingConstant
         })
@@ -189,7 +189,10 @@ private extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        referenceValueViews = referenceValues.map({ RangeReferenceValueView(value: $0, unit: unit, formatter: formatter) })
+        referenceValueViews = referenceValues.map({ (referenceValue) -> SliderReferenceValueView<IntSliderReferenceValue> in
+            let referenceValue = IntSliderReferenceValue(value: referenceValue, displayText: formatter.string(from: referenceValue, isCurrency: isValueCurrency) ?? "")
+            return SliderReferenceValueView(value: referenceValue)
+        })
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false

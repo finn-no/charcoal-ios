@@ -4,11 +4,15 @@
 
 import UIKit
 
-protocol ValueSliderViewDelegate: AnyObject {
-    func valueSliderView<ValueKind: ValueSliderControlValueKind>(_ valueSliderView: ValueSliderAndInputView<ValueKind>, didSetValue value: ValueKind)
+protocol ValueSliderFormatter: AnyObject {
+    func displayText<ValueKind: Numeric>(for value: ValueKind) -> String
 }
 
-final class ValueSliderAndInputView<ValueKind: ValueSliderControlValueKind>: UIView {
+protocol ValueSliderWithLabelViewDelegate: AnyObject {
+    func valueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>(_ valueSliderWithLabelView: ValueSliderWithLabelView<ValueKind>, didSetValue value: ValueKind)
+}
+
+final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UIView {
     private lazy var valueLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .title2
@@ -35,20 +39,21 @@ final class ValueSliderAndInputView<ValueKind: ValueSliderControlValueKind>: UIV
     var currentValue: ValueKind {
         didSet {
             updateLabel(with: currentValue)
-            delegate?.valueSliderView(self, didSetValue: currentValue)
+            delegate?.valueSliderWithLabelView(self, didSetValue: currentValue)
         }
     }
 
     private let range: [StepValue<ValueKind>]
+    private let valueFormatter: ValueSliderFormatter
+    weak var delegate: ValueSliderWithLabelViewDelegate?
 
-    weak var delegate: ValueSliderViewDelegate?
-
-    init(range: [StepValue<ValueKind>]) {
-        self.range = range
-        guard let firstInRange = range.first else {
+    init(range: [ValueKind], referenceIndexes: [Int], valueFormatter: ValueSliderFormatter) {
+        self.range = type(of: self).createStepValues(range: range, referenceIndexes: referenceIndexes, valueFormatter: valueFormatter)
+        guard let firstInRange = self.range.first else {
             fatalError("Must initialize with a range")
         }
         currentValue = firstInRange.value
+        self.valueFormatter = valueFormatter
         super.init(frame: .zero)
         setup()
     }
@@ -79,7 +84,15 @@ final class ValueSliderAndInputView<ValueKind: ValueSliderControlValueKind>: UIV
     }
 }
 
-private extension ValueSliderAndInputView {
+private extension ValueSliderWithLabelView {
+    static func createStepValues<ValueKind: ValueSliderControlValueKind>(range: [ValueKind], referenceIndexes: [Int], valueFormatter: ValueSliderFormatter) -> [StepValue<ValueKind>] {
+        let results = range.enumerated().map { (index, element) -> StepValue<ValueKind> in
+            let stepValue = StepValue(value: element, displayText: valueFormatter.displayText(for: element), isReferenceValue: referenceIndexes.contains(index))
+            return stepValue
+        }
+        return results
+    }
+
     func setup() {
         addSubview(valueLabel)
         addSubview(sliderControl)
@@ -102,19 +115,23 @@ private extension ValueSliderAndInputView {
     }
 
     private func updateLabel(with value: ValueKind) {
-        // TODO: proper to string convertion
-        valueLabel.text = "\(value)"
+        valueLabel.text = valueFormatter.displayText(for: value)
+    }
+
+    private func updateLabel(with value: SliderReferenceValue) {
+        valueLabel.text = value.displayText
     }
 }
 
-extension ValueSliderAndInputView: ValueSliderControlDelegate {
-    func valueSliderControl<T: ValueSliderControlValueKind>(_ valueSliderControl: ValueSliderControl<T>, didChangeValue value: T) {
-        guard let value = value as? ValueKind else {
+extension ValueSliderWithLabelView: ValueSliderControlDelegate {
+    func valueSliderControl<T: ValueSliderControlValueKind>(_ valueSliderControl: ValueSliderControl<T>, didChangeValue stepValue: StepValue<T>) {
+        guard let value = stepValue.value as? ValueKind else {
             return
         }
         let didValueChange = currentValue != value
         if didValueChange {
             currentValue = value
+            updateLabel(with: stepValue)
         }
     }
 }

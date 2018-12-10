@@ -4,14 +4,14 @@
 
 import UIKit
 
-public struct StepValue<StepValueKind: Comparable>: Equatable, Comparable {
+public struct StepValue<StepValueKind: Comparable>: Equatable, Comparable, SliderReferenceValue {
     let value: StepValueKind
-    let displayTitle: String
+    let displayText: String
     var isReferenceValue: Bool
 
-    init(value: StepValueKind, displayTitle: String, isReferenceValue: Bool = false) {
+    init(value: StepValueKind, displayText: String, isReferenceValue: Bool = false) {
         self.value = value
-        self.displayTitle = displayTitle
+        self.displayText = displayText
         self.isReferenceValue = isReferenceValue
     }
 
@@ -23,13 +23,12 @@ public struct StepValue<StepValueKind: Comparable>: Equatable, Comparable {
 typealias ValueSliderControlValueKind = Comparable & Numeric
 
 protocol ValueSliderControlDelegate: AnyObject {
-    func valueSliderControl<ValueKind: ValueSliderControlValueKind>(_ valueSliderControl: ValueSliderControl<ValueKind>, didChangeValue: ValueKind)
+    func valueSliderControl<ValueKind: ValueSliderControlValueKind>(_ valueSliderControl: ValueSliderControl<ValueKind>, didChangeValue: StepValue<ValueKind>)
 }
 
 final class ValueSliderControl<ValueKind: ValueSliderControlValueKind>: UIControl {
-    
-    private lazy var valueSlider: StepSlider<ValueKind> = {
-        let slider = StepSlider<ValueKind>(range: range.map({ $0.value }))
+    private lazy var valueSlider: StepSlider<StepValue<ValueKind>> = {
+        let slider = StepSlider<StepValue<ValueKind>>(range: range)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
@@ -59,7 +58,7 @@ final class ValueSliderControl<ValueKind: ValueSliderControlValueKind>: UIContro
         return view
     }()
 
-    private var referenceValueViews = [RangeReferenceValueView]()
+    private var referenceValueViews = [SliderReferenceValueView<StepValue<ValueKind>>]()
 
     private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
 
@@ -128,19 +127,19 @@ final class ValueSliderControl<ValueKind: ValueSliderControlValueKind>: UIContro
 
 extension ValueSliderControl {
     var currentClosestStepValue: StepValue<ValueKind>? {
-        guard let step = findClosestStepInRange(with: valueSlider.roundedStepValue) else {
+        guard let step = findClosestStepInRange(with: valueSlider.roundedStepValue?.value) else {
             return nil
         }
         return step
     }
 
     func setCurrentValue(_ value: StepValue<ValueKind>, animated: Bool) {
-        valueSlider.setValueForSlider(value.value, animated: animated)
+        valueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
 
-    func setCurrentValue(_ value: ValueKind, animated: Bool) {
+    func setCurrentValue(_ value: Float, animated: Bool) {
         valueSlider.setValueForSlider(value, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
@@ -173,7 +172,7 @@ extension ValueSliderControl {
     func thumbRect(for stepValue: StepValue<ValueKind>) -> CGRect {
         let bounds = valueSlider.bounds
         let trackRect = valueSlider.trackRect(forBounds: bounds)
-        let translatedValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: stepValue.value)
+        let translatedValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: stepValue)
         let thumbRect = valueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: translatedValue)
 
         let convertedRect = valueSlider.convert(thumbRect, to: self)
@@ -232,12 +231,8 @@ private extension ValueSliderControl {
     func setupReferenceValueView() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
         let referenceValues: [StepValue<ValueKind>] = range.filter({ $0.isReferenceValue })
-        referenceValueViews = referenceValues.compactMap({ (stepValue: StepValue<ValueKind>) -> RangeReferenceValueView? in
-            // TODO: generics there too
-            guard let value = stepValue.value as? Int else {
-                return nil
-            }
-            return RangeReferenceValueView(value: value, text: stepValue.displayTitle)
+        referenceValueViews = referenceValues.compactMap({ (stepValue: StepValue<ValueKind>) -> SliderReferenceValueView<StepValue<ValueKind>>? in
+            return SliderReferenceValueView<StepValue<ValueKind>>(value: stepValue)
         })
 
         referenceValueViews.forEach { view in
@@ -283,7 +278,7 @@ extension ValueSliderControl: StepSliderDelegate {
     }
 
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
-        guard let value = value as? ValueKind else {
+        guard let value = value as? StepValue<ValueKind> else {
             return
         }
         delegate?.valueSliderControl(self, didChangeValue: value)

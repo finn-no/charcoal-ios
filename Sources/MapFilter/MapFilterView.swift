@@ -5,6 +5,21 @@
 import UIKit
 
 public class MapFilterView: UIView {
+    private class DistanceValueFormatter: ValueSliderFormatter {
+        func displayText<ValueKind>(for value: ValueKind) -> String where ValueKind: Numeric {
+            guard let value = value as? Int else {
+                return ""
+            }
+            let useKm = value > 1500
+            if useKm {
+                let km = value / 1000
+                return "\(km) km"
+            } else {
+                return "\(value) m"
+            }
+        }
+    }
+
     var searchBar: UISearchBar? {
         didSet {
             setupSearchBar(searchBar)
@@ -18,30 +33,14 @@ public class MapFilterView: UIView {
         return view
     }()
 
-    private lazy var distanceSlider: ValueSliderAndInputView<Int> = {
-        let meterValues = [200, 300, 400, 500, 700, 1000, 1500]
-        var meterValueRange = [StepValue<Int>]()
-        meterValues.forEach({
-            meterValueRange.append(StepValue(value: $0, displayTitle: "\($0) m"))
-        })
-
-        let kmValues = [2, 5, 10, 20, 30, 50, 75, 100]
-        var kmValueRange = [StepValue<Int>]()
-        kmValues.forEach({
-            kmValueRange.append(StepValue<Int>(value: $0 * 1000, displayTitle: "\($0) km"))
-        })
-
-        var range: [StepValue<Int>] = meterValueRange + kmValueRange
-        range[1].isReferenceValue = true
-        range[Int(range.count / 2)].isReferenceValue = true
-        range[range.count - 2].isReferenceValue = true
-        let slider = ValueSliderAndInputView<Int>(range: range)
+    private lazy var distanceSlider: ValueSliderWithLabelView<Int> = {
+        let meterStepValues = [200, 300, 400, 500, 700, 1000, 1500, 2000, 5000, 10000, 20000, 30000, 50000, 75000, 100_000]
+        let referenceIndexes = [1, Int(meterStepValues.count / 2), meterStepValues.count - 2]
+        let slider = ValueSliderWithLabelView<Int>(range: meterStepValues, referenceIndexes: referenceIndexes, valueFormatter: DistanceValueFormatter())
         slider.translatesAutoresizingMaskIntoConstraints = false
 
         return slider
     }()
-
-    // MARK: - Setup
 
     public override init(frame: CGRect) {
         super.init(frame: frame)

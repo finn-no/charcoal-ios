@@ -79,8 +79,6 @@ enum Sections: String {
                 return .bottomSheet
             case .rootFilters:
                 return .none
-            case .preferenceFilter:
-                return .none
             case .listSelection:
                 return .none
             case .compactListFilter:
@@ -89,6 +87,8 @@ enum Sections: String {
                 return .bottomSheet
             case .stepperFilter:
                 return .bottomSheet
+            case .inlineFilter:
+                return .none
             }
         case .fullscreen:
             let selectedView = FullscreenViews.all[indexPath.row]
@@ -155,11 +155,11 @@ public enum DnaViews: String {
 enum ComponentViews: String {
     case bottomSheet
     case rootFilters
-    case preferenceFilter
     case listSelection
     case compactListFilter
     case rangeFilter
     case stepperFilter
+    case inlineFilter
 
     var viewController: UIViewController {
         switch self {
@@ -182,10 +182,6 @@ enum ComponentViews: String {
 
             return navigationController
 
-        case .preferenceFilter:
-            let popoverDemoViewController = PopoverDemoViewController()
-            return popoverDemoViewController
-
         case .listSelection:
             let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
             return viewController
@@ -196,6 +192,11 @@ enum ComponentViews: String {
             return ViewController<RangeFilterDemoView>()
         case .stepperFilter:
             return ViewController<StepperFilterDemoView>()
+
+        case .inlineFilter:
+            let controller = InlineFilterDemoViewController()
+            controller.selectionDataSource = DemoEmptyFilterSelectionDataSource()
+            return controller
         }
     }
 
@@ -203,11 +204,11 @@ enum ComponentViews: String {
         return [
             .bottomSheet,
             .rootFilters,
-            .preferenceFilter,
             .listSelection,
             .compactListFilter,
             .rangeFilter,
             .stepperFilter,
+            .inlineFilter,
         ]
     }
 }

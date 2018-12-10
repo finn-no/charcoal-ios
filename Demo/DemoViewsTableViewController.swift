@@ -103,6 +103,7 @@ extension DemoViewsTableViewController {
             if transitionStyle != .bottomSheet {
                 let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(self.closeCurrentlyPresentedViewController))
                 dismissGesture.numberOfTapsRequired = 2
+                dismissGesture.numberOfTouchesRequired = 2
                 viewController.view.addGestureRecognizer(dismissGesture)
             }
         }

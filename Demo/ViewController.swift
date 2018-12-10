@@ -27,6 +27,7 @@ class ViewController<View: UIView>: UIViewController {
 
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
         doubleTap.numberOfTapsRequired = 2
+        doubleTap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(doubleTap)
     }
 

@@ -6,7 +6,6 @@ import Charcoal
 import UIKit
 
 enum Sections: String {
-    case dna
     case components
     case fullscreen
 
@@ -14,14 +13,11 @@ enum Sections: String {
         return [
             .components,
             .fullscreen,
-            .dna,
         ]
     }
 
     var numberOfItems: Int {
         switch self {
-        case .dna:
-            return DnaViews.all.count
         case .components:
             return ComponentViews.all.count
         case .fullscreen:
@@ -39,8 +35,6 @@ enum Sections: String {
         let section = Sections.all[indexPath.section]
         var rawClassName: String
         switch section {
-        case .dna:
-            rawClassName = DnaViews.all[indexPath.row].rawValue
         case .components:
             rawClassName = ComponentViews.all[indexPath.row].rawValue
         case .fullscreen:
@@ -56,9 +50,6 @@ enum Sections: String {
         }
         let selectedViewController: UIViewController?
         switch section {
-        case .dna:
-            let selectedView = DnaViews.all[safe: indexPath.row]
-            selectedViewController = selectedView?.viewController
         case .components:
             let selectedView = ComponentViews.all[safe: indexPath.row]
             selectedViewController = selectedView?.viewController
@@ -96,8 +87,6 @@ enum Sections: String {
             case .torget, .bil, .eiendom:
                 return .bottomSheet
             }
-        default:
-            return .none
         }
     }
 
@@ -123,31 +112,6 @@ enum Sections: String {
                 UserDefaults.standard.removeObject(forKey: lastSelectedSectionKey)
             }
             UserDefaults.standard.synchronize()
-        }
-    }
-}
-
-public enum DnaViews: String {
-    case color
-    case font
-    case assets
-
-    static var all: [DnaViews] {
-        return [
-            .color,
-            .font,
-            .assets,
-        ]
-    }
-
-    public var viewController: UIViewController {
-        switch self {
-        case .color:
-            return ViewController<ColorDemoView>()
-        case .font:
-            return ViewController<FontDemoView>()
-        case .assets:
-            return ViewController<AssetsDemoView>()
         }
     }
 }

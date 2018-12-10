@@ -49,6 +49,7 @@ public class MapFilterView: UIView {
         searchBar.searchBarStyle = .minimal
         searchBar.backgroundColor = .milk
         setupSearchBar(UISearchBar(frame: .zero))
+        distanceSlider.setCurrentValue(250)
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -36,13 +36,7 @@ final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UI
         }
     }
 
-    var currentValue: ValueKind {
-        didSet {
-            updateLabel(with: currentValue)
-            delegate?.valueSliderWithLabelView(self, didSetValue: currentValue)
-        }
-    }
-
+    private var currentValue: ValueKind
     private let range: [StepValue<ValueKind>]
     private let valueFormatter: ValueSliderFormatter
     weak var delegate: ValueSliderWithLabelViewDelegate?
@@ -56,6 +50,7 @@ final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UI
         self.valueFormatter = valueFormatter
         super.init(frame: .zero)
         setup()
+        updateLabel(with: firstInRange)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -81,6 +76,11 @@ final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UI
         didSet {
             sliderControl.accessibilityFrame = accessibilityFrame
         }
+    }
+
+    func setCurrentValue(_ newValue: ValueKind) {
+        sliderControl.setCurrentValue(newValue, animated: true)
+        updateLabel(with: newValue)
     }
 }
 
@@ -132,6 +132,7 @@ extension ValueSliderWithLabelView: ValueSliderControlDelegate {
         if didValueChange {
             currentValue = value
             updateLabel(with: stepValue)
+            delegate?.valueSliderWithLabelView(self, didSetValue: currentValue)
         }
     }
 }

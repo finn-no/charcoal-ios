@@ -52,12 +52,12 @@ class StepSlider<StepValueKind: Comparable & SliderReferenceValue>: UISlider {
     }
 
     func setValueForSlider(_ value: StepValueKind, animated: Bool) {
-        let translatedValue = Float(range.firstIndex(of: value) ?? 0)
-        setValue(translatedValue, animated: animated)
-        updateAccessibilityValue()
+        let translatedValue = translateValueToNormalizedRangeStartingFromZeroValue(value: value)
+        setValueForSlider(translatedValue, animated: animated)
     }
 
     func setValueForSlider(_ value: Float, animated: Bool) {
+        previousRoundedStepValue = nil
         setValue(value, animated: animated)
         updateAccessibilityValue()
     }
@@ -66,9 +66,9 @@ class StepSlider<StepValueKind: Comparable & SliderReferenceValue>: UISlider {
         guard let newValue = roundedStepValue(fromValue: sender.value) else {
             return
         }
-        value = Float(range.firstIndex(of: newValue) ?? 0)
-
-        if let previousValue = previousRoundedStepValue, previousValue != newValue {
+        value = translateValueToNormalizedRangeStartingFromZeroValue(value: newValue)
+        let stepChanged = previousRoundedStepValue != nil && previousRoundedStepValue != newValue
+        if previousRoundedStepValue == nil || stepChanged {
             delegate?.stepSlider(self, didChangeRoundedStepValue: newValue)
 
             if generatesHapticFeedbackOnValueChange {
@@ -94,6 +94,7 @@ class StepSlider<StepValueKind: Comparable & SliderReferenceValue>: UISlider {
     }
 
     private func updateAccessibilityValue() {
+        // TODO: needs to be fixed when not on a step
         accessibilityValue = roundedStepValue?.displayText
     }
 

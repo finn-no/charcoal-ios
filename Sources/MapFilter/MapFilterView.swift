@@ -45,6 +45,9 @@ public class MapFilterView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.searchBarStyle = .minimal
+        searchBar.backgroundColor = .milk
         setupSearchBar(UISearchBar(frame: .zero))
     }
 
@@ -55,12 +58,14 @@ public class MapFilterView: UIView {
 
 private extension MapFilterView {
     func setup() {
+        backgroundColor = .milk
         addSubview(mapView)
         addSubview(distanceSlider)
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: .mediumSpacing),
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
+            mapView.heightAnchor.constraint(equalToConstant: 150),
 
             distanceSlider.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: .mediumLargeSpacing),
             distanceSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
@@ -76,7 +81,7 @@ private extension MapFilterView {
         addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
-            searchBar.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: .mediumLargeSpacing),
+            searchBar.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: -.mediumSpacing),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
         ])

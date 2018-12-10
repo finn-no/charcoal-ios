@@ -116,10 +116,7 @@ final class ValueSliderControl<ValueKind: ValueSliderControlValueKind>: UIContro
     override func updateConstraints() {
         super.updateConstraints()
         referenceValueViews.forEach({ view in
-            guard let value = view.value as? ValueKind, let step = findClosestStepInRange(with: value) else {
-                return
-            }
-            let thumbRectForValue = thumbRect(for: step)
+            let thumbRectForValue = thumbRect(for: view.value)
             view.midXConstraint?.constant = thumbRectForValue.midX
         })
     }

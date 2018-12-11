@@ -80,12 +80,20 @@ class StepSlider<StepValueKind: Comparable & SliderReferenceValue>: UISlider {
         delegate?.stepSlider(self, didChangeValue: value)
     }
 
-    private var accessibilityStepIncrement: Int {
-        return 1
+    override func accessibilityDecrement() {
+        guard let decrementTo = roundedStepValue(fromValue: value - 1) else {
+            return
+        }
+        setValueForSlider(decrementTo, animated: false)
+        sendActions(for: .valueChanged)
     }
 
-    private var stepIncrement: Int {
-        return 1
+    override func accessibilityIncrement() {
+        guard let incrementTo = roundedStepValue(fromValue: value + 1) else {
+            return
+        }
+        setValueForSlider(incrementTo, animated: false)
+        sendActions(for: .valueChanged)
     }
 
     func roundedStepValue(fromValue value: Float) -> StepValueKind? {

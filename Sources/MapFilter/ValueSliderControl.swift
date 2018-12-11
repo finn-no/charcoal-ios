@@ -4,29 +4,13 @@
 
 import UIKit
 
-public struct StepValue<StepValueKind: Comparable>: Equatable, Comparable, SliderReferenceValue {
-    let value: StepValueKind
-    let displayText: String
-    var isReferenceValue: Bool
-
-    init(value: StepValueKind, displayText: String, isReferenceValue: Bool = false) {
-        self.value = value
-        self.displayText = displayText
-        self.isReferenceValue = isReferenceValue
-    }
-
-    public static func < (lhs: StepValue, rhs: StepValue) -> Bool {
-        return lhs.value < rhs.value
-    }
-}
-
-typealias ValueSliderControlValueKind = Comparable & Numeric
+typealias SliderValueKind = Comparable & Numeric
 
 protocol ValueSliderControlDelegate: AnyObject {
-    func valueSliderControl<ValueKind: ValueSliderControlValueKind>(_ valueSliderControl: ValueSliderControl<ValueKind>, didChangeValue: StepValue<ValueKind>)
+    func valueSliderControl<ValueKind: SliderValueKind>(_ valueSliderControl: ValueSliderControl<ValueKind>, didChangeValue: StepValue<ValueKind>)
 }
 
-final class ValueSliderControl<ValueKind: ValueSliderControlValueKind>: UIControl {
+class ValueSliderControl<ValueKind: SliderValueKind>: UIControl {
     enum StepValueFindResult {
         case exact(stepValue: StepValue<ValueKind>)
         case between(closest: StepValue<ValueKind>, lower: StepValue<ValueKind>, higher: StepValue<ValueKind>)
@@ -48,7 +32,7 @@ final class ValueSliderControl<ValueKind: ValueSliderControlValueKind>: UIContro
     }
 
     private lazy var valueSlider: StepSlider<StepValue<ValueKind>> = {
-        let slider = StepSlider<StepValue<ValueKind>>(range: range)
+        let slider = StepSlider<StepValue<ValueKind>>(range: range, valueFormatter: valueFormatter)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
@@ -100,8 +84,11 @@ final class ValueSliderControl<ValueKind: ValueSliderControlValueKind>: UIContro
 
     private var previousValueSliderFrame: CGRect = .zero
 
-    init(range: [StepValue<ValueKind>]) {
+    private let valueFormatter: SliderValueFormatter
+
+    init(range: [StepValue<ValueKind>], valueFormatter: SliderValueFormatter) {
         self.range = range
+        self.valueFormatter = valueFormatter
         super.init(frame: .zero)
         setup()
     }

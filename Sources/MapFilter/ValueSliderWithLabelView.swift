@@ -4,15 +4,15 @@
 
 import UIKit
 
-protocol ValueSliderFormatter: AnyObject {
-    func displayText<ValueKind: Numeric>(for value: ValueKind) -> String
+protocol SliderValueFormatter: AnyObject {
+    func title<ValueKind>(for value: ValueKind) -> String
 }
 
 protocol ValueSliderWithLabelViewDelegate: AnyObject {
-    func valueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>(_ valueSliderWithLabelView: ValueSliderWithLabelView<ValueKind>, didSetValue value: ValueKind)
+    func valueSliderWithLabelView<ValueKind: SliderValueKind>(_ valueSliderWithLabelView: ValueSliderWithLabelView<ValueKind>, didSetValue value: ValueKind)
 }
 
-final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UIView {
+class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
     private lazy var valueLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .title2
@@ -24,7 +24,7 @@ final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UI
     }()
 
     private lazy var sliderControl: ValueSliderControl<ValueKind> = {
-        let sliderControl = ValueSliderControl<ValueKind>(range: range)
+        let sliderControl = ValueSliderControl<ValueKind>(range: range, valueFormatter: valueFormatter)
         sliderControl.translatesAutoresizingMaskIntoConstraints = false
         sliderControl.delegate = self
         return sliderControl
@@ -38,10 +38,10 @@ final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UI
 
     private var currentValue: ValueKind
     private let range: [StepValue<ValueKind>]
-    private let valueFormatter: ValueSliderFormatter
+    private let valueFormatter: SliderValueFormatter
     weak var delegate: ValueSliderWithLabelViewDelegate?
 
-    init(range: [ValueKind], referenceIndexes: [Int], valueFormatter: ValueSliderFormatter) {
+    init(range: [ValueKind], referenceIndexes: [Int], valueFormatter: SliderValueFormatter) {
         self.range = type(of: self).createStepValues(range: range, referenceIndexes: referenceIndexes, valueFormatter: valueFormatter)
         guard let firstInRange = self.range.first else {
             fatalError("Must initialize with a range")
@@ -85,9 +85,9 @@ final class ValueSliderWithLabelView<ValueKind: ValueSliderControlValueKind>: UI
 }
 
 private extension ValueSliderWithLabelView {
-    static func createStepValues<ValueKind: ValueSliderControlValueKind>(range: [ValueKind], referenceIndexes: [Int], valueFormatter: ValueSliderFormatter) -> [StepValue<ValueKind>] {
+    static func createStepValues<ValueKind: SliderValueKind>(range: [ValueKind], referenceIndexes: [Int], valueFormatter: SliderValueFormatter) -> [StepValue<ValueKind>] {
         let results = range.enumerated().map { (index, element) -> StepValue<ValueKind> in
-            let stepValue = StepValue(value: element, displayText: valueFormatter.displayText(for: element), isReferenceValue: referenceIndexes.contains(index))
+            let stepValue = StepValue(value: element, displayText: valueFormatter.title(for: element), isReferenceValue: referenceIndexes.contains(index))
             return stepValue
         }
         return results
@@ -115,7 +115,7 @@ private extension ValueSliderWithLabelView {
     }
 
     private func updateLabel(with value: ValueKind) {
-        valueLabel.text = valueFormatter.displayText(for: value)
+        valueLabel.text = valueFormatter.title(for: value)
     }
 
     private func updateLabel(with value: SliderReferenceValue) {
@@ -124,7 +124,7 @@ private extension ValueSliderWithLabelView {
 }
 
 extension ValueSliderWithLabelView: ValueSliderControlDelegate {
-    func valueSliderControl<T: ValueSliderControlValueKind>(_ valueSliderControl: ValueSliderControl<T>, didChangeValue stepValue: StepValue<T>) {
+    func valueSliderControl<T: SliderValueKind>(_ valueSliderControl: ValueSliderControl<T>, didChangeValue stepValue: StepValue<T>) {
         guard let value = stepValue.value as? ValueKind else {
             return
         }

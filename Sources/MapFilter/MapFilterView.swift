@@ -5,21 +5,6 @@
 import UIKit
 
 public class MapFilterView: UIView {
-    private class DistanceValueFormatter: ValueSliderFormatter {
-        func displayText<ValueKind>(for value: ValueKind) -> String where ValueKind: Numeric {
-            guard let value = value as? Int else {
-                return ""
-            }
-            let useKm = value > 1500
-            if useKm {
-                let km = value / 1000
-                return "\(km) km"
-            } else {
-                return "\(value) m"
-            }
-        }
-    }
-
     var searchBar: UISearchBar? {
         didSet {
             setupSearchBar(searchBar)
@@ -36,7 +21,7 @@ public class MapFilterView: UIView {
     private lazy var distanceSlider: ValueSliderWithLabelView<Int> = {
         let meterStepValues = [200, 300, 400, 500, 700, 1000, 1500, 2000, 5000, 10000, 20000, 30000, 50000, 75000, 100_000]
         let referenceIndexes = [1, Int(meterStepValues.count / 2), meterStepValues.count - 2]
-        let slider = ValueSliderWithLabelView<Int>(range: meterStepValues, referenceIndexes: referenceIndexes, valueFormatter: DistanceValueFormatter())
+        let slider = ValueSliderWithLabelView<Int>(range: meterStepValues, referenceIndexes: referenceIndexes, valueFormatter: MapDistanceValueFormatter())
         slider.translatesAutoresizingMaskIntoConstraints = false
 
         return slider

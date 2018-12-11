@@ -15,9 +15,11 @@ class StepSlider<StepValueKind: Comparable & SliderReferenceValue>: UISlider {
 
     private var previousRoundedStepValue: StepValueKind?
     weak var delegate: StepSliderDelegate?
+    private let valueFormatter: SliderValueFormatter
 
-    init(range: [StepValueKind]) {
+    init(range: [StepValueKind], valueFormatter: SliderValueFormatter) {
         self.range = range
+        self.valueFormatter = valueFormatter
 
         super.init(frame: .zero)
 
@@ -102,8 +104,11 @@ class StepSlider<StepValueKind: Comparable & SliderReferenceValue>: UISlider {
     }
 
     private func updateAccessibilityValue() {
-        // TODO: needs to be fixed when not on a step
-        accessibilityValue = roundedStepValue?.displayText
+        if let roundedStepValue = roundedStepValue {
+            accessibilityValue = roundedStepValue.displayText
+        } else {
+            accessibilityValue = valueFormatter.title(for: value)
+        }
     }
 
     private func generateFeedback() {

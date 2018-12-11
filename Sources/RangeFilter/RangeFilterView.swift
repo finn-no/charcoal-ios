@@ -131,8 +131,6 @@ public final class RangeFilterView: UIControl {
     }
 
     public override func layoutSubviews() {
-        super.layoutSubviews()
-
         referenceValueViews.forEach({ view in
             let thumbRectForValue = sliderInputView.thumbRect(for: view.value.value)
             let leadingConstant = thumbRectForValue.midX - (view.frame.width / 2)

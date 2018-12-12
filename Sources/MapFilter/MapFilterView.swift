@@ -2,7 +2,13 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import MapKit
 import UIKit
+
+public protocol MapFilterViewManager {
+    var mapView: UIView { get }
+    func updateSelection(_ point: CLLocationCoordinate2D, radius: Int)
+}
 
 public class MapFilterView: UIView {
     var searchBar: UISearchBar? {
@@ -12,9 +18,8 @@ public class MapFilterView: UIView {
     }
 
     private lazy var mapView: UIView = {
-        let view = UIView(frame: .zero)
+        let view = mapFilterViewManager.mapView
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .ice
         return view
     }()
 
@@ -27,8 +32,11 @@ public class MapFilterView: UIView {
         return slider
     }()
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    private let mapFilterViewManager: MapFilterViewManager
+
+    public init(mapFilterViewManager: MapFilterViewManager) {
+        self.mapFilterViewManager = mapFilterViewManager
+        super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
         setup()
         let searchBar = UISearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
@@ -47,16 +55,16 @@ private extension MapFilterView {
         backgroundColor = .milk
         addSubview(mapView)
         addSubview(distanceSlider)
+
         NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: .mediumSpacing),
-            mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
-            mapView.heightAnchor.constraint(equalToConstant: 150),
+            mapView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+            mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
             distanceSlider.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: .mediumLargeSpacing),
-            distanceSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            distanceSlider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
-            distanceSlider.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -.mediumSpacing),
+            distanceSlider.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
+            distanceSlider.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 
@@ -66,10 +74,10 @@ private extension MapFilterView {
         searchBar.removeFromSuperview()
         addSubview(searchBar)
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
+            searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: -.mediumSpacing),
-            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }

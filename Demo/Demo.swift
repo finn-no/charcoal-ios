@@ -159,7 +159,7 @@ enum ComponentViews: String, CaseIterable {
             return controller
 
         case .mapFilter:
-            return ViewController<MapFilterView>()
+            return MapFilterViewController(mapFilterViewManager: MapViewManager())
         }
     }
 }

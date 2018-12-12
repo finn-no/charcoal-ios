@@ -103,8 +103,8 @@ private extension ValueSliderWithLabelView {
             valueLabel.heightAnchor.constraint(equalToConstant: labelHeight),
 
             sliderView.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: .mediumSpacing),
-            sliderView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
-            sliderView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
+            sliderView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sliderView.trailingAnchor.constraint(equalTo: trailingAnchor),
             sliderView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }

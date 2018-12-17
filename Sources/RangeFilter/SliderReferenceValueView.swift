@@ -4,6 +4,11 @@
 
 import UIKit
 
+struct GenericSliderReferenceValue<T: Comparable>: SliderReferenceValue {
+    let value: T
+    let displayText: String
+}
+
 struct IntSliderReferenceValue: SliderReferenceValue {
     let value: Int
     let displayText: String

@@ -32,7 +32,6 @@
 		465F616F219B7B8B00CF568B /* FilterDataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465F616E219B7B8B00CF568B /* FilterDataQuery.swift */; };
 		4670268D2170D38D00B9C952 /* SteppedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268C2170D38D00B9C952 /* SteppedSlider.swift */; };
 		4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */; };
-		46774F3921BFF19A00ECFED8 /* StepValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46774F3821BFF19A00ECFED8 /* StepValue.swift */; };
 		46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */; };
 		46905233217F0D6000F8E7FD /* VerticalSetupDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */; };
 		4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905239217F5CD000F8E7FD /* Vertical.swift */; };
@@ -225,7 +224,6 @@
 		465F616E219B7B8B00CF568B /* FilterDataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataQuery.swift; sourceTree = "<group>"; };
 		4670268C2170D38D00B9C952 /* SteppedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppedSlider.swift; sourceTree = "<group>"; };
 		4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReferenceValueView.swift; sourceTree = "<group>"; };
-		46774F3821BFF19A00ECFED8 /* StepValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepValue.swift; sourceTree = "<group>"; };
 		46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDistanceValueFormatter.swift; sourceTree = "<group>"; };
 		46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSetupDemo.swift; sourceTree = "<group>"; };
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
@@ -721,7 +719,6 @@
 				46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */,
 				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
 				9B741D1B21B6B1CA00D18097 /* StepSlider.swift */,
-				46774F3821BFF19A00ECFED8 /* StepValue.swift */,
 				9B741D1921B6990800D18097 /* ValueSliderView.swift */,
 				9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */,
 			);
@@ -1168,7 +1165,6 @@
 				46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */,
 				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
-				46774F3921BFF19A00ECFED8 /* StepValue.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				9BB827AD216CD0310014028C /* ListSelectionFilterInfoType.swift in Sources */,

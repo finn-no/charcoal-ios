@@ -3,6 +3,10 @@
 //
 
 class MapDistanceValueFormatter: SliderValueFormatter {
+    func accessibilityValue<ValueKind>(for value: ValueKind) -> String {
+        return title(for: value)
+    }
+
     func title<ValueKind>(for value: ValueKind) -> String {
         guard let value = supportedValueToInt(value) else {
             return ""

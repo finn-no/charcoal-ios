@@ -113,8 +113,8 @@ private extension ValueSliderWithLabelView {
         valueLabel.text = valueFormatter.title(for: value)
     }
 
-    private func updateLabel(with value: SliderReferenceValue) {
-        valueLabel.text = value.displayText
+    private func updateLabel(with text: String) {
+        valueLabel.text = text
     }
 }
 

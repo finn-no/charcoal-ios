@@ -62,7 +62,7 @@ class ValueSliderView<ValueKind: SliderValueKind>: UIView {
         return view
     }()
 
-    private var referenceValueViews = [SliderReferenceValueView<GenericSliderReferenceValue<ValueKind>>]()
+    private var referenceValueViews = [SliderReferenceValueView<ValueKind>]()
 
     private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
 
@@ -130,7 +130,7 @@ class ValueSliderView<ValueKind: SliderValueKind>: UIView {
     override func updateConstraints() {
         super.updateConstraints()
         referenceValueViews.forEach({ view in
-            let thumbRectForValue = thumbRect(for: view.value.value)
+            let thumbRectForValue = thumbRect(for: view.value)
             view.midXConstraint?.constant = thumbRectForValue.midX
         })
     }
@@ -256,10 +256,9 @@ private extension ValueSliderView {
 
     func setupReferenceValueView() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
-        referenceValueViews = range.enumerated().compactMap { (index, element) -> SliderReferenceValueView<GenericSliderReferenceValue<ValueKind>>? in
+        referenceValueViews = range.enumerated().compactMap { (index, element) -> SliderReferenceValueView<ValueKind>? in
             if referenceValueIndexes.contains(index) {
-                let referenceValue = GenericSliderReferenceValue<ValueKind>(value: element, displayText: valueFormatter.title(for: element))
-                return SliderReferenceValueView<GenericSliderReferenceValue<ValueKind>>(value: referenceValue)
+                return SliderReferenceValueView<ValueKind>(value: element, displayText: valueFormatter.title(for: element))
             }
             return nil
         }

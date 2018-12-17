@@ -4,21 +4,7 @@
 
 import UIKit
 
-struct GenericSliderReferenceValue<T: Comparable>: SliderReferenceValue {
-    let value: T
-    let displayText: String
-}
-
-struct IntSliderReferenceValue: SliderReferenceValue {
-    let value: Int
-    let displayText: String
-}
-
-protocol SliderReferenceValue {
-    var displayText: String { get }
-}
-
-final class SliderReferenceValueView<ReferenceValue: SliderReferenceValue>: UIView {
+final class SliderReferenceValueView<ReferenceValue: Comparable>: UIView {
     lazy var indicatorView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -36,15 +22,17 @@ final class SliderReferenceValueView<ReferenceValue: SliderReferenceValue>: UIVi
         label.font = UIFont(name: FontType.light.rawValue, size: 12)
         label.textColor = .licorice
         label.textAlignment = .center
-        label.text = value.displayText
+        label.text = displayText
 
         return label
     }()
 
     let value: ReferenceValue
+    let displayText: String
 
-    init(value: ReferenceValue) {
+    init(value: ReferenceValue, displayText: String) {
         self.value = value
+        self.displayText = displayText
         super.init(frame: .zero)
 
         setup()

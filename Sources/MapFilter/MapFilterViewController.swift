@@ -38,3 +38,9 @@ public class MapFilterViewController: UIViewController {
         ])
     }
 }
+
+extension MapFilterViewController: MapFilterManagerDelegate {
+    public func mapFilterViewManagerDidChangeZoom() {
+        mapFilterView.mapFilterViewManagerDidChangeZoom()
+    }
+}

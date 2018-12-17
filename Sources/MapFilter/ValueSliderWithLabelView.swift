@@ -23,16 +23,16 @@ class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
         return label
     }()
 
-    private lazy var sliderControl: ValueSliderControl<ValueKind> = {
-        let sliderControl = ValueSliderControl<ValueKind>(range: range, valueFormatter: valueFormatter)
-        sliderControl.translatesAutoresizingMaskIntoConstraints = false
-        sliderControl.delegate = self
-        return sliderControl
+    private lazy var sliderView: ValueSliderView<ValueKind> = {
+        let sliderView = ValueSliderView<ValueKind>(range: range, valueFormatter: valueFormatter)
+        sliderView.translatesAutoresizingMaskIntoConstraints = false
+        sliderView.delegate = self
+        return sliderView
     }()
 
     var generatesHapticFeedbackOnSliderValueChange = true {
         didSet {
-            sliderControl.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnSliderValueChange
+            sliderView.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnSliderValueChange
         }
     }
 
@@ -74,12 +74,12 @@ class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
 
     override var accessibilityFrame: CGRect {
         didSet {
-            sliderControl.accessibilityFrame = accessibilityFrame
+            sliderView.accessibilityFrame = accessibilityFrame
         }
     }
 
     func setCurrentValue(_ newValue: ValueKind) {
-        sliderControl.setCurrentValue(newValue, animated: true)
+        sliderView.setCurrentValue(newValue, animated: true)
         updateLabel(with: newValue)
     }
 }
@@ -95,7 +95,7 @@ private extension ValueSliderWithLabelView {
 
     func setup() {
         addSubview(valueLabel)
-        addSubview(sliderControl)
+        addSubview(sliderView)
 
         valueLabel.text = " "
         let labelHeight = valueLabel.sizeThatFits(CGSize(width: Double.greatestFiniteMagnitude, height: Double.greatestFiniteMagnitude)).height
@@ -107,10 +107,10 @@ private extension ValueSliderWithLabelView {
             valueLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             valueLabel.heightAnchor.constraint(equalToConstant: labelHeight),
 
-            sliderControl.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: .mediumSpacing),
-            sliderControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
-            sliderControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
-            sliderControl.bottomAnchor.constraint(equalTo: bottomAnchor),
+            sliderView.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: .mediumSpacing),
+            sliderView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
+            sliderView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
+            sliderView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 
@@ -123,8 +123,8 @@ private extension ValueSliderWithLabelView {
     }
 }
 
-extension ValueSliderWithLabelView: ValueSliderControlDelegate {
-    func valueSliderControl<T: SliderValueKind>(_ valueSliderControl: ValueSliderControl<T>, didChangeValue stepValue: StepValue<T>) {
+extension ValueSliderWithLabelView: ValueSliderViewDelegate {
+    func valueViewControl<T: SliderValueKind>(_ valueSliderView: ValueSliderView<T>, didChangeValue stepValue: StepValue<T>) {
         guard let value = stepValue.value as? ValueKind else {
             return
         }

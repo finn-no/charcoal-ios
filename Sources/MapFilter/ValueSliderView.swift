@@ -6,11 +6,11 @@ import UIKit
 
 typealias SliderValueKind = Comparable & Numeric
 
-protocol ValueSliderControlDelegate: AnyObject {
-    func valueSliderControl<ValueKind: SliderValueKind>(_ valueSliderControl: ValueSliderControl<ValueKind>, didChangeValue: StepValue<ValueKind>)
+protocol ValueSliderViewDelegate: AnyObject {
+    func valueViewControl<ValueKind: SliderValueKind>(_ valueSliderView: ValueSliderView<ValueKind>, didChangeValue: StepValue<ValueKind>)
 }
 
-class ValueSliderControl<ValueKind: SliderValueKind>: UIControl {
+class ValueSliderView<ValueKind: SliderValueKind>: UIView {
     enum StepValueFindResult {
         case exact(stepValue: StepValue<ValueKind>)
         case between(closest: StepValue<ValueKind>, lower: StepValue<ValueKind>, higher: StepValue<ValueKind>)
@@ -41,7 +41,7 @@ class ValueSliderControl<ValueKind: SliderValueKind>: UIControl {
     private lazy var trackView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = ValueSliderControlStyle.trackColor
+        view.backgroundColor = ValueSliderViewStyle.trackColor
         view.layer.cornerRadius = 1.0
 
         return view
@@ -50,7 +50,7 @@ class ValueSliderControl<ValueKind: SliderValueKind>: UIControl {
     private lazy var activeRangeTrackView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = ValueSliderControlStyle.activeRangeTrackColor
+        view.backgroundColor = ValueSliderViewStyle.activeRangeTrackColor
 
         return view
     }()
@@ -80,7 +80,7 @@ class ValueSliderControl<ValueKind: SliderValueKind>: UIControl {
         }
     }
 
-    weak var delegate: ValueSliderControlDelegate?
+    weak var delegate: ValueSliderViewDelegate?
 
     private var previousValueSliderFrame: CGRect = .zero
 
@@ -91,6 +91,10 @@ class ValueSliderControl<ValueKind: SliderValueKind>: UIControl {
         self.valueFormatter = valueFormatter
         super.init(frame: .zero)
         setup()
+    }
+
+    override init(frame: CGRect) {
+        fatalError("init(frame:) has not been implemented")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -129,7 +133,7 @@ class ValueSliderControl<ValueKind: SliderValueKind>: UIControl {
     }
 }
 
-extension ValueSliderControl {
+extension ValueSliderView {
     var currentClosestStepValue: StepValue<ValueKind>? {
         guard let findResult = findClosestStepInRange(for: valueSlider.roundedStepValue?.value) else {
             return nil
@@ -199,7 +203,7 @@ extension ValueSliderControl {
     }
 }
 
-struct ValueSliderControlStyle {
+struct ValueSliderViewStyle {
     static let trackColor: UIColor = .sardine
     static let activeRangeTrackColor: UIColor = .primaryBlue
     static let sliderThumbImage: UIImage? = UIImage(named: .sliderThumb)
@@ -208,7 +212,7 @@ struct ValueSliderControlStyle {
     static let activeRangeTrackHeight: CGFloat = 6.0
 }
 
-private extension ValueSliderControl {
+private extension ValueSliderView {
     func setup() {
         activeRangeTrackView.isHidden = true
         addSubview(trackView)
@@ -231,11 +235,11 @@ private extension ValueSliderControl {
             trackView.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor, constant: .verySmallSpacing),
             trackView.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor, constant: -.verySmallSpacing),
             trackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
-            trackView.heightAnchor.constraint(equalToConstant: ValueSliderControlStyle.trackHeight),
+            trackView.heightAnchor.constraint(equalToConstant: ValueSliderViewStyle.trackHeight),
             activeRangeTrackViewLeadingAnchor,
             activeRangeTrackViewTrailingAnchor,
             activeRangeTrackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
-            activeRangeTrackView.heightAnchor.constraint(equalToConstant: ValueSliderControlStyle.activeRangeTrackHeight),
+            activeRangeTrackView.heightAnchor.constraint(equalToConstant: ValueSliderViewStyle.activeRangeTrackHeight),
 
             referenceValuesContainer.topAnchor.constraint(equalTo: valueSlider.bottomAnchor, constant: .smallSpacing),
             referenceValuesContainer.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor),
@@ -290,7 +294,7 @@ private extension ValueSliderControl {
     }
 }
 
-extension ValueSliderControl: StepSliderDelegate {
+extension ValueSliderView: StepSliderDelegate {
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float) {
         updateActiveTrackRange()
         updateAccesibilityValues()
@@ -300,6 +304,6 @@ extension ValueSliderControl: StepSliderDelegate {
         guard let value = value as? StepValue<ValueKind> else {
             return
         }
-        delegate?.valueSliderControl(self, didChangeValue: value)
+        delegate?.valueViewControl(self, didChangeValue: value)
     }
 }

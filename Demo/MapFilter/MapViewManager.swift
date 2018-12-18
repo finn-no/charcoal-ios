@@ -96,29 +96,9 @@ extension MapViewManager: MKMapViewDelegate {
         isMapLoaded = false
     }
 
-    func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
-        if usesCustomLocateUserButton {
-            let pulseAnimation = CABasicAnimation(keyPath: "opacity")
-            pulseAnimation.fromValue = 0.6
-            pulseAnimation.toValue = 1.0
-            pulseAnimation.repeatCount = Float.greatestFiniteMagnitude
-            pulseAnimation.autoreverses = true
-            pulseAnimation.duration = 0.8
-            locateUserButton.layer.add(pulseAnimation, forKey: pulseAnimationKey)
-        }
-    }
-
-    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
-        locateUserButton.layer.removeAnimation(forKey: pulseAnimationKey)
-    }
-
-    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
-        locateUserButton.layer.removeAnimation(forKey: pulseAnimationKey)
-    }
-
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        locateUserButton.layer.removeAnimation(forKey: pulseAnimationKey)
         guard mode != .none else {
-            print("MKUserTrackingMode turned off")
             return
         }
         let authorizationStatus = CLLocationManager.authorizationStatus()
@@ -138,10 +118,18 @@ extension MapViewManager: MKMapViewDelegate {
         case .authorizedWhenInUse:
             break
         }
-        print("Mode \(mode == .follow)")
         if mode == .followWithHeading {
             mapKitMapView.setUserTrackingMode(.none, animated: false)
             return
+        }
+        if !mapKitMapView.isUserLocationVisible && usesCustomLocateUserButton {
+            let pulseAnimation = CABasicAnimation(keyPath: "opacity")
+            pulseAnimation.fromValue = 0.6
+            pulseAnimation.toValue = 1.0
+            pulseAnimation.repeatCount = Float.greatestFiniteMagnitude
+            pulseAnimation.autoreverses = true
+            pulseAnimation.duration = 0.3
+            locateUserButton.layer.add(pulseAnimation, forKey: pulseAnimationKey)
         }
     }
 }

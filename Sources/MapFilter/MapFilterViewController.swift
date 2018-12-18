@@ -43,4 +43,8 @@ extension MapFilterViewController: MapFilterManagerDelegate {
     public func mapFilterViewManagerDidChangeZoom() {
         mapFilterView.mapFilterViewManagerDidChangeZoom()
     }
+
+    public func mapFilterViewManagerDidLoadMap() {
+        mapFilterView.mapFilterViewManagerDidLoadMap()
+    }
 }

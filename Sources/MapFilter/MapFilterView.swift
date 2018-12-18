@@ -7,9 +7,11 @@ import UIKit
 
 public protocol MapFilterManagerDelegate: AnyObject {
     func mapFilterViewManagerDidChangeZoom()
+    func mapFilterViewManagerDidLoadMap()
 }
 
 public protocol MapFilterViewManager {
+    var isMapLoaded: Bool { get }
     var mapView: UIView { get }
     func mapViewLengthForMeters(_: Int) -> CGFloat
     func pan(to point: CLLocationCoordinate2D, radius: Int)
@@ -67,7 +69,9 @@ public class MapFilterView: UIView {
         searchBar.backgroundColor = .milk
         setupSearchBar(UISearchBar(frame: .zero))
         distanceSlider.setCurrentValue(currentRadius)
-        mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
+        if mapFilterViewManager.isMapLoaded {
+            mapFilterViewManagerDidLoadMap()
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -119,6 +123,11 @@ private extension MapFilterView {
 
 extension MapFilterView: MapFilterManagerDelegate {
     public func mapFilterViewManagerDidChangeZoom() {
+        mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
+    }
+
+    public func mapFilterViewManagerDidLoadMap() {
+        mapSelectionCircleView.isHidden = false
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
     }
 }

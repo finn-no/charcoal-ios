@@ -22,6 +22,13 @@ public class MapFilterView: UIView {
         }
     }
 
+    private lazy var mapContainerView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        return view
+    }()
+
     private lazy var mapSelectionCircleView: CircularView = {
         let view = CircularView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -71,11 +78,17 @@ public class MapFilterView: UIView {
 private extension MapFilterView {
     func setup() {
         backgroundColor = .milk
-        addSubview(mapView)
-        addSubview(mapSelectionCircleView)
+        mapContainerView.addSubview(mapView)
+        mapContainerView.addSubview(mapSelectionCircleView)
+        addSubview(mapContainerView)
         addSubview(distanceSlider)
 
         NSLayoutConstraint.activate([
+            mapContainerView.topAnchor.constraint(equalTo: mapView.topAnchor),
+            mapContainerView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor),
+            mapContainerView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
+            mapContainerView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+
             mapView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),

@@ -14,7 +14,7 @@ public final class RangeFilterView: UIControl {
 
     private lazy var numberInputView: RangeNumberInputView = {
         let inputFontSize = usesSmallNumberInputFont ? RangeNumberInputView.InputFontSize.small : RangeNumberInputView.InputFontSize.large
-        let rangeNumberInputView = RangeNumberInputView(range: range, unit: unit, formatter: formatter, inputFontSize: inputFontSize, displaysUnitInNumberInput: displaysUnitInNumberInput)
+        let rangeNumberInputView = RangeNumberInputView(minValue: range.lowerBound, unit: unit, formatter: formatter, inputFontSize: inputFontSize, displaysUnitInNumberInput: displaysUnitInNumberInput)
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
 
@@ -68,7 +68,7 @@ public final class RangeFilterView: UIControl {
     }
 
     private var inputValues = [InputValue: RangeValue]()
-    private var referenceValueViews = [RangeReferenceValueView]()
+    private var referenceValueViews = [SliderReferenceValueView<RangeValue>]()
 
     public typealias RangeValue = Int
     public typealias InputRange = ClosedRange<RangeValue>
@@ -187,7 +187,9 @@ private extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        referenceValueViews = referenceValues.map({ RangeReferenceValueView(value: $0, unit: unit, formatter: formatter) })
+        referenceValueViews = referenceValues.map({ (referenceValue) -> SliderReferenceValueView<RangeValue> in
+            return SliderReferenceValueView(value: referenceValue, displayText: formatter.string(from: referenceValue, isCurrency: isValueCurrency) ?? "")
+        })
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false

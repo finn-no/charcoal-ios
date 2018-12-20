@@ -4,7 +4,7 @@
 
 import UIKit
 
-final class RangeReferenceValueView: UIView {
+final class SliderReferenceValueView<ReferenceValue: Comparable>: UIView {
     lazy var indicatorView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -14,6 +14,7 @@ final class RangeReferenceValueView: UIView {
     }()
 
     weak var leadingConstraint: NSLayoutConstraint?
+    weak var midXConstraint: NSLayoutConstraint?
 
     lazy var referenceLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -21,26 +22,23 @@ final class RangeReferenceValueView: UIView {
         label.font = UIFont(name: FontType.light.rawValue, size: 12)
         label.textColor = .licorice
         label.textAlignment = .center
+        label.text = displayText
 
         return label
     }()
 
-    let value: RangeFilterView.RangeValue
-    let unit: String
-    let formatter: RangeFilterValueFormatter
+    let value: ReferenceValue
+    let displayText: String
 
-    init(value: RangeFilterView.RangeValue, unit: String, formatter: RangeFilterValueFormatter) {
+    init(value: ReferenceValue, displayText: String) {
         self.value = value
-        self.unit = unit
-        self.formatter = formatter
+        self.displayText = displayText
         super.init(frame: .zero)
 
         setup()
     }
 
     func setup() {
-        referenceLabel.text = formatter.string(from: value)?.appending(" \(unit)")
-
         addSubview(indicatorView)
         addSubview(referenceLabel)
 

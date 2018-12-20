@@ -72,7 +72,6 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
         } else {
             slideEnded = true
         }
-        print("slideEnded? \(slideEnded)")
 
         guard let newValue = roundedStepValue(fromValue: slider.value) else {
             return

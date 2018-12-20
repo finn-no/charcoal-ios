@@ -256,12 +256,10 @@ private extension ValueSliderView {
 
     func setupReferenceValueView() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
-        referenceValueViews = range.enumerated().compactMap { (index, element) -> SliderReferenceValueView<ValueKind>? in
-            if referenceValueIndexes.contains(index) {
-                return SliderReferenceValueView<ValueKind>(value: element, displayText: valueFormatter.title(for: element))
-            }
-            return nil
-        }
+        referenceValueViews = referenceValueIndexes.map({ index in
+            let referenceValue = range[index]
+            return SliderReferenceValueView<ValueKind>(value: referenceValue, displayText: valueFormatter.title(for: referenceValue))
+        })
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false

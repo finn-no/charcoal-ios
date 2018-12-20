@@ -5,16 +5,16 @@
 import MapKit
 import UIKit
 
-public protocol MapFilterManagerDelegate: AnyObject {
-    func mapFilterViewManagerDidChangeZoom()
-    func mapFilterViewManagerDidLoadMap()
+public protocol MapFilterViewManagerDelegate: AnyObject {
+    func mapFilterViewManagerDidChangeZoom(_ mapFilterViewManager: MapFilterViewManager)
+    func mapFilterViewManagerDidLoadMap(_ mapFilterViewManager: MapFilterViewManager)
 }
 
 public protocol MapFilterViewManager {
     var isMapLoaded: Bool { get }
     var mapView: UIView { get }
     func mapViewLengthForMeters(_: Int) -> CGFloat
-    func pan(to point: CLLocationCoordinate2D, radius: Int)
+    func selectionRadiusChangedTo(_ radius: Int)
 }
 
 public class MapFilterView: UIView {
@@ -25,7 +25,7 @@ public class MapFilterView: UIView {
     }
 
     private lazy var mapContainerView: UIView = {
-        let view = UIView(frame: .zero)
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         return view
@@ -38,6 +38,15 @@ public class MapFilterView: UIView {
         view.layer.borderColor = .primaryBlue
         view.layer.borderWidth = 3
         view.isUserInteractionEnabled = false
+        return view
+    }()
+
+    private lazy var mapSelectionCircleCenterPointView: CircularView = {
+        let view = CircularView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .milk
+        view.isUserInteractionEnabled = false
+        view.radius = 3
         return view
     }()
 
@@ -58,7 +67,7 @@ public class MapFilterView: UIView {
     }()
 
     private let mapFilterViewManager: MapFilterViewManager
-    private var currentRadius = 250
+    private var currentRadius = 40000
 
     public init(mapFilterViewManager: MapFilterViewManager) {
         self.mapFilterViewManager = mapFilterViewManager
@@ -70,7 +79,8 @@ public class MapFilterView: UIView {
         setupSearchBar(UISearchBar(frame: .zero))
         distanceSlider.setCurrentValue(currentRadius)
         if mapFilterViewManager.isMapLoaded {
-            mapFilterViewManagerDidLoadMap()
+            mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
+            showSelectionView()
         }
     }
 
@@ -84,6 +94,7 @@ private extension MapFilterView {
         backgroundColor = .milk
         mapContainerView.addSubview(mapView)
         mapContainerView.addSubview(mapSelectionCircleView)
+        mapSelectionCircleView.addSubview(mapSelectionCircleCenterPointView)
         addSubview(mapContainerView)
         addSubview(distanceSlider)
 
@@ -99,6 +110,9 @@ private extension MapFilterView {
 
             mapSelectionCircleView.centerXAnchor.constraint(equalTo: mapView.centerXAnchor),
             mapSelectionCircleView.centerYAnchor.constraint(equalTo: mapView.centerYAnchor),
+
+            mapSelectionCircleCenterPointView.centerXAnchor.constraint(equalTo: mapSelectionCircleView.centerXAnchor),
+            mapSelectionCircleCenterPointView.centerYAnchor.constraint(equalTo: mapSelectionCircleView.centerYAnchor),
 
             distanceSlider.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: .mediumLargeSpacing),
             distanceSlider.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
@@ -119,16 +133,21 @@ private extension MapFilterView {
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
+
+    func showSelectionView() {
+        mapSelectionCircleView.isHidden = false
+        mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
+    }
 }
 
-extension MapFilterView: MapFilterManagerDelegate {
-    public func mapFilterViewManagerDidChangeZoom() {
+extension MapFilterView: MapFilterViewManagerDelegate {
+    public func mapFilterViewManagerDidChangeZoom(_ mapFilterViewManager: MapFilterViewManager) {
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
     }
 
-    public func mapFilterViewManagerDidLoadMap() {
-        mapSelectionCircleView.isHidden = false
-        mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
+    public func mapFilterViewManagerDidLoadMap(_ mapFilterViewManager: MapFilterViewManager) {
+        mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
+        showSelectionView()
     }
 }
 
@@ -139,6 +158,7 @@ extension MapFilterView: ValueSliderWithLabelViewDelegate {
         }
         currentRadius = value
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
+        mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
     }
 }
 

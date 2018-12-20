@@ -20,7 +20,8 @@ enum ImageAsset: String {
     case checkboxPartial
     case disclosureIndicator
     case externalLink
-    case locateUser
+    case locateUserFilled
+    case locateUserOutlined
     case minusButton
     case plusButton
     case popoverArrow
@@ -39,7 +40,8 @@ enum ImageAsset: String {
             .checkboxPartial,
             .disclosureIndicator,
             .externalLink,
-            .locateUser,
+            .locateUserFilled,
+            .locateUserOutlined,
             .minusButton,
             .plusButton,
             .popoverArrow,

@@ -39,12 +39,12 @@ public class MapFilterViewController: UIViewController {
     }
 }
 
-extension MapFilterViewController: MapFilterManagerDelegate {
-    public func mapFilterViewManagerDidChangeZoom() {
-        mapFilterView.mapFilterViewManagerDidChangeZoom()
+extension MapFilterViewController: MapFilterViewManagerDelegate {
+    public func mapFilterViewManagerDidChangeZoom(_ mapFilterViewManager: MapFilterViewManager) {
+        mapFilterView.mapFilterViewManagerDidChangeZoom(mapFilterViewManager)
     }
 
-    public func mapFilterViewManagerDidLoadMap() {
-        mapFilterView.mapFilterViewManagerDidLoadMap()
+    public func mapFilterViewManagerDidLoadMap(_ mapFilterViewManager: MapFilterViewManager) {
+        mapFilterView.mapFilterViewManagerDidLoadMap(mapFilterViewManager)
     }
 }

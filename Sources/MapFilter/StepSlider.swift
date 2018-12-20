@@ -7,6 +7,7 @@ import UIKit
 protocol StepSliderDelegate: AnyObject {
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float)
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind)
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind)
 }
 
 class StepSlider<StepValueKind: Comparable>: UISlider {
@@ -29,7 +30,7 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
         maximumValue = Float(range.count - 1)
         setThumbImage(RangeSliderView.Style.sliderThumbImage, for: .normal)
         setThumbImage(RangeSliderView.Style.activeSliderThumbImage, for: .highlighted)
-        addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        addTarget(self, action: #selector(sliderValueChanged(sender:event:)), for: .valueChanged)
     }
 
     func translateValueToNormalizedRangeStartingFromZeroValue(value: StepValueKind) -> Float {
@@ -64,8 +65,16 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
         updateAccessibilityValue()
     }
 
-    @objc func sliderValueChanged(sender: UISlider) {
-        guard let newValue = roundedStepValue(fromValue: sender.value) else {
+    @objc func sliderValueChanged(sender slider: UISlider, event: UIEvent) {
+        let slideEnded: Bool
+        if let touch = event.allTouches?.first, touch.phase != .ended {
+            slideEnded = false
+        } else {
+            slideEnded = true
+        }
+        print("slideEnded? \(slideEnded)")
+
+        guard let newValue = roundedStepValue(fromValue: slider.value) else {
             return
         }
         value = translateValueToNormalizedRangeStartingFromZeroValue(value: newValue)
@@ -80,6 +89,10 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
         previousRoundedStepValue = newValue
         updateAccessibilityValue()
         delegate?.stepSlider(self, didChangeValue: value)
+
+        if slideEnded {
+            delegate?.stepSlider(self, didEndSlideInteraction: newValue)
+        }
     }
 
     override func accessibilityDecrement() {

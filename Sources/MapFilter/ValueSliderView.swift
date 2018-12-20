@@ -7,7 +7,7 @@ import UIKit
 typealias SliderValueKind = Comparable & Numeric
 
 protocol ValueSliderViewDelegate: AnyObject {
-    func valueViewControl<ValueKind: SliderValueKind>(_ valueSliderView: ValueSliderView<ValueKind>, didChangeValue: ValueKind)
+    func valueViewControl<ValueKind: SliderValueKind>(_ valueSliderView: ValueSliderView<ValueKind>, didChangeValue: ValueKind, didFinishSlideInteraction: Bool)
 }
 
 class ValueSliderView<ValueKind: SliderValueKind>: UIView {
@@ -309,6 +309,13 @@ extension ValueSliderView: StepSliderDelegate {
         guard let value = value as? ValueKind else {
             return
         }
-        delegate?.valueViewControl(self, didChangeValue: value)
+        delegate?.valueViewControl(self, didChangeValue: value, didFinishSlideInteraction: false)
+    }
+
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind) where StepValueKind: Comparable {
+        guard let value = value as? ValueKind else {
+            return
+        }
+        delegate?.valueViewControl(self, didChangeValue: value, didFinishSlideInteraction: true)
     }
 }

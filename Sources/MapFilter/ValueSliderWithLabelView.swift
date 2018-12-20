@@ -119,15 +119,17 @@ private extension ValueSliderWithLabelView {
 }
 
 extension ValueSliderWithLabelView: ValueSliderViewDelegate {
-    func valueViewControl<T: SliderValueKind>(_ valueSliderView: ValueSliderView<T>, didChangeValue value: T) {
+    func valueViewControl<T: SliderValueKind>(_ valueSliderView: ValueSliderView<T>, didChangeValue value: T, didFinishSlideInteraction slideEnded: Bool) {
         guard let value = value as? ValueKind else {
             return
         }
         let didValueChange = currentValue != value
         if didValueChange {
-            currentValue = value
             updateLabel(with: value)
-            delegate?.valueSliderWithLabelView(self, didSetValue: currentValue)
+            if slideEnded {
+                currentValue = value
+                delegate?.valueSliderWithLabelView(self, didSetValue: currentValue)
+            }
         }
     }
 }

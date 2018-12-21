@@ -134,7 +134,7 @@ enum ComponentViews: String, CaseIterable {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider())
+            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             let stateController = rootFilterNavigator.start()
@@ -160,8 +160,8 @@ enum ComponentViews: String, CaseIterable {
 
         case .mapFilter:
             let mapViewManager = MapViewManager()
-            let mapFilterViewController = MapFilterViewController(mapFilterViewManager: mapViewManager)
-            mapViewManager.delegate = mapFilterViewController
+            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
+            mapFilterViewController.mapFilterViewManager = mapViewManager
             return mapFilterViewController
         }
     }
@@ -186,7 +186,7 @@ enum FullscreenViews: String, CaseIterable {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider())
+        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         let stateController = rootFilterNavigator.start()
@@ -252,6 +252,13 @@ class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
     }
 
     func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
+    }
+
+    func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType) {
+    }
+
+    func geoValue(for filterInfo: FilterInfoType) -> (latitude: Double, longitude: Double, radius: Int, locationName: String?)? {
+        return nil
     }
 }
 

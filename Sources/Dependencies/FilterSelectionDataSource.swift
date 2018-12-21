@@ -84,4 +84,6 @@ public protocol FilterSelectionDataSource: AnyObject {
     func setValue(_ range: RangeValue, for filterInfo: FilterInfoType)
 
     func stepperValue(for filterInfo: StepperFilterInfoType) -> Int?
+    func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType)
+    func geoValue(for filterInfo: FilterInfoType) -> (latitude: Double, longitude: Double, radius: Int, locationName: String?)?
 }

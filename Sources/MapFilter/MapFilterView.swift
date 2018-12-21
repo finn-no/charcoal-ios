@@ -10,11 +10,13 @@ public protocol MapFilterViewManagerDelegate: AnyObject {
     func mapFilterViewManagerDidLoadMap(_ mapFilterViewManager: MapFilterViewManager)
 }
 
-public protocol MapFilterViewManager {
+public protocol MapFilterViewManager: AnyObject {
+    var mapFilterViewManagerDelegate: MapFilterViewManagerDelegate? { get set }
     var isMapLoaded: Bool { get }
     var mapView: UIView { get }
     func mapViewLengthForMeters(_: Int) -> CGFloat
     func selectionRadiusChangedTo(_ radius: Int)
+    var centerCoordinate: CLLocationCoordinate2D? { get set }
 }
 
 public class MapFilterView: UIView {
@@ -67,7 +69,10 @@ public class MapFilterView: UIView {
     }()
 
     private let mapFilterViewManager: MapFilterViewManager
-    private var currentRadius = 40000
+    private(set) var currentRadius = 40000
+    var centerPoint: CLLocationCoordinate2D? {
+        return mapFilterViewManager.centerCoordinate
+    }
 
     public init(mapFilterViewManager: MapFilterViewManager) {
         self.mapFilterViewManager = mapFilterViewManager
@@ -82,10 +87,18 @@ public class MapFilterView: UIView {
             mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
             showSelectionView()
         }
+        self.mapFilterViewManager.mapFilterViewManagerDelegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public func setInitialSelection(latitude: Double, longitude: Double, radius: Int, locationName: String?) {
+        mapFilterViewManager.centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        currentRadius = radius
+        searchBar?.text = locationName
+        distanceSlider.setCurrentValue(currentRadius)
     }
 }
 
@@ -117,7 +130,7 @@ private extension MapFilterView {
             distanceSlider.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: .mediumLargeSpacing),
             distanceSlider.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             distanceSlider.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor),
+            distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
         ])
     }
 

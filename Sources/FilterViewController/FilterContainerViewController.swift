@@ -24,6 +24,7 @@ public extension ScrollableContainerViewController {
 public protocol FilterContainerViewControllerDelegate: AnyObject {
     func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType)
     func filterContainerViewControllerDidChangeSelection(filterContainerViewController: FilterContainerViewController)
+    func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateToMapFor filterInfo: FilterInfoType)
 }
 
 public protocol FilterContainerViewController: AnyObject {

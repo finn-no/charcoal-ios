@@ -8,6 +8,7 @@ public class FilterNavigator {
     public enum Destination {
         case subLevel(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate?, parent: ApplySelectionButtonOwner)
         case root
+        case map(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate?, parent: ApplySelectionButtonOwner)
     }
 
     typealias Factory = SublevelViewControllerFactory
@@ -36,6 +37,13 @@ public class FilterNavigator {
             navigationController.pushViewController(sublevelViewController, animated: true)
         case .root:
             navigationController.popToRootViewController(animated: true)
+        case let .map(filterInfo, delegate, parent):
+            guard let mapFilterViewController = factory.makeMapFilterViewController(from: filterInfo, navigator: self, delegate: delegate) else {
+                return
+            }
+            mapFilterViewController.showsApplySelectionButton = true
+            mapFilterViewController.parentApplySelectionButtonOwner = parent
+            navigationController.pushViewController(mapFilterViewController, animated: true)
         }
     }
 }

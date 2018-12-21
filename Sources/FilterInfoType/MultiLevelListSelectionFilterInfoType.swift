@@ -8,4 +8,5 @@ public protocol MultiLevelListSelectionFilterInfoType: AnyObject, FilterInfoType
     var results: Int { get }
     var value: String { get }
     var hasParent: Bool { get }
+    var isMapFilter: Bool { get }
 }

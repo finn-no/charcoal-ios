@@ -22,6 +22,7 @@ enum ImageAsset: String {
     case externalLink
     case locateUserFilled
     case locateUserOutlined
+    case mapFilterIcon
     case minusButton
     case plusButton
     case popoverArrow
@@ -42,6 +43,7 @@ enum ImageAsset: String {
             .externalLink,
             .locateUserFilled,
             .locateUserOutlined,
+            .mapFilterIcon,
             .minusButton,
             .plusButton,
             .popoverArrow,

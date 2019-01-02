@@ -119,7 +119,10 @@ class DemoListFilterSelectionDataSource: FilterSelectionDataSource {
     func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType) {
     }
 
-    func geoValue(for filterInfo: FilterInfoType) -> (latitude: Double, longitude: Double, radius: Int, locationName: String?)? {
+    func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
+    }
+
+    func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
         return nil
     }
 }

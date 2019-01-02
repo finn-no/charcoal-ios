@@ -148,7 +148,7 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         }
     }
 
-    func geoLocation() -> (latitude: Double, longitude: Double, radius: Int, locationName: String?)? {
+    func geoLocation() -> GeoFilterValue? {
         guard let latitudeStr = selectionValues[GeoKey.latitude]?.first,
             let longitudeStr = selectionValues[GeoKey.longitude]?.first,
             let radiusStr = selectionValues[GeoKey.radius]?.first else {
@@ -158,7 +158,7 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
             return nil
         }
         let locationName = selectionValues[GeoKey.locationName]?.first
-        return (latitude, longitude, radius, locationName)
+        return GeoFilterValue(latitude: latitude, longitude: longitude, radius: radius, locationName: locationName)
     }
 
     func intOrNil(from value: String?) -> Int? {
@@ -419,7 +419,11 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         DebugLog.write(self)
     }
 
-    public func geoValue(for filterInfo: FilterInfoType) -> (latitude: Double, longitude: Double, radius: Int, locationName: String?)? {
+    public func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
+        setValue(latitude: geoFilterValue.latitude, longitude: geoFilterValue.longitude, radius: geoFilterValue.radius, locationName: geoFilterValue.locationName, for: filterInfo)
+    }
+
+    public func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
         return geoLocation()
     }
 }

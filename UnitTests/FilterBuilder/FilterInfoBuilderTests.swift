@@ -182,4 +182,23 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertEqual(isSelectionFilter, false)
         XCTAssertEqual(isMultiLevelSelectionFilter, true)
     }
+
+    func testFilterInfoBuilderBuildsLocationFilterWithMapFilterEnabled() {
+        // Given
+        let filter = decodedTestFilter
+        let builder: FilterInfoBuilder?
+        if let filter = filter {
+            builder = FilterInfoBuilder(filter: filter, selectionDataSource: ParameterBasedFilterInfoSelectionDataSource(queryItems: []))
+        } else {
+            builder = nil
+        }
+
+        // When
+        let buildResult = builder?.build()
+        let areaFilterInfo = buildResult?.filters.first(where: { $0.title == "Område" }) as? ListSelectionFilterInfo
+
+        // Then
+        XCTAssertNotNil(areaFilterInfo)
+        XCTAssertTrue(areaFilterInfo?.isMapFilter ?? false)
+    }
 }

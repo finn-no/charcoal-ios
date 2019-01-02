@@ -66,11 +66,11 @@ private extension FilterInfoBuilder {
         return preferences
     }
 
-    func buildSelectionListFilterInfo(from filterData: FilterData, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> ListSelectionFilterInfo? {
+    func buildSelectionListFilterInfo(from filterData: FilterData, isMapFilter: Bool, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> ListSelectionFilterInfo? {
         let values = filterData.queries.map({ FilterValue(title: $0.title, results: $0.totalResults, value: $0.value, parameterName: filterData.parameterName) })
         values.forEach({ lookup[$0.lookupKey] = $0 })
 
-        return ListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true)
+        return ListSelectionFilterInfo(parameterName: filterData.parameterName, title: filterData.title, values: values, isMultiSelect: true, isMapFilter: isMapFilter)
     }
 
     func buildMultiLevelListSelectionFilterInfo(fromFilterData filterData: FilterData, isMapFilter: Bool, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> MultiLevelListSelectionFilterInfo? {
@@ -126,7 +126,7 @@ private extension FilterInfoBuilder {
                     filterInfo.append(mulitLevelSelectionFilterInfo)
                 }
             } else if FilterInfoBuilder.isListSelectionFilter(filterData: filterData) {
-                if let selectionListFilterInfo = buildSelectionListFilterInfo(from: filterData, addValuesTo: &lookup) {
+                if let selectionListFilterInfo = buildSelectionListFilterInfo(from: filterData, isMapFilter: key == mapKey, addValuesTo: &lookup) {
                     filterInfo.append(selectionListFilterInfo)
                 }
             }

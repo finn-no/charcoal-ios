@@ -14,6 +14,10 @@ class DemoListSelectionFilterInfo: ListSelectionFilterInfoType {
         return true
     }
 
+    var isMapFilter: Bool {
+        return false
+    }
+
     var title: String {
         return "Topp kategori"
     }

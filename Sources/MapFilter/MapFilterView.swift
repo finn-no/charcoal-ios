@@ -74,6 +74,12 @@ public class MapFilterView: UIView {
         return mapFilterViewManager.centerCoordinate
     }
 
+    private var updateViewDispatchWorkItem: DispatchWorkItem? {
+        didSet {
+            oldValue?.cancel()
+        }
+    }
+
     public init(mapFilterViewManager: MapFilterViewManager) {
         self.mapFilterViewManager = mapFilterViewManager
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
@@ -92,6 +98,24 @@ public class MapFilterView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        // Update radius so it fits for new view sizes
+        if mapFilterViewManager.isMapLoaded {
+            let updateViewWorkItem = DispatchWorkItem { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.mapSelectionCircleView.radius = self.mapFilterViewManager.mapViewLengthForMeters(self.currentRadius)
+                self.mapFilterViewManager.selectionRadiusChangedTo(self.currentRadius)
+            }
+            updateViewDispatchWorkItem = updateViewWorkItem
+            // Use a delay incase the view is being changed to new sizes by user
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
+        }
     }
 
     public func setInitialSelection(latitude: Double, longitude: Double, radius: Int, locationName: String?) {

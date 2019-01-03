@@ -142,8 +142,8 @@ private extension MapFilterView {
             mapContainerView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
 
             mapView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
+            mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
 
             mapSelectionCircleView.centerXAnchor.constraint(equalTo: mapView.centerXAnchor),
             mapSelectionCircleView.centerYAnchor.constraint(equalTo: mapView.centerYAnchor),
@@ -162,12 +162,13 @@ private extension MapFilterView {
         guard let searchBar = searchBar else { return }
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.removeFromSuperview()
+        searchBar.preservesSuperviewLayoutMargins = false
         addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
-            searchBar.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: -.mediumSpacing),
-            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            searchBar.bottomAnchor.constraint(equalTo: mapView.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
         ])
     }
 

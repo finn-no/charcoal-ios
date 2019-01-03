@@ -29,7 +29,7 @@ public class SearchQueryViewController: UIViewController {
     private var didClearText = false
 
     private(set) lazy var searchBar: UISearchBar = {
-        let searchBar = SearchQueryCellSearchBar(frame: .zero)
+        let searchBar = SearchQuerySearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         searchBar.backgroundColor = .milk
@@ -181,5 +181,37 @@ private extension SearchQueryViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+}
+
+// MARK: - Private class
+
+private class SearchQuerySearchBar: UISearchBar {
+    // Makes sure to setup appearance proxy one time and one time only
+    private static let setupSearchQuerySearchBarAppereanceOnce: () = {
+        let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableViewCell.self])
+        textFieldAppearanceInRoot.defaultTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
+            NSAttributedString.Key.font: UIFont.regularBody,
+        ]
+
+        let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [SearchQuerySearchBar.self])
+        textFieldAppearanceInSearch.defaultTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.licorice,
+            NSAttributedString.Key.font: UIFont.regularBody,
+        ]
+
+        let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [SearchQuerySearchBar.self])
+        barButtondAppearance.title = "cancel".localized()
+    }()
+
+    override init(frame: CGRect) {
+        _ = SearchQuerySearchBar.setupSearchQuerySearchBarAppereanceOnce
+        super.init(frame: frame)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        _ = SearchQuerySearchBar.setupSearchQuerySearchBarAppereanceOnce
+        super.init(coder: aDecoder)
     }
 }

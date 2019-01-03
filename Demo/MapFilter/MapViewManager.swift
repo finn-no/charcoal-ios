@@ -16,7 +16,7 @@ class MapViewManager: NSObject, MapFilterViewManager {
             guard let newCenter = newValue else {
                 return
             }
-            mapKitMapView.setCenter(newCenter, animated: true)
+            mapKitMapView.setCenter(newCenter, animated: false)
         }
     }
 
@@ -123,8 +123,6 @@ class MapViewManager: NSObject, MapFilterViewManager {
 extension MapViewManager: MKMapViewDelegate {
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeZoom(self)
-        locateUserButton.isHighlighted = false
-        locationManager.stopUpdatingLocation()
     }
 
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {

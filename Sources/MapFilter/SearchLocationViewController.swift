@@ -69,6 +69,7 @@ public class SearchLocationViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(IconTitleTableViewCell.self)
+        tableView.register(BasicTableViewCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -128,7 +129,7 @@ extension SearchLocationViewController: UITableViewDataSource {
             cell.configure(with: LocationCellViewModel(title: location?.name ?? ""))
             return cell
         case .results:
-            let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
+            let cell = tableView.dequeue(BasicTableViewCell.self, for: indexPath)
             let location = locations[safe: indexPath.row]
             cell.configure(with: LocationCellViewModel(title: location?.name ?? ""))
             return cell

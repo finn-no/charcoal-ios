@@ -56,6 +56,8 @@ class MapViewManager: NSObject, MapFilterViewManager {
         return locationManager
     }()
 
+    private var nextRegionChangeIsFromUserInteraction = false
+
     override init() {
         mapKitMapView = MKMapView(frame: .zero)
         super.init()
@@ -121,8 +123,22 @@ class MapViewManager: NSObject, MapFilterViewManager {
 }
 
 extension MapViewManager: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        guard let gestureRecognizers = mapView.subviews.first?.gestureRecognizers else {
+            return
+        }
+        // Look through gesture recognizers to determine whether this region change is from user interaction
+        for gestureRecogizer in gestureRecognizers {
+            if gestureRecogizer.state == .began || gestureRecogizer.state == .ended {
+                nextRegionChangeIsFromUserInteraction = true
+                break
+            }
+        }
+    }
+
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeZoom(self)
+        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeRegion(self, userInitiated: nextRegionChangeIsFromUserInteraction, animated: animated)
+        nextRegionChangeIsFromUserInteraction = false
     }
 
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {

@@ -6,7 +6,7 @@ import MapKit
 import UIKit
 
 public protocol MapFilterViewManagerDelegate: AnyObject {
-    func mapFilterViewManagerDidChangeZoom(_ mapFilterViewManager: MapFilterViewManager)
+    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool)
     func mapFilterViewManagerDidLoadMap(_ mapFilterViewManager: MapFilterViewManager)
 }
 
@@ -179,7 +179,7 @@ private extension MapFilterView {
 }
 
 extension MapFilterView: MapFilterViewManagerDelegate {
-    public func mapFilterViewManagerDidChangeZoom(_ mapFilterViewManager: MapFilterViewManager) {
+    public func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool) {
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
     }
 

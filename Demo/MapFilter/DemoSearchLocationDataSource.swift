@@ -12,6 +12,8 @@ private struct DemoLocation: LocationInfo {
 }
 
 class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
+    private let norwayMapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 66.149, longitude: 17.654), span: MKCoordinateSpan(latitudeDelta: 19.854, longitudeDelta: 28.125))
+
     private var localSearch: MKLocalSearch?
 
     private lazy var localSearchCompleter: NSObject? = {
@@ -19,9 +21,7 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
             let localSearchCompleter = MKLocalSearchCompleter()
             localSearchCompleter.delegate = self
             localSearchCompleter.filterType = .locationsOnly
-            // Region that contains Norway
-            localSearchCompleter.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 66.149068058495473, longitude: 17.653576306638673),
-                                                             span: MKCoordinateSpan(latitudeDelta: 19.853012316209828, longitudeDelta: 28.124998591005721))
+            localSearchCompleter.region = norwayMapRegion
             return localSearchCompleter
         } else {
             return nil
@@ -43,6 +43,7 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
     private let locations = [
         DemoLocation(name: "Water", latitude: 59.00911958255264, longitude: 10.40964093117625),
         DemoLocation(name: "Countryside", latitude: 60.00227524, longitude: 10.7310662),
+        DemoLocation(name: "Grensen 5-7, Oslo", latitude: 59.913833, longitude: 10.743777),
     ]
 
     func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didRequestLocationsFor searchQuery: String, completion: @escaping ((SearchLocationDataSourceResult) -> Void)) {
@@ -54,15 +55,12 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
             searchCompletionHandler = nil
             localSearchCompleter.cancel()
             searchCompletionHandler = completion
-            print("searchQuery: \(searchQuery)")
             localSearchCompleter.queryFragment = searchQuery
         } else {
             localSearch?.cancel()
             let request = MKLocalSearch.Request()
             request.naturalLanguageQuery = searchQuery
-            // Region that contains Norway
-            request.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 66.149068058495473, longitude: 17.653576306638673),
-                                                span: MKCoordinateSpan(latitudeDelta: 19.853012316209828, longitudeDelta: 28.124998591005721))
+            request.region = norwayMapRegion
             localSearch = MKLocalSearch(request: request)
             localSearch?.start { response, error in
                 if let error = error {
@@ -80,7 +78,7 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
     }
 
     func homeAddressLocation(in searchLocationViewController: SearchLocationViewController) -> LocationInfo? {
-        return DemoLocation(name: "Grensen 5-7, Oslo", latitude: 59.91383369869115, longitude: 10.743777933233664)
+        return DemoLocation(name: "Grensen 5-7, Oslo", latitude: 59.913833, longitude: 10.743777)
     }
 
     func showCurrentLocation(in searchLocationViewController: SearchLocationViewController) -> Bool {

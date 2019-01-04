@@ -7,16 +7,14 @@ import UIKit
 
 public protocol MapFilterViewManagerDelegate: AnyObject {
     func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool)
-    func mapFilterViewManagerDidLoadMap(_ mapFilterViewManager: MapFilterViewManager)
 }
 
 public protocol MapFilterViewManager: AnyObject {
     var mapFilterViewManagerDelegate: MapFilterViewManagerDelegate? { get set }
-    var isMapLoaded: Bool { get }
-    var mapView: UIView { get }
     func mapViewLengthForMeters(_: Int) -> CGFloat
     func selectionRadiusChangedTo(_ radius: Int)
     var centerCoordinate: CLLocationCoordinate2D? { get set }
+    func addMapView(toFillInside containerView: UIView)
 }
 
 public class MapFilterView: UIView {
@@ -52,12 +50,6 @@ public class MapFilterView: UIView {
         return view
     }()
 
-    private lazy var mapView: UIView = {
-        let view = mapFilterViewManager.mapView
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     private lazy var distanceSlider: ValueSliderWithLabelView<Int> = {
         let meterStepValues = [200, 300, 400, 500, 700, 1000, 1500, 2000, 5000, 10000, 20000, 30000, 50000, 75000, 100_000]
         let referenceIndexes = [1, Int(meterStepValues.count / 2), meterStepValues.count - 2]
@@ -89,10 +81,8 @@ public class MapFilterView: UIView {
         searchBar.backgroundColor = .milk
         setupSearchBar(UISearchBar(frame: .zero))
         distanceSlider.setCurrentValue(currentRadius)
-        if mapFilterViewManager.isMapLoaded {
-            mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
-            showSelectionView()
-        }
+        mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
+        showSelectionView()
         self.mapFilterViewManager.mapFilterViewManagerDelegate = self
     }
 
@@ -104,18 +94,17 @@ public class MapFilterView: UIView {
         super.layoutSubviews()
 
         // Update radius so it fits for new view sizes
-        if mapFilterViewManager.isMapLoaded {
-            let updateViewWorkItem = DispatchWorkItem { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                self.mapSelectionCircleView.radius = self.mapFilterViewManager.mapViewLengthForMeters(self.currentRadius)
-                self.mapFilterViewManager.selectionRadiusChangedTo(self.currentRadius)
+        let updateViewWorkItem = DispatchWorkItem { [weak self] in
+            guard let self = self else {
+                return
             }
-            updateViewDispatchWorkItem = updateViewWorkItem
-            // Use a delay incase the view is being changed to new sizes by user
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
+            self.mapSelectionCircleView.radius = self.mapFilterViewManager.mapViewLengthForMeters(self.currentRadius)
+            self.mapFilterViewManager.selectionRadiusChangedTo(self.currentRadius)
         }
+        updateViewDispatchWorkItem = updateViewWorkItem
+
+        // Use a delay incase the view is being changed to new sizes by user
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
     }
 
     public func setInitialSelection(latitude: Double, longitude: Double, radius: Int, locationName: String?) {
@@ -129,31 +118,26 @@ public class MapFilterView: UIView {
 private extension MapFilterView {
     func setup() {
         backgroundColor = .milk
-        mapContainerView.addSubview(mapView)
+        mapFilterViewManager.addMapView(toFillInside: mapContainerView)
         mapContainerView.addSubview(mapSelectionCircleView)
         mapSelectionCircleView.addSubview(mapSelectionCircleCenterPointView)
         addSubview(mapContainerView)
         addSubview(distanceSlider)
 
         NSLayoutConstraint.activate([
-            mapContainerView.topAnchor.constraint(equalTo: mapView.topAnchor),
-            mapContainerView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor),
-            mapContainerView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
-            mapContainerView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+            mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
+            mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
 
-            mapView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
-            mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
-
-            mapSelectionCircleView.centerXAnchor.constraint(equalTo: mapView.centerXAnchor),
-            mapSelectionCircleView.centerYAnchor.constraint(equalTo: mapView.centerYAnchor),
+            mapSelectionCircleView.centerXAnchor.constraint(equalTo: mapContainerView.centerXAnchor),
+            mapSelectionCircleView.centerYAnchor.constraint(equalTo: mapContainerView.centerYAnchor),
 
             mapSelectionCircleCenterPointView.centerXAnchor.constraint(equalTo: mapSelectionCircleView.centerXAnchor),
             mapSelectionCircleCenterPointView.centerYAnchor.constraint(equalTo: mapSelectionCircleView.centerYAnchor),
 
-            distanceSlider.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: .mediumLargeSpacing),
-            distanceSlider.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
-            distanceSlider.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            distanceSlider.topAnchor.constraint(equalTo: mapContainerView.bottomAnchor, constant: .mediumLargeSpacing),
+            distanceSlider.leadingAnchor.constraint(equalTo: mapContainerView.leadingAnchor),
+            distanceSlider.trailingAnchor.constraint(equalTo: mapContainerView.trailingAnchor),
             distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
         ])
     }
@@ -166,7 +150,7 @@ private extension MapFilterView {
         addSubview(searchBar)
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
-            searchBar.bottomAnchor.constraint(equalTo: mapView.topAnchor),
+            searchBar.bottomAnchor.constraint(equalTo: mapContainerView.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
         ])
@@ -181,11 +165,9 @@ private extension MapFilterView {
 extension MapFilterView: MapFilterViewManagerDelegate {
     public func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool) {
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
-    }
-
-    public func mapFilterViewManagerDidLoadMap(_ mapFilterViewManager: MapFilterViewManager) {
-        mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
-        showSelectionView()
+        if userInitiated {
+            searchBar?.text = nil
+        }
     }
 }
 

@@ -14,15 +14,10 @@
 		44ECE686208F7FDE0017AC82 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
 		44ECE68E208F7FF90017AC82 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
 		44ECE68F208F7FF90017AC82 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE694208F80320017AC82 /* BottomSheetPresentationController.swift */; };
-		44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE695208F80320017AC82 /* BottomSheetTransitioningDelegate.swift */; };
-		44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */; };
-		44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */; };
 		44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE698208F80320017AC82 /* Charcoal.swift */; };
 		44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A6208F816D0017AC82 /* ViewController.swift */; };
 		44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A7208F816D0017AC82 /* Demo.swift */; };
 		44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */; };
-		44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6AA208F816D0017AC82 /* BottomSheetDemoViewController.swift */; };
 		44ECE6B5208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B1208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf */; };
 		44ECE6B6208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */; };
 		44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */; };
@@ -93,7 +88,6 @@
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
 		9B5A66F821A2E26C005C9118 /* FilterRootStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */; };
 		9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */; };
-		9B5E876D2191CE4F00793A1A /* AnyFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E876C2191CE4F00793A1A /* AnyFilterViewController.swift */; };
 		9B5E877121998B3500793A1A /* CurrentSelectionValuesContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */; };
 		9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1521B5592C00D18097 /* MapFilterView.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
@@ -209,15 +203,10 @@
 		44ECE679208F7FD20017AC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44ECE681208F7FDE0017AC82 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44ECE685208F7FDE0017AC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44ECE694208F80320017AC82 /* BottomSheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetPresentationController.swift; sourceTree = "<group>"; };
-		44ECE695208F80320017AC82 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
-		44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetInteractiveDismissalController.swift; sourceTree = "<group>"; };
-		44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningAnimator.swift; sourceTree = "<group>"; };
 		44ECE698208F80320017AC82 /* Charcoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charcoal.swift; sourceTree = "<group>"; };
 		44ECE6A6208F816D0017AC82 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		44ECE6A7208F816D0017AC82 /* Demo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewsTableViewController.swift; sourceTree = "<group>"; };
-		44ECE6AA208F816D0017AC82 /* BottomSheetDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetDemoViewController.swift; sourceTree = "<group>"; };
 		44ECE6B1208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Light.ttf"; sourceTree = "<group>"; };
 		44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Medium.ttf"; sourceTree = "<group>"; };
 		44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Regular.ttf"; sourceTree = "<group>"; };
@@ -286,7 +275,6 @@
 		9B5A66F521A2E122005C9118 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRootStateController.swift; sourceTree = "<group>"; };
 		9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectionCell.swift; sourceTree = "<group>"; };
-		9B5E876C2191CE4F00793A1A /* AnyFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyFilterViewController.swift; sourceTree = "<group>"; };
 		9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSelectionValuesContainerView.swift; sourceTree = "<group>"; };
 		9B741D1521B5592C00D18097 /* MapFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterView.swift; sourceTree = "<group>"; };
 		9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderWithLabelView.swift; sourceTree = "<group>"; };
@@ -400,7 +388,6 @@
 		44ECE660208F7FA20017AC82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE693208F80320017AC82 /* BottomSheet */,
 				5510EDAA20BFCCFE006E4A0F /* CompactList */,
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
 				559C61F620DA4CAA0083A574 /* FINNFilterImplementation */,
@@ -474,21 +461,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		44ECE693208F80320017AC82 /* BottomSheet */ = {
-			isa = PBXGroup;
-			children = (
-				44ECE694208F80320017AC82 /* BottomSheetPresentationController.swift */,
-				44ECE695208F80320017AC82 /* BottomSheetTransitioningDelegate.swift */,
-				44ECE696208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift */,
-				44ECE697208F80320017AC82 /* BottomSheetTransitioningAnimator.swift */,
-			);
-			path = BottomSheet;
-			sourceTree = "<group>";
-		};
 		44ECE6A9208F816D0017AC82 /* Fullscreen */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE6AA208F816D0017AC82 /* BottomSheetDemoViewController.swift */,
 				55946B7D20970237008AB7CE /* InlineFilterDemoViewController.swift */,
 			);
 			path = Fullscreen;
@@ -704,7 +679,6 @@
 		55E869D820E25598008B921E /* FilterViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9B5E876C2191CE4F00793A1A /* AnyFilterViewController.swift */,
 				55E869DF20E26764008B921E /* FilterContainerViewController.swift */,
 				55E869E120E39373008B921E /* FilterNavigator.swift */,
 				55E869D620E24498008B921E /* FilterViewController.swift */,
@@ -1135,7 +1109,6 @@
 				559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */,
-				44ECE69E208F80320017AC82 /* BottomSheetPresentationController.swift in Sources */,
 				9BFC089421341FFA00AB8A11 /* FilterSelectionDataSource.swift in Sources */,
 				9B741D1C21B6B1CB00D18097 /* StepSlider.swift in Sources */,
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
@@ -1163,7 +1136,6 @@
 				DA51041B21BE6AFE004048BD /* Font.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineFilterViewCell.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
-				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				9BE9A060219ADC2000059C19 /* CollapsedSelectionValuesView.swift in Sources */,
 				9BBCEDFE212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift in Sources */,
 				9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */,
@@ -1177,7 +1149,6 @@
 				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
-				44ECE6A0208F80320017AC82 /* BottomSheetInteractiveDismissalController.swift in Sources */,
 				DA3F763D2188812700D21C3A /* StepperFilterInfo.swift in Sources */,
 				9BE5EC6B21CBC54F009C5E1A /* MapFilterCell.swift in Sources */,
 				55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */,
@@ -1188,7 +1159,6 @@
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				9BB827AD216CD0310014028C /* ListSelectionFilterInfoType.swift in Sources */,
 				DAEB179721A6986500D9AAD6 /* SearchQueryViewController.swift in Sources */,
-				9B5E876D2191CE4F00793A1A /* AnyFilterViewController.swift in Sources */,
 				9B5A66F0219EBF79005C9118 /* NumberOfHitsCompatible.swift in Sources */,
 				55E869E420E3D246008B921E /* ListSelectionFilterViewController.swift in Sources */,
 				9BB827A2216C9C800014028C /* ListSelectionFilterInfo.swift in Sources */,
@@ -1196,7 +1166,6 @@
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
-				44ECE6A1208F80320017AC82 /* BottomSheetTransitioningAnimator.swift in Sources */,
 				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
 				9B741D1A21B6990800D18097 /* ValueSliderView.swift in Sources */,
 				465F616F219B7B8B00CF568B /* FilterDataQuery.swift in Sources */,
@@ -1236,7 +1205,6 @@
 				9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */,
 				55946B7E20970237008AB7CE /* InlineFilterDemoViewController.swift in Sources */,
 				DA51041321BE680D004048BD /* Color.swift in Sources */,
-				44ECE6AE208F816D0017AC82 /* BottomSheetDemoViewController.swift in Sources */,
 				9BAF4F87212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,

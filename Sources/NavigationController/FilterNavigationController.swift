@@ -5,10 +5,6 @@
 import UIKit
 
 public class FilterNavigationController: UINavigationController {
-    public var currentFilterViewController: AnyFilterViewController? {
-        return topViewController as? AnyFilterViewController
-    }
-
     public override func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self

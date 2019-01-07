@@ -134,11 +134,6 @@ public class FilterRootViewController: UIViewController {
         return cell
     }()
 
-    lazy var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate = {
-        let delegate = BottomSheetTransitioningDelegate(for: self)
-        return delegate
-    }()
-
     public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider, delegate: FilterRootViewControllerDelegate? = nil) {
         self.navigator = navigator
         self.selectionDataSource = selectionDataSource
@@ -379,38 +374,6 @@ extension FilterRootViewController: FilterBottomButtonViewDelegate {
     }
 }
 
-// MARK: For BottomSheet
-
-private extension FilterRootViewController {
-    var isScrolledToTop: Bool {
-        let scrollPos: CGFloat
-        if #available(iOS 11.0, *) {
-            scrollPos = (tableView.contentOffset.y + tableView.adjustedContentInset.top)
-        } else {
-            scrollPos = (tableView.contentOffset.y + tableView.contentInset.top)
-        }
-        return scrollPos <= 1
-    }
-
-    var isScrollEnabled: Bool {
-        get {
-            return tableView.isScrollEnabled
-        } set {
-            tableView.isScrollEnabled = newValue
-        }
-    }
-}
-
-extension FilterRootViewController: AnyFilterViewController {
-    public var mainScrollableContentView: UIScrollView? {
-        return tableView
-    }
-
-    public var isMainScrollableViewScrolledToTop: Bool {
-        return isScrolledToTop
-    }
-}
-
 extension FilterRootViewController: InlineFilterViewDelegate {
     public func inlineFilterView(_ inlineFilterView: InlineFilterView, didTapExpandableSegment segment: Segment) {
         navigator.navigate(to: .verticalSelectionInPopover(verticals: verticalsFilters, sourceView: segment, delegate: self, popoverWillDismiss: {
@@ -443,15 +406,6 @@ extension FilterRootViewController: SearchViewControllerDelegate {
         searchViewController.view.fillInSuperview()
         view.layoutIfNeeded()
         searchViewController.didMove(toParent: self)
-        // Expand bottom sheet if needed
-        guard let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else {
-            return
-        }
-        searchViewController.previousSizeMode = presentationController.currentContentSizeMode
-        guard presentationController.currentContentSizeMode == .compact else {
-            return
-        }
-        presentationController.transition(to: .expanded)
     }
 
     public func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String?) {

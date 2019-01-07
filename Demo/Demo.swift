@@ -59,8 +59,6 @@ enum Sections: String, CaseIterable {
         case .components:
             let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
-            case .bottomSheet:
-                return .bottomSheet
             case .rootFilters:
                 return .none
             case .listSelection:
@@ -112,7 +110,6 @@ enum Sections: String, CaseIterable {
 }
 
 enum ComponentViews: String, CaseIterable {
-    case bottomSheet
     case rootFilters
     case listSelection
     case compactListFilter
@@ -123,13 +120,6 @@ enum ComponentViews: String, CaseIterable {
 
     var viewController: UIViewController {
         switch self {
-        case .bottomSheet:
-            let bottomSheetDemoViewController = BottomSheetDemoViewController()
-            let navigationController = UINavigationController(rootViewController: bottomSheetDemoViewController)
-            navigationController.transitioningDelegate = bottomSheetDemoViewController.bottomsheetTransitioningDelegate
-            navigationController.modalPresentationStyle = .custom
-            return navigationController
-
         case .rootFilters:
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)

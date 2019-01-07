@@ -3,13 +3,12 @@
 //
 
 import Charcoal
+import FinniversKit
 import UIKit
 
 // MARK: - DemoViewsTableViewController
 
 class DemoViewsTableViewController: UITableViewController {
-    var bottomsheetTransitioningDelegate: BottomSheetTransitioningDelegate?
-
     init() {
         super.init(style: .grouped)
     }
@@ -92,9 +91,9 @@ extension DemoViewsTableViewController {
     func presentViewControllerWithPossibleDismissGesture(_ viewController: UIViewController, transitionStyle: TransitionStyle) {
         switch transitionStyle {
         case .bottomSheet:
-            bottomsheetTransitioningDelegate = BottomSheetTransitioningDelegate(for: self)
-            viewController.transitioningDelegate = bottomsheetTransitioningDelegate
-            viewController.modalPresentationStyle = .custom
+            let bottomSheet = BottomSheet(rootViewController: viewController)
+            present(bottomSheet, animated: true)
+            return
         default:
             break
         }

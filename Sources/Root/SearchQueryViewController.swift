@@ -20,7 +20,6 @@ public class SearchQueryViewController: UIViewController {
 
     public weak var delegate: SearchViewControllerDelegate?
     public var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource?
-    public var previousSizeMode: BottomSheetPresentationController.ContentSizeMode = .compact
 
     // MARK: - Private Properties
 
@@ -142,10 +141,6 @@ private extension SearchQueryViewController {
     func returnToSuperView() {
         searchBar.endEditing(false)
         searchBar.setShowsCancelButton(false, animated: false)
-        // Transition to compact mode if needed
-        if previousSizeMode == .compact, let presentationController = navigationController?.presentationController as? BottomSheetPresentationController {
-            presentationController.transition(to: .compact)
-        }
         willMove(toParent: nil)
         view.removeFromSuperview()
         removeFromParent()

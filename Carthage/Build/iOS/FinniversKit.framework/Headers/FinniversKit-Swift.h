@@ -207,6 +207,10 @@ SWIFT_CLASS("_TtC12FinniversKit11AdsGridView")
 
 
 
+
+
+
+
 @class UICollectionView;
 
 @interface AdsGridView (SWIFT_EXTENSION(FinniversKit)) <UICollectionViewDelegate>
@@ -258,11 +262,36 @@ SWIFT_CLASS("_TtC12FinniversKit20AnimatedCheckboxView")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit17AnimatedHeartView")
+@interface AnimatedHeartView : AnimatedSelectionView
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit23AnimatedRadioButtonView")
 @interface AnimatedRadioButtonView : AnimatedSelectionView
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit11BalloonView")
+@interface BalloonView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit22BannerTransparencyView")
+@interface BannerTransparencyView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 
 
@@ -282,6 +311,8 @@ SWIFT_CLASS("_TtC12FinniversKit11BottomSheet")
 - (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit9Broadcast")
@@ -339,6 +370,18 @@ SWIFT_CLASS("_TtC12FinniversKit21CheckboxTableViewCell")
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)prepareForReuse;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit14CogWheelButton")
+@interface CogWheelButton : UIButton
+@property (nonatomic, getter=isHighlighted) BOOL highlighted;
+@property (nonatomic, getter=isSelected) BOOL selected;
+@property (nonatomic, readonly) CGSize intrinsicContentSize;
+- (nonnull instancetype)initWithCorners:(UIRectCorner)corners autoLayout:(BOOL)autoLayout OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
 
@@ -418,9 +461,9 @@ SWIFT_CLASS("_TtC12FinniversKit15EasterEggButton")
 
 SWIFT_CLASS("_TtC12FinniversKit9EmptyView")
 @interface EmptyView : UIView
-- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)layoutSubviews;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
 
@@ -491,6 +534,15 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL isDynamicTypeEnabled;)
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit13FireworksView")
+@interface FireworksView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit13FrontPageView")
 @interface FrontPageView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -499,6 +551,14 @@ SWIFT_CLASS("_TtC12FinniversKit13FrontPageView")
 @end
 
 
+
+
+SWIFT_CLASS("_TtC12FinniversKit18HeartTableViewCell")
+@interface HeartTableViewCell : BasicTableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
+@end
 
 @protocol HorizontalSlideTransitionDelegate;
 @class UIPresentationController;
@@ -630,6 +690,15 @@ SWIFT_CLASS("_TtC12FinniversKit19MarketsGridViewCell")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit12NewYearsView")
+@interface NewYearsView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit27NotificationsListFooterView")
 @interface NotificationsListFooterView : UITableViewHeaderFooterView
 - (nonnull instancetype)initWithReuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
@@ -694,6 +763,19 @@ SWIFT_CLASS("_TtC12FinniversKit11RadioButton")
 @interface RadioButton : Selectionbox
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// Branded replacement for UIRefreshControl.
+SWIFT_CLASS("_TtC12FinniversKit14RefreshControl")
+@interface RefreshControl : UIRefreshControl
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)layoutSubviews;
+- (void)beginRefreshing;
+- (void)endRefreshing;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
 
@@ -821,6 +903,14 @@ SWIFT_CLASS("_TtC12FinniversKit16SettingsViewCell")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit13SnowGlobeView")
+@interface SnowGlobeView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit8SoldView")
 @interface SoldView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -876,6 +966,10 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
+
+
+
+
 
 
 

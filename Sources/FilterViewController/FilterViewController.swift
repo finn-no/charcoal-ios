@@ -12,7 +12,7 @@ public protocol ApplySelectionButtonOwner: AnyObject {
     var showsApplySelectionButton: Bool { get set }
 }
 
-public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController, ApplySelectionButtonOwner, AnyFilterViewController {
+public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController, ApplySelectionButtonOwner {
     private lazy var safeLayoutGuide: UILayoutGuide = {
         if #available(iOS 11.0, *) {
             return view.safeAreaLayoutGuide

@@ -1,9 +1,9 @@
 {
-  "commitish" : "165987edaec9ba235504c80ee61a1c537d1bb334",
+  "commitish" : "e3776b0669ccd5e73a90babd7babfd6187c04de5",
   "iOS" : [
     {
       "name" : "FinniversKit",
-      "hash" : "bdb6d8e60647b0d03b41ac71599cf6807d307be41bdc94638e59f29b2412313b"
+      "hash" : "c5170d835edf1c4ffc8c51f2abe9ade50bbcc18d1931fcbad5cb9befe231bbe9"
     }
   ]
 }

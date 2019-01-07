@@ -15,6 +15,8 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
         return parent != nil
     }
 
+    let isMapFilter: Bool
+
     var parentFilterInfo: FilterInfoType? {
         return parent
     }
@@ -23,12 +25,13 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
         return FilterValueUniqueKey(parameterName: parameterName, value: value)
     }
 
-    init(parameterName: String, title: String, isMultiSelect: Bool = true, results: Int, value: String) {
+    init(parameterName: String, title: String, isMultiSelect: Bool = true, results: Int, value: String, isMapFilter: Bool = false) {
         self.parameterName = parameterName
         self.title = title
         self.isMultiSelect = isMultiSelect
         self.results = results
         self.value = value
+        self.isMapFilter = isMapFilter
         selectionState = .none
         filters = []
     }

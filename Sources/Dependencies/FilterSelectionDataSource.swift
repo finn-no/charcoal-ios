@@ -69,6 +69,13 @@ public enum MultiLevelListItemSelectionState {
     case selected
 }
 
+public struct GeoFilterValue {
+    let latitude: Double
+    let longitude: Double
+    let radius: Int
+    let locationName: String?
+}
+
 public protocol FilterSelectionDataSource: AnyObject {
     func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState
     func value(for filterInfo: FilterInfoType) -> [String]?
@@ -84,4 +91,7 @@ public protocol FilterSelectionDataSource: AnyObject {
     func setValue(_ range: RangeValue, for filterInfo: FilterInfoType)
 
     func stepperValue(for filterInfo: StepperFilterInfoType) -> Int?
+    func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType)
+    func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType)
+    func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue?
 }

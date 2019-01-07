@@ -6,7 +6,8 @@ import Foundation
 
 public final class MultiLevelListSelectionFilterViewController: UIViewController, FilterContainerViewController {
     private enum Section: Int, CaseIterable {
-        case all = 0
+        case map = 0
+        case all
         case values
     }
 
@@ -45,7 +46,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         let filters = multiLevelFilterInfo.filters
-        isSelectAllIncluded = !multiLevelFilterInfo.value.isEmpty
+        isSelectAllIncluded = !multiLevelFilterInfo.value.isEmpty && !multiLevelFilterInfo.isMapFilter
         listItems = filters
         super.init(nibName: nil, bundle: nil)
         title = title
@@ -119,6 +120,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
 
     private func registerCells(for tableView: UITableView) {
         tableView.register(MultiLevelSelectionListItemCell.self)
+        tableView.register(MapFilterCell.self)
     }
 
     private func didSelectDrillDownItem(_ listItem: MultiLevelListSelectionFilterInfoType, at indexPath: IndexPath) {
@@ -175,6 +177,10 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
         let selectionState: MultiLevelListItemSelectionState = selectionDataSource.selectionState(filterInfo) == .selected ? .selected : .none
         cell.configure(title: "all_items_title".localized(), hits: dataSource.numberOfHits(for: filterInfo), showDisclosureIndicator: false, selectionState: selectionState)
     }
+
+    private func configureMapFilter(for cell: MapFilterCell) {
+        cell.configure(title: "map_filter_title".localized(), showDisclosureIndicator: true, selected: false)
+    }
 }
 
 extension MultiLevelListSelectionFilterViewController: UITableViewDataSource {
@@ -187,6 +193,8 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDataSource {
             return 0
         }
         switch section {
+        case .map:
+            return filterInfo.isMapFilter ? 1 : 0
         case .all:
             return isSelectAllIncluded ? 1 : 0
         case .values:
@@ -195,19 +203,25 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(MultiLevelSelectionListItemCell.self, for: indexPath)
         guard let section = Section(rawValue: indexPath.section) else {
-            return cell
+            fatalError("Not configured properly")
         }
         switch section {
+        case .map:
+            let cell = tableView.dequeue(MapFilterCell.self, for: indexPath)
+            configureMapFilter(for: cell)
+            return cell
         case .all:
+            let cell = tableView.dequeue(MultiLevelSelectionListItemCell.self, for: indexPath)
             configureSelectAll(for: cell)
+            return cell
         case .values:
+            let cell = tableView.dequeue(MultiLevelSelectionListItemCell.self, for: indexPath)
             if let listItem = listItems[safe: indexPath.row] {
                 configure(cell, listItem: listItem)
             }
+            return cell
         }
-        return cell
     }
 }
 
@@ -217,6 +231,9 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
             return
         }
         switch section {
+        case .map:
+            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateToMapFor: filterInfo)
+            break
         case .all:
             toggleSelectAllSelection()
             updateAllVisibleCells()

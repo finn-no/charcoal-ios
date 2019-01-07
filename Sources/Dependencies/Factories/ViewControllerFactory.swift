@@ -15,4 +15,5 @@ public protocol ViewControllerFactory: SublevelViewControllerFactory {
 
 public protocol SublevelViewControllerFactory {
     func makeSublevelViewController(for filterInfo: FilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<MultiLevelListSelectionFilterViewController>?
+    func makeMapFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<MapFilterViewController>?
 }

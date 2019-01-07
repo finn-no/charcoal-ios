@@ -153,6 +153,15 @@ extension FilterViewController: FilterContainerViewControllerDelegate {
             break
         }
     }
+
+    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateToMapFor filterInfo: FilterInfoType) {
+        switch filterInfo {
+        case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
+            navigator.navigate(to: .map(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate, parent: self))
+        default:
+            break
+        }
+    }
 }
 
 extension FilterViewController: FilterBottomButtonViewDelegate {

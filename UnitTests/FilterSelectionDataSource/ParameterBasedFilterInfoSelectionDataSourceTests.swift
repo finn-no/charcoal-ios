@@ -279,6 +279,71 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         selectionDataSource.clearAll(for: animals)
         XCTAssertEqual(.none, selectionDataSource.selectionState(animals))
     }
+
+    func testSelectionDataSourceShouldSupportGettingGeoFilterValue() {
+        let createdObjects = createAreaFilter()
+        let filter = createdObjects.area
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: "radius", value: "10000"), URLQueryItem(name: "lat", value: "60"), URLQueryItem(name: "lon", value: "10.8"), URLQueryItem(name: "geoLocationName", value: "Aplace")])
+
+        let geoFilterValue = selectionDataSource.geoValue(for: filter)
+
+        XCTAssertNotNil(geoFilterValue)
+        XCTAssertEqual(60, geoFilterValue?.latitude)
+        XCTAssertEqual(10.8, geoFilterValue?.longitude)
+        XCTAssertEqual(10000, geoFilterValue?.radius)
+        XCTAssertEqual("Aplace", geoFilterValue?.locationName)
+    }
+
+    func testSelectionDataSourceShouldSupportSettingGeoFilterValue() {
+        let createdObjects = createAreaFilter()
+        let selectionDataSource = createdObjects.selectionDataSource
+        let areaFilter = createdObjects.area
+        selectionDataSource.setValue(latitude: 59.951744, longitude: 10.81827, radius: 40000, locationName: "Aplace", for: areaFilter)
+
+        guard let radiusSelection = selectionDataSource.selectionValues["radius"] else {
+            XCTAssertTrue(false, "Radius value missing")
+            return
+        }
+        XCTAssertEqual(1, radiusSelection.count)
+        guard let radius = radiusSelection.first else {
+            XCTAssertTrue(false, "Radius should be single value")
+            return
+        }
+        XCTAssertEqual("40000", radius)
+
+        guard let latitudeSelection = selectionDataSource.selectionValues["lat"] else {
+            XCTAssertTrue(false, "Latitude value missing")
+            return
+        }
+        XCTAssertEqual(1, latitudeSelection.count)
+        guard let latitude = latitudeSelection.first else {
+            XCTAssertTrue(false, "Latitude should be single value")
+            return
+        }
+        XCTAssertEqual("59.951744", latitude)
+
+        guard let longitudeSelection = selectionDataSource.selectionValues["lon"] else {
+            XCTAssertTrue(false, "Longitude value missing")
+            return
+        }
+        XCTAssertEqual(1, longitudeSelection.count)
+        guard let longitude = longitudeSelection.first else {
+            XCTAssertTrue(false, "Longitude should be single value")
+            return
+        }
+        XCTAssertEqual("10.81827", longitude)
+
+        guard let locationNameSelection = selectionDataSource.selectionValues["geoLocationName"] else {
+            XCTAssertTrue(false, "Location name value missing")
+            return
+        }
+        XCTAssertEqual(1, locationNameSelection.count)
+        guard let locationName = locationNameSelection.first else {
+            XCTAssertTrue(false, "Location name should be single value")
+            return
+        }
+        XCTAssertEqual("Aplace", locationName)
+    }
 }
 
 extension ParameterBasedFilterInfoSelectionDataSourceTests {
@@ -287,8 +352,8 @@ extension ParameterBasedFilterInfoSelectionDataSourceTests {
         return rangeFilter
     }
 
-    func createMultiLevelFilter(parameterName: String, title: String, multiSelect: Bool, value: String) -> MultiLevelListSelectionFilterInfo {
-        let filter = MultiLevelListSelectionFilterInfo(parameterName: parameterName, title: title, isMultiSelect: multiSelect, results: 0, value: value)
+    func createMultiLevelFilter(parameterName: String, title: String, multiSelect: Bool, value: String, isMapFilter: Bool = false) -> MultiLevelListSelectionFilterInfo {
+        let filter = MultiLevelListSelectionFilterInfo(parameterName: parameterName, title: title, isMultiSelect: multiSelect, results: 0, value: value, isMapFilter: isMapFilter)
         return filter
     }
 
@@ -313,6 +378,24 @@ extension ParameterBasedFilterInfoSelectionDataSourceTests {
         selectionDataSource.multiLevelFilterLookup = [furniture.lookupKey: furniture, tables.lookupKey: tables, kitchenTables.lookupKey: kitchenTables, otherTables.lookupKey: otherTables, animals.lookupKey: animals, fishes.lookupKey: fishes, birds.lookupKey: birds]
 
         return (selectionDataSource, category, kitchenTables, otherTables, animals)
+    }
+
+    func createAreaFilter() -> (selectionDataSource: ParameterBasedFilterInfoSelectionDataSource, area: MultiLevelListSelectionFilterInfo) {
+        let location = createMultiLevelFilter(parameterName: "location", title: "Område", multiSelect: true, value: "", isMapFilter: true)
+        let akershus = createMultiLevelFilter(parameterName: "location", title: "Akershus", multiSelect: true, value: "akershus")
+        let asker = createMultiLevelFilter(parameterName: "location", title: "Asker", multiSelect: true, value: "asker")
+        let fet = createMultiLevelFilter(parameterName: "location", title: "Fet", multiSelect: true, value: "fet")
+        let finnmark = createMultiLevelFilter(parameterName: "location", title: "Finnmark", multiSelect: true, value: "finnmark")
+        let alta = createMultiLevelFilter(parameterName: "location", title: "Alta", multiSelect: true, value: "alta")
+
+        location.setSubLevelFilters([akershus, finnmark])
+        akershus.setSubLevelFilters([asker, fet])
+        finnmark.setSubLevelFilters([alta])
+
+        let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [])
+        selectionDataSource.multiLevelFilterLookup = [akershus.lookupKey: akershus, asker.lookupKey: asker, fet.lookupKey: fet, finnmark.lookupKey: finnmark, alta.lookupKey: alta]
+
+        return (selectionDataSource, location)
     }
 }
 

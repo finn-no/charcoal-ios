@@ -8,6 +8,18 @@ import MapKit
 import UIKit
 
 class MapViewManager: NSObject, MapFilterViewManager {
+    var centerCoordinate: CLLocationCoordinate2D? {
+        get {
+            return mapKitMapView.centerCoordinate
+        }
+        set {
+            guard let newCenter = newValue else {
+                return
+            }
+            mapKitMapView.setCenter(newCenter, animated: true)
+        }
+    }
+
     var isMapLoaded: Bool = false
 
     var mapView: UIView {
@@ -34,7 +46,7 @@ class MapViewManager: NSObject, MapFilterViewManager {
     }()
 
     private let mapKitMapView: MKMapView
-    weak var delegate: MapFilterViewManagerDelegate?
+    public weak var mapFilterViewManagerDelegate: MapFilterViewManagerDelegate?
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.activityType = .other
@@ -110,14 +122,14 @@ class MapViewManager: NSObject, MapFilterViewManager {
 
 extension MapViewManager: MKMapViewDelegate {
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        delegate?.mapFilterViewManagerDidChangeZoom(self)
+        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeZoom(self)
         locateUserButton.isHighlighted = false
         locationManager.stopUpdatingLocation()
     }
 
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         isMapLoaded = true
-        delegate?.mapFilterViewManagerDidLoadMap(self)
+        mapFilterViewManagerDelegate?.mapFilterViewManagerDidLoadMap(self)
     }
 
     func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {

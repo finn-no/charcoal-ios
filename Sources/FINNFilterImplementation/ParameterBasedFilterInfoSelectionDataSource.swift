@@ -3,12 +3,20 @@
 //
 
 import Foundation
+import MapKit
 
 public protocol ParameterBasedFilterInfoSelectionDataSourceDelegate: AnyObject {
     func parameterBasedFilterInfoSelectionDataSourceDidChange(_: ParameterBasedFilterInfoSelectionDataSource)
 }
 
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
+    private struct GeoKey {
+        static let latitude = "lat"
+        static let longitude = "lon"
+        static let radius = "radius"
+        static let locationName = "geoLocationName"
+    }
+
     public private(set) var selectionValues: [String: [String]]
     var multiLevelFilterLookup: [FilterValueUniqueKey: FilterValueWithNumberOfHitsType] = [:]
     public weak var delegate: ParameterBasedFilterInfoSelectionDataSourceDelegate?
@@ -70,8 +78,8 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         }
     }
 
-    func setSelectionValue(_ value: String, for key: String) {
-        setSelectionValues([value], for: key)
+    func setSelectionValue(_ value: String, for key: String, callDelegate: Bool = true) {
+        setSelectionValues([value], for: key, callDelegate: callDelegate)
     }
 
     func addSelectionValue(_ value: String, for key: String) {
@@ -91,9 +99,11 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         }
     }
 
-    func removeSelectionValues(_ key: String) {
+    func removeSelectionValues(_ key: String, callDelegate: Bool = true) {
         selectionValues.removeValue(forKey: key)
-        delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
+        if callDelegate {
+            delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
+        }
     }
 
     func selectionValues(for name: String) -> [String] {
@@ -107,8 +117,8 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
         return nil
     }
 
-    func setStringValue(_ value: String, for key: String) {
-        setSelectionValue(value, for: key)
+    func setStringValue(_ value: String, for key: String, callDelegate: Bool = true) {
+        setSelectionValue(value, for: key, callDelegate: callDelegate)
     }
 
     func setRangeSelectionValue(_ range: RangeValue, for key: String) {
@@ -125,6 +135,30 @@ private extension ParameterBasedFilterInfoSelectionDataSource {
             setStringValue(lowValue.description, for: lowKey)
             setStringValue(highValue.description, for: highKey)
         }
+    }
+
+    func setGeoLocation(latitude: Double, longitude: Double, radius: Int, locationName: String?) {
+        setStringValue(latitude.description, for: GeoKey.latitude, callDelegate: false)
+        setStringValue(longitude.description, for: GeoKey.longitude, callDelegate: false)
+        setStringValue(radius.description, for: GeoKey.radius, callDelegate: false)
+        if let locationName = locationName {
+            setStringValue(locationName, for: GeoKey.locationName, callDelegate: true)
+        } else {
+            removeSelectionValues(GeoKey.locationName, callDelegate: true)
+        }
+    }
+
+    func geoLocation() -> GeoFilterValue? {
+        guard let latitudeStr = selectionValues[GeoKey.latitude]?.first,
+            let longitudeStr = selectionValues[GeoKey.longitude]?.first,
+            let radiusStr = selectionValues[GeoKey.radius]?.first else {
+            return nil
+        }
+        guard let latitude = Double(latitudeStr), let longitude = Double(longitudeStr), let radius = Int(radiusStr) else {
+            return nil
+        }
+        let locationName = selectionValues[GeoKey.locationName]?.first
+        return GeoFilterValue(latitude: latitude, longitude: longitude, radius: radius, locationName: locationName)
     }
 
     func intOrNil(from value: String?) -> Int? {
@@ -377,5 +411,19 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         }
         let low = intOrNil(from: selectionValues(for: rangeFilterKeyLow(fromBaseKey: filterKey)).first)
         return low
+    }
+
+    public func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType) {
+        clearAll(for: filterInfo)
+        setGeoLocation(latitude: latitude, longitude: longitude, radius: radius, locationName: locationName)
+        DebugLog.write(self)
+    }
+
+    public func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
+        setValue(latitude: geoFilterValue.latitude, longitude: geoFilterValue.longitude, radius: geoFilterValue.radius, locationName: geoFilterValue.locationName, for: filterInfo)
+    }
+
+    public func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
+        return geoLocation()
     }
 }

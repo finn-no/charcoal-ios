@@ -14,6 +14,10 @@ class DemoListSelectionFilterInfo: ListSelectionFilterInfoType {
         return true
     }
 
+    var isMapFilter: Bool {
+        return false
+    }
+
     var title: String {
         return "Topp kategori"
     }
@@ -110,6 +114,16 @@ class DemoListFilterSelectionDataSource: FilterSelectionDataSource {
     }
 
     func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
+    }
+
+    func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType) {
+    }
+
+    func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
+    }
+
+    func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
+        return nil
     }
 }
 

@@ -59,11 +59,7 @@ class RangeFilterBuilderTests: XCTestCase, TestDataDecoder {
         let referenceValues = RangeFilterInfoBuilder.defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
 
         // Then
-        guard referenceValues.count == 3 else {
-            XCTAssertFalse(true, "There should be 3 reference values in the array")
-            return
-        }
-
+        XCTAssertEqual(referenceValues.count, 3, "There should be 3 reference values in the array")
         XCTAssertEqual(referenceValues[0], 0)
         XCTAssertEqual(referenceValues[1], 15000)
         XCTAssertEqual(referenceValues[2], 30000)
@@ -78,11 +74,7 @@ class RangeFilterBuilderTests: XCTestCase, TestDataDecoder {
         let referenceValues = RangeFilterInfoBuilder.defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
 
         // Then
-        guard referenceValues.count == 3 else {
-            XCTAssertFalse(true, "There should be 3 reference values in the array")
-            return
-        }
-
+        XCTAssertEqual(referenceValues.count, 3, "There should be 3 reference values in the array")
         XCTAssertEqual(referenceValues[0], 1950)
         XCTAssertEqual(referenceValues[1], 1984)
         XCTAssertEqual(referenceValues[2], 2018)

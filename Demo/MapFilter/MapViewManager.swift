@@ -8,6 +8,8 @@ import MapKit
 import UIKit
 
 class MapViewManager: NSObject, MapFilterViewManager {
+    private let initialCenterPoint = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
+
     var centerCoordinate: CLLocationCoordinate2D? {
         get {
             return mapKitMapView.centerCoordinate
@@ -16,14 +18,8 @@ class MapViewManager: NSObject, MapFilterViewManager {
             guard let newCenter = newValue else {
                 return
             }
-            mapKitMapView.setCenter(newCenter, animated: true)
+            mapKitMapView.setCenter(newCenter, animated: false)
         }
-    }
-
-    var isMapLoaded: Bool = false
-
-    var mapView: UIView {
-        return mapKitMapView
     }
 
     private let pulseAnimationKey = "LocateUserPulseAnimation"
@@ -45,7 +41,17 @@ class MapViewManager: NSObject, MapFilterViewManager {
         return button
     }()
 
-    private let mapKitMapView: MKMapView
+    private lazy var mapKitMapView: MKMapView = {
+        let mapKitMapView = MKMapView(frame: .zero)
+        mapKitMapView.delegate = self
+        mapKitMapView.addSubview(locateUserButton)
+        NSLayoutConstraint.activate([
+            locateUserButton.topAnchor.constraint(equalTo: mapKitMapView.compatibleTopAnchor, constant: .mediumSpacing),
+            locateUserButton.trailingAnchor.constraint(equalTo: mapKitMapView.trailingAnchor, constant: -.mediumSpacing),
+        ])
+        return mapKitMapView
+    }()
+
     public weak var mapFilterViewManagerDelegate: MapFilterViewManagerDelegate?
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -56,18 +62,23 @@ class MapViewManager: NSObject, MapFilterViewManager {
         return locationManager
     }()
 
-    override init() {
-        mapKitMapView = MKMapView(frame: .zero)
-        super.init()
-        mapKitMapView.delegate = self
-        mapKitMapView.showsScale = true
-        mapKitMapView.showsUserLocation = true
-        mapKitMapView.addSubview(locateUserButton)
+    private var nextRegionChangeIsFromUserInteraction = false
 
-        NSLayoutConstraint.activate([
-            locateUserButton.topAnchor.constraint(equalTo: mapKitMapView.compatibleTopAnchor, constant: .mediumSpacing),
-            locateUserButton.trailingAnchor.constraint(equalTo: mapKitMapView.trailingAnchor, constant: -.mediumSpacing),
-        ])
+    override init() {
+        super.init()
+        setup()
+    }
+
+    private func setup() {
+    }
+
+    func addMapView(toFillInside containerView: UIView) {
+        containerView.addSubview(mapKitMapView)
+        mapKitMapView.fillInSuperview()
+        DispatchQueue.main.async {
+            self.mapKitMapView.centerCoordinate = self.initialCenterPoint
+            self.mapKitMapView.showsUserLocation = true
+        }
     }
 
     func mapViewLengthForMeters(_ meters: Int) -> CGFloat {
@@ -121,24 +132,29 @@ class MapViewManager: NSObject, MapFilterViewManager {
 }
 
 extension MapViewManager: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        print("regionWillChangeAnimated")
+        guard let gestureRecognizers = mapView.subviews.first?.gestureRecognizers else {
+            return
+        }
+        // Look through gesture recognizers to determine whether this region change is from user interaction
+        for gestureRecogizer in gestureRecognizers {
+            if gestureRecogizer.state == .began || gestureRecogizer.state == .ended {
+                nextRegionChangeIsFromUserInteraction = true
+                break
+            }
+        }
+    }
+
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeZoom(self)
-        locateUserButton.isHighlighted = false
-        locationManager.stopUpdatingLocation()
-    }
-
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        isMapLoaded = true
-        mapFilterViewManagerDelegate?.mapFilterViewManagerDidLoadMap(self)
-    }
-
-    func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
-        isMapLoaded = false
+        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeRegion(self, userInitiated: nextRegionChangeIsFromUserInteraction, animated: animated)
+        nextRegionChangeIsFromUserInteraction = false
     }
 }
 
 extension MapViewManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("locationManager didFailWithError \(error)")
         locateUserButton.isHighlighted = false
         locateUserButton.layer.removeAnimation(forKey: pulseAnimationKey)
     }
@@ -152,13 +168,16 @@ extension MapViewManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let latestLocation = locations.last else {
             // TODO: show error mesage?
+            print("No location retrieved")
             return
         }
         guard latestLocation.horizontalAccuracy < 100 else {
             // Not good enough, try again
+            print("Inaccurate user location, trying again")
             locationManager.requestLocation()
             return
         }
+        print("Succesfully found user location \(latestLocation.coordinate)")
         locateUserButton.layer.removeAnimation(forKey: pulseAnimationKey)
         mapKitMapView.setCenter(latestLocation.coordinate, animated: true)
     }

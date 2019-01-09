@@ -82,6 +82,7 @@ class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
     }
 
     func setCurrentValue(_ newValue: ValueKind) {
+        currentValue = newValue
         sliderView.setCurrentValue(newValue, animated: true)
         updateLabel(with: newValue)
     }

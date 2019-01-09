@@ -10,13 +10,15 @@ public class FilterDependencyContainer {
     private weak var filterRootStateControllerDelegate: FilterRootStateControllerDelegate?
     private let filterSelectionTitleProvider: FilterSelectionTitleProvider
     private let mapFilterViewManager: MapFilterViewManager?
+    private let searchLocationDataSource: SearchLocationDataSource?
 
-    public init(selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?, filterDelegate: FilterRootStateControllerDelegate?, filterSelectionTitleProvider: FilterSelectionTitleProvider, mapFilterViewManager: MapFilterViewManager?) {
+    public init(selectionDataSource: FilterSelectionDataSource, searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?, filterDelegate: FilterRootStateControllerDelegate?, filterSelectionTitleProvider: FilterSelectionTitleProvider, mapFilterViewManager: MapFilterViewManager?, searchLocationDataSource: SearchLocationDataSource?) {
         self.selectionDataSource = selectionDataSource
         self.searchQuerySuggestionsDataSource = searchQuerySuggestionsDataSource
         filterRootStateControllerDelegate = filterDelegate
         self.filterSelectionTitleProvider = filterSelectionTitleProvider
         self.mapFilterViewManager = mapFilterViewManager
+        self.searchLocationDataSource = searchLocationDataSource
     }
 }
 
@@ -79,7 +81,10 @@ extension FilterDependencyContainer: ViewControllerFactory {
     public func makeMapFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<MapFilterViewController>? {
         let filterViewController = FilterViewController<MapFilterViewController>(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         filterViewController?.delegate = delegate
-        (filterViewController?.filterContainerViewController as? MapFilterViewController)?.mapFilterViewManager = mapFilterViewManager
+        if let mapFilterViewController = filterViewController?.filterContainerViewController as? MapFilterViewController {
+            mapFilterViewController.mapFilterViewManager = mapFilterViewManager
+            mapFilterViewController.searchLocationDataSource = searchLocationDataSource
+        }
         return filterViewController
     }
 }

@@ -80,11 +80,12 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         let filter = createRangeFilter(parameterName: "test", title: "Test")
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName + "_from", value: "10"), URLQueryItem(name: filter.parameterName + "_to", value: "20"), URLQueryItem(name: "foo", value: "bar")])
 
-        let range = selectionDataSource.rangeValue(for: filter)
-
-        XCTAssertNotNil(range)
-        guard case let .closed(min, max) = range! else {
-            XCTAssertTrue(false)
+        guard let range = selectionDataSource.rangeValue(for: filter) else {
+            XCTFail("Unexpected nil")
+            return
+        }
+        guard case let .closed(min, max) = range else {
+            XCTFail()
             return
         }
         XCTAssertEqual(10, min)
@@ -95,11 +96,13 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         let filter = createRangeFilter(parameterName: "test", title: "Test")
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName + "_from", value: "10"), URLQueryItem(name: "foo", value: "bar")])
 
-        let range = selectionDataSource.rangeValue(for: filter)
+        guard let range = selectionDataSource.rangeValue(for: filter) else {
+            XCTFail("Unexpected nil")
+            return
+        }
 
-        XCTAssertNotNil(range)
-        guard case let .minimum(min) = range! else {
-            XCTAssertTrue(false)
+        guard case let .minimum(min) = range else {
+            XCTFail()
             return
         }
         XCTAssertEqual(10, min)
@@ -109,11 +112,13 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         let filter = createRangeFilter(parameterName: "test", title: "Test")
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: filter.parameterName + "_to", value: "20"), URLQueryItem(name: "foo", value: "bar")])
 
-        let range = selectionDataSource.rangeValue(for: filter)
+        guard let range = selectionDataSource.rangeValue(for: filter) else {
+            XCTFail("Unexpected nil")
+            return
+        }
 
-        XCTAssertNotNil(range)
-        guard case let .maximum(max) = range! else {
-            XCTAssertTrue(false, "Casting failed")
+        guard case let .maximum(max) = range else {
+            XCTFail("Casting failed")
             return
         }
         XCTAssertEqual(20, max)
@@ -168,7 +173,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
 
         let selectionValues = selectionDataSource.selectionValues["foo"]
         guard let fooValues = selectionValues else {
-            XCTAssertTrue(false, "Casting failed")
+            XCTFail("Casting failed")
             return
         }
         XCTAssertEqual(2, fooValues.count)
@@ -191,7 +196,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         let selectionValues = selectionDataSource.valueAndSubLevelValues(for: category)
         XCTAssertEqual(3, selectionValues.count)
         guard let selectionDataValues = selectionValues as? [FilterSelectionDataInfo] else {
-            XCTAssertTrue(false, "Casting failed")
+            XCTFail("Casting failed")
             return
         }
         XCTAssertTrue(selectionDataValues.contains(where: { ($0.filter as? MultiLevelListSelectionFilterInfo) == kitchenTables }))
@@ -214,7 +219,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         let selectionValues = selectionDataSource.valueAndSubLevelValues(for: parentFilter)
         XCTAssertEqual(1, selectionValues.count)
         guard let selectionValue = selectionValues.first as? FilterSelectionDataInfo else {
-            XCTAssertTrue(false, "Casting failed")
+            XCTFail("Casting failed")
             return
         }
         XCTAssertEqual("456", selectionValue.value)
@@ -236,7 +241,7 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         let selectionValues = selectionDataSource.valueAndSubLevelValues(for: parentFilter)
         XCTAssertEqual(1, selectionValues.count)
         guard let selectionValue = selectionValues.first as? FilterSelectionDataInfo else {
-            XCTAssertTrue(false, "Casting failed")
+            XCTFail("Casting failed")
             return
         }
         XCTAssertEqual("456", selectionValue.value)
@@ -301,45 +306,45 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
         selectionDataSource.setValue(latitude: 59.951744, longitude: 10.81827, radius: 40000, locationName: "Aplace", for: areaFilter)
 
         guard let radiusSelection = selectionDataSource.selectionValues["radius"] else {
-            XCTAssertTrue(false, "Radius value missing")
+            XCTFail("Radius value missing")
             return
         }
         XCTAssertEqual(1, radiusSelection.count)
         guard let radius = radiusSelection.first else {
-            XCTAssertTrue(false, "Radius should be single value")
+            XCTFail("Radius should be single value")
             return
         }
         XCTAssertEqual("40000", radius)
 
         guard let latitudeSelection = selectionDataSource.selectionValues["lat"] else {
-            XCTAssertTrue(false, "Latitude value missing")
+            XCTFail("Latitude value missing")
             return
         }
         XCTAssertEqual(1, latitudeSelection.count)
         guard let latitude = latitudeSelection.first else {
-            XCTAssertTrue(false, "Latitude should be single value")
+            XCTFail("Latitude should be single value")
             return
         }
         XCTAssertEqual("59.951744", latitude)
 
         guard let longitudeSelection = selectionDataSource.selectionValues["lon"] else {
-            XCTAssertTrue(false, "Longitude value missing")
+            XCTFail("Longitude value missing")
             return
         }
         XCTAssertEqual(1, longitudeSelection.count)
         guard let longitude = longitudeSelection.first else {
-            XCTAssertTrue(false, "Longitude should be single value")
+            XCTFail("Longitude should be single value")
             return
         }
         XCTAssertEqual("10.81827", longitude)
 
         guard let locationNameSelection = selectionDataSource.selectionValues["geoLocationName"] else {
-            XCTAssertTrue(false, "Location name value missing")
+            XCTFail("Location name value missing")
             return
         }
         XCTAssertEqual(1, locationNameSelection.count)
         guard let locationName = locationNameSelection.first else {
-            XCTAssertTrue(false, "Location name should be single value")
+            XCTFail("Location name should be single value")
             return
         }
         XCTAssertEqual("Aplace", locationName)

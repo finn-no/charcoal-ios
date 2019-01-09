@@ -132,6 +132,8 @@
 		9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */; };
 		9BE0D54521A5696100F0B63B /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0D54421A5696100F0B63B /* ErrorViewController.swift */; };
 		9BE5EC6B21CBC54F009C5E1A /* MapFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6A21CBC54F009C5E1A /* MapFilterCell.swift */; };
+		9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */; };
+		9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */; };
 		9BE9A060219ADC2000059C19 /* CollapsedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */; };
 		9BE9A062219ADC4F00059C19 /* ExpandedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */; };
 		9BF778CC21C16374006C0416 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF778CB21C16374006C0416 /* MapFilterViewController.swift */; };
@@ -324,6 +326,8 @@
 		9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketTests.swift; sourceTree = "<group>"; };
 		9BE0D54421A5696100F0B63B /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		9BE5EC6A21CBC54F009C5E1A /* MapFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterCell.swift; sourceTree = "<group>"; };
+		9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
+		9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchLocationDataSource.swift; sourceTree = "<group>"; };
 		9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BF778CB21C16374006C0416 /* MapFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
@@ -730,6 +734,7 @@
 				9B741D1B21B6B1CA00D18097 /* StepSlider.swift */,
 				9B741D1921B6990800D18097 /* ValueSliderView.swift */,
 				9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */,
+				9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */,
 			);
 			path = MapFilter;
 			sourceTree = "<group>";
@@ -851,6 +856,7 @@
 			isa = PBXGroup;
 			children = (
 				9BF778CE21C1663D006C0416 /* MapViewManager.swift */,
+				9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */,
 			);
 			path = MapFilter;
 			sourceTree = "<group>";
@@ -1214,6 +1220,7 @@
 				55E869D720E24498008B921E /* FilterViewController.swift in Sources */,
 				9BB8279E216C9C060014028C /* SearchQueryFilterInfo.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
+				9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */,
 				4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */,
 				9BE0A061209200410000632B /* FilterCell.swift in Sources */,
 				55BDA77320DBD99600331FFC /* ParameterBasedFilterInfo.swift in Sources */,
@@ -1240,6 +1247,7 @@
 				9BAF4F87212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
+				9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */,
 				46905233217F0D6000F8E7FD /* VerticalSetupDemo.swift in Sources */,
 				9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */,
 				55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */,

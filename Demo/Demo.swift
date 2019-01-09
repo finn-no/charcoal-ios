@@ -134,7 +134,7 @@ enum ComponentViews: String, CaseIterable {
             let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
             let demoFilter = DemoFilter(filter: filterData)
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager())
+            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             let stateController = rootFilterNavigator.start()
@@ -186,7 +186,7 @@ enum FullscreenViews: String, CaseIterable {
 
         let demoFilter = DemoFilter(filter: filter)
         let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager())
+        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
         let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
         let stateController = rootFilterNavigator.start()

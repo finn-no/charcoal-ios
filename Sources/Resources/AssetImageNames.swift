@@ -18,8 +18,10 @@ enum ImageAsset: String {
     case checkboxOff
     case checkboxOn
     case checkboxPartial
+    case currentLocationIcon
     case disclosureIndicator
     case externalLink
+    case homeAddressIcon
     case locateUserFilled
     case locateUserOutlined
     case mapFilterIcon
@@ -39,8 +41,10 @@ enum ImageAsset: String {
             .checkboxOff,
             .checkboxOn,
             .checkboxPartial,
+            .currentLocationIcon,
             .disclosureIndicator,
             .externalLink,
+            .homeAddressIcon,
             .locateUserFilled,
             .locateUserOutlined,
             .mapFilterIcon,

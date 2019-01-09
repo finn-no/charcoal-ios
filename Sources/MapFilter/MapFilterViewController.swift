@@ -10,16 +10,27 @@ public class MapFilterViewController: UIViewController {
 
     public var mapFilterViewManager: MapFilterViewManager?
 
+    var searchLocationDataSource: SearchLocationDataSource?
+
     private lazy var mapFilterView: MapFilterView? = {
         guard let mapFilterViewManager = mapFilterViewManager else {
             return nil
         }
-        return MapFilterView(mapFilterViewManager: mapFilterViewManager)
+        let mapFilterView = MapFilterView(mapFilterViewManager: mapFilterViewManager)
+        mapFilterView.searchBar = searchLocationViewController.searchBar
+        return mapFilterView
     }()
 
     let filterInfo: FilterInfoType
     let dataSource: FilterDataSource
     let selectionDataSource: FilterSelectionDataSource
+
+    lazy var searchLocationViewController: SearchLocationViewController = {
+        let searchLocationViewController = SearchLocationViewController()
+        searchLocationViewController.delegate = self
+        searchLocationViewController.searchLocationDataSource = searchLocationDataSource
+        return searchLocationViewController
+    }()
 
     public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         self.filterInfo = filterInfo
@@ -67,8 +78,8 @@ public class MapFilterViewController: UIViewController {
         NSLayoutConstraint.activate([
             mapFilterView.topAnchor.constraint(equalTo: safeTopAnchor),
             mapFilterView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
-            mapFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumLargeSpacing),
-            mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumLargeSpacing),
+            mapFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 }
@@ -76,5 +87,53 @@ public class MapFilterViewController: UIViewController {
 extension MapFilterViewController: FilterContainerViewController {
     public var controller: UIViewController {
         return self
+    }
+}
+
+extension MapFilterViewController: SearchLocationViewControllerDelegate {
+    public func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
+        searchLocationViewController.willMove(toParent: nil)
+        searchLocationViewController.view.removeFromSuperview()
+        searchLocationViewController.removeFromParent()
+
+        // TODO: start getting location
+    }
+
+    public func searchLocationViewControllerShouldBePresented(_ searchLocationViewController: SearchLocationViewController) {
+        // Add view controller as child view controller
+        addChild(searchLocationViewController)
+        view.addSubview(searchLocationViewController.view)
+        searchLocationViewController.view.fillInSuperview()
+        view.layoutIfNeeded()
+        searchLocationViewController.didMove(toParent: self)
+
+        // Expand bottom sheet if needed
+        guard let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else {
+            return
+        }
+        guard presentationController.currentContentSizeMode == .compact else {
+            return
+        }
+        presentationController.transition(to: .expanded)
+    }
+
+    public func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
+        mapFilterView?.searchBar = searchLocationViewController.searchBar
+        mapFilterView?.setNeedsLayout()
+
+        searchLocationViewController.willMove(toParent: nil)
+        searchLocationViewController.view.removeFromSuperview()
+        searchLocationViewController.removeFromParent()
+    }
+
+    public func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didSelectLocation location: LocationInfo?) {
+        mapFilterView?.searchBar = searchLocationViewController.searchBar
+        searchLocationViewController.willMove(toParent: nil)
+        searchLocationViewController.view.removeFromSuperview()
+        searchLocationViewController.removeFromParent()
+
+        if let location = location {
+            mapFilterViewManager?.centerCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        }
     }
 }

@@ -106,15 +106,6 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
         searchLocationViewController.view.fillInSuperview()
         view.layoutIfNeeded()
         searchLocationViewController.didMove(toParent: self)
-
-        // Expand bottom sheet if needed
-        guard let presentationController = navigationController?.presentationController as? BottomSheetPresentationController else {
-            return
-        }
-        guard presentationController.currentContentSizeMode == .compact else {
-            return
-        }
-        presentationController.transition(to: .expanded)
     }
 
     public func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {

@@ -59,6 +59,7 @@ extension SearchQueryViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
         let suggestion = suggestions[safe: indexPath.row]
+        cell.titleLabel.font = .regularBody
         cell.configure(with: SearchQueryItemCellModel(title: suggestion ?? ""))
         cell.separatorInset = .leadingInset(48)
         return cell

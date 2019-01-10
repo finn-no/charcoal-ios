@@ -31,7 +31,7 @@ enum ImageAsset: String {
     case radioButtonOff
     case radioButtonOn
     case removeFilterValue
-    case search
+    case searchSmall
     case sliderThumb
     case sliderThumbActive
 
@@ -54,7 +54,7 @@ enum ImageAsset: String {
             .radioButtonOff,
             .radioButtonOn,
             .removeFilterValue,
-            .search,
+            .searchSmall,
             .sliderThumb,
             .sliderThumbActive,
     ]

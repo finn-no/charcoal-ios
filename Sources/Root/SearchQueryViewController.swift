@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import UIKit
 
 public protocol SearchQuerySuggestionsDataSource: AnyObject {
@@ -41,8 +42,8 @@ public class SearchQueryViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.register(SearchQuerySuggestionCell.self)
+        tableView.register(IconTitleTableViewCell.self)
+        tableView.tableFooterView = UIView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -56,9 +57,10 @@ extension SearchQueryViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(SearchQuerySuggestionCell.self, for: indexPath)
+        let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
         let suggestion = suggestions[safe: indexPath.row]
-        cell.suggestionLabel.text = suggestion
+        cell.configure(with: SearchQueryItemCellModel(title: suggestion ?? ""))
+        cell.separatorInset = .leadingInset(48)
         return cell
     }
 }
@@ -185,6 +187,26 @@ private extension SearchQueryViewController {
 }
 
 // MARK: - Private class
+
+private struct SearchQueryItemCellModel: IconTitleTableViewCellViewModel {
+    var title: String
+
+    var icon: UIImage? {
+        return UIImage(named: .searchSmall)
+    }
+
+    var iconTintColor: UIColor? {
+        return nil
+    }
+
+    var subtitle: String? {
+        return nil
+    }
+
+    var hasChevron: Bool {
+        return false
+    }
+}
 
 private class SearchQuerySearchBar: UISearchBar {
     // Makes sure to setup appearance proxy one time and one time only

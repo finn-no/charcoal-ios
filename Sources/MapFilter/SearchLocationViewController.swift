@@ -359,7 +359,7 @@ private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
 
 private struct RecentLocationCellViewModel: IconTitleTableViewCellViewModel {
     var icon: UIImage? {
-        return UIImage(named: .search)
+        return UIImage(named: .searchSmall)
     }
 
     var iconTintColor: UIColor? {

@@ -117,7 +117,6 @@
 		9BB827AF216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827AE216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift */; };
 		9BB827B1216CD0860014028C /* RangeFilterInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827B0216CD0860014028C /* RangeFilterInfoType.swift */; };
 		9BB827B4216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827B3216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift */; };
-		9BBCEDFE212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBCEDFD212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift */; };
 		9BC45F742153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC45F732153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift */; };
 		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */; };
@@ -311,7 +310,6 @@
 		9BB827AE216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelListSelectionFilterInfoType.swift; sourceTree = "<group>"; };
 		9BB827B0216CD0860014028C /* RangeFilterInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterInfoType.swift; sourceTree = "<group>"; };
 		9BB827B3216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterBasedFilterInfoSelectionDataSourceTests.swift; sourceTree = "<group>"; };
-		9BBCEDFD212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuerySuggestionCell.swift; sourceTree = "<group>"; };
 		9BC45F732153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterBasedFilterInfoSelectionDataSource.swift; sourceTree = "<group>"; };
 		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnaFontExtensions.swift; sourceTree = "<group>"; };
@@ -805,7 +803,6 @@
 				9B5A66F521A2E122005C9118 /* LoadingViewController.swift */,
 				5525324320A2DB73000CBD21 /* RootFilterNavigator.swift */,
 				DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */,
-				9BBCEDFD212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -1171,7 +1168,6 @@
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
 				44ECE69F208F80320017AC82 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				9BE9A060219ADC2000059C19 /* CollapsedSelectionValuesView.swift in Sources */,
-				9BBCEDFE212EEE6B00F91B5D /* SearchQuerySuggestionCell.swift in Sources */,
 				9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */,
 				9BF778CC21C16374006C0416 /* MapFilterViewController.swift in Sources */,
 				9BB827A9216CCFA10014028C /* SearchQueryFilterInfoType.swift in Sources */,

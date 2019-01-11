@@ -1,3 +1,17 @@
+## [0.10] - 2019-01-11
+- Fixed realestate filter config
+- Using FinniverKit as a dependency, new lists/cells will use FinniversKit, but old ones needs to be updated so there might be some UI inconsistencies until that is completed. 
+- Added geofilter
+- New bottomsheet implementation
+- Updated search query cell on root view to use FinniversKit styling
+
+## [0.9] - 2018-11-29
+- Improvement to switching verticals and demo data for one more car vertical added
+- Range control should now work when the slider is all the way to the left (slide to go back should not interfer anymore)
+- Continuing to slide finger when expanding bottomsheet will now switch to scroll content when bottomsheet has reached its expanded state 
+- Improved UI for search query filter
+
+
 ## [0.9] - 2018-11-29
 - Improvement to switching verticals and demo data for one more car vertical added
 - Range control should now work when the slider is all the way to the left (slide to go back should not interfer anymore)

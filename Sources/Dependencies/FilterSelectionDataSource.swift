@@ -84,6 +84,7 @@ public protocol FilterSelectionDataSource: AnyObject {
     func addValue(_ value: String, for filterInfo: FilterInfoType)
     func clearAll(for filterInfo: FilterInfoType)
     func clearValue(_ value: String, for filterInfo: FilterInfoType)
+    func setValueAndClearValueForChildren(_ value: String?, for filterInfo: MultiLevelListSelectionFilterInfoType)
     func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType)
     func clearSelection(at selectionValueIndex: Int, in selectionInfo: FilterSelectionInfo)
 

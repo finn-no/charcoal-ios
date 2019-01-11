@@ -203,6 +203,9 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
 }
 
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
+    func setValueAndClearValueForChildren(_ value: String?, for filterInfo: MultiLevelListSelectionFilterInfoType) {
+    }
+
     func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
     }
 

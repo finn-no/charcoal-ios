@@ -133,8 +133,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
         if wasItemPreviouslySelected {
             selectionDataSource.clearValue(filterInfo.value, for: filterInfo)
         } else {
-            selectionDataSource.clearValueAndValueForChildren(for: filterInfo)
-            selectionDataSource.addValue(filterInfo.value, for: filterInfo)
+            selectionDataSource.setValueAndClearValueForChildren(filterInfo.value, for: filterInfo)
         }
         filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }

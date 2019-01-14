@@ -134,7 +134,7 @@ public class FilterRootViewController: UIViewController {
         return cell
     }()
 
-    private var bottomLayoutConstant: CGFloat {
+    private var bottomSafeAreaInset: CGFloat {
         if #available(iOS 11.0, *) {
             return UIApplication.shared.delegate?.window??.safeAreaInsets.bottom ?? 0
         } else {
@@ -185,7 +185,7 @@ private extension FilterRootViewController {
             showResultsButtonView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             showResultsButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             showResultsButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            showResultsButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomLayoutConstant),
+            showResultsButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomSafeAreaInset),
         ])
     }
 

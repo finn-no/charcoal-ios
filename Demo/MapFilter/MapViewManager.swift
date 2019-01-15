@@ -8,11 +8,11 @@ import MapKit
 import UIKit
 
 class MapViewManager: NSObject, MapFilterViewManager {
+    let locationName: String? = nil
+
     func centerOnUserLocation() {
         didTapLocateUserButton()
     }
-
-    private let initialCenterPoint = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
 
     var centerCoordinate: CLLocationCoordinate2D? {
         get {
@@ -80,7 +80,6 @@ class MapViewManager: NSObject, MapFilterViewManager {
         containerView.addSubview(mapKitMapView)
         mapKitMapView.fillInSuperview()
         DispatchQueue.main.async {
-            self.mapKitMapView.centerCoordinate = self.initialCenterPoint
             self.mapKitMapView.showsUserLocation = true
         }
     }

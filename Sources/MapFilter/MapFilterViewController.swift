@@ -44,9 +44,7 @@ public class MapFilterViewController: FilterViewController {
         showApplyButton(true, animated: false)
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let currentSelection = selectionDataSource.geoValue(for: filterInfo) else {
+        guard let currentSelection = selectionDataSource.geoValue() else {
             return
         }
         mapFilterView?.setInitialSelection(latitude: currentSelection.latitude, longitude: currentSelection.longitude, radius: currentSelection.radius, locationName: currentSelection.locationName)

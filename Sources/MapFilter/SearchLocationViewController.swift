@@ -314,6 +314,8 @@ private class SearchLocationSearchBar: UISearchBar {
 }
 
 private struct HomeAddressCellViewModel: IconTitleTableViewCellViewModel {
+    let detailText: String? = nil
+
     var icon: UIImage? {
         return UIImage(named: .homeAddressIcon)
     }
@@ -336,6 +338,8 @@ private struct HomeAddressCellViewModel: IconTitleTableViewCellViewModel {
 }
 
 private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
+    let detailText: String? = nil
+
     var icon: UIImage? {
         return UIImage(named: .currentLocationIcon)
     }
@@ -358,6 +362,8 @@ private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
 }
 
 private struct RecentLocationCellViewModel: IconTitleTableViewCellViewModel {
+    let detailText: String? = nil
+
     var icon: UIImage? {
         return UIImage(named: .searchSmall)
     }
@@ -377,6 +383,8 @@ private struct RecentLocationCellViewModel: IconTitleTableViewCellViewModel {
 }
 
 private struct LocationCellViewModel: IconTitleTableViewCellViewModel {
+    let detailText: String? = nil
+
     var icon: UIImage? {
         return nil
     }

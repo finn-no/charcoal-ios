@@ -185,6 +185,8 @@ private extension SearchQueryViewController {
 // MARK: - Private class
 
 private struct SearchQueryItemCellModel: IconTitleTableViewCellViewModel {
+    let detailText: String? = nil
+
     var title: String
 
     var icon: UIImage? {

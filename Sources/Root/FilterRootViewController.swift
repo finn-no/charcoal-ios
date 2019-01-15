@@ -134,14 +134,6 @@ public class FilterRootViewController: UIViewController {
         return cell
     }()
 
-    private var bottomSafeAreaInset: CGFloat {
-        if #available(iOS 11.0, *) {
-            return UIApplication.shared.delegate?.window??.safeAreaInsets.bottom ?? 0
-        } else {
-            return 0
-        }
-    }
-
     public init(title: String, navigator: RootFilterNavigator, selectionDataSource: FilterSelectionDataSource, filterSelectionTitleProvider: FilterSelectionTitleProvider, delegate: FilterRootViewControllerDelegate? = nil) {
         self.navigator = navigator
         self.selectionDataSource = selectionDataSource
@@ -185,7 +177,7 @@ private extension FilterRootViewController {
             showResultsButtonView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             showResultsButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             showResultsButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            showResultsButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomSafeAreaInset),
+            showResultsButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 

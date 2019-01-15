@@ -5,10 +5,7 @@
 import FinniversKit
 import UIKit
 
-public class StepperFilterViewController: UIViewController, FilterContainerViewController {
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
-    public var controller: UIViewController { return self }
-
+public class StepperFilterViewController: UIViewController {
     private let filterInfo: StepperFilterInfoType
     private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
@@ -20,12 +17,12 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
         return view
     }()
 
-    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let filterInfo = filterInfo as? StepperFilterInfoType else { return nil }
+    public required init(filterInfo: StepperFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         self.filterInfo = filterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         super.init(nibName: nil, bundle: nil)
+        title = filterInfo.title
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -49,7 +46,7 @@ private extension StepperFilterViewController {
             selectionDataSource.clearAll(for: filterInfo)
         default:
             selectionDataSource.setValue(RangeValue.minimum(lowValue: sender.value), for: filterInfo)
-            filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+//            filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
         }
     }
 }

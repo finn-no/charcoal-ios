@@ -59,8 +59,6 @@ enum Sections: String, CaseIterable {
         case .components:
             let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
-            case .rootFilters:
-                return .none
             case .listSelection:
                 return .none
             case .compactListFilter:
@@ -110,7 +108,6 @@ enum Sections: String, CaseIterable {
 }
 
 enum ComponentViews: String, CaseIterable {
-    case rootFilters
     case listSelection
     case compactListFilter
     case rangeFilter
@@ -120,20 +117,8 @@ enum ComponentViews: String, CaseIterable {
 
     var viewController: UIViewController {
         switch self {
-        case .rootFilters:
-            let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
-            let demoFilter = DemoFilter(filter: filterData)
-            let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
-            let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
-
-            let stateController = rootFilterNavigator.start()
-            stateController.change(to: .loadFreshFilters(data: demoFilter))
-
-            return navigationController
-
         case .listSelection:
-            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
+            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())
             return viewController
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
@@ -175,14 +160,14 @@ enum FullscreenViews: String, CaseIterable {
         }
 
         let demoFilter = DemoFilter(filter: filter)
-        let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
-        let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
-
-        let stateController = rootFilterNavigator.start()
-        stateController.change(to: .loadFreshFilters(data: demoFilter))
-
-        return navigationController
+//        let navigationController = FilterNavigationController()
+//        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
+//        let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
+//
+//        let stateController = rootFilterNavigator.start()
+//        stateController.change(to: .loadFreshFilters(data: demoFilter))
+        let filterViewController = FilterNavigationController(dataSource: demoFilter, selection: demoFilter.selectionDataSource, titleProvider: demoFilter.filterSelectionTitleProvider)
+        return filterViewController
     }
 }
 

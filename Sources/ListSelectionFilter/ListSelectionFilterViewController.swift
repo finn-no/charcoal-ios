@@ -4,15 +4,10 @@
 
 import FinniversKit
 
-public final class ListSelectionFilterViewController: UIViewController, FilterContainerViewController {
+public final class ListSelectionFilterViewController: UIViewController {
     private let filterInfo: ListSelectionFilterInfoType
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
     private let selectionDataSource: FilterSelectionDataSource
     private let dataSource: FilterDataSource
-
-    public var controller: UIViewController {
-        return self
-    }
 
     private static var rowHeight: CGFloat = 48.0
 
@@ -29,15 +24,11 @@ public final class ListSelectionFilterViewController: UIViewController, FilterCo
 
     private let listItems: [FilterValueType]
 
-    public init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let listSelectionFilterInfo = filterInfo as? ListSelectionFilterInfoType else {
-            return nil
-        }
-
-        self.filterInfo = listSelectionFilterInfo
+    public init(filterInfo: ListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
+        self.filterInfo = filterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
-        listItems = listSelectionFilterInfo.values
+        listItems = filterInfo.values
         super.init(nibName: nil, bundle: nil)
         title = title
     }
@@ -90,7 +81,7 @@ public final class ListSelectionFilterViewController: UIViewController, FilterCo
                 selectionDataSource.setValue([item.value], for: filterInfo)
             }
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+//        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
     private func isListItemSelected(_ item: FilterValueType) -> Bool {
@@ -132,11 +123,5 @@ extension ListSelectionFilterViewController: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return type(of: self).rowHeight
-    }
-}
-
-extension ListSelectionFilterViewController: ScrollableContainerViewController {
-    public var mainScrollableView: UIScrollView {
-        return tableView
     }
 }

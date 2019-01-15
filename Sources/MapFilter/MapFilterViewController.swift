@@ -6,8 +6,6 @@ import MapKit
 import UIKit
 
 public class MapFilterViewController: UIViewController {
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
-
     public var mapFilterViewManager: MapFilterViewManager?
 
     var searchLocationDataSource: SearchLocationDataSource?
@@ -37,6 +35,7 @@ public class MapFilterViewController: UIViewController {
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         super.init(nibName: nil, bundle: nil)
+        title = filterInfo.title
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -81,12 +80,6 @@ public class MapFilterViewController: UIViewController {
             mapFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-    }
-}
-
-extension MapFilterViewController: FilterContainerViewController {
-    public var controller: UIViewController {
-        return self
     }
 }
 

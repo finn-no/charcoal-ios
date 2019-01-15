@@ -4,7 +4,7 @@
 
 import Foundation
 
-public final class MultiLevelListSelectionFilterViewController: UIViewController, FilterContainerViewController {
+public final class MultiLevelListSelectionFilterViewController: FilterViewController {
     private enum Section: Int, CaseIterable {
         case map = 0
         case all
@@ -15,12 +15,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
     private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
     private let isSelectAllIncluded: Bool
-
-    public var controller: UIViewController {
-        return self
-    }
 
     private static var rowHeight: CGFloat = 48.0
 
@@ -37,19 +32,15 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
 
     let listItems: [MultiLevelListSelectionFilterInfoType]
 
-    public init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
-            return nil
-        }
-
-        self.filterInfo = multiLevelFilterInfo
+    public init(filterInfo: MultiLevelListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
+        self.filterInfo = filterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
-        let filters = multiLevelFilterInfo.filters
-        isSelectAllIncluded = !multiLevelFilterInfo.value.isEmpty && !multiLevelFilterInfo.isMapFilter
+        let filters = filterInfo.filters
+        isSelectAllIncluded = !filterInfo.value.isEmpty && !filterInfo.isMapFilter
         listItems = filters
         super.init(nibName: nil, bundle: nil)
-        title = title
+        title = filterInfo.title
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -124,7 +115,8 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
     }
 
     private func didSelectDrillDownItem(_ listItem: MultiLevelListSelectionFilterInfoType, at indexPath: IndexPath) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: listItem)
+        let controller = MultiLevelListSelectionFilterViewController(filterInfo: listItem, dataSource: dataSource, selectionDataSource: selectionDataSource)
+        navigationController?.pushViewController(controller, animated: true)
         indexPathToRefreshOnViewWillAppear = indexPath
     }
 
@@ -136,7 +128,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
             selectionDataSource.clearValueAndValueForChildren(for: filterInfo)
             selectionDataSource.addValue(filterInfo.value, for: filterInfo)
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+        filterSelectionDelegate?.filterViewControllerDidChangeSelection(self)
     }
 
     private func toggleSelection(for item: MultiLevelListSelectionFilterInfoType) {
@@ -157,7 +149,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
                 selectionDataSource.setValue([item.value], for: item)
             }
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+        filterSelectionDelegate?.filterViewControllerDidChangeSelection(self)
     }
 
     private func isListItemSelected(_ item: MultiLevelListSelectionFilterInfoType) -> Bool {
@@ -232,8 +224,8 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
         }
         switch section {
         case .map:
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateToMapFor: filterInfo)
-            break
+            guard let controller = MapFilterViewController(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource) else { return }
+            navigationController?.pushViewController(controller, animated: true)
         case .all:
             toggleSelectAllSelection()
             updateAllVisibleCells()
@@ -256,12 +248,6 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return type(of: self).rowHeight
-    }
-}
-
-extension MultiLevelListSelectionFilterViewController: ScrollableContainerViewController {
-    public var mainScrollableView: UIScrollView {
-        return tableView
     }
 }
 

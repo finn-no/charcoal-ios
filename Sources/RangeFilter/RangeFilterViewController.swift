@@ -4,12 +4,10 @@
 
 import Foundation
 
-public final class RangeFilterViewController: UIViewController, FilterContainerViewController {
+public final class RangeFilterViewController: UIViewController {
     public var controller: UIViewController {
         return self
     }
-
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     lazy var rangeFilterView: RangeFilterView = {
         let range = filterInfo.lowValue ... filterInfo.highValue
@@ -43,15 +41,12 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
         fatalError("init(coder:) has not been implemented")
     }
 
-    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let rangeFilterInfo = filterInfo as? RangeFilterInfoType else {
-            return nil
-        }
-
-        self.filterInfo = rangeFilterInfo
+    public required init(filterInfo: RangeFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
+        self.filterInfo = filterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         super.init(nibName: nil, bundle: nil)
+        title = filterInfo.title
     }
 
     public required init?(string: String) {
@@ -94,7 +89,7 @@ private extension RangeFilterViewController {
         } else {
             selectionDataSource.clearAll(for: filterInfo)
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+//        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 }
 

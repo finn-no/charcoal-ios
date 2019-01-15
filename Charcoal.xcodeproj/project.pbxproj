@@ -33,7 +33,6 @@
 		46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A93B6E216D5C4900985139 /* MultiLevelSelectionListItemCell.swift */; };
 		46F642542199C83B00C1D864 /* SelectionWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F642532199C83B00C1D864 /* SelectionWithTitle.swift */; };
 		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
-		5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */; };
 		55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */; };
 		55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
@@ -212,7 +211,6 @@
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
 		46A93B6E216D5C4900985139 /* MultiLevelSelectionListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLevelSelectionListItemCell.swift; sourceTree = "<group>"; };
 		46F642532199C83B00C1D864 /* SelectionWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionWithTitle.swift; sourceTree = "<group>"; };
-		5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDependencyContainer.swift; sourceTree = "<group>"; };
 		55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactListFilterView.swift; sourceTree = "<group>"; };
 		55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactListFilterViewDemoView.swift; sourceTree = "<group>"; };
 		554D154F20C0782200FA3930 /* car-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-norway.json"; sourceTree = "<group>"; };
@@ -527,7 +525,6 @@
 			isa = PBXGroup;
 			children = (
 				55858A1620AAC2EB00B100EA /* FilterDataSource.swift */,
-				5525324520A2E755000CBD21 /* FilterDependencyContainer.swift */,
 				9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */,
 			);
 			path = Dependencies;
@@ -1040,7 +1037,6 @@
 			files = (
 				9BB827AB216CCFCA0014028C /* PreferenceInfoType.swift in Sources */,
 				5589323920A02E5800512FF8 /* SelectionListItemCell.swift in Sources */,
-				5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */,
 				465F616B219B7A1900CF568B /* FilterData.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
 				559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */,

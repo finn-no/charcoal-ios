@@ -9,7 +9,14 @@ public protocol ParameterBasedFilterInfoSelectionDataSourceDelegate: AnyObject {
 }
 
 public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
-    private let selectionDataSource: FINNFilterSelectionData
+    private struct GeoKey {
+        static let latitude = "lat"
+        static let longitude = "lon"
+        static let radius = "radius"
+        static let locationName = "geoLocationName"
+    }
+
+    private let selectionDataSource: FilterSelectionData
     public var selectionValues: [String: [String]] {
         return selectionDataSource.selectionValues
     }
@@ -29,7 +36,7 @@ public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
                 selectionValues[qi.name] = [value]
             }
         }
-        selectionDataSource = FINNFilterSelectionData(selectionValues: selectionValues)
+        selectionDataSource = FilterSelectionData(selectionValues: selectionValues)
     }
 
     public convenience override init() {
@@ -63,6 +70,28 @@ public class ParameterBasedFilterInfoSelectionDataSource: NSObject {
                 filter.selectionState = .selected
             }
         }
+    }
+
+    private func intOrNil(from value: String?) -> Int? {
+        guard let value = value else {
+            return nil
+        }
+        return Int(value)
+    }
+
+    private func filterParameter(for filterInfo: FilterInfoType) -> String? {
+        if let filter = filterInfo as? ParameterBasedFilterInfo {
+            return filter.parameterName
+        }
+        return nil
+    }
+
+    private func rangeFilterKeyLow(fromBaseKey filterKey: String) -> String {
+        return filterKey + "_from"
+    }
+
+    private func rangeFilterKeyHigh(fromBaseKey filterKey: String) -> String {
+        return filterKey + "_to"
     }
 }
 
@@ -109,7 +138,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
     }
 
     public func value(for filterInfo: FilterInfoType) -> [String]? {
-        guard let filterKey = selectionDataSource.filterParameter(for: filterInfo) else {
+        guard let filterKey = filterParameter(for: filterInfo) else {
             return nil
         }
         if filterInfo is RangeFilterInfoType {
@@ -131,7 +160,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
     }
 
     public func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType) {
-        guard let filterKey = selectionDataSource.filterParameter(for: filterInfo) else {
+        guard let filterKey = filterParameter(for: filterInfo) else {
             return
         }
 
@@ -157,7 +186,22 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
     }
 
     public func clearAll(for filterInfo: FilterInfoType) {
-        selectionDataSource.clearAll(for: filterInfo)
+        guard let filterKey = filterParameter(for: filterInfo) else {
+            return
+        }
+        if filterInfo is RangeFilterInfoType {
+            selectionDataSource.removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
+            selectionDataSource.removeSelectionValues(rangeFilterKeyHigh(fromBaseKey: filterKey))
+        } else if filterInfo is StepperFilterInfoType {
+            selectionDataSource.removeSelectionValues(rangeFilterKeyLow(fromBaseKey: filterKey))
+        } else {
+            selectionDataSource.removeSelectionValues(filterKey)
+
+            if let multiLevelFilter = filterInfo as? MultiLevelListSelectionFilterInfo {
+                multiLevelFilter.selectionState = .none
+                selectionDataSource.updateSelectionStateForAncestors(of: multiLevelFilter)
+            }
+        }
         delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
     }
 
@@ -182,20 +226,20 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
     public func clearSelection(at selectionValueIndex: Int, in selectionInfo: FilterSelectionInfo) {
         if let selectionData = selectionInfo as? FilterSelectionDataInfo {
             selectionDataSource.removeValue(selectionData.value, for: selectionData.filter)
+            delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
         } else if let selectionData = selectionInfo as? FilterRangeSelectionInfo {
-            selectionDataSource.clearAll(for: selectionData.filter)
+            clearAll(for: selectionData.filter)
         } else if let selectionData = selectionInfo as? FilterStepperSelectionInfo {
-            selectionDataSource.clearAll(for: selectionData.filter)
+            clearAll(for: selectionData.filter)
         }
-        delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
     }
 
     public func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {
-        guard let filterKey = selectionDataSource.filterParameter(for: filterInfo) else {
+        guard let filterKey = filterParameter(for: filterInfo) else {
             return nil
         }
-        let low = selectionDataSource.intOrNil(from: selectionDataSource.selectionValues(for: selectionDataSource.rangeFilterKeyLow(fromBaseKey: filterKey)).first)
-        let high = selectionDataSource.intOrNil(from: selectionDataSource.selectionValues(for: selectionDataSource.rangeFilterKeyHigh(fromBaseKey: filterKey)).first)
+        let low = intOrNil(from: selectionDataSource.selectionValues(for: rangeFilterKeyLow(fromBaseKey: filterKey)).first)
+        let high = intOrNil(from: selectionDataSource.selectionValues(for: rangeFilterKeyHigh(fromBaseKey: filterKey)).first)
         if let low = low, let high = high {
             return .closed(lowValue: low, highValue: high)
         } else if let low = low {
@@ -208,34 +252,62 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
     }
 
     public func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
-        guard let filterKey = selectionDataSource.filterParameter(for: filterInfo) else {
+        guard let filterKey = filterParameter(for: filterInfo) else {
             return
         }
-        selectionDataSource.setRangeSelectionValue(range, for: filterKey)
+        let lowKey = rangeFilterKeyLow(fromBaseKey: filterKey)
+        let highKey = rangeFilterKeyHigh(fromBaseKey: filterKey)
+        switch range {
+        case let .minimum(lowValue):
+            selectionDataSource.setStringValue(lowValue.description, for: lowKey)
+            selectionDataSource.removeSelectionValues(highKey)
+        case let .maximum(highValue):
+            selectionDataSource.removeSelectionValues(lowKey)
+            selectionDataSource.setStringValue(highValue.description, for: highKey)
+        case let .closed(lowValue, highValue):
+            selectionDataSource.setStringValue(lowValue.description, for: lowKey)
+            selectionDataSource.setStringValue(highValue.description, for: highKey)
+        }
         delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
     }
 
     public func stepperValue(for filterInfo: StepperFilterInfoType) -> Int? {
-        guard let filterKey = selectionDataSource.filterParameter(for: filterInfo) else {
+        guard let filterKey = filterParameter(for: filterInfo) else {
             return nil
         }
-        let low = selectionDataSource.intOrNil(from: selectionDataSource.selectionValues(for: selectionDataSource.rangeFilterKeyLow(fromBaseKey: filterKey)).first)
+        let low = intOrNil(from: selectionDataSource.selectionValues(for: rangeFilterKeyLow(fromBaseKey: filterKey)).first)
         return low
     }
 
     public func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType) {
-        selectionDataSource.clearAll(for: filterInfo)
-        selectionDataSource.setGeoLocation(latitude: latitude, longitude: longitude, radius: radius, locationName: locationName)
+        if let filterKey = filterParameter(for: filterInfo) {
+            selectionDataSource.removeSelectionValues(filterKey)
+        }
+        selectionDataSource.setStringValue(latitude.description, for: GeoKey.latitude)
+        selectionDataSource.setStringValue(longitude.description, for: GeoKey.longitude)
+        selectionDataSource.setStringValue(radius.description, for: GeoKey.radius)
+        if let locationName = locationName {
+            selectionDataSource.setStringValue(locationName, for: GeoKey.locationName)
+        } else {
+            selectionDataSource.removeSelectionValues(GeoKey.locationName)
+        }
         delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
     }
 
     public func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
-        selectionDataSource.clearAll(for: filterInfo)
-        selectionDataSource.setGeoLocation(latitude: geoFilterValue.latitude, longitude: geoFilterValue.longitude, radius: geoFilterValue.radius, locationName: geoFilterValue.locationName)
-        delegate?.parameterBasedFilterInfoSelectionDataSourceDidChange(self)
+        setValue(latitude: geoFilterValue.latitude, longitude: geoFilterValue.longitude, radius: geoFilterValue.radius, locationName: geoFilterValue.locationName, for: filterInfo)
     }
 
     public func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
-        return selectionDataSource.geoLocation()
+        guard let latitudeStr = selectionDataSource.selectionValues[GeoKey.latitude]?.first,
+            let longitudeStr = selectionDataSource.selectionValues[GeoKey.longitude]?.first,
+            let radiusStr = selectionDataSource.selectionValues[GeoKey.radius]?.first else {
+            return nil
+        }
+        guard let latitude = Double(latitudeStr), let longitude = Double(longitudeStr), let radius = Int(radiusStr) else {
+            return nil
+        }
+        let locationName = selectionDataSource.selectionValues[GeoKey.locationName]?.first
+        return GeoFilterValue(latitude: latitude, longitude: longitude, radius: radius, locationName: locationName)
     }
 }

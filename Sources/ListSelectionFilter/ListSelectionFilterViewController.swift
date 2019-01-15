@@ -4,7 +4,7 @@
 
 import FinniversKit
 
-public final class ListSelectionFilterViewController: UIViewController {
+public final class ListSelectionFilterViewController: FilterViewController {
     private let filterInfo: ListSelectionFilterInfoType
     private let selectionDataSource: FilterSelectionDataSource
     private let dataSource: FilterDataSource
@@ -81,7 +81,6 @@ public final class ListSelectionFilterViewController: UIViewController {
                 selectionDataSource.setValue([item.value], for: filterInfo)
             }
         }
-//        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
     private func isListItemSelected(_ item: FilterValueType) -> Bool {

@@ -5,13 +5,34 @@
 import Foundation
 
 public class FilterNavigationController: UINavigationController {
-    public init(dataSource: FilterDataSource, selection: FilterSelectionDataSource, titleProvider: FilterSelectionTitleProvider) {
-        let rootFilter = RootFilterViewController(filterDataSource: dataSource, selectionDataSource: selection, titleProvider: titleProvider)
-        super.init(rootViewController: rootFilter)
+
+    // MARK: - Public properties
+
+    public weak var filterDelegate: FilterRootViewControllerDelegate? {
+        get { return rootFilterViewController.delegate }
+        set { rootFilterViewController.delegate = newValue }
     }
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    public var mapFilterViewManager: MapFilterViewManager? {
+        get { return rootFilterViewController.mapFilterViewManager }
+        set { rootFilterViewController.mapFilterViewManager = newValue }
+    }
+
+    public var searchLocationDataSource: SearchLocationDataSource? {
+        get { return rootFilterViewController.searchLocationDataSource }
+        set { rootFilterViewController.searchLocationDataSource = newValue }
+    }
+
+    // MARK: - Private properties
+
+    private let rootFilterViewController: RootFilterViewController
+
+    // MARK: - Setup
+
+    public init(dataSource: FilterDataSource, selection: FilterSelectionDataSource, titleProvider: FilterSelectionTitleProvider) {
+        rootFilterViewController = RootFilterViewController(filterDataSource: dataSource, selectionDataSource: selection, titleProvider: titleProvider)
+        super.init(nibName: nil, bundle: nil)
+        setViewControllers([rootFilterViewController], animated: false)
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -4,18 +4,23 @@
 
 import Foundation
 
-public final class MultiLevelListSelectionFilterViewController: FilterViewController {
+extension MultiLevelListSelectionFilterViewController {
     private enum Section: Int, CaseIterable {
         case map = 0
         case all
         case values
     }
+}
 
+public final class MultiLevelListSelectionFilterViewController: FilterViewController {
     private let filterInfo: MultiLevelListSelectionFilterInfoType
     private let dataSource: FilterDataSource
     private let selectionDataSource: FilterSelectionDataSource
+
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
     private let isSelectAllIncluded: Bool
+    // Should be replaced with selectionDelegate
+    private weak var parentFilter: MultiLevelListSelectionFilterViewController?
 
     private static var rowHeight: CGFloat = 48.0
 
@@ -49,12 +54,14 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
     }
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if selectionDataSource.selectionState(filterInfo) != .none {
+            showApplyButton(true, animated: false)
+        }
         if let indexPathToRefreshOnViewWillAppear = indexPathToRefreshOnViewWillAppear {
             updateCellIfVisible(at: indexPathToRefreshOnViewWillAppear)
         }
@@ -65,8 +72,7 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
     }
 
     private func setup() {
-        view.addSubview(tableView)
-
+        view.insertSubview(tableView, belowSubview: applyButton)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -116,6 +122,8 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
 
     private func didSelectDrillDownItem(_ listItem: MultiLevelListSelectionFilterInfoType, at indexPath: IndexPath) {
         let controller = MultiLevelListSelectionFilterViewController(filterInfo: listItem, dataSource: dataSource, selectionDataSource: selectionDataSource)
+        controller.filterSelectionDelegate = filterSelectionDelegate
+        controller.parentFilter = self
         navigationController?.pushViewController(controller, animated: true)
         indexPathToRefreshOnViewWillAppear = indexPath
     }
@@ -128,7 +136,6 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
             selectionDataSource.clearValueAndValueForChildren(for: filterInfo)
             selectionDataSource.addValue(filterInfo.value, for: filterInfo)
         }
-        filterSelectionDelegate?.filterViewControllerDidChangeSelection(self)
     }
 
     private func toggleSelection(for item: MultiLevelListSelectionFilterInfoType) {
@@ -149,7 +156,6 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
                 selectionDataSource.setValue([item.value], for: item)
             }
         }
-        filterSelectionDelegate?.filterViewControllerDidChangeSelection(self)
     }
 
     private func isListItemSelected(_ item: MultiLevelListSelectionFilterInfoType) -> Bool {
@@ -224,7 +230,10 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
         }
         switch section {
         case .map:
-            guard let controller = MapFilterViewController(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource) else { return }
+            let controller = MapFilterViewController(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource)
+            controller.filterSelectionDelegate = filterSelectionDelegate
+            controller.mapFilterViewManager = filterSelectionDelegate?.filterViewControllerDidRequestMapManager(self)
+            controller.searchLocationDataSource = filterSelectionDelegate?.filterViewControllerDidRequestSearchLocationDataSource(self)
             navigationController?.pushViewController(controller, animated: true)
         case .all:
             toggleSelectAllSelection()
@@ -244,6 +253,9 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
                 }
             }
         }
+        let showButton = selectionDataSource.selectionState(filterInfo) != .none
+        showApplyButton(showButton, animated: true)
+        parentFilter?.showApplyButton(showButton, animated: false)
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

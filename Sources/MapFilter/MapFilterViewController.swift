@@ -5,7 +5,7 @@
 import MapKit
 import UIKit
 
-public class MapFilterViewController: UIViewController {
+public class MapFilterViewController: FilterViewController {
     public var mapFilterViewManager: MapFilterViewManager?
 
     var searchLocationDataSource: SearchLocationDataSource?
@@ -30,7 +30,7 @@ public class MapFilterViewController: UIViewController {
         return searchLocationViewController
     }()
 
-    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
+    public init(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         self.filterInfo = filterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
@@ -45,6 +45,7 @@ public class MapFilterViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        showApplyButton(true, animated: false)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +77,7 @@ public class MapFilterViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             mapFilterView.topAnchor.constraint(equalTo: safeTopAnchor),
-            mapFilterView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
+            mapFilterView.bottomAnchor.constraint(equalTo: applyButton.topAnchor),
             mapFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])

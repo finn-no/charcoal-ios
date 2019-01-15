@@ -10,7 +10,9 @@ public protocol FilterRootViewControllerDelegate: AnyObject {
 }
 
 public protocol FilterSelectionDelegate: class {
-    func filterViewControllerDidChangeSelection(_ viewController: FilterViewController)
+    func filterViewControllerDidPressApplyButton(_ viewController: FilterViewController)
+    func filterViewControllerDidRequestMapManager(_ viewController: FilterViewController) -> MapFilterViewManager?
+    func filterViewControllerDidRequestSearchLocationDataSource(_ viewController: FilterViewController) -> SearchLocationDataSource?
 }
 
 extension RootFilterViewController {
@@ -22,17 +24,25 @@ extension RootFilterViewController {
 }
 
 public class RootFilterViewController: UIViewController {
-    weak var delegate: FilterRootViewControllerDelegate?
-    let selectionDataSource: FilterSelectionDataSource
-    let filterDataSource: FilterDataSource
-    let filterSelectionTitleProvider: FilterSelectionTitleProvider
 
-    var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
+    // MARK: - Public properties
+
+    public weak var delegate: FilterRootViewControllerDelegate?
+    public let selectionDataSource: FilterSelectionDataSource
+    public let filterDataSource: FilterDataSource
+    public let filterSelectionTitleProvider: FilterSelectionTitleProvider
+
+    public var mapFilterViewManager: MapFilterViewManager?
+    public var searchLocationDataSource: SearchLocationDataSource?
 
     public var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource? {
         get { return searchViewController.searchQuerySuggestionDataSource }
         set { searchViewController.searchQuerySuggestionDataSource = newValue }
     }
+
+    // MARK: - Private properties
+
+    private var popoverPresentationTransitioningDelegate: CustomPopoverPresentationTransitioningDelegate?
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -101,6 +111,8 @@ public class RootFilterViewController: UIViewController {
         return cell
     }()
 
+    // MARK: - Setup
+
     public init(filterDataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, titleProvider: FilterSelectionTitleProvider) {
         self.filterDataSource = filterDataSource
         self.selectionDataSource = selectionDataSource
@@ -124,7 +136,7 @@ public class RootFilterViewController: UIViewController {
     }
 }
 
-// MARK: -
+// MARK: - TableView Delegate
 
 extension RootFilterViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -138,7 +150,7 @@ extension RootFilterViewController: UITableViewDelegate {
             return
         case .filters:
             guard let filterInfo = self.filterInfo(at: indexPath) else { return }
-            let viewController: UIViewController?
+            let viewController: FilterViewController?
             switch filterInfo {
             case let listSelectionFilterInfo as ListSelectionFilterInfoType:
                 viewController = ListSelectionFilterViewController(filterInfo: listSelectionFilterInfo,
@@ -161,10 +173,13 @@ extension RootFilterViewController: UITableViewDelegate {
                 break
             }
             guard let controller = viewController else { return }
+            controller.filterSelectionDelegate = self
             navigationController?.pushViewController(controller, animated: true)
         }
     }
 }
+
+// MARK: - TableView DataSource
 
 extension RootFilterViewController: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -209,6 +224,20 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
             return cell
         }
+    }
+}
+
+extension RootFilterViewController: FilterSelectionDelegate {
+    public func filterViewControllerDidPressApplyButton(_ viewController: FilterViewController) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+
+    public func filterViewControllerDidRequestMapManager(_ viewController: FilterViewController) -> MapFilterViewManager? {
+        return mapFilterViewManager
+    }
+
+    public func filterViewControllerDidRequestSearchLocationDataSource(_ viewController: FilterViewController) -> SearchLocationDataSource? {
+        return searchLocationDataSource
     }
 }
 
@@ -295,12 +324,11 @@ private extension RootFilterViewController {
             tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            showResultsButtonView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            showResultsButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             showResultsButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             showResultsButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            showResultsButtonView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
-            showResultsButtonView.button.bottomAnchor.constraint(equalTo: safeBottomAnchor),
         ])
     }
 

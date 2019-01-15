@@ -4,11 +4,7 @@
 
 import Foundation
 
-public final class RangeFilterViewController: UIViewController {
-    public var controller: UIViewController {
-        return self
-    }
-
+public final class RangeFilterViewController: FilterViewController {
     lazy var rangeFilterView: RangeFilterView = {
         let range = filterInfo.lowValue ... filterInfo.highValue
         let view = RangeFilterView(
@@ -41,7 +37,7 @@ public final class RangeFilterViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public required init(filterInfo: RangeFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
+    public init(filterInfo: RangeFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
         self.filterInfo = filterInfo
         self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
@@ -55,10 +51,11 @@ public final class RangeFilterViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
-
         setSelectionValue(selectionDataSource.rangeValue(for: filterInfo))
+        if selectionDataSource.rangeValue(for: filterInfo) != nil {
+            showApplyButton(true, animated: false)
+        }
     }
 }
 
@@ -66,9 +63,7 @@ private extension RangeFilterViewController {
     func setup() {
         view.backgroundColor = .milk
         title = filterInfo.title
-
         view.addSubview(rangeFilterView)
-
         NSLayoutConstraint.activate([
             rangeFilterView.topAnchor.constraint(equalTo: view.topAnchor, constant: 48),
             rangeFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -86,10 +81,11 @@ private extension RangeFilterViewController {
     func updateSelectionDataSource() {
         if let rangeValue = currentRangeValue {
             selectionDataSource.setValue(rangeValue, for: filterInfo)
+            showApplyButton(true)
         } else {
             selectionDataSource.clearAll(for: filterInfo)
+            showApplyButton(false)
         }
-//        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 }
 

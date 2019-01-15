@@ -53,7 +53,7 @@ private extension FilterBottomButtonView {
             button.topAnchor.constraint(equalTo: topAnchor, constant: .mediumLargeSpacing),
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
-            //            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumLargeSpacing),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumLargeSpacing),
             button.heightAnchor.constraint(equalToConstant: buttonHeight),
 
             separatorLine.topAnchor.constraint(equalTo: topAnchor),

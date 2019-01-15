@@ -135,7 +135,7 @@ enum ComponentViews: String, CaseIterable {
 
         case .mapFilter:
             let mapViewManager = MapViewManager()
-            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
+            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())
             mapFilterViewController.mapFilterViewManager = mapViewManager
             return mapFilterViewController
         }
@@ -160,13 +160,11 @@ enum FullscreenViews: String, CaseIterable {
         }
 
         let demoFilter = DemoFilter(filter: filter)
-//        let navigationController = FilterNavigationController()
-//        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
-//        let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
-//
-//        let stateController = rootFilterNavigator.start()
-//        stateController.change(to: .loadFreshFilters(data: demoFilter))
-        let filterViewController = FilterNavigationController(dataSource: demoFilter, selection: demoFilter.selectionDataSource, titleProvider: demoFilter.filterSelectionTitleProvider)
+        let filterViewController = FilterNavigationController(dataSource: demoFilter,
+                                                              selection: demoFilter.selectionDataSource,
+                                                              titleProvider: demoFilter.filterSelectionTitleProvider)
+        filterViewController.mapFilterViewManager = MapViewManager()
+        filterViewController.searchLocationDataSource = DemoSearchLocationDataSource()
         return filterViewController
     }
 }

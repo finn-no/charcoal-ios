@@ -85,7 +85,7 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
         searchLocationViewController.view.removeFromSuperview()
         searchLocationViewController.removeFromParent()
 
-        // TODO: start getting location
+        mapFilterViewManager?.centerOnUserLocation()
     }
 
     public func searchLocationViewControllerShouldBePresented(_ searchLocationViewController: SearchLocationViewController) {

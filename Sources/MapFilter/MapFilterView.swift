@@ -15,6 +15,7 @@ public protocol MapFilterViewManager: AnyObject {
     func selectionRadiusChangedTo(_ radius: Int)
     var centerCoordinate: CLLocationCoordinate2D? { get set }
     func addMapView(toFillInside containerView: UIView)
+    func centerOnUserLocation()
 }
 
 public class MapFilterView: UIView {

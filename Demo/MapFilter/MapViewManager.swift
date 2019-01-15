@@ -8,6 +8,10 @@ import MapKit
 import UIKit
 
 class MapViewManager: NSObject, MapFilterViewManager {
+    func centerOnUserLocation() {
+        didTapLocateUserButton()
+    }
+
     private let initialCenterPoint = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
 
     var centerCoordinate: CLLocationCoordinate2D? {

@@ -11,7 +11,7 @@ protocol FilterBottomButtonViewDelegate: AnyObject {
 class FilterBottomButtonView: UIView {
     weak var delegate: FilterBottomButtonViewDelegate?
 
-    private lazy var button: UIButton = {
+    lazy var button: UIButton = {
         let button = UIButton(frame: .zero)
         button.backgroundColor = .primaryBlue
         button.setTitleColor(.milk, for: .normal)
@@ -53,7 +53,7 @@ private extension FilterBottomButtonView {
             button.topAnchor.constraint(equalTo: topAnchor, constant: .mediumLargeSpacing),
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumLargeSpacing),
+            //            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumLargeSpacing),
             button.heightAnchor.constraint(equalToConstant: buttonHeight),
 
             separatorLine.topAnchor.constraint(equalTo: topAnchor),

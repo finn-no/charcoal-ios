@@ -300,6 +300,7 @@ private extension RootFilterViewController {
             showResultsButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             showResultsButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             showResultsButtonView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            showResultsButtonView.button.bottomAnchor.constraint(equalTo: safeBottomAnchor),
         ])
     }
 

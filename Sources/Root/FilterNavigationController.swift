@@ -21,6 +21,7 @@ public class FilterNavigationController: UINavigationController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
+        navigationBar.shadowImage = UIImage()
     }
 }
 

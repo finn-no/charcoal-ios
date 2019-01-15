@@ -70,10 +70,17 @@ public enum MultiLevelListItemSelectionState {
 }
 
 public struct GeoFilterValue {
-    let latitude: Double
-    let longitude: Double
-    let radius: Int
-    let locationName: String?
+    public let latitude: Double
+    public let longitude: Double
+    public let radius: Int
+    public let locationName: String?
+
+    public init(latitude: Double, longitude: Double, radius: Int, locationName: String?) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.radius = radius
+        self.locationName = locationName
+    }
 }
 
 public protocol FilterSelectionDataSource: AnyObject {

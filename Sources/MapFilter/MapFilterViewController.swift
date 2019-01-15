@@ -77,13 +77,20 @@ public class MapFilterViewController: FilterViewController {
             mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
+
+    private func returnToMapFromLocationSearch() {
+        mapFilterView?.searchBar = searchLocationViewController.searchBar
+        mapFilterView?.setNeedsLayout()
+
+        searchLocationViewController.willMove(toParent: nil)
+        searchLocationViewController.view.removeFromSuperview()
+        searchLocationViewController.removeFromParent()
+    }
 }
 
 extension MapFilterViewController: SearchLocationViewControllerDelegate {
     public func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        returnToMapFromLocationSearch()
 
         mapFilterViewManager?.centerOnUserLocation()
     }
@@ -98,19 +105,11 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
     }
 
     public func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
-        mapFilterView?.searchBar = searchLocationViewController.searchBar
-        mapFilterView?.setNeedsLayout()
-
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        returnToMapFromLocationSearch()
     }
 
     public func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didSelectLocation location: LocationInfo?) {
-        mapFilterView?.searchBar = searchLocationViewController.searchBar
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        returnToMapFromLocationSearch()
 
         if let location = location {
             mapFilterViewManager?.centerCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)

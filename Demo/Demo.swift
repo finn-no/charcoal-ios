@@ -163,6 +163,7 @@ enum FullscreenViews: String, CaseIterable {
         let filterViewController = FilterNavigationController(dataSource: demoFilter,
                                                               selection: demoFilter.selectionDataSource,
                                                               titleProvider: demoFilter.filterSelectionTitleProvider)
+        filterViewController.filterDelegate = demoFilter
         filterViewController.mapFilterViewManager = MapViewManager()
         filterViewController.searchLocationDataSource = DemoSearchLocationDataSource()
         return filterViewController

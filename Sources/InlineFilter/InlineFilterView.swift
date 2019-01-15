@@ -18,8 +18,8 @@ public class InlineFilterView: UIView {
     // MARK: - Private properties
 
     private var segments: [Segment] = []
-    private let preferences: [PreferenceFilterInfoType]
-    private let verticals: [Vertical]
+    private var preferences: [PreferenceFilterInfoType]
+    private var verticals: [Vertical]
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -47,6 +47,14 @@ public class InlineFilterView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public func set(verticals: [Vertical], preferences: [PreferenceFilterInfoType]) {
+        segments = []
+        self.verticals = verticals
+        self.preferences = preferences
+        setupItems()
+        collectionView.reloadData()
     }
 }
 

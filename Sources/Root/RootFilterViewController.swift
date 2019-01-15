@@ -10,6 +10,7 @@ public protocol FilterRootViewControllerDelegate: AnyObject {
 }
 
 public protocol FilterSelectionDelegate: class {
+    // Might want to rename this protocol
     func filterViewControllerDidPressApplyButton(_ viewController: FilterViewController)
     func filterViewControllerDidRequestMapManager(_ viewController: FilterViewController) -> MapFilterViewManager?
     func filterViewControllerDidRequestSearchLocationDataSource(_ viewController: FilterViewController) -> SearchLocationDataSource?
@@ -134,6 +135,12 @@ public class RootFilterViewController: UIViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
+
+    public func reloadFilters() {
+        searchViewController.searchBar.placeholder = filterDataSource.searchQuery?.placeholderText
+        inlineFilterView.set(verticals: filterDataSource.verticals, preferences: filterDataSource.preferences.filter { !$0.values.isEmpty })
+        tableView.reloadData()
+    }
 }
 
 // MARK: - TableView Delegate
@@ -250,6 +257,7 @@ extension RootFilterViewController: FilterBottomButtonViewDelegate {
 extension RootFilterViewController: InlineFilterViewDelegate {
     public func inlineFilterView(_ inlineFilterView: InlineFilterView, didTapExpandableSegment segment: Segment) {
         let controller = VerticalListViewController(verticals: filterDataSource.verticals)
+        controller.delegate = self
         popoverPresentationTransitioningDelegate = CustomPopoverPresentationTransitioningDelegate()
         popoverPresentationTransitioningDelegate?.sourceView = segment
         popoverPresentationTransitioningDelegate?.willDismissPopoverHandler = { _ in

@@ -108,24 +108,16 @@ extension DemoFilter: FilterDataSource {
     }
 }
 
-// extension DemoFilter: FilterRootStateControllerDelegate {
-//    func filterRootStateController(_ stateController: FilterRootStateController, shouldChangeVertical vertical: Vertical) {
-//        guard let verticalDemo = vertical as? VerticalDemo, let verticalFile = verticalDemo.file else {
-//            stateController.change(to: .failed(error: .unableToLoadFilterData, action: .ok(action: { stateController.change(to: .filters) })))
-//            return
-//        }
-//        stateController.change(to: .loading)
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self, weak stateController] in
-//            guard let self = self else {
-//                return
-//            }
-//            let filterSetup = DemoFilter.filterDataFromJSONFile(named: verticalFile)
-//            self.loadFilterSetup(filterSetup)
-//            stateController?.change(to: .loadFreshFilters(data: self))
-//        }
-//    }
-//
-//    func filterRootStateControllerShouldShowResults(_: FilterRootStateController) {
-//        // Let user close in other ways
-//    }
-// }
+extension DemoFilter: FilterRootViewControllerDelegate {
+    func filterRootViewController(_ viewController: RootFilterViewController, didChangeVertical vertical: Vertical) {
+        guard let verticalDemo = vertical as? VerticalDemo, let verticalFile = verticalDemo.file else {
+            return
+        }
+        let filterSetup = DemoFilter.filterDataFromJSONFile(named: verticalFile)
+        loadFilterSetup(filterSetup)
+        viewController.reloadFilters()
+    }
+
+    func filterRootViewControllerShouldShowResults(_: RootFilterViewController) {
+    }
+}

@@ -4,8 +4,6 @@
 
 import UIKit
 
-typealias SliderValueKind = Comparable & Numeric
-
 protocol ValueSliderViewDelegate: AnyObject {
     func valueViewControl<ValueKind: SliderValueKind>(_ valueSliderView: ValueSliderView<ValueKind>, didChangeValue: ValueKind, didFinishSlideInteraction: Bool)
 }

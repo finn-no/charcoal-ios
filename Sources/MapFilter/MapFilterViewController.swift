@@ -41,13 +41,6 @@ public class MapFilterViewController: FilterViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        showApplyButton(true, animated: false)
-    }
-
-        guard let currentSelection = selectionDataSource.geoValue() else {
-            return
-        }
-        mapFilterView?.setInitialSelection(latitude: currentSelection.latitude, longitude: currentSelection.longitude, radius: currentSelection.radius, locationName: currentSelection.locationName)
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -110,7 +103,7 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
         returnToMapFromLocationSearch()
 
         if let location = location {
-            mapFilterViewManager?.centerCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            mapFilterViewManager?.goToLocation(location)
         }
     }
 }

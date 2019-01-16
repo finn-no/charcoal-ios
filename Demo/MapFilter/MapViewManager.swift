@@ -14,18 +14,6 @@ class MapViewManager: NSObject, MapFilterViewManager {
         didTapLocateUserButton()
     }
 
-    var centerCoordinate: CLLocationCoordinate2D? {
-        get {
-            return mapKitMapView.centerCoordinate
-        }
-        set {
-            guard let newCenter = newValue else {
-                return
-            }
-            mapKitMapView.setCenter(newCenter, animated: false)
-        }
-    }
-
     private let pulseAnimationKey = "LocateUserPulseAnimation"
     private lazy var locateUserButton: UIButton = {
         let buttonWidth = 46
@@ -96,6 +84,10 @@ class MapViewManager: NSObject, MapFilterViewManager {
         mapKitMapView.setRegion(coordinateRegion, animated: true)
     }
 
+    func goToLocation(_ location: LocationInfo) {
+        mapKitMapView.setCenter(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), animated: true)
+    }
+
     @objc private func didTapLocateUserButton() {
         if !CLLocationManager.locationServicesEnabled() || CLLocationManager.authorizationStatus() == .denied {
             print("Location services not enabled")
@@ -136,7 +128,6 @@ class MapViewManager: NSObject, MapFilterViewManager {
 
 extension MapViewManager: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        print("regionWillChangeAnimated")
         guard let gestureRecognizers = mapView.subviews.first?.gestureRecognizers else {
             return
         }
@@ -150,7 +141,7 @@ extension MapViewManager: MKMapViewDelegate {
     }
 
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeRegion(self, userInitiated: nextRegionChangeIsFromUserInteraction, animated: animated)
+        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeRegion(self, newCenterCoordinate: mapView.centerCoordinate, userInitiated: nextRegionChangeIsFromUserInteraction, animated: animated)
         nextRegionChangeIsFromUserInteraction = false
     }
 }

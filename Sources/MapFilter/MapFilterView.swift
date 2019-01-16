@@ -6,7 +6,7 @@ import MapKit
 import UIKit
 
 public protocol MapFilterViewManagerDelegate: AnyObject {
-    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool)
+    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, newCenterCoordinate: CLLocationCoordinate2D, userInitiated: Bool, animated: Bool)
     func mapFilterViewManagerDidChangeLocationName(_ mapFilterViewManager: MapFilterViewManager, newLocationName: String?)
 }
 
@@ -14,10 +14,10 @@ public protocol MapFilterViewManager: AnyObject {
     var mapFilterViewManagerDelegate: MapFilterViewManagerDelegate? { get set }
     func mapViewLengthForMeters(_: Int) -> CGFloat
     func selectionRadiusChangedTo(_ radius: Int)
-    var centerCoordinate: CLLocationCoordinate2D? { get set }
     func addMapView(toFillInside containerView: UIView)
     func centerOnUserLocation()
     var locationName: String? { get }
+    func goToLocation(_ location: LocationInfo)
 }
 
 class MapFilterView: UIView {
@@ -65,9 +65,7 @@ class MapFilterView: UIView {
 
     private let mapFilterViewManager: MapFilterViewManager
     private(set) var currentRadius = 40000
-    var centerPoint: CLLocationCoordinate2D? {
-        return mapFilterViewManager.centerCoordinate
-    }
+    var centerPoint: CLLocationCoordinate2D?
 
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
         didSet {
@@ -108,13 +106,6 @@ class MapFilterView: UIView {
 
         // Use a delay incase the view is being changed to new sizes by user
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
-    }
-
-    func setInitialSelection(latitude: Double, longitude: Double, radius: Int, locationName: String?) {
-        mapFilterViewManager.centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        currentRadius = radius
-        searchBar?.text = locationName
-        distanceSlider.setCurrentValue(currentRadius)
     }
 }
 
@@ -170,7 +161,8 @@ extension MapFilterView: MapFilterViewManagerDelegate {
         searchBar?.text = newLocationName
     }
 
-    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool) {
+    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, newCenterCoordinate: CLLocationCoordinate2D, userInitiated: Bool, animated: Bool) {
+        centerPoint = newCenterCoordinate
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
         if userInitiated {
             searchBar?.text = mapFilterViewManager.locationName

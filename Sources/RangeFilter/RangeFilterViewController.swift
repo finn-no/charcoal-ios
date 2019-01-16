@@ -13,11 +13,16 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
     lazy var rangeFilterView: RangeFilterView = {
         let range = filterInfo.lowValue ... filterInfo.highValue
+        let data = StepSliderData(
+            minimumValue: range.lowerBound,
+            maximumValue: range.upperBound,
+            stepValues: [],
+            lowerBoundOffset: filterInfo.additionalLowerBoundOffset,
+            upperBoundOffset: filterInfo.additionalUpperBoundOffset
+        )
+
         let view = RangeFilterView(
-            range: range,
-            additionalLowerBoundOffset: filterInfo.additionalLowerBoundOffset,
-            additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset,
-            steps: filterInfo.steps,
+            sliderData: data,
             unit: filterInfo.unit,
             isValueCurrency: filterInfo.isCurrencyValueRange,
             referenceValues: filterInfo.referenceValues,

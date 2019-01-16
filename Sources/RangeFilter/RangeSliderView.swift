@@ -13,14 +13,14 @@ final class RangeSliderView: UIControl {
     public static let minimumViewHeight: CGFloat = 28.0
 
     private lazy var lowValueSlider: SteppedSlider = {
-        let slider = SteppedSlider(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
+        let slider = SteppedSlider(data: data)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
     }()
 
     private lazy var highValueSlider: SteppedSlider = {
-        let slider = SteppedSlider(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
+        let slider = SteppedSlider(data: data)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
@@ -48,10 +48,7 @@ final class RangeSliderView: UIControl {
 
     typealias RangeValue = Int
     typealias SliderRange = ClosedRange<RangeValue>
-    let range: SliderRange
-    let additionalLowerBoundOffset: RangeValue
-    let additionalUpperBoundOffset: RangeValue
-    let steps: Int
+    let data: StepSliderData<RangeValue>
 
     var generatesHapticFeedbackOnValueChange = true {
         didSet {
@@ -71,7 +68,7 @@ final class RangeSliderView: UIControl {
     var accessibilitySteps: Int {
         get {
             guard let accessibilitySteps = _accessibilitySteps else {
-                return steps
+                return data.steps
             }
 
             return accessibilitySteps
@@ -92,11 +89,8 @@ final class RangeSliderView: UIControl {
 
     weak var delegate: RangeSliderViewDelegate?
 
-    init(range: SliderRange, additionalLowerBoundOffset: RangeValue, additionalUpperBoundOffset: RangeValue, steps: Int?) {
-        self.range = range
-        self.additionalLowerBoundOffset = additionalLowerBoundOffset
-        self.additionalUpperBoundOffset = additionalUpperBoundOffset
-        self.steps = steps ?? Int(range.upperBound - range.lowerBound)
+    init(data: StepSliderData<RangeValue>) {
+        self.data = data
         super.init(frame: .zero)
         setup()
     }
@@ -129,7 +123,7 @@ final class RangeSliderView: UIControl {
 extension RangeSliderView: RangeControl {
     var lowValue: RangeValue? {
         let lowValue = min(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue)
-        if lowValue < range.lowerBound {
+        if lowValue < data.minimumValue {
             return nil
         }
         return RangeSliderView.RangeValue(lowValue)
@@ -137,7 +131,7 @@ extension RangeSliderView: RangeControl {
 
     var highValue: RangeValue? {
         let highValue = max(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue)
-        if highValue > range.upperBound {
+        if highValue > data.maximumValue {
             return nil
         }
         return RangeSliderView.RangeValue(highValue)

@@ -14,7 +14,7 @@ class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
     var highValue: Int
     var additionalLowerBoundOffset: Int
     var additionalUpperBoundOffset: Int
-    var steps: Int
+    var stepValues: [Int]
     var unit: String
     var referenceValues: [Int]
     var isCurrencyValueRange: Bool
@@ -30,7 +30,15 @@ class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
         self.highValue = highValue
         additionalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset
         additionalUpperBoundOffset = rangeBoundsOffsets.upperBoundOffset
-        self.steps = steps
+
+        var stepValues = [Int]()
+        let increment = (highValue - lowValue) / steps
+
+        for i in 1 ..< steps - 1 {
+            stepValues.append(lowValue + i * increment)
+        }
+
+        self.stepValues = stepValues
         self.unit = unit
         self.referenceValues = referenceValues
         isCurrencyValueRange = appearanceProperties.isCurrencyValueRange

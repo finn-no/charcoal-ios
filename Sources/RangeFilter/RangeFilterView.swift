@@ -14,7 +14,7 @@ public final class RangeFilterView: UIControl {
 
     private lazy var numberInputView: RangeNumberInputView = {
         let inputFontSize = usesSmallNumberInputFont ? RangeNumberInputView.InputFontSize.small : RangeNumberInputView.InputFontSize.large
-        let rangeNumberInputView = RangeNumberInputView(minValue: range.lowerBound, unit: unit, formatter: formatter, inputFontSize: inputFontSize, displaysUnitInNumberInput: displaysUnitInNumberInput)
+        let rangeNumberInputView = RangeNumberInputView(minValue: sliderData.minimumValue, unit: unit, formatter: formatter, inputFontSize: inputFontSize, displaysUnitInNumberInput: displaysUnitInNumberInput)
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
 
@@ -22,7 +22,7 @@ public final class RangeFilterView: UIControl {
     }()
 
     private lazy var sliderInputView: RangeSliderView = {
-        let rangeSliderView = RangeSliderView(range: range, additionalLowerBoundOffset: additionalLowerBoundOffset, additionalUpperBoundOffset: additionalUpperBoundOffset, steps: steps)
+        let rangeSliderView = RangeSliderView(data: sliderData)
         rangeSliderView.translatesAutoresizingMaskIntoConstraints = false
         rangeSliderView.delegate = self
         return rangeSliderView
@@ -52,14 +52,14 @@ public final class RangeFilterView: UIControl {
     public var sliderAccessibilitySteps: Int? {
         get {
             guard let accessibilitySteps = _accessibilitySteps else {
-                return steps
+                return sliderData.steps
             }
 
             return accessibilitySteps
         }
         set {
             _accessibilitySteps = newValue
-            sliderInputView.accessibilitySteps = newValue ?? steps
+            sliderInputView.accessibilitySteps = newValue ?? sliderData.steps
         }
     }
 

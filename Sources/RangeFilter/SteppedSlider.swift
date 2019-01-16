@@ -38,10 +38,10 @@ class SteppedSlider: UISlider {
     private var previousRoundedStepValue: RangeSliderView.RangeValue?
     weak var delegate: SteppedSliderDelegate?
 
-    init(range: RangeSliderView.SliderRange, additionalLowerBoundOffset: RangeSliderView.RangeValue = 0, additionalUpperBoundOffset: RangeSliderView.RangeValue = 0, steps: Int) {
-        self.range = range
-        effectiveRange = SteppedSlider.effectiveRange(from: range, with: additionalLowerBoundOffset, and: additionalUpperBoundOffset)
-        self.steps = steps
+    init(data: StepSliderData<RangeSliderView.RangeValue>) {
+        range = data.range
+        effectiveRange = data.effectiveRange
+        steps = data.steps
         super.init(frame: .zero)
 
         minimumTrackTintColor = .clear
@@ -172,12 +172,5 @@ class SteppedSlider: UISlider {
             let generator = UISelectionFeedbackGenerator()
             generator.selectionChanged()
         }
-    }
-
-    static func effectiveRange(from range: RangeSliderView.SliderRange, with lowerBoundOffset: RangeSliderView.RangeValue, and upperBoundOffset: RangeSliderView.RangeValue) -> RangeSliderView.SliderRange {
-        let newLowerBound = range.lowerBound - lowerBoundOffset
-        let newUpperBound = range.upperBound + upperBoundOffset
-
-        return newLowerBound ... newUpperBound
     }
 }

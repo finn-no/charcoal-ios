@@ -13,7 +13,7 @@ public struct StepSliderData<T: SliderValueKind> {
     public let range: ClosedRange<T>
     public let effectiveRange: ClosedRange<T>
 
-    var steps: Int {
+    public var steps: Int {
         var additionalSteps = 0
         additionalSteps += range.lowerBound != effectiveRange.lowerBound ? 1 : 0
         additionalSteps += range.upperBound != effectiveRange.upperBound ? 1 : 0

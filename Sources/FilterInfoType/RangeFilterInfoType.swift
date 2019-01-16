@@ -7,7 +7,7 @@ public protocol RangeFilterInfoType: FilterInfoType {
     var highValue: Int { get }
     var additionalLowerBoundOffset: Int { get }
     var additionalUpperBoundOffset: Int { get }
-    var steps: Int { get }
+    var stepValues: [Int] { get }
     var unit: String { get }
     var referenceValues: [Int] { get }
     var isCurrencyValueRange: Bool { get }

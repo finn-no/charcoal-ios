@@ -40,7 +40,7 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
         title = filterInfo.title
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -112,7 +112,7 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
     }
 
     private func didSelectDrillDownItem(_ listItem: MultiLevelListSelectionFilterInfoType, at indexPath: IndexPath) {
-        navigator.navigate(to: .subLevel(filterInfo: listItem, parent: self))
+        navigator?.navigate(to: .subLevel(filterInfo: listItem, parent: self))
         indexPathToRefreshOnViewWillAppear = indexPath
     }
 
@@ -218,7 +218,7 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
         }
         switch section {
         case .map:
-            navigator.navigate(to: .map(filterInfo: filterInfo, parent: self))
+            navigator?.navigate(to: .map(filterInfo: filterInfo, parent: self))
             break
         case .all:
             toggleSelectAllSelection()

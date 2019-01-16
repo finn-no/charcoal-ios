@@ -29,13 +29,14 @@ public class MapFilterViewController: FilterViewController {
         return searchLocationViewController
     }()
 
-    public required init(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
+    public init(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator?) {
         self.filterInfo = filterInfo
         self.dataSource = dataSource
         super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        title = filterInfo.title
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

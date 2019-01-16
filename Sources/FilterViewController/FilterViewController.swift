@@ -13,7 +13,7 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
     // MARK: - Public properties
 
     public let selectionDataSource: FilterSelectionDataSource
-    public let navigator: FilterNavigator
+    public var navigator: FilterNavigator?
     public weak var parentApplyButtonOwner: ApplySelectionButtonOwner?
 
     lazy var applySelectionButton: FilterBottomButtonView = {
@@ -30,7 +30,7 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
 
     // MARK: - Setup
 
-    init(selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
+    init(selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator?) {
         self.selectionDataSource = selectionDataSource
         self.navigator = navigator
         super.init(nibName: nil, bundle: nil)

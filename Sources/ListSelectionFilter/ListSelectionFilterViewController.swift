@@ -23,7 +23,7 @@ public final class ListSelectionFilterViewController: FilterViewController {
 
     private let listItems: [FilterValueType]
 
-    public init(filterInfo: ListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
+    public init(filterInfo: ListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator?) {
         self.filterInfo = filterInfo
         self.dataSource = dataSource
         listItems = filterInfo.values
@@ -31,7 +31,7 @@ public final class ListSelectionFilterViewController: FilterViewController {
         title = filterInfo.title
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

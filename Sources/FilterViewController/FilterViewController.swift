@@ -73,14 +73,6 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         }
     }
 
-    public var mainScrollableContentView: UIScrollView? {
-        return (filterContainerViewController as? ScrollableContainerViewController)?.mainScrollableView
-    }
-
-    public var isMainScrollableViewScrolledToTop: Bool {
-        return (filterContainerViewController as? ScrollableContainerViewController)?.isMainScrollableViewScrolledToTop ?? true
-    }
-
     public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         guard let child = ChildViewController(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource) else {
             return nil

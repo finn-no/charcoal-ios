@@ -86,9 +86,3 @@ extension VerticalListViewController: UITableViewDelegate {
         return type(of: self).rowHeight
     }
 }
-
-extension VerticalListViewController: ScrollableContainerViewController {
-    public var mainScrollableView: UIScrollView {
-        return tableView
-    }
-}

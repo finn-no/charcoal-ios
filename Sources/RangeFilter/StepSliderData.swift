@@ -12,6 +12,7 @@ public struct StepSliderData<T: SliderValueKind> {
     public let values: [T]
     public let range: ClosedRange<T>
     public let effectiveRange: ClosedRange<T>
+    public let effectiveValues: [T]
 
     public var steps: Int {
         var additionalSteps = 0
@@ -28,8 +29,22 @@ public struct StepSliderData<T: SliderValueKind> {
         range = minimumValue ... maximumValue
 
         let effectiveMinimumValue = range.lowerBound - lowerBoundOffset
-        let effectiveMaximumValue = range.upperBound - upperBoundOffset
+        let effectiveMaximumValue = range.upperBound + upperBoundOffset
         effectiveRange = effectiveMinimumValue ... effectiveMaximumValue
+
+        var effectiveValues = [T]()
+
+        if effectiveMinimumValue < range.lowerBound {
+            effectiveValues.append(effectiveMinimumValue)
+        }
+
+        effectiveValues.append(contentsOf: values)
+
+        if effectiveMaximumValue > range.upperBound {
+            effectiveValues.append(effectiveMaximumValue)
+        }
+
+        self.effectiveValues = effectiveValues
     }
 
     func isLowValueInValidRange(_ lowValue: T) -> Bool {

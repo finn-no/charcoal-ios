@@ -12,15 +12,15 @@ protocol RangeSliderViewDelegate: AnyObject {
 final class RangeSliderView: UIControl {
     public static let minimumViewHeight: CGFloat = 28.0
 
-    private lazy var lowValueSlider: SteppedSlider = {
-        let slider = SteppedSlider(data: data)
+    private lazy var lowValueSlider: StepSlider<RangeValue> = {
+        let slider = StepSlider(range: data.effectiveValues, valueFormatter: formatter)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
     }()
 
-    private lazy var highValueSlider: SteppedSlider = {
-        let slider = SteppedSlider(data: data)
+    private lazy var highValueSlider: StepSlider<RangeValue> = {
+        let slider = StepSlider(range: data.effectiveValues, valueFormatter: formatter)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
@@ -49,6 +49,7 @@ final class RangeSliderView: UIControl {
     typealias RangeValue = Int
     typealias SliderRange = ClosedRange<RangeValue>
     let data: StepSliderData<RangeValue>
+    let formatter: SliderValueFormatter
 
     var generatesHapticFeedbackOnValueChange = true {
         didSet {
@@ -59,8 +60,8 @@ final class RangeSliderView: UIControl {
 
     var accessibilityValueSuffix: String? {
         didSet {
-            lowValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
-            highValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
+//            lowValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
+//            highValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
         }
     }
 
@@ -75,8 +76,8 @@ final class RangeSliderView: UIControl {
         }
         set {
             _accessibilitySteps = newValue
-            lowValueSlider.accessibilitySteps = newValue
-            highValueSlider.accessibilitySteps = newValue
+//            lowValueSlider.accessibilitySteps = newValue
+//            highValueSlider.accessibilitySteps = newValue
         }
     }
 
@@ -89,8 +90,9 @@ final class RangeSliderView: UIControl {
 
     weak var delegate: RangeSliderViewDelegate?
 
-    init(data: StepSliderData<RangeValue>) {
+    init(data: StepSliderData<RangeValue>, formatter: SliderValueFormatter) {
         self.data = data
+        self.formatter = formatter
         super.init(frame: .zero)
         setup()
     }
@@ -122,19 +124,35 @@ final class RangeSliderView: UIControl {
 
 extension RangeSliderView: RangeControl {
     var lowValue: RangeValue? {
-        let lowValue = min(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue)
+        guard var lowValue = lowValueSlider.roundedStepValue else {
+            return nil
+        }
+
+        if let highValue = highValueSlider.roundedStepValue {
+            lowValue = min(lowValue, highValue)
+        }
+
         if lowValue < data.minimumValue {
             return nil
         }
-        return RangeSliderView.RangeValue(lowValue)
+
+        return lowValue
     }
 
     var highValue: RangeValue? {
-        let highValue = max(lowValueSlider.roundedStepValue, highValueSlider.roundedStepValue)
+        guard var highValue = highValueSlider.roundedStepValue else {
+            return nil
+        }
+
+        if let lowValue = lowValueSlider.roundedStepValue {
+            highValue = max(lowValue, highValue)
+        }
+
         if highValue > data.maximumValue {
             return nil
         }
-        return RangeSliderView.RangeValue(highValue)
+
+        return highValue
     }
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
@@ -204,11 +222,11 @@ private extension RangeSliderView {
         updateAccesibilityValues()
     }
 
-    var lowestValueSlider: SteppedSlider {
+    var lowestValueSlider: StepSlider<RangeValue> {
         return lowValueSlider.value <= highValueSlider.value ? lowValueSlider : highValueSlider
     }
 
-    var highestValueSlider: SteppedSlider {
+    var highestValueSlider: StepSlider<RangeValue> {
         return highValueSlider.value >= lowValueSlider.value ? highValueSlider : lowValueSlider
     }
 
@@ -235,17 +253,40 @@ private extension RangeSliderView {
     }
 }
 
-extension RangeSliderView: SteppedSliderDelegate {
-    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue) {
-        if steppedSlider == highestValueSlider {
+// extension RangeSliderView: SteppedSliderDelegate {
+//    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue) {
+//        if steppedSlider == highestValueSlider {
+//            delegate?.rangeSliderView(self, didChangeHighValue: highValue)
+//        } else {
+//            delegate?.rangeSliderView(self, didChangeLowValue: lowValue)
+//        }
+//    }
+//
+//    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeValue value: Float) {
+//        updateActiveTrackRange()
+//        updateAccesibilityValues()
+//    }
+// }
+
+extension RangeSliderView: StepSliderDelegate {
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float) {
+        updateActiveTrackRange()
+        updateAccesibilityValues()
+    }
+
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
+        if stepSlider == highestValueSlider {
             delegate?.rangeSliderView(self, didChangeHighValue: highValue)
         } else {
             delegate?.rangeSliderView(self, didChangeLowValue: lowValue)
         }
     }
 
-    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeValue value: Float) {
-        updateActiveTrackRange()
-        updateAccesibilityValues()
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind) where StepValueKind: Comparable {
+        if stepSlider == highestValueSlider {
+            delegate?.rangeSliderView(self, didChangeHighValue: highValue)
+        } else {
+            delegate?.rangeSliderView(self, didChangeLowValue: lowValue)
+        }
     }
 }

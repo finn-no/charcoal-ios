@@ -16,7 +16,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
         let data = StepSliderData(
             minimumValue: range.lowerBound,
             maximumValue: range.upperBound,
-            stepValues: [],
+            stepValues: filterInfo.stepValues,
             lowerBoundOffset: filterInfo.additionalLowerBoundOffset,
             upperBoundOffset: filterInfo.additionalUpperBoundOffset
         )

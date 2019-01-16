@@ -12,19 +12,26 @@ public class RangeFilterDemoView: UIView {
     // let sliderAccessibilitySteps: Int = 31
     let unit = "kr"
     let accessibilityUnit = "kroner"
-    let referenceValues = [1000, 15000, 30000]
+//    let referenceValues = [1000, 15000, 30000]
 
     private lazy var sliderData: StepSliderData = {
         return StepSliderData(
             minimumValue: lowValue,
             maximumValue: highValue,
-            stepValues: [1000, 15000, 30000],
+            stepValues: [100, 500, 1000, 2000, 3000, 5000, 8000, 10000, 15000, 20000, 30000],
             lowerBoundOffset: 1000,
             upperBoundOffset: 1000
+            // -1000, 0, 100 .... 30000, 31000
         )
     }()
 
     private lazy var rangeFilterView: RangeFilterView = {
+        let referenceValues = [
+            sliderData.values[1],
+            sliderData.values[Int(sliderData.values.count / 2)],
+            sliderData.values[sliderData.values.count - 2],
+        ]
+
         let rangeFilterView = RangeFilterView(
             sliderData: sliderData,
             unit: unit,

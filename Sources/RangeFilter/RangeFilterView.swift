@@ -22,7 +22,7 @@ public final class RangeFilterView: UIControl {
     }()
 
     private lazy var sliderInputView: RangeSliderView = {
-        let rangeSliderView = RangeSliderView(data: sliderData)
+        let rangeSliderView = RangeSliderView(data: sliderData, formatter: formatter)
         rangeSliderView.translatesAutoresizingMaskIntoConstraints = false
         rangeSliderView.delegate = self
         return rangeSliderView
@@ -87,7 +87,7 @@ public final class RangeFilterView: UIControl {
         self.referenceValues = referenceValues
         self.usesSmallNumberInputFont = usesSmallNumberInputFont
         self.displaysUnitInNumberInput = displaysUnitInNumberInput
-        formatter = RangeFilterValueFormatter(isValueCurrency: isValueCurrency)
+        formatter = RangeFilterValueFormatter(isValueCurrency: isValueCurrency, unit: unit)
         super.init(frame: .zero)
         setup()
     }

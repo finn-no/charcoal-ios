@@ -133,8 +133,8 @@ enum ComponentViews: String, CaseIterable {
             return navigationController
 
         case .listSelection:
-            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
-            return viewController
+//            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
+            return UIViewController()
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
 
@@ -149,10 +149,10 @@ enum ComponentViews: String, CaseIterable {
             return controller
 
         case .mapFilter:
-            let mapViewManager = MapViewManager()
-            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
-            mapFilterViewController.mapFilterViewManager = mapViewManager
-            return mapFilterViewController
+//            let mapViewManager = MapViewManager()
+//            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
+//            mapFilterViewController.mapFilterViewManager = mapViewManager
+            return UIViewController(nibName: nil, bundle: nil)
         }
     }
 }

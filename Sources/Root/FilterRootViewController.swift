@@ -279,13 +279,13 @@ extension FilterRootViewController: UITableViewDelegate {
 
             switch filterInfo {
             case let listSelectionFilterInfo as ListSelectionFilterInfoType:
-                navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo, delegate: self))
+                navigator.navigate(to: .selectionListFilter(filterInfo: listSelectionFilterInfo))
             case let multiLevelListSelectionFilterInfo as MultiLevelListSelectionFilterInfoType:
-                navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo, delegate: self))
+                navigator.navigate(to: .multiLevelSelectionListFilter(filterInfo: multiLevelListSelectionFilterInfo))
             case let rangeFilterInfo as RangeFilterInfoType:
-                navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo, delegate: self))
+                navigator.navigate(to: .rangeFilter(filterInfo: rangeFilterInfo))
             case let stepperFilterInfo as StepperFilterInfoType:
-                navigator.navigate(to: .stepperFilter(filterInfo: stepperFilterInfo, delegate: self))
+                navigator.navigate(to: .stepperFilter(filterInfo: stepperFilterInfo))
             default:
                 break
             }
@@ -422,12 +422,6 @@ extension FilterRootViewController: SearchViewControllerDelegate {
             return
         }
         selectionDataSource?.clearAll(for: searchQueryFilterInfo)
-    }
-}
-
-extension FilterRootViewController: FilterViewControllerDelegate {
-    public func applyFilterButtonTapped() {
-        navigator.navigate(to: .root)
     }
 }
 

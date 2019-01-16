@@ -4,15 +4,9 @@
 
 import FinniversKit
 
-public final class ListSelectionFilterViewController: UIViewController, FilterContainerViewController {
+public final class ListSelectionFilterViewController: FilterViewController {
     private let filterInfo: ListSelectionFilterInfoType
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
-    private let selectionDataSource: FilterSelectionDataSource
     private let dataSource: FilterDataSource
-
-    public var controller: UIViewController {
-        return self
-    }
 
     private static var rowHeight: CGFloat = 48.0
 
@@ -29,17 +23,12 @@ public final class ListSelectionFilterViewController: UIViewController, FilterCo
 
     private let listItems: [FilterValueType]
 
-    public init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let listSelectionFilterInfo = filterInfo as? ListSelectionFilterInfoType else {
-            return nil
-        }
-
-        self.filterInfo = listSelectionFilterInfo
+    public init(filterInfo: ListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
+        self.filterInfo = filterInfo
         self.dataSource = dataSource
-        self.selectionDataSource = selectionDataSource
-        listItems = listSelectionFilterInfo.values
-        super.init(nibName: nil, bundle: nil)
-        title = title
+        listItems = filterInfo.values
+        super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        title = filterInfo.title
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -48,17 +37,17 @@ public final class ListSelectionFilterViewController: UIViewController, FilterCo
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
+        let showButton = selectionDataSource.value(for: filterInfo) != nil
+        showApplyButton(showButton, animated: false)
     }
 
     private func setup() {
-        view.addSubview(tableView)
-
+        view.insertSubview(tableView, belowSubview: applySelectionButton)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: applySelectionButton.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
@@ -90,7 +79,6 @@ public final class ListSelectionFilterViewController: UIViewController, FilterCo
                 selectionDataSource.setValue([item.value], for: filterInfo)
             }
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
     }
 
     private func isListItemSelected(_ item: FilterValueType) -> Bool {
@@ -128,6 +116,7 @@ extension ListSelectionFilterViewController: UITableViewDelegate {
         }
         toggleSelection(for: listItem)
         updateCellIfVisible(at: indexPath)
+        showApplyButton(selectionDataSource.value(for: filterInfo) != nil, animated: true)
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

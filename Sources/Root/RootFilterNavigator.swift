@@ -7,11 +7,11 @@ import Foundation
 public class RootFilterNavigator: NSObject, Navigator {
     public enum Destination {
         case root
-        case selectionListFilter(filterInfo: ListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
-        case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate)
+        case selectionListFilter(filterInfo: ListSelectionFilterInfoType)
+        case multiLevelSelectionListFilter(filterInfo: MultiLevelListSelectionFilterInfoType)
         case verticalSelectionInPopover(verticals: [Vertical], sourceView: UIView, delegate: VerticalListViewControllerDelegate, popoverWillDismiss: (() -> Void)?)
-        case rangeFilter(filterInfo: RangeFilterInfoType, delegate: FilterViewControllerDelegate)
-        case stepperFilter(filterInfo: StepperFilterInfoType, delegate: FilterViewControllerDelegate)
+        case rangeFilter(filterInfo: RangeFilterInfoType)
+        case stepperFilter(filterInfo: StepperFilterInfoType)
     }
 
     public typealias Factory = ViewControllerFactory & FilterNavigtorFactory
@@ -42,29 +42,23 @@ public class RootFilterNavigator: NSObject, Navigator {
         switch destination {
         case .root:
             navigationController.popToRootViewController(animated: true)
-        case let .multiLevelSelectionListFilter(filterInfo, delegate):
+        case let .multiLevelSelectionListFilter(filterInfo):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
-            guard let multiLevelListViewController = factory.makeMultiLevelListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
-                return
-            }
+            let multiLevelListViewController = factory.makeMultiLevelListSelectionFilterViewController(from: filterInfo, navigator: navigator)
             navigationController.pushViewController(multiLevelListViewController, animated: true)
         case let .verticalSelectionInPopover(verticals, sourceView, delegate, popoverWillDismiss):
             presentVerticals(with: verticals, and: sourceView, delegate: delegate, popoverWillDismiss: popoverWillDismiss)
-        case let .rangeFilter(filterInfo, delegate):
+        case let .rangeFilter(filterInfo):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
-            guard let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else {
-                return
-            }
+            let rangeFilterViewController = factory.makeRangeFilterViewController(with: filterInfo, navigator: navigator)
             navigationController.pushViewController(rangeFilterViewController, animated: true)
-        case let .selectionListFilter(filterInfo, delegate):
+        case let .selectionListFilter(filterInfo):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
-            guard let listSelectionViewController = factory.makeListSelectionFilterViewController(from: filterInfo, navigator: navigator, delegate: delegate) else {
-                return
-            }
+            let listSelectionViewController = factory.makeListSelectionFilterViewController(from: filterInfo, navigator: navigator)
             navigationController.pushViewController(listSelectionViewController, animated: true)
-        case let .stepperFilter(filterInfo, delegate):
+        case let .stepperFilter(filterInfo):
             let navigator = factory.makeFilterNavigator(navigationController: navigationController, dataSource: filterDataSource)
-            guard let stepperFilterViewController = factory.makeStepperFilterViewController(with: filterInfo, navigator: navigator, delegate: delegate) else { return }
+            let stepperFilterViewController = factory.makeStepperFilterViewController(with: filterInfo, navigator: navigator)
             navigationController.pushViewController(stepperFilterViewController, animated: true)
         }
     }

@@ -5,13 +5,9 @@
 import FinniversKit
 import UIKit
 
-public class StepperFilterViewController: UIViewController, FilterContainerViewController {
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
-    public var controller: UIViewController { return self }
-
+public class StepperFilterViewController: FilterViewController {
     private let filterInfo: StepperFilterInfoType
     private let dataSource: FilterDataSource
-    private let selectionDataSource: FilterSelectionDataSource
 
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(filterInfo: filterInfo)
@@ -20,12 +16,11 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
         return view
     }()
 
-    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let filterInfo = filterInfo as? StepperFilterInfoType else { return nil }
+    public init(filterInfo: StepperFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         self.filterInfo = filterInfo
         self.dataSource = dataSource
-        self.selectionDataSource = selectionDataSource
-        super.init(nibName: nil, bundle: nil)
+        super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        title = filterInfo.title
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -34,11 +29,12 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(stepperFilterView)
+        view.insertSubview(stepperFilterView, belowSubview: applySelectionButton)
         stepperFilterView.fillInSuperview()
 
         guard let value = selectionDataSource.stepperValue(for: filterInfo) else { return }
         stepperFilterView.value = value
+        showApplyButton(true, animated: false)
     }
 }
 
@@ -47,9 +43,10 @@ private extension StepperFilterViewController {
         switch sender.value {
         case filterInfo.lowerLimit:
             selectionDataSource.clearAll(for: filterInfo)
+            showApplyButton(false)
         default:
             selectionDataSource.setValue(RangeValue.minimum(lowValue: sender.value), for: filterInfo)
-            filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+            showApplyButton(true)
         }
     }
 }

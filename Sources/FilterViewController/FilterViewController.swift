@@ -4,34 +4,19 @@
 
 import Foundation
 
-public protocol FilterViewControllerDelegate: AnyObject {
-    func applyFilterButtonTapped()
+public protocol ApplySelectionButtonOwner: class {
+    func showApplyButton(_ show: Bool, animated: Bool)
 }
 
-public protocol ApplySelectionButtonOwner: AnyObject {
-    var showsApplySelectionButton: Bool { get set }
-}
+public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
 
-public final class FilterViewController<ChildViewController: FilterContainerViewController>: UIViewController, ApplySelectionButtonOwner {
-    private lazy var safeLayoutGuide: UILayoutGuide = {
-        if #available(iOS 11.0, *) {
-            return view.safeAreaLayoutGuide
-        } else {
-            let layoutGuide = UILayoutGuide()
-            view.addLayoutGuide(layoutGuide)
+    // MARK: - Public properties
 
-            NSLayoutConstraint.activate([
-                layoutGuide.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-                layoutGuide.leftAnchor.constraint(equalTo: view.leftAnchor),
-                layoutGuide.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
-                layoutGuide.rightAnchor.constraint(equalTo: view.rightAnchor),
-            ])
+    public let selectionDataSource: FilterSelectionDataSource
+    public let navigator: FilterNavigator
+    public weak var parentApplyButtonOwner: ApplySelectionButtonOwner?
 
-            return layoutGuide
-        }
-    }()
-
-    private lazy var applySelectionButton: FilterBottomButtonView = {
+    lazy var applySelectionButton: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.delegate = self
@@ -39,126 +24,52 @@ public final class FilterViewController<ChildViewController: FilterContainerView
         return buttonView
     }()
 
-    private var applySelectionButtonBottomConstraint: NSLayoutConstraint?
+    // MARK: - Private properties
 
-    let filterInfo: FilterInfoType
-    let selectionDataSource: FilterSelectionDataSource
-    let navigator: FilterNavigator
-    let filterContainerViewController: FilterContainerViewController
-    weak var delegate: FilterViewControllerDelegate?
-    weak var parentApplySelectionButtonOwner: ApplySelectionButtonOwner?
-    var applyButtonHiddenConstraintConstant: CGFloat {
-        return applySelectionButton.height
-    }
+    private lazy var applyButtonTopAnchorConstraint = applySelectionButton.topAnchor.constraint(equalTo: view.bottomAnchor)
 
-    public var showsApplySelectionButton: Bool {
-        didSet {
-            guard showsApplySelectionButton != oldValue else {
-                return
-            }
-            view.layoutIfNeeded()
-            applySelectionButton.alpha = showsApplySelectionButton ? 0 : 1
-            applySelectionButton.isHidden = false
-            applySelectionButtonBottomConstraint?.constant = showsApplySelectionButton ? 0 : applyButtonHiddenConstraintConstant
-            UIView.animate(withDuration: 0.25, animations: { [applySelectionButton, showsApplySelectionButton] in
-                applySelectionButton.alpha = showsApplySelectionButton ? 1 : 0
-                self.view.layoutIfNeeded()
-            }) { [applySelectionButton, showsApplySelectionButton] _ in
-                applySelectionButton.isHidden = !showsApplySelectionButton
-            }
-            UIView.animate(withDuration: 0.25) {
-                self.view.layoutIfNeeded()
-            }
-            parentApplySelectionButtonOwner?.showsApplySelectionButton = showsApplySelectionButton
-        }
-    }
+    // MARK: - Setup
 
-    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
-        guard let child = ChildViewController(filterInfo: filterInfo, dataSource: dataSource, selectionDataSource: selectionDataSource) else {
-            return nil
-        }
-
-        self.filterInfo = filterInfo
+    init(selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         self.selectionDataSource = selectionDataSource
         self.navigator = navigator
-        showsApplySelectionButton = false
-        filterContainerViewController = child
         super.init(nibName: nil, bundle: nil)
-        child.filterSelectionDelegate = self
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        let childViewController = filterContainerViewController.controller
-
-        addChild(childViewController)
-        setup(with: childViewController.view)
-        childViewController.didMove(toParent: self)
-    }
-}
-
-private extension FilterViewController {
-    func setup(with filterView: UIView) {
         view.backgroundColor = .milk
-        title = filterInfo.title
-
-        filterView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(filterView)
-
-        view.addSubview(applySelectionButton)
-        let applySelectionButtonBottomConstraint = applySelectionButton.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor, constant: applyButtonHiddenConstraintConstant)
-        self.applySelectionButtonBottomConstraint = applySelectionButtonBottomConstraint
-
-        NSLayoutConstraint.activate([
-            filterView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            filterView.bottomAnchor.constraint(equalTo: applySelectionButton.topAnchor),
-            applySelectionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            applySelectionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            applySelectionButtonBottomConstraint,
-        ])
-
-        if showsApplySelectionButton {
-            applySelectionButtonBottomConstraint.constant = 0
-        } else {
-            applySelectionButton.isHidden = true
-        }
-    }
-}
-
-extension FilterViewController: FilterContainerViewControllerDelegate {
-    public func filterContainerViewControllerDidChangeSelection(filterContainerViewController: FilterContainerViewController) {
-        showsApplySelectionButton = true
+        setupApplyButton()
     }
 
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateTo filterInfo: FilterInfoType) {
-        switch filterInfo {
-        case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
-            navigator.navigate(to: .subLevel(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate, parent: self))
-        default:
-            break
-        }
-    }
-
-    public func filterContainerViewController(filterContainerViewController: FilterContainerViewController, navigateToMapFor filterInfo: FilterInfoType) {
-        switch filterInfo {
-        case let multiLevelSelectionFilterInfo as MultiLevelListSelectionFilterInfo:
-            navigator.navigate(to: .map(filterInfo: multiLevelSelectionFilterInfo, delegate: delegate, parent: self))
-        default:
-            break
-        }
+    public func showApplyButton(_ show: Bool, animated: Bool = true) {
+        applyButtonTopAnchorConstraint.isActive = !show
+        let duration = animated ? 0.3 : 0
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+        parentApplyButtonOwner?.showApplyButton(show, animated: false)
     }
 }
 
 extension FilterViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        // TODO: Apply current selection
-        navigator.navigate(to: .root)
+        navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+private extension FilterViewController {
+    func setupApplyButton() {
+        view.addSubview(applySelectionButton)
+        NSLayoutConstraint.activate([
+            applyButtonTopAnchorConstraint,
+            applySelectionButton.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor),
+            applySelectionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            applySelectionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
     }
 }

@@ -134,9 +134,3 @@ extension ListSelectionFilterViewController: UITableViewDelegate {
         return type(of: self).rowHeight
     }
 }
-
-extension ListSelectionFilterViewController: ScrollableContainerViewController {
-    public var mainScrollableView: UIScrollView {
-        return tableView
-    }
-}

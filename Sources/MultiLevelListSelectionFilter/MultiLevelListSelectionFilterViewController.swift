@@ -259,12 +259,6 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
     }
 }
 
-extension MultiLevelListSelectionFilterViewController: ScrollableContainerViewController {
-    public var mainScrollableView: UIScrollView {
-        return tableView
-    }
-}
-
 private extension MultiLevelListSelectionFilterInfoType {
     var showDisclosureIndicator: Bool {
         return filters.count > 0

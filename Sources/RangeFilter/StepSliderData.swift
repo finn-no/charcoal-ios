@@ -19,7 +19,19 @@ public struct StepSliderData<T: SliderValueKind> {
         additionalSteps += range.lowerBound != effectiveRange.lowerBound ? 1 : 0
         additionalSteps += range.upperBound != effectiveRange.upperBound ? 1 : 0
 
-        return values.count
+        return values.count + additionalSteps
+    }
+
+    public var accessibilitySteps: Int {
+        return steps / 10
+    }
+
+    public var referenceValues: [T] {
+        return [
+            values[0],
+            values[Int(values.count / 2)],
+            values[values.count - 1],
+        ]
     }
 
     public init(minimumValue: T, maximumValue: T, stepValues: [T], lowerBoundOffset: T, upperBoundOffset: T) {
@@ -45,6 +57,24 @@ public struct StepSliderData<T: SliderValueKind> {
         }
 
         self.effectiveValues = effectiveValues
+    }
+
+    public init(minimumValue: T, maximumValue: T, incrementedBy increment: T, lowerBoundOffset: T, upperBoundOffset: T) {
+        var values = [T]()
+        var value = minimumValue
+
+        while value + increment < maximumValue {
+            value += increment
+            values.append(value)
+        }
+
+        self.init(
+            minimumValue: minimumValue,
+            maximumValue: maximumValue,
+            stepValues: values,
+            lowerBoundOffset: lowerBoundOffset,
+            upperBoundOffset: upperBoundOffset
+        )
     }
 
     func isLowValueInValidRange(_ lowValue: T) -> Bool {

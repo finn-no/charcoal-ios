@@ -12,20 +12,10 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     lazy var rangeFilterView: RangeFilterView = {
-        let range = filterInfo.lowValue ... filterInfo.highValue
-        let data = StepSliderData(
-            minimumValue: range.lowerBound,
-            maximumValue: range.upperBound,
-            stepValues: filterInfo.stepValues,
-            lowerBoundOffset: filterInfo.additionalLowerBoundOffset,
-            upperBoundOffset: filterInfo.additionalUpperBoundOffset
-        )
-
         let view = RangeFilterView(
-            sliderData: data,
+            sliderData: filterInfo.sliderData,
             unit: filterInfo.unit,
             isValueCurrency: filterInfo.isCurrencyValueRange,
-            referenceValues: filterInfo.referenceValues,
             usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont,
             displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput
         )

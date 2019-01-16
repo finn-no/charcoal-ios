@@ -3,13 +3,9 @@
 //
 
 public protocol RangeFilterInfoType: FilterInfoType {
-    var lowValue: Int { get }
-    var highValue: Int { get }
-    var additionalLowerBoundOffset: Int { get }
-    var additionalUpperBoundOffset: Int { get }
-    var stepValues: [Int] { get }
+    var sliderData: StepSliderData<Int> { get }
+
     var unit: String { get }
-    var referenceValues: [Int] { get }
     var isCurrencyValueRange: Bool { get }
     var accessibilitySteps: Int? { get }
     var accessibilityValueSuffix: String? { get }

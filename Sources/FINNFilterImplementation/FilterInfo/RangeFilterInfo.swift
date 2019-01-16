@@ -4,43 +4,30 @@
 
 class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
     typealias RangeBoundsOffsets = (lowerBoundOffset: Int, upperBoundOffset: Int)
-    typealias ReferenceValues = [Int]
     typealias AccessibilityValues = (accessibilitySteps: Int?, accessibilityValueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
     let parameterName: String
     var title: String
-    var lowValue: Int
-    var highValue: Int
-    var additionalLowerBoundOffset: Int
-    var additionalUpperBoundOffset: Int
-    var stepValues: [Int]
+    let sliderData: StepSliderData<Int>
     var unit: String
-    var referenceValues: [Int]
     var isCurrencyValueRange: Bool
     var accessibilitySteps: Int?
     var accessibilityValueSuffix: String?
     var usesSmallNumberInputFont: Bool
     var displaysUnitInNumberInput: Bool
 
-    init(parameterName: String, title: String, lowValue: Int, highValue: Int, steps: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, referenceValues: ReferenceValues, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
+    init(parameterName: String, title: String, lowValue: Int, highValue: Int, increment: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
         self.parameterName = parameterName
         self.title = title
-        self.lowValue = lowValue
-        self.highValue = highValue
-        additionalLowerBoundOffset = rangeBoundsOffsets.lowerBoundOffset
-        additionalUpperBoundOffset = rangeBoundsOffsets.upperBoundOffset
-
-        var stepValues = [Int]()
-        let increment = (highValue - lowValue) / steps
-
-        for i in 1 ..< steps - 1 {
-            stepValues.append(lowValue + i * increment)
-        }
-
-        self.stepValues = stepValues
         self.unit = unit
-        self.referenceValues = referenceValues
+        sliderData = StepSliderData(
+            minimumValue: lowValue,
+            maximumValue: highValue,
+            incrementedBy: increment,
+            lowerBoundOffset: rangeBoundsOffsets.lowerBoundOffset,
+            upperBoundOffset: rangeBoundsOffsets.upperBoundOffset
+        )
         isCurrencyValueRange = appearanceProperties.isCurrencyValueRange
         accessibilitySteps = accesibilityValues.accessibilitySteps
         accessibilityValueSuffix = accesibilityValues.accessibilityValueSuffix

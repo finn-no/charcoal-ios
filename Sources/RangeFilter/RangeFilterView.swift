@@ -52,14 +52,14 @@ public final class RangeFilterView: UIControl {
     public var sliderAccessibilitySteps: Int? {
         get {
             guard let accessibilitySteps = _accessibilitySteps else {
-                return sliderData.steps
+                return sliderData.accessibilitySteps
             }
 
             return accessibilitySteps
         }
         set {
             _accessibilitySteps = newValue
-            sliderInputView.accessibilitySteps = newValue ?? sliderData.steps
+            sliderInputView.accessibilitySteps = newValue ?? sliderData.accessibilitySteps
         }
     }
 
@@ -74,17 +74,15 @@ public final class RangeFilterView: UIControl {
     let sliderData: StepSliderData<RangeValue>
     let unit: String
     let isValueCurrency: Bool
-    let referenceValues: [RangeValue]
     let usesSmallNumberInputFont: Bool
     let displaysUnitInNumberInput: Bool
 
     public weak var delegate: RangeFilterViewDelegate?
 
-    public init(sliderData: StepSliderData<RangeValue>, unit: String, isValueCurrency: Bool, referenceValues: [RangeValue], usesSmallNumberInputFont: Bool = false, displaysUnitInNumberInput: Bool = true) {
+    public init(sliderData: StepSliderData<RangeValue>, unit: String, isValueCurrency: Bool, usesSmallNumberInputFont: Bool = false, displaysUnitInNumberInput: Bool = true) {
         self.sliderData = sliderData
         self.unit = unit
         self.isValueCurrency = isValueCurrency
-        self.referenceValues = referenceValues
         self.usesSmallNumberInputFont = usesSmallNumberInputFont
         self.displaysUnitInNumberInput = displaysUnitInNumberInput
         formatter = RangeFilterValueFormatter(isValueCurrency: isValueCurrency, unit: unit)
@@ -178,7 +176,7 @@ private extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        referenceValueViews = referenceValues.map({ (referenceValue) -> SliderReferenceValueView<RangeValue> in
+        referenceValueViews = sliderData.referenceValues.map({ (referenceValue) -> SliderReferenceValueView<RangeValue> in
             return SliderReferenceValueView(value: referenceValue, displayText: formatter.string(from: referenceValue, isCurrency: isValueCurrency) ?? "")
         })
 
@@ -219,12 +217,12 @@ private extension RangeFilterView {
     }
 
     func updateSliderLowValue(with value: RangeValue) {
-        let newValue = value < sliderData.minimumValue ? sliderData.minimumValue : value
+        let newValue = value < sliderData.minimumValue ? sliderData.effectiveRange.lowerBound : value
         sliderInputView.setLowValue(newValue, animated: false)
     }
 
     func updateSliderHighValue(with value: RangeValue) {
-        let newValue = value > sliderData.maximumValue ? sliderData.maximumValue : value
+        let newValue = value > sliderData.maximumValue ? sliderData.effectiveRange.upperBound : value
         sliderInputView.setHighValue(newValue, animated: false)
     }
 
@@ -236,10 +234,10 @@ private extension RangeFilterView {
             if fromSlider {
                 if value < sliderData.minimumValue {
                     newValue = sliderData.minimumValue
-                    hintText = (value == sliderData.effectiveRange.lowerBound) ? "range_below_lower_bound_title".localized() : ""
+                    hintText = "range_below_lower_bound_title".localized()
                 } else if value > sliderData.maximumValue {
                     newValue = sliderData.maximumValue
-                    hintText = (value == sliderData.effectiveRange.upperBound) ? "range_above_upper_bound_title".localized() : ""
+                    hintText = "range_above_upper_bound_title".localized()
                 } else {
                     newValue = value
                     hintText = ""

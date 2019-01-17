@@ -6,7 +6,6 @@ import FinniversKit
 
 public final class ListSelectionFilterViewController: FilterViewController {
     private let filterInfo: ListSelectionFilterInfoType
-    private let dataSource: FilterDataSource
 
     private static var rowHeight: CGFloat = 48.0
 
@@ -25,9 +24,8 @@ public final class ListSelectionFilterViewController: FilterViewController {
 
     public init(filterInfo: ListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator?) {
         self.filterInfo = filterInfo
-        self.dataSource = dataSource
         listItems = filterInfo.values
-        super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         title = filterInfo.title
     }
 
@@ -38,8 +36,6 @@ public final class ListSelectionFilterViewController: FilterViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        let showButton = selectionDataSource.value(for: filterInfo) != nil
-        showApplyButton(showButton, animated: false)
     }
 
     private func setup() {

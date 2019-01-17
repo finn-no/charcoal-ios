@@ -20,7 +20,6 @@ public class MapFilterViewController: FilterViewController {
     }()
 
     let filterInfo: FilterInfoType
-    let dataSource: FilterDataSource
 
     lazy var searchLocationViewController: SearchLocationViewController = {
         let searchLocationViewController = SearchLocationViewController()
@@ -31,8 +30,7 @@ public class MapFilterViewController: FilterViewController {
 
     public init(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator?) {
         self.filterInfo = filterInfo
-        self.dataSource = dataSource
-        super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         title = filterInfo.title
     }
 

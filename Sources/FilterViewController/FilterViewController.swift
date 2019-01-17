@@ -5,6 +5,7 @@
 import Foundation
 
 public protocol ApplySelectionButtonOwner: class {
+    var isShowingApplyButton: Bool { get }
     func showApplyButton(_ show: Bool, animated: Bool)
 }
 
@@ -13,7 +14,10 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
     // MARK: - Public properties
 
     public let selectionDataSource: FilterSelectionDataSource
+    public let dataSource: FilterDataSource
     public var navigator: FilterNavigator?
+
+    public var isShowingApplyButton: Bool = false
     public weak var parentApplyButtonOwner: ApplySelectionButtonOwner?
 
     lazy var applySelectionButton: FilterBottomButtonView = {
@@ -30,7 +34,8 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
 
     // MARK: - Setup
 
-    init(selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator?) {
+    init(dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator?) {
+        self.dataSource = dataSource
         self.selectionDataSource = selectionDataSource
         self.navigator = navigator
         super.init(nibName: nil, bundle: nil)
@@ -52,6 +57,7 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
     }
 
     public func showApplyButton(_ show: Bool, animated: Bool = true) {
+        isShowingApplyButton = show
         applyButtonTopAnchorConstraint.isActive = !show
         let duration = animated ? 0.3 : 0
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {

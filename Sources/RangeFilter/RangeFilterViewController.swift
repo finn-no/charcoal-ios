@@ -30,7 +30,6 @@ public final class RangeFilterViewController: FilterViewController {
 
     var currentRangeValue: RangeValue?
     let filterInfo: RangeFilterInfoType
-    private let dataSource: FilterDataSource
 
     public required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -38,8 +37,7 @@ public final class RangeFilterViewController: FilterViewController {
 
     public init(filterInfo: RangeFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         self.filterInfo = filterInfo
-        self.dataSource = dataSource
-        super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         title = filterInfo.title
     }
 
@@ -51,8 +49,6 @@ public final class RangeFilterViewController: FilterViewController {
         super.viewDidLoad()
         setup()
         setSelectionValue(selectionDataSource.rangeValue(for: filterInfo))
-        let showButton = selectionDataSource.rangeValue(for: filterInfo) != nil
-        showApplyButton(showButton, animated: false)
     }
 }
 
@@ -80,10 +76,10 @@ private extension RangeFilterViewController {
     func updateSelectionDataSource() {
         if let rangeValue = currentRangeValue {
             selectionDataSource.setValue(rangeValue, for: filterInfo)
-            showApplyButton(true)
         } else {
             selectionDataSource.clearAll(for: filterInfo)
         }
+        showApplyButton(true)
     }
 }
 

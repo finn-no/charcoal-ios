@@ -12,7 +12,6 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
     }
 
     private let filterInfo: MultiLevelListSelectionFilterInfoType
-    private let dataSource: FilterDataSource
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
     private let isSelectAllIncluded: Bool
 
@@ -33,10 +32,9 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
 
     public init(filterInfo: MultiLevelListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         self.filterInfo = filterInfo
-        self.dataSource = dataSource
         listItems = filterInfo.filters
         isSelectAllIncluded = !filterInfo.value.isEmpty && !filterInfo.isMapFilter
-        super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         title = filterInfo.title
     }
 
@@ -47,8 +45,9 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        let showButton = selectionDataSource.selectionState(filterInfo) != .none
-        showApplyButton(showButton, animated: false)
+        if let parentApplyButtonOwner = parentApplyButtonOwner, parentApplyButtonOwner.isShowingApplyButton {
+            showApplyButton(true, animated: false)
+        }
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -124,6 +123,7 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
             selectionDataSource.clearValueAndValueForChildren(for: filterInfo)
             selectionDataSource.addValue(filterInfo.value, for: filterInfo)
         }
+        showApplyButton(true)
     }
 
     private func toggleSelection(for item: MultiLevelListSelectionFilterInfoType) {
@@ -144,6 +144,7 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
                 selectionDataSource.setValue([item.value], for: item)
             }
         }
+        showApplyButton(true)
     }
 
     private func isListItemSelected(_ item: MultiLevelListSelectionFilterInfoType) -> Bool {
@@ -223,8 +224,6 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
         case .all:
             toggleSelectAllSelection()
             updateAllVisibleCells()
-            let showButton = selectionDataSource.selectionState(filterInfo) != .none
-            showApplyButton(showButton)
         case .values:
             guard let listItem = listItems[safe: indexPath.row] else {
                 return
@@ -239,8 +238,6 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
                 } else {
                     updateAllVisibleCells()
                 }
-                let showButton = selectionDataSource.selectionState(filterInfo) != .none
-                showApplyButton(showButton)
             }
         }
     }

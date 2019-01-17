@@ -7,7 +7,6 @@ import UIKit
 
 public class StepperFilterViewController: FilterViewController {
     private let filterInfo: StepperFilterInfoType
-    private let dataSource: FilterDataSource
 
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(filterInfo: filterInfo)
@@ -18,8 +17,7 @@ public class StepperFilterViewController: FilterViewController {
 
     public init(filterInfo: StepperFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         self.filterInfo = filterInfo
-        self.dataSource = dataSource
-        super.init(selectionDataSource: selectionDataSource, navigator: navigator)
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         title = filterInfo.title
     }
 
@@ -34,7 +32,6 @@ public class StepperFilterViewController: FilterViewController {
 
         guard let value = selectionDataSource.stepperValue(for: filterInfo) else { return }
         stepperFilterView.value = value
-        showApplyButton(true, animated: false)
     }
 }
 
@@ -43,10 +40,9 @@ private extension StepperFilterViewController {
         switch sender.value {
         case filterInfo.lowerLimit:
             selectionDataSource.clearAll(for: filterInfo)
-            showApplyButton(false)
         default:
             selectionDataSource.setValue(RangeValue.minimum(lowValue: sender.value), for: filterInfo)
-            showApplyButton(true)
         }
+        showApplyButton(true)
     }
 }

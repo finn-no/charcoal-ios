@@ -71,7 +71,7 @@ public class MapFilterViewController: FilterViewController {
         guard let mapFilterView = mapFilterView else {
             return
         }
-        view.insertSubview(mapFilterView, belowSubview: applySelectionButton)
+        view.addSubview(mapFilterView)
         NSLayoutConstraint.activate([
             mapFilterView.topAnchor.constraint(equalTo: safeTopAnchor),
             mapFilterView.bottomAnchor.constraint(equalTo: applySelectionButton.topAnchor),

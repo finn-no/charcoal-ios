@@ -29,7 +29,7 @@ public class StepperFilterViewController: FilterViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.insertSubview(stepperFilterView, belowSubview: applySelectionButton)
+        view.addSubview(stepperFilterView)
         stepperFilterView.fillInSuperview()
 
         guard let value = selectionDataSource.stepperValue(for: filterInfo) else { return }

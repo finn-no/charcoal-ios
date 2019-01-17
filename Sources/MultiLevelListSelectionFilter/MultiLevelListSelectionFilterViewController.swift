@@ -63,7 +63,7 @@ public final class MultiLevelListSelectionFilterViewController: FilterViewContro
     }
 
     private func setup() {
-        view.insertSubview(tableView, belowSubview: applySelectionButton)
+        view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

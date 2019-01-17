@@ -37,7 +37,7 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
         view.addSubview(stepperFilterView)
         NSLayoutConstraint.activate([
             stepperFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stepperFilterView.topAnchor.constraint(equalTo: view.topAnchor, constant: 148),
+            stepperFilterView.topAnchor.constraint(equalTo: view.topAnchor, constant: .veryLargeSpacing * 2),
             stepperFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
 

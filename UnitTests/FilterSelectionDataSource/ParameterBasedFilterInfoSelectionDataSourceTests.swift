@@ -353,8 +353,17 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
 
 extension ParameterBasedFilterInfoSelectionDataSourceTests {
     func createRangeFilter(parameterName: String, title: String) -> RangeFilterInfo {
-        let rangeFilter = RangeFilterInfo(parameterName: parameterName, title: title, lowValue: 10, highValue: 100, steps: 10, rangeBoundsOffsets: (lowerBoundOffset: 10, upperBoundOffset: 10), unit: "unit", referenceValues: [20, 50, 90], accesibilityValues: (accessibilitySteps: nil, accessibilityValueSuffix: nil), appearanceProperties: (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false))
-        return rangeFilter
+        return RangeFilterInfo(
+            parameterName: parameterName,
+            title: title,
+            lowValue: 10,
+            highValue: 100,
+            increment: 10,
+            rangeBoundsOffsets: (lowerBoundOffset: 10, upperBoundOffset: 10),
+            unit: "unit",
+            accesibilityValues: (accessibilitySteps: nil, accessibilityValueSuffix: nil),
+            appearanceProperties: (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        )
     }
 
     func createMultiLevelFilter(parameterName: String, title: String, multiSelect: Bool, value: String, isMapFilter: Bool = false) -> MultiLevelListSelectionFilterInfo {

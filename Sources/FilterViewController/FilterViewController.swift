@@ -57,6 +57,7 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
     }
 
     public func showApplyButton(_ show: Bool, animated: Bool = true) {
+        view.layoutIfNeeded()
         isShowingApplyButton = show
         applyButtonTopAnchorConstraint.isActive = !show
         let duration = animated ? 0.3 : 0

@@ -361,7 +361,7 @@ extension ParameterBasedFilterInfoSelectionDataSourceTests {
             increment: 10,
             rangeBoundsOffsets: (lowerBoundOffset: 10, upperBoundOffset: 10),
             unit: "unit",
-            accesibilityValues: (accessibilitySteps: nil, accessibilityValueSuffix: nil),
+            accesibilityValues: (stepIncrement: nil, valueSuffix: nil),
             appearanceProperties: (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         )
     }

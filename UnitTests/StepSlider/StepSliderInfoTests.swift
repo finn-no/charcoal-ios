@@ -45,6 +45,18 @@ final class StepSliderInfoTests: XCTestCase {
         XCTAssertEqual(info.referenceValues, [100, 1000, 10000])
     }
 
+    func testReferenceValuesWithTwoElements() {
+        let info1 = StepSliderInfo(
+            minimumValue: 0,
+            maximumValue: 1,
+            incrementedBy: 1,
+            lowerBoundOffset: 0,
+            upperBoundOffset: 0
+        )
+
+        XCTAssertEqual(info1.referenceValues, [0, 1])
+    }
+
     func testInitWithIncrement() {
         let info = StepSliderInfo(
             minimumValue: 100,

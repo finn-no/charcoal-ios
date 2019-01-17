@@ -35,7 +35,11 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(stepperFilterView)
-        stepperFilterView.fillInSuperview()
+        NSLayoutConstraint.activate([
+            stepperFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stepperFilterView.topAnchor.constraint(equalTo: view.topAnchor, constant: 148),
+            stepperFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
 
         guard let value = selectionDataSource.stepperValue(for: filterInfo) else { return }
         stepperFilterView.value = value

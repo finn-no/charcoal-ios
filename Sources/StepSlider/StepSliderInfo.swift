@@ -9,31 +9,44 @@ public typealias SliderValueKind = Comparable & Numeric
 public struct StepSliderInfo<T: SliderValueKind> {
     public let minimumValue: T
     public let maximumValue: T
-    public let values: [T]
     public let range: ClosedRange<T>
+    public let values: [T]
     public let effectiveRange: ClosedRange<T>
     public let effectiveValues: [T]
-    public let steps: Int
     public let accessibilityStepIncrement: Int
 
     public var referenceValues: [T] {
-        return [
-            values[0],
-            values[Int(values.count / 2)],
-            values[values.count - 1],
-        ]
+        var result = [T]()
+
+        if let first = values.first {
+            result.append(first)
+        }
+
+        let centerIndex = Int(values.count / 2)
+
+        if centerIndex > 0, centerIndex < values.count - 1 {
+            result.append(values[centerIndex])
+        }
+
+        if let last = values.last {
+            result.append(last)
+        }
+
+        return result
     }
+
+    // MARK: - Init
 
     public init(minimumValue: T,
                 maximumValue: T,
                 stepValues: [T],
                 lowerBoundOffset: T,
                 upperBoundOffset: T,
-                accessibilityStepIncrement: Int? = 1) {
+                accessibilityStepIncrement: Int? = nil) {
+        range = minimumValue ... maximumValue
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
         values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
-        range = minimumValue ... maximumValue
 
         let effectiveMinimumValue = range.lowerBound - lowerBoundOffset
         let effectiveMaximumValue = range.upperBound + upperBoundOffset
@@ -52,7 +65,6 @@ public struct StepSliderInfo<T: SliderValueKind> {
         }
 
         self.effectiveValues = effectiveValues
-        steps = effectiveValues.count - 1
         self.accessibilityStepIncrement = accessibilityStepIncrement ?? 1
     }
 
@@ -61,7 +73,7 @@ public struct StepSliderInfo<T: SliderValueKind> {
                 incrementedBy increment: T,
                 lowerBoundOffset: T,
                 upperBoundOffset: T,
-                accessibilityStepIncrement: Int?) {
+                accessibilityStepIncrement: Int? = nil) {
         var values = [T]()
         var value = minimumValue
 
@@ -80,14 +92,14 @@ public struct StepSliderInfo<T: SliderValueKind> {
         )
     }
 
+    // MARK: - Helpers
+
     func isLowValueInValidRange(_ lowValue: T) -> Bool {
         if lowValue >= range.lowerBound {
-            if lowValue == 0 && range.lowerBound == 0 {
-                return false
-            }
-            return true
+            return !(lowValue == 0 && range.lowerBound == 0)
+        } else {
+            return false
         }
-        return false
     }
 
     func isHighValueInValidRange(_ highValue: T) -> Bool {

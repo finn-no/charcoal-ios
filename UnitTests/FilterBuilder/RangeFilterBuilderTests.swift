@@ -37,9 +37,9 @@ class RangeFilterBuilderTests: XCTestCase, TestDataDecoder {
 
         XCTAssertEqual(yearRangefilterInfo?.title, "Årsmodell")
         XCTAssertEqual(yearRangefilterInfo?.title, yearRangeFilterData?.title)
-        XCTAssertEqual(yearRangefilterInfo?.sliderData.minimumValue, fromYear)
-        XCTAssertEqual(yearRangefilterInfo?.sliderData.maximumValue, currentYear)
-        XCTAssertEqual(yearRangefilterInfo?.sliderData.values.count, currentYear - fromYear - 1)
+        XCTAssertEqual(yearRangefilterInfo?.sliderInfo.minimumValue, fromYear)
+        XCTAssertEqual(yearRangefilterInfo?.sliderInfo.maximumValue, currentYear)
+        XCTAssertEqual(yearRangefilterInfo?.sliderInfo.values.count, currentYear - fromYear - 1)
         XCTAssertEqual(yearRangefilterInfo?.unit, "år")
     }
 }

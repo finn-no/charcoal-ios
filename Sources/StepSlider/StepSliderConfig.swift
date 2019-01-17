@@ -6,25 +6,15 @@ import Foundation
 
 public typealias SliderValueKind = Comparable & Numeric
 
-public struct StepSliderData<T: SliderValueKind> {
+public struct StepSliderInfo<T: SliderValueKind> {
     public let minimumValue: T
     public let maximumValue: T
     public let values: [T]
     public let range: ClosedRange<T>
     public let effectiveRange: ClosedRange<T>
     public let effectiveValues: [T]
-
-    public var steps: Int {
-        var additionalSteps = 0
-        additionalSteps += range.lowerBound != effectiveRange.lowerBound ? 1 : 0
-        additionalSteps += range.upperBound != effectiveRange.upperBound ? 1 : 0
-
-        return values.count + additionalSteps
-    }
-
-    public var accessibilitySteps: Int {
-        return steps / 10
-    }
+    public let steps: Int
+    public let accessibilityStepIncrement: Int
 
     public var referenceValues: [T] {
         return [
@@ -34,7 +24,12 @@ public struct StepSliderData<T: SliderValueKind> {
         ]
     }
 
-    public init(minimumValue: T, maximumValue: T, stepValues: [T], lowerBoundOffset: T, upperBoundOffset: T) {
+    public init(minimumValue: T,
+                maximumValue: T,
+                stepValues: [T],
+                lowerBoundOffset: T,
+                upperBoundOffset: T,
+                accessibilityStepIncrement: Int? = 1) {
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
         values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
@@ -57,9 +52,16 @@ public struct StepSliderData<T: SliderValueKind> {
         }
 
         self.effectiveValues = effectiveValues
+        steps = effectiveValues.count - 1
+        self.accessibilityStepIncrement = accessibilityStepIncrement ?? 1
     }
 
-    public init(minimumValue: T, maximumValue: T, incrementedBy increment: T, lowerBoundOffset: T, upperBoundOffset: T) {
+    public init(minimumValue: T,
+                maximumValue: T,
+                incrementedBy increment: T,
+                lowerBoundOffset: T,
+                upperBoundOffset: T,
+                accessibilityStepIncrement: Int?) {
         var values = [T]()
         var value = minimumValue
 
@@ -73,7 +75,8 @@ public struct StepSliderData<T: SliderValueKind> {
             maximumValue: maximumValue,
             stepValues: values,
             lowerBoundOffset: lowerBoundOffset,
-            upperBoundOffset: upperBoundOffset
+            upperBoundOffset: upperBoundOffset,
+            accessibilityStepIncrement: accessibilityStepIncrement
         )
     }
 

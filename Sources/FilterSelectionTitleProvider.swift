@@ -41,7 +41,7 @@ private extension FilterSelectionTitleProvider {
     }
 
     func titlesForRangeSelectionValue(_ range: RangeValue, in filter: RangeFilterInfoType) -> String {
-        let formatter = RangeFilterValueFormatter(isValueCurrency: filter.isCurrencyValueRange, unit: filter.unit)
+        let formatter = RangeFilterValueFormatter(isValueCurrency: filter.isCurrencyValueRange, unit: filter.unit, accessibilityUnit: filter.accessibilityValueSuffix ?? "")
         switch range {
         case let .minimum(lowValue):
             let lowValue = formatter.string(from: lowValue) ?? ""

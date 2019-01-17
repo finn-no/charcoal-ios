@@ -12,19 +12,8 @@ protocol RangeSliderViewDelegate: AnyObject {
 final class RangeSliderView: UIControl {
     public static let minimumViewHeight: CGFloat = 28.0
 
-    private lazy var lowValueSlider: StepSlider<RangeValue> = {
-        let slider = StepSlider(range: data.effectiveValues, valueFormatter: formatter)
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.delegate = self
-        return slider
-    }()
-
-    private lazy var highValueSlider: StepSlider<RangeValue> = {
-        let slider = StepSlider(range: data.effectiveValues, valueFormatter: formatter)
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.delegate = self
-        return slider
-    }()
+    private lazy var lowValueSlider = makeStepSlider()
+    private lazy var highValueSlider = makeStepSlider()
 
     private lazy var trackView: UIView = {
         let view = UIView(frame: .zero)
@@ -48,36 +37,13 @@ final class RangeSliderView: UIControl {
 
     typealias RangeValue = Int
     typealias SliderRange = ClosedRange<RangeValue>
-    let data: StepSliderData<RangeValue>
+    let sliderInfo: StepSliderInfo<RangeValue>
     let formatter: SliderValueFormatter
 
     var generatesHapticFeedbackOnValueChange = true {
         didSet {
             lowValueSlider.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnValueChange
             highValueSlider.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnValueChange
-        }
-    }
-
-    var accessibilityValueSuffix: String? {
-        didSet {
-//            lowValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
-//            highValueSlider.accessibilityValueSuffix = accessibilityValueSuffix
-        }
-    }
-
-    private var _accessibilitySteps: Int?
-    var accessibilitySteps: Int {
-        get {
-            guard let accessibilitySteps = _accessibilitySteps else {
-                return data.steps
-            }
-
-            return accessibilitySteps
-        }
-        set {
-            _accessibilitySteps = newValue
-//            lowValueSlider.accessibilitySteps = newValue
-//            highValueSlider.accessibilitySteps = newValue
         }
     }
 
@@ -90,8 +56,8 @@ final class RangeSliderView: UIControl {
 
     weak var delegate: RangeSliderViewDelegate?
 
-    init(data: StepSliderData<RangeValue>, formatter: SliderValueFormatter) {
-        self.data = data
+    init(sliderInfo: StepSliderInfo<RangeValue>, formatter: SliderValueFormatter) {
+        self.sliderInfo = sliderInfo
         self.formatter = formatter
         super.init(frame: .zero)
         setup()
@@ -120,6 +86,16 @@ final class RangeSliderView: UIControl {
 
         updateActiveTrackRange()
     }
+
+    private func makeStepSlider() -> StepSlider<RangeValue> {
+        let slider = StepSlider(
+            range: sliderInfo.effectiveValues,
+            valueFormatter: formatter, accessibilityStepIncrement: sliderInfo.accessibilityStepIncrement
+        )
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.delegate = self
+        return slider
+    }
 }
 
 extension RangeSliderView: RangeControl {
@@ -132,7 +108,7 @@ extension RangeSliderView: RangeControl {
             lowValue = min(lowValue, highValue)
         }
 
-        if lowValue < data.minimumValue {
+        if lowValue < sliderInfo.minimumValue {
             return nil
         }
 
@@ -148,7 +124,7 @@ extension RangeSliderView: RangeControl {
             highValue = max(lowValue, highValue)
         }
 
-        if highValue > data.maximumValue {
+        if highValue > sliderInfo.maximumValue {
             return nil
         }
 

@@ -12,20 +12,9 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
     public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
 
     lazy var rangeFilterView: RangeFilterView = {
-        let view = RangeFilterView(
-            sliderData: filterInfo.sliderData,
-            unit: filterInfo.unit,
-            isValueCurrency: filterInfo.isCurrencyValueRange,
-            usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont,
-            displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput
-        )
-
-        view.sliderAccessibilitySteps = filterInfo.accessibilitySteps
-        view.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
-
+        let view = RangeFilterView(filterInfo: filterInfo)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
-
         return view
     }()
 

@@ -17,10 +17,12 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
     private var previousRoundedStepValue: StepValueKind?
     weak var delegate: StepSliderDelegate?
     private let valueFormatter: SliderValueFormatter
+    private let accessibilityStepIncrement: Float
 
-    init(range: [StepValueKind], valueFormatter: SliderValueFormatter) {
+    init(range: [StepValueKind], valueFormatter: SliderValueFormatter, accessibilityStepIncrement: Int = 1) {
         self.range = range
         self.valueFormatter = valueFormatter
+        self.accessibilityStepIncrement = Float(accessibilityStepIncrement)
 
         super.init(frame: .zero)
 
@@ -95,7 +97,7 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
     }
 
     override func accessibilityDecrement() {
-        guard let decrementTo = roundedStepValue(fromValue: value - 1) else {
+        guard let decrementTo = roundedStepValue(fromValue: value - accessibilityStepIncrement) else {
             return
         }
         setValueForSlider(decrementTo, animated: false)
@@ -103,7 +105,7 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
     }
 
     override func accessibilityIncrement() {
-        guard let incrementTo = roundedStepValue(fromValue: value + 1) else {
+        guard let incrementTo = roundedStepValue(fromValue: value + accessibilityStepIncrement) else {
             return
         }
         setValueForSlider(incrementTo, animated: false)

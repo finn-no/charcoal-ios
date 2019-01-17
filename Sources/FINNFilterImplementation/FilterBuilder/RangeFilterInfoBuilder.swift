@@ -49,7 +49,7 @@ private extension RangeFilterInfoBuilder {
             unit = "år"
             rangeBoundsOffsets = (10, 10)
             increment = 1
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
         case .engineEffect:
             lowValue = 0
@@ -57,7 +57,7 @@ private extension RangeFilterInfoBuilder {
             unit = "hk"
             rangeBoundsOffsets = (0, 10)
             increment = 10
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .mileage:
             lowValue = 0
@@ -65,7 +65,7 @@ private extension RangeFilterInfoBuilder {
             unit = "km"
             rangeBoundsOffsets = (0, 1000)
             increment = 1000
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .numberOfSeats:
             lowValue = 0
@@ -73,7 +73,7 @@ private extension RangeFilterInfoBuilder {
             unit = "seter"
             rangeBoundsOffsets = (0, 1)
             increment = 1
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .price:
             lowValue = 0
@@ -81,7 +81,7 @@ private extension RangeFilterInfoBuilder {
             unit = "kr"
             rangeBoundsOffsets = (0, 1000)
             increment = 1000
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         default:
             return nil
@@ -121,7 +121,7 @@ private extension RangeFilterInfoBuilder {
             rangeBoundsOffsets = (0, 100_000)
             unit = "kr"
             increment = 10000
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: false, isCurrencyValueRange: true)
         case .rent:
             lowValue = 0
@@ -129,7 +129,7 @@ private extension RangeFilterInfoBuilder {
             rangeBoundsOffsets = (0, 1000)
             unit = "kr"
             increment = 100
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         case .noOfBedrooms:
             lowValue = 0
@@ -137,7 +137,7 @@ private extension RangeFilterInfoBuilder {
             rangeBoundsOffsets = (1, 1)
             unit = "soverom"
             increment = 1
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .area:
             lowValue = 0
@@ -145,7 +145,7 @@ private extension RangeFilterInfoBuilder {
             rangeBoundsOffsets = (0, 10)
             unit = "m\u{00B2}"
             increment = 1
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .plotArea:
             lowValue = 0
@@ -153,7 +153,7 @@ private extension RangeFilterInfoBuilder {
             rangeBoundsOffsets = (0, 100)
             unit = "m\u{00B2}"
             increment = 10
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .constructionYear:
             lowValue = 1900
@@ -161,7 +161,7 @@ private extension RangeFilterInfoBuilder {
             rangeBoundsOffsets = (10, 10)
             unit = ""
             increment = 1
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
         default:
             return nil
@@ -201,7 +201,7 @@ private extension RangeFilterInfoBuilder {
             unit = "kr"
             rangeBoundsOffsets = (0, 1000)
             increment = 1000
-            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         default:
             return nil

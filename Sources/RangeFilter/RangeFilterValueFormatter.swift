@@ -5,6 +5,7 @@
 class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
     private let isValueCurrency: Bool
     private let unit: String
+    private let accessibilityUnit: String
 
     private lazy var formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -16,9 +17,10 @@ class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
         return formatter
     }()
 
-    init(isValueCurrency: Bool, unit: String) {
+    init(isValueCurrency: Bool, unit: String, accessibilityUnit: String) {
         self.isValueCurrency = isValueCurrency
         self.unit = unit
+        self.accessibilityUnit = accessibilityUnit
     }
 
     func string(from value: Int, isCurrency: Bool = false) -> String? {
@@ -27,7 +29,7 @@ class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
     }
 
     func accessibilityValue<ValueKind>(for value: ValueKind) -> String {
-        return title(for: value)
+        return "\(value) \(accessibilityUnit)"
     }
 
     func title<ValueKind>(for value: ValueKind) -> String {

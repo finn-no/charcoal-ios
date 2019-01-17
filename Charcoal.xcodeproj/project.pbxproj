@@ -845,8 +845,8 @@
 		CFFD9F8A21F07A7700997D14 /* StepSlider */ = {
 			isa = PBXGroup;
 			children = (
-				CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */,
 				9B741D1B21B6B1CA00D18097 /* StepSlider.swift */,
+				CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */,
 			);
 			path = StepSlider;
 			sourceTree = "<group>";

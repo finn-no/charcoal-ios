@@ -5,8 +5,8 @@
 import UIKit
 
 protocol RangeSliderViewDelegate: AnyObject {
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue: RangeSliderView.RangeValue?)
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue: RangeSliderView.RangeValue?)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue: RangeSliderView.RangeValue?, didFinishSlideInteraction slideEnded: Bool)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue: RangeSliderView.RangeValue?, didFinishSlideInteraction slideEnded: Bool)
 }
 
 final class RangeSliderView: UIControl {
@@ -89,8 +89,11 @@ final class RangeSliderView: UIControl {
 
     private func makeStepSlider() -> StepSlider<RangeValue> {
         let slider = StepSlider(
-            range: sliderInfo.effectiveValues,
-            valueFormatter: formatter, accessibilityStepIncrement: sliderInfo.accessibilityStepIncrement
+            range: sliderInfo.values,
+            valueFormatter: formatter,
+            lowerBoundOffsetValue: sliderInfo.lowerBound.offsetValue,
+            upperBoundOffsetValue: sliderInfo.upperBound.offsetValue,
+            accessibilityStepIncrement: sliderInfo.accessibilityStepIncrement
         )
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
@@ -229,21 +232,6 @@ private extension RangeSliderView {
     }
 }
 
-// extension RangeSliderView: SteppedSliderDelegate {
-//    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeRoundedStepValue value: RangeSliderView.RangeValue) {
-//        if steppedSlider == highestValueSlider {
-//            delegate?.rangeSliderView(self, didChangeHighValue: highValue)
-//        } else {
-//            delegate?.rangeSliderView(self, didChangeLowValue: lowValue)
-//        }
-//    }
-//
-//    func steppedSlider(_ steppedSlider: SteppedSlider, didChangeValue value: Float) {
-//        updateActiveTrackRange()
-//        updateAccesibilityValues()
-//    }
-// }
-
 extension RangeSliderView: StepSliderDelegate {
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float) {
         updateActiveTrackRange()
@@ -252,17 +240,17 @@ extension RangeSliderView: StepSliderDelegate {
 
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
         if stepSlider == highestValueSlider {
-            delegate?.rangeSliderView(self, didChangeHighValue: highValue)
+            delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: false)
         } else {
-            delegate?.rangeSliderView(self, didChangeLowValue: lowValue)
+            delegate?.rangeSliderView(self, didChangeLowValue: lowValue, didFinishSlideInteraction: false)
         }
     }
 
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind) where StepValueKind: Comparable {
         if stepSlider == highestValueSlider {
-            delegate?.rangeSliderView(self, didChangeHighValue: highValue)
+            delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: true)
         } else {
-            delegate?.rangeSliderView(self, didChangeLowValue: lowValue)
+            delegate?.rangeSliderView(self, didChangeLowValue: lowValue, didFinishSlideInteraction: true)
         }
     }
 }

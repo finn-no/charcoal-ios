@@ -57,7 +57,7 @@ private struct RangeFilterInfo: RangeFilterInfoType {
         minimumValue: 0,
         maximumValue: 30000,
         stepValues: [100, 500, 1000, 2000, 3000, 5000, 8000, 10000, 15000, 20000, 30000],
-        lowerBoundOffset: 1000,
-        upperBoundOffset: 1000
+        hasLowerBoundOffset: true,
+        hasUpperBoundOffset: true
     )
 }

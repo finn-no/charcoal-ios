@@ -18,25 +18,40 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
     weak var delegate: StepSliderDelegate?
     private let valueFormatter: SliderValueFormatter
     private let accessibilityStepIncrement: Float
+    private let lowerBoundStepValue: StepValueKind?
+    private let upperBoundStepValue: StepValueKind?
+    private let leftSideOffset: Float
 
-    init(range: [StepValueKind], valueFormatter: SliderValueFormatter, accessibilityStepIncrement: Int = 1) {
+    // MARK: - Init
+
+    init(range: [StepValueKind],
+         valueFormatter: SliderValueFormatter,
+         lowerBoundOffsetValue: StepValueKind? = nil,
+         upperBoundOffsetValue: StepValueKind? = nil,
+         accessibilityStepIncrement: Int = 1) {
         self.range = range
         self.valueFormatter = valueFormatter
         self.accessibilityStepIncrement = Float(accessibilityStepIncrement)
+
+        let minimumValue = Float(0)
+        let maximumValue = Float(range.count - 1)
+
+        let sideOffset = maximumValue * 0.025
+        lowerBoundStepValue = lowerBoundOffsetValue
+        upperBoundStepValue = upperBoundOffsetValue
+
+        leftSideOffset = lowerBoundOffsetValue != nil ? sideOffset : 0
+        let rightSideOffset = upperBoundOffsetValue != nil ? sideOffset : 0
 
         super.init(frame: .zero)
 
         minimumTrackTintColor = .clear
         maximumTrackTintColor = .clear
-        minimumValue = Float(0)
-        maximumValue = Float(range.count - 1)
+        self.minimumValue = minimumValue
+        self.maximumValue = maximumValue + leftSideOffset + rightSideOffset
         setThumbImage(RangeSliderView.Style.sliderThumbImage, for: .normal)
         setThumbImage(RangeSliderView.Style.activeSliderThumbImage, for: .highlighted)
         addTarget(self, action: #selector(sliderValueChanged(sender:event:)), for: .valueChanged)
-    }
-
-    func translateValueToNormalizedRangeStartingFromZeroValue(value: StepValueKind) -> Float {
-        return Float(range.firstIndex(of: value) ?? 0)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,8 +67,7 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
     }
 
     var roundedStepValue: StepValueKind? {
-        let stepValue = roundedStepValue(fromValue: value)
-        return stepValue
+        return roundedStepValue(fromValue: value)
     }
 
     func setValueForSlider(_ value: StepValueKind, animated: Bool) {
@@ -112,9 +126,30 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
         sendActions(for: .valueChanged)
     }
 
-    func roundedStepValue(fromValue value: Float) -> StepValueKind? {
-        let index = Int(roundf(value))
-        return range[safe: index]
+    func translateValueToNormalizedRangeStartingFromZeroValue(value: StepValueKind) -> Float {
+        if let index = range.firstIndex(of: value) {
+            return Float(index) + leftSideOffset
+        } else if let last = range.last, value > last {
+            return maximumValue
+        } else if let first = range.first, value < first {
+            return minimumValue
+        } else {
+            return 0
+        }
+    }
+
+    private func roundedStepValue(fromValue value: Float) -> StepValueKind? {
+        let index = Int(roundf(value) - leftSideOffset)
+
+        if let stepValue = range[safe: index] {
+            return stepValue
+        } else if value > Float(range.count - 1) {
+            return upperBoundStepValue
+        } else if value < leftSideOffset {
+            return lowerBoundStepValue
+        } else {
+            return nil
+        }
     }
 
     private func updateAccessibilityValue() {

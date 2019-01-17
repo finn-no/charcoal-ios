@@ -47,7 +47,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 1950
             highValue = Calendar.current.component(.year, from: Date())
             unit = "år"
-            rangeBoundsOffsets = (10, 10)
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             increment = 1
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
@@ -55,7 +55,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 500
             unit = "hk"
-            rangeBoundsOffsets = (0, 10)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             increment = 10
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -63,7 +63,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 200_000
             unit = "km"
-            rangeBoundsOffsets = (0, 1000)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             increment = 1000
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -71,7 +71,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 10
             unit = "seter"
-            rangeBoundsOffsets = (0, 1)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             increment = 1
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
@@ -79,7 +79,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 500_000
             unit = "kr"
-            rangeBoundsOffsets = (0, 1000)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             increment = 1000
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
@@ -118,7 +118,7 @@ private extension RangeFilterInfoBuilder {
         case .price, .priceCollective:
             lowValue = 0
             highValue = 10_000_000
-            rangeBoundsOffsets = (0, 100_000)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             unit = "kr"
             increment = 10000
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
@@ -126,7 +126,7 @@ private extension RangeFilterInfoBuilder {
         case .rent:
             lowValue = 0
             highValue = 20000
-            rangeBoundsOffsets = (0, 1000)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             unit = "kr"
             increment = 100
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
@@ -134,7 +134,7 @@ private extension RangeFilterInfoBuilder {
         case .noOfBedrooms:
             lowValue = 0
             highValue = 6
-            rangeBoundsOffsets = (1, 1)
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             unit = "soverom"
             increment = 1
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
@@ -142,7 +142,7 @@ private extension RangeFilterInfoBuilder {
         case .area:
             lowValue = 0
             highValue = 400
-            rangeBoundsOffsets = (0, 10)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             unit = "m\u{00B2}"
             increment = 1
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
@@ -150,7 +150,7 @@ private extension RangeFilterInfoBuilder {
         case .plotArea:
             lowValue = 0
             highValue = 6000
-            rangeBoundsOffsets = (0, 100)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             unit = "m\u{00B2}"
             increment = 10
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
@@ -158,7 +158,7 @@ private extension RangeFilterInfoBuilder {
         case .constructionYear:
             lowValue = 1900
             highValue = Calendar.current.component(.year, from: Date())
-            rangeBoundsOffsets = (10, 10)
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             unit = ""
             increment = 1
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
@@ -199,7 +199,7 @@ private extension RangeFilterInfoBuilder {
             lowValue = 0
             highValue = 30000
             unit = "kr"
-            rangeBoundsOffsets = (0, 1000)
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             increment = 1000
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)

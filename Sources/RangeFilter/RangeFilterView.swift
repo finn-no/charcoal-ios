@@ -131,13 +131,13 @@ extension RangeFilterView {
 
     public func setLowValue(_ value: RangeValue?, animated: Bool) {
         updateNumberInput(for: .low, with: value, fromSlider: false)
-        updateSliderLowValue(with: value ?? sliderInfo.effectiveRange.lowerBound)
+        updateSliderLowValue(with: value ?? sliderInfo.lowerBound.stepValue)
         inputValues[.low] = value
     }
 
     public func setHighValue(_ value: RangeValue?, animated: Bool) {
         updateNumberInput(for: .high, with: value, fromSlider: false)
-        updateSliderHighValue(with: value ?? sliderInfo.effectiveRange.upperBound)
+        updateSliderHighValue(with: value ?? sliderInfo.upperBound.stepValue)
         inputValues[.high] = value
     }
 }
@@ -208,12 +208,12 @@ private extension RangeFilterView {
     }
 
     func updateSliderLowValue(with value: RangeValue) {
-        let newValue = value < sliderInfo.minimumValue ? sliderInfo.effectiveRange.lowerBound : value
+        let newValue = value < sliderInfo.minimumValue ? sliderInfo.lowerBound.stepValue : value
         sliderInputView.setLowValue(newValue, animated: false)
     }
 
     func updateSliderHighValue(with value: RangeValue) {
-        let newValue = value > sliderInfo.maximumValue ? sliderInfo.effectiveRange.upperBound : value
+        let newValue = value > sliderInfo.maximumValue ? sliderInfo.upperBound.stepValue : value
         sliderInputView.setHighValue(newValue, animated: false)
     }
 
@@ -240,10 +240,10 @@ private extension RangeFilterView {
         } else {
             if inputValue == .low {
                 newValue = sliderInfo.minimumValue
-                hintText = (sliderInfo.minimumValue > sliderInfo.effectiveRange.lowerBound) ? "range_below_lower_bound_title".localized() : ""
+                hintText = sliderInfo.lowerBound.hasOffset ? "range_below_lower_bound_title".localized() : ""
             } else {
                 newValue = sliderInfo.maximumValue
-                hintText = (sliderInfo.maximumValue < sliderInfo.effectiveRange.upperBound) ? "range_above_upper_bound_title".localized() : ""
+                hintText = sliderInfo.upperBound.hasOffset ? "range_above_upper_bound_title".localized() : ""
             }
         }
 
@@ -265,39 +265,50 @@ private extension RangeFilterView {
 }
 
 extension RangeFilterView: RangeSliderViewDelegate {
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue lowValue: RangeSliderView.RangeValue?) {
-        if let lowValue = lowValue {
-            let didValueChange = inputValues[.low] != lowValue
+    func rangeSliderView(_ rangeSliderView: RangeSliderView,
+                         didChangeLowValue value: RangeSliderView.RangeValue?,
+                         didFinishSlideInteraction slideEnded: Bool) {
+        handleSliderUpdates(for: .low, value: value, slideEnded: slideEnded)
+    }
+
+    func rangeSliderView(_ rangeSliderView: RangeSliderView,
+                         didChangeHighValue value: RangeSliderView.RangeValue?,
+                         didFinishSlideInteraction slideEnded: Bool) {
+        handleSliderUpdates(for: .high, value: value, slideEnded: slideEnded)
+    }
+
+    private func handleSliderUpdates(for inputValue: InputValue, value: RangeSliderView.RangeValue?, slideEnded: Bool) {
+        if let value = value {
+            let didValueChange = inputValues[inputValue] != value
             if didValueChange {
-                updateNumberInput(for: .low, with: lowValue, fromSlider: true)
-                inputValues[.low] = lowValue
-                if sliderInfo.isLowValueInValidRange(lowValue) {
-                    delegate?.rangeFilterView(self, didSetLowValue: lowValue)
+                updateNumberInput(for: inputValue, with: value, fromSlider: true)
+                inputValues[inputValue] = value
+            }
+
+            if slideEnded {
+                let isValidRange = inputValue == .low ? sliderInfo.isLowValueInValidRange : sliderInfo.isHighValueInValidRange
+
+                if isValidRange(value) {
+                    didSetSliderValue(value, for: inputValue)
                 } else {
-                    delegate?.rangeFilterView(self, didSetLowValue: nil)
+                    didSetSliderValue(nil, for: inputValue)
                 }
             }
         } else {
-            updateNumberInput(for: .low, with: lowValue, fromSlider: true)
-            delegate?.rangeFilterView(self, didSetLowValue: nil)
+            updateNumberInput(for: inputValue, with: value, fromSlider: true)
+            inputValues[inputValue] = nil
+
+            if slideEnded {
+                didSetSliderValue(nil, for: inputValue)
+            }
         }
     }
 
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue highValue: RangeSliderView.RangeValue?) {
-        if let highValue = highValue {
-            let didValueChange = inputValues[.high] != highValue
-            if didValueChange {
-                inputValues[.high] = highValue
-                updateNumberInput(for: .high, with: highValue, fromSlider: true)
-                if sliderInfo.isHighValueInValidRange(highValue) {
-                    delegate?.rangeFilterView(self, didSetHighValue: highValue)
-                } else {
-                    delegate?.rangeFilterView(self, didSetHighValue: nil)
-                }
-            }
+    private func didSetSliderValue(_ value: RangeSliderView.RangeValue?, for inputValue: InputValue) {
+        if inputValue == .low {
+            delegate?.rangeFilterView(self, didSetLowValue: value)
         } else {
-            updateNumberInput(for: .high, with: highValue, fromSlider: true)
-            delegate?.rangeFilterView(self, didSetHighValue: nil)
+            delegate?.rangeFilterView(self, didSetHighValue: value)
         }
     }
 }

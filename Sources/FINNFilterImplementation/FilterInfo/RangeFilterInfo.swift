@@ -3,7 +3,7 @@
 //
 
 final class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
-    typealias RangeBoundsOffsets = (lowerBoundOffset: Int, upperBoundOffset: Int)
+    typealias RangeBoundsOffsets = (hasLowerBoundOffset: Bool, hasUpperBoundOffset: Bool)
     typealias AccessibilityValues = (stepIncrement: Int?, valueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
@@ -24,8 +24,8 @@ final class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
             minimumValue: lowValue,
             maximumValue: highValue,
             incrementedBy: increment,
-            lowerBoundOffset: rangeBoundsOffsets.lowerBoundOffset,
-            upperBoundOffset: rangeBoundsOffsets.upperBoundOffset,
+            hasLowerBoundOffset: rangeBoundsOffsets.hasLowerBoundOffset,
+            hasUpperBoundOffset: rangeBoundsOffsets.hasUpperBoundOffset,
             accessibilityStepIncrement: accesibilityValues.stepIncrement
         )
         isCurrencyValueRange = appearanceProperties.isCurrencyValueRange

@@ -127,6 +127,8 @@
 		9BE5EC6B21CBC54F009C5E1A /* MapFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6A21CBC54F009C5E1A /* MapFilterCell.swift */; };
 		9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */; };
 		9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */; };
+		9BE5EC8E21EDE83D009C5E1A /* FilterSelectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC8D21EDE83C009C5E1A /* FilterSelectionData.swift */; };
+		9BE5EC9021EE0BB1009C5E1A /* FilterSelectionDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC8F21EE0BB1009C5E1A /* FilterSelectionDataTests.swift */; };
 		9BE9A060219ADC2000059C19 /* CollapsedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */; };
 		9BE9A062219ADC4F00059C19 /* ExpandedSelectionValuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */; };
 		9BF778CC21C16374006C0416 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF778CB21C16374006C0416 /* MapFilterViewController.swift */; };
@@ -313,6 +315,8 @@
 		9BE5EC6A21CBC54F009C5E1A /* MapFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterCell.swift; sourceTree = "<group>"; };
 		9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchLocationDataSource.swift; sourceTree = "<group>"; };
+		9BE5EC8D21EDE83C009C5E1A /* FilterSelectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionData.swift; sourceTree = "<group>"; };
+		9BE5EC8F21EE0BB1009C5E1A /* FilterSelectionDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionDataTests.swift; sourceTree = "<group>"; };
 		9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSelectionValuesView.swift; sourceTree = "<group>"; };
 		9BF778CB21C16374006C0416 /* MapFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
@@ -626,6 +630,7 @@
 				559C61F220DA4C3B0083A574 /* FilterBuilder */,
 				55BDA76C20DBC43F00331FFC /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
+				9BE5EC8D21EDE83C009C5E1A /* FilterSelectionData.swift */,
 				9BC45F732153D08700727AEB /* ParameterBasedFilterInfoSelectionDataSource.swift */,
 			);
 			path = FINNFilterImplementation;
@@ -757,6 +762,7 @@
 		9BB827B2216DF2C40014028C /* FilterSelectionDataSource */ = {
 			isa = PBXGroup;
 			children = (
+				9BE5EC8F21EE0BB1009C5E1A /* FilterSelectionDataTests.swift */,
 				9BB827B3216DF2E20014028C /* ParameterBasedFilterInfoSelectionDataSourceTests.swift */,
 			);
 			path = FilterSelectionDataSource;
@@ -1155,6 +1161,7 @@
 				9BB827A2216C9C800014028C /* ListSelectionFilterInfo.swift in Sources */,
 				9BE0A06A209724D70000632B /* InlineFilterCell.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
+				9BE5EC8E21EDE83D009C5E1A /* FilterSelectionData.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
 				5525324420A2DB73000CBD21 /* RootFilterNavigator.swift in Sources */,
 				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
@@ -1221,6 +1228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
+				9BE5EC9021EE0BB1009C5E1A /* FilterSelectionDataTests.swift in Sources */,
 				55BDA76820DB9A7300331FFC /* RangeFilterBuilderTests.swift in Sources */,
 				559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */,
 				9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */,

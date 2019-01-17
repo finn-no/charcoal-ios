@@ -64,6 +64,9 @@ class DemoListItem: FilterValueType, NumberOfHitsCompatible {
 }
 
 class DemoListFilterSelectionDataSource: FilterSelectionDataSource {
+    func setValueAndClearValueForChildren(_ value: String?, for filterInfo: MultiLevelListSelectionFilterInfoType) {
+    }
+
     var filterValues: [DemoListItem] = DemoListSelectionFilterInfo.listItems
 
     func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {

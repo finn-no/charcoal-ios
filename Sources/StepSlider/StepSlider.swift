@@ -103,7 +103,9 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         guard let newValue = roundedStepValue(fromValue: slider.value) else {
             return
         }
-        value = translateValueToNormalizedRangeStartingFromZeroValue(value: newValue)
+
+        value = rangeValue(from: newValue) ?? slider.value
+
         let stepChanged = previousRoundedStepValue != nil && previousRoundedStepValue != newValue
         if previousRoundedStepValue == nil || stepChanged {
             delegate?.stepSlider(self, didChangeRoundedStepValue: newValue)
@@ -138,13 +140,17 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
     }
 
     func translateValueToNormalizedRangeStartingFromZeroValue(value: StepValueKind) -> Float {
-        if let index = range.firstIndex(of: value) {
-            return Float(index) + leftSideOffset
+        if let rangeValue = self.rangeValue(from: value) {
+            return rangeValue
         } else if let last = range.last, value > last {
             return maximumValue
         } else {
             return minimumValue
         }
+    }
+
+    private func rangeValue(from value: StepValueKind) -> Float? {
+        return range.firstIndex(of: value).map({ Float($0) + leftSideOffset })
     }
 
     private func roundedStepValue(fromValue value: Float) -> StepValueKind? {

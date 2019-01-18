@@ -17,11 +17,13 @@ final class StepSliderInfoTests: XCTestCase {
 
         XCTAssertEqual(info.minimumValue, 100)
         XCTAssertEqual(info.maximumValue, 10000)
+        XCTAssertEqual(info.minimumValueWithOffset, 100)
+        XCTAssertEqual(info.maximumValueWithOffset, 10000)
+        XCTAssertFalse(info.hasLowerBoundOffset)
+        XCTAssertFalse(info.hasUpperBoundOffset)
+        XCTAssertEqual(info.accessibilityStepIncrement, 1)
         XCTAssertEqual(info.range, 100 ... 10000)
         XCTAssertEqual(info.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
-        XCTAssertEqual(info.lowerBound, StepSliderInfo.Bound(stepValue: 100, hasOffset: false))
-        XCTAssertEqual(info.upperBound, StepSliderInfo.Bound(stepValue: 10000, hasOffset: false))
-        XCTAssertEqual(info.accessibilityStepIncrement, 1)
         XCTAssertEqual(info.referenceValues, [100, 1000, 10000])
     }
 
@@ -37,11 +39,13 @@ final class StepSliderInfoTests: XCTestCase {
 
         XCTAssertEqual(info.minimumValue, 100)
         XCTAssertEqual(info.maximumValue, 10000)
+        XCTAssertEqual(info.minimumValueWithOffset, 99)
+        XCTAssertEqual(info.maximumValueWithOffset, 10001)
+        XCTAssertTrue(info.hasLowerBoundOffset)
+        XCTAssertTrue(info.hasUpperBoundOffset)
+        XCTAssertEqual(info.accessibilityStepIncrement, 2)
         XCTAssertEqual(info.range, 100 ... 10000)
         XCTAssertEqual(info.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
-        XCTAssertEqual(info.lowerBound, StepSliderInfo.Bound(stepValue: 99, hasOffset: true))
-        XCTAssertEqual(info.upperBound, StepSliderInfo.Bound(stepValue: 10001, hasOffset: true))
-        XCTAssertEqual(info.accessibilityStepIncrement, 2)
         XCTAssertEqual(info.referenceValues, [100, 1000, 10000])
     }
 
@@ -69,11 +73,13 @@ final class StepSliderInfoTests: XCTestCase {
 
         XCTAssertEqual(info.minimumValue, 100)
         XCTAssertEqual(info.maximumValue, 5000)
+        XCTAssertEqual(info.minimumValueWithOffset, 99)
+        XCTAssertEqual(info.maximumValueWithOffset, 5001)
+        XCTAssertTrue(info.hasLowerBoundOffset)
+        XCTAssertTrue(info.hasUpperBoundOffset)
+        XCTAssertEqual(info.accessibilityStepIncrement, 2)
         XCTAssertEqual(info.range, 100 ... 5000)
         XCTAssertEqual(info.values, [100, 1100, 2100, 3100, 4100, 5000])
-        XCTAssertEqual(info.lowerBound, StepSliderInfo.Bound(stepValue: 99, hasOffset: true))
-        XCTAssertEqual(info.upperBound, StepSliderInfo.Bound(stepValue: 5001, hasOffset: true))
-        XCTAssertEqual(info.accessibilityStepIncrement, 2)
         XCTAssertEqual(info.referenceValues, [100, 3100, 5000])
     }
 

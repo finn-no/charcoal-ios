@@ -131,13 +131,13 @@ extension RangeFilterView {
 
     public func setLowValue(_ value: RangeValue?, animated: Bool) {
         updateNumberInput(for: .low, with: value, fromSlider: false)
-        updateSliderLowValue(with: value ?? sliderInfo.lowerBound.stepValue)
+        updateSliderLowValue(with: value ?? sliderInfo.minimumValueWithOffset)
         inputValues[.low] = value
     }
 
     public func setHighValue(_ value: RangeValue?, animated: Bool) {
         updateNumberInput(for: .high, with: value, fromSlider: false)
-        updateSliderHighValue(with: value ?? sliderInfo.upperBound.stepValue)
+        updateSliderHighValue(with: value ?? sliderInfo.maximumValueWithOffset)
         inputValues[.high] = value
     }
 }
@@ -208,12 +208,12 @@ private extension RangeFilterView {
     }
 
     func updateSliderLowValue(with value: RangeValue) {
-        let newValue = value < sliderInfo.minimumValue ? sliderInfo.lowerBound.stepValue : value
+        let newValue = value < sliderInfo.minimumValue ? sliderInfo.minimumValueWithOffset : value
         sliderInputView.setLowValue(newValue, animated: false)
     }
 
     func updateSliderHighValue(with value: RangeValue) {
-        let newValue = value > sliderInfo.maximumValue ? sliderInfo.upperBound.stepValue : value
+        let newValue = value > sliderInfo.maximumValue ? sliderInfo.maximumValueWithOffset : value
         sliderInputView.setHighValue(newValue, animated: false)
     }
 
@@ -222,17 +222,12 @@ private extension RangeFilterView {
         let hintText: String
 
         if let value = value {
-            if fromSlider {
-                if value < sliderInfo.minimumValue {
-                    newValue = sliderInfo.minimumValue
-                    hintText = "range_below_lower_bound_title".localized()
-                } else if value > sliderInfo.maximumValue {
-                    newValue = sliderInfo.maximumValue
-                    hintText = "range_above_upper_bound_title".localized()
-                } else {
-                    newValue = value
-                    hintText = ""
-                }
+            if value < sliderInfo.minimumValue {
+                newValue = sliderInfo.minimumValue
+                hintText = "range_below_lower_bound_title".localized()
+            } else if value > sliderInfo.maximumValue {
+                newValue = sliderInfo.maximumValue
+                hintText = "range_above_upper_bound_title".localized()
             } else {
                 newValue = value
                 hintText = ""
@@ -240,10 +235,10 @@ private extension RangeFilterView {
         } else {
             if inputValue == .low {
                 newValue = sliderInfo.minimumValue
-                hintText = sliderInfo.lowerBound.hasOffset ? "range_below_lower_bound_title".localized() : ""
+                hintText = sliderInfo.hasLowerBoundOffset ? "range_below_lower_bound_title".localized() : ""
             } else {
                 newValue = sliderInfo.maximumValue
-                hintText = sliderInfo.upperBound.hasOffset ? "range_above_upper_bound_title".localized() : ""
+                hintText = sliderInfo.hasUpperBoundOffset ? "range_above_upper_bound_title".localized() : ""
             }
         }
 

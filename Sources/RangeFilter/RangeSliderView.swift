@@ -88,13 +88,7 @@ final class RangeSliderView: UIControl {
     }
 
     private func makeStepSlider() -> StepSlider<RangeValue> {
-        let slider = StepSlider(
-            range: sliderInfo.values,
-            valueFormatter: formatter,
-            lowerBoundOffsetValue: sliderInfo.lowerBound.offsetValue,
-            upperBoundOffsetValue: sliderInfo.upperBound.offsetValue,
-            accessibilityStepIncrement: sliderInfo.accessibilityStepIncrement
-        )
+        let slider = StepSlider(sliderInfo: sliderInfo, valueFormatter: formatter)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider

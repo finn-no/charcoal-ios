@@ -14,7 +14,7 @@ public class RangeFilterDemoView: UIView {
         let rangeFilterView = RangeFilterView(filterInfo: filterInfo)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.setLowValue(filterInfo.sliderInfo.minimumValue, animated: false)
-        rangeFilterView.setHighValue(filterInfo.sliderInfo.maximumValue + 1, animated: false)
+        rangeFilterView.setHighValue(filterInfo.sliderInfo.maximumValueWithOffset, animated: false)
         rangeFilterView.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
         return rangeFilterView
     }()
@@ -56,7 +56,7 @@ private struct RangeFilterInfo: RangeFilterInfoType {
     let sliderInfo = StepSliderInfo(
         minimumValue: 0,
         maximumValue: 30000,
-        stepValues: [100, 500, 1000, 2000, 3000, 5000, 8000, 10000, 15000, 20000, 30000],
+        stepValues: [100, 500, 1000, 2000, 3000, 4000, 5000, 8000, 10000, 15000, 20000],
         hasLowerBoundOffset: true,
         hasUpperBoundOffset: true
     )

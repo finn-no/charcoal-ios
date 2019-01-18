@@ -10,7 +10,7 @@ protocol StepSliderDelegate: AnyObject {
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind)
 }
 
-class StepSlider<StepValueKind: Comparable>: UISlider {
+class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
     let range: [StepValueKind]
     var generatesHapticFeedbackOnValueChange = true
 
@@ -18,6 +18,7 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
     weak var delegate: StepSliderDelegate?
     private let valueFormatter: SliderValueFormatter
     private let accessibilityStepIncrement: Float
+    private let maximumValueWithoutOffset: Float
     private let lowerBoundStepValue: StepValueKind?
     private let upperBoundStepValue: StepValueKind?
     private let leftSideOffset: Float
@@ -26,37 +27,47 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
 
     init(range: [StepValueKind],
          valueFormatter: SliderValueFormatter,
-         lowerBoundOffsetValue: StepValueKind? = nil,
-         upperBoundOffsetValue: StepValueKind? = nil,
+         minimumStepValueWithOffset: StepValueKind? = nil,
+         maximumStepValueWithOffset: StepValueKind? = nil,
          accessibilityStepIncrement: Int = 1) {
         self.range = range
         self.valueFormatter = valueFormatter
         self.accessibilityStepIncrement = Float(accessibilityStepIncrement)
+        maximumValueWithoutOffset = Float(range.count - 1)
+        lowerBoundStepValue = minimumStepValueWithOffset ?? range.first
+        upperBoundStepValue = maximumStepValueWithOffset ?? range.last
 
-        let minimumValue = Float(0)
-        let maximumValue = Float(range.count - 1)
+        let sideOffset = maximumValueWithoutOffset * 0.05
 
-        let sideOffset = maximumValue * 0.025
-        lowerBoundStepValue = lowerBoundOffsetValue
-        upperBoundStepValue = upperBoundOffsetValue
-
-        leftSideOffset = lowerBoundOffsetValue != nil ? sideOffset : 0
-        let rightSideOffset = upperBoundOffsetValue != nil ? sideOffset : 0
+        leftSideOffset = minimumStepValueWithOffset != nil ? sideOffset : 0
+        let rightSideOffset = maximumStepValueWithOffset != nil ? sideOffset : 0
 
         super.init(frame: .zero)
 
         minimumTrackTintColor = .clear
         maximumTrackTintColor = .clear
-        self.minimumValue = minimumValue
-        self.maximumValue = maximumValue + leftSideOffset + rightSideOffset
+        minimumValue = 0
+        maximumValue = maximumValueWithoutOffset + leftSideOffset + rightSideOffset
         setThumbImage(RangeSliderView.Style.sliderThumbImage, for: .normal)
         setThumbImage(RangeSliderView.Style.activeSliderThumbImage, for: .highlighted)
         addTarget(self, action: #selector(sliderValueChanged(sender:event:)), for: .valueChanged)
     }
 
+    convenience init(sliderInfo: StepSliderInfo<StepValueKind>, valueFormatter: SliderValueFormatter) {
+        self.init(
+            range: sliderInfo.values,
+            valueFormatter: valueFormatter,
+            minimumStepValueWithOffset: sliderInfo.hasLowerBoundOffset ? sliderInfo.minimumValueWithOffset : nil,
+            maximumStepValueWithOffset: sliderInfo.hasUpperBoundOffset ? sliderInfo.maximumValueWithOffset : nil,
+            accessibilityStepIncrement: sliderInfo.accessibilityStepIncrement
+        )
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Slider
 
     var currentTrackRect: CGRect {
         return trackRect(forBounds: bounds)
@@ -131,22 +142,21 @@ class StepSlider<StepValueKind: Comparable>: UISlider {
             return Float(index) + leftSideOffset
         } else if let last = range.last, value > last {
             return maximumValue
-        } else if let first = range.first, value < first {
-            return minimumValue
         } else {
-            return 0
+            return minimumValue
         }
     }
 
     private func roundedStepValue(fromValue value: Float) -> StepValueKind? {
-        let index = Int(roundf(value) - leftSideOffset)
+        let valueWithoutOffset = roundf(value - leftSideOffset)
+        let index = Int(valueWithoutOffset)
 
-        if let stepValue = range[safe: index] {
-            return stepValue
-        } else if value > Float(range.count - 1) {
-            return upperBoundStepValue
-        } else if value < leftSideOffset {
+        if valueWithoutOffset < minimumValue {
             return lowerBoundStepValue
+        } else if valueWithoutOffset > maximumValueWithoutOffset {
+            return upperBoundStepValue
+        } else if let stepValue = range[safe: index] {
+            return stepValue
         } else {
             return nil
         }

@@ -19,7 +19,8 @@ final class StepSliderInfoTests: XCTestCase {
         XCTAssertEqual(info.maximumValue, 10000)
         XCTAssertEqual(info.range, 100 ... 10000)
         XCTAssertEqual(info.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
-        XCTAssertEqual(info.lowerBound, StepSliderInfo.Bound(stepValue: 99, hasOffset: <#T##Bool#>))
+        XCTAssertEqual(info.lowerBound, StepSliderInfo.Bound(stepValue: 100, hasOffset: false))
+        XCTAssertEqual(info.upperBound, StepSliderInfo.Bound(stepValue: 10000, hasOffset: false))
         XCTAssertEqual(info.accessibilityStepIncrement, 1)
         XCTAssertEqual(info.referenceValues, [100, 1000, 10000])
     }
@@ -29,8 +30,8 @@ final class StepSliderInfoTests: XCTestCase {
             minimumValue: 100,
             maximumValue: 10000,
             stepValues: [150, 200, 500, 750, 1000, 2500, 5000, 7500],
-            lowerBoundOffset: 100,
-            upperBoundOffset: 100,
+            hasLowerBoundOffset: true,
+            hasUpperBoundOffset: true,
             accessibilityStepIncrement: 2
         )
 
@@ -38,8 +39,8 @@ final class StepSliderInfoTests: XCTestCase {
         XCTAssertEqual(info.maximumValue, 10000)
         XCTAssertEqual(info.range, 100 ... 10000)
         XCTAssertEqual(info.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
-        XCTAssertEqual(info.effectiveRange, 0 ... 10100)
-        XCTAssertEqual(info.effectiveValues, [0, 100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000, 10100])
+        XCTAssertEqual(info.lowerBound, StepSliderInfo.Bound(stepValue: 99, hasOffset: true))
+        XCTAssertEqual(info.upperBound, StepSliderInfo.Bound(stepValue: 10001, hasOffset: true))
         XCTAssertEqual(info.accessibilityStepIncrement, 2)
         XCTAssertEqual(info.referenceValues, [100, 1000, 10000])
     }
@@ -49,8 +50,8 @@ final class StepSliderInfoTests: XCTestCase {
             minimumValue: 0,
             maximumValue: 1,
             incrementedBy: 1,
-            lowerBoundOffset: 0,
-            upperBoundOffset: 0
+            hasLowerBoundOffset: false,
+            hasUpperBoundOffset: false
         )
 
         XCTAssertEqual(info1.referenceValues, [0, 1])
@@ -61,8 +62,8 @@ final class StepSliderInfoTests: XCTestCase {
             minimumValue: 100,
             maximumValue: 5000,
             incrementedBy: 1000,
-            lowerBoundOffset: 100,
-            upperBoundOffset: 100,
+            hasLowerBoundOffset: true,
+            hasUpperBoundOffset: true,
             accessibilityStepIncrement: 2
         )
 
@@ -70,8 +71,8 @@ final class StepSliderInfoTests: XCTestCase {
         XCTAssertEqual(info.maximumValue, 5000)
         XCTAssertEqual(info.range, 100 ... 5000)
         XCTAssertEqual(info.values, [100, 1100, 2100, 3100, 4100, 5000])
-        XCTAssertEqual(info.effectiveRange, 0 ... 5100)
-        XCTAssertEqual(info.effectiveValues, [0, 100, 1100, 2100, 3100, 4100, 5000, 5100])
+        XCTAssertEqual(info.lowerBound, StepSliderInfo.Bound(stepValue: 99, hasOffset: true))
+        XCTAssertEqual(info.upperBound, StepSliderInfo.Bound(stepValue: 5001, hasOffset: true))
         XCTAssertEqual(info.accessibilityStepIncrement, 2)
         XCTAssertEqual(info.referenceValues, [100, 3100, 5000])
     }
@@ -81,8 +82,8 @@ final class StepSliderInfoTests: XCTestCase {
             minimumValue: 0,
             maximumValue: 5,
             incrementedBy: 1,
-            lowerBoundOffset: 1,
-            upperBoundOffset: 1
+            hasLowerBoundOffset: true,
+            hasUpperBoundOffset: true
         )
 
         XCTAssertTrue(info.isLowValueInValidRange(2))
@@ -98,8 +99,8 @@ final class StepSliderInfoTests: XCTestCase {
             minimumValue: 0,
             maximumValue: 5,
             incrementedBy: 1,
-            lowerBoundOffset: 1,
-            upperBoundOffset: 1
+            hasLowerBoundOffset: true,
+            hasUpperBoundOffset: true
         )
 
         XCTAssertTrue(info.isHighValueInValidRange(0))

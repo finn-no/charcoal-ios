@@ -359,7 +359,7 @@ extension ParameterBasedFilterInfoSelectionDataSourceTests {
             lowValue: 10,
             highValue: 100,
             increment: 10,
-            rangeBoundsOffsets: (lowerBoundOffset: 10, upperBoundOffset: 10),
+            rangeBoundsOffsets: (hasLowerBoundOffset: true, hasUpperBoundOffset: true),
             unit: "unit",
             accesibilityValues: (stepIncrement: nil, valueSuffix: nil),
             appearanceProperties: (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)

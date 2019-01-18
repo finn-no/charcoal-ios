@@ -11,8 +11,8 @@ public struct StepSliderInfo<T: SliderValueKind> {
     public let maximumValue: T
     public let range: ClosedRange<T>
     public let values: [T]
-    public var lowerBound: Bound
-    public var upperBound: Bound
+    public let lowerBound: Bound
+    public let upperBound: Bound
     public let accessibilityStepIncrement: Int
 
     public var referenceValues: [T] {

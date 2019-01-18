@@ -55,6 +55,7 @@ class DemoFilter {
     func loadFilterSetup(_ filterSetup: FilterSetup) {
         filterData = filterSetup
         selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
+        selectionDataSource.delegate = self
         let filterInfoBuilder = FilterInfoBuilder(filter: filterData, selectionDataSource: selectionDataSource)
         loadedFilter = filterInfoBuilder.build()
     }
@@ -127,5 +128,11 @@ extension DemoFilter: FilterRootStateControllerDelegate {
 
     func filterRootStateControllerShouldShowResults(_: FilterRootStateController) {
         // Let user close in other ways
+    }
+}
+
+extension DemoFilter: ParameterBasedFilterInfoSelectionDataSourceDelegate {
+    func parameterBasedFilterInfoSelectionDataSourceDidChange(_ selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
+        print("Filter selection changed: \(selectionDataSource)")
     }
 }

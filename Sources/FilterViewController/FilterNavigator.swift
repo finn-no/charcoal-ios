@@ -6,9 +6,9 @@ import Foundation
 
 public class FilterNavigator {
     public enum Destination {
-        case subLevel(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate?, parent: ApplySelectionButtonOwner)
+        case subLevel(filterInfo: MultiLevelListSelectionFilterInfoType, parent: ApplySelectionButtonOwner?)
         case root
-        case map(filterInfo: MultiLevelListSelectionFilterInfoType, delegate: FilterViewControllerDelegate?, parent: ApplySelectionButtonOwner)
+        case map(filterInfo: MultiLevelListSelectionFilterInfoType, parent: ApplySelectionButtonOwner?)
     }
 
     typealias Factory = SublevelViewControllerFactory
@@ -28,21 +28,15 @@ public class FilterNavigator {
 
     public func navigate(to destination: FilterNavigator.Destination) {
         switch destination {
-        case let .subLevel(filterInfo, delegate, parent):
-            guard let sublevelViewController = factory.makeSublevelViewController(for: filterInfo, navigator: self, delegate: delegate) else {
-                return
-            }
-            sublevelViewController.showsApplySelectionButton = parent.showsApplySelectionButton
-            sublevelViewController.parentApplySelectionButtonOwner = parent
+        case let .subLevel(filterInfo, parent):
+            let sublevelViewController = factory.makeSublevelViewController(for: filterInfo, navigator: self)
+            sublevelViewController.parentApplyButtonOwner = parent
             navigationController.pushViewController(sublevelViewController, animated: true)
         case .root:
             navigationController.popToRootViewController(animated: true)
-        case let .map(filterInfo, delegate, parent):
-            guard let mapFilterViewController = factory.makeMapFilterViewController(from: filterInfo, navigator: self, delegate: delegate) else {
-                return
-            }
-            mapFilterViewController.showsApplySelectionButton = true
-            mapFilterViewController.parentApplySelectionButtonOwner = parent
+        case let .map(filterInfo, parent):
+            let mapFilterViewController = factory.makeMapFilterViewController(from: filterInfo, navigator: self)
+            mapFilterViewController.parentApplyButtonOwner = parent
             navigationController.pushViewController(mapFilterViewController, animated: true)
         }
     }

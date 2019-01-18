@@ -129,13 +129,21 @@ extension RangeSliderView: RangeControl {
     }
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
-        lowValueSlider.setValueForSlider(value, animated: animated)
+        guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
+            return
+        }
+
+        lowValueSlider.setValueForSlider(findResult, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
-        highValueSlider.setValueForSlider(value, animated: animated)
+        guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
+            return
+        }
+
+        highValueSlider.setValueForSlider(findResult, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
     }

@@ -81,6 +81,25 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         return roundedStepValue(fromValue: value)
     }
 
+    func setValueForSlider(_ findResult: StepValueResult<StepValueKind>, animated: Bool) {
+        switch findResult {
+        case let .exact(match):
+            setValueForSlider(match, animated: animated)
+        case let .between(_, lower, _):
+            let adjust: Float = 0.5
+            let sliderValue = translateValueToNormalizedRangeStartingFromZeroValue(value: lower)
+            setValueForSlider(sliderValue + adjust, animated: animated)
+        case let .tooLow(closest):
+            let value = lowerBoundStepValue ?? closest
+            let sliderValue = translateValueToNormalizedRangeStartingFromZeroValue(value: value)
+            setValueForSlider(sliderValue, animated: animated)
+        case let .tooHigh(closest):
+            let value = upperBoundStepValue ?? closest
+            let sliderValue = translateValueToNormalizedRangeStartingFromZeroValue(value: value)
+            setValueForSlider(sliderValue, animated: animated)
+        }
+    }
+
     func setValueForSlider(_ value: StepValueKind, animated: Bool) {
         let translatedValue = translateValueToNormalizedRangeStartingFromZeroValue(value: value)
         setValueForSlider(translatedValue, animated: animated)

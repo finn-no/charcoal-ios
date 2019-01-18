@@ -9,26 +9,6 @@ protocol ValueSliderViewDelegate: AnyObject {
 }
 
 class ValueSliderView<ValueKind: SliderValueKind>: UIView {
-    enum StepValueFindResult {
-        case exact(stepValue: ValueKind)
-        case between(closest: ValueKind, lower: ValueKind, higher: ValueKind)
-        case tooLow(closest: ValueKind)
-        case tooHigh(closest: ValueKind)
-
-        var closestStep: ValueKind {
-            switch self {
-            case let .exact(stepValue):
-                return stepValue
-            case let .between(closest, _, _):
-                return closest
-            case let .tooLow(closest):
-                return closest
-            case let .tooHigh(closest):
-                return closest
-            }
-        }
-    }
-
     private lazy var valueSlider: StepSlider<ValueKind> = {
         let slider = StepSlider<ValueKind>(range: range, valueFormatter: valueFormatter)
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -135,62 +115,14 @@ class ValueSliderView<ValueKind: SliderValueKind>: UIView {
 }
 
 extension ValueSliderView {
-    var currentClosestStepValue: ValueKind? {
-        guard let findResult = findClosestStepInRange(for: valueSlider.roundedStepValue) else {
-            return nil
-        }
-        return findResult.closestStep
-    }
-
     func setCurrentValue(_ value: ValueKind, animated: Bool) {
-        guard let findResult = findClosestStepInRange(for: value) else {
+        guard let findResult = range.findClosestStep(for: value) else {
             return
         }
-        switch findResult {
-        case let .exact(match):
-            valueSlider.setValueForSlider(match, animated: animated)
-        case let .between(_, lower, _):
-            let adjust: Float = 0.5
-            let sliderValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: lower)
-            valueSlider.setValueForSlider(sliderValue + adjust, animated: animated)
-        case let .tooLow(closest):
-            let sliderValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: closest)
-            valueSlider.setValueForSlider(sliderValue, animated: animated)
-        case let .tooHigh(closest):
-            let sliderValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: closest)
-            valueSlider.setValueForSlider(sliderValue, animated: animated)
-        }
 
+        valueSlider.setValueForSlider(findResult, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
-    }
-
-    func findClosestStepInRange(for value: ValueKind?) -> StepValueFindResult? {
-        guard let value = value, let firstInRange = range.first, let lastInRange = range.last else {
-            return nil
-        }
-        let result: StepValueFindResult
-        if let higherOrEqualStepIndex = range.firstIndex(where: { $0 >= value }) {
-            let higherOrEqualStep = range[higherOrEqualStepIndex]
-            let diffToHigherStep = higherOrEqualStep - value
-            if diffToHigherStep == 0 {
-                result = .exact(stepValue: higherOrEqualStep)
-            } else if let lowerStep = range[safe: higherOrEqualStepIndex - 1] {
-                let closestStep: ValueKind
-                let diffToLowerStep = lowerStep - value
-                if diffToLowerStep < diffToHigherStep {
-                    closestStep = lowerStep
-                } else {
-                    closestStep = higherOrEqualStep
-                }
-                result = .between(closest: closestStep, lower: lowerStep, higher: higherOrEqualStep)
-            } else {
-                result = .tooLow(closest: firstInRange)
-            }
-        } else {
-            result = .tooHigh(closest: lastInRange)
-        }
-        return result
     }
 
     func thumbRect(for stepValue: ValueKind) -> CGRect {

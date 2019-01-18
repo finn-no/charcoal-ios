@@ -133,7 +133,7 @@ enum ComponentViews: String, CaseIterable {
             return navigationController
 
         case .listSelection:
-            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
+            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource(), navigator: nil)
             return viewController
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
@@ -150,7 +150,7 @@ enum ComponentViews: String, CaseIterable {
 
         case .mapFilter:
             let mapViewManager = MapViewManager()
-            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource())!
+            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource(), navigator: nil)
             mapFilterViewController.mapFilterViewManager = mapViewManager
             return mapFilterViewController
         }
@@ -203,6 +203,9 @@ struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
 }
 
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
+    func setValueAndClearValueForChildren(_ value: String?, for filterInfo: MultiLevelListSelectionFilterInfoType) {
+    }
+
     func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
     }
 

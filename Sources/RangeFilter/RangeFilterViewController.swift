@@ -4,13 +4,7 @@
 
 import Foundation
 
-public final class RangeFilterViewController: UIViewController, FilterContainerViewController {
-    public var controller: UIViewController {
-        return self
-    }
-
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
-
+public final class RangeFilterViewController: FilterViewController {
     lazy var rangeFilterView: RangeFilterView = {
         let view = RangeFilterView(filterInfo: filterInfo)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -20,22 +14,15 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
     var currentRangeValue: RangeValue?
     let filterInfo: RangeFilterInfoType
-    private let dataSource: FilterDataSource
-    private let selectionDataSource: FilterSelectionDataSource
 
-    public required init?(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let rangeFilterInfo = filterInfo as? RangeFilterInfoType else {
-            return nil
-        }
-
-        self.filterInfo = rangeFilterInfo
-        self.dataSource = dataSource
-        self.selectionDataSource = selectionDataSource
-        super.init(nibName: nil, bundle: nil)
+    public init(filterInfo: RangeFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
+        self.filterInfo = filterInfo
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        title = filterInfo.title
     }
 
     public required init?(string: String) {
@@ -44,9 +31,7 @@ public final class RangeFilterViewController: UIViewController, FilterContainerV
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
-
         setSelectionValue(selectionDataSource.rangeValue(for: filterInfo))
     }
 }
@@ -78,7 +63,7 @@ private extension RangeFilterViewController {
         } else {
             selectionDataSource.clearAll(for: filterInfo)
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+        showApplyButton(true)
     }
 }
 

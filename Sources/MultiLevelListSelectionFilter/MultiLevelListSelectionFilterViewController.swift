@@ -4,7 +4,7 @@
 
 import Foundation
 
-public final class MultiLevelListSelectionFilterViewController: UIViewController, FilterContainerViewController {
+public final class MultiLevelListSelectionFilterViewController: FilterViewController {
     private enum Section: Int, CaseIterable {
         case map = 0
         case all
@@ -12,15 +12,8 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
     }
 
     private let filterInfo: MultiLevelListSelectionFilterInfoType
-    private let dataSource: FilterDataSource
-    private let selectionDataSource: FilterSelectionDataSource
     private var indexPathToRefreshOnViewWillAppear: IndexPath?
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
     private let isSelectAllIncluded: Bool
-
-    public var controller: UIViewController {
-        return self
-    }
 
     private static var rowHeight: CGFloat = 48.0
 
@@ -37,29 +30,24 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
 
     let listItems: [MultiLevelListSelectionFilterInfoType]
 
-    public init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
-            return nil
-        }
-
-        self.filterInfo = multiLevelFilterInfo
-        self.dataSource = dataSource
-        self.selectionDataSource = selectionDataSource
-        let filters = multiLevelFilterInfo.filters
-        isSelectAllIncluded = !multiLevelFilterInfo.value.isEmpty && !multiLevelFilterInfo.isMapFilter
-        listItems = filters
-        super.init(nibName: nil, bundle: nil)
-        title = title
+    public init(filterInfo: MultiLevelListSelectionFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
+        self.filterInfo = filterInfo
+        listItems = filterInfo.filters
+        isSelectAllIncluded = !filterInfo.value.isEmpty && !filterInfo.isMapFilter
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        title = filterInfo.title
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
+        if let parentApplyButtonOwner = parentApplyButtonOwner, parentApplyButtonOwner.isShowingApplyButton {
+            showApplyButton(true, animated: false)
+        }
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -75,11 +63,10 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
 
     private func setup() {
         view.addSubview(tableView)
-
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: applySelectionButton.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
@@ -124,7 +111,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
     }
 
     private func didSelectDrillDownItem(_ listItem: MultiLevelListSelectionFilterInfoType, at indexPath: IndexPath) {
-        filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateTo: listItem)
+        navigator?.navigate(to: .subLevel(filterInfo: listItem, parent: self))
         indexPathToRefreshOnViewWillAppear = indexPath
     }
 
@@ -135,7 +122,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
         } else {
             selectionDataSource.setValueAndClearValueForChildren(filterInfo.value, for: filterInfo)
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+        showApplyButton(true)
     }
 
     private func toggleSelection(for item: MultiLevelListSelectionFilterInfoType) {
@@ -156,7 +143,7 @@ public final class MultiLevelListSelectionFilterViewController: UIViewController
                 selectionDataSource.setValue([item.value], for: item)
             }
         }
-        filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
+        showApplyButton(true)
     }
 
     private func isListItemSelected(_ item: MultiLevelListSelectionFilterInfoType) -> Bool {
@@ -231,23 +218,24 @@ extension MultiLevelListSelectionFilterViewController: UITableViewDelegate {
         }
         switch section {
         case .map:
-            filterSelectionDelegate?.filterContainerViewController(filterContainerViewController: self, navigateToMapFor: filterInfo)
+            navigator?.navigate(to: .map(filterInfo: filterInfo, parent: self))
             break
         case .all:
             toggleSelectAllSelection()
             updateAllVisibleCells()
         case .values:
-            if let listItem = listItems[safe: indexPath.row] {
-                if listItem.showDisclosureIndicator {
-                    didSelectDrillDownItem(listItem, at: indexPath)
+            guard let listItem = listItems[safe: indexPath.row] else {
+                return
+            }
+            if listItem.showDisclosureIndicator {
+                didSelectDrillDownItem(listItem, at: indexPath)
+            } else {
+                toggleSelection(for: listItem)
+                if filterInfo.isMultiSelect {
+                    updateCellIfVisible(at: indexPath)
+                    updateSelectAllCellIfVisible()
                 } else {
-                    toggleSelection(for: listItem)
-                    if filterInfo.isMultiSelect {
-                        updateCellIfVisible(at: indexPath)
-                        updateSelectAllCellIfVisible()
-                    } else {
-                        updateAllVisibleCells()
-                    }
+                    updateAllVisibleCells()
                 }
             }
         }

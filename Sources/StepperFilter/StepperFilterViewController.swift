@@ -5,13 +5,8 @@
 import FinniversKit
 import UIKit
 
-public class StepperFilterViewController: UIViewController, FilterContainerViewController {
-    public var filterSelectionDelegate: FilterContainerViewControllerDelegate?
-    public var controller: UIViewController { return self }
-
+public class StepperFilterViewController: FilterViewController {
     private let filterInfo: StepperFilterInfoType
-    private let dataSource: FilterDataSource
-    private let selectionDataSource: FilterSelectionDataSource
 
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(filterInfo: filterInfo)
@@ -20,12 +15,10 @@ public class StepperFilterViewController: UIViewController, FilterContainerViewC
         return view
     }()
 
-    public required init?(filterInfo: FilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource) {
-        guard let filterInfo = filterInfo as? StepperFilterInfoType else { return nil }
+    public init(filterInfo: StepperFilterInfoType, dataSource: FilterDataSource, selectionDataSource: FilterSelectionDataSource, navigator: FilterNavigator) {
         self.filterInfo = filterInfo
-        self.dataSource = dataSource
-        self.selectionDataSource = selectionDataSource
-        super.init(nibName: nil, bundle: nil)
+        super.init(dataSource: dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        title = filterInfo.title
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -49,7 +42,7 @@ private extension StepperFilterViewController {
             selectionDataSource.clearAll(for: filterInfo)
         default:
             selectionDataSource.setValue(RangeValue.minimum(lowValue: sender.value), for: filterInfo)
-            filterSelectionDelegate?.filterContainerViewControllerDidChangeSelection(filterContainerViewController: self)
         }
+        showApplyButton(true)
     }
 }

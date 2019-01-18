@@ -40,29 +40,20 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return rootStateController
     }
 
-    public func makeListSelectionFilterViewController(from listSelectionListFilterInfo: ListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<ListSelectionFilterViewController>? {
-        let filterViewController = FilterViewController<ListSelectionFilterViewController>(filterInfo: listSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
-        filterViewController?.delegate = delegate
-        return filterViewController
+    public func makeListSelectionFilterViewController(from listSelectionListFilterInfo: ListSelectionFilterInfoType, navigator: FilterNavigator) -> ListSelectionFilterViewController {
+        return ListSelectionFilterViewController(filterInfo: listSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
     }
 
-    public func makeMultiLevelListSelectionFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<MultiLevelListSelectionFilterViewController>? {
-        let filterViewController = FilterViewController<MultiLevelListSelectionFilterViewController>(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
-        filterViewController?.delegate = delegate
-        return filterViewController
+    public func makeMultiLevelListSelectionFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator) -> MultiLevelListSelectionFilterViewController {
+        return MultiLevelListSelectionFilterViewController(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
     }
 
-    public func makeSublevelViewController(for filterInfo: FilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<MultiLevelListSelectionFilterViewController>? {
-        guard let multiLevelFilterInfo = filterInfo as? MultiLevelListSelectionFilterInfoType else {
-            return nil
-        }
-
-        return makeMultiLevelListSelectionFilterViewController(from: multiLevelFilterInfo, navigator: navigator, delegate: delegate)
+    public func makeSublevelViewController(for filterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator) -> MultiLevelListSelectionFilterViewController {
+        return makeMultiLevelListSelectionFilterViewController(from: filterInfo, navigator: navigator)
     }
 
-    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<RangeFilterViewController>? {
-        let filterViewController = FilterViewController<RangeFilterViewController>(filterInfo: filterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
-        filterViewController?.delegate = delegate
+    public func makeRangeFilterViewController(with filterInfo: RangeFilterInfoType, navigator: FilterNavigator) -> RangeFilterViewController {
+        let filterViewController = RangeFilterViewController(filterInfo: filterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
         return filterViewController
     }
 
@@ -72,19 +63,14 @@ extension FilterDependencyContainer: ViewControllerFactory {
         return verticalListViewController
     }
 
-    public func makeStepperFilterViewController(with filterInfo: StepperFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate) -> FilterViewController<StepperFilterViewController>? {
-        let filterViewController = FilterViewController<StepperFilterViewController>(filterInfo: filterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
-        filterViewController?.delegate = delegate
-        return filterViewController
+    public func makeStepperFilterViewController(with filterInfo: StepperFilterInfoType, navigator: FilterNavigator) -> StepperFilterViewController {
+        return StepperFilterViewController(filterInfo: filterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
     }
 
-    public func makeMapFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator, delegate: FilterViewControllerDelegate?) -> FilterViewController<MapFilterViewController>? {
-        let filterViewController = FilterViewController<MapFilterViewController>(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
-        filterViewController?.delegate = delegate
-        if let mapFilterViewController = filterViewController?.filterContainerViewController as? MapFilterViewController {
-            mapFilterViewController.mapFilterViewManager = mapFilterViewManager
-            mapFilterViewController.searchLocationDataSource = searchLocationDataSource
-        }
-        return filterViewController
+    public func makeMapFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator) -> MapFilterViewController {
+        let mapFilterViewController = MapFilterViewController(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        mapFilterViewController.mapFilterViewManager = mapFilterViewManager
+        mapFilterViewController.searchLocationDataSource = searchLocationDataSource
+        return mapFilterViewController
     }
 }

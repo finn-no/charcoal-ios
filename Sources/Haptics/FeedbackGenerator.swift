@@ -8,6 +8,7 @@ final class FeedbackGenerator {
     enum Feedback {
         case selection
         case error
+        case collision
     }
 
     static func generate(_ feedback: Feedback) {
@@ -19,6 +20,9 @@ final class FeedbackGenerator {
             case .error:
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.error)
+            case .collision:
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
             }
         }
     }

@@ -173,7 +173,6 @@ private extension RangeFilterView {
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.indicatorView.isHidden = true
             referenceValuesContainer.addSubview(view)
 
             let leadingConstraint = view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)

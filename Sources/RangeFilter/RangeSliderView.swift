@@ -167,9 +167,6 @@ private extension RangeSliderView {
         addSubview(lowValueSlider)
         addSubview(highValueSlider)
 
-        // lowValueSlider.fillInSuperview()
-        // highValueSlider.fillInSuperview()
-
         let activeRangeTrackViewLeadingAnchor = activeRangeTrackView.leadingAnchor.constraint(equalTo: leadingAnchor)
         activeRangeTrackViewLeadingAnchor.identifier = activeRangeTrackViewLeadingAnchorIdentifier
 

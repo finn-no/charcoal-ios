@@ -113,11 +113,13 @@ final class RangeNumberInputView: UIControl {
     private var inputValues = [InputGroup: RangeValue]()
 
     typealias RangeValue = Int
+
     let minValue: RangeValue
     let unit: String
     let formatter: RangeFilterValueFormatter
     private(set) var inputFontSize: CGFloat
     let displaysUnitInNumberInput: Bool
+    var generatesHapticFeedbackOnValueChange = true
 
     enum InputFontSize: CGFloat {
         case large = 30
@@ -291,7 +293,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         inputValues[inputGroup] = validatedValue
         updateTextColor(for: textField, isValid: isValid)
 
-        if !isValid {
+        if !isValid && generatesHapticFeedbackOnValueChange {
             FeedbackGenerator.generate(.error)
         }
 

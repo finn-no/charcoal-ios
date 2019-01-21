@@ -173,31 +173,16 @@ final class RangeNumberInputView: UIControl {
 
 extension RangeNumberInputView: RangeControl {
     var lowValue: RangeValue? {
-        guard let lowInputValue = inputValues[.lowValue] else {
-            return nil
-        }
-
-        guard let highInputValue = inputValues[.highValue] else {
-            return lowInputValue
-        }
-
-        return min(lowInputValue, highInputValue)
+        return inputValues[.lowValue]
     }
 
     var highValue: RangeValue? {
-        guard let highInputValue = inputValues[.highValue] else {
-            return nil
-        }
-
-        guard let lowInputValue = inputValues[.lowValue] else {
-            return highInputValue
-        }
-
-        return max(lowInputValue, highInputValue)
+        return inputValues[.highValue]
     }
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
         let valueText = text(from: value)
+        updateTextColor(for: lowValueInputTextField, isValid: true)
         lowValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.lowValue] = value
@@ -205,6 +190,7 @@ extension RangeNumberInputView: RangeControl {
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
         let valueText = text(from: value)
+        updateTextColor(for: highValueInputTextField, isValid: true)
         highValueInputTextField.text = valueText
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.highValue] = value
@@ -225,6 +211,31 @@ extension RangeNumberInputView: RangeControl {
         highValueInputTextField.font = highValueInputTextField.isFirstResponder ? Style.activeFont(size: inputFontSize) : Style.normalFont(size: inputFontSize)
         highValueInputUnitLabel.font = highValueInputTextField.font
     }
+
+    private func validValue(for inputGroup: InputGroup, newValue: RangeValue) -> RangeValue {
+        switch inputGroup {
+        case .highValue:
+            return lowValue.map({ max($0, newValue) }) ?? newValue
+        case .lowValue:
+            return highValue.map({ min($0, newValue) }) ?? newValue
+        }
+    }
+
+    private func updateInputValues() {
+        if let lowValue = lowValue {
+            lowValueInputTextField.text = text(from: lowValue)
+            updateTextColor(for: lowValueInputTextField, isValid: true)
+        }
+
+        if let highValue = highValue {
+            highValueInputTextField.text = text(from: highValue)
+            updateTextColor(for: highValueInputTextField, isValid: true)
+        }
+    }
+
+    private func updateTextColor(for textField: UITextField, isValid: Bool) {
+        textField.textColor = isValid ? Style.textColor : Style.errorTextColor
+    }
 }
 
 extension RangeNumberInputView: UITextFieldDelegate {
@@ -242,6 +253,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         }
 
         setInputGroup(inputGroup, active: false)
+        updateInputValues()
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -272,7 +284,12 @@ extension RangeNumberInputView: UITextFieldDelegate {
 
         textField.text = self.text(from: newValue)
         textField.accessibilityValue = "\(newValue) \(accessibilityValueSuffix ?? "")"
-        inputValues[inputGroup] = newValue
+
+        let validatedValue = validValue(for: inputGroup, newValue: newValue)
+        let isValid = validatedValue == newValue
+
+        inputValues[inputGroup] = validatedValue
+        updateTextColor(for: textField, isValid: isValid)
 
         return false
     }
@@ -281,6 +298,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
 private extension RangeNumberInputView {
     struct Style {
         static let textColor: UIColor = .licorice
+        static let errorTextColor: UIColor = .cherry
         static func normalFont(size: CGFloat) -> UIFont? { return UIFont(name: FontType.light.rawValue, size: size) }
         static func activeFont(size: CGFloat) -> UIFont? { return UIFont(name: FontType.bold.rawValue, size: size) }
         static let hintNormalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: 16)

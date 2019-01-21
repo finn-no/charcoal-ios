@@ -138,9 +138,51 @@ enum FilterMarket: FilterConfiguration {
         }
     }
 
+    enum Job: String, FilterConfiguration, CaseIterable {
+        case fullTime = "job-full-time"
+        case partTime = "job-part-time"
+        case management = "job-management"
+
+        func handlesVerticalId(_ vertical: String) -> Bool {
+            return rawValue == vertical
+        }
+
+        var preferenceFilterKeys: [FilterKey] {
+            return [.published]
+        }
+
+        var supportedFiltersKeys: [FilterKey] {
+            switch self {
+            case .partTime:
+                return [
+                    .location,
+                    .occupation,
+                    .industry,
+                    .jobDuration,
+                    .jobSector,
+                ]
+            case .fullTime, .management:
+                return [
+                    .location,
+                    .occupation,
+                    .industry,
+                    .jobDuration,
+                    .extent,
+                    .jobSector,
+                    .managerRole,
+                ]
+            }
+        }
+
+        var mapFilterKey: FilterKey? {
+            return .location
+        }
+    }
+
     case bap(Bap)
     case realestate(Realestate)
     case car(Car)
+    case job(Job)
 
     init?(market: String) {
         guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
@@ -158,6 +200,8 @@ enum FilterMarket: FilterConfiguration {
             return realestate
         case let .car(car):
             return car
+        case let .job(job):
+            return job
         }
     }
 
@@ -183,5 +227,6 @@ extension FilterMarket: CaseIterable {
         return Bap.allCases.map(FilterMarket.bap)
             + Realestate.allCases.map(FilterMarket.realestate)
             + Car.allCases.map(FilterMarket.car)
+            + Job.allCases.map(FilterMarket.job)
     }
 }

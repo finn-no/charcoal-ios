@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		088C091521F5E09900983132 /* mc.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091421F5E09900983132 /* mc.json */; };
+		088C091721F5E5EE00983132 /* moped-scooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091621F5E5EE00983132 /* moped-scooter.json */; };
+		088C091921F5E63800983132 /* snowmobile.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091821F5E63800983132 /* snowmobile.json */; };
+		088C091B21F5E67900983132 /* atv.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091A21F5E67900983132 /* atv.json */; };
 		44ECE663208F7FA20017AC82 /* Charcoal.h in Headers */ = {isa = PBXBuildFile; fileRef = 44ECE661208F7FA20017AC82 /* Charcoal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE66D208F7FD00017AC82 /* AppDelegate.swift */; };
 		44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE674208F7FD20017AC82 /* Assets.xcassets */; };
@@ -194,6 +198,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		088C091421F5E09900983132 /* mc.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mc.json; sourceTree = "<group>"; };
+		088C091621F5E5EE00983132 /* moped-scooter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "moped-scooter.json"; sourceTree = "<group>"; };
+		088C091821F5E63800983132 /* snowmobile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snowmobile.json; sourceTree = "<group>"; };
+		088C091A21F5E67900983132 /* atv.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = atv.json; sourceTree = "<group>"; };
 		44ECE65F208F7FA20017AC82 /* Charcoal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charcoal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44ECE661208F7FA20017AC82 /* Charcoal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Charcoal.h; sourceTree = "<group>"; };
 		44ECE662208F7FA20017AC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -607,6 +615,10 @@
 				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
 				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
+				088C091421F5E09900983132 /* mc.json */,
+				088C091621F5E5EE00983132 /* moped-scooter.json */,
+				088C091821F5E63800983132 /* snowmobile.json */,
+				088C091A21F5E67900983132 /* atv.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1001,11 +1013,15 @@
 			files = (
 				55BDA77520DCCD8E00331FFC /* realestate-homes.json in Resources */,
 				44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */,
+				088C091921F5E63800983132 /* snowmobile.json in Resources */,
+				088C091721F5E5EE00983132 /* moped-scooter.json in Resources */,
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
 				55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */,
 				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
 				9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */,
+				088C091B21F5E67900983132 /* atv.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
+				088C091521F5E09900983132 /* mc.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

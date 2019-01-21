@@ -131,17 +131,18 @@ private extension StepperFilterView {
         addSubview(textLabel)
 
         NSLayoutConstraint.activate([
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            textLabel.centerYAnchor.constraint(equalTo: minusButton.centerYAnchor),
             textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             textLabel.leadingAnchor.constraint(greaterThanOrEqualTo: minusButton.trailingAnchor, constant: .smallSpacing),
             textLabel.trailingAnchor.constraint(lessThanOrEqualTo: plusButton.leadingAnchor, constant: -.smallSpacing),
 
-            minusButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            minusButton.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
             minusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             minusButton.widthAnchor.constraint(equalToConstant: 58),
             minusButton.heightAnchor.constraint(equalToConstant: 58),
+            minusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 
-            plusButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            plusButton.topAnchor.constraint(equalTo: minusButton.topAnchor),
             plusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             plusButton.widthAnchor.constraint(equalToConstant: 58),
             plusButton.heightAnchor.constraint(equalToConstant: 58),

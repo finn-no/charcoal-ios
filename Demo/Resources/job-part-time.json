@@ -1,0 +1,2282 @@
+{
+    "market": "job-part-time",
+    "hits": 863,
+    "label": "Deltidsstillinger",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "occupation",
+        "industry",
+        "job_duration",
+        "job_sector"
+    ],
+    "filter-data": {
+        "occupation": {
+            "title": "Stilling",
+            "name": "occupation",
+            "queries": [
+                {
+                    "title": "Analyse",
+                    "value": "0.1",
+                    "total-results": 1
+                },
+                {
+                    "title": "Annet",
+                    "value": "0.9999",
+                    "total-results": 77
+                },
+                {
+                    "title": "Arkivar og bibliotekar",
+                    "value": "0.3",
+                    "total-results": 2
+                },
+                {
+                    "title": "Barnehage",
+                    "value": "0.77",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Barnehageassistent",
+                                "value": "1.77.210",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Barnehagelærer",
+                                "value": "1.77.211",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Pedagogisk leder",
+                                "value": "1.77.212",
+                                "total-results": 2
+                            }
+                        ]
+                    },
+                    "total-results": 13
+                },
+                {
+                    "title": "Barnevernspedagog",
+                    "value": "0.70",
+                    "total-results": 4
+                },
+                {
+                    "title": "Brukerstøtte/support",
+                    "value": "0.5",
+                    "total-results": 2
+                },
+                {
+                    "title": "Butikkansatt",
+                    "value": "0.6",
+                    "total-results": 144
+                },
+                {
+                    "title": "Butikksjef",
+                    "value": "0.78",
+                    "total-results": 2
+                },
+                {
+                    "title": "Design",
+                    "value": "0.7",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Grafisk",
+                                "value": "1.7.13",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Illustrasjon",
+                                "value": "1.7.14",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Interiør",
+                                "value": "1.7.16",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Klær",
+                                "value": "1.7.17",
+                                "total-results": 4
+                            }
+                        ]
+                    },
+                    "total-results": 6
+                },
+                {
+                    "title": "Driftsoperatør/vaktmester",
+                    "value": "0.9",
+                    "total-results": 5
+                },
+                {
+                    "title": "Forhandling",
+                    "value": "0.11",
+                    "total-results": 1
+                },
+                {
+                    "title": "Forretningsutvikling og strategi",
+                    "value": "0.12",
+                    "total-results": 2
+                },
+                {
+                    "title": "Foto, lyd og lys",
+                    "value": "0.82",
+                    "total-results": 2
+                },
+                {
+                    "title": "Franchise",
+                    "value": "0.81",
+                    "total-results": 1
+                },
+                {
+                    "title": "Frisør",
+                    "value": "0.14",
+                    "total-results": 6
+                },
+                {
+                    "title": "Helsepersonell",
+                    "value": "0.16",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Ergoterapeut",
+                                "value": "1.16.32",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Farmasøyt",
+                                "value": "1.16.23",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Fysioterapeut",
+                                "value": "1.16.33",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Helsefagarbeider/hjelpepleier",
+                                "value": "1.16.34",
+                                "total-results": 38
+                            },
+                            {
+                                "title": "Helsesekretær",
+                                "value": "1.16.196",
+                                "total-results": 20
+                            },
+                            {
+                                "title": "Optiker",
+                                "value": "1.16.36",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Psykolog",
+                                "value": "1.16.37",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Tannhelse",
+                                "value": "1.16.39",
+                                "total-results": 13
+                            },
+                            {
+                                "title": "Vernepleier/miljøterapeut",
+                                "value": "1.16.40",
+                                "total-results": 24
+                            }
+                        ]
+                    },
+                    "total-results": 126
+                },
+                {
+                    "title": "HMS",
+                    "value": "0.17",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hotell og overnatting",
+                    "value": "0.76",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Konferanse",
+                                "value": "1.76.208",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Resepsjon",
+                                "value": "1.76.206",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Service/servering",
+                                "value": "1.76.209",
+                                "total-results": 6
+                            }
+                        ]
+                    },
+                    "total-results": 13
+                },
+                {
+                    "title": "HR, personal og rekruttering",
+                    "value": "0.41",
+                    "total-results": 11
+                },
+                {
+                    "title": "Hudpleie",
+                    "value": "0.18",
+                    "total-results": 1
+                },
+                {
+                    "title": "Håndverker",
+                    "value": "0.19",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Andre montører",
+                                "value": "1.19.222",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Elektriker",
+                                "value": "1.19.46",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Hjelpearbeider",
+                                "value": "1.19.216",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Mekaniker",
+                                "value": "1.19.49",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Rørlegger",
+                                "value": "1.19.52",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Snekker/Tømrer",
+                                "value": "1.19.53",
+                                "total-results": 2
+                            }
+                        ]
+                    },
+                    "total-results": 15
+                },
+                {
+                    "title": "Ingeniør",
+                    "value": "0.20",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Automasjon og instrument",
+                                "value": "1.20.56",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Bygge- og anleggsteknikk",
+                                "value": "1.20.61",
+                                "total-results": 1
+                            }
+                        ]
+                    },
+                    "total-results": 5
+                },
+                {
+                    "title": "Innkjøp/forhandling",
+                    "value": "0.21",
+                    "total-results": 1
+                },
+                {
+                    "title": "IT drift og vedlikehold",
+                    "value": "0.22",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Drift/Operations",
+                                "value": "1.22.80",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "IT-support",
+                                "value": "1.22.81",
+                                "total-results": 3
+                            }
+                        ]
+                    },
+                    "total-results": 3
+                },
+                {
+                    "title": "IT utvikling",
+                    "value": "0.23",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Database",
+                                "value": "1.23.82",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Front-end",
+                                "value": "1.23.83",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "IT-sikkerhet",
+                                "value": "1.23.84",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "QA/Testing",
+                                "value": "1.23.87",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Systemarkitekt",
+                                "value": "1.23.85",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Utvikler (generell)",
+                                "value": "1.23.86",
+                                "total-results": 10
+                            }
+                        ]
+                    },
+                    "total-results": 15
+                },
+                {
+                    "title": "Journalist",
+                    "value": "0.71",
+                    "total-results": 1
+                },
+                {
+                    "title": "Jurist",
+                    "value": "0.24",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation"
+                    },
+                    "total-results": 1
+                },
+                {
+                    "title": "Konsulent",
+                    "value": "0.25",
+                    "total-results": 10
+                },
+                {
+                    "title": "Kontor og administrasjon",
+                    "value": "0.26",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Kontorarbeid",
+                                "value": "1.26.96",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Personlig assistent",
+                                "value": "1.26.225",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Resepsjon",
+                                "value": "1.26.97",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Sekretær",
+                                "value": "1.26.98",
+                                "total-results": 7
+                            },
+                            {
+                                "title": "Sentralbord",
+                                "value": "1.26.99",
+                                "total-results": 2
+                            }
+                        ]
+                    },
+                    "total-results": 34
+                },
+                {
+                    "title": "Koordinering",
+                    "value": "0.27",
+                    "total-results": 8
+                },
+                {
+                    "title": "Kundeservice",
+                    "value": "0.28",
+                    "total-results": 53
+                },
+                {
+                    "title": "Kurs og opplæring",
+                    "value": "0.29",
+                    "total-results": 6
+                },
+                {
+                    "title": "Kvalitetssikring",
+                    "value": "0.30",
+                    "total-results": 1
+                },
+                {
+                    "title": "Ledelse",
+                    "value": "0.32",
+                    "total-results": 8
+                },
+                {
+                    "title": "Lege",
+                    "value": "0.33",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Allmennmedisin",
+                                "value": "1.33.107",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Psykiater",
+                                "value": "1.33.116",
+                                "total-results": 1
+                            }
+                        ]
+                    },
+                    "total-results": 8
+                },
+                {
+                    "title": "Logistikk og lager",
+                    "value": "0.31",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Lagermedarbeider",
+                                "value": "1.31.227",
+                                "total-results": 15
+                            },
+                            {
+                                "title": "Post- og budtjenester",
+                                "value": "1.31.229",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Truckfører",
+                                "value": "1.31.228",
+                                "total-results": 6
+                            }
+                        ]
+                    },
+                    "total-results": 26
+                },
+                {
+                    "title": "Markedsfører",
+                    "value": "0.34",
+                    "total-results": 25
+                },
+                {
+                    "title": "Maskinfører og -operatør",
+                    "value": "0.35",
+                    "total-results": 5
+                },
+                {
+                    "title": "Mat og servering",
+                    "value": "0.36",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Bartender",
+                                "value": "1.36.123",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Catering",
+                                "value": "1.36.202",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Kjøkkensjef",
+                                "value": "1.36.127",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Kjøkken- og kantinemedarbeider",
+                                "value": "1.36.201",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Kokk",
+                                "value": "1.36.126",
+                                "total-results": 12
+                            },
+                            {
+                                "title": "Servitør",
+                                "value": "1.36.128",
+                                "total-results": 16
+                            }
+                        ]
+                    },
+                    "total-results": 53
+                },
+                {
+                    "title": "Megler",
+                    "value": "0.37",
+                    "total-results": 1
+                },
+                {
+                    "title": "Mekanikk og installasjon",
+                    "value": "0.38",
+                    "total-results": 1
+                },
+                {
+                    "title": "Menighetsarbeid",
+                    "value": "0.84",
+                    "total-results": 2
+                },
+                {
+                    "title": "Omsorg og sosialt arbeid",
+                    "value": "0.40",
+                    "total-results": 40
+                },
+                {
+                    "title": "Produksjon",
+                    "value": "0.46",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Produksjonsteknikk/Prosessteknikk",
+                                "value": "1.46.10001",
+                                "total-results": 1
+                            }
+                        ]
+                    },
+                    "total-results": 6
+                },
+                {
+                    "title": "Produktledelse",
+                    "value": "0.47",
+                    "total-results": 1
+                },
+                {
+                    "title": "Prosjektledelse",
+                    "value": "0.48",
+                    "total-results": 8
+                },
+                {
+                    "title": "PR og informasjon",
+                    "value": "0.45",
+                    "total-results": 10
+                },
+                {
+                    "title": "Renhold",
+                    "value": "0.49",
+                    "total-results": 29
+                },
+                {
+                    "title": "Rådgivning",
+                    "value": "0.51",
+                    "total-results": 8
+                },
+                {
+                    "title": "Saksbehandler",
+                    "value": "0.52",
+                    "total-results": 4
+                },
+                {
+                    "title": "Salg",
+                    "value": "0.53",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Løsningssalg",
+                                "value": "1.53.146",
+                                "total-results": 11
+                            },
+                            {
+                                "title": "Produktsalg",
+                                "value": "1.53.147",
+                                "total-results": 52
+                            },
+                            {
+                                "title": "Stands- og dørsalg",
+                                "value": "1.53.148",
+                                "total-results": 42
+                            },
+                            {
+                                "title": "Teknisk salg",
+                                "value": "1.53.149",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Telefonsalg",
+                                "value": "1.53.150",
+                                "total-results": 19
+                            }
+                        ]
+                    },
+                    "total-results": 154
+                },
+                {
+                    "title": "Salgsledelse",
+                    "value": "0.54",
+                    "total-results": 4
+                },
+                {
+                    "title": "Sikkerhet",
+                    "value": "0.57",
+                    "total-results": 6
+                },
+                {
+                    "title": "Sjøfart",
+                    "value": "0.85",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Dekksoffiser",
+                                "value": "1.85.237",
+                                "total-results": 1
+                            }
+                        ]
+                    },
+                    "total-results": 1
+                },
+                {
+                    "title": "Sosionom",
+                    "value": "0.72",
+                    "total-results": 4
+                },
+                {
+                    "title": "Sykepleier",
+                    "value": "0.59",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Barn/nyfødt",
+                                "value": "1.59.158",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Eldreomsorg",
+                                "value": "1.59.159",
+                                "total-results": 12
+                            },
+                            {
+                                "title": "Helsesøster",
+                                "value": "1.59.160",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Intensiv",
+                                "value": "1.59.161",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Jordmor",
+                                "value": "1.59.162",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Kreft/onkologi",
+                                "value": "1.59.163",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Psykiatri",
+                                "value": "1.59.165",
+                                "total-results": 2
+                            }
+                        ]
+                    },
+                    "total-results": 51
+                },
+                {
+                    "title": "Teknisk personell",
+                    "value": "0.60",
+                    "total-results": 5
+                },
+                {
+                    "title": "Teknisk service",
+                    "value": "0.61",
+                    "total-results": 4
+                },
+                {
+                    "title": "Tekstforfatter",
+                    "value": "0.73",
+                    "total-results": 1
+                },
+                {
+                    "title": "Transport og sjåfør",
+                    "value": "0.58",
+                    "total-results": 15
+                },
+                {
+                    "title": "Trener / Personlig trener",
+                    "value": "0.63",
+                    "total-results": 15
+                },
+                {
+                    "title": "Undervisning og pedagogikk",
+                    "value": "0.64",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Allmennlærer/kontaktlærer",
+                                "value": "1.64.171",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Andre pedagoger",
+                                "value": "1.64.178",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Faglærer(IT, idrett, kunst)",
+                                "value": "1.64.173",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Førskolelærer",
+                                "value": "1.64.174",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Lærer/Lektor",
+                                "value": "1.64.176",
+                                "total-results": 12
+                            },
+                            {
+                                "title": "Skoleassistent",
+                                "value": "1.64.172",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Veileder",
+                                "value": "1.64.183",
+                                "total-results": 6
+                            }
+                        ]
+                    },
+                    "total-results": 40
+                },
+                {
+                    "title": "Utøvende kunst",
+                    "value": "0.65",
+                    "total-results": 2
+                },
+                {
+                    "title": "Vakt og sikkerhet",
+                    "value": "0.66",
+                    "total-results": 15
+                },
+                {
+                    "title": "Veterinær og dyrepleier",
+                    "value": "0.67",
+                    "total-results": 1
+                },
+                {
+                    "title": "Økonomi og regnskap",
+                    "value": "0.68",
+                    "filter": {
+                        "title": "Stilling",
+                        "name": "occupation",
+                        "queries": [
+                            {
+                                "title": "Lønn",
+                                "value": "1.68.189",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Regnskap",
+                                "value": "1.68.190",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Revisjon",
+                                "value": "1.68.191",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Økonomistyring og budsjettering",
+                                "value": "1.68.192",
+                                "total-results": 2
+                            }
+                        ]
+                    },
+                    "total-results": 12
+                }
+            ]
+        },
+        "industry": {
+            "title": "Bransje",
+            "name": "industry",
+            "queries": [
+                {
+                    "title": "Annet",
+                    "value": "9999",
+                    "total-results": 52
+                },
+                {
+                    "title": "Arbeidstaker- og arbeidsgiverorganisasjoner",
+                    "value": "1",
+                    "total-results": 2
+                },
+                {
+                    "title": "Arkitektur, areal og interiør",
+                    "value": "12",
+                    "total-results": 2
+                },
+                {
+                    "title": "Arkiv og bibliotek",
+                    "value": "13",
+                    "total-results": 1
+                },
+                {
+                    "title": "Bank, finans og forsikring",
+                    "value": "2",
+                    "total-results": 14
+                },
+                {
+                    "title": "Barn, skole og undervisning",
+                    "value": "14",
+                    "total-results": 45
+                },
+                {
+                    "title": "Bil, kjøretøy og verksted",
+                    "value": "16",
+                    "total-results": 12
+                },
+                {
+                    "title": "Bil- og bildelproduksjon",
+                    "value": "15",
+                    "total-results": 1
+                },
+                {
+                    "title": "Butikk og varehandel",
+                    "value": "3",
+                    "total-results": 182
+                },
+                {
+                    "title": "Bygg og anlegg",
+                    "value": "4",
+                    "total-results": 32
+                },
+                {
+                    "title": "Drift og vedlikeholdstjenester",
+                    "value": "17",
+                    "total-results": 21
+                },
+                {
+                    "title": "Dyr og dyrehelse",
+                    "value": "18",
+                    "total-results": 3
+                },
+                {
+                    "title": "Eiendom",
+                    "value": "19",
+                    "total-results": 5
+                },
+                {
+                    "title": "Elektronikk",
+                    "value": "20",
+                    "total-results": 4
+                },
+                {
+                    "title": "Event og arrangementer",
+                    "value": "21",
+                    "total-results": 19
+                },
+                {
+                    "title": "Farmasi og legemiddel",
+                    "value": "5",
+                    "total-results": 3
+                },
+                {
+                    "title": "Fiskeri og oppdrett",
+                    "value": "25",
+                    "total-results": 1
+                },
+                {
+                    "title": "Forskning, utdanning og vitenskap",
+                    "value": "22",
+                    "total-results": 24
+                },
+                {
+                    "title": "Forsvar og militær",
+                    "value": "23",
+                    "total-results": 1
+                },
+                {
+                    "title": "Grossisthandel import/eksport",
+                    "value": "24",
+                    "total-results": 4
+                },
+                {
+                    "title": "Helse og omsorg",
+                    "value": "26",
+                    "total-results": 198
+                },
+                {
+                    "title": "Hotell og overnatting",
+                    "value": "27",
+                    "total-results": 17
+                },
+                {
+                    "title": "HR, organisasjonsutvikling og rekruttering",
+                    "value": "28",
+                    "total-results": 14
+                },
+                {
+                    "title": "Håndverkstjenester",
+                    "value": "29",
+                    "total-results": 11
+                },
+                {
+                    "title": "Ideelle organisasjoner",
+                    "value": "30",
+                    "total-results": 67
+                },
+                {
+                    "title": "Idrett og trening",
+                    "value": "31",
+                    "total-results": 17
+                },
+                {
+                    "title": "Industri og produksjon",
+                    "value": "70",
+                    "total-results": 14
+                },
+                {
+                    "title": "Internettbaserte tjenester",
+                    "value": "32",
+                    "total-results": 16
+                },
+                {
+                    "title": "IT",
+                    "value": "65",
+                    "total-results": 20
+                },
+                {
+                    "title": "IT - maskinvare",
+                    "value": "33",
+                    "total-results": 3
+                },
+                {
+                    "title": "IT - programvare",
+                    "value": "8",
+                    "total-results": 15
+                },
+                {
+                    "title": "Jordbruk og skogbruk",
+                    "value": "9",
+                    "total-results": 3
+                },
+                {
+                    "title": "Juridiske tjenester",
+                    "value": "10",
+                    "total-results": 1
+                },
+                {
+                    "title": "Kirke og menighet",
+                    "value": "68",
+                    "total-results": 2
+                },
+                {
+                    "title": "Konsulent og rådgivning",
+                    "value": "34",
+                    "total-results": 23
+                },
+                {
+                    "title": "Kraft og energi",
+                    "value": "35",
+                    "total-results": 5
+                },
+                {
+                    "title": "Kunst og kultur",
+                    "value": "36",
+                    "total-results": 10
+                },
+                {
+                    "title": "Luftfart",
+                    "value": "37",
+                    "total-results": 1
+                },
+                {
+                    "title": "Maritim og offshore",
+                    "value": "69",
+                    "total-results": 2
+                },
+                {
+                    "title": "Markedsanalyse",
+                    "value": "38",
+                    "total-results": 4
+                },
+                {
+                    "title": "Markedsføring og annonsering",
+                    "value": "39",
+                    "total-results": 46
+                },
+                {
+                    "title": "Matvareproduksjon og -industri",
+                    "value": "40",
+                    "total-results": 7
+                },
+                {
+                    "title": "Medie- og innholdsproduksjon",
+                    "value": "41",
+                    "total-results": 6
+                },
+                {
+                    "title": "Medisinsk utstyr og rekvisita",
+                    "value": "42",
+                    "total-results": 1
+                },
+                {
+                    "title": "Miljøtjenester",
+                    "value": "44",
+                    "total-results": 2
+                },
+                {
+                    "title": "Musikk",
+                    "value": "45",
+                    "total-results": 1
+                },
+                {
+                    "title": "Offentlig administrasjon",
+                    "value": "66",
+                    "total-results": 20
+                },
+                {
+                    "title": "Olje og gass",
+                    "value": "46",
+                    "total-results": 4
+                },
+                {
+                    "title": "Organisasjoner",
+                    "value": "48",
+                    "total-results": 12
+                },
+                {
+                    "title": "Politi og sikkerhet",
+                    "value": "49",
+                    "total-results": 36
+                },
+                {
+                    "title": "PR, informasjon og kommunikasjon",
+                    "value": "50",
+                    "total-results": 17
+                },
+                {
+                    "title": "Reise og turisme",
+                    "value": "51",
+                    "total-results": 19
+                },
+                {
+                    "title": "Renovasjon og renhold",
+                    "value": "52",
+                    "total-results": 29
+                },
+                {
+                    "title": "Restaurant, mat og uteliv",
+                    "value": "53",
+                    "total-results": 50
+                },
+                {
+                    "title": "Storhusholdning og catering",
+                    "value": "56",
+                    "total-results": 5
+                },
+                {
+                    "title": "Tekstil",
+                    "value": "57",
+                    "total-results": 8
+                },
+                {
+                    "title": "Telekommunikasjon",
+                    "value": "58",
+                    "total-results": 21
+                },
+                {
+                    "title": "Transport og logistikk",
+                    "value": "59",
+                    "total-results": 24
+                },
+                {
+                    "title": "Underholdning",
+                    "value": "6",
+                    "total-results": 2
+                },
+                {
+                    "title": "Velvære",
+                    "value": "61",
+                    "total-results": 10
+                },
+                {
+                    "title": "VVS",
+                    "value": "63",
+                    "total-results": 2
+                },
+                {
+                    "title": "Økonomi og regnskap",
+                    "value": "64",
+                    "total-results": 13
+                }
+            ]
+        },
+        "job_sector": {
+            "title": "Sektor",
+            "name": "job_sector",
+            "queries": [
+                {
+                    "title": "Franchise/Selvstendig næringsdrivende",
+                    "value": "1816",
+                    "total-results": 9
+                },
+                {
+                    "title": "Offentlig",
+                    "value": "1812",
+                    "total-results": 113
+                },
+                {
+                    "title": "Organisasjoner",
+                    "value": "1814",
+                    "total-results": 63
+                },
+                {
+                    "title": "Privat",
+                    "value": "1813",
+                    "total-results": 656
+                },
+                {
+                    "title": "Samvirke",
+                    "value": "1815",
+                    "total-results": 18
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 32
+                }
+            ]
+        },
+        "extent": {
+            "title": "Heltid/deltid",
+            "name": "extent",
+            "queries": [
+                {
+                    "title": "Deltid",
+                    "value": "3942",
+                    "total-results": 863
+                },
+                {
+                    "title": "Heltid",
+                    "value": "3947",
+                    "total-results": 0
+                }
+            ]
+        },
+        "manager_role": {
+            "title": "Lederkategori",
+            "name": "manager_role"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Norge",
+                    "value": "0.20001",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Akershus",
+                                "value": "1.20001.20003",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Asker",
+                                            "value": "2.20001.20003.20046",
+                                            "total-results": 23
+                                        },
+                                        {
+                                            "title": "Bærum",
+                                            "value": "2.20001.20003.20045",
+                                            "total-results": 42
+                                        },
+                                        {
+                                            "title": "Enebakk",
+                                            "value": "2.20001.20003.20051",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Frogn - Drøbak",
+                                            "value": "2.20001.20003.20042",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Lørenskog",
+                                            "value": "2.20001.20003.20052",
+                                            "total-results": 16
+                                        },
+                                        {
+                                            "title": "Nannestad",
+                                            "value": "2.20001.20003.20059",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Nesodden",
+                                            "value": "2.20001.20003.20043",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Nes (Akershus)",
+                                            "value": "2.20001.20003.20057",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Oppegård",
+                                            "value": "2.20001.20003.20044",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Rælingen",
+                                            "value": "2.20001.20003.20050",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Skedsmo",
+                                            "value": "2.20001.20003.20053",
+                                            "total-results": 15
+                                        },
+                                        {
+                                            "title": "Ski",
+                                            "value": "2.20001.20003.20040",
+                                            "total-results": 8
+                                        },
+                                        {
+                                            "title": "Sørum",
+                                            "value": "2.20001.20003.20048",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Ullensaker",
+                                            "value": "2.20001.20003.20056",
+                                            "total-results": 13
+                                        },
+                                        {
+                                            "title": "Vestby - Son",
+                                            "value": "2.20001.20003.20039",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Ås",
+                                            "value": "2.20001.20003.20041",
+                                            "total-results": 4
+                                        }
+                                    ]
+                                },
+                                "total-results": 139
+                            },
+                            {
+                                "title": "Aust-Agder",
+                                "value": "1.20001.20010",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Arendal",
+                                            "value": "2.20001.20010.20166",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Birkenes",
+                                            "value": "2.20001.20010.20172",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Bykle",
+                                            "value": "2.20001.20010.20178",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Grimstad",
+                                            "value": "2.20001.20010.20165",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 7
+                            },
+                            {
+                                "title": "Buskerud",
+                                "value": "1.20001.20007",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Drammen",
+                                            "value": "2.20001.20007.20110",
+                                            "total-results": 24
+                                        },
+                                        {
+                                            "title": "Flesberg",
+                                            "value": "2.20001.20007.20128",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Hol",
+                                            "value": "2.20001.20007.20119",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Hole",
+                                            "value": "2.20001.20007.20113",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Kongsberg",
+                                            "value": "2.20001.20007.20111",
+                                            "total-results": 7
+                                        },
+                                        {
+                                            "title": "Krødsherad",
+                                            "value": "2.20001.20007.20121",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Lier",
+                                            "value": "2.20001.20007.20125",
+                                            "total-results": 9
+                                        },
+                                        {
+                                            "title": "Nedre Eiker",
+                                            "value": "2.20001.20007.20124",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Ringerike",
+                                            "value": "2.20001.20007.20112",
+                                            "total-results": 6
+                                        },
+                                        {
+                                            "title": "Røyken",
+                                            "value": "2.20001.20007.20126",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Øvre Eiker",
+                                            "value": "2.20001.20007.20123",
+                                            "total-results": 4
+                                        }
+                                    ]
+                                },
+                                "total-results": 58
+                            },
+                            {
+                                "title": "Finnmark",
+                                "value": "1.20001.20020",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Alta",
+                                            "value": "2.20001.20020.20441",
+                                            "total-results": 4
+                                        }
+                                    ]
+                                },
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Hedmark",
+                                "value": "1.20001.20005",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Elverum",
+                                            "value": "2.20001.20005.20073",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Hamar",
+                                            "value": "2.20001.20005.20063",
+                                            "total-results": 9
+                                        },
+                                        {
+                                            "title": "Kongsvinger",
+                                            "value": "2.20001.20005.20062",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Løten",
+                                            "value": "2.20001.20005.20065",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Nord-Odal",
+                                            "value": "2.20001.20005.20067",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Ringsaker",
+                                            "value": "2.20001.20005.20064",
+                                            "total-results": 3
+                                        }
+                                    ]
+                                },
+                                "total-results": 19
+                            },
+                            {
+                                "title": "Hordaland",
+                                "value": "1.20001.20013",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Askøy",
+                                            "value": "2.20001.20013.20243",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Austevoll",
+                                            "value": "2.20001.20013.20240",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Bergen",
+                                            "value": "2.20001.20013.20220",
+                                            "total-results": 66
+                                        },
+                                        {
+                                            "title": "Fjell",
+                                            "value": "2.20001.20013.20242",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Kvam",
+                                            "value": "2.20001.20013.20236",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Lindås",
+                                            "value": "2.20001.20013.20250",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Meland",
+                                            "value": "2.20001.20013.20247",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Odda",
+                                            "value": "2.20001.20013.20230",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Os (Hordaland)",
+                                            "value": "2.20001.20013.20239",
+                                            "total-results": 7
+                                        },
+                                        {
+                                            "title": "Stord",
+                                            "value": "2.20001.20013.20225",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Voss",
+                                            "value": "2.20001.20013.20235",
+                                            "total-results": 2
+                                        }
+                                    ]
+                                },
+                                "total-results": 90
+                            },
+                            {
+                                "title": "Møre og Romsdal",
+                                "value": "1.20001.20015",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Herøy (M.R.)",
+                                            "value": "2.20001.20015.20285",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Kristiansund",
+                                            "value": "2.20001.20015.20281",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Molde",
+                                            "value": "2.20001.20015.20280",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Ulstein",
+                                            "value": "2.20001.20015.20286",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Ørsta",
+                                            "value": "2.20001.20015.20289",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Ålesund",
+                                            "value": "2.20001.20015.20282",
+                                            "total-results": 9
+                                        }
+                                    ]
+                                },
+                                "total-results": 15
+                            },
+                            {
+                                "title": "Nordland",
+                                "value": "1.20001.20018",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Bodø",
+                                            "value": "2.20001.20018.20367",
+                                            "total-results": 13
+                                        },
+                                        {
+                                            "title": "Fauske",
+                                            "value": "2.20001.20018.20391",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Narvik",
+                                            "value": "2.20001.20018.20368",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Rana",
+                                            "value": "2.20001.20018.20383",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Sortland",
+                                            "value": "2.20001.20018.20409",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Vefsn",
+                                            "value": "2.20001.20018.20377",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Vågan",
+                                            "value": "2.20001.20018.20405",
+                                            "total-results": 2
+                                        }
+                                    ]
+                                },
+                                "total-results": 23
+                            },
+                            {
+                                "title": "Oppland",
+                                "value": "1.20001.20006",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Gjøvik",
+                                            "value": "2.20001.20006.20085",
+                                            "total-results": 5
+                                        },
+                                        {
+                                            "title": "Lillehammer",
+                                            "value": "2.20001.20006.20084",
+                                            "total-results": 8
+                                        },
+                                        {
+                                            "title": "Nord-Aurdal",
+                                            "value": "2.20001.20006.20106",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Østre Toten",
+                                            "value": "2.20001.20006.20097",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Øyer",
+                                            "value": "2.20001.20006.20095",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Oslo",
+                                "value": "1.20001.20061",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Bjerke",
+                                            "value": "2.20001.20061.20528",
+                                            "total-results": 6
+                                        },
+                                        {
+                                            "title": "Bygdøy - Frogner",
+                                            "value": "2.20001.20061.20507",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Bøler",
+                                            "value": "2.20001.20061.20519",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Ekeberg - Bekkelaget",
+                                            "value": "2.20001.20061.20515",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Furuset",
+                                            "value": "2.20001.20061.20524",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Gamle Oslo",
+                                            "value": "2.20001.20061.20512",
+                                            "total-results": 10
+                                        },
+                                        {
+                                            "title": "Grefsen - Kjelsås",
+                                            "value": "2.20001.20061.20529",
+                                            "total-results": 7
+                                        },
+                                        {
+                                            "title": "Grorud",
+                                            "value": "2.20001.20061.20527",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Grünerløkka - Sofienberg",
+                                            "value": "2.20001.20061.20511",
+                                            "total-results": 16
+                                        },
+                                        {
+                                            "title": "Hellerud",
+                                            "value": "2.20001.20061.20523",
+                                            "total-results": 6
+                                        },
+                                        {
+                                            "title": "Helsfyr - Sinsen",
+                                            "value": "2.20001.20061.20522",
+                                            "total-results": 8
+                                        },
+                                        {
+                                            "title": "Lambertseter",
+                                            "value": "2.20001.20061.20518",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Marka",
+                                            "value": "2.20001.20061.20514",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Nordstrand",
+                                            "value": "2.20001.20061.20516",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Romsås",
+                                            "value": "2.20001.20061.20526",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Røa",
+                                            "value": "2.20001.20061.20532",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Sagene - Torshov",
+                                            "value": "2.20001.20061.20510",
+                                            "total-results": 17
+                                        },
+                                        {
+                                            "title": "Sentrum",
+                                            "value": "2.20001.20061.20513",
+                                            "total-results": 68
+                                        },
+                                        {
+                                            "title": "Sogn",
+                                            "value": "2.20001.20061.20530",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Stovner",
+                                            "value": "2.20001.20061.20525",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "St.Hanshaugen - Ullevål",
+                                            "value": "2.20001.20061.20509",
+                                            "total-results": 13
+                                        },
+                                        {
+                                            "title": "Søndre Nordstrand",
+                                            "value": "2.20001.20061.20517",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Ullern",
+                                            "value": "2.20001.20061.20533",
+                                            "total-results": 12
+                                        },
+                                        {
+                                            "title": "Uranienborg - Majorstuen",
+                                            "value": "2.20001.20061.20508",
+                                            "total-results": 10
+                                        },
+                                        {
+                                            "title": "Vinderen",
+                                            "value": "2.20001.20061.20531",
+                                            "total-results": 6
+                                        },
+                                        {
+                                            "title": "Østensjø",
+                                            "value": "2.20001.20061.20521",
+                                            "total-results": 5
+                                        }
+                                    ]
+                                },
+                                "total-results": 212
+                            },
+                            {
+                                "title": "Rogaland",
+                                "value": "1.20001.20012",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Eigersund",
+                                            "value": "2.20001.20012.20194",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Gjesdal",
+                                            "value": "2.20001.20012.20204",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Haugesund",
+                                            "value": "2.20001.20012.20197",
+                                            "total-results": 11
+                                        },
+                                        {
+                                            "title": "Karmøy",
+                                            "value": "2.20001.20012.20217",
+                                            "total-results": 5
+                                        },
+                                        {
+                                            "title": "Klepp",
+                                            "value": "2.20001.20012.20202",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Sandnes",
+                                            "value": "2.20001.20012.20195",
+                                            "total-results": 16
+                                        },
+                                        {
+                                            "title": "Sola",
+                                            "value": "2.20001.20012.20205",
+                                            "total-results": 10
+                                        },
+                                        {
+                                            "title": "Stavanger",
+                                            "value": "2.20001.20012.20196",
+                                            "total-results": 37
+                                        },
+                                        {
+                                            "title": "Time",
+                                            "value": "2.20001.20012.20203",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Tysvær",
+                                            "value": "2.20001.20012.20216",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Vindafjord",
+                                            "value": "2.20001.20012.20219",
+                                            "total-results": 2
+                                        }
+                                    ]
+                                },
+                                "total-results": 91
+                            },
+                            {
+                                "title": "Sogn og Fjordane",
+                                "value": "1.20001.20014",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Førde",
+                                            "value": "2.20001.20014.20271",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Gaular",
+                                            "value": "2.20001.20014.20269",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Hyllestad",
+                                            "value": "2.20001.20014.20257",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Jølster",
+                                            "value": "2.20001.20014.20270",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Svalbard",
+                                "value": "1.20001.20506",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Telemark",
+                                "value": "1.20001.20009",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Bamble",
+                                            "value": "2.20001.20009.20150",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Bø (Telemark)",
+                                            "value": "2.20001.20009.20154",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Notodden",
+                                            "value": "2.20001.20009.20148",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Porsgrunn",
+                                            "value": "2.20001.20009.20146",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Sauherad",
+                                            "value": "2.20001.20009.20155",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Skien",
+                                            "value": "2.20001.20009.20147",
+                                            "total-results": 8
+                                        },
+                                        {
+                                            "title": "Tokke",
+                                            "value": "2.20001.20009.20162",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Vinje",
+                                            "value": "2.20001.20009.20163",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Troms",
+                                "value": "1.20001.20019",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Balsfjord",
+                                            "value": "2.20001.20019.20429",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Harstad",
+                                            "value": "2.20001.20019.20412",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Kåfjord",
+                                            "value": "2.20001.20019.20433",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Lenvik",
+                                            "value": "2.20001.20019.20428",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Lyngen",
+                                            "value": "2.20001.20019.20431",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Målselv",
+                                            "value": "2.20001.20019.20422",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Nordreisa",
+                                            "value": "2.20001.20019.20435",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Storfjord",
+                                            "value": "2.20001.20019.20432",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Tromsø",
+                                            "value": "2.20001.20019.20413",
+                                            "total-results": 14
+                                        }
+                                    ]
+                                },
+                                "total-results": 24
+                            },
+                            {
+                                "title": "Trøndelag",
+                                "value": "1.20001.20016",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Hitra",
+                                            "value": "2.20001.20016.20321",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Levanger",
+                                            "value": "2.20001.20016.20349",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Malvik",
+                                            "value": "2.20001.20016.20340",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Namsos",
+                                            "value": "2.20001.20016.20344",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Orkdal",
+                                            "value": "2.20001.20016.20333",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Røros",
+                                            "value": "2.20001.20016.20334",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Steinkjer",
+                                            "value": "2.20001.20016.20343",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Stjørdal",
+                                            "value": "2.20001.20016.20346",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Trondheim",
+                                            "value": "2.20001.20016.20318",
+                                            "total-results": 41
+                                        },
+                                        {
+                                            "title": "Verdal",
+                                            "value": "2.20001.20016.20350",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Ørland",
+                                            "value": "2.20001.20016.20323",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 58
+                            },
+                            {
+                                "title": "Vestfold",
+                                "value": "1.20001.20008",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Færder",
+                                            "value": "2.20001.20008.20143",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Horten",
+                                            "value": "2.20001.20008.20131",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Larvik",
+                                            "value": "2.20001.20008.20135",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Sandefjord",
+                                            "value": "2.20001.20008.20134",
+                                            "total-results": 9
+                                        },
+                                        {
+                                            "title": "Sande (Vestfold)",
+                                            "value": "2.20001.20008.20137",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Tønsberg",
+                                            "value": "2.20001.20008.20133",
+                                            "total-results": 10
+                                        }
+                                    ]
+                                },
+                                "total-results": 30
+                            },
+                            {
+                                "title": "Vest-Agder",
+                                "value": "1.20001.20011",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Kristiansand",
+                                            "value": "2.20001.20011.20179",
+                                            "total-results": 27
+                                        },
+                                        {
+                                            "title": "Lyngdal",
+                                            "value": "2.20001.20011.20190",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Mandal",
+                                            "value": "2.20001.20011.20180",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Marnardal",
+                                            "value": "2.20001.20011.20186",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Søgne",
+                                            "value": "2.20001.20011.20185",
+                                            "total-results": 2
+                                        }
+                                    ]
+                                },
+                                "total-results": 32
+                            },
+                            {
+                                "title": "Østfold",
+                                "value": "1.20001.20002",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Fredrikstad",
+                                            "value": "2.20001.20002.20024",
+                                            "total-results": 10
+                                        },
+                                        {
+                                            "title": "Halden",
+                                            "value": "2.20001.20002.20021",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Moss",
+                                            "value": "2.20001.20002.20022",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Rygge",
+                                            "value": "2.20001.20002.20036",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Sarpsborg",
+                                            "value": "2.20001.20002.20023",
+                                            "total-results": 4
+                                        }
+                                    ]
+                                },
+                                "total-results": 21
+                            }
+                        ]
+                    },
+                    "total-results": 861
+                },
+                {
+                    "title": "Utlandet",
+                    "value": "0.20534",
+                    "total-results": 2
+                }
+            ]
+        },
+        "job_duration": {
+            "title": "Ansettelsesform",
+            "name": "job_duration",
+            "queries": [
+                {
+                    "title": "Engasjement",
+                    "value": "3952",
+                    "total-results": 97
+                },
+                {
+                    "title": "Fast",
+                    "value": "3951",
+                    "total-results": 494
+                },
+                {
+                    "title": "Lærling",
+                    "value": "8900",
+                    "total-results": 0
+                },
+                {
+                    "title": "Prosjekt",
+                    "value": "8099",
+                    "total-results": 58
+                },
+                {
+                    "title": "Selvstendig næringsdrivende",
+                    "value": "3954",
+                    "total-results": 22
+                },
+                {
+                    "title": "Sommer/Sesong",
+                    "value": "1816",
+                    "total-results": 40
+                },
+                {
+                    "title": "Trainee",
+                    "value": "8098",
+                    "total-results": 4
+                },
+                {
+                    "title": "Vikariat",
+                    "value": "3659",
+                    "total-results": 147
+                }
+            ]
+        },
+        "applicationdeadline": {
+            "title": "Søknadsfrist",
+            "name": "applicationdeadline",
+            "queries": [
+                {
+                    "title": "Siste frist",
+                    "value": "1",
+                    "total-results": 33
+                },
+                {
+                    "title": "Under en uke",
+                    "value": "7",
+                    "total-results": 143
+                },
+                {
+                    "title": "Under tre døgn",
+                    "value": "3",
+                    "total-results": 63
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

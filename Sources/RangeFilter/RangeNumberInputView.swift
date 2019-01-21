@@ -291,6 +291,10 @@ extension RangeNumberInputView: UITextFieldDelegate {
         inputValues[inputGroup] = validatedValue
         updateTextColor(for: textField, isValid: isValid)
 
+        if !isValid {
+            FeedbackGenerator.generate(.error)
+        }
+
         return false
     }
 }

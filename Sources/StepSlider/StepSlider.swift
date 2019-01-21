@@ -128,7 +128,7 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         guard delegate?.stepSlider(self, canChangeToRoundedStepValue: newValue) ?? true else {
             value = previousValue
             if generatesHapticFeedbackOnValueChange {
-                FeedbackGenerator.generate(.impact)
+                FeedbackGenerator.generate(.error)
             }
             return
         }
@@ -200,27 +200,5 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
 
     private func updateAccessibilityValue() {
         accessibilityValue = valueFormatter.accessibilityValue(for: value)
-    }
-}
-
-// MARK: - Private helpers
-
-private struct FeedbackGenerator {
-    enum Feedback {
-        case selection
-        case impact
-    }
-
-    static func generate(_ feedback: Feedback) {
-        if #available(iOS 10.0, *) {
-            switch feedback {
-            case .selection:
-                let generator = UISelectionFeedbackGenerator()
-                generator.selectionChanged()
-            case .impact:
-                let generator = UIImpactFeedbackGenerator()
-                generator.impactOccurred()
-            }
-        }
     }
 }

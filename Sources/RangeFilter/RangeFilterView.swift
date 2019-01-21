@@ -159,8 +159,7 @@ private extension RangeFilterView {
             sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
 
             referenceValuesContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .smallSpacing),
-            referenceValuesContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor,
-                                                              constant: RangeSliderView.visibleThumbRadius),
+            referenceValuesContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),
             referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
@@ -174,6 +173,7 @@ private extension RangeFilterView {
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
+            view.indicatorView.isHidden = true
             referenceValuesContainer.addSubview(view)
 
             let leadingConstraint = view.leadingAnchor.constraint(equalTo: referenceValuesContainer.leadingAnchor)

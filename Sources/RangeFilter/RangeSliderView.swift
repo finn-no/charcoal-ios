@@ -10,10 +10,7 @@ protocol RangeSliderViewDelegate: AnyObject {
 }
 
 final class RangeSliderView: UIControl {
-    public static let visibleThumbRadius: CGFloat = 14
-    private static var visibleThumbWidth: CGFloat {
-        return visibleThumbRadius * 2
-    }
+    private static var visibleThumbWidth: CGFloat = 28
 
     private lazy var lowValueSlider = makeStepSlider()
     private lazy var highValueSlider = makeStepSlider()
@@ -144,7 +141,8 @@ extension RangeSliderView: RangeControl {
         let translatedValue = lowValueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: value)
         let thumbRect = lowValueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: Float(translatedValue))
 
-        let rectOffsetingInvisibleThumbPadding = thumbRect.offsetBy(dx: -2, dy: 0)
+        let thumbRadius = RangeSliderView.visibleThumbWidth / 2 - 2
+        let rectOffsetingInvisibleThumbPadding = thumbRect.offsetBy(dx: thumbRadius, dy: 0)
 
         return rectOffsetingInvisibleThumbPadding
     }

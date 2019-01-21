@@ -6,25 +6,9 @@ import Foundation
 
 public final class RangeFilterViewController: FilterViewController {
     lazy var rangeFilterView: RangeFilterView = {
-        let range = filterInfo.lowValue ... filterInfo.highValue
-        let view = RangeFilterView(
-            range: range,
-            additionalLowerBoundOffset: filterInfo.additionalLowerBoundOffset,
-            additionalUpperBoundOffset: filterInfo.additionalUpperBoundOffset,
-            steps: filterInfo.steps,
-            unit: filterInfo.unit,
-            isValueCurrency: filterInfo.isCurrencyValueRange,
-            referenceValues: filterInfo.referenceValues,
-            usesSmallNumberInputFont: filterInfo.usesSmallNumberInputFont,
-            displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput
-        )
-
-        view.sliderAccessibilitySteps = filterInfo.accessibilitySteps
-        view.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
-
+        let view = RangeFilterView(filterInfo: filterInfo)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
-
         return view
     }()
 

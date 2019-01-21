@@ -3,9 +3,6 @@
 //
 
 public struct FilterSelectionTitleProvider {
-    private let rangeCurrencyFormatter: RangeFilterValueFormatter = RangeFilterValueFormatter(isValueCurrency: true)
-    private let rangeFormatter: RangeFilterValueFormatter = RangeFilterValueFormatter(isValueCurrency: false)
-
     public init() {
     }
 
@@ -44,12 +41,7 @@ private extension FilterSelectionTitleProvider {
     }
 
     func titlesForRangeSelectionValue(_ range: RangeValue, in filter: RangeFilterInfoType) -> String {
-        let formatter: RangeFilterValueFormatter
-        if filter.isCurrencyValueRange {
-            formatter = rangeCurrencyFormatter
-        } else {
-            formatter = rangeFormatter
-        }
+        let formatter = RangeFilterValueFormatter(isValueCurrency: filter.isCurrencyValueRange, unit: filter.unit, accessibilityUnit: filter.accessibilityValueSuffix ?? "")
         switch range {
         case let .minimum(lowValue):
             let lowValue = formatter.string(from: lowValue) ?? ""

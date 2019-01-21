@@ -154,10 +154,7 @@ final class RangeNumberInputView: UIControl {
         return nil
     }
 
-    var accessibilityValueSuffix: String? {
-        didSet {
-        }
-    }
+    var accessibilityValueSuffix: String?
 
     override var isFirstResponder: Bool {
         return lowValueInputTextField.isFirstResponder || highValueInputTextField.isFirstResponder

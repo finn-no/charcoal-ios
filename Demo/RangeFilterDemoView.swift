@@ -6,33 +6,16 @@ import Charcoal
 import Foundation
 
 public class RangeFilterDemoView: UIView {
-    let lowValue: Int = 0
-    let highValue: Int = 30000
-    let steps: Int = 320
-    let sliderAccessibilitySteps: Int = 31
     let unit = "kr"
     let accessibilityUnit = "kroner"
-    let referenceValues = [1000, 15000, 30000]
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(
-            range: lowValue ... highValue,
-            additionalLowerBoundOffset: 1000,
-            additionalUpperBoundOffset: 1000,
-            steps: steps,
-            unit: unit,
-            isValueCurrency: true,
-            referenceValues: referenceValues,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true
-        )
+        let filterInfo = RangeFilterInfo()
+        let rangeFilterView = RangeFilterView(filterInfo: filterInfo)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
-        rangeFilterView.sliderAccessibilitySteps = sliderAccessibilitySteps
-        rangeFilterView.accessibilityValueSuffix = accessibilityUnit
-        rangeFilterView.setLowValue(lowValue, animated: false)
-        rangeFilterView.setHighValue(highValue + 1, animated: false)
+        rangeFilterView.setLowValue(filterInfo.sliderInfo.minimumValue, animated: false)
+        rangeFilterView.setHighValue(filterInfo.sliderInfo.maximumValueWithOffset, animated: false)
         rangeFilterView.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
-
         return rangeFilterView
     }()
 
@@ -45,7 +28,7 @@ public class RangeFilterDemoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
+    private func setup() {
         addSubview(rangeFilterView)
 
         NSLayoutConstraint.activate([
@@ -55,7 +38,26 @@ public class RangeFilterDemoView: UIView {
         ])
     }
 
-    @objc func rangeFilterValueChanged(_ sender: RangeFilterView) {
+    @objc private func rangeFilterValueChanged(_ sender: RangeFilterView) {
         print("Lower value: \(sender.lowValue ?? 0) -  Upper value: \(sender.highValue ?? 0)")
     }
+}
+
+// MARK: - Private
+
+private struct RangeFilterInfo: RangeFilterInfoType {
+    let title = "Range filter"
+    let unit = "kr"
+    let isCurrencyValueRange = true
+    let accessibilityValueSuffix: String? = nil
+    let usesSmallNumberInputFont = false
+    let displaysUnitInNumberInput = true
+
+    let sliderInfo = StepSliderInfo(
+        minimumValue: 0,
+        maximumValue: 30000,
+        stepValues: [100, 500, 1000, 2000, 3000, 4000, 5000, 8000, 10000, 15000, 20000],
+        hasLowerBoundOffset: true,
+        hasUpperBoundOffset: true
+    )
 }

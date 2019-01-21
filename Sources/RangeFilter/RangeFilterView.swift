@@ -159,7 +159,8 @@ private extension RangeFilterView {
             sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
 
             referenceValuesContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .smallSpacing),
-            referenceValuesContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),
+            referenceValuesContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor,
+                                                              constant: RangeSliderView.visibleThumbRadius),
             referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])

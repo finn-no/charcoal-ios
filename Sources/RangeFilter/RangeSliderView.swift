@@ -10,7 +10,10 @@ protocol RangeSliderViewDelegate: AnyObject {
 }
 
 final class RangeSliderView: UIControl {
-    public static let minimumViewHeight: CGFloat = 28.0
+    public static let visibleThumbRadius: CGFloat = 14
+    private static var visibleThumbWidth: CGFloat {
+        return visibleThumbRadius * 2
+    }
 
     private lazy var lowValueSlider = makeStepSlider()
     private lazy var highValueSlider = makeStepSlider()
@@ -72,9 +75,12 @@ final class RangeSliderView: UIControl {
             return nil
         }
 
-        if lowValueSlider.currentThumbRect.contains(point) {
+        let lowPoint = point
+        let highPoint = CGPoint(x: point.x - RangeSliderView.visibleThumbWidth, y: point.y)
+
+        if lowValueSlider.currentThumbRect.contains(lowPoint) {
             return lowValueSlider
-        } else if highValueSlider.currentThumbRect.contains(point) {
+        } else if highValueSlider.currentThumbRect.contains(highPoint) {
             return highValueSlider
         } else {
             return self
@@ -97,15 +103,7 @@ final class RangeSliderView: UIControl {
 
 extension RangeSliderView: RangeControl {
     var lowValue: RangeValue? {
-        guard var lowValue = lowValueSlider.roundedStepValue else {
-            return nil
-        }
-
-        if let highValue = highValueSlider.roundedStepValue {
-            lowValue = min(lowValue, highValue)
-        }
-
-        if lowValue < sliderInfo.minimumValue {
+        guard let lowValue = lowValueSlider.roundedStepValue, lowValue >= sliderInfo.minimumValue else {
             return nil
         }
 
@@ -113,15 +111,7 @@ extension RangeSliderView: RangeControl {
     }
 
     var highValue: RangeValue? {
-        guard var highValue = highValueSlider.roundedStepValue else {
-            return nil
-        }
-
-        if let lowValue = lowValueSlider.roundedStepValue {
-            highValue = max(lowValue, highValue)
-        }
-
-        if highValue > sliderInfo.maximumValue {
+        guard let highValue = highValueSlider.roundedStepValue, highValue <= sliderInfo.maximumValue else {
             return nil
         }
 
@@ -179,8 +169,8 @@ private extension RangeSliderView {
         addSubview(lowValueSlider)
         addSubview(highValueSlider)
 
-        lowValueSlider.fillInSuperview()
-        highValueSlider.fillInSuperview()
+        // lowValueSlider.fillInSuperview()
+        // highValueSlider.fillInSuperview()
 
         let activeRangeTrackViewLeadingAnchor = activeRangeTrackView.leadingAnchor.constraint(equalTo: leadingAnchor)
         activeRangeTrackViewLeadingAnchor.identifier = activeRangeTrackViewLeadingAnchorIdentifier
@@ -188,9 +178,21 @@ private extension RangeSliderView {
         let activeRangeTrackViewTrailingAnchor = activeRangeTrackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         activeRangeTrackViewTrailingAnchor.identifier = activeRangeTrackViewTrailingAnchorIdentifier
 
+        let sliderOffset = RangeSliderView.visibleThumbWidth
+
         NSLayoutConstraint.activate([
+            lowValueSlider.topAnchor.constraint(equalTo: topAnchor),
+            lowValueSlider.bottomAnchor.constraint(equalTo: bottomAnchor),
+            lowValueSlider.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lowValueSlider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sliderOffset),
+
+            highValueSlider.topAnchor.constraint(equalTo: topAnchor),
+            highValueSlider.bottomAnchor.constraint(equalTo: bottomAnchor),
+            highValueSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sliderOffset),
+            highValueSlider.trailingAnchor.constraint(equalTo: trailingAnchor),
+
             trackView.leadingAnchor.constraint(equalTo: lowValueSlider.leadingAnchor, constant: .verySmallSpacing),
-            trackView.trailingAnchor.constraint(equalTo: lowValueSlider.trailingAnchor, constant: -.verySmallSpacing),
+            trackView.trailingAnchor.constraint(equalTo: highValueSlider.trailingAnchor, constant: -.verySmallSpacing),
             trackView.centerYAnchor.constraint(equalTo: lowValueSlider.centerYAnchor),
             trackView.heightAnchor.constraint(equalToConstant: Style.trackHeight),
             activeRangeTrackViewLeadingAnchor,
@@ -203,21 +205,13 @@ private extension RangeSliderView {
         updateAccesibilityValues()
     }
 
-    var lowestValueSlider: StepSlider<RangeValue> {
-        return lowValueSlider.value <= highValueSlider.value ? lowValueSlider : highValueSlider
-    }
-
-    var highestValueSlider: StepSlider<RangeValue> {
-        return highValueSlider.value >= lowValueSlider.value ? highValueSlider : lowValueSlider
-    }
-
     func updateActiveTrackRange() {
         if frame == CGRect.zero {
             return
         }
 
-        let leadingConstant = lowestValueSlider.currentThumbRect.midX
-        let trailingConstant = highestValueSlider.currentThumbRect.midX - trackView.bounds.width
+        let leadingConstant = lowValueSlider.currentThumbRect.midX
+        let trailingConstant = highValueSlider.currentThumbRect.midX - highValueSlider.bounds.maxX
         let activeRangeTrackViewLeadingAnchor = constraints.filter({ $0.identifier == activeRangeTrackViewLeadingAnchorIdentifier }).first
         let activeRangeTrackViewTrailingAnchor = constraints.filter({ $0.identifier == activeRangeTrackViewTrailingAnchorIdentifier }).first
 
@@ -229,8 +223,8 @@ private extension RangeSliderView {
     }
 
     func updateAccesibilityValues() {
-        lowestValueSlider.accessibilityLabel = "range_slider_view_low_value_slider_accessibility_label".localized()
-        highestValueSlider.accessibilityLabel = "range_slider_view_high_value_slider_accessibility_label".localized()
+        lowValueSlider.accessibilityLabel = "range_slider_view_low_value_slider_accessibility_label".localized()
+        highValueSlider.accessibilityLabel = "range_slider_view_high_value_slider_accessibility_label".localized()
     }
 }
 
@@ -240,8 +234,22 @@ extension RangeSliderView: StepSliderDelegate {
         updateAccesibilityValues()
     }
 
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, canChangeToRoundedStepValue value: StepValueKind) -> Bool {
+        guard let value = value as? RangeValue else {
+            return false
+        }
+
+        if let lowValue = lowValue, stepSlider == highValueSlider {
+            return value >= lowValue
+        } else if let highValue = highValue, stepSlider == lowValueSlider {
+            return value <= highValue
+        } else {
+            return true
+        }
+    }
+
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
-        if stepSlider == highestValueSlider {
+        if stepSlider == highValueSlider {
             delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: false)
         } else {
             delegate?.rangeSliderView(self, didChangeLowValue: lowValue, didFinishSlideInteraction: false)
@@ -249,7 +257,7 @@ extension RangeSliderView: StepSliderDelegate {
     }
 
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind) where StepValueKind: Comparable {
-        if stepSlider == highestValueSlider {
+        if stepSlider == highValueSlider {
             delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: true)
         } else {
             delegate?.rangeSliderView(self, didChangeLowValue: lowValue, didFinishSlideInteraction: true)

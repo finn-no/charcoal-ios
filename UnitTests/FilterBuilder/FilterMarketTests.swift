@@ -17,7 +17,8 @@ extension FilterMarketTests {
         switch filterMarket {
         case .bap(.bap),
              .realestate(.homes),
-             .car(.norway), .car(.abroad):
+             .car(.norway), .car(.abroad),
+             .mc(.mc), .mc(.mopedScooter), .mc(.snowmobile), .mc(.atv):
             break
         }
         return true

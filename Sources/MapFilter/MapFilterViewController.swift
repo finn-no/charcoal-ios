@@ -43,16 +43,6 @@ public class MapFilterViewController: FilterViewController {
         setup()
     }
 
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        // TODO: This should be done when apply or back is pressed
-        guard let mapFilterView = mapFilterView, let coordinate = mapFilterViewManager?.centerCoordinate else {
-            return
-        }
-        selectionDataSource.setValue(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: mapFilterView.currentRadius, locationName: nil, for: filterInfo)
-    }
-
     private func setup() {
         view.backgroundColor = .milk
         mapFilterView?.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +66,13 @@ public class MapFilterViewController: FilterViewController {
         searchLocationViewController.willMove(toParent: nil)
         searchLocationViewController.view.removeFromSuperview()
         searchLocationViewController.removeFromParent()
+    }
+
+    override func applyButtonTapped() {
+        guard let mapFilterView = mapFilterView, let coordinate = mapFilterView.centerPoint else {
+            return
+        }
+        selectionDataSource.setValue(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: mapFilterView.currentRadius, locationName: nil, for: filterInfo)
     }
 }
 

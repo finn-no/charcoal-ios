@@ -8,6 +8,8 @@ import UIKit
 public class StepperFilterViewController: FilterViewController {
     private let filterInfo: StepperFilterInfoType
 
+    private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(lessThanOrEqualTo: view.topAnchor)
+
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(filterInfo: filterInfo)
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
@@ -28,10 +30,19 @@ public class StepperFilterViewController: FilterViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(stepperFilterView)
-        stepperFilterView.fillInSuperview()
-
+        NSLayoutConstraint.activate([
+            topConstraint,
+            stepperFilterView.bottomAnchor.constraint(lessThanOrEqualTo: applySelectionButton.topAnchor),
+            stepperFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stepperFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
         guard let value = selectionDataSource.stepperValue(for: filterInfo) else { return }
         stepperFilterView.value = value
+    }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        topConstraint.constant = (view.frame.height - applySelectionButton.height) / 2
     }
 }
 

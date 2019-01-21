@@ -23,6 +23,8 @@ public final class RangeFilterInfoBuilder {
             return buildRangeFilterInfoForCarMarket(from: filterData)
         case .realestate:
             return buildRangeFilterInfoForRealestateMarket(from: filterData)
+        case .job:
+            return nil
         }
     }
 }

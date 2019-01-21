@@ -52,4 +52,12 @@ public enum FilterKey: String, CodingKey {
     case floorNavigator = "floor_navigator"
     case propertyType = "property_type"
     case ownershipType = "ownership_type"
+
+    // job
+    case occupation
+    case industry
+    case extent
+    case jobDuration = "job_duration"
+    case jobSector = "job_sector"
+    case managerRole = "manager_role"
 }

@@ -26,11 +26,39 @@ class DemoFilter {
             VerticalDemo(id: "realestate-company-for-sale", title: "Bedrifter til salgs", isCurrent: false, isExternal: false, file: nil),
             VerticalDemo(id: "realestate-travel-fhh", title: "Feriehus og hytter", isCurrent: false, isExternal: true, file: nil),
         ]
+        let verticalsMC = [
+            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: true, isExternal: false, file: "mc"),
+            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: false, isExternal: false, file: "moped-scooter"),
+            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: false, isExternal: false, file: "snowmobile"),
+            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: false, isExternal: false, file: "atv"),
+        ]
+        let verticalsMopedScooter = [
+            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: false, isExternal: false, file: "mc"),
+            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: true, isExternal: false, file: "moped-scooter"),
+            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: false, isExternal: false, file: "snowmobile"),
+            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: false, isExternal: false, file: "atv"),
+        ]
+        let verticalsSnowmobile = [
+            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: false, isExternal: false, file: "mc"),
+            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: false, isExternal: false, file: "moped-scooter"),
+            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: true, isExternal: false, file: "snowmobile"),
+            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: false, isExternal: false, file: "atv"),
+        ]
+        let verticalsATV = [
+            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: false, isExternal: false, file: "mc"),
+            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: false, isExternal: false, file: "moped-scooter"),
+            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: false, isExternal: false, file: "snowmobile"),
+            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: true, isExternal: false, file: "atv"),
+        ]
 
         let verticals = VerticalSetupDemo(verticals: [
             "car-norway": verticalsCarNorway,
             "car-abroad": verticalsCarAbroad,
             "realestate-homes": verticalsRealestateHomes,
+            "mc": verticalsMC,
+            "moped-scooter": verticalsMopedScooter,
+            "snowmobile": verticalsSnowmobile,
+            "atv": verticalsATV,
         ])
         return verticals
     }()

@@ -138,9 +138,71 @@ enum FilterMarket: FilterConfiguration {
         }
     }
 
+    enum MC: String, FilterConfiguration, CaseIterable {
+        case mc
+        case mopedScooter = "moped-scooter"
+        case snowmobile
+        case atv
+
+        func handlesVerticalId(_ vertical: String) -> Bool {
+            return rawValue == vertical
+        }
+
+        var preferenceFilterKeys: [FilterKey] {
+            switch self {
+            case .mc:
+                return [.published, .segment, .dealerSegment]
+            default:
+                return [.published, .dealerSegment]
+            }
+        }
+
+        var supportedFiltersKeys: [FilterKey] {
+            switch self {
+            case .mc:
+                return [
+                    .location,
+                    .category,
+                    .make,
+                    .price,
+                    .year,
+                    .mileage,
+                    .engineEffect,
+                    .engineVolume,
+                ]
+            case .mopedScooter:
+                return [
+                    .location,
+                    .category,
+                    .make,
+                    .price,
+                    .year,
+                    .mileage,
+                    .engineEffect,
+                    .engineVolume,
+                ]
+            case .snowmobile, .atv:
+                return [
+                    .location,
+                    .make,
+                    .price,
+                    .year,
+                    .mileage,
+                    .engineEffect,
+                    .engineVolume,
+                ]
+            }
+        }
+
+        var mapFilterKey: FilterKey? {
+            return .location
+        }
+    }
+
     case bap(Bap)
     case realestate(Realestate)
     case car(Car)
+    case mc(MC)
 
     init?(market: String) {
         guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
@@ -158,6 +220,8 @@ enum FilterMarket: FilterConfiguration {
             return realestate
         case let .car(car):
             return car
+        case let .mc(mc):
+            return mc
         }
     }
 
@@ -183,5 +247,6 @@ extension FilterMarket: CaseIterable {
         return Bap.allCases.map(FilterMarket.bap)
             + Realestate.allCases.map(FilterMarket.realestate)
             + Car.allCases.map(FilterMarket.car)
+            + MC.allCases.map(FilterMarket.mc)
     }
 }

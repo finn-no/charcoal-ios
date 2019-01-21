@@ -77,7 +77,7 @@ enum Sections: String, CaseIterable {
         case .fullscreen:
             let selectedView = FullscreenViews.allCases[indexPath.row]
             switch selectedView {
-            case .torget, .bil, .eiendom, .mc:
+            case .torget, .bil, .eiendom, .job, .mc:
                 return .bottomSheet
             }
         }
@@ -162,6 +162,7 @@ enum FullscreenViews: String, CaseIterable {
     case bil
     case eiendom
     case mc
+    case job
 
     var viewController: UIViewController {
         let filter: FilterSetup
@@ -175,6 +176,8 @@ enum FullscreenViews: String, CaseIterable {
             filter = DemoFilter.filterDataFromJSONFile(named: "realestate-homes")
         case .mc:
             filter = DemoFilter.filterDataFromJSONFile(named: "mc")
+        case .job:
+            filter = DemoFilter.filterDataFromJSONFile(named: "job-full-time")
         }
 
         let demoFilter = DemoFilter(filter: filter)

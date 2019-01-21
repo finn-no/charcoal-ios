@@ -50,6 +50,21 @@ class DemoFilter {
             VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: false, isExternal: false, file: "snowmobile"),
             VerticalDemo(id: "atv", title: "ATV-er", isCurrent: true, isExternal: false, file: "atv"),
         ]
+        let verticalsJobFullTime = [
+            VerticalDemo(id: "job-full-time", title: "Alle stillinger", isCurrent: true, isExternal: false, file: "job-full-time"),
+            VerticalDemo(id: "job-part-time", title: "Deltidsstillinger", isCurrent: false, isExternal: false, file: "job-part-time"),
+            VerticalDemo(id: "job-management", title: "Lederstillinger", isCurrent: false, isExternal: false, file: "job-management"),
+        ]
+        let verticalsJobPartTime = [
+            VerticalDemo(id: "job-full-time", title: "Alle stillinger", isCurrent: false, isExternal: false, file: "job-full-time"),
+            VerticalDemo(id: "job-part-time", title: "Deltidsstillinger", isCurrent: true, isExternal: false, file: "job-part-time"),
+            VerticalDemo(id: "job-management", title: "Lederstillinger", isCurrent: false, isExternal: false, file: "job-management"),
+        ]
+        let verticalsJobManagement = [
+            VerticalDemo(id: "job-full-time", title: "Alle stillinger", isCurrent: false, isExternal: false, file: "job-full-time"),
+            VerticalDemo(id: "job-part-time", title: "Deltidsstillinger", isCurrent: false, isExternal: false, file: "job-part-time"),
+            VerticalDemo(id: "job-management", title: "Lederstillinger", isCurrent: true, isExternal: false, file: "job-management"),
+        ]
 
         let verticals = VerticalSetupDemo(verticals: [
             "car-norway": verticalsCarNorway,
@@ -59,6 +74,9 @@ class DemoFilter {
             "moped-scooter": verticalsMopedScooter,
             "snowmobile": verticalsSnowmobile,
             "atv": verticalsATV,
+            "job-full-time": verticalsJobFullTime,
+            "job-part-time": verticalsJobPartTime,
+            "job-management": verticalsJobManagement,
         ])
         return verticals
     }()

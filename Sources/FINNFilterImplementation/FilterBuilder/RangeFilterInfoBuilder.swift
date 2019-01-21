@@ -25,6 +25,8 @@ public final class RangeFilterInfoBuilder {
             return buildRangeFilterInfoForRealestateMarket(from: filterData)
         case .mc:
             return buildRangeFilterInfoForMCMarket(from: filterData)
+        case .job:
+            return nil
         }
     }
 }

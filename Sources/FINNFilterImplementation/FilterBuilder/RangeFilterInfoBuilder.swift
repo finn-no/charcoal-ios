@@ -23,6 +23,8 @@ public final class RangeFilterInfoBuilder {
             return buildRangeFilterInfoForCarMarket(from: filterData)
         case .realestate:
             return buildRangeFilterInfoForRealestateMarket(from: filterData)
+        case .mc:
+            return buildRangeFilterInfoForMCMarket(from: filterData)
         }
     }
 }
@@ -220,6 +222,85 @@ private extension RangeFilterInfoBuilder {
             steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
             accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+        default:
+            return nil
+        }
+
+        return RangeFilterInfo(
+            parameterName: parameterName,
+            title: name,
+            lowValue: lowValue,
+            highValue: highValue,
+            steps: steps,
+            rangeBoundsOffsets: rangeBoundsOffsets,
+            unit: unit,
+            referenceValues: referenceValues,
+            accesibilityValues: accessibilityValues,
+            appearanceProperties: appearanceProperties
+        )
+    }
+
+    func buildRangeFilterInfoForMCMarket(from filterData: FilterData) -> RangeFilterInfoType? {
+        let parameterName = filterData.parameterName
+        let name = filterData.title
+        let lowValue: Int
+        let highValue: Int
+        let steps: Int
+        let unit: String
+        let rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets
+        let referenceValues: RangeFilterInfo.ReferenceValues
+        let accessibilityValues: RangeFilterInfo.AccessibilityValues
+        let appearanceProperties: RangeFilterInfo.AppearenceProperties
+
+        guard let filterKey = FilterKey(stringValue: filterData.parameterName) else {
+            return nil
+        }
+        switch filterKey {
+        case .year:
+            lowValue = 1950
+            highValue = Calendar.current.component(.year, from: Date())
+            unit = "år"
+            rangeBoundsOffsets = (10, 10)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1)
+            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
+        case .engineEffect:
+            lowValue = 0
+            highValue = 200
+            unit = "hk"
+            rangeBoundsOffsets = (0, 10)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 10)
+            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .mileage:
+            lowValue = 0
+            highValue = 200_000
+            unit = "km"
+            rangeBoundsOffsets = (0, 1000)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
+            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .price:
+            lowValue = 0
+            highValue = 250_000
+            unit = "kr"
+            rangeBoundsOffsets = (0, 1000)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 1000)
+            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+        case .engineVolume:
+            lowValue = 50
+            highValue = 1000
+            unit = "ccm"
+            rangeBoundsOffsets = (0, 10)
+            referenceValues = defaultReferenceValuesForRange(withLowValue: lowValue, andHighValue: highValue)
+            steps = calculatedStepsForRange(withLowValue: lowValue, highValue: highValue, rangeBoundsOffsets: rangeBoundsOffsets, incrementedBy: 25)
+            accessibilityValues = (accessibilitySteps: nil, accessibilityValueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         default:
             return nil
         }

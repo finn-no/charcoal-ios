@@ -49,6 +49,10 @@ enum FilterMarket: FilterConfiguration {
     var mapFilterKey: FilterKey? {
         return currentFilterConfig.mapFilterKey
     }
+
+    func createRangeFilterFrom(filterData: FilterData) -> RangeFilterInfoType? {
+        return currentFilterConfig.createRangeFilterFrom(filterData: filterData)
+    }
 }
 
 extension FilterMarket: CaseIterable {

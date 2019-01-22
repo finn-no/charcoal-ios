@@ -25,4 +25,8 @@ extension FilterMarketBoat: FilterConfiguration {
     var mapFilterKey: FilterKey? {
         return .location
     }
+
+    func createRangeFilterFrom(filterData: FilterData) -> RangeFilterInfoType? {
+        return nil
+    }
 }

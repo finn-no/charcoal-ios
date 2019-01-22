@@ -233,6 +233,10 @@ extension ValueSliderView: StepSliderDelegate {
         updateAccesibilityValues()
     }
 
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, canChangeToRoundedStepValue value: StepValueKind) -> Bool {
+        return true
+    }
+
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
         guard let value = value as? ValueKind else {
             return

@@ -49,10 +49,6 @@ private extension FilterInfoBuilder {
         return SearchQueryFilterInfo(parameterName: "q", placeholderText: "Ord i annonsen", title: "Filtrer søket")
     }
 
-    func buildStepperFilterInfo(from filterData: FilterData) -> StepperFilterInfoType {
-        return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
-    }
-
     func buildPreferenceFilterInfo(fromKeys keys: [FilterKey], addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [PreferenceFilterInfoType] {
         let filterDataArray = keys.compactMap { filter.filterData(forKey: $0) }
 
@@ -113,14 +109,9 @@ private extension FilterInfoBuilder {
                 return
             }
 
-            if key == .noOfBedrooms {
-                let stepperFilterInfo = buildStepperFilterInfo(from: filterData)
-                filterInfo.append(stepperFilterInfo)
-            } else if let isRange = filterData.isRange, isRange {
-                let rangeInfoFilterBuilder = RangeFilterInfoBuilder(filter: filter)
-                if let rangeFilterInfo = rangeInfoFilterBuilder.buildRangeFilterInfo(from: filterData) {
-                    filterInfo.append(rangeFilterInfo)
-                }
+            if let isRange = filterData.isRange, isRange {
+                guard let market = FilterMarket(market: filter.market), let rangeFilterInfo = market.createFilterInfoFrom(filterData: filterData) else { return }
+                filterInfo.append(rangeFilterInfo)
             } else if FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterData) {
                 if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(fromFilterData: filterData, isMapFilter: key == mapKey, addValuesTo: &lookup) {
                     filterInfo.append(mulitLevelSelectionFilterInfo)

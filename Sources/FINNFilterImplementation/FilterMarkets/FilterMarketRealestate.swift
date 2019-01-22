@@ -72,13 +72,7 @@ extension FilterMarketRealestate: FilterConfiguration {
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         case .noOfBedrooms:
-            lowValue = 0
-            highValue = 6
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            unit = "soverom"
-            increment = 1
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
         case .area:
             lowValue = 0
             highValue = 400

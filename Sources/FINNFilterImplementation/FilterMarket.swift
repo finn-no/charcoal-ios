@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarket: FilterConfiguration {
+enum FilterMarket {
     case bap(FilterMarketBap)
     case realestate(FilterMarketRealestate)
     case car(FilterMarketCar)
@@ -33,7 +33,11 @@ enum FilterMarket: FilterConfiguration {
             return job
         }
     }
+}
 
+// MARK: - FilterConfiguration
+
+extension FilterMarket: FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }
@@ -54,6 +58,8 @@ enum FilterMarket: FilterConfiguration {
         return currentFilterConfig.createFilterInfoFrom(filterData: filterData)
     }
 }
+
+// MARK: - CaseIterable
 
 extension FilterMarket: CaseIterable {
     static var allCases: [FilterMarket] {

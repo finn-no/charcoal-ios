@@ -9,6 +9,8 @@ enum FilterMarketCar: String, CaseIterable {
     case abroad = "car-abroad"
 }
 
+// MARK: - FilterConfiguration
+
 extension FilterMarketCar: FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical

@@ -11,6 +11,8 @@ enum FilterMarketMC: String, CaseIterable {
     case atv
 }
 
+// MARK: - FilterConfiguration
+
 extension FilterMarketMC: FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical

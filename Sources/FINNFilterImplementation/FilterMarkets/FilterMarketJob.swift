@@ -10,6 +10,8 @@ enum FilterMarketJob: String, CaseIterable {
     case management = "job-management"
 }
 
+// MARK: - FilterConfiguration
+
 extension FilterMarketJob: FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical

@@ -8,6 +8,8 @@ enum FilterMarketRealestate: String, CaseIterable {
     case homes = "realestate-homes"
 }
 
+// MARK: - FilterConfiguration
+
 extension FilterMarketRealestate: FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical

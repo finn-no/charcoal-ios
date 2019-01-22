@@ -8,6 +8,8 @@ enum FilterMarketBoat: String, CaseIterable {
     case bap
 }
 
+// MARK: - FilterConfiguration
+
 extension FilterMarketBoat: FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical || vertical.hasPrefix(rawValue + "-")

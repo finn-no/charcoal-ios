@@ -6,6 +6,7 @@ import UIKit
 
 protocol StepSliderDelegate: AnyObject {
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float)
+    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, canChangeToRoundedStepValue value: StepValueKind) -> Bool
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind)
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind)
 }
@@ -14,6 +15,8 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
     let range: [StepValueKind]
     var generatesHapticFeedbackOnValueChange = true
 
+    private var shouldGenerateFeedbackOnCollision = true
+    private var previousValue: Float = 0
     private var previousRoundedStepValue: StepValueKind?
     weak var delegate: StepSliderDelegate?
     private let valueFormatter: SliderValueFormatter
@@ -123,14 +126,25 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
             return
         }
 
+        guard delegate?.stepSlider(self, canChangeToRoundedStepValue: newValue) ?? true else {
+            value = previousValue
+            if generatesHapticFeedbackOnValueChange && shouldGenerateFeedbackOnCollision {
+                shouldGenerateFeedbackOnCollision = false
+                FeedbackGenerator.generate(.collision)
+            }
+            return
+        }
+
         value = rangeValue(from: newValue) ?? slider.value
+        previousValue = value
+        shouldGenerateFeedbackOnCollision = true
 
         let stepChanged = previousRoundedStepValue != nil && previousRoundedStepValue != newValue
         if previousRoundedStepValue == nil || stepChanged {
             delegate?.stepSlider(self, didChangeRoundedStepValue: newValue)
 
             if generatesHapticFeedbackOnValueChange {
-                generateFeedback()
+                FeedbackGenerator.generate(.selection)
             }
         }
         previousRoundedStepValue = newValue
@@ -189,12 +203,5 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
 
     private func updateAccessibilityValue() {
         accessibilityValue = valueFormatter.accessibilityValue(for: value)
-    }
-
-    private func generateFeedback() {
-        if #available(iOS 10.0, *) {
-            let generator = UISelectionFeedbackGenerator()
-            generator.selectionChanged()
-        }
     }
 }

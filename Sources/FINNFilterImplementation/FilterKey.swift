@@ -7,7 +7,8 @@ import Foundation
 public enum FilterKey: String, CodingKey {
     case query = "q"
 
-    // bap
+    // MARK: - bap
+
     case published
     case location
     case segment
@@ -16,18 +17,22 @@ public enum FilterKey: String, CodingKey {
     case category
     case price
 
-    // car
-    case markets
+    // MARK: - Shared: car, mc
+
     case make
-    case dealerSegment = "dealer_segment"
-    case salesForm = "sales_form"
     case year
     case mileage
+    case engineEffect = "engine_effect"
+    case dealerSegment = "dealer_segment"
+
+    // MARK: - car
+
+    case markets
+    case salesForm = "sales_form"
     case priceChanged = "price_changed"
     case bodyType = "body_type"
     case engineFuel = "engine_fuel"
     case exteriorColour = "exterior_colour"
-    case engineEffect = "engine_effect"
     case numberOfSeats = "number_of_seats"
     case wheelDrive = "wheel_drive"
     case transmission
@@ -36,7 +41,12 @@ public enum FilterKey: String, CodingKey {
     case warrantyInsurance = "warranty_insurance"
     case registrationClass = "registration_class"
 
-    // realestate
+    // MARK: - mc
+
+    case engineVolume = "engine_volume"
+
+    // MARK: - realestate
+
     case noOfBedrooms = "no_of_bedrooms"
     case area
     case plotArea = "plot_area"

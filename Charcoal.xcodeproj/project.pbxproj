@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		088C091521F5E09900983132 /* mc.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091421F5E09900983132 /* mc.json */; };
+		088C091721F5E5EE00983132 /* moped-scooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091621F5E5EE00983132 /* moped-scooter.json */; };
+		088C091921F5E63800983132 /* snowmobile.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091821F5E63800983132 /* snowmobile.json */; };
+		088C091B21F5E67900983132 /* atv.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091A21F5E67900983132 /* atv.json */; };
 		088C090F21F5C3AA00983132 /* job-full-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C090E21F5C3AA00983132 /* job-full-time.json */; };
 		088C091121F5CE4200983132 /* job-part-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091021F5CE4200983132 /* job-part-time.json */; };
 		088C091321F5CE4C00983132 /* job-management.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091221F5CE4C00983132 /* job-management.json */; };
@@ -201,6 +205,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		088C091421F5E09900983132 /* mc.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mc.json; sourceTree = "<group>"; };
+		088C091621F5E5EE00983132 /* moped-scooter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "moped-scooter.json"; sourceTree = "<group>"; };
+		088C091821F5E63800983132 /* snowmobile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snowmobile.json; sourceTree = "<group>"; };
+		088C091A21F5E67900983132 /* atv.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = atv.json; sourceTree = "<group>"; };
 		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
 		088C091021F5CE4200983132 /* job-part-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-part-time.json"; sourceTree = "<group>"; };
 		088C091221F5CE4C00983132 /* job-management.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-management.json"; sourceTree = "<group>"; };
@@ -623,6 +631,10 @@
 				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
 				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
+				088C091421F5E09900983132 /* mc.json */,
+				088C091621F5E5EE00983132 /* moped-scooter.json */,
+				088C091821F5E63800983132 /* snowmobile.json */,
+				088C091A21F5E67900983132 /* atv.json */,
 				088C090E21F5C3AA00983132 /* job-full-time.json */,
 				088C091021F5CE4200983132 /* job-part-time.json */,
 				088C091221F5CE4C00983132 /* job-management.json */,
@@ -1048,12 +1060,16 @@
 				55BDA77520DCCD8E00331FFC /* realestate-homes.json in Resources */,
 				088C090F21F5C3AA00983132 /* job-full-time.json in Resources */,
 				44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */,
+				088C091921F5E63800983132 /* snowmobile.json in Resources */,
+				088C091721F5E5EE00983132 /* moped-scooter.json in Resources */,
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
 				55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */,
 				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
 				9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */,
+				088C091B21F5E67900983132 /* atv.json in Resources */,
 				088C091121F5CE4200983132 /* job-part-time.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
+				088C091521F5E09900983132 /* mc.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,348 @@
+{
+    "market": "snowmobile",
+    "hits": 1924,
+    "label": "Snøscooter",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "make",
+        "price",
+        "year",
+        "mileage",
+        "engine_effect",
+        "engine_volume",
+        "dealer_segment"
+    ],
+    "filter-data": {
+        "mileage": {
+            "title": "Kilometerstand",
+            "range": true,
+            "name": "mileage"
+        },
+        "engine_effect": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "engine_effect"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year",
+            "queries": [
+                {
+                    "title": "1900-1989",
+                    "value": "1900-1989",
+                    "total-results": 16
+                },
+                {
+                    "title": "1990-2008",
+                    "value": "1990-2008",
+                    "total-results": 223
+                },
+                {
+                    "title": "2009-2012",
+                    "value": "2009-2012",
+                    "total-results": 204
+                },
+                {
+                    "title": "2013-2015",
+                    "value": "2013-2015",
+                    "total-results": 269
+                },
+                {
+                    "title": "2016-2018",
+                    "value": "2016-2018",
+                    "total-results": 674
+                },
+                {
+                    "title": "2019-2019",
+                    "value": "2019-2019",
+                    "total-results": 538
+                }
+            ]
+        },
+        "category": {
+            "title": "Type",
+            "name": "category",
+            "queries": [
+                {
+                    "title": "Snøscooter",
+                    "value": "10",
+                    "total-results": 1910
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Kjøretøyet står i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 20
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "20010",
+                    "total-results": 66
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "20007",
+                    "total-results": 122
+                },
+                {
+                    "title": "Finnmark",
+                    "value": "20020",
+                    "total-results": 445
+                },
+                {
+                    "title": "Hedmark",
+                    "value": "20005",
+                    "total-results": 119
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "20013",
+                    "total-results": 16
+                },
+                {
+                    "title": "Møre og Romsdal",
+                    "value": "20015",
+                    "total-results": 45
+                },
+                {
+                    "title": "Nordland",
+                    "value": "20018",
+                    "total-results": 167
+                },
+                {
+                    "title": "Oppland",
+                    "value": "20006",
+                    "total-results": 56
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "20012",
+                    "total-results": 6
+                },
+                {
+                    "title": "Sogn og Fjordane",
+                    "value": "20014",
+                    "total-results": 10
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 162
+                },
+                {
+                    "title": "Troms",
+                    "value": "20019",
+                    "total-results": 337
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "20016",
+                    "total-results": 313
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "20008",
+                    "total-results": 5
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "20011",
+                    "total-results": 32
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 3
+                }
+            ]
+        },
+        "engine_volume": {
+            "title": "Slagvolum",
+            "range": true,
+            "name": "engine_volume",
+            "queries": [
+                {
+                    "title": "51-125",
+                    "value": "51-125",
+                    "total-results": 20
+                },
+                {
+                    "title": "126-250",
+                    "value": "126-250",
+                    "total-results": 24
+                },
+                {
+                    "title": "251-599",
+                    "value": "251-599",
+                    "total-results": 225
+                },
+                {
+                    "title": "600-1000",
+                    "value": "600-1000",
+                    "total-results": 1125
+                },
+                {
+                    "title": "1001-",
+                    "value": "1001-null",
+                    "total-results": 135
+                }
+            ]
+        },
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price",
+            "queries": [
+                {
+                    "title": "0-25000",
+                    "value": "0-25000",
+                    "total-results": 207
+                },
+                {
+                    "title": "25001-50000",
+                    "value": "25001-50000",
+                    "total-results": 236
+                },
+                {
+                    "title": "50001-100000",
+                    "value": "50001-100000",
+                    "total-results": 568
+                },
+                {
+                    "title": "100001-250000",
+                    "value": "100001-250000",
+                    "total-results": 910
+                },
+                {
+                    "title": "250001-",
+                    "value": "250001-null",
+                    "total-results": 3
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Forhandler",
+                    "value": "0",
+                    "total-results": 1368
+                },
+                {
+                    "title": "Privat",
+                    "value": "1",
+                    "total-results": 556
+                }
+            ]
+        },
+        "segment": {
+            "title": "Tilstand",
+            "name": "segment",
+            "queries": [
+                {
+                    "title": "Brukt MC",
+                    "value": "21",
+                    "total-results": 1924
+                }
+            ]
+        },
+        "make": {
+            "title": "Merke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "Alpina",
+                    "value": "1542",
+                    "total-results": 2
+                },
+                {
+                    "title": "Andre",
+                    "value": "2045",
+                    "total-results": 69
+                },
+                {
+                    "title": "Arctic-cat",
+                    "value": "7917",
+                    "total-results": 343
+                },
+                {
+                    "title": "Honda",
+                    "value": "1487",
+                    "total-results": 1
+                },
+                {
+                    "title": "Lynx",
+                    "value": "7920",
+                    "total-results": 348
+                },
+                {
+                    "title": "Ockelbo",
+                    "value": "7921",
+                    "total-results": 3
+                },
+                {
+                    "title": "Polaris",
+                    "value": "7922",
+                    "total-results": 489
+                },
+                {
+                    "title": "Skandic",
+                    "value": "7925",
+                    "total-results": 2
+                },
+                {
+                    "title": "Ski-doo",
+                    "value": "7926",
+                    "total-results": 332
+                },
+                {
+                    "title": "Taotao",
+                    "value": "8330",
+                    "total-results": 1
+                },
+                {
+                    "title": "Yamaha",
+                    "value": "1502",
+                    "total-results": 325
+                },
+                {
+                    "title": "4W-Moto",
+                    "value": "8000",
+                    "total-results": 7
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 76
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

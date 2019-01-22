@@ -18,6 +18,7 @@ extension FilterMarketTests {
         case .bap(.bap),
              .realestate(.homes),
              .car(.norway), .car(.abroad),
+             .mc(.mc), .mc(.mopedScooter), .mc(.snowmobile), .mc(.atv),
              .job(.fullTime), .job(.partTime), .job(.management):
             break
         }

@@ -1,0 +1,589 @@
+{
+    "market": "moped-scooter",
+    "hits": 1175,
+    "label": "Scooter og moped",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "category",
+        "make",
+        "price",
+        "year",
+        "mileage",
+        "engine_effect",
+        "engine_volume",
+        "dealer_segment"
+    ],
+    "filter-data": {
+        "mileage": {
+            "title": "Kilometerstand",
+            "range": true,
+            "name": "mileage"
+        },
+        "engine_effect": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "engine_effect"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year",
+            "queries": [
+                {
+                    "title": "1900-1989",
+                    "value": "1900-1989",
+                    "total-results": 43
+                },
+                {
+                    "title": "1990-2008",
+                    "value": "1990-2008",
+                    "total-results": 128
+                },
+                {
+                    "title": "2009-2012",
+                    "value": "2009-2012",
+                    "total-results": 131
+                },
+                {
+                    "title": "2013-2015",
+                    "value": "2013-2015",
+                    "total-results": 155
+                },
+                {
+                    "title": "2016-2018",
+                    "value": "2016-2018",
+                    "total-results": 640
+                },
+                {
+                    "title": "2019-2019",
+                    "value": "2019-2019",
+                    "total-results": 77
+                }
+            ]
+        },
+        "category": {
+            "title": "Type",
+            "name": "category",
+            "queries": [
+                {
+                    "title": "Moped",
+                    "value": "6",
+                    "total-results": 539
+                },
+                {
+                    "title": "Scooter",
+                    "value": "8",
+                    "total-results": 635
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Kjøretøyet står i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 96
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "20010",
+                    "total-results": 52
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "20007",
+                    "total-results": 37
+                },
+                {
+                    "title": "Finnmark",
+                    "value": "20020",
+                    "total-results": 7
+                },
+                {
+                    "title": "Hedmark",
+                    "value": "20005",
+                    "total-results": 30
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "20013",
+                    "total-results": 124
+                },
+                {
+                    "title": "Møre og Romsdal",
+                    "value": "20015",
+                    "total-results": 50
+                },
+                {
+                    "title": "Nordland",
+                    "value": "20018",
+                    "total-results": 11
+                },
+                {
+                    "title": "Oppland",
+                    "value": "20006",
+                    "total-results": 26
+                },
+                {
+                    "title": "Oslo",
+                    "value": "20061",
+                    "total-results": 56
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "20012",
+                    "total-results": 94
+                },
+                {
+                    "title": "Sogn og Fjordane",
+                    "value": "20014",
+                    "total-results": 14
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 63
+                },
+                {
+                    "title": "Troms",
+                    "value": "20019",
+                    "total-results": 14
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "20016",
+                    "total-results": 127
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "20008",
+                    "total-results": 80
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "20011",
+                    "total-results": 81
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 159
+                }
+            ]
+        },
+        "engine_volume": {
+            "title": "Slagvolum",
+            "range": true,
+            "name": "engine_volume",
+            "queries": [
+                {
+                    "title": "0-50",
+                    "value": "0-50",
+                    "total-results": 873
+                },
+                {
+                    "title": "51-125",
+                    "value": "51-125",
+                    "total-results": 37
+                },
+                {
+                    "title": "126-250",
+                    "value": "126-250",
+                    "total-results": 8
+                },
+                {
+                    "title": "251-599",
+                    "value": "251-599",
+                    "total-results": 97
+                },
+                {
+                    "title": "1001-",
+                    "value": "1001-null",
+                    "total-results": 2
+                }
+            ]
+        },
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price",
+            "queries": [
+                {
+                    "title": "0-25000",
+                    "value": "0-25000",
+                    "total-results": 834
+                },
+                {
+                    "title": "25001-50000",
+                    "value": "25001-50000",
+                    "total-results": 227
+                },
+                {
+                    "title": "50001-100000",
+                    "value": "50001-100000",
+                    "total-results": 26
+                },
+                {
+                    "title": "100001-250000",
+                    "value": "100001-250000",
+                    "total-results": 87
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Forhandler",
+                    "value": "0",
+                    "total-results": 686
+                },
+                {
+                    "title": "Privat",
+                    "value": "1",
+                    "total-results": 489
+                }
+            ]
+        },
+        "segment": {
+            "title": "Tilstand",
+            "name": "segment",
+            "queries": [
+                {
+                    "title": "Brukt MC",
+                    "value": "21",
+                    "total-results": 791
+                },
+                {
+                    "title": "Ny MC",
+                    "value": "23",
+                    "total-results": 384
+                }
+            ]
+        },
+        "make": {
+            "title": "Merke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "Access",
+                    "value": "8162",
+                    "total-results": 1
+                },
+                {
+                    "title": "Aeon",
+                    "value": "8197",
+                    "total-results": 3
+                },
+                {
+                    "title": "Aixam",
+                    "value": "8257",
+                    "total-results": 25
+                },
+                {
+                    "title": "Andre",
+                    "value": "2045",
+                    "total-results": 99
+                },
+                {
+                    "title": "Aprilia",
+                    "value": "2998",
+                    "total-results": 43
+                },
+                {
+                    "title": "Baotian",
+                    "value": "1546",
+                    "total-results": 8
+                },
+                {
+                    "title": "Beta",
+                    "value": "8254",
+                    "total-results": 9
+                },
+                {
+                    "title": "BMW",
+                    "value": "1481",
+                    "total-results": 1
+                },
+                {
+                    "title": "Can-Am",
+                    "value": "8245",
+                    "total-results": 1
+                },
+                {
+                    "title": "Chatenet",
+                    "value": "8355",
+                    "total-results": 11
+                },
+                {
+                    "title": "CPI",
+                    "value": "7913",
+                    "total-results": 7
+                },
+                {
+                    "title": "Crescent",
+                    "value": "8376",
+                    "total-results": 1
+                },
+                {
+                    "title": "Daelim",
+                    "value": "7914",
+                    "total-results": 2
+                },
+                {
+                    "title": "Derbi",
+                    "value": "7906",
+                    "total-results": 75
+                },
+                {
+                    "title": "Dinli",
+                    "value": "1530",
+                    "total-results": 1
+                },
+                {
+                    "title": "Di Blasi",
+                    "value": "8348",
+                    "total-results": 1
+                },
+                {
+                    "title": "Euroscooter",
+                    "value": "7927",
+                    "total-results": 1
+                },
+                {
+                    "title": "E-ton",
+                    "value": "1536",
+                    "total-results": 1
+                },
+                {
+                    "title": "Fantic",
+                    "value": "1522",
+                    "total-results": 2
+                },
+                {
+                    "title": "Garelli",
+                    "value": "8374",
+                    "total-results": 9
+                },
+                {
+                    "title": "Generic",
+                    "value": "8307",
+                    "total-results": 2
+                },
+                {
+                    "title": "Gilera",
+                    "value": "7354",
+                    "total-results": 11
+                },
+                {
+                    "title": "Harley-Davidson",
+                    "value": "1486",
+                    "total-results": 1
+                },
+                {
+                    "title": "Honda",
+                    "value": "1487",
+                    "total-results": 38
+                },
+                {
+                    "title": "Italjet",
+                    "value": "8369",
+                    "total-results": 5
+                },
+                {
+                    "title": "Keeway",
+                    "value": "8136",
+                    "total-results": 21
+                },
+                {
+                    "title": "KTM",
+                    "value": "7771",
+                    "total-results": 1
+                },
+                {
+                    "title": "Kymco",
+                    "value": "7363",
+                    "total-results": 24
+                },
+                {
+                    "title": "Lambretta",
+                    "value": "8360",
+                    "total-results": 1
+                },
+                {
+                    "title": "Ligier",
+                    "value": "8331",
+                    "total-results": 29
+                },
+                {
+                    "title": "Mancini",
+                    "value": "8250",
+                    "total-results": 17
+                },
+                {
+                    "title": "MGB",
+                    "value": "8359",
+                    "total-results": 10
+                },
+                {
+                    "title": "Microcar",
+                    "value": "8370",
+                    "total-results": 24
+                },
+                {
+                    "title": "Motorhispania",
+                    "value": "7905",
+                    "total-results": 9
+                },
+                {
+                    "title": "Peugeot",
+                    "value": "1494",
+                    "total-results": 170
+                },
+                {
+                    "title": "Pgo",
+                    "value": "8138",
+                    "total-results": 4
+                },
+                {
+                    "title": "Piaggio",
+                    "value": "1495",
+                    "total-results": 37
+                },
+                {
+                    "title": "Puch",
+                    "value": "8347",
+                    "total-results": 4
+                },
+                {
+                    "title": "QINGQI",
+                    "value": "8236",
+                    "total-results": 1
+                },
+                {
+                    "title": "Rieju",
+                    "value": "7912",
+                    "total-results": 34
+                },
+                {
+                    "title": "Sachs",
+                    "value": "8258",
+                    "total-results": 13
+                },
+                {
+                    "title": "Sherco",
+                    "value": "8255",
+                    "total-results": 4
+                },
+                {
+                    "title": "Simson",
+                    "value": "7910",
+                    "total-results": 1
+                },
+                {
+                    "title": "Skyteam",
+                    "value": "8346",
+                    "total-results": 11
+                },
+                {
+                    "title": "SMC",
+                    "value": "8242",
+                    "total-results": 43
+                },
+                {
+                    "title": "Suzuki",
+                    "value": "1497",
+                    "total-results": 24
+                },
+                {
+                    "title": "SYM",
+                    "value": "7915",
+                    "total-results": 24
+                },
+                {
+                    "title": "Taotao",
+                    "value": "8330",
+                    "total-results": 1
+                },
+                {
+                    "title": "Tempo",
+                    "value": "4330",
+                    "total-results": 21
+                },
+                {
+                    "title": "TGB",
+                    "value": "8205",
+                    "total-results": 17
+                },
+                {
+                    "title": "Tms",
+                    "value": "1548",
+                    "total-results": 2
+                },
+                {
+                    "title": "Tomos",
+                    "value": "8235",
+                    "total-results": 1
+                },
+                {
+                    "title": "Vespa",
+                    "value": "7901",
+                    "total-results": 115
+                },
+                {
+                    "title": "Viarelli",
+                    "value": "8366",
+                    "total-results": 34
+                },
+                {
+                    "title": "XWAY",
+                    "value": "8354",
+                    "total-results": 5
+                },
+                {
+                    "title": "Yamaha",
+                    "value": "1502",
+                    "total-results": 111
+                },
+                {
+                    "title": "Zundapp",
+                    "value": "7911",
+                    "total-results": 1
+                },
+                {
+                    "title": "4W-Moto",
+                    "value": "8000",
+                    "total-results": 2
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 22
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

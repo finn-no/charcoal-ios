@@ -15,13 +15,13 @@
 		08716B3321F73D92003180D8 /* FilterMarketBap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3221F73D92003180D8 /* FilterMarketBap.swift */; };
 		08716B3521F73DDE003180D8 /* FilterMarketBoat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */; };
 		08716B3721F76424003180D8 /* FilterKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3621F76424003180D8 /* FilterKey.swift */; };
+		088C090F21F5C3AA00983132 /* job-full-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C090E21F5C3AA00983132 /* job-full-time.json */; };
+		088C091121F5CE4200983132 /* job-part-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091021F5CE4200983132 /* job-part-time.json */; };
+		088C091321F5CE4C00983132 /* job-management.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091221F5CE4C00983132 /* job-management.json */; };
 		088C091521F5E09900983132 /* mc.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091421F5E09900983132 /* mc.json */; };
 		088C091721F5E5EE00983132 /* moped-scooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091621F5E5EE00983132 /* moped-scooter.json */; };
 		088C091921F5E63800983132 /* snowmobile.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091821F5E63800983132 /* snowmobile.json */; };
 		088C091B21F5E67900983132 /* atv.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091A21F5E67900983132 /* atv.json */; };
-		088C090F21F5C3AA00983132 /* job-full-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C090E21F5C3AA00983132 /* job-full-time.json */; };
-		088C091121F5CE4200983132 /* job-part-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091021F5CE4200983132 /* job-part-time.json */; };
-		088C091321F5CE4C00983132 /* job-management.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091221F5CE4C00983132 /* job-management.json */; };
 		44ECE663208F7FA20017AC82 /* Charcoal.h in Headers */ = {isa = PBXBuildFile; fileRef = 44ECE661208F7FA20017AC82 /* Charcoal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE66D208F7FD00017AC82 /* AppDelegate.swift */; };
 		44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE674208F7FD20017AC82 /* Assets.xcassets */; };
@@ -83,7 +83,6 @@
 		55BDA76820DB9A7300331FFC /* RangeFilterBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76720DB9A7300331FFC /* RangeFilterBuilderTests.swift */; };
 		55BDA76B20DB9B3800331FFC /* RangeFilterBuilderTestsFilter.json in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA76A20DB9B3800331FFC /* RangeFilterBuilderTestsFilter.json */; };
 		55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76E20DBC46800331FFC /* FilterMarket.swift */; };
-		55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA77020DBD99600331FFC /* RangeFilterInfoBuilder.swift */; };
 		55BDA77320DBD99600331FFC /* ParameterBasedFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA77120DBD99600331FFC /* ParameterBasedFilterInfo.swift */; };
 		55BDA77520DCCD8E00331FFC /* realestate-homes.json in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA77420DCCD8E00331FFC /* realestate-homes.json */; };
 		55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9CC232097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift */; };
@@ -219,13 +218,13 @@
 		08716B3221F73D92003180D8 /* FilterMarketBap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBap.swift; sourceTree = "<group>"; };
 		08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBoat.swift; sourceTree = "<group>"; };
 		08716B3621F76424003180D8 /* FilterKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterKey.swift; sourceTree = "<group>"; };
+		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
+		088C091021F5CE4200983132 /* job-part-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-part-time.json"; sourceTree = "<group>"; };
+		088C091221F5CE4C00983132 /* job-management.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-management.json"; sourceTree = "<group>"; };
 		088C091421F5E09900983132 /* mc.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mc.json; sourceTree = "<group>"; };
 		088C091621F5E5EE00983132 /* moped-scooter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "moped-scooter.json"; sourceTree = "<group>"; };
 		088C091821F5E63800983132 /* snowmobile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snowmobile.json; sourceTree = "<group>"; };
 		088C091A21F5E67900983132 /* atv.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = atv.json; sourceTree = "<group>"; };
-		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
-		088C091021F5CE4200983132 /* job-part-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-part-time.json"; sourceTree = "<group>"; };
-		088C091221F5CE4C00983132 /* job-management.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-management.json"; sourceTree = "<group>"; };
 		44ECE65F208F7FA20017AC82 /* Charcoal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charcoal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44ECE661208F7FA20017AC82 /* Charcoal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Charcoal.h; sourceTree = "<group>"; };
 		44ECE662208F7FA20017AC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -287,7 +286,6 @@
 		55BDA76720DB9A7300331FFC /* RangeFilterBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterBuilderTests.swift; sourceTree = "<group>"; };
 		55BDA76A20DB9B3800331FFC /* RangeFilterBuilderTestsFilter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RangeFilterBuilderTestsFilter.json; sourceTree = "<group>"; };
 		55BDA76E20DBC46800331FFC /* FilterMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarket.swift; sourceTree = "<group>"; };
-		55BDA77020DBD99600331FFC /* RangeFilterInfoBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterInfoBuilder.swift; sourceTree = "<group>"; };
 		55BDA77120DBD99600331FFC /* ParameterBasedFilterInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterBasedFilterInfo.swift; sourceTree = "<group>"; };
 		55BDA77420DCCD8E00331FFC /* realestate-homes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-homes.json"; sourceTree = "<group>"; };
 		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
@@ -670,7 +668,6 @@
 		559C61F220DA4C3B0083A574 /* FilterBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				55BDA77020DBD99600331FFC /* RangeFilterInfoBuilder.swift */,
 				5598F21020C0163B00E148E0 /* FilterInfoBuilder.swift */,
 			);
 			path = FilterBuilder;
@@ -1257,7 +1254,6 @@
 				9BB827A4216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift in Sources */,
 				08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */,
 				46F642542199C83B00C1D864 /* SelectionWithTitle.swift in Sources */,
-				55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */,
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,
 				9BB827AF216CD0610014028C /* MultiLevelListSelectionFilterInfoType.swift in Sources */,
 				9B5A66F4219EF263005C9118 /* FilterValue.swift in Sources */,

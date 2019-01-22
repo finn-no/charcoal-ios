@@ -21,7 +21,7 @@ final class FeedbackGenerator {
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.error)
             case .collision:
-                let generator = UIImpactFeedbackGenerator(style: .light)
+                let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
             }
         }

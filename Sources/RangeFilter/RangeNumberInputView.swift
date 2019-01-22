@@ -111,6 +111,7 @@ final class RangeNumberInputView: UIControl {
     private let lowValueInputDecorationViewConstraintIdentifier = "lowValueInputDecorationViewConstraintIdentifier"
     private let highValueInputDecorationViewConstraintIdentifier = "highValueInputDecorationViewConstraintIdentifier"
     private var inputValues = [InputGroup: RangeValue]()
+    private var inputValidationStatus = [InputGroup: Bool]()
 
     typealias RangeValue = Int
 
@@ -184,7 +185,7 @@ extension RangeNumberInputView: RangeControl {
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
         let valueText = text(from: value)
-        updateTextColor(for: .lowValue, isValid: true)
+        updateValidationStatus(for: .lowValue, isValid: true)
         lowValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.lowValue] = value
@@ -192,7 +193,7 @@ extension RangeNumberInputView: RangeControl {
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
         let valueText = text(from: value)
-        updateTextColor(for: .highValue, isValid: true)
+        updateValidationStatus(for: .highValue, isValid: true)
         highValueInputTextField.text = valueText
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.highValue] = value
@@ -226,16 +227,16 @@ extension RangeNumberInputView: RangeControl {
     private func updateInputValues() {
         if let lowValue = lowValue {
             lowValueInputTextField.text = text(from: lowValue)
-            updateTextColor(for: .lowValue, isValid: true)
+            updateValidationStatus(for: .lowValue, isValid: true)
         }
 
         if let highValue = highValue {
             highValueInputTextField.text = text(from: highValue)
-            updateTextColor(for: .highValue, isValid: true)
+            updateValidationStatus(for: .highValue, isValid: true)
         }
     }
 
-    private func updateTextColor(for inputGroup: InputGroup, isValid: Bool) {
+    private func updateValidationStatus(for inputGroup: InputGroup, isValid: Bool) {
         let textColor = isValid ? Style.textColor : Style.errorTextColor
 
         switch inputGroup {
@@ -246,6 +247,8 @@ extension RangeNumberInputView: RangeControl {
             highValueInputTextField.textColor = textColor
             highValueInputUnitLabel.textColor = textColor
         }
+
+        inputValidationStatus[inputGroup] = isValid
     }
 }
 
@@ -297,14 +300,15 @@ extension RangeNumberInputView: UITextFieldDelegate {
         textField.accessibilityValue = "\(newValue) \(accessibilityValueSuffix ?? "")"
 
         let validatedValue = validValue(for: inputGroup, newValue: newValue)
-        let isValid = validatedValue == newValue
+        let isNewValueValid = validatedValue == newValue
+        let isCurrentValueValid = inputValidationStatus[inputGroup] ?? true
 
-        inputValues[inputGroup] = validatedValue
-        updateTextColor(for: inputGroup, isValid: isValid)
-
-        if !isValid && generatesHapticFeedbackOnValueChange {
+        if !isNewValueValid && isCurrentValueValid && generatesHapticFeedbackOnValueChange {
             FeedbackGenerator.generate(.error)
         }
+
+        inputValues[inputGroup] = validatedValue
+        updateValidationStatus(for: inputGroup, isValid: isNewValueValid)
 
         return false
     }

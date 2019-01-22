@@ -127,7 +127,7 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
 
         guard delegate?.stepSlider(self, canChangeToRoundedStepValue: newValue) ?? true else {
             value = previousValue
-            if generatesHapticFeedbackOnValueChange {
+            if generatesHapticFeedbackOnValueChange && slideEnded {
                 FeedbackGenerator.generate(.collision)
             }
             return

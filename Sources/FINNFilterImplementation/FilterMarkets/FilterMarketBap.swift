@@ -29,7 +29,7 @@ extension FilterMarketBap: FilterConfiguration {
         return .location
     }
 
-    func createRangeFilterFrom(filterData: FilterData) -> RangeFilterInfoType? {
+    func createFilterInfoFrom(filterData: FilterData) -> FilterInfoType? {
         let parameterName = filterData.parameterName
         let name = filterData.title
         let lowValue: Int

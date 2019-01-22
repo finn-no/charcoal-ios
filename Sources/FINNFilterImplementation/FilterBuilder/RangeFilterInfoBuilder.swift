@@ -11,11 +11,11 @@ public final class RangeFilterInfoBuilder {
         self.filter = filter
     }
 
-    func buildRangeFilterInfo(from filterData: FilterData) -> RangeFilterInfoType? {
+    func buildRangeFilterInfo(from filterData: FilterData) -> FilterInfoType? {
         guard let market = FilterMarket(market: filter.market) else {
             return nil
         }
 
-        return market.createRangeFilterFrom(filterData: filterData)
+        return market.createFilterInfoFrom(filterData: filterData)
     }
 }

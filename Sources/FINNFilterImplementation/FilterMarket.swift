@@ -50,8 +50,8 @@ enum FilterMarket: FilterConfiguration {
         return currentFilterConfig.mapFilterKey
     }
 
-    func createRangeFilterFrom(filterData: FilterData) -> RangeFilterInfoType? {
-        return currentFilterConfig.createRangeFilterFrom(filterData: filterData)
+    func createFilterInfoFrom(filterData: FilterData) -> FilterInfoType? {
+        return currentFilterConfig.createFilterInfoFrom(filterData: filterData)
     }
 }
 

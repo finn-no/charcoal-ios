@@ -4,13 +4,6 @@
 
 import Foundation
 
-protocol FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool
-    var preferenceFilterKeys: [FilterKey] { get }
-    var supportedFiltersKeys: [FilterKey] { get }
-    var mapFilterKey: FilterKey? { get }
-}
-
 enum FilterMarket: FilterConfiguration {
     case bap(FilterMarketBap)
     case realestate(FilterMarketRealestate)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		08716B2921F73B0B003180D8 /* FilterMarketMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2821F73B0B003180D8 /* FilterMarketMC.swift */; };
 		08716B2B21F73B7A003180D8 /* FilterMarketCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2A21F73B7A003180D8 /* FilterMarketCar.swift */; };
+		08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2C21F73C1E003180D8 /* FilterConfiguration.swift */; };
 		08716B2F21F73C87003180D8 /* FilterMarketJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2E21F73C87003180D8 /* FilterMarketJob.swift */; };
 		08716B3121F73D2D003180D8 /* FilterMarketRealestate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3021F73D2D003180D8 /* FilterMarketRealestate.swift */; };
 		08716B3321F73D92003180D8 /* FilterMarketBap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3221F73D92003180D8 /* FilterMarketBap.swift */; };
@@ -212,6 +213,7 @@
 /* Begin PBXFileReference section */
 		08716B2821F73B0B003180D8 /* FilterMarketMC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketMC.swift; sourceTree = "<group>"; };
 		08716B2A21F73B7A003180D8 /* FilterMarketCar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketCar.swift; sourceTree = "<group>"; };
+		08716B2C21F73C1E003180D8 /* FilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterConfiguration.swift; sourceTree = "<group>"; };
 		08716B2E21F73C87003180D8 /* FilterMarketJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketJob.swift; sourceTree = "<group>"; };
 		08716B3021F73D2D003180D8 /* FilterMarketRealestate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketRealestate.swift; sourceTree = "<group>"; };
 		08716B3221F73D92003180D8 /* FilterMarketBap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBap.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 		08716B2721F73AD2003180D8 /* FilterMarkets */ = {
 			isa = PBXGroup;
 			children = (
+				08716B2C21F73C1E003180D8 /* FilterConfiguration.swift */,
 				08716B2821F73B0B003180D8 /* FilterMarketMC.swift */,
 				08716B2A21F73B7A003180D8 /* FilterMarketCar.swift */,
 				08716B2E21F73C87003180D8 /* FilterMarketJob.swift */,
@@ -1252,6 +1255,7 @@
 				CFFD9F9421F21B0900997D14 /* FilterViewController.swift in Sources */,
 				559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */,
 				9BB827A4216C9CA40014028C /* MultiLevelListSelectionFilterInfo.swift in Sources */,
+				08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */,
 				46F642542199C83B00C1D864 /* SelectionWithTitle.swift in Sources */,
 				55BDA77220DBD99600331FFC /* RangeFilterInfoBuilder.swift in Sources */,
 				5525324020A2D9B2000CBD21 /* Navigator.swift in Sources */,

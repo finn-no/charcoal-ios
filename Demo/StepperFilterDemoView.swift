@@ -23,7 +23,11 @@ class StepperFilterDemoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(stepperFilterView)
-        stepperFilterView.fillInSuperview()
+        NSLayoutConstraint.activate([
+            stepperFilterView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stepperFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stepperFilterView.bottomAnchor.constraint(equalTo: topAnchor, constant: 510 / 2),
+        ])
     }
 
     required init?(coder aDecoder: NSCoder) {

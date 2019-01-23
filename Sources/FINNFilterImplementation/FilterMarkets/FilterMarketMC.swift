@@ -68,9 +68,9 @@ extension FilterMarketMC: FilterConfiguration {
         return .location
     }
 
-    func createFilterInfoFrom(filterData: FilterData) -> FilterInfoType? {
-        let parameterName = filterData.parameterName
-        let name = filterData.title
+    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
+        let parameterName = rangeFilterData.parameterName
+        let name = rangeFilterData.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -79,7 +79,7 @@ extension FilterMarketMC: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: filterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
             return nil
         }
         switch filterKey {

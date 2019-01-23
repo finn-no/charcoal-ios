@@ -48,7 +48,7 @@ extension FilterMarketJob: FilterConfiguration {
         return .location
     }
 
-    func createFilterInfoFrom(filterData: FilterData) -> FilterInfoType? {
+    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
         return nil
     }
 }

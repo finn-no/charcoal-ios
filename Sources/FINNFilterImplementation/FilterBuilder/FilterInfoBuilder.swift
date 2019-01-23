@@ -110,7 +110,7 @@ private extension FilterInfoBuilder {
             }
 
             if let isRange = filterData.isRange, isRange {
-                guard let market = FilterMarket(market: filter.market), let rangeFilterInfo = market.createFilterInfoFrom(filterData: filterData) else { return }
+                guard let market = FilterMarket(market: filter.market), let rangeFilterInfo = market.createFilterInfoFrom(rangeFilterData: filterData) else { return }
                 filterInfo.append(rangeFilterInfo)
             } else if FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterData) {
                 if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(fromFilterData: filterData, isMapFilter: key == mapKey, addValuesTo: &lookup) {

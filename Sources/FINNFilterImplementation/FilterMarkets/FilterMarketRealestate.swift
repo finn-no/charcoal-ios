@@ -42,9 +42,9 @@ extension FilterMarketRealestate: FilterConfiguration {
         return .location
     }
 
-    func createFilterInfoFrom(filterData: FilterData) -> FilterInfoType? {
-        let parameterName = filterData.parameterName
-        let name = filterData.title
+    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
+        let parameterName = rangeFilterData.parameterName
+        let name = rangeFilterData.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -53,7 +53,7 @@ extension FilterMarketRealestate: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: filterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
             return nil
         }
         switch filterKey {
@@ -74,7 +74,7 @@ extension FilterMarketRealestate: FilterConfiguration {
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         case .noOfBedrooms:
-            return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: filterData.title, parameterName: filterData.parameterName)
+            return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: rangeFilterData.title, parameterName: rangeFilterData.parameterName)
         case .area:
             lowValue = 0
             highValue = 400

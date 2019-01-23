@@ -54,8 +54,8 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.mapFilterKey
     }
 
-    func createFilterInfoFrom(filterData: FilterData) -> FilterInfoType? {
-        return currentFilterConfig.createFilterInfoFrom(filterData: filterData)
+    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
+        return currentFilterConfig.createFilterInfoFrom(rangeFilterData: rangeFilterData)
     }
 }
 

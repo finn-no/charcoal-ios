@@ -41,7 +41,7 @@ public class MapFilterViewController: FilterViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        showApplyButton(true)
+        showApplyButton(true, animated: false)
     }
 
     private func setup() {

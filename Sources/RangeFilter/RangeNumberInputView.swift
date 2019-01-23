@@ -26,6 +26,7 @@ final class RangeNumberInputView: UIView {
     private lazy var lowValueInputUnitLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = Style.textColor
         label.addGestureRecognizer(makeGestureRecognizer())
         label.isUserInteractionEnabled = true
         label.isAccessibilityElement = false
@@ -68,6 +69,7 @@ final class RangeNumberInputView: UIView {
     private lazy var highValueInputUnitLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = Style.textColor
         label.addGestureRecognizer(makeGestureRecognizer())
         label.isUserInteractionEnabled = true
         label.isAccessibilityElement = false
@@ -191,7 +193,6 @@ extension RangeNumberInputView: RangeControl {
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
         let valueText = text(from: value)
-        updateValidationStatus(for: .lowValue, isValid: true)
         lowValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.lowValue] = value
@@ -199,7 +200,6 @@ extension RangeNumberInputView: RangeControl {
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
         let valueText = text(from: value)
-        updateValidationStatus(for: .highValue, isValid: true)
         highValueInputTextField.text = valueText
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.highValue] = value
@@ -221,13 +221,14 @@ extension RangeNumberInputView: RangeControl {
         highValueInputUnitLabel.font = highValueInputTextField.font
     }
 
-    private func validValue(for inputGroup: InputGroup, newValue: RangeValue) -> RangeValue {
-        switch inputGroup {
-        case .highValue:
-            return lowValue.map({ max($0, newValue) }) ?? newValue
-        case .lowValue:
-            return highValue.map({ min($0, newValue) }) ?? newValue
-        }
+    // MARK: - Validation
+
+    private func validateInputs() {
+        let activeInputGroup: InputGroup = lowValueInputTextField.isFirstResponder ? .lowValue : .highValue
+        let inactiveInputGroup: InputGroup = activeInputGroup == .lowValue ? .highValue : .lowValue
+
+        updateValidationStatus(for: activeInputGroup, isValid: isValidValue(for: activeInputGroup))
+        updateValidationStatus(for: inactiveInputGroup, isValid: true)
     }
 
     private func updateValidationStatus(for inputGroup: InputGroup, isValid: Bool) {
@@ -242,7 +243,26 @@ extension RangeNumberInputView: RangeControl {
             highValueInputUnitLabel.textColor = textColor
         }
 
+        let isCurrentValueValid = inputValidationStatus[inputGroup] ?? true
+
+        if !isValid && isCurrentValueValid && generatesHapticFeedbackOnValueChange {
+            FeedbackGenerator.generate(.error)
+        }
+
         inputValidationStatus[inputGroup] = isValid
+    }
+
+    private func isValidValue(for inputGroup: InputGroup) -> Bool {
+        guard let lowValue = lowValue, let highValue = highValue else {
+            return true
+        }
+
+        switch inputGroup {
+        case .highValue:
+            return lowValue <= highValue
+        case .lowValue:
+            return highValue >= lowValue
+        }
     }
 }
 
@@ -261,8 +281,6 @@ extension RangeNumberInputView: UITextFieldDelegate {
         }
 
         setInputGroup(inputGroup, active: false)
-        updateValidationStatus(for: .lowValue, isValid: true)
-        updateValidationStatus(for: .highValue, isValid: true)
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -290,16 +308,8 @@ extension RangeNumberInputView: UITextFieldDelegate {
         textField.text = self.text(from: newValue)
         textField.accessibilityValue = "\(newValue) \(accessibilityValueSuffix ?? "")"
 
-        let validatedValue = validValue(for: inputGroup, newValue: newValue)
-        let isNewValueValid = validatedValue == newValue
-        let isCurrentValueValid = inputValidationStatus[inputGroup] ?? true
-
-        if !isNewValueValid && isCurrentValueValid && generatesHapticFeedbackOnValueChange {
-            FeedbackGenerator.generate(.error)
-        }
-
         inputValues[inputGroup] = newValue
-        updateValidationStatus(for: inputGroup, isValid: isNewValueValid)
+        validateInputs()
 
         switch inputGroup {
         case .lowValue:
@@ -422,7 +432,6 @@ private extension RangeNumberInputView {
 
         let attributes = [
             NSAttributedString.Key.font: font ?? UIFont.systemFont(ofSize: inputFontSize),
-            NSAttributedString.Key.foregroundColor: RangeNumberInputView.Style.textColor,
             NSAttributedString.Key.paragraphStyle: style,
         ]
 
@@ -446,6 +455,7 @@ private extension RangeNumberInputView {
         let otherInputGroup: InputGroup = inputGroup == .lowValue ? .highValue : .lowValue
         setInputGroup(otherInputGroup, active: false)
         setInputGroup(inputGroup, active: true)
+        validateInputs()
     }
 
     func setInputGroup(_ inputGroup: InputGroup, active: Bool) {

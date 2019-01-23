@@ -5,12 +5,18 @@
 import UIKit
 
 protocol RangeSliderViewDelegate: AnyObject {
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue: Int?, didFinishSlideInteraction slideEnded: Bool)
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue: Int?, didFinishSlideInteraction slideEnded: Bool)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowStep: Step, didFinishSlideInteraction slideEnded: Bool)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighStep: Step, didFinishSlideInteraction slideEnded: Bool)
 }
 
 final class RangeSliderView: UIControl {
+    weak var delegate: RangeSliderViewDelegate?
+
     private static var visibleThumbWidth: CGFloat = 28
+    private let sliderInfo: StepSliderInfo
+    private let formatter: SliderValueFormatter
+    private let activeRangeTrackViewLeadingAnchorIdentifier = "activeRangeTrackViewLeadingAnchorIdentifier"
+    private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
 
     private lazy var lowValueSlider = makeStepSlider()
     private lazy var highValueSlider = makeStepSlider()
@@ -32,13 +38,6 @@ final class RangeSliderView: UIControl {
         return view
     }()
 
-    private let activeRangeTrackViewLeadingAnchorIdentifier = "activeRangeTrackViewLeadingAnchorIdentifier"
-    private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
-
-    typealias SliderRange = ClosedRange<Int>
-    private let sliderInfo: StepSliderInfo
-    private let formatter: SliderValueFormatter
-
     var generatesHapticFeedbackOnValueChange = true {
         didSet {
             lowValueSlider.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnValueChange
@@ -53,7 +52,7 @@ final class RangeSliderView: UIControl {
         }
     }
 
-    weak var delegate: RangeSliderViewDelegate?
+    // MARK: - Init
 
     init(sliderInfo: StepSliderInfo, formatter: SliderValueFormatter) {
         self.sliderInfo = sliderInfo
@@ -65,6 +64,8 @@ final class RangeSliderView: UIControl {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Overrides
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard self.point(inside: point, with: event) else {
@@ -85,55 +86,32 @@ final class RangeSliderView: UIControl {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
         updateActiveTrackRange()
     }
 
     private func makeStepSlider() -> StepSlider {
-        let slider = StepSlider(sliderInfo: sliderInfo, valueFormatter: formatter)
+        let slider = StepSlider(sliderInfo: sliderInfo)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
     }
 }
 
-extension RangeSliderView: RangeControl {
-    var lowValue: Int? {
-        guard let lowValue = lowValueSlider.roundedStepValue, lowValue >= sliderInfo.minimumValue else {
-            return nil
-        }
+// MARK: - Public
 
-        return lowValue
-    }
+extension RangeSliderView {
+    func setLowStep(_ step: Step, animated: Bool) {
+        let step = highValueSlider.step < step ? highValueSlider.step : step
 
-    var highValue: Int? {
-        guard let highValue = highValueSlider.roundedStepValue, highValue <= sliderInfo.maximumValue else {
-            return nil
-        }
-
-        return highValue
-    }
-
-    func setLowValue(_ value: Int, animated: Bool) {
-        let value = highValueSlider.roundedStepValue.map({ $0 < value ? $0 : value }) ?? value
-
-        guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
-            return
-        }
-
-        lowValueSlider.setValueForSlider(findResult, animated: animated)
+        lowValueSlider.setStep(step, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
 
-    func setHighValue(_ value: Int, animated: Bool) {
-        let value = lowValueSlider.roundedStepValue.map({ $0 > value ? $0 : value }) ?? value
+    func setHighStep(_ step: Step, animated: Bool) {
+        let step = lowValueSlider.step > step ? lowValueSlider.step : step
 
-        guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
-            return
-        }
-
-        highValueSlider.setValueForSlider(findResult, animated: animated)
+        highValueSlider.setStep(step, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
@@ -141,7 +119,8 @@ extension RangeSliderView: RangeControl {
     func thumbRect(for value: Int) -> CGRect {
         let bounds = lowValueSlider.bounds
         let trackRect = lowValueSlider.trackRect(forBounds: bounds)
-        let translatedValue = lowValueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: value)
+        let closestStep = sliderInfo.values.closestStep(for: value)
+        let translatedValue = lowValueSlider.value(from: closestStep)
         let thumbRect = lowValueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: Float(translatedValue))
 
         let thumbRadius = RangeSliderView.visibleThumbWidth / 2 - 2
@@ -151,19 +130,13 @@ extension RangeSliderView: RangeControl {
     }
 }
 
-extension RangeSliderView {
-    struct Style {
-        static let trackColor: UIColor = .sardine
-        static let activeRangeTrackColor: UIColor = .primaryBlue
-        static let sliderThumbImage: UIImage? = UIImage(named: .sliderThumb)
-        static let activeSliderThumbImage: UIImage? = UIImage(named: .sliderThumbActive)
-        static let trackHeight: CGFloat = 3.0
-        static let activeRangeTrackHeight: CGFloat = 6.0
-    }
-}
+// MARK: - Private
 
-private extension RangeSliderView {
-    func setup() {
+extension RangeSliderView {
+    private func setup() {
+        lowValueSlider.setStep(.lowerBound, animated: false)
+        highValueSlider.setStep(.upperBound, animated: false)
+
         activeRangeTrackView.isHidden = true
         addSubview(trackView)
         addSubview(activeRangeTrackView)
@@ -203,7 +176,7 @@ private extension RangeSliderView {
         updateAccesibilityValues()
     }
 
-    func updateActiveTrackRange() {
+    private func updateActiveTrackRange() {
         if frame == CGRect.zero {
             return
         }
@@ -220,11 +193,13 @@ private extension RangeSliderView {
         activeRangeTrackView.isHidden = false
     }
 
-    func updateAccesibilityValues() {
+    private func updateAccesibilityValues() {
         lowValueSlider.accessibilityLabel = "range_slider_view_low_value_slider_accessibility_label".localized()
         highValueSlider.accessibilityLabel = "range_slider_view_high_value_slider_accessibility_label".localized()
     }
 }
+
+// MARK: - StepSliderDelegate
 
 extension RangeSliderView: StepSliderDelegate {
     func stepSlider(_ stepSlider: StepSlider, didChangeValue value: Float) {
@@ -232,33 +207,61 @@ extension RangeSliderView: StepSliderDelegate {
         updateAccesibilityValues()
     }
 
-    func stepSlider(_ stepSlider: StepSlider, canChangeToRoundedStepValue value: Int) -> Bool {
-        if let lowValue = lowValue, stepSlider == highValueSlider {
-            return value >= lowValue
-        } else if let highValue = highValue, stepSlider == lowValueSlider {
-            return value <= highValue
+    func stepSlider(_ stepSlider: StepSlider, canChangeToStep step: Step) -> Bool {
+        if stepSlider == highValueSlider {
+            return step >= lowValueSlider.step
+        } else if stepSlider == lowValueSlider {
+            return step <= highValueSlider.step
         } else {
             return true
         }
     }
 
-    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: Int) {
-        if lowValueSlider.roundedStepValue == highValueSlider.roundedStepValue, generatesHapticFeedbackOnValueChange {
+    func stepSlider(_ stepSlider: StepSlider, didChangeStep step: Step) {
+        if lowValueSlider.step == highValueSlider.step, generatesHapticFeedbackOnValueChange {
             FeedbackGenerator.generate(.collision)
         }
 
         if stepSlider == highValueSlider {
-            delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: false)
+            delegate?.rangeSliderView(self, didChangeHighStep: step, didFinishSlideInteraction: false)
         } else {
-            delegate?.rangeSliderView(self, didChangeLowValue: lowValue, didFinishSlideInteraction: false)
+            delegate?.rangeSliderView(self, didChangeLowStep: step, didFinishSlideInteraction: false)
         }
     }
 
-    func stepSlider(_ stepSlider: StepSlider, didEndSlideInteraction value: Int) {
+    func stepSlider(_ stepSlider: StepSlider, didEndSlideInteraction step: Step) {
         if stepSlider == highValueSlider {
-            delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: true)
+            delegate?.rangeSliderView(self, didChangeHighStep: step, didFinishSlideInteraction: true)
         } else {
-            delegate?.rangeSliderView(self, didChangeLowValue: lowValue, didFinishSlideInteraction: true)
+            delegate?.rangeSliderView(self, didChangeLowStep: step, didFinishSlideInteraction: true)
         }
+    }
+
+    func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String {
+        if let value = sliderInfo.value(for: step) {
+            return formatter.accessibilityValue(for: value)
+        }
+
+        switch step {
+        case .lowerBound:
+            return "range_below_lower_bound_title".localized()
+        case .upperBound:
+            return "range_above_upper_bound_title".localized()
+        default:
+            return ""
+        }
+    }
+}
+
+// MARK: - Styles
+
+extension RangeSliderView {
+    struct Style {
+        static let trackColor: UIColor = .sardine
+        static let activeRangeTrackColor: UIColor = .primaryBlue
+        static let sliderThumbImage: UIImage? = UIImage(named: .sliderThumb)
+        static let activeSliderThumbImage: UIImage? = UIImage(named: .sliderThumbActive)
+        static let trackHeight: CGFloat = 3.0
+        static let activeRangeTrackHeight: CGFloat = 6.0
     }
 }

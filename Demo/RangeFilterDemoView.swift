@@ -14,8 +14,7 @@ public class RangeFilterDemoView: UIView {
         let rangeFilterView = RangeFilterView(filterInfo: filterInfo)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.setLowValue(filterInfo.sliderInfo.minimumValue, animated: false)
-        rangeFilterView.setHighValue(filterInfo.sliderInfo.maximumValueWithOffset, animated: false)
-        rangeFilterView.addTarget(self, action: #selector(rangeFilterValueChanged(_:)), for: .valueChanged)
+        rangeFilterView.setHighValue(filterInfo.sliderInfo.maximumValue, animated: false)
         return rangeFilterView
     }()
 
@@ -36,10 +35,6 @@ public class RangeFilterDemoView: UIView {
             rangeFilterView.leadingAnchor.constraint(equalTo: leadingAnchor),
             rangeFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
-    }
-
-    @objc private func rangeFilterValueChanged(_ sender: RangeFilterView) {
-        print("Lower value: \(sender.lowValue ?? 0) -  Upper value: \(sender.highValue ?? 0)")
     }
 }
 

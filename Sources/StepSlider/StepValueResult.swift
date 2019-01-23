@@ -2,22 +2,40 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-enum StepValueResult {
-    case exact(stepValue: Int)
-    case between(closest: Int, lower: Int, higher: Int)
-    case tooLow(closest: Int)
-    case tooHigh(closest: Int)
+enum Step: Equatable {
+    case value(index: Int, rounded: Bool)
+    case lowerBound
+    case upperBound
 
-    var closestStep: Int {
+    var index: Int? {
         switch self {
-        case let .exact(stepValue):
-            return stepValue
-        case let .between(closest, _, _):
-            return closest
-        case let .tooLow(closest):
-            return closest
-        case let .tooHigh(closest):
-            return closest
+        case let .value(index, _):
+            return index
+        case .lowerBound, .upperBound:
+            return nil
+        }
+    }
+}
+
+extension Step: Comparable {
+    static func < (lhs: Step, rhs: Step) -> Bool {
+        switch (lhs, rhs) {
+        case let (.value(lhsIndex, _), .value(rhsIndex, _)):
+            return lhsIndex < rhsIndex
+        case (.lowerBound, .lowerBound):
+            return false
+        case (.upperBound, .upperBound):
+            return false
+        case (.lowerBound, _):
+            return true
+        case (_, .lowerBound):
+            return false
+        case (.upperBound, _):
+            return false
+        case (_, .upperBound):
+            return true
+        default:
+            return false
         }
     }
 }

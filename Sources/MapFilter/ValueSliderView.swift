@@ -10,7 +10,7 @@ protocol ValueSliderViewDelegate: AnyObject {
 
 class ValueSliderView: UIView {
     private lazy var valueSlider: StepSlider = {
-        let slider = StepSlider(range: range, valueFormatter: valueFormatter)
+        let slider = StepSlider(numberOfSteps: range.count - 1)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
         return slider
@@ -116,11 +116,8 @@ class ValueSliderView: UIView {
 
 extension ValueSliderView {
     func setCurrentValue(_ value: Int, animated: Bool) {
-        guard let findResult = range.findClosestStep(for: value) else {
-            return
-        }
-
-        valueSlider.setValueForSlider(findResult, animated: animated)
+        let step = range.closestStep(for: value)
+        valueSlider.setStep(step, animated: animated)
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
@@ -128,7 +125,8 @@ extension ValueSliderView {
     func thumbRect(for stepValue: Int) -> CGRect {
         let bounds = valueSlider.bounds
         let trackRect = valueSlider.trackRect(forBounds: bounds)
-        let translatedValue = valueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: stepValue)
+        let closestStep = range.closestStep(for: stepValue)
+        let translatedValue = valueSlider.value(from: closestStep)
         let thumbRect = valueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: translatedValue)
 
         let convertedRect = valueSlider.convert(thumbRect, to: self)
@@ -233,15 +231,27 @@ extension ValueSliderView: StepSliderDelegate {
         updateAccesibilityValues()
     }
 
-    func stepSlider(_ stepSlider: StepSlider, canChangeToRoundedStepValue value: Int) -> Bool {
+    func stepSlider(_ stepSlider: StepSlider, canChangeToStep step: Step) -> Bool {
         return true
     }
 
-    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: Int) {
-        delegate?.valueViewControl(self, didChangeValue: value, didFinishSlideInteraction: false)
+    func stepSlider(_ stepSlider: StepSlider, didChangeStep step: Step) {
+        if let value = range.value(for: step) {
+            delegate?.valueViewControl(self, didChangeValue: value, didFinishSlideInteraction: false)
+        }
     }
 
-    func stepSlider(_ stepSlider: StepSlider, didEndSlideInteraction value: Int) {
-        delegate?.valueViewControl(self, didChangeValue: value, didFinishSlideInteraction: true)
+    func stepSlider(_ stepSlider: StepSlider, didEndSlideInteraction step: Step) {
+        if let value = range.value(for: step) {
+            delegate?.valueViewControl(self, didChangeValue: value, didFinishSlideInteraction: true)
+        }
+    }
+
+    func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String {
+        if let value = range.value(for: step) {
+            return valueFormatter.accessibilityValue(for: value)
+        } else {
+            return ""
+        }
     }
 }

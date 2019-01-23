@@ -100,7 +100,7 @@ final class RangeSliderView: UIControl {
 
 extension RangeSliderView: RangeControl {
     var lowValue: RangeValue? {
-        guard let lowValue = lowValueSlider.roundedStepValue, sliderInfo.range.contains(lowValue) else {
+        guard let lowValue = lowValueSlider.roundedStepValue, lowValue >= sliderInfo.minimumValue else {
             return nil
         }
 
@@ -108,7 +108,7 @@ extension RangeSliderView: RangeControl {
     }
 
     var highValue: RangeValue? {
-        guard let highValue = highValueSlider.roundedStepValue, sliderInfo.range.contains(highValue) else {
+        guard let highValue = highValueSlider.roundedStepValue, highValue <= sliderInfo.maximumValue else {
             return nil
         }
 

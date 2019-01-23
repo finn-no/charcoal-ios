@@ -1,0 +1,2189 @@
+{
+    "market": "boat-sale",
+    "hits": 4517,
+    "label": "Båter til salgs",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "segment",
+        "motor_ad_location",
+        "class",
+        "make",
+        "price",
+        "length_feet",
+        "year",
+        "motor_included",
+        "motor_type",
+        "fuel",
+        "motor_size",
+        "no_of_seats",
+        "no_of_sleepers",
+        "dealer_segment"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year"
+        },
+        "length_feet": {
+            "title": "Lengde",
+            "range": true,
+            "name": "length_feet"
+        },
+        "motor_size": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "motor_size"
+        },
+        "no_of_seats": {
+            "title": "Sitteplasser",
+            "range": true,
+            "name": "no_of_seats"
+        },
+        "no_of_sleepers": {
+            "title": "Sengeplasser",
+            "range": true,
+            "name": "no_of_sleepers"
+        },
+        "make": {
+            "title": "Båtmerke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "Absolute",
+                    "value": "7972",
+                    "total-results": 3
+                },
+                {
+                    "title": "Adriatic",
+                    "value": "1000387",
+                    "total-results": 9
+                },
+                {
+                    "title": "Agder",
+                    "value": "2519",
+                    "total-results": 3
+                },
+                {
+                    "title": "Airship Ribs",
+                    "value": "1000385",
+                    "total-results": 1
+                },
+                {
+                    "title": "AL",
+                    "value": "7694",
+                    "total-results": 1
+                },
+                {
+                    "title": "Albin",
+                    "value": "2637",
+                    "total-results": 5
+                },
+                {
+                    "title": "Alicraft",
+                    "value": "6942",
+                    "total-results": 3
+                },
+                {
+                    "title": "Alo",
+                    "value": "6943",
+                    "total-results": 1
+                },
+                {
+                    "title": "Alubat",
+                    "value": "7964",
+                    "total-results": 1
+                },
+                {
+                    "title": "Alunaut",
+                    "value": "1000525",
+                    "total-results": 7
+                },
+                {
+                    "title": "Alutec",
+                    "value": "1000513",
+                    "total-results": 12
+                },
+                {
+                    "title": "AMT",
+                    "value": "8250",
+                    "total-results": 91
+                },
+                {
+                    "title": "Andre",
+                    "value": "3877",
+                    "total-results": 377
+                },
+                {
+                    "title": "Andy",
+                    "value": "2962",
+                    "total-results": 2
+                },
+                {
+                    "title": "Anytec",
+                    "value": "7963",
+                    "total-results": 23
+                },
+                {
+                    "title": "Apollo",
+                    "value": "6945",
+                    "total-results": 1
+                },
+                {
+                    "title": "Aquador",
+                    "value": "6946",
+                    "total-results": 10
+                },
+                {
+                    "title": "Aquamar",
+                    "value": "7681",
+                    "total-results": 1
+                },
+                {
+                    "title": "Aquaquick",
+                    "value": "7845",
+                    "total-results": 4
+                },
+                {
+                    "title": "Arcona",
+                    "value": "2636",
+                    "total-results": 1
+                },
+                {
+                    "title": "Arctic Blue",
+                    "value": "8230",
+                    "total-results": 2
+                },
+                {
+                    "title": "Arimar",
+                    "value": "2516",
+                    "total-results": 3
+                },
+                {
+                    "title": "Arronet",
+                    "value": "1000460",
+                    "total-results": 8
+                },
+                {
+                    "title": "Arvor",
+                    "value": "7938",
+                    "total-results": 7
+                },
+                {
+                    "title": "Askeladden",
+                    "value": "3832",
+                    "total-results": 138
+                },
+                {
+                    "title": "Atlantic",
+                    "value": "7931",
+                    "total-results": 2
+                },
+                {
+                    "title": "Atlantic Marine",
+                    "value": "1000412",
+                    "total-results": 1
+                },
+                {
+                    "title": "Atlantis",
+                    "value": "7786",
+                    "total-results": 3
+                },
+                {
+                    "title": "Aventura",
+                    "value": "1000493",
+                    "total-results": 4
+                },
+                {
+                    "title": "Axopar",
+                    "value": "1000474",
+                    "total-results": 23
+                },
+                {
+                    "title": "Azimut",
+                    "value": "1000018",
+                    "total-results": 4
+                },
+                {
+                    "title": "Ballistic",
+                    "value": "8232",
+                    "total-results": 2
+                },
+                {
+                    "title": "Baltic",
+                    "value": "2635",
+                    "total-results": 1
+                },
+                {
+                    "title": "Banner",
+                    "value": "2986",
+                    "total-results": 1
+                },
+                {
+                    "title": "Barracuda",
+                    "value": "2610",
+                    "total-results": 1
+                },
+                {
+                    "title": "Bavaria",
+                    "value": "2824",
+                    "total-results": 60
+                },
+                {
+                    "title": "Bayliner",
+                    "value": "2608",
+                    "total-results": 33
+                },
+                {
+                    "title": "Bell",
+                    "value": "8076",
+                    "total-results": 1
+                },
+                {
+                    "title": "Bella",
+                    "value": "2607",
+                    "total-results": 48
+                },
+                {
+                    "title": "Beneteau",
+                    "value": "2634",
+                    "total-results": 97
+                },
+                {
+                    "title": "Bever",
+                    "value": "3831",
+                    "total-results": 5
+                },
+                {
+                    "title": "Biam",
+                    "value": "2606",
+                    "total-results": 2
+                },
+                {
+                    "title": "Blesser",
+                    "value": "8198",
+                    "total-results": 1
+                },
+                {
+                    "title": "Bluesea",
+                    "value": "1000520",
+                    "total-results": 1
+                },
+                {
+                    "title": "Bombard",
+                    "value": "2515",
+                    "total-results": 1
+                },
+                {
+                    "title": "Bonanza",
+                    "value": "6957",
+                    "total-results": 2
+                },
+                {
+                    "title": "Boston Whaler",
+                    "value": "2604",
+                    "total-results": 15
+                },
+                {
+                    "title": "Bostrøm",
+                    "value": "6958",
+                    "total-results": 1
+                },
+                {
+                    "title": "BRIG",
+                    "value": "7838",
+                    "total-results": 44
+                },
+                {
+                    "title": "Brioni",
+                    "value": "1000498",
+                    "total-results": 1
+                },
+                {
+                    "title": "BRP",
+                    "value": "8309",
+                    "total-results": 2
+                },
+                {
+                    "title": "Bryza",
+                    "value": "7869",
+                    "total-results": 2
+                },
+                {
+                    "title": "Buster",
+                    "value": "3872",
+                    "total-results": 126
+                },
+                {
+                    "title": "Campion",
+                    "value": "3871",
+                    "total-results": 3
+                },
+                {
+                    "title": "Cantieri di Sarnico",
+                    "value": "8164",
+                    "total-results": 1
+                },
+                {
+                    "title": "Capelli",
+                    "value": "6962",
+                    "total-results": 14
+                },
+                {
+                    "title": "Carat",
+                    "value": "6963",
+                    "total-results": 1
+                },
+                {
+                    "title": "Chaparral",
+                    "value": "6966",
+                    "total-results": 1
+                },
+                {
+                    "title": "Chris Craft",
+                    "value": "2955",
+                    "total-results": 5
+                },
+                {
+                    "title": "Cleopatra",
+                    "value": "6968",
+                    "total-results": 7
+                },
+                {
+                    "title": "Clipper",
+                    "value": "8158",
+                    "total-results": 1
+                },
+                {
+                    "title": "Coaster",
+                    "value": "6969",
+                    "total-results": 2
+                },
+                {
+                    "title": "Cobra",
+                    "value": "6970",
+                    "total-results": 3
+                },
+                {
+                    "title": "Colin Archer",
+                    "value": "2985",
+                    "total-results": 10
+                },
+                {
+                    "title": "Comfort",
+                    "value": "2983",
+                    "total-results": 1
+                },
+                {
+                    "title": "Concord",
+                    "value": "6972",
+                    "total-results": 1
+                },
+                {
+                    "title": "Contest",
+                    "value": "2632",
+                    "total-results": 1
+                },
+                {
+                    "title": "Contrast",
+                    "value": "2631",
+                    "total-results": 1
+                },
+                {
+                    "title": "Cormate",
+                    "value": "1000346",
+                    "total-results": 4
+                },
+                {
+                    "title": "Coronet",
+                    "value": "2953",
+                    "total-results": 2
+                },
+                {
+                    "title": "CR",
+                    "value": "6973",
+                    "total-results": 2
+                },
+                {
+                    "title": "Cranchi",
+                    "value": "6974",
+                    "total-results": 3
+                },
+                {
+                    "title": "Crescent",
+                    "value": "3879",
+                    "total-results": 16
+                },
+                {
+                    "title": "Crownline",
+                    "value": "2599",
+                    "total-results": 2
+                },
+                {
+                    "title": "Cruiser",
+                    "value": "1000359",
+                    "total-results": 1
+                },
+                {
+                    "title": "Cruisers",
+                    "value": "6975",
+                    "total-results": 1
+                },
+                {
+                    "title": "C&C",
+                    "value": "2648",
+                    "total-results": 1
+                },
+                {
+                    "title": "Dehler",
+                    "value": "2630",
+                    "total-results": 7
+                },
+                {
+                    "title": "Delphia",
+                    "value": "7934",
+                    "total-results": 8
+                },
+                {
+                    "title": "Delta",
+                    "value": "6976",
+                    "total-results": 6
+                },
+                {
+                    "title": "Diva",
+                    "value": "2982",
+                    "total-results": 1
+                },
+                {
+                    "title": "Dolmøy",
+                    "value": "1000350",
+                    "total-results": 6
+                },
+                {
+                    "title": "Doral",
+                    "value": "7696",
+                    "total-results": 1
+                },
+                {
+                    "title": "Draco",
+                    "value": "2598",
+                    "total-results": 11
+                },
+                {
+                    "title": "Drago",
+                    "value": "8115",
+                    "total-results": 1
+                },
+                {
+                    "title": "Dragonfly",
+                    "value": "6980",
+                    "total-results": 3
+                },
+                {
+                    "title": "Drake",
+                    "value": "1000481",
+                    "total-results": 2
+                },
+                {
+                    "title": "Dromedille",
+                    "value": "2952",
+                    "total-results": 1
+                },
+                {
+                    "title": "Dsp",
+                    "value": "8079",
+                    "total-results": 1
+                },
+                {
+                    "title": "Dufour",
+                    "value": "6981",
+                    "total-results": 28
+                },
+                {
+                    "title": "Dynamic",
+                    "value": "8060",
+                    "total-results": 1
+                },
+                {
+                    "title": "Elan",
+                    "value": "6982",
+                    "total-results": 5
+                },
+                {
+                    "title": "Elling",
+                    "value": "8104",
+                    "total-results": 1
+                },
+                {
+                    "title": "Elwaro",
+                    "value": "6983",
+                    "total-results": 1
+                },
+                {
+                    "title": "Enes",
+                    "value": "2597",
+                    "total-results": 2
+                },
+                {
+                    "title": "Etap",
+                    "value": "1000373",
+                    "total-results": 1
+                },
+                {
+                    "title": "Explorer",
+                    "value": "1000459",
+                    "total-results": 2
+                },
+                {
+                    "title": "Faeton",
+                    "value": "7495",
+                    "total-results": 1
+                },
+                {
+                    "title": "Fairline",
+                    "value": "2596",
+                    "total-results": 21
+                },
+                {
+                    "title": "Falcon",
+                    "value": "6987",
+                    "total-results": 22
+                },
+                {
+                    "title": "Farr",
+                    "value": "6988",
+                    "total-results": 1
+                },
+                {
+                    "title": "Ferretti",
+                    "value": "7699",
+                    "total-results": 3
+                },
+                {
+                    "title": "Fevik",
+                    "value": "6989",
+                    "total-results": 2
+                },
+                {
+                    "title": "Fiart",
+                    "value": "6990",
+                    "total-results": 1
+                },
+                {
+                    "title": "Finnmaster",
+                    "value": "7935",
+                    "total-results": 127
+                },
+                {
+                    "title": "Finnsailer",
+                    "value": "2979",
+                    "total-results": 2
+                },
+                {
+                    "title": "First",
+                    "value": "6992",
+                    "total-results": 1
+                },
+                {
+                    "title": "Fjord",
+                    "value": "2595",
+                    "total-results": 12
+                },
+                {
+                    "title": "Flem",
+                    "value": "8061",
+                    "total-results": 3
+                },
+                {
+                    "title": "Flipper",
+                    "value": "2593",
+                    "total-results": 41
+                },
+                {
+                    "title": "Forbina",
+                    "value": "6997",
+                    "total-results": 2
+                },
+                {
+                    "title": "Forgus",
+                    "value": "6998",
+                    "total-results": 2
+                },
+                {
+                    "title": "Formosa",
+                    "value": "1000521",
+                    "total-results": 1
+                },
+                {
+                    "title": "Formula",
+                    "value": "2592",
+                    "total-results": 2
+                },
+                {
+                    "title": "Fountain",
+                    "value": "7615",
+                    "total-results": 1
+                },
+                {
+                    "title": "Fountaine Pajot",
+                    "value": "8161",
+                    "total-results": 5
+                },
+                {
+                    "title": "Fourwinns",
+                    "value": "7718",
+                    "total-results": 1
+                },
+                {
+                    "title": "FUN",
+                    "value": "7001",
+                    "total-results": 1
+                },
+                {
+                    "title": "Furuholmen",
+                    "value": "8157",
+                    "total-results": 3
+                },
+                {
+                    "title": "Galeon",
+                    "value": "7584",
+                    "total-results": 21
+                },
+                {
+                    "title": "Galia",
+                    "value": "7583",
+                    "total-results": 7
+                },
+                {
+                    "title": "Gambling",
+                    "value": "8128",
+                    "total-results": 2
+                },
+                {
+                    "title": "Gemi",
+                    "value": "1000508",
+                    "total-results": 7
+                },
+                {
+                    "title": "GH",
+                    "value": "3868",
+                    "total-results": 9
+                },
+                {
+                    "title": "Gib'Sea",
+                    "value": "2627",
+                    "total-results": 1
+                },
+                {
+                    "title": "Gimle",
+                    "value": "1000490",
+                    "total-results": 2
+                },
+                {
+                    "title": "Glastron",
+                    "value": "1000067",
+                    "total-results": 2
+                },
+                {
+                    "title": "Gobbi",
+                    "value": "7146",
+                    "total-results": 4
+                },
+                {
+                    "title": "Goldfish",
+                    "value": "7250",
+                    "total-results": 2
+                },
+                {
+                    "title": "Gozzi",
+                    "value": "7783",
+                    "total-results": 1
+                },
+                {
+                    "title": "Grand",
+                    "value": "7846",
+                    "total-results": 158
+                },
+                {
+                    "title": "Grandezza",
+                    "value": "1000348",
+                    "total-results": 18
+                },
+                {
+                    "title": "Grand Banks",
+                    "value": "7004",
+                    "total-results": 1
+                },
+                {
+                    "title": "Grand Soleil",
+                    "value": "2626",
+                    "total-results": 1
+                },
+                {
+                    "title": "Greatline",
+                    "value": "1000502",
+                    "total-results": 1
+                },
+                {
+                    "title": "Greenline",
+                    "value": "1000424",
+                    "total-results": 1
+                },
+                {
+                    "title": "Grimsøy",
+                    "value": "8105",
+                    "total-results": 10
+                },
+                {
+                    "title": "Halco",
+                    "value": "2590",
+                    "total-results": 7
+                },
+                {
+                    "title": "Hallberg Rassy",
+                    "value": "2625",
+                    "total-results": 10
+                },
+                {
+                    "title": "Hanse",
+                    "value": "7598",
+                    "total-results": 9
+                },
+                {
+                    "title": "Hansvik",
+                    "value": "2588",
+                    "total-results": 17
+                },
+                {
+                    "title": "Hardanger",
+                    "value": "2976",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hardangersnekke",
+                    "value": "7008",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hasla",
+                    "value": "7009",
+                    "total-results": 2
+                },
+                {
+                    "title": "Hasle",
+                    "value": "1000335",
+                    "total-results": 18
+                },
+                {
+                    "title": "Hasle Summer Fun",
+                    "value": "3866",
+                    "total-results": 13
+                },
+                {
+                    "title": "Hero",
+                    "value": "2975",
+                    "total-results": 1
+                },
+                {
+                    "title": "Herwa",
+                    "value": "1000391",
+                    "total-results": 2
+                },
+                {
+                    "title": "Highfield",
+                    "value": "1000467",
+                    "total-results": 39
+                },
+                {
+                    "title": "HighPerformance",
+                    "value": "7680",
+                    "total-results": 4
+                },
+                {
+                    "title": "Hobby",
+                    "value": "7011",
+                    "total-results": 79
+                },
+                {
+                    "title": "Hobiecat",
+                    "value": "7012",
+                    "total-results": 1
+                },
+                {
+                    "title": "Honda",
+                    "value": "8102",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hortensnekka",
+                    "value": "7013",
+                    "total-results": 1
+                },
+                {
+                    "title": "HR",
+                    "value": "7777",
+                    "total-results": 69
+                },
+                {
+                    "title": "Humber",
+                    "value": "1000365",
+                    "total-results": 3
+                },
+                {
+                    "title": "Hunter",
+                    "value": "2624",
+                    "total-results": 1
+                },
+                {
+                    "title": "Husky",
+                    "value": "7969",
+                    "total-results": 4
+                },
+                {
+                    "title": "Hydrolift",
+                    "value": "2944",
+                    "total-results": 12
+                },
+                {
+                    "title": "Ibiza",
+                    "value": "2586",
+                    "total-results": 90
+                },
+                {
+                    "title": "Inter",
+                    "value": "2585",
+                    "total-results": 2
+                },
+                {
+                    "title": "Jeanneau",
+                    "value": "2623",
+                    "total-results": 90
+                },
+                {
+                    "title": "Joda",
+                    "value": "3864",
+                    "total-results": 9
+                },
+                {
+                    "title": "Joker",
+                    "value": "2943",
+                    "total-results": 24
+                },
+                {
+                    "title": "J Craft",
+                    "value": "1000468",
+                    "total-results": 1
+                },
+                {
+                    "title": "J-boats",
+                    "value": "7855",
+                    "total-results": 1
+                },
+                {
+                    "title": "Karnic",
+                    "value": "7133",
+                    "total-results": 4
+                },
+                {
+                    "title": "Kawasaki",
+                    "value": "1000392",
+                    "total-results": 9
+                },
+                {
+                    "title": "KB Snekke",
+                    "value": "7091",
+                    "total-results": 1
+                },
+                {
+                    "title": "Kimple",
+                    "value": "1000434",
+                    "total-results": 22
+                },
+                {
+                    "title": "Kloster",
+                    "value": "4010",
+                    "total-results": 4
+                },
+                {
+                    "title": "Korsø",
+                    "value": "2644",
+                    "total-results": 2
+                },
+                {
+                    "title": "Kragerø",
+                    "value": "7027",
+                    "total-results": 1
+                },
+                {
+                    "title": "Kværnø",
+                    "value": "1000479",
+                    "total-results": 8
+                },
+                {
+                    "title": "Kaasbøll",
+                    "value": "1000482",
+                    "total-results": 13
+                },
+                {
+                    "title": "Lagoon",
+                    "value": "7875",
+                    "total-results": 10
+                },
+                {
+                    "title": "Laguna",
+                    "value": "7028",
+                    "total-results": 1
+                },
+                {
+                    "title": "Lami",
+                    "value": "1000519",
+                    "total-results": 2
+                },
+                {
+                    "title": "Larson",
+                    "value": "1000085",
+                    "total-results": 4
+                },
+                {
+                    "title": "Laser",
+                    "value": "2622",
+                    "total-results": 4
+                },
+                {
+                    "title": "Lasse",
+                    "value": "3882",
+                    "total-results": 2
+                },
+                {
+                    "title": "Libra",
+                    "value": "7847",
+                    "total-results": 3
+                },
+                {
+                    "title": "Limbo",
+                    "value": "1000540",
+                    "total-results": 2
+                },
+                {
+                    "title": "Linder",
+                    "value": "2582",
+                    "total-results": 38
+                },
+                {
+                    "title": "Linssen",
+                    "value": "2581",
+                    "total-results": 1
+                },
+                {
+                    "title": "Los",
+                    "value": "1000422",
+                    "total-results": 1
+                },
+                {
+                    "title": "Lyngør",
+                    "value": "1000378",
+                    "total-results": 1
+                },
+                {
+                    "title": "Mainship",
+                    "value": "1000368",
+                    "total-results": 1
+                },
+                {
+                    "title": "Mamba",
+                    "value": "7035",
+                    "total-results": 1
+                },
+                {
+                    "title": "Marex",
+                    "value": "2580",
+                    "total-results": 17
+                },
+                {
+                    "title": "Mariah",
+                    "value": "7968",
+                    "total-results": 1
+                },
+                {
+                    "title": "Marieholm",
+                    "value": "2973",
+                    "total-results": 1
+                },
+                {
+                    "title": "Marino",
+                    "value": "7037",
+                    "total-results": 1
+                },
+                {
+                    "title": "Maritimo",
+                    "value": "1000546",
+                    "total-results": 2
+                },
+                {
+                    "title": "Marlin",
+                    "value": "2941",
+                    "total-results": 3
+                },
+                {
+                    "title": "Mascot",
+                    "value": "7686",
+                    "total-results": 1
+                },
+                {
+                    "title": "Master",
+                    "value": "2822",
+                    "total-results": 3
+                },
+                {
+                    "title": "Maxi",
+                    "value": "2618",
+                    "total-results": 3
+                },
+                {
+                    "title": "Maxum",
+                    "value": "2579",
+                    "total-results": 3
+                },
+                {
+                    "title": "Mazury",
+                    "value": "7843",
+                    "total-results": 1
+                },
+                {
+                    "title": "Mercury",
+                    "value": "1000444",
+                    "total-results": 13
+                },
+                {
+                    "title": "Meridian Yachts",
+                    "value": "8127",
+                    "total-results": 1
+                },
+                {
+                    "title": "Micore",
+                    "value": "7698",
+                    "total-results": 12
+                },
+                {
+                    "title": "Minor",
+                    "value": "2578",
+                    "total-results": 5
+                },
+                {
+                    "title": "Modesty",
+                    "value": "1000427",
+                    "total-results": 3
+                },
+                {
+                    "title": "Morgan",
+                    "value": "7589",
+                    "total-results": 5
+                },
+                {
+                    "title": "MS Boat",
+                    "value": "1000478",
+                    "total-results": 6
+                },
+                {
+                    "title": "Musling",
+                    "value": "4008",
+                    "total-results": 1
+                },
+                {
+                    "title": "MV yachts",
+                    "value": "2652",
+                    "total-results": 1
+                },
+                {
+                    "title": "Myra",
+                    "value": "3898",
+                    "total-results": 4
+                },
+                {
+                    "title": "Mørebas",
+                    "value": "2576",
+                    "total-results": 9
+                },
+                {
+                    "title": "Mørejet",
+                    "value": "7044",
+                    "total-results": 1
+                },
+                {
+                    "title": "Najad",
+                    "value": "2908",
+                    "total-results": 3
+                },
+                {
+                    "title": "Nauticat",
+                    "value": "2616",
+                    "total-results": 1
+                },
+                {
+                    "title": "Naver",
+                    "value": "2972",
+                    "total-results": 1
+                },
+                {
+                    "title": "NB",
+                    "value": "2574",
+                    "total-results": 20
+                },
+                {
+                    "title": "Neptunus",
+                    "value": "8103",
+                    "total-results": 1
+                },
+                {
+                    "title": "Nidelv",
+                    "value": "2573",
+                    "total-results": 10
+                },
+                {
+                    "title": "Nimbus",
+                    "value": "2572",
+                    "total-results": 21
+                },
+                {
+                    "title": "Nordic Oceancraft",
+                    "value": "8073",
+                    "total-results": 3
+                },
+                {
+                    "title": "Nordkapp",
+                    "value": "2569",
+                    "total-results": 54
+                },
+                {
+                    "title": "Nordship",
+                    "value": "7052",
+                    "total-results": 1
+                },
+                {
+                    "title": "NordStar",
+                    "value": "7717",
+                    "total-results": 10
+                },
+                {
+                    "title": "Nord West",
+                    "value": "2568",
+                    "total-results": 5
+                },
+                {
+                    "title": "Norsafe",
+                    "value": "1000503",
+                    "total-results": 5
+                },
+                {
+                    "title": "NorTech",
+                    "value": "1000389",
+                    "total-results": 1
+                },
+                {
+                    "title": "NorthStar",
+                    "value": "7837",
+                    "total-results": 1
+                },
+                {
+                    "title": "Nor Star",
+                    "value": "7049",
+                    "total-results": 1
+                },
+                {
+                    "title": "Nor-Dan",
+                    "value": "2570",
+                    "total-results": 10
+                },
+                {
+                    "title": "Nor-Tech",
+                    "value": "1000380",
+                    "total-results": 1
+                },
+                {
+                    "title": "Oceanmaster",
+                    "value": "8231",
+                    "total-results": 12
+                },
+                {
+                    "title": "Oceanrunner",
+                    "value": "1000420",
+                    "total-results": 5
+                },
+                {
+                    "title": "Ocean Alexander",
+                    "value": "8182",
+                    "total-results": 1
+                },
+                {
+                    "title": "Ockelbo",
+                    "value": "8077",
+                    "total-results": 7
+                },
+                {
+                    "title": "Ocqueteau",
+                    "value": "7725",
+                    "total-results": 4
+                },
+                {
+                    "title": "Olympic",
+                    "value": "7616",
+                    "total-results": 1
+                },
+                {
+                    "title": "Paragon",
+                    "value": "1000399",
+                    "total-results": 2
+                },
+                {
+                    "title": "Pearlsea",
+                    "value": "1000541",
+                    "total-results": 1
+                },
+                {
+                    "title": "Pershing",
+                    "value": "7700",
+                    "total-results": 1
+                },
+                {
+                    "title": "Pettersson",
+                    "value": "7620",
+                    "total-results": 1
+                },
+                {
+                    "title": "Pilot",
+                    "value": "1000512",
+                    "total-results": 1
+                },
+                {
+                    "title": "Pioner",
+                    "value": "2566",
+                    "total-results": 94
+                },
+                {
+                    "title": "Plattgatter",
+                    "value": "2935",
+                    "total-results": 2
+                },
+                {
+                    "title": "Polar",
+                    "value": "2565",
+                    "total-results": 20
+                },
+                {
+                    "title": "Polarcirkel",
+                    "value": "1000463",
+                    "total-results": 1
+                },
+                {
+                    "title": "Polaris",
+                    "value": "1000483",
+                    "total-results": 2
+                },
+                {
+                    "title": "Polo",
+                    "value": "7059",
+                    "total-results": 1
+                },
+                {
+                    "title": "Prestige",
+                    "value": "1000457",
+                    "total-results": 2
+                },
+                {
+                    "title": "Princess",
+                    "value": "2564",
+                    "total-results": 35
+                },
+                {
+                    "title": "Pro Rib",
+                    "value": "1000376",
+                    "total-results": 15
+                },
+                {
+                    "title": "Puma",
+                    "value": "3856",
+                    "total-results": 1
+                },
+                {
+                    "title": "Quicksilver",
+                    "value": "2512",
+                    "total-results": 109
+                },
+                {
+                    "title": "Racing Sailboats",
+                    "value": "1000321",
+                    "total-results": 1
+                },
+                {
+                    "title": "Ramin",
+                    "value": "7787",
+                    "total-results": 1
+                },
+                {
+                    "title": "Rana",
+                    "value": "2563",
+                    "total-results": 38
+                },
+                {
+                    "title": "Rand",
+                    "value": "1000532",
+                    "total-results": 3
+                },
+                {
+                    "title": "Ranger Tugs",
+                    "value": "1000436",
+                    "total-results": 2
+                },
+                {
+                    "title": "Ranieri",
+                    "value": "2933",
+                    "total-results": 34
+                },
+                {
+                    "title": "Regal",
+                    "value": "2562",
+                    "total-results": 5
+                },
+                {
+                    "title": "Rhea",
+                    "value": "1000326",
+                    "total-results": 2
+                },
+                {
+                    "title": "Ribeye",
+                    "value": "7873",
+                    "total-results": 1
+                },
+                {
+                    "title": "Rib Limited",
+                    "value": "1000328",
+                    "total-results": 1
+                },
+                {
+                    "title": "Rinker",
+                    "value": "7791",
+                    "total-results": 1
+                },
+                {
+                    "title": "Risør",
+                    "value": "2932",
+                    "total-results": 3
+                },
+                {
+                    "title": "Riva",
+                    "value": "7692",
+                    "total-results": 8
+                },
+                {
+                    "title": "River",
+                    "value": "7128",
+                    "total-results": 19
+                },
+                {
+                    "title": "Riviera",
+                    "value": "6710",
+                    "total-results": 6
+                },
+                {
+                    "title": "Rodman",
+                    "value": "7868",
+                    "total-results": 5
+                },
+                {
+                    "title": "Rupert",
+                    "value": "7839",
+                    "total-results": 1
+                },
+                {
+                    "title": "Ryds",
+                    "value": "2561",
+                    "total-results": 37
+                },
+                {
+                    "title": "Saga",
+                    "value": "2560",
+                    "total-results": 23
+                },
+                {
+                    "title": "Salona",
+                    "value": "1000402",
+                    "total-results": 2
+                },
+                {
+                    "title": "Sandström",
+                    "value": "1000377",
+                    "total-results": 42
+                },
+                {
+                    "title": "Sandvik",
+                    "value": "2558",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sandøy",
+                    "value": "7942",
+                    "total-results": 2
+                },
+                {
+                    "title": "Sargo",
+                    "value": "1000470",
+                    "total-results": 22
+                },
+                {
+                    "title": "Saver",
+                    "value": "7961",
+                    "total-results": 1
+                },
+                {
+                    "title": "Saxe",
+                    "value": "7064",
+                    "total-results": 1
+                },
+                {
+                    "title": "Scand",
+                    "value": "2557",
+                    "total-results": 18
+                },
+                {
+                    "title": "Scarab",
+                    "value": "1000487",
+                    "total-results": 2
+                },
+                {
+                    "title": "Schaefer Yachts",
+                    "value": "8245",
+                    "total-results": 1
+                },
+                {
+                    "title": "Seacraft",
+                    "value": "7697",
+                    "total-results": 2
+                },
+                {
+                    "title": "SeaDoo",
+                    "value": "8310",
+                    "total-results": 76
+                },
+                {
+                    "title": "SeaHunter",
+                    "value": "1000499",
+                    "total-results": 1
+                },
+                {
+                    "title": "Seaking",
+                    "value": "8155",
+                    "total-results": 2
+                },
+                {
+                    "title": "Sealine",
+                    "value": "2555",
+                    "total-results": 9
+                },
+                {
+                    "title": "SeaRider",
+                    "value": "1000489",
+                    "total-results": 1
+                },
+                {
+                    "title": "Seaside",
+                    "value": "1000435",
+                    "total-results": 4
+                },
+                {
+                    "title": "Sea Ray",
+                    "value": "2556",
+                    "total-results": 19
+                },
+                {
+                    "title": "Sea Star",
+                    "value": "8091",
+                    "total-results": 1
+                },
+                {
+                    "title": "Selby",
+                    "value": "7068",
+                    "total-results": 3
+                },
+                {
+                    "title": "Selco",
+                    "value": "1000136",
+                    "total-results": 1
+                },
+                {
+                    "title": "Selfa",
+                    "value": "8261",
+                    "total-results": 7
+                },
+                {
+                    "title": "Sessa",
+                    "value": "7070",
+                    "total-results": 7
+                },
+                {
+                    "title": "Shakespeare",
+                    "value": "7933",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sillinger",
+                    "value": "8070",
+                    "total-results": 1
+                },
+                {
+                    "title": "Silver",
+                    "value": "7619",
+                    "total-results": 14
+                },
+                {
+                    "title": "Silver Viking",
+                    "value": "3850",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sjark",
+                    "value": "7074",
+                    "total-results": 6
+                },
+                {
+                    "title": "Sjømann",
+                    "value": "8118",
+                    "total-results": 1
+                },
+                {
+                    "title": "Skager",
+                    "value": "1000364",
+                    "total-results": 3
+                },
+                {
+                    "title": "Skarpnes",
+                    "value": "7130",
+                    "total-results": 3
+                },
+                {
+                    "title": "Skarsvåg",
+                    "value": "1000466",
+                    "total-results": 1
+                },
+                {
+                    "title": "Skibsplast",
+                    "value": "2551",
+                    "total-results": 22
+                },
+                {
+                    "title": "Skilsø",
+                    "value": "2550",
+                    "total-results": 6
+                },
+                {
+                    "title": "Skorgenes",
+                    "value": "2549",
+                    "total-results": 7
+                },
+                {
+                    "title": "Smartliner",
+                    "value": "1000416",
+                    "total-results": 9
+                },
+                {
+                    "title": "Smart Rib",
+                    "value": "1000403",
+                    "total-results": 97
+                },
+                {
+                    "title": "Sollux",
+                    "value": "2548",
+                    "total-results": 4
+                },
+                {
+                    "title": "Steady",
+                    "value": "3848",
+                    "total-results": 9
+                },
+                {
+                    "title": "Sting",
+                    "value": "1000375",
+                    "total-results": 81
+                },
+                {
+                    "title": "Stingray",
+                    "value": "1000149",
+                    "total-results": 12
+                },
+                {
+                    "title": "Storebro",
+                    "value": "2547",
+                    "total-results": 7
+                },
+                {
+                    "title": "Stormway",
+                    "value": "7252",
+                    "total-results": 6
+                },
+                {
+                    "title": "Strandebarmer",
+                    "value": "1000462",
+                    "total-results": 1
+                },
+                {
+                    "title": "Strømøy Rib",
+                    "value": "1000547",
+                    "total-results": 9
+                },
+                {
+                    "title": "Summer Family",
+                    "value": "2922",
+                    "total-results": 1
+                },
+                {
+                    "title": "SUN",
+                    "value": "7775",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sunrider",
+                    "value": "1000451",
+                    "total-results": 2
+                },
+                {
+                    "title": "Sunseeker",
+                    "value": "2544",
+                    "total-results": 11
+                },
+                {
+                    "title": "Sun Quest",
+                    "value": "2546",
+                    "total-results": 2
+                },
+                {
+                    "title": "Suvi",
+                    "value": "2543",
+                    "total-results": 21
+                },
+                {
+                    "title": "Suzumar",
+                    "value": "7590",
+                    "total-results": 13
+                },
+                {
+                    "title": "Swan",
+                    "value": "2968",
+                    "total-results": 3
+                },
+                {
+                    "title": "Sweden Yachts",
+                    "value": "2612",
+                    "total-results": 1
+                },
+                {
+                    "title": "Targa",
+                    "value": "2541",
+                    "total-results": 17
+                },
+                {
+                    "title": "TB",
+                    "value": "1000413",
+                    "total-results": 2
+                },
+                {
+                    "title": "Terhi",
+                    "value": "3846",
+                    "total-results": 46
+                },
+                {
+                    "title": "TG-Boat",
+                    "value": "7618",
+                    "total-results": 6
+                },
+                {
+                    "title": "Tobias",
+                    "value": "2540",
+                    "total-results": 3
+                },
+                {
+                    "title": "Tracker",
+                    "value": "8153",
+                    "total-results": 1
+                },
+                {
+                    "title": "Trader",
+                    "value": "1000367",
+                    "total-results": 1
+                },
+                {
+                    "title": "Tresfjord",
+                    "value": "2539",
+                    "total-results": 6
+                },
+                {
+                    "title": "Trio",
+                    "value": "7083",
+                    "total-results": 1
+                },
+                {
+                    "title": "Triton",
+                    "value": "8090",
+                    "total-results": 1
+                },
+                {
+                    "title": "Tromøy",
+                    "value": "1000379",
+                    "total-results": 1
+                },
+                {
+                    "title": "Unique",
+                    "value": "7251",
+                    "total-results": 2
+                },
+                {
+                    "title": "Uttern",
+                    "value": "2537",
+                    "total-results": 185
+                },
+                {
+                    "title": "Valiant",
+                    "value": "1000318",
+                    "total-results": 2
+                },
+                {
+                    "title": "Vest",
+                    "value": "1000456",
+                    "total-results": 1
+                },
+                {
+                    "title": "Viking",
+                    "value": "2919",
+                    "total-results": 8
+                },
+                {
+                    "title": "Viknes",
+                    "value": "2535",
+                    "total-results": 22
+                },
+                {
+                    "title": "Viksund",
+                    "value": "2534",
+                    "total-results": 29
+                },
+                {
+                    "title": "Vindø",
+                    "value": "7085",
+                    "total-results": 2
+                },
+                {
+                    "title": "Viper",
+                    "value": "7929",
+                    "total-results": 1
+                },
+                {
+                    "title": "Walker Bay",
+                    "value": "7848",
+                    "total-results": 3
+                },
+                {
+                    "title": "Wasa",
+                    "value": "7086",
+                    "total-results": 1
+                },
+                {
+                    "title": "Wellcraft",
+                    "value": "2533",
+                    "total-results": 2
+                },
+                {
+                    "title": "Wesling",
+                    "value": "2532",
+                    "total-results": 3
+                },
+                {
+                    "title": "Westbas",
+                    "value": "2531",
+                    "total-results": 4
+                },
+                {
+                    "title": "Wester",
+                    "value": "3840",
+                    "total-results": 1
+                },
+                {
+                    "title": "Westline",
+                    "value": "8126",
+                    "total-results": 1
+                },
+                {
+                    "title": "White Shark",
+                    "value": "2528",
+                    "total-results": 1
+                },
+                {
+                    "title": "Wiking",
+                    "value": "7724",
+                    "total-results": 2
+                },
+                {
+                    "title": "Williams",
+                    "value": "1000349",
+                    "total-results": 1
+                },
+                {
+                    "title": "Windy",
+                    "value": "2527",
+                    "total-results": 20
+                },
+                {
+                    "title": "With",
+                    "value": "3839",
+                    "total-results": 2
+                },
+                {
+                    "title": "XO",
+                    "value": "1000415",
+                    "total-results": 7
+                },
+                {
+                    "title": "X-Yachts",
+                    "value": "2611",
+                    "total-results": 2
+                },
+                {
+                    "title": "Yamaha",
+                    "value": "7089",
+                    "total-results": 34
+                },
+                {
+                    "title": "Yamarin",
+                    "value": "3837",
+                    "total-results": 153
+                },
+                {
+                    "title": "ZAR",
+                    "value": "1000496",
+                    "total-results": 2
+                },
+                {
+                    "title": "Zodiac",
+                    "value": "2509",
+                    "total-results": 36
+                },
+                {
+                    "title": "Øien",
+                    "value": "3836",
+                    "total-results": 28
+                },
+                {
+                    "title": "Ørnvik",
+                    "value": "3835",
+                    "total-results": 1
+                },
+                {
+                    "title": "Årø",
+                    "value": "7132",
+                    "total-results": 2
+                },
+                {
+                    "title": "5,5 meter",
+                    "value": "6939",
+                    "total-results": 7
+                },
+                {
+                    "title": "8 meter",
+                    "value": "6940",
+                    "total-results": 10
+                }
+            ]
+        },
+        "motor_included": {
+            "title": "Motor inkludert",
+            "name": "motor_included",
+            "queries": [
+                {
+                    "title": "Ja",
+                    "value": "1",
+                    "total-results": 3802
+                },
+                {
+                    "title": "Nei",
+                    "value": "-1",
+                    "total-results": 640
+                }
+            ]
+        },
+        "motor_type": {
+            "title": "Motortype",
+            "name": "motor_type",
+            "queries": [
+                {
+                    "title": "Innenbords",
+                    "value": "Innenbords",
+                    "total-results": 1333
+                },
+                {
+                    "title": "Utenbords",
+                    "value": "Utenbords",
+                    "total-results": 2609
+                }
+            ]
+        },
+        "fuel": {
+            "title": "Drivstoff",
+            "name": "fuel",
+            "queries": [
+                {
+                    "title": "Annet",
+                    "value": "3",
+                    "total-results": 19
+                },
+                {
+                    "title": "Bensin",
+                    "value": "1",
+                    "total-results": 2523
+                },
+                {
+                    "title": "Diesel",
+                    "value": "2",
+                    "total-results": 1133
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Forhandler",
+                    "value": "0",
+                    "total-results": 3605
+                },
+                {
+                    "title": "Privat",
+                    "value": "1",
+                    "total-results": 912
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Båten ligger i",
+            "name": "motor_ad_location",
+            "queries": [
+                {
+                    "title": "Norge",
+                    "value": "1",
+                    "total-results": 4155
+                },
+                {
+                    "title": "Utlandet",
+                    "value": "2",
+                    "total-results": 362
+                }
+            ]
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 336
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "20010",
+                    "total-results": 373
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "20007",
+                    "total-results": 385
+                },
+                {
+                    "title": "Finnmark",
+                    "value": "20020",
+                    "total-results": 24
+                },
+                {
+                    "title": "Hedmark",
+                    "value": "20005",
+                    "total-results": 26
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "20013",
+                    "total-results": 423
+                },
+                {
+                    "title": "Møre og Romsdal",
+                    "value": "20015",
+                    "total-results": 246
+                },
+                {
+                    "title": "Nordland",
+                    "value": "20018",
+                    "total-results": 177
+                },
+                {
+                    "title": "Oppland",
+                    "value": "20006",
+                    "total-results": 8
+                },
+                {
+                    "title": "Oslo",
+                    "value": "20061",
+                    "total-results": 127
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "20012",
+                    "total-results": 577
+                },
+                {
+                    "title": "Sogn og Fjordane",
+                    "value": "20014",
+                    "total-results": 136
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 187
+                },
+                {
+                    "title": "Troms",
+                    "value": "20019",
+                    "total-results": 157
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "20016",
+                    "total-results": 255
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "20008",
+                    "total-results": 359
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "20011",
+                    "total-results": 293
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 362
+                }
+            ]
+        },
+        "class": {
+            "title": "Båttype",
+            "name": "class",
+            "queries": [
+                {
+                    "title": "Andre",
+                    "value": "2258",
+                    "total-results": 53
+                },
+                {
+                    "title": "Bowrider",
+                    "value": "7961",
+                    "total-results": 258
+                },
+                {
+                    "title": "Cabincruiser",
+                    "value": "6923",
+                    "total-results": 757
+                },
+                {
+                    "title": "Daycruiser",
+                    "value": "2184",
+                    "total-results": 722
+                },
+                {
+                    "title": "Gummibåt/Jolle",
+                    "value": "2186",
+                    "total-results": 192
+                },
+                {
+                    "title": "RIB",
+                    "value": "7343",
+                    "total-results": 513
+                },
+                {
+                    "title": "Seilbåt/Motorseiler",
+                    "value": "2188",
+                    "total-results": 272
+                },
+                {
+                    "title": "Skjærgårdsjeep/Landstedsbåt",
+                    "value": "3827",
+                    "total-results": 1231
+                },
+                {
+                    "title": "Speedbåt",
+                    "value": "7960",
+                    "total-results": 12
+                },
+                {
+                    "title": "Trebåt/Snekke",
+                    "value": "6922",
+                    "total-results": 91
+                },
+                {
+                    "title": "Vannscooter",
+                    "value": "2190",
+                    "total-results": 118
+                },
+                {
+                    "title": "Yacht",
+                    "value": "7959",
+                    "total-results": 49
+                },
+                {
+                    "title": "Yrkesbåt/Sjark/Skøyte",
+                    "value": "6921",
+                    "total-results": 241
+                }
+            ]
+        },
+        "segment": {
+            "title": "Tilstand",
+            "name": "segment",
+            "queries": [
+                {
+                    "title": "Brukt båt",
+                    "value": "120",
+                    "total-results": 2496
+                },
+                {
+                    "title": "Ny båt",
+                    "value": "121",
+                    "total-results": 2021
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 62
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

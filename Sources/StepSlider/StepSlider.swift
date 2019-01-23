@@ -5,32 +5,32 @@
 import UIKit
 
 protocol StepSliderDelegate: AnyObject {
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float)
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, canChangeToRoundedStepValue value: StepValueKind) -> Bool
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind)
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind)
+    func stepSlider(_ stepSlider: StepSlider, didChangeValue value: Float)
+    func stepSlider(_ stepSlider: StepSlider, canChangeToRoundedStepValue value: Int) -> Bool
+    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: Int)
+    func stepSlider(_ stepSlider: StepSlider, didEndSlideInteraction value: Int)
 }
 
-class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
-    let range: [StepValueKind]
+class StepSlider: UISlider {
+    let range: [Int]
     var generatesHapticFeedbackOnValueChange = true
 
     private var previousValue: Float = 0
-    private var previousRoundedStepValue: StepValueKind?
+    private var previousRoundedStepValue: Int?
     weak var delegate: StepSliderDelegate?
     private let valueFormatter: SliderValueFormatter
     private let accessibilityStepIncrement: Float
     private let maximumValueWithoutOffset: Float
-    private let lowerBoundStepValue: StepValueKind?
-    private let upperBoundStepValue: StepValueKind?
+    private let lowerBoundStepValue: Int?
+    private let upperBoundStepValue: Int?
     private let leftSideOffset: Float
 
     // MARK: - Init
 
-    init(range: [StepValueKind],
+    init(range: [Int],
          valueFormatter: SliderValueFormatter,
-         minimumStepValueWithOffset: StepValueKind? = nil,
-         maximumStepValueWithOffset: StepValueKind? = nil,
+         minimumStepValueWithOffset: Int? = nil,
+         maximumStepValueWithOffset: Int? = nil,
          accessibilityStepIncrement: Int = 1) {
         self.range = range
         self.valueFormatter = valueFormatter
@@ -55,7 +55,7 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         addTarget(self, action: #selector(sliderValueChanged(sender:event:)), for: .valueChanged)
     }
 
-    convenience init(sliderInfo: StepSliderInfo<StepValueKind>, valueFormatter: SliderValueFormatter) {
+    convenience init(sliderInfo: StepSliderInfo, valueFormatter: SliderValueFormatter) {
         self.init(
             range: sliderInfo.values,
             valueFormatter: valueFormatter,
@@ -79,11 +79,11 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         return thumbRect(forBounds: bounds, trackRect: currentTrackRect, value: value)
     }
 
-    var roundedStepValue: StepValueKind? {
+    var roundedStepValue: Int? {
         return roundedStepValue(fromValue: value)
     }
 
-    func setValueForSlider(_ findResult: StepValueResult<StepValueKind>, animated: Bool) {
+    func setValueForSlider(_ findResult: StepValueResult, animated: Bool) {
         switch findResult {
         case let .exact(match):
             setValueForSlider(match, animated: animated)
@@ -102,7 +102,7 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         }
     }
 
-    func setValueForSlider(_ value: StepValueKind, animated: Bool) {
+    func setValueForSlider(_ value: Int, animated: Bool) {
         let translatedValue = translateValueToNormalizedRangeStartingFromZeroValue(value: value)
         setValueForSlider(translatedValue, animated: animated)
     }
@@ -166,7 +166,7 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         sendActions(for: .valueChanged)
     }
 
-    func translateValueToNormalizedRangeStartingFromZeroValue(value: StepValueKind) -> Float {
+    func translateValueToNormalizedRangeStartingFromZeroValue(value: Int) -> Float {
         if let rangeValue = self.rangeValue(from: value) {
             return rangeValue
         } else if let last = range.last, value > last {
@@ -176,11 +176,11 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
         }
     }
 
-    private func rangeValue(from value: StepValueKind) -> Float? {
+    private func rangeValue(from value: Int) -> Float? {
         return range.firstIndex(of: value).map({ Float($0) + leftSideOffset })
     }
 
-    private func roundedStepValue(fromValue value: Float) -> StepValueKind? {
+    private func roundedStepValue(fromValue value: Float) -> Int? {
         let valueWithoutOffset = roundf(value - leftSideOffset)
         let index = Int(valueWithoutOffset)
 

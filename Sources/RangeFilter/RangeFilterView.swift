@@ -10,8 +10,6 @@ public protocol RangeFilterViewDelegate: AnyObject {
 }
 
 public final class RangeFilterView: UIControl {
-    public typealias RangeValue = Int
-
     private enum InputValue {
         case low, high
     }
@@ -20,8 +18,8 @@ public final class RangeFilterView: UIControl {
 
     private let filterInfo: RangeFilterInfoType
     private let formatter: RangeFilterValueFormatter
-    private var inputValues = [InputValue: RangeValue]()
-    private var referenceValueViews = [SliderReferenceValueView<RangeValue>]()
+    private var inputValues = [InputValue: Int]()
+    private var referenceValueViews = [SliderReferenceValueView]()
 
     public var generatesHapticFeedbackOnSliderValueChange = true {
         didSet {
@@ -29,7 +27,7 @@ public final class RangeFilterView: UIControl {
         }
     }
 
-    private var sliderInfo: StepSliderInfo<RangeValue> {
+    private var sliderInfo: StepSliderInfo {
         return filterInfo.sliderInfo
     }
 
@@ -121,21 +119,21 @@ public final class RangeFilterView: UIControl {
 }
 
 extension RangeFilterView {
-    public var lowValue: RangeValue? {
+    public var lowValue: Int? {
         return inputValues[.low]
     }
 
-    public var highValue: RangeValue? {
+    public var highValue: Int? {
         return inputValues[.high]
     }
 
-    public func setLowValue(_ value: RangeValue?, animated: Bool) {
+    public func setLowValue(_ value: Int?, animated: Bool) {
         updateNumberInput(for: .low, with: value, fromSlider: false)
         updateSliderLowValue(with: value ?? sliderInfo.minimumValueWithOffset)
         inputValues[.low] = value
     }
 
-    public func setHighValue(_ value: RangeValue?, animated: Bool) {
+    public func setHighValue(_ value: Int?, animated: Bool) {
         updateNumberInput(for: .high, with: value, fromSlider: false)
         updateSliderHighValue(with: value ?? sliderInfo.maximumValueWithOffset)
         inputValues[.high] = value
@@ -187,18 +185,18 @@ private extension RangeFilterView {
         }
     }
 
-    func updateSliderLowValue(with value: RangeValue) {
+    func updateSliderLowValue(with value: Int) {
         let newValue = value < sliderInfo.minimumValue ? sliderInfo.minimumValueWithOffset : value
         sliderInputView.setLowValue(newValue, animated: false)
     }
 
-    func updateSliderHighValue(with value: RangeValue) {
+    func updateSliderHighValue(with value: Int) {
         let newValue = value > sliderInfo.maximumValue ? sliderInfo.maximumValueWithOffset : value
         sliderInputView.setHighValue(newValue, animated: false)
     }
 
-    private func updateNumberInput(for inputValue: InputValue, with value: RangeValue?, fromSlider: Bool) {
-        let newValue: RangeValue
+    private func updateNumberInput(for inputValue: InputValue, with value: Int?, fromSlider: Bool) {
+        let newValue: Int
         let hintText: String
 
         if let value = value {
@@ -267,18 +265,18 @@ extension RangeFilterView: RangeNumberInputViewDelegate {
 
 extension RangeFilterView: RangeSliderViewDelegate {
     func rangeSliderView(_ rangeSliderView: RangeSliderView,
-                         didChangeLowValue value: RangeSliderView.RangeValue?,
+                         didChangeLowValue value: Int?,
                          didFinishSlideInteraction slideEnded: Bool) {
         handleSliderUpdates(for: .low, value: value, slideEnded: slideEnded)
     }
 
     func rangeSliderView(_ rangeSliderView: RangeSliderView,
-                         didChangeHighValue value: RangeSliderView.RangeValue?,
+                         didChangeHighValue value: Int?,
                          didFinishSlideInteraction slideEnded: Bool) {
         handleSliderUpdates(for: .high, value: value, slideEnded: slideEnded)
     }
 
-    private func handleSliderUpdates(for inputValue: InputValue, value: RangeSliderView.RangeValue?, slideEnded: Bool) {
+    private func handleSliderUpdates(for inputValue: InputValue, value: Int?, slideEnded: Bool) {
         if let value = value {
             let didValueChange = inputValues[inputValue] != value
             if didValueChange {
@@ -305,7 +303,7 @@ extension RangeFilterView: RangeSliderViewDelegate {
         }
     }
 
-    private func didSetSliderValue(_ value: RangeSliderView.RangeValue?, for inputValue: InputValue) {
+    private func didSetSliderValue(_ value: Int?, for inputValue: InputValue) {
         if inputValue == .low {
             delegate?.rangeFilterView(self, didSetLowValue: value)
         } else {

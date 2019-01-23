@@ -50,10 +50,10 @@ public class MapFilterView: UIView {
         return view
     }()
 
-    private lazy var distanceSlider: ValueSliderWithLabelView<Int> = {
+    private lazy var distanceSlider: ValueSliderWithLabelView = {
         let meterStepValues = [200, 300, 400, 500, 700, 1000, 1500, 2000, 5000, 10000, 20000, 30000, 50000, 75000, 100_000]
         let referenceIndexes = [1, Int(meterStepValues.count / 2), meterStepValues.count - 2]
-        let slider = ValueSliderWithLabelView<Int>(range: meterStepValues, referenceIndexes: referenceIndexes, valueFormatter: MapDistanceValueFormatter())
+        let slider = ValueSliderWithLabelView(range: meterStepValues, referenceIndexes: referenceIndexes, valueFormatter: MapDistanceValueFormatter())
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
 
@@ -172,7 +172,7 @@ extension MapFilterView: MapFilterViewManagerDelegate {
 }
 
 extension MapFilterView: ValueSliderWithLabelViewDelegate {
-    func valueSliderWithLabelView<ValueKind>(_ valueSliderWithLabelView: ValueSliderWithLabelView<ValueKind>, didSetValue value: ValueKind) where ValueKind: Comparable, ValueKind: Numeric {
+    func valueSliderWithLabelView<ValueKind>(_ valueSliderWithLabelView: ValueSliderWithLabelView, didSetValue value: ValueKind) where ValueKind: Comparable, ValueKind: Numeric {
         guard let value = value as? Int else {
             return
         }

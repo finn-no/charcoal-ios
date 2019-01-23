@@ -5,8 +5,8 @@
 import UIKit
 
 protocol RangeSliderViewDelegate: AnyObject {
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue: RangeSliderView.RangeValue?, didFinishSlideInteraction slideEnded: Bool)
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue: RangeSliderView.RangeValue?, didFinishSlideInteraction slideEnded: Bool)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowValue: Int?, didFinishSlideInteraction slideEnded: Bool)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighValue: Int?, didFinishSlideInteraction slideEnded: Bool)
 }
 
 final class RangeSliderView: UIControl {
@@ -35,9 +35,8 @@ final class RangeSliderView: UIControl {
     private let activeRangeTrackViewLeadingAnchorIdentifier = "activeRangeTrackViewLeadingAnchorIdentifier"
     private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
 
-    typealias RangeValue = Int
-    typealias SliderRange = ClosedRange<RangeValue>
-    private let sliderInfo: StepSliderInfo<RangeValue>
+    typealias SliderRange = ClosedRange<Int>
+    private let sliderInfo: StepSliderInfo
     private let formatter: SliderValueFormatter
 
     var generatesHapticFeedbackOnValueChange = true {
@@ -56,7 +55,7 @@ final class RangeSliderView: UIControl {
 
     weak var delegate: RangeSliderViewDelegate?
 
-    init(sliderInfo: StepSliderInfo<RangeValue>, formatter: SliderValueFormatter) {
+    init(sliderInfo: StepSliderInfo, formatter: SliderValueFormatter) {
         self.sliderInfo = sliderInfo
         self.formatter = formatter
         super.init(frame: .zero)
@@ -90,7 +89,7 @@ final class RangeSliderView: UIControl {
         updateActiveTrackRange()
     }
 
-    private func makeStepSlider() -> StepSlider<RangeValue> {
+    private func makeStepSlider() -> StepSlider {
         let slider = StepSlider(sliderInfo: sliderInfo, valueFormatter: formatter)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.delegate = self
@@ -99,7 +98,7 @@ final class RangeSliderView: UIControl {
 }
 
 extension RangeSliderView: RangeControl {
-    var lowValue: RangeValue? {
+    var lowValue: Int? {
         guard let lowValue = lowValueSlider.roundedStepValue, lowValue >= sliderInfo.minimumValue else {
             return nil
         }
@@ -107,7 +106,7 @@ extension RangeSliderView: RangeControl {
         return lowValue
     }
 
-    var highValue: RangeValue? {
+    var highValue: Int? {
         guard let highValue = highValueSlider.roundedStepValue, highValue <= sliderInfo.maximumValue else {
             return nil
         }
@@ -115,7 +114,7 @@ extension RangeSliderView: RangeControl {
         return highValue
     }
 
-    func setLowValue(_ value: RangeValue, animated: Bool) {
+    func setLowValue(_ value: Int, animated: Bool) {
         let value = highValueSlider.roundedStepValue.map({ $0 < value ? $0 : value }) ?? value
 
         guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
@@ -127,7 +126,7 @@ extension RangeSliderView: RangeControl {
         updateAccesibilityValues()
     }
 
-    func setHighValue(_ value: RangeValue, animated: Bool) {
+    func setHighValue(_ value: Int, animated: Bool) {
         let value = lowValueSlider.roundedStepValue.map({ $0 > value ? $0 : value }) ?? value
 
         guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
@@ -139,7 +138,7 @@ extension RangeSliderView: RangeControl {
         updateAccesibilityValues()
     }
 
-    func thumbRect(for value: RangeValue) -> CGRect {
+    func thumbRect(for value: Int) -> CGRect {
         let bounds = lowValueSlider.bounds
         let trackRect = lowValueSlider.trackRect(forBounds: bounds)
         let translatedValue = lowValueSlider.translateValueToNormalizedRangeStartingFromZeroValue(value: value)
@@ -228,16 +227,12 @@ private extension RangeSliderView {
 }
 
 extension RangeSliderView: StepSliderDelegate {
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeValue value: Float) {
+    func stepSlider(_ stepSlider: StepSlider, didChangeValue value: Float) {
         updateActiveTrackRange()
         updateAccesibilityValues()
     }
 
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, canChangeToRoundedStepValue value: StepValueKind) -> Bool {
-        guard let value = value as? RangeValue else {
-            return false
-        }
-
+    func stepSlider(_ stepSlider: StepSlider, canChangeToRoundedStepValue value: Int) -> Bool {
         if let lowValue = lowValue, stepSlider == highValueSlider {
             return value >= lowValue
         } else if let highValue = highValue, stepSlider == lowValueSlider {
@@ -247,7 +242,7 @@ extension RangeSliderView: StepSliderDelegate {
         }
     }
 
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
+    func stepSlider(_ stepSlider: StepSlider, didChangeRoundedStepValue value: Int) {
         if lowValueSlider.roundedStepValue == highValueSlider.roundedStepValue, generatesHapticFeedbackOnValueChange {
             FeedbackGenerator.generate(.collision)
         }
@@ -259,7 +254,7 @@ extension RangeSliderView: StepSliderDelegate {
         }
     }
 
-    func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didEndSlideInteraction value: StepValueKind) where StepValueKind: Comparable {
+    func stepSlider(_ stepSlider: StepSlider, didEndSlideInteraction value: Int) {
         if stepSlider == highValueSlider {
             delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: true)
         } else {

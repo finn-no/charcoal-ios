@@ -2,13 +2,13 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-enum StepValueResult<T: SliderValueKind> {
-    case exact(stepValue: T)
-    case between(closest: T, lower: T, higher: T)
-    case tooLow(closest: T)
-    case tooHigh(closest: T)
+enum StepValueResult {
+    case exact(stepValue: Int)
+    case between(closest: Int, lower: Int, higher: Int)
+    case tooLow(closest: Int)
+    case tooHigh(closest: Int)
 
-    var closestStep: T {
+    var closestStep: Int {
         switch self {
         case let .exact(stepValue):
             return stepValue

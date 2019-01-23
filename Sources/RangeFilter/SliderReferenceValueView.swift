@@ -4,7 +4,7 @@
 
 import UIKit
 
-final class SliderReferenceValueView<ReferenceValue: Comparable>: UIView {
+final class SliderReferenceValueView: UIView {
     lazy var indicatorView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -27,10 +27,10 @@ final class SliderReferenceValueView<ReferenceValue: Comparable>: UIView {
         return label
     }()
 
-    let value: ReferenceValue
+    let value: Int
     let displayText: String
 
-    init(value: ReferenceValue, displayText: String) {
+    init(value: Int, displayText: String) {
         self.value = value
         self.displayText = displayText
         super.init(frame: .zero)

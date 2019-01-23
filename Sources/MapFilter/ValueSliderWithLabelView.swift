@@ -10,10 +10,10 @@ protocol SliderValueFormatter: AnyObject {
 }
 
 protocol ValueSliderWithLabelViewDelegate: AnyObject {
-    func valueSliderWithLabelView<ValueKind: SliderValueKind>(_ valueSliderWithLabelView: ValueSliderWithLabelView<ValueKind>, didSetValue value: ValueKind)
+    func valueSliderWithLabelView(_ valueSliderWithLabelView: ValueSliderWithLabelView, didSetValue value: Int)
 }
 
-class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
+class ValueSliderWithLabelView: UIView {
     private lazy var valueLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .title2
@@ -24,8 +24,8 @@ class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
         return label
     }()
 
-    private lazy var sliderView: ValueSliderView<ValueKind> = {
-        let sliderView = ValueSliderView<ValueKind>(range: range, referenceValueIndexes: referenceValueIndexes, valueFormatter: valueFormatter)
+    private lazy var sliderView: ValueSliderView = {
+        let sliderView = ValueSliderView(range: range, referenceValueIndexes: referenceValueIndexes, valueFormatter: valueFormatter)
         sliderView.translatesAutoresizingMaskIntoConstraints = false
         sliderView.delegate = self
         return sliderView
@@ -37,13 +37,13 @@ class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
         }
     }
 
-    private var currentValue: ValueKind
-    private let range: [ValueKind]
+    private var currentValue: Int
+    private let range: [Int]
     private let referenceValueIndexes: [Int]
     private let valueFormatter: SliderValueFormatter
     weak var delegate: ValueSliderWithLabelViewDelegate?
 
-    init(range: [ValueKind], referenceIndexes: [Int], valueFormatter: SliderValueFormatter) {
+    init(range: [Int], referenceIndexes: [Int], valueFormatter: SliderValueFormatter) {
         self.range = range
         referenceValueIndexes = referenceIndexes
         guard let firstInRange = self.range.first else {
@@ -81,7 +81,7 @@ class ValueSliderWithLabelView<ValueKind: SliderValueKind>: UIView {
         }
     }
 
-    func setCurrentValue(_ newValue: ValueKind) {
+    func setCurrentValue(_ newValue: Int) {
         currentValue = newValue
         sliderView.setCurrentValue(newValue, animated: true)
         updateLabel(with: newValue)
@@ -110,7 +110,7 @@ private extension ValueSliderWithLabelView {
         ])
     }
 
-    private func updateLabel(with value: ValueKind) {
+    private func updateLabel(with value: Int) {
         valueLabel.text = valueFormatter.title(for: value)
     }
 
@@ -120,10 +120,7 @@ private extension ValueSliderWithLabelView {
 }
 
 extension ValueSliderWithLabelView: ValueSliderViewDelegate {
-    func valueViewControl<T: SliderValueKind>(_ valueSliderView: ValueSliderView<T>, didChangeValue value: T, didFinishSlideInteraction slideEnded: Bool) {
-        guard let value = value as? ValueKind else {
-            return
-        }
+    func valueViewControl(_ valueSliderView: ValueSliderView, didChangeValue value: Int, didFinishSlideInteraction slideEnded: Bool) {
         let didValueChange = currentValue != value
         if didValueChange {
             updateLabel(with: value)

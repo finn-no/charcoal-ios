@@ -298,7 +298,7 @@ extension ParameterBasedFilterInfoSelectionDataSource: FilterSelectionDataSource
         setValue(latitude: geoFilterValue.latitude, longitude: geoFilterValue.longitude, radius: geoFilterValue.radius, locationName: geoFilterValue.locationName, for: filterInfo)
     }
 
-    public func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
+    public func geoValue() -> GeoFilterValue? {
         guard let latitudeStr = selectionDataSource.selectionValues[GeoKey.latitude]?.first,
             let longitudeStr = selectionDataSource.selectionValues[GeoKey.longitude]?.first,
             let radiusStr = selectionDataSource.selectionValues[GeoKey.radius]?.first else {

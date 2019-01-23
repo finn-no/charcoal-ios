@@ -15,7 +15,6 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
     let range: [StepValueKind]
     var generatesHapticFeedbackOnValueChange = true
 
-    private var shouldGenerateFeedbackOnCollision = true
     private var previousValue: Float = 0
     private var previousRoundedStepValue: StepValueKind?
     weak var delegate: StepSliderDelegate?
@@ -128,16 +127,11 @@ class StepSlider<StepValueKind: Comparable & Numeric>: UISlider {
 
         guard delegate?.stepSlider(self, canChangeToRoundedStepValue: newValue) ?? true else {
             value = previousValue
-            if generatesHapticFeedbackOnValueChange && shouldGenerateFeedbackOnCollision {
-                shouldGenerateFeedbackOnCollision = false
-                FeedbackGenerator.generate(.collision)
-            }
             return
         }
 
         value = rangeValue(from: newValue) ?? slider.value
         previousValue = value
-        shouldGenerateFeedbackOnCollision = true
 
         let stepChanged = previousRoundedStepValue != nil && previousRoundedStepValue != newValue
         if previousRoundedStepValue == nil || stepChanged {

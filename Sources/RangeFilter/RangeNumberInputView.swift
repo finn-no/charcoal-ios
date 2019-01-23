@@ -224,18 +224,6 @@ extension RangeNumberInputView: RangeControl {
         }
     }
 
-    private func updateInputValues() {
-        if let lowValue = lowValue {
-            lowValueInputTextField.text = text(from: lowValue)
-            updateValidationStatus(for: .lowValue, isValid: true)
-        }
-
-        if let highValue = highValue {
-            highValueInputTextField.text = text(from: highValue)
-            updateValidationStatus(for: .highValue, isValid: true)
-        }
-    }
-
     private func updateValidationStatus(for inputGroup: InputGroup, isValid: Bool) {
         let textColor = isValid ? Style.textColor : Style.errorTextColor
 
@@ -267,7 +255,8 @@ extension RangeNumberInputView: UITextFieldDelegate {
         }
 
         setInputGroup(inputGroup, active: false)
-        updateInputValues()
+        updateValidationStatus(for: .lowValue, isValid: true)
+        updateValidationStatus(for: .highValue, isValid: true)
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -307,7 +296,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
             FeedbackGenerator.generate(.error)
         }
 
-        inputValues[inputGroup] = validatedValue
+        inputValues[inputGroup] = newValue
         updateValidationStatus(for: inputGroup, isValid: isNewValueValid)
 
         return false

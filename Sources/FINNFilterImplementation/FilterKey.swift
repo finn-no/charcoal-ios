@@ -57,8 +57,10 @@ public enum FilterKey: String, CodingKey {
     case searchType = "search_type"
     case segment
     case transmission
+    case type
     case viewing
     case warrantyInsurance = "warranty_insurance"
+    case width
     case wheelDrive = "wheel_drive"
     case wheelSets = "wheel_sets"
     case year

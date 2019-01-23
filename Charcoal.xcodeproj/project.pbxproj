@@ -412,6 +412,59 @@
 			path = FilterMarkets;
 			sourceTree = "<group>";
 		};
+		08716B3821F89B80003180D8 /* boat */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = boat;
+			sourceTree = "<group>";
+		};
+		08716B3921F89B86003180D8 /* job */ = {
+			isa = PBXGroup;
+			children = (
+				088C090E21F5C3AA00983132 /* job-full-time.json */,
+				088C091021F5CE4200983132 /* job-part-time.json */,
+				088C091221F5CE4C00983132 /* job-management.json */,
+			);
+			path = job;
+			sourceTree = "<group>";
+		};
+		08716B3A21F89B8C003180D8 /* mc */ = {
+			isa = PBXGroup;
+			children = (
+				088C091421F5E09900983132 /* mc.json */,
+				088C091621F5E5EE00983132 /* moped-scooter.json */,
+				088C091821F5E63800983132 /* snowmobile.json */,
+				088C091A21F5E67900983132 /* atv.json */,
+			);
+			path = mc;
+			sourceTree = "<group>";
+		};
+		08716B3B21F89BA6003180D8 /* bap */ = {
+			isa = PBXGroup;
+			children = (
+				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
+			);
+			path = bap;
+			sourceTree = "<group>";
+		};
+		08716B3C21F89BAE003180D8 /* realestate */ = {
+			isa = PBXGroup;
+			children = (
+				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
+			);
+			path = realestate;
+			sourceTree = "<group>";
+		};
+		08716B3D21F89BB4003180D8 /* car */ = {
+			isa = PBXGroup;
+			children = (
+				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
+				554D154F20C0782200FA3930 /* car-norway.json */,
+			);
+			path = car;
+			sourceTree = "<group>";
+		};
 		44ECE645208F7F7B0017AC82 = {
 			isa = PBXGroup;
 			children = (
@@ -651,17 +704,12 @@
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
-				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
-				554D154F20C0782200FA3930 /* car-norway.json */,
-				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
-				088C091421F5E09900983132 /* mc.json */,
-				088C091621F5E5EE00983132 /* moped-scooter.json */,
-				088C091821F5E63800983132 /* snowmobile.json */,
-				088C091A21F5E67900983132 /* atv.json */,
-				088C090E21F5C3AA00983132 /* job-full-time.json */,
-				088C091021F5CE4200983132 /* job-part-time.json */,
-				088C091221F5CE4C00983132 /* job-management.json */,
+				08716B3B21F89BA6003180D8 /* bap */,
+				08716B3821F89B80003180D8 /* boat */,
+				08716B3D21F89BB4003180D8 /* car */,
+				08716B3921F89B86003180D8 /* job */,
+				08716B3A21F89B8C003180D8 /* mc */,
+				08716B3C21F89BAE003180D8 /* realestate */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

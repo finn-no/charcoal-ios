@@ -4,7 +4,12 @@
 
 import UIKit
 
-final class RangeNumberInputView: UIControl {
+protocol RangeNumberInputViewDelegate: AnyObject {
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeLowValue value: Int?)
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeHighValue value: Int?)
+}
+
+final class RangeNumberInputView: UIView {
     private lazy var lowValueInputTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -115,6 +120,7 @@ final class RangeNumberInputView: UIControl {
 
     typealias RangeValue = Int
 
+    weak var delegate: RangeNumberInputViewDelegate?
     let minValue: RangeValue
     let unit: String
     let formatter: RangeFilterValueFormatter
@@ -260,10 +266,6 @@ extension RangeNumberInputView: UITextFieldDelegate {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        defer {
-            sendActions(for: .valueChanged)
-        }
-
         var text = textField.text ?? ""
 
         guard let stringRange = Range<String.Index>(range, in: text) else {
@@ -298,6 +300,13 @@ extension RangeNumberInputView: UITextFieldDelegate {
 
         inputValues[inputGroup] = newValue
         updateValidationStatus(for: inputGroup, isValid: isNewValueValid)
+
+        switch inputGroup {
+        case .lowValue:
+            delegate?.rangeNumberInputView(self, didChangeLowValue: newValue)
+        case .highValue:
+            delegate?.rangeNumberInputView(self, didChangeHighValue: newValue)
+        }
 
         return false
     }

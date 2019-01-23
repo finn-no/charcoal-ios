@@ -116,6 +116,8 @@ extension RangeSliderView: RangeControl {
     }
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
+        let value = highValueSlider.roundedStepValue.map({ $0 < value ? $0 : value }) ?? value
+
         guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
             return
         }
@@ -126,6 +128,8 @@ extension RangeSliderView: RangeControl {
     }
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
+        let value = lowValueSlider.roundedStepValue.map({ $0 > value ? $0 : value }) ?? value
+
         guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
             return
         }

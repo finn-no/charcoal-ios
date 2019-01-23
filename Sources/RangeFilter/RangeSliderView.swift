@@ -248,7 +248,7 @@ extension RangeSliderView: StepSliderDelegate {
     }
 
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
-        if lowValue == highValue, generatesHapticFeedbackOnValueChange {
+        if lowValueSlider.roundedStepValue == highValueSlider.roundedStepValue, generatesHapticFeedbackOnValueChange {
             FeedbackGenerator.generate(.collision)
         }
 

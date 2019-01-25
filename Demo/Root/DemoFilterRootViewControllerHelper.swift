@@ -85,7 +85,7 @@ class DemoFilter {
 
     // Market vertical creation.
 
-    private func createNonExternalVerticalDemos<T: RawRepresentable>(from markets: [T: String], isExternal: (T) -> Bool = { _ in return false }) -> [String: [VerticalDemo]] where T.RawValue == String {
+    private func createVerticalDemos<T: RawRepresentable>(from markets: [T: String], isExternal: (T) -> Bool = { _ in return false }) -> [String: [VerticalDemo]] where T.RawValue == String {
         var verticalDemos = [String: [VerticalDemo]]()
 
         markets.forEach { market in
@@ -110,7 +110,7 @@ class DemoFilter {
             .boatDockWanted: "Båtplasser ønskes",
         ]
 
-        return createNonExternalVerticalDemos(from: markets)
+        return createVerticalDemos(from: markets)
     }
 
     private func jobVerticalDemos() -> [String: [VerticalDemo]] {
@@ -120,7 +120,7 @@ class DemoFilter {
             .management: "Lederstillinger",
         ]
 
-        return createNonExternalVerticalDemos(from: markets)
+        return createVerticalDemos(from: markets)
     }
 
     private func mcVerticalDemos() -> [String: [VerticalDemo]] {
@@ -131,7 +131,7 @@ class DemoFilter {
             .atv: "ATV-er",
         ]
 
-        return createNonExternalVerticalDemos(from: markets)
+        return createVerticalDemos(from: markets)
     }
 }
 

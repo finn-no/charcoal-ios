@@ -10,6 +10,7 @@ enum FilterMarket {
     case car(FilterMarketCar)
     case mc(FilterMarketMC)
     case job(FilterMarketJob)
+    case boat(FilterMarketBoat)
 
     init?(market: String) {
         guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
@@ -31,6 +32,8 @@ enum FilterMarket {
             return mc
         case let .job(job):
             return job
+        case let .boat(boat):
+            return boat
         }
     }
 }
@@ -68,5 +71,6 @@ extension FilterMarket: CaseIterable {
             + FilterMarketCar.allCases.map(FilterMarket.car)
             + FilterMarketMC.allCases.map(FilterMarket.mc)
             + FilterMarketJob.allCases.map(FilterMarket.job)
+            + FilterMarketBoat.allCases.map(FilterMarket.boat)
     }
 }

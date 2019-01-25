@@ -104,6 +104,102 @@ extension FilterMarketBoat: FilterConfiguration {
     }
 
     func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        return nil
+        let parameterName = rangeFilterData.parameterName
+        let name = rangeFilterData.title
+        let lowValue: Int
+        let highValue: Int
+        let increment: Int
+        let unit: String
+        let rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets
+        let accessibilityValues: RangeFilterInfo.AccessibilityValues
+        let appearanceProperties: RangeFilterInfo.AppearenceProperties
+
+        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
+            return nil
+        }
+        switch filterKey {
+        case .price:
+            lowValue = 0
+            switch self {
+            case .boatSale, .boatUsedWanted:
+                highValue = 1_000_000
+                increment = 10000
+            case .boatMotor, .boatParts, .boatRent, .boatPartsMotorWanted:
+                highValue = 100_000
+                increment = 1000
+            case .boatDock:
+                highValue = 200_000
+                increment = 1000
+            case .boatDockWanted:
+                highValue = 10000
+                increment = 1000
+            }
+            unit = "kr"
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+        case .lengthFeet:
+            lowValue = 0
+            highValue = 60
+            unit = "fot"
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .year:
+            lowValue = 1985
+            highValue = Calendar.current.component(.year, from: Date())
+            unit = "år"
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
+        case .motorSize:
+            lowValue = 0
+            highValue = 500
+            unit = "hk"
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            increment = 10
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .noOfSeats:
+            lowValue = 0
+            highValue = 20
+            unit = "stk."
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .noOfSleepers:
+            lowValue = 0
+            highValue = 10
+            unit = "stk."
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .width:
+            lowValue = 250
+            highValue = 500
+            unit = "cm"
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            increment = 10
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        default:
+            return nil
+        }
+
+        return RangeFilterInfo(
+            parameterName: parameterName,
+            title: name,
+            lowValue: lowValue,
+            highValue: highValue,
+            increment: increment,
+            rangeBoundsOffsets: rangeBoundsOffsets,
+            unit: unit,
+            accesibilityValues: accessibilityValues,
+            appearanceProperties: appearanceProperties
+        )
     }
 }

@@ -25,21 +25,9 @@ extension FilterMarketBoat: FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .boatSale:
-            return [.segment]
-        case .boatUsedWanted:
-            return []
-        case .boatRent:
-            return []
-        case .boatMotor:
-            return []
-        case .boatParts:
-            return []
-        case .boatPartsMotorWanted:
-            return []
-        case .boatDock:
-            return []
-        case .boatDockWanted:
-            return []
+            return [.published, .segment]
+        default:
+            return [.published]
         }
     }
 
@@ -47,7 +35,6 @@ extension FilterMarketBoat: FilterConfiguration {
         switch self {
         case .boatSale:
             return [
-                .published,
                 .location,
                 .motorAdLocation,
                 .boatClass,
@@ -65,14 +52,12 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatUsedWanted:
             return [
-                .published,
                 .location,
                 .boatClass,
                 .price,
             ]
         case .boatRent:
             return [
-                .published,
                 .location,
                 .boatClass,
                 .price,
@@ -85,7 +70,6 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatMotor, .boatParts:
             return [
-                .published,
                 .location,
                 .type,
                 .price,
@@ -94,7 +78,6 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatPartsMotorWanted:
             return [
-                .published,
                 .location,
                 .type,
                 .price,
@@ -102,7 +85,6 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatDock:
             return [
-                .published,
                 .location,
                 .width,
                 .price,
@@ -110,7 +92,6 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatDockWanted:
             return [
-                .published,
                 .location,
                 .width,
                 .price,

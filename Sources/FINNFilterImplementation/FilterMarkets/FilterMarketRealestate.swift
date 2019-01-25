@@ -16,7 +16,7 @@ enum FilterMarketRealestate: String, CaseIterable {
     case businessSale = "realestate-business-sale"
     case businessLetting = "realestate-business-letting"
     case businessPlot = "realestate-business-plot"
-    case companyForSale = "realestate-company-for-sale"
+    case companyForSale = "company-for-sale"
     case travelFhh = "realestate-travel-fhh"
 }
 

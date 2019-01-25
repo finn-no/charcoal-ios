@@ -6,6 +6,18 @@ import Foundation
 
 enum FilterMarketRealestate: String, CaseIterable {
     case homes = "realestate-homes"
+    case development = "realestate-development"
+    case plot = "realestate-plot"
+    case leisureSale = "realestate-leisure-sale"
+    case leisureSaleAbroad = "realestate-leisure-sale-abroad"
+    case leisurePlot = "realestate-leisure-plot"
+    case letting = "realestate-letting"
+    case lettingWanted = "realestate-letting-wanted"
+    case businessSale = "realestate-business-sale"
+    case businessLetting = "realestate-business-letting"
+    case businessPlot = "realestate-business-plot"
+    case companyForSale = "realestate-company-for-sale"
+    case travelFhh = "realestate-travel-fhh"
 }
 
 // MARK: - FilterConfiguration

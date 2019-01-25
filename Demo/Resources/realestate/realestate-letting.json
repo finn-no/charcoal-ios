@@ -1,33 +1,27 @@
 {
-    "market": "realestate-homes",
-    "hits": 20489,
-    "label": "Bolig til salgs",
+    "market": "realestate-letting",
+    "hits": 10956,
+    "label": "Bolig til leie",
     "type": "search",
     "filters": [
         "markets",
         "q",
         "published",
         "location",
-        "is_sold",
-        "is_new_property",
+        "property_type",
         "price",
-        "price_collective",
-        "rent",
         "area",
         "no_of_bedrooms",
-        "construction_year",
-        "property_type",
-        "ownership_type",
-        "is_private_broker",
+        "animals_allowed",
+        "furnished",
+        "rent_from",
         "facilities",
         "viewing",
-        "floor_navigator",
-        "energy_label",
-        "plot_area"
+        "floor_navigator"
     ],
     "filter-data": {
         "price": {
-            "title": "Prisantydning",
+            "title": "Månedsleie",
             "range": true,
             "name": "price"
         },
@@ -41,42 +35,6 @@
             "range": true,
             "name": "area"
         },
-        "plot_area": {
-            "title": "Tomtestørrelse",
-            "range": true,
-            "name": "plot_area"
-        },
-        "price_collective": {
-            "title": "Pris med fellesgjeld",
-            "range": true,
-            "name": "price_collective"
-        },
-        "construction_year": {
-            "title": "Byggeår",
-            "range": true,
-            "name": "construction_year"
-        },
-        "rent": {
-            "title": "Fellesutgifter per måned",
-            "range": true,
-            "name": "rent"
-        },
-        "is_private_broker": {
-            "title": "Privat/Megler",
-            "name": "is_private_broker",
-            "queries": [
-                {
-                    "title": "Megler",
-                    "value": "0",
-                    "total-results": 34988
-                },
-                {
-                    "title": "Privat",
-                    "value": "1",
-                    "total-results": 865
-                }
-            ]
-        },
         "facilities": {
             "title": "Fasiliteter",
             "name": "facilities",
@@ -84,47 +42,47 @@
                 {
                     "title": "Balkong/Terrasse",
                     "value": "1",
-                    "total-results": 18818
+                    "total-results": 4738
                 },
                 {
                     "title": "Garasje/P-plass",
                     "value": "23",
-                    "total-results": 17883
+                    "total-results": 5109
                 },
                 {
                     "title": "Heis",
                     "value": "4",
-                    "total-results": 9422
+                    "total-results": 1578
                 },
                 {
                     "title": "Ingen gjenboere",
                     "value": "5",
-                    "total-results": 2574
+                    "total-results": 1795
                 },
                 {
                     "title": "Peis/Ildsted",
                     "value": "2",
-                    "total-results": 6935
+                    "total-results": 2033
                 },
                 {
                     "title": "Strandlinje",
                     "value": "17",
-                    "total-results": 600
+                    "total-results": 2
                 },
                 {
                     "title": "Turterreng",
                     "value": "22",
-                    "total-results": 15251
+                    "total-results": 4804
                 },
                 {
                     "title": "Utsikt",
                     "value": "209",
-                    "total-results": 11851
+                    "total-results": 3394
                 },
                 {
                     "title": "Vaktmester-/vektertjeneste",
                     "value": "30",
-                    "total-results": 3382
+                    "total-results": 1720
                 }
             ]
         },
@@ -135,162 +93,229 @@
                 {
                     "title": "torsdag 24. januar",
                     "value": "20190124",
-                    "total-results": 1329
+                    "total-results": 49
                 },
                 {
                     "title": "fredag 25. januar",
                     "value": "20190125",
-                    "total-results": 50
+                    "total-results": 26
                 },
                 {
                     "title": "lørdag 26. januar",
                     "value": "20190126",
-                    "total-results": 408
+                    "total-results": 56
                 },
                 {
                     "title": "søndag 27. januar",
                     "value": "20190127",
-                    "total-results": 4303
+                    "total-results": 56
                 },
                 {
                     "title": "mandag 28. januar",
                     "value": "20190128",
-                    "total-results": 1438
+                    "total-results": 34
                 },
                 {
                     "title": "tirsdag 29. januar",
                     "value": "20190129",
-                    "total-results": 2061
+                    "total-results": 33
                 },
                 {
                     "title": "onsdag 30. januar",
                     "value": "20190130",
-                    "total-results": 1338
+                    "total-results": 11
                 },
                 {
                     "title": "torsdag 31. januar",
                     "value": "20190131",
-                    "total-results": 814
+                    "total-results": 17
                 },
                 {
                     "title": "fredag 01. februar",
                     "value": "20190201",
-                    "total-results": 8
+                    "total-results": 18
                 },
                 {
                     "title": "lørdag 02. februar",
                     "value": "20190202",
-                    "total-results": 76
+                    "total-results": 16
                 },
                 {
                     "title": "søndag 03. februar",
                     "value": "20190203",
-                    "total-results": 781
+                    "total-results": 13
                 },
                 {
                     "title": "mandag 04. februar",
                     "value": "20190204",
-                    "total-results": 164
+                    "total-results": 4
                 },
                 {
                     "title": "tirsdag 05. februar",
                     "value": "20190205",
-                    "total-results": 190
+                    "total-results": 8
                 },
                 {
                     "title": "onsdag 06. februar",
                     "value": "20190206",
-                    "total-results": 67
+                    "total-results": 2
                 },
                 {
                     "title": "torsdag 07. februar",
                     "value": "20190207",
-                    "total-results": 110
-                },
-                {
-                    "title": "fredag 08. februar",
-                    "value": "20190208",
                     "total-results": 2
                 },
                 {
                     "title": "lørdag 09. februar",
                     "value": "20190209",
-                    "total-results": 7
+                    "total-results": 1
                 },
                 {
                     "title": "søndag 10. februar",
                     "value": "20190210",
-                    "total-results": 127
+                    "total-results": 2
                 },
                 {
                     "title": "mandag 11. februar",
                     "value": "20190211",
-                    "total-results": 2
+                    "total-results": 1
                 },
                 {
                     "title": "tirsdag 12. februar",
                     "value": "20190212",
-                    "total-results": 83
+                    "total-results": 1
                 },
                 {
                     "title": "onsdag 13. februar",
                     "value": "20190213",
-                    "total-results": 39
+                    "total-results": 1
                 },
                 {
                     "title": "torsdag 14. februar",
                     "value": "20190214",
-                    "total-results": 35
+                    "total-results": 4
+                },
+                {
+                    "title": "fredag 15. februar",
+                    "value": "20190215",
+                    "total-results": 1
                 },
                 {
                     "title": "lørdag 16. februar",
                     "value": "20190216",
-                    "total-results": 21
+                    "total-results": 2
                 },
                 {
                     "title": "søndag 17. februar",
                     "value": "20190217",
-                    "total-results": 3
+                    "total-results": 2
+                },
+                {
+                    "title": "mandag 18. februar",
+                    "value": "20190218",
+                    "total-results": 1
+                },
+                {
+                    "title": "onsdag 20. februar",
+                    "value": "20190220",
+                    "total-results": 1
+                },
+                {
+                    "title": "torsdag 21. februar",
+                    "value": "20190221",
+                    "total-results": 1
+                },
+                {
+                    "title": "søndag 24. februar",
+                    "value": "20190224",
+                    "total-results": 1
+                },
+                {
+                    "title": "tirsdag 26. februar",
+                    "value": "20190226",
+                    "total-results": 1
                 },
                 {
                     "title": "onsdag 27. februar",
                     "value": "20190227",
-                    "total-results": 3
+                    "total-results": 2
                 },
                 {
-                    "title": "søndag 03. mars",
-                    "value": "20190303",
-                    "total-results": 4
+                    "title": "torsdag 28. februar",
+                    "value": "20190228",
+                    "total-results": 1
                 },
                 {
-                    "title": "tirsdag 05. mars",
-                    "value": "20190305",
-                    "total-results": 3
+                    "title": "fredag 01. mars",
+                    "value": "20190301",
+                    "total-results": 2
                 },
                 {
-                    "title": "søndag 10. mars",
-                    "value": "20190310",
-                    "total-results": 7
+                    "title": "lørdag 02. mars",
+                    "value": "20190302",
+                    "total-results": 1
                 },
                 {
-                    "title": "tirsdag 12. mars",
-                    "value": "20190312",
-                    "total-results": 6
+                    "title": "lørdag 16. mars",
+                    "value": "20190316",
+                    "total-results": 1
                 },
                 {
-                    "title": "onsdag 13. mars",
-                    "value": "20190313",
+                    "title": "mandag 01. april",
+                    "value": "20190401",
                     "total-results": 2
                 },
                 {
                     "title": "tirsdag 02. april",
                     "value": "20190402",
-                    "total-results": 6
+                    "total-results": 1
                 },
                 {
-                    "title": "søndag 05. mai",
-                    "value": "20190505",
+                    "title": "onsdag 03. april",
+                    "value": "20190403",
                     "total-results": 1
+                },
+                {
+                    "title": "mandag 06. mai",
+                    "value": "20190506",
+                    "total-results": 1
+                },
+                {
+                    "title": "fredag 31. mai",
+                    "value": "20190531",
+                    "total-results": 1
+                }
+            ]
+        },
+        "furnished": {
+            "title": "Møblert",
+            "name": "furnished",
+            "queries": [
+                {
+                    "title": "Delvis møblert",
+                    "value": "11",
+                    "total-results": 3675
+                },
+                {
+                    "title": "Møblert",
+                    "value": "9",
+                    "total-results": 2681
+                },
+                {
+                    "title": "Umøblert",
+                    "value": "10",
+                    "total-results": 4110
+                }
+            ]
+        },
+        "animals_allowed": {
+            "title": "Dyrehold",
+            "name": "animals_allowed",
+            "queries": [
+                {
+                    "title": "Dyrehold tillatt",
+                    "value": "1",
+                    "total-results": 1294
                 }
             ]
         },
@@ -301,23 +326,7 @@
                 {
                     "title": "Nye i dag",
                     "value": "1",
-                    "total-results": 1056
-                }
-            ]
-        },
-        "is_new_property": {
-            "title": "Nytt/brukt",
-            "name": "is_new_property",
-            "queries": [
-                {
-                    "title": "Brukt bolig",
-                    "value": "false",
-                    "total-results": 16295
-                },
-                {
-                    "title": "Nybygg",
-                    "value": "true",
-                    "total-results": 19558
+                    "total-results": 405
                 }
             ]
         },
@@ -328,53 +337,48 @@
                 {
                     "title": "A",
                     "value": "1",
-                    "total-results": 467
+                    "total-results": 474
                 },
                 {
                     "title": "B",
                     "value": "2",
-                    "total-results": 2836
+                    "total-results": 407
                 },
                 {
                     "title": "C",
                     "value": "3",
-                    "total-results": 3889
+                    "total-results": 437
                 },
                 {
                     "title": "D",
                     "value": "4",
-                    "total-results": 1949
+                    "total-results": 330
                 },
                 {
                     "title": "E",
                     "value": "5",
-                    "total-results": 1582
+                    "total-results": 244
                 },
                 {
                     "title": "F",
                     "value": "6",
-                    "total-results": 1921
+                    "total-results": 256
                 },
                 {
                     "title": "G",
                     "value": "7",
-                    "total-results": 3401
+                    "total-results": 542
                 }
             ]
         },
-        "is_sold": {
-            "title": "Type søk",
-            "name": "is_sold",
+        "is_refugees_welcome": {
+            "title": "FINN hjerterom",
+            "name": "is_refugees_welcome",
             "queries": [
                 {
-                    "title": "Til salgs",
-                    "value": "false",
-                    "total-results": 34716
-                },
-                {
-                    "title": "Solgt",
+                    "title": "true",
                     "value": "true",
-                    "total-results": 1137
+                    "total-results": 1344
                 }
             ]
         },
@@ -385,42 +389,42 @@
                 {
                     "title": "Ikke 1. etasje",
                     "value": "NOTFIRST",
-                    "total-results": 16348
+                    "total-results": 3942
                 },
                 {
                     "title": "1. etasje",
                     "value": "1",
-                    "total-results": 5249
+                    "total-results": 2481
                 },
                 {
                     "title": "2. etasje",
                     "value": "2",
-                    "total-results": 6784
+                    "total-results": 2030
                 },
                 {
                     "title": "3. etasje",
                     "value": "3",
-                    "total-results": 4057
+                    "total-results": 963
                 },
                 {
                     "title": "4. etasje",
                     "value": "4",
-                    "total-results": 2471
+                    "total-results": 502
                 },
                 {
                     "title": "5. etasje",
                     "value": "5",
-                    "total-results": 1366
+                    "total-results": 217
                 },
                 {
                     "title": "6. etasje",
                     "value": "6",
-                    "total-results": 786
+                    "total-results": 104
                 },
                 {
                     "title": "Over 6. etasje",
                     "value": "BIG",
-                    "total-results": 884
+                    "total-results": 126
                 }
             ]
         },
@@ -438,107 +442,102 @@
                             {
                                 "title": "Asker",
                                 "value": "1.20003.20046",
-                                "total-results": 215
+                                "total-results": 122
                             },
                             {
                                 "title": "Aurskog-Høland",
                                 "value": "1.20003.20047",
-                                "total-results": 108
+                                "total-results": 25
                             },
                             {
                                 "title": "Bærum",
                                 "value": "1.20003.20045",
-                                "total-results": 575
+                                "total-results": 278
                             },
                             {
                                 "title": "Eidsvoll",
                                 "value": "1.20003.20058",
-                                "total-results": 295
+                                "total-results": 81
                             },
                             {
                                 "title": "Enebakk",
                                 "value": "1.20003.20051",
-                                "total-results": 39
+                                "total-results": 14
                             },
                             {
                                 "title": "Fet",
                                 "value": "1.20003.20049",
-                                "total-results": 81
+                                "total-results": 16
                             },
                             {
                                 "title": "Frogn - Drøbak",
                                 "value": "1.20003.20042",
-                                "total-results": 39
+                                "total-results": 32
                             },
                             {
                                 "title": "Gjerdrum",
                                 "value": "1.20003.20055",
-                                "total-results": 88
-                            },
-                            {
-                                "title": "Hurdal",
-                                "value": "1.20003.20060",
                                 "total-results": 7
                             },
                             {
                                 "title": "Lørenskog",
                                 "value": "1.20003.20052",
-                                "total-results": 692
+                                "total-results": 100
                             },
                             {
                                 "title": "Nannestad",
                                 "value": "1.20003.20059",
-                                "total-results": 157
+                                "total-results": 31
                             },
                             {
                                 "title": "Nesodden",
                                 "value": "1.20003.20043",
-                                "total-results": 73
+                                "total-results": 26
                             },
                             {
                                 "title": "Nes (Akershus)",
                                 "value": "1.20003.20057",
-                                "total-results": 193
+                                "total-results": 23
                             },
                             {
                                 "title": "Nittedal",
                                 "value": "1.20003.20054",
-                                "total-results": 221
+                                "total-results": 26
                             },
                             {
                                 "title": "Oppegård",
                                 "value": "1.20003.20044",
-                                "total-results": 266
+                                "total-results": 34
                             },
                             {
                                 "title": "Rælingen",
                                 "value": "1.20003.20050",
-                                "total-results": 64
+                                "total-results": 36
                             },
                             {
                                 "title": "Skedsmo",
                                 "value": "1.20003.20053",
-                                "total-results": 491
+                                "total-results": 136
                             },
                             {
                                 "title": "Ski",
                                 "value": "1.20003.20040",
-                                "total-results": 195
+                                "total-results": 57
                             },
                             {
                                 "title": "Sørum",
                                 "value": "1.20003.20048",
-                                "total-results": 112
+                                "total-results": 36
                             },
                             {
                                 "title": "Ullensaker",
                                 "value": "1.20003.20056",
-                                "total-results": 443
+                                "total-results": 163
                             },
                             {
                                 "title": "Vestby - Son",
                                 "value": "1.20003.20039",
-                                "total-results": 176
+                                "total-results": 18
                             },
                             {
                                 "title": "Ås",
@@ -547,7 +546,7 @@
                             }
                         ]
                     },
-                    "total-results": 4574
+                    "total-results": 1305
                 },
                 {
                     "title": "Aust-Agder",
@@ -559,81 +558,51 @@
                             {
                                 "title": "Arendal",
                                 "value": "1.20010.20166",
-                                "total-results": 519
+                                "total-results": 89
                             },
                             {
                                 "title": "Birkenes",
                                 "value": "1.20010.20172",
-                                "total-results": 81
-                            },
-                            {
-                                "title": "Bygland",
-                                "value": "1.20010.20176",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Bykle",
-                                "value": "1.20010.20178",
                                 "total-results": 4
                             },
                             {
                                 "title": "Evje og Hornnes",
                                 "value": "1.20010.20175",
-                                "total-results": 24
+                                "total-results": 1
                             },
                             {
                                 "title": "Froland",
                                 "value": "1.20010.20170",
-                                "total-results": 74
-                            },
-                            {
-                                "title": "Gjerstad",
-                                "value": "1.20010.20167",
-                                "total-results": 3
+                                "total-results": 5
                             },
                             {
                                 "title": "Grimstad",
                                 "value": "1.20010.20165",
-                                "total-results": 200
+                                "total-results": 81
                             },
                             {
                                 "title": "Iveland",
                                 "value": "1.20010.20174",
-                                "total-results": 28
+                                "total-results": 2
                             },
                             {
                                 "title": "Lillesand",
                                 "value": "1.20010.20171",
-                                "total-results": 166
+                                "total-results": 14
                             },
                             {
                                 "title": "Risør",
                                 "value": "1.20010.20164",
-                                "total-results": 63
+                                "total-results": 7
                             },
                             {
                                 "title": "Tvedestrand",
                                 "value": "1.20010.20169",
-                                "total-results": 56
-                            },
-                            {
-                                "title": "Valle",
-                                "value": "1.20010.20177",
-                                "total-results": 9
-                            },
-                            {
-                                "title": "Vegårshei",
-                                "value": "1.20010.20168",
-                                "total-results": 15
-                            },
-                            {
-                                "title": "Åmli",
-                                "value": "1.20010.20173",
-                                "total-results": 9
+                                "total-results": 5
                             }
                         ]
                     },
-                    "total-results": 1256
+                    "total-results": 208
                 },
                 {
                     "title": "Buskerud",
@@ -645,67 +614,67 @@
                             {
                                 "title": "Drammen",
                                 "value": "1.20007.20110",
-                                "total-results": 280
+                                "total-results": 205
                             },
                             {
                                 "title": "Flesberg",
                                 "value": "1.20007.20128",
-                                "total-results": 4
-                            },
-                            {
-                                "title": "Flå",
-                                "value": "1.20007.20114",
-                                "total-results": 4
+                                "total-results": 3
                             },
                             {
                                 "title": "Gol",
                                 "value": "1.20007.20116",
-                                "total-results": 12
+                                "total-results": 5
                             },
                             {
                                 "title": "Hemsedal",
                                 "value": "1.20007.20117",
-                                "total-results": 6
+                                "total-results": 1
                             },
                             {
                                 "title": "Hol",
                                 "value": "1.20007.20119",
-                                "total-results": 12
+                                "total-results": 3
                             },
                             {
                                 "title": "Hole",
                                 "value": "1.20007.20113",
-                                "total-results": 11
+                                "total-results": 17
                             },
                             {
                                 "title": "Hurum",
                                 "value": "1.20007.20127",
-                                "total-results": 39
+                                "total-results": 11
                             },
                             {
                                 "title": "Kongsberg",
                                 "value": "1.20007.20111",
-                                "total-results": 129
+                                "total-results": 60
+                            },
+                            {
+                                "title": "Krødsherad",
+                                "value": "1.20007.20121",
+                                "total-results": 2
                             },
                             {
                                 "title": "Lier",
                                 "value": "1.20007.20125",
-                                "total-results": 151
+                                "total-results": 41
                             },
                             {
                                 "title": "Modum",
                                 "value": "1.20007.20122",
-                                "total-results": 84
+                                "total-results": 17
                             },
                             {
                                 "title": "Nedre Eiker",
                                 "value": "1.20007.20124",
-                                "total-results": 126
+                                "total-results": 35
                             },
                             {
                                 "title": "Nes (Buskerud)",
                                 "value": "1.20007.20115",
-                                "total-results": 6
+                                "total-results": 2
                             },
                             {
                                 "title": "Nore og Uvdal",
@@ -715,36 +684,36 @@
                             {
                                 "title": "Ringerike",
                                 "value": "1.20007.20112",
-                                "total-results": 175
+                                "total-results": 75
                             },
                             {
                                 "title": "Rollag",
                                 "value": "1.20007.20129",
-                                "total-results": 4
+                                "total-results": 1
                             },
                             {
                                 "title": "Røyken",
                                 "value": "1.20007.20126",
-                                "total-results": 66
+                                "total-results": 32
                             },
                             {
                                 "title": "Sigdal",
                                 "value": "1.20007.20120",
-                                "total-results": 4
+                                "total-results": 1
                             },
                             {
                                 "title": "Øvre Eiker",
                                 "value": "1.20007.20123",
-                                "total-results": 185
+                                "total-results": 40
                             },
                             {
                                 "title": "Ål i Hallingdal",
                                 "value": "1.20007.20118",
-                                "total-results": 21
+                                "total-results": 1
                             }
                         ]
                     },
-                    "total-results": 1319
+                    "total-results": 552
                 },
                 {
                     "title": "Finnmark",
@@ -756,7 +725,7 @@
                             {
                                 "title": "Alta",
                                 "value": "1.20020.20441",
-                                "total-results": 145
+                                "total-results": 6
                             },
                             {
                                 "title": "Berlevåg",
@@ -764,88 +733,28 @@
                                 "total-results": 1
                             },
                             {
-                                "title": "Båtsfjord",
-                                "value": "1.20020.20454",
-                                "total-results": 2
-                            },
-                            {
-                                "title": "Gamvik",
-                                "value": "1.20020.20450",
-                                "total-results": 3
-                            },
-                            {
                                 "title": "Hammerfest",
                                 "value": "1.20020.20439",
-                                "total-results": 88
-                            },
-                            {
-                                "title": "Hasvik",
-                                "value": "1.20020.20443",
-                                "total-results": 4
-                            },
-                            {
-                                "title": "Karasjok",
-                                "value": "1.20020.20448",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Kautokeino",
-                                "value": "1.20020.20440",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Kvalsund",
-                                "value": "1.20020.20444",
-                                "total-results": 12
+                                "total-results": 20
                             },
                             {
                                 "title": "Loppa",
                                 "value": "1.20020.20442",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Måsøy",
-                                "value": "1.20020.20445",
                                 "total-results": 1
-                            },
-                            {
-                                "title": "Nesseby",
-                                "value": "1.20020.20453",
-                                "total-results": 1
-                            },
-                            {
-                                "title": "Nordkapp",
-                                "value": "1.20020.20446",
-                                "total-results": 9
-                            },
-                            {
-                                "title": "Porsanger",
-                                "value": "1.20020.20447",
-                                "total-results": 31
                             },
                             {
                                 "title": "Sør-Varanger",
                                 "value": "1.20020.20455",
-                                "total-results": 68
-                            },
-                            {
-                                "title": "Tana",
-                                "value": "1.20020.20452",
-                                "total-results": 14
+                                "total-results": 2
                             },
                             {
                                 "title": "Vadsø",
                                 "value": "1.20020.20438",
-                                "total-results": 39
-                            },
-                            {
-                                "title": "Vardø",
-                                "value": "1.20020.20437",
-                                "total-results": 5
+                                "total-results": 4
                             }
                         ]
                     },
-                    "total-results": 438
+                    "total-results": 34
                 },
                 {
                     "title": "Hedmark",
@@ -857,116 +766,96 @@
                             {
                                 "title": "Alvdal",
                                 "value": "1.20005.20081",
-                                "total-results": 8
+                                "total-results": 2
                             },
                             {
                                 "title": "Eidskog",
                                 "value": "1.20005.20069",
-                                "total-results": 9
+                                "total-results": 2
                             },
                             {
                                 "title": "Elverum",
                                 "value": "1.20005.20073",
-                                "total-results": 199
-                            },
-                            {
-                                "title": "Engerdal",
-                                "value": "1.20005.20078",
-                                "total-results": 3
+                                "total-results": 34
                             },
                             {
                                 "title": "Folldal",
                                 "value": "1.20005.20082",
-                                "total-results": 5
+                                "total-results": 1
                             },
                             {
                                 "title": "Grue",
                                 "value": "1.20005.20070",
-                                "total-results": 9
+                                "total-results": 4
                             },
                             {
                                 "title": "Hamar",
                                 "value": "1.20005.20063",
-                                "total-results": 203
+                                "total-results": 94
                             },
                             {
                                 "title": "Kongsvinger",
                                 "value": "1.20005.20062",
-                                "total-results": 107
+                                "total-results": 31
                             },
                             {
                                 "title": "Løten",
                                 "value": "1.20005.20065",
-                                "total-results": 21
+                                "total-results": 11
                             },
                             {
                                 "title": "Nord-Odal",
                                 "value": "1.20005.20067",
-                                "total-results": 16
-                            },
-                            {
-                                "title": "Os (Hedmark)",
-                                "value": "1.20005.20083",
-                                "total-results": 20
+                                "total-results": 6
                             },
                             {
                                 "title": "Rendalen",
                                 "value": "1.20005.20077",
-                                "total-results": 9
+                                "total-results": 1
                             },
                             {
                                 "title": "Ringsaker",
                                 "value": "1.20005.20064",
-                                "total-results": 257
+                                "total-results": 47
                             },
                             {
                                 "title": "Stange",
                                 "value": "1.20005.20066",
-                                "total-results": 89
+                                "total-results": 22
                             },
                             {
                                 "title": "Stor-Elvdal",
                                 "value": "1.20005.20076",
-                                "total-results": 14
+                                "total-results": 1
                             },
                             {
                                 "title": "Sør-Odal",
                                 "value": "1.20005.20068",
-                                "total-results": 22
-                            },
-                            {
-                                "title": "Tolga",
-                                "value": "1.20005.20079",
-                                "total-results": 8
-                            },
-                            {
-                                "title": "Trysil",
-                                "value": "1.20005.20074",
-                                "total-results": 18
+                                "total-results": 6
                             },
                             {
                                 "title": "Tynset",
                                 "value": "1.20005.20080",
-                                "total-results": 20
+                                "total-results": 4
                             },
                             {
                                 "title": "Våler (Hedmark)",
                                 "value": "1.20005.20072",
-                                "total-results": 7
+                                "total-results": 4
                             },
                             {
                                 "title": "Åmot",
                                 "value": "1.20005.20075",
-                                "total-results": 17
+                                "total-results": 11
                             },
                             {
                                 "title": "Åsnes",
                                 "value": "1.20005.20071",
-                                "total-results": 39
+                                "total-results": 3
                             }
                         ]
                     },
-                    "total-results": 1100
+                    "total-results": 284
                 },
                 {
                     "title": "Hordaland",
@@ -978,17 +867,17 @@
                             {
                                 "title": "Askøy",
                                 "value": "1.20013.20243",
-                                "total-results": 121
+                                "total-results": 46
                             },
                             {
                                 "title": "Austevoll",
                                 "value": "1.20013.20240",
-                                "total-results": 28
+                                "total-results": 6
                             },
                             {
                                 "title": "Austrheim",
                                 "value": "1.20013.20251",
-                                "total-results": 12
+                                "total-results": 1
                             },
                             {
                                 "title": "Bergen",
@@ -1000,76 +889,66 @@
                                         {
                                             "title": "Arna",
                                             "value": "2.20013.20220.20537",
-                                            "total-results": 32
+                                            "total-results": 26
                                         },
                                         {
                                             "title": "Bergen Sentrum",
                                             "value": "2.20013.20220.20465",
-                                            "total-results": 421
+                                            "total-results": 623
                                         },
                                         {
                                             "title": "Bergen Vest",
                                             "value": "2.20013.20220.20479",
-                                            "total-results": 194
+                                            "total-results": 106
                                         },
                                         {
                                             "title": "Fana",
                                             "value": "2.20013.20220.20473",
-                                            "total-results": 778
+                                            "total-results": 122
                                         },
                                         {
                                             "title": "Fyllingsdalen",
                                             "value": "2.20013.20220.20475",
-                                            "total-results": 159
+                                            "total-results": 37
                                         },
                                         {
                                             "title": "Landås",
                                             "value": "2.20013.20220.20471",
-                                            "total-results": 105
+                                            "total-results": 38
                                         },
                                         {
                                             "title": "Åsane",
                                             "value": "2.20013.20220.20470",
-                                            "total-results": 232
+                                            "total-results": 72
                                         }
                                     ]
                                 },
-                                "total-results": 1921
+                                "total-results": 1024
                             },
                             {
                                 "title": "Bømlo",
                                 "value": "1.20013.20224",
-                                "total-results": 154
-                            },
-                            {
-                                "title": "Eidfjord",
-                                "value": "1.20013.20232",
-                                "total-results": 6
+                                "total-results": 11
                             },
                             {
                                 "title": "Etne",
                                 "value": "1.20013.20221",
-                                "total-results": 29
-                            },
-                            {
-                                "title": "Fedje",
-                                "value": "1.20013.20252",
-                                "total-results": 4
+                                "total-results": 3
                             },
                             {
                                 "title": "Fitjar",
                                 "value": "1.20013.20226",
-                                "total-results": 24
+                                "total-results": 5
                             },
                             {
                                 "title": "Fjell",
                                 "value": "1.20013.20242",
-                                "total-results": 280
+                                "total-results": 58
                             },
                             {
                                 "title": "Fusa",
                                 "value": "1.20013.20237",
-                                "total-results": 17
+                                "total-results": 5
                             },
                             {
                                 "title": "Granvin",
@@ -1079,106 +958,91 @@
                             {
                                 "title": "Kvam",
                                 "value": "1.20013.20236",
-                                "total-results": 60
+                                "total-results": 3
                             },
                             {
                                 "title": "Kvinnherad",
                                 "value": "1.20013.20228",
-                                "total-results": 51
+                                "total-results": 3
                             },
                             {
                                 "title": "Lindås",
                                 "value": "1.20013.20250",
-                                "total-results": 106
-                            },
-                            {
-                                "title": "Masfjorden",
-                                "value": "1.20013.20253",
-                                "total-results": 6
+                                "total-results": 25
                             },
                             {
                                 "title": "Meland",
                                 "value": "1.20013.20247",
-                                "total-results": 58
-                            },
-                            {
-                                "title": "Modalen",
-                                "value": "1.20013.20245",
-                                "total-results": 3
+                                "total-results": 9
                             },
                             {
                                 "title": "Odda",
                                 "value": "1.20013.20230",
-                                "total-results": 17
+                                "total-results": 2
                             },
                             {
                                 "title": "Osterøy",
                                 "value": "1.20013.20246",
-                                "total-results": 56
+                                "total-results": 2
                             },
                             {
                                 "title": "Os (Hordaland)",
                                 "value": "1.20013.20239",
-                                "total-results": 121
+                                "total-results": 22
                             },
                             {
                                 "title": "Radøy",
                                 "value": "1.20013.20249",
-                                "total-results": 29
+                                "total-results": 4
                             },
                             {
                                 "title": "Samnanger",
                                 "value": "1.20013.20238",
-                                "total-results": 8
+                                "total-results": 1
                             },
                             {
                                 "title": "Stord",
                                 "value": "1.20013.20225",
-                                "total-results": 165
+                                "total-results": 73
                             },
                             {
                                 "title": "Sund",
                                 "value": "1.20013.20241",
-                                "total-results": 83
+                                "total-results": 10
                             },
                             {
                                 "title": "Sveio",
                                 "value": "1.20013.20223",
-                                "total-results": 51
+                                "total-results": 3
                             },
                             {
                                 "title": "Tysnes",
                                 "value": "1.20013.20227",
-                                "total-results": 20
+                                "total-results": 2
                             },
                             {
                                 "title": "Ullensvang",
                                 "value": "1.20013.20231",
-                                "total-results": 13
-                            },
-                            {
-                                "title": "Ulvik",
-                                "value": "1.20013.20233",
-                                "total-results": 2
+                                "total-results": 1
                             },
                             {
                                 "title": "Vaksdal",
                                 "value": "1.20013.20244",
-                                "total-results": 7
+                                "total-results": 2
                             },
                             {
                                 "title": "Voss",
                                 "value": "1.20013.20235",
-                                "total-results": 59
+                                "total-results": 12
                             },
                             {
                                 "title": "Øygarden",
                                 "value": "1.20013.20248",
-                                "total-results": 38
+                                "total-results": 7
                             }
                         ]
                     },
-                    "total-results": 3550
+                    "total-results": 1341
                 },
                 {
                     "title": "Møre og Romsdal",
@@ -1190,186 +1054,141 @@
                             {
                                 "title": "Aukra",
                                 "value": "1.20015.20304",
-                                "total-results": 20
+                                "total-results": 6
                             },
                             {
                                 "title": "Aure",
                                 "value": "1.20015.20314",
-                                "total-results": 11
+                                "total-results": 3
                             },
                             {
                                 "title": "Averøy",
                                 "value": "1.20015.20307",
-                                "total-results": 54
+                                "total-results": 1
                             },
                             {
                                 "title": "Eide",
                                 "value": "1.20015.20306",
-                                "total-results": 22
+                                "total-results": 1
                             },
                             {
                                 "title": "Fræna",
                                 "value": "1.20015.20305",
-                                "total-results": 71
+                                "total-results": 4
                             },
                             {
                                 "title": "Giske",
                                 "value": "1.20015.20297",
-                                "total-results": 52
+                                "total-results": 8
                             },
                             {
                                 "title": "Gjemnes",
                                 "value": "1.20015.20309",
-                                "total-results": 21
-                            },
-                            {
-                                "title": "Halsa",
-                                "value": "1.20015.20315",
-                                "total-results": 4
-                            },
-                            {
-                                "title": "Haram",
-                                "value": "1.20015.20298",
-                                "total-results": 68
+                                "total-results": 2
                             },
                             {
                                 "title": "Hareid",
                                 "value": "1.20015.20287",
-                                "total-results": 46
+                                "total-results": 2
                             },
                             {
                                 "title": "Herøy (M.R.)",
                                 "value": "1.20015.20285",
-                                "total-results": 78
+                                "total-results": 8
                             },
                             {
                                 "title": "Kristiansund",
                                 "value": "1.20015.20281",
-                                "total-results": 325
-                            },
-                            {
-                                "title": "Midsund",
-                                "value": "1.20015.20302",
-                                "total-results": 8
+                                "total-results": 44
                             },
                             {
                                 "title": "Molde",
                                 "value": "1.20015.20280",
-                                "total-results": 308
+                                "total-results": 69
                             },
                             {
                                 "title": "Nesset",
                                 "value": "1.20015.20301",
-                                "total-results": 12
-                            },
-                            {
-                                "title": "Norddal",
-                                "value": "1.20015.20291",
-                                "total-results": 3
+                                "total-results": 4
                             },
                             {
                                 "title": "Rauma",
                                 "value": "1.20015.20300",
-                                "total-results": 32
+                                "total-results": 1
                             },
                             {
                                 "title": "Rindal",
                                 "value": "1.20015.20313",
-                                "total-results": 2
-                            },
-                            {
-                                "title": "Sande (M.R.)",
-                                "value": "1.20015.20284",
-                                "total-results": 13
+                                "total-results": 1
                             },
                             {
                                 "title": "Sandøy",
                                 "value": "1.20015.20303",
-                                "total-results": 5
+                                "total-results": 1
                             },
                             {
                                 "title": "Skodje",
                                 "value": "1.20015.20295",
-                                "total-results": 34
+                                "total-results": 1
                             },
                             {
                                 "title": "Smøla",
                                 "value": "1.20015.20317",
-                                "total-results": 18
+                                "total-results": 1
                             },
                             {
                                 "title": "Stordal",
                                 "value": "1.20015.20293",
-                                "total-results": 3
-                            },
-                            {
-                                "title": "Stranda",
-                                "value": "1.20015.20292",
-                                "total-results": 10
+                                "total-results": 1
                             },
                             {
                                 "title": "Sula",
                                 "value": "1.20015.20296",
-                                "total-results": 68
+                                "total-results": 9
                             },
                             {
                                 "title": "Sunndal",
                                 "value": "1.20015.20311",
-                                "total-results": 26
-                            },
-                            {
-                                "title": "Surnadal",
-                                "value": "1.20015.20312",
-                                "total-results": 22
-                            },
-                            {
-                                "title": "Sykkylven",
-                                "value": "1.20015.20294",
-                                "total-results": 25
+                                "total-results": 6
                             },
                             {
                                 "title": "Tingvoll",
                                 "value": "1.20015.20310",
-                                "total-results": 19
+                                "total-results": 1
                             },
                             {
                                 "title": "Ulstein",
                                 "value": "1.20015.20286",
-                                "total-results": 85
-                            },
-                            {
-                                "title": "Vanylven",
-                                "value": "1.20015.20283",
-                                "total-results": 4
+                                "total-results": 9
                             },
                             {
                                 "title": "Vestnes",
                                 "value": "1.20015.20299",
-                                "total-results": 45
+                                "total-results": 2
                             },
                             {
                                 "title": "Volda",
                                 "value": "1.20015.20288",
-                                "total-results": 40
+                                "total-results": 3
                             },
                             {
                                 "title": "Ørskog",
                                 "value": "1.20015.20290",
-                                "total-results": 7
+                                "total-results": 1
                             },
                             {
                                 "title": "Ørsta",
                                 "value": "1.20015.20289",
-                                "total-results": 74
+                                "total-results": 2
                             },
                             {
                                 "title": "Ålesund",
                                 "value": "1.20015.20282",
-                                "total-results": 529
+                                "total-results": 71
                             }
                         ]
                     },
-                    "total-results": 2155
+                    "total-results": 259
                 },
                 {
                     "title": "Nordland",
@@ -1381,221 +1200,101 @@
                             {
                                 "title": "Alstahaug",
                                 "value": "1.20018.20375",
-                                "total-results": 57
+                                "total-results": 2
                             },
                             {
                                 "title": "Andøy",
                                 "value": "1.20018.20410",
-                                "total-results": 18
-                            },
-                            {
-                                "title": "Ballangen",
-                                "value": "1.20018.20400",
-                                "total-results": 9
-                            },
-                            {
-                                "title": "Bindal",
-                                "value": "1.20018.20369",
-                                "total-results": 7
+                                "total-results": 2
                             },
                             {
                                 "title": "Bodø",
                                 "value": "1.20018.20367",
-                                "total-results": 278
-                            },
-                            {
-                                "title": "Brønnøy",
-                                "value": "1.20018.20371",
-                                "total-results": 56
-                            },
-                            {
-                                "title": "Bø (Nordland)",
-                                "value": "1.20018.20407",
-                                "total-results": 11
-                            },
-                            {
-                                "title": "Dønna",
-                                "value": "1.20018.20380",
-                                "total-results": 13
-                            },
-                            {
-                                "title": "Evenes",
-                                "value": "1.20018.20399",
-                                "total-results": 9
+                                "total-results": 62
                             },
                             {
                                 "title": "Fauske",
                                 "value": "1.20018.20391",
-                                "total-results": 34
-                            },
-                            {
-                                "title": "Flakstad",
-                                "value": "1.20018.20403",
-                                "total-results": 4
+                                "total-results": 5
                             },
                             {
                                 "title": "Gildeskål",
                                 "value": "1.20018.20388",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Grane",
-                                "value": "1.20018.20378",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Hadsel",
-                                "value": "1.20018.20406",
-                                "total-results": 51
-                            },
-                            {
-                                "title": "Hamarøy",
-                                "value": "1.20018.20395",
-                                "total-results": 6
+                                "total-results": 2
                             },
                             {
                                 "title": "Hattfjelldal",
                                 "value": "1.20018.20379",
-                                "total-results": 3
+                                "total-results": 1
                             },
                             {
                                 "title": "Hemnes",
                                 "value": "1.20018.20382",
-                                "total-results": 8
+                                "total-results": 3
                             },
                             {
                                 "title": "Herøy (Nordland)",
                                 "value": "1.20018.20374",
-                                "total-results": 11
-                            },
-                            {
-                                "title": "Leirfjord",
-                                "value": "1.20018.20376",
-                                "total-results": 11
-                            },
-                            {
-                                "title": "Lurøy",
-                                "value": "1.20018.20384",
-                                "total-results": 21
+                                "total-results": 2
                             },
                             {
                                 "title": "Lødingen",
                                 "value": "1.20018.20397",
-                                "total-results": 10
+                                "total-results": 1
                             },
                             {
                                 "title": "Meløy",
                                 "value": "1.20018.20387",
-                                "total-results": 39
-                            },
-                            {
-                                "title": "Moskenes",
-                                "value": "1.20018.20411",
-                                "total-results": 8
+                                "total-results": 3
                             },
                             {
                                 "title": "Narvik",
                                 "value": "1.20018.20368",
-                                "total-results": 60
-                            },
-                            {
-                                "title": "Nesna",
-                                "value": "1.20018.20381",
-                                "total-results": 23
+                                "total-results": 20
                             },
                             {
                                 "title": "Rana",
                                 "value": "1.20018.20383",
-                                "total-results": 119
-                            },
-                            {
-                                "title": "Rødøy",
-                                "value": "1.20018.20386",
-                                "total-results": 3
-                            },
-                            {
-                                "title": "Røst",
-                                "value": "1.20018.20401",
-                                "total-results": 1
+                                "total-results": 11
                             },
                             {
                                 "title": "Saltdal",
                                 "value": "1.20018.20390",
-                                "total-results": 26
-                            },
-                            {
-                                "title": "Sortland",
-                                "value": "1.20018.20409",
-                                "total-results": 37
+                                "total-results": 1
                             },
                             {
                                 "title": "Steigen",
                                 "value": "1.20018.20394",
-                                "total-results": 6
-                            },
-                            {
-                                "title": "Sømna",
-                                "value": "1.20018.20370",
-                                "total-results": 7
-                            },
-                            {
-                                "title": "Sørfold",
-                                "value": "1.20018.20393",
-                                "total-results": 2
-                            },
-                            {
-                                "title": "Tjeldsund",
-                                "value": "1.20018.20398",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Træna",
-                                "value": "1.20018.20385",
                                 "total-results": 2
                             },
                             {
                                 "title": "Tysfjord",
                                 "value": "1.20018.20396",
-                                "total-results": 8
+                                "total-results": 2
                             },
                             {
                                 "title": "Vefsn",
                                 "value": "1.20018.20377",
-                                "total-results": 136
-                            },
-                            {
-                                "title": "Vega",
-                                "value": "1.20018.20372",
-                                "total-results": 8
+                                "total-results": 6
                             },
                             {
                                 "title": "Vestvågøy",
                                 "value": "1.20018.20404",
-                                "total-results": 16
-                            },
-                            {
-                                "title": "Vevelstad",
-                                "value": "1.20018.20373",
                                 "total-results": 1
-                            },
-                            {
-                                "title": "Værøy",
-                                "value": "1.20018.20402",
-                                "total-results": 2
                             },
                             {
                                 "title": "Vågan",
                                 "value": "1.20018.20405",
-                                "total-results": 65
+                                "total-results": 3
                             },
                             {
                                 "title": "Øksnes",
                                 "value": "1.20018.20408",
-                                "total-results": 18
+                                "total-results": 1
                             }
                         ]
                     },
-                    "total-results": 1219
+                    "total-results": 130
                 },
                 {
                     "title": "Oppland",
@@ -1607,136 +1306,106 @@
                             {
                                 "title": "Dovre",
                                 "value": "1.20006.20086",
-                                "total-results": 6
-                            },
-                            {
-                                "title": "Etnedal",
-                                "value": "1.20006.20105",
-                                "total-results": 2
+                                "total-results": 4
                             },
                             {
                                 "title": "Gausdal",
                                 "value": "1.20006.20096",
-                                "total-results": 53
+                                "total-results": 6
                             },
                             {
                                 "title": "Gjøvik",
                                 "value": "1.20006.20085",
-                                "total-results": 133
+                                "total-results": 82
                             },
                             {
                                 "title": "Gran",
                                 "value": "1.20006.20101",
-                                "total-results": 88
+                                "total-results": 14
                             },
                             {
                                 "title": "Jevnaker",
                                 "value": "1.20006.20099",
-                                "total-results": 41
-                            },
-                            {
-                                "title": "Lesja",
-                                "value": "1.20006.20087",
-                                "total-results": 4
+                                "total-results": 14
                             },
                             {
                                 "title": "Lillehammer",
                                 "value": "1.20006.20084",
-                                "total-results": 162
-                            },
-                            {
-                                "title": "Lom",
-                                "value": "1.20006.20089",
-                                "total-results": 3
+                                "total-results": 55
                             },
                             {
                                 "title": "Lunner",
                                 "value": "1.20006.20100",
-                                "total-results": 31
+                                "total-results": 5
                             },
                             {
                                 "title": "Nordre Land",
                                 "value": "1.20006.20103",
-                                "total-results": 28
-                            },
-                            {
-                                "title": "Nord-Aurdal",
-                                "value": "1.20006.20106",
-                                "total-results": 28
+                                "total-results": 1
                             },
                             {
                                 "title": "Nord-Fron",
                                 "value": "1.20006.20091",
-                                "total-results": 12
+                                "total-results": 4
                             },
                             {
                                 "title": "Ringebu",
                                 "value": "1.20006.20094",
-                                "total-results": 17
+                                "total-results": 1
                             },
                             {
                                 "title": "Sel",
                                 "value": "1.20006.20092",
-                                "total-results": 15
-                            },
-                            {
-                                "title": "Skjåk",
-                                "value": "1.20006.20088",
-                                "total-results": 8
+                                "total-results": 6
                             },
                             {
                                 "title": "Søndre Land",
                                 "value": "1.20006.20102",
-                                "total-results": 23
-                            },
-                            {
-                                "title": "Sør-Aurdal",
-                                "value": "1.20006.20104",
-                                "total-results": 5
+                                "total-results": 6
                             },
                             {
                                 "title": "Sør-Fron",
                                 "value": "1.20006.20093",
-                                "total-results": 6
+                                "total-results": 1
                             },
                             {
                                 "title": "Vang",
                                 "value": "1.20006.20109",
-                                "total-results": 9
+                                "total-results": 1
                             },
                             {
                                 "title": "Vestre Slidre",
                                 "value": "1.20006.20107",
-                                "total-results": 5
+                                "total-results": 2
                             },
                             {
                                 "title": "Vestre Toten",
                                 "value": "1.20006.20098",
-                                "total-results": 99
+                                "total-results": 18
                             },
                             {
                                 "title": "Vågå",
                                 "value": "1.20006.20090",
-                                "total-results": 12
+                                "total-results": 5
                             },
                             {
                                 "title": "Østre Toten",
                                 "value": "1.20006.20097",
-                                "total-results": 71
+                                "total-results": 16
                             },
                             {
                                 "title": "Øyer",
                                 "value": "1.20006.20095",
-                                "total-results": 22
+                                "total-results": 8
                             },
                             {
                                 "title": "Øystre Slidre",
                                 "value": "1.20006.20108",
-                                "total-results": 14
+                                "total-results": 3
                             }
                         ]
                     },
-                    "total-results": 897
+                    "total-results": 252
                 },
                 {
                     "title": "Oslo",
@@ -1748,72 +1417,72 @@
                             {
                                 "title": "Bjerke",
                                 "value": "1.20061.20528",
-                                "total-results": 474
+                                "total-results": 113
                             },
                             {
                                 "title": "Bygdøy - Frogner",
                                 "value": "1.20061.20507",
-                                "total-results": 111
+                                "total-results": 217
                             },
                             {
                                 "title": "Bøler",
                                 "value": "1.20061.20519",
-                                "total-results": 54
+                                "total-results": 8
                             },
                             {
                                 "title": "Ekeberg - Bekkelaget",
                                 "value": "1.20061.20515",
-                                "total-results": 41
+                                "total-results": 70
                             },
                             {
                                 "title": "Furuset",
                                 "value": "1.20061.20524",
-                                "total-results": 68
+                                "total-results": 43
                             },
                             {
                                 "title": "Gamle Oslo",
                                 "value": "1.20061.20512",
-                                "total-results": 580
+                                "total-results": 230
                             },
                             {
                                 "title": "Grefsen - Kjelsås",
                                 "value": "1.20061.20529",
-                                "total-results": 182
+                                "total-results": 66
                             },
                             {
                                 "title": "Grorud",
                                 "value": "1.20061.20527",
-                                "total-results": 49
+                                "total-results": 29
                             },
                             {
                                 "title": "Grünerløkka - Sofienberg",
                                 "value": "1.20061.20511",
-                                "total-results": 433
+                                "total-results": 289
                             },
                             {
                                 "title": "Hellerud",
                                 "value": "1.20061.20523",
-                                "total-results": 45
+                                "total-results": 22
                             },
                             {
                                 "title": "Helsfyr - Sinsen",
                                 "value": "1.20061.20522",
-                                "total-results": 306
+                                "total-results": 99
                             },
                             {
                                 "title": "Lambertseter",
                                 "value": "1.20061.20518",
-                                "total-results": 29
+                                "total-results": 7
                             },
                             {
                                 "title": "Manglerud",
                                 "value": "1.20061.20520",
-                                "total-results": 21
+                                "total-results": 17
                             },
                             {
                                 "title": "Marka",
                                 "value": "1.20061.20514",
-                                "total-results": 4
+                                "total-results": 7
                             },
                             {
                                 "title": "Nordstrand",
@@ -1823,66 +1492,66 @@
                             {
                                 "title": "Romsås",
                                 "value": "1.20061.20526",
-                                "total-results": 9
+                                "total-results": 7
                             },
                             {
                                 "title": "Røa",
                                 "value": "1.20061.20532",
-                                "total-results": 139
+                                "total-results": 56
                             },
                             {
                                 "title": "Sagene - Torshov",
                                 "value": "1.20061.20510",
-                                "total-results": 208
+                                "total-results": 196
                             },
                             {
                                 "title": "Sentrum",
                                 "value": "1.20061.20513",
-                                "total-results": 18
+                                "total-results": 87
                             },
                             {
                                 "title": "Sogn",
                                 "value": "1.20061.20530",
-                                "total-results": 13
+                                "total-results": 35
                             },
                             {
                                 "title": "Stovner",
                                 "value": "1.20061.20525",
-                                "total-results": 24
+                                "total-results": 52
                             },
                             {
                                 "title": "St.Hanshaugen - Ullevål",
                                 "value": "1.20061.20509",
-                                "total-results": 122
+                                "total-results": 274
                             },
                             {
                                 "title": "Søndre Nordstrand",
                                 "value": "1.20061.20517",
-                                "total-results": 137
+                                "total-results": 69
                             },
                             {
                                 "title": "Ullern",
                                 "value": "1.20061.20533",
-                                "total-results": 136
+                                "total-results": 101
                             },
                             {
                                 "title": "Uranienborg - Majorstuen",
                                 "value": "1.20061.20508",
-                                "total-results": 148
+                                "total-results": 285
                             },
                             {
                                 "title": "Vinderen",
                                 "value": "1.20061.20531",
-                                "total-results": 78
+                                "total-results": 91
                             },
                             {
                                 "title": "Østensjø",
                                 "value": "1.20061.20521",
-                                "total-results": 36
+                                "total-results": 20
                             }
                         ]
                     },
-                    "total-results": 3319
+                    "total-results": 2502
                 },
                 {
                     "title": "Rogaland",
@@ -1894,97 +1563,87 @@
                             {
                                 "title": "Bjerkreim",
                                 "value": "1.20012.20200",
-                                "total-results": 21
+                                "total-results": 3
                             },
                             {
                                 "title": "Bokn",
                                 "value": "1.20012.20215",
-                                "total-results": 18
+                                "total-results": 3
                             },
                             {
                                 "title": "Eigersund",
                                 "value": "1.20012.20194",
-                                "total-results": 191
+                                "total-results": 18
                             },
                             {
                                 "title": "Finnøy",
                                 "value": "1.20012.20212",
-                                "total-results": 41
+                                "total-results": 8
                             },
                             {
                                 "title": "Forsand",
                                 "value": "1.20012.20207",
-                                "total-results": 14
+                                "total-results": 1
                             },
                             {
                                 "title": "Gjesdal",
                                 "value": "1.20012.20204",
-                                "total-results": 98
+                                "total-results": 15
                             },
                             {
                                 "title": "Haugesund",
                                 "value": "1.20012.20197",
-                                "total-results": 520
+                                "total-results": 147
                             },
                             {
                                 "title": "Hjelmeland",
                                 "value": "1.20012.20209",
-                                "total-results": 37
+                                "total-results": 3
                             },
                             {
                                 "title": "Hå",
                                 "value": "1.20012.20201",
-                                "total-results": 240
+                                "total-results": 39
                             },
                             {
                                 "title": "Karmøy",
                                 "value": "1.20012.20217",
-                                "total-results": 402
+                                "total-results": 56
                             },
                             {
                                 "title": "Klepp",
                                 "value": "1.20012.20202",
-                                "total-results": 194
-                            },
-                            {
-                                "title": "Kvitsøy",
-                                "value": "1.20012.20214",
-                                "total-results": 8
+                                "total-results": 34
                             },
                             {
                                 "title": "Lund",
                                 "value": "1.20012.20199",
-                                "total-results": 33
+                                "total-results": 2
                             },
                             {
                                 "title": "Randaberg",
                                 "value": "1.20012.20206",
-                                "total-results": 143
+                                "total-results": 29
                             },
                             {
                                 "title": "Rennesøy",
                                 "value": "1.20012.20213",
-                                "total-results": 51
+                                "total-results": 11
                             },
                             {
                                 "title": "Sandnes",
                                 "value": "1.20012.20195",
-                                "total-results": 845
-                            },
-                            {
-                                "title": "Sauda",
-                                "value": "1.20012.20211",
-                                "total-results": 33
+                                "total-results": 158
                             },
                             {
                                 "title": "Sokndal",
                                 "value": "1.20012.20198",
-                                "total-results": 26
+                                "total-results": 2
                             },
                             {
                                 "title": "Sola",
                                 "value": "1.20012.20205",
-                                "total-results": 226
+                                "total-results": 64
                             },
                             {
                                 "title": "Stavanger",
@@ -1996,130 +1655,130 @@
                                         {
                                             "title": "Bjergsted/Byhaugen/ Kalh/Kampen",
                                             "value": "2.20012.20196.20714",
-                                            "total-results": 72
+                                            "total-results": 27
                                         },
                                         {
                                             "title": "Byøyer",
                                             "value": "2.20012.20196.20715",
-                                            "total-results": 4
+                                            "total-results": 1
                                         },
                                         {
                                             "title": "Eiganes/Stokka/Sandal",
                                             "value": "2.20012.20196.20716",
-                                            "total-results": 61
+                                            "total-results": 36
                                         },
                                         {
                                             "title": "Forus/Godeset",
                                             "value": "2.20012.20196.20718",
-                                            "total-results": 44
+                                            "total-results": 11
                                         },
                                         {
                                             "title": "Gausel",
                                             "value": "2.20012.20196.20719",
-                                            "total-results": 27
+                                            "total-results": 14
                                         },
                                         {
                                             "title": "Hinna",
                                             "value": "2.20012.20196.20720",
-                                            "total-results": 65
+                                            "total-results": 13
                                         },
                                         {
                                             "title": "Hundvåg/Byøyer",
                                             "value": "2.20012.20196.20721",
-                                            "total-results": 128
+                                            "total-results": 45
                                         },
                                         {
                                             "title": "Kvernevik",
                                             "value": "2.20012.20196.20722",
-                                            "total-results": 40
+                                            "total-results": 1
                                         },
                                         {
                                             "title": "Madlamark/Gosen/Granneslia",
                                             "value": "2.20012.20196.20723",
-                                            "total-results": 42
+                                            "total-results": 22
                                         },
                                         {
                                             "title": "Madlasandnes/Hafrsfjord/Sunde",
                                             "value": "2.20012.20196.20724",
-                                            "total-results": 27
+                                            "total-results": 15
+                                        },
+                                        {
+                                            "title": "Stavanger Sentrum",
+                                            "value": "2.20012.20196.20538",
+                                            "total-results": 3
                                         },
                                         {
                                             "title": "Stavanger Sentrum/Vestre platå",
                                             "value": "2.20012.20196.20712",
-                                            "total-results": 30
+                                            "total-results": 58
                                         },
                                         {
                                             "title": "Stavanger Øst",
                                             "value": "2.20012.20196.20713",
-                                            "total-results": 263
+                                            "total-results": 84
                                         },
                                         {
                                             "title": "Storhaug vest",
                                             "value": "2.20012.20196.20725",
-                                            "total-results": 13
+                                            "total-results": 21
                                         },
                                         {
                                             "title": "Tasta/Vardenes/ Dusavik",
                                             "value": "2.20012.20196.20726",
-                                            "total-results": 62
+                                            "total-results": 28
                                         },
                                         {
                                             "title": "Tjensvoll/Ullandhaug",
                                             "value": "2.20012.20196.20727",
-                                            "total-results": 15
+                                            "total-results": 2
                                         },
                                         {
                                             "title": "Vaulen",
                                             "value": "2.20012.20196.20728",
-                                            "total-results": 11
+                                            "total-results": 13
                                         },
                                         {
                                             "title": "Våland/Bekkefaret",
                                             "value": "2.20012.20196.20729",
-                                            "total-results": 59
+                                            "total-results": 33
                                         },
                                         {
                                             "title": "Åsen/Hillevåg/Auglend",
                                             "value": "2.20012.20196.20730",
-                                            "total-results": 93
+                                            "total-results": 23
                                         }
                                     ]
                                 },
-                                "total-results": 1056
+                                "total-results": 450
                             },
                             {
                                 "title": "Strand",
                                 "value": "1.20012.20208",
-                                "total-results": 181
+                                "total-results": 17
                             },
                             {
                                 "title": "Suldal",
                                 "value": "1.20012.20210",
-                                "total-results": 30
+                                "total-results": 1
                             },
                             {
                                 "title": "Time",
                                 "value": "1.20012.20203",
-                                "total-results": 237
+                                "total-results": 29
                             },
                             {
                                 "title": "Tysvær",
                                 "value": "1.20012.20216",
-                                "total-results": 123
-                            },
-                            {
-                                "title": "Utsira",
-                                "value": "1.20012.20218",
-                                "total-results": 1
+                                "total-results": 10
                             },
                             {
                                 "title": "Vindafjord",
                                 "value": "1.20012.20219",
-                                "total-results": 68
+                                "total-results": 14
                             }
                         ]
                     },
-                    "total-results": 4837
+                    "total-results": 1114
                 },
                 {
                     "title": "Sogn og Fjordane",
@@ -2129,138 +1788,83 @@
                         "name": "location",
                         "queries": [
                             {
-                                "title": "Askvoll",
-                                "value": "1.20014.20267",
-                                "total-results": 9
-                            },
-                            {
-                                "title": "Aurland",
-                                "value": "1.20014.20263",
-                                "total-results": 3
-                            },
-                            {
-                                "title": "Balestrand",
-                                "value": "1.20014.20260",
-                                "total-results": 5
-                            },
-                            {
-                                "title": "Bremanger",
-                                "value": "1.20014.20273",
-                                "total-results": 6
-                            },
-                            {
                                 "title": "Eid",
                                 "value": "1.20014.20276",
-                                "total-results": 47
-                            },
-                            {
-                                "title": "Fjaler",
-                                "value": "1.20014.20268",
-                                "total-results": 8
+                                "total-results": 3
                             },
                             {
                                 "title": "Flora",
                                 "value": "1.20014.20254",
-                                "total-results": 81
+                                "total-results": 17
                             },
                             {
                                 "title": "Førde",
                                 "value": "1.20014.20271",
-                                "total-results": 50
+                                "total-results": 12
                             },
                             {
                                 "title": "Gaular",
                                 "value": "1.20014.20269",
-                                "total-results": 5
+                                "total-results": 1
                             },
                             {
                                 "title": "Gloppen",
                                 "value": "1.20014.20278",
-                                "total-results": 32
+                                "total-results": 1
                             },
                             {
                                 "title": "Gulen",
                                 "value": "1.20014.20255",
-                                "total-results": 54
-                            },
-                            {
-                                "title": "Hornindal",
-                                "value": "1.20014.20277",
                                 "total-results": 1
                             },
                             {
                                 "title": "Hyllestad",
                                 "value": "1.20014.20257",
-                                "total-results": 6
+                                "total-results": 1
                             },
                             {
                                 "title": "Høyanger",
                                 "value": "1.20014.20258",
-                                "total-results": 21
-                            },
-                            {
-                                "title": "Jølster",
-                                "value": "1.20014.20270",
-                                "total-results": 9
+                                "total-results": 2
                             },
                             {
                                 "title": "Leikanger",
                                 "value": "1.20014.20261",
-                                "total-results": 12
+                                "total-results": 2
                             },
                             {
                                 "title": "Luster",
                                 "value": "1.20014.20266",
-                                "total-results": 19
-                            },
-                            {
-                                "title": "Lærdal",
-                                "value": "1.20014.20264",
-                                "total-results": 9
+                                "total-results": 4
                             },
                             {
                                 "title": "Naustdal",
                                 "value": "1.20014.20272",
-                                "total-results": 50
-                            },
-                            {
-                                "title": "Selje",
-                                "value": "1.20014.20275",
-                                "total-results": 11
+                                "total-results": 2
                             },
                             {
                                 "title": "Sogndal",
                                 "value": "1.20014.20262",
-                                "total-results": 20
-                            },
-                            {
-                                "title": "Solund",
-                                "value": "1.20014.20256",
-                                "total-results": 1
+                                "total-results": 13
                             },
                             {
                                 "title": "Stryn",
                                 "value": "1.20014.20279",
-                                "total-results": 26
+                                "total-results": 8
                             },
                             {
                                 "title": "Vik",
                                 "value": "1.20014.20259",
-                                "total-results": 15
+                                "total-results": 1
                             },
                             {
                                 "title": "Vågsøy",
                                 "value": "1.20014.20274",
-                                "total-results": 49
-                            },
-                            {
-                                "title": "Årdal",
-                                "value": "1.20014.20265",
-                                "total-results": 58
+                                "total-results": 1
                             }
                         ]
                     },
-                    "total-results": 607
+                    "total-results": 69
                 },
                 {
                     "title": "Telemark",
@@ -2272,96 +1876,86 @@
                             {
                                 "title": "Bamble",
                                 "value": "1.20009.20150",
-                                "total-results": 56
+                                "total-results": 26
                             },
                             {
                                 "title": "Bø (Telemark)",
                                 "value": "1.20009.20154",
-                                "total-results": 47
+                                "total-results": 16
                             },
                             {
                                 "title": "Drangedal",
                                 "value": "1.20009.20152",
-                                "total-results": 13
-                            },
-                            {
-                                "title": "Fyresdal",
-                                "value": "1.20009.20161",
                                 "total-results": 3
-                            },
-                            {
-                                "title": "Hjartdal",
-                                "value": "1.20009.20157",
-                                "total-results": 1
                             },
                             {
                                 "title": "Kragerø",
                                 "value": "1.20009.20151",
-                                "total-results": 25
+                                "total-results": 7
                             },
                             {
                                 "title": "Kviteseid",
                                 "value": "1.20009.20159",
-                                "total-results": 14
+                                "total-results": 5
                             },
                             {
                                 "title": "Nissedal",
                                 "value": "1.20009.20160",
-                                "total-results": 6
+                                "total-results": 2
                             },
                             {
                                 "title": "Nome",
                                 "value": "1.20009.20153",
-                                "total-results": 27
+                                "total-results": 7
                             },
                             {
                                 "title": "Notodden",
                                 "value": "1.20009.20148",
-                                "total-results": 45
+                                "total-results": 64
                             },
                             {
                                 "title": "Porsgrunn",
                                 "value": "1.20009.20146",
-                                "total-results": 168
+                                "total-results": 62
                             },
                             {
                                 "title": "Sauherad",
                                 "value": "1.20009.20155",
-                                "total-results": 20
+                                "total-results": 4
                             },
                             {
                                 "title": "Seljord",
                                 "value": "1.20009.20158",
-                                "total-results": 1
+                                "total-results": 5
                             },
                             {
                                 "title": "Siljan",
                                 "value": "1.20009.20149",
-                                "total-results": 10
+                                "total-results": 2
                             },
                             {
                                 "title": "Skien",
                                 "value": "1.20009.20147",
-                                "total-results": 258
+                                "total-results": 74
                             },
                             {
                                 "title": "Tinn",
                                 "value": "1.20009.20156",
-                                "total-results": 20
+                                "total-results": 3
                             },
                             {
                                 "title": "Tokke",
                                 "value": "1.20009.20162",
-                                "total-results": 14
+                                "total-results": 1
                             },
                             {
                                 "title": "Vinje",
                                 "value": "1.20009.20163",
-                                "total-results": 18
+                                "total-results": 1
                             }
                         ]
                     },
-                    "total-results": 735
+                    "total-results": 278
                 },
                 {
                     "title": "Troms",
@@ -2373,102 +1967,52 @@
                             {
                                 "title": "Balsfjord",
                                 "value": "1.20019.20429",
-                                "total-results": 33
+                                "total-results": 1
                             },
                             {
                                 "title": "Bardu",
                                 "value": "1.20019.20420",
-                                "total-results": 29
-                            },
-                            {
-                                "title": "Berg",
-                                "value": "1.20019.20427",
-                                "total-results": 2
+                                "total-results": 1
                             },
                             {
                                 "title": "Gratangen",
                                 "value": "1.20019.20418",
-                                "total-results": 5
+                                "total-results": 3
                             },
                             {
                                 "title": "Harstad",
                                 "value": "1.20019.20412",
-                                "total-results": 147
-                            },
-                            {
-                                "title": "Karlsøy",
-                                "value": "1.20019.20430",
-                                "total-results": 15
+                                "total-results": 21
                             },
                             {
                                 "title": "Kvæfjord",
                                 "value": "1.20019.20414",
-                                "total-results": 9
-                            },
-                            {
-                                "title": "Kvænangen",
-                                "value": "1.20019.20436",
-                                "total-results": 4
-                            },
-                            {
-                                "title": "Kåfjord",
-                                "value": "1.20019.20433",
-                                "total-results": 1
+                                "total-results": 2
                             },
                             {
                                 "title": "Lenvik",
                                 "value": "1.20019.20428",
-                                "total-results": 50
-                            },
-                            {
-                                "title": "Lyngen",
-                                "value": "1.20019.20431",
-                                "total-results": 5
+                                "total-results": 8
                             },
                             {
                                 "title": "Målselv",
                                 "value": "1.20019.20422",
-                                "total-results": 42
+                                "total-results": 4
                             },
                             {
                                 "title": "Nordreisa",
                                 "value": "1.20019.20435",
-                                "total-results": 31
-                            },
-                            {
-                                "title": "Salangen",
-                                "value": "1.20019.20421",
-                                "total-results": 8
-                            },
-                            {
-                                "title": "Skjervøy",
-                                "value": "1.20019.20434",
-                                "total-results": 5
+                                "total-results": 1
                             },
                             {
                                 "title": "Skånland",
                                 "value": "1.20019.20415",
-                                "total-results": 18
-                            },
-                            {
-                                "title": "Storfjord",
-                                "value": "1.20019.20432",
-                                "total-results": 9
+                                "total-results": 1
                             },
                             {
                                 "title": "Sørreisa",
                                 "value": "1.20019.20423",
-                                "total-results": 15
-                            },
-                            {
-                                "title": "Torsken",
-                                "value": "1.20019.20426",
-                                "total-results": 3
-                            },
-                            {
-                                "title": "Tranøy",
-                                "value": "1.20019.20425",
-                                "total-results": 3
+                                "total-results": 1
                             },
                             {
                                 "title": "Tromsø",
@@ -2480,35 +2024,35 @@
                                         {
                                             "title": "Kvaløya",
                                             "value": "2.20019.20413.20815",
-                                            "total-results": 29
+                                            "total-results": 15
                                         },
                                         {
                                             "title": "Tromsdalen/Tomasjord/Kroken",
                                             "value": "2.20019.20413.20814",
-                                            "total-results": 71
+                                            "total-results": 25
                                         },
                                         {
                                             "title": "Tromsøya, Midten",
                                             "value": "2.20019.20413.20817",
-                                            "total-results": 191
+                                            "total-results": 24
                                         },
                                         {
                                             "title": "Tromsøya, Nord",
                                             "value": "2.20019.20413.20816",
-                                            "total-results": 42
+                                            "total-results": 24
                                         },
                                         {
                                             "title": "Tromsøya, Sør",
                                             "value": "2.20019.20413.20818",
-                                            "total-results": 157
+                                            "total-results": 18
                                         }
                                     ]
                                 },
-                                "total-results": 497
+                                "total-results": 107
                             }
                         ]
                     },
-                    "total-results": 931
+                    "total-results": 150
                 },
                 {
                     "title": "Trøndelag",
@@ -2518,184 +2062,154 @@
                         "name": "location",
                         "queries": [
                             {
-                                "title": "Agdenes",
-                                "value": "1.20016.20324",
-                                "total-results": 4
-                            },
-                            {
                                 "title": "Bjugn",
                                 "value": "1.20016.20326",
-                                "total-results": 73
-                            },
-                            {
-                                "title": "Flatanger",
-                                "value": "1.20016.20363",
-                                "total-results": 9
+                                "total-results": 7
                             },
                             {
                                 "title": "Frosta",
                                 "value": "1.20016.20347",
-                                "total-results": 4
+                                "total-results": 3
                             },
                             {
                                 "title": "Frøya",
                                 "value": "1.20016.20322",
-                                "total-results": 31
-                            },
-                            {
-                                "title": "Grong",
-                                "value": "1.20016.20359",
-                                "total-results": 14
+                                "total-results": 4
                             },
                             {
                                 "title": "Hemne",
                                 "value": "1.20016.20319",
-                                "total-results": 9
+                                "total-results": 2
                             },
                             {
                                 "title": "Hitra",
                                 "value": "1.20016.20321",
-                                "total-results": 73
+                                "total-results": 4
                             },
                             {
                                 "title": "Holtålen",
                                 "value": "1.20016.20335",
-                                "total-results": 10
+                                "total-results": 1
                             },
                             {
                                 "title": "Høylandet",
                                 "value": "1.20016.20360",
-                                "total-results": 3
+                                "total-results": 1
                             },
                             {
                                 "title": "Inderøy",
                                 "value": "1.20016.20354",
-                                "total-results": 59
+                                "total-results": 5
                             },
                             {
                                 "title": "Indre Fosen",
                                 "value": "1.20016.20325",
-                                "total-results": 51
+                                "total-results": 4
                             },
                             {
                                 "title": "Klæbu",
                                 "value": "1.20016.20339",
-                                "total-results": 51
+                                "total-results": 12
                             },
                             {
                                 "title": "Levanger",
                                 "value": "1.20016.20349",
-                                "total-results": 152
-                            },
-                            {
-                                "title": "Lierne",
-                                "value": "1.20016.20356",
-                                "total-results": 1
+                                "total-results": 28
                             },
                             {
                                 "title": "Malvik",
                                 "value": "1.20016.20340",
-                                "total-results": 93
+                                "total-results": 43
                             },
                             {
                                 "title": "Meldal",
                                 "value": "1.20016.20332",
-                                "total-results": 17
+                                "total-results": 4
                             },
                             {
                                 "title": "Melhus",
                                 "value": "1.20016.20337",
-                                "total-results": 129
+                                "total-results": 30
                             },
                             {
                                 "title": "Meråker",
                                 "value": "1.20016.20345",
-                                "total-results": 18
+                                "total-results": 1
                             },
                             {
                                 "title": "Midtre Gauldal",
                                 "value": "1.20016.20336",
-                                "total-results": 28
-                            },
-                            {
-                                "title": "Namdalseid",
-                                "value": "1.20016.20353",
-                                "total-results": 5
+                                "total-results": 7
                             },
                             {
                                 "title": "Namsos",
                                 "value": "1.20016.20344",
-                                "total-results": 61
-                            },
-                            {
-                                "title": "Namsskogan",
-                                "value": "1.20016.20358",
-                                "total-results": 4
+                                "total-results": 9
                             },
                             {
                                 "title": "Nærøy",
                                 "value": "1.20016.20365",
-                                "total-results": 46
+                                "total-results": 3
                             },
                             {
                                 "title": "Oppdal",
                                 "value": "1.20016.20330",
-                                "total-results": 60
+                                "total-results": 2
                             },
                             {
                                 "title": "Orkdal",
                                 "value": "1.20016.20333",
-                                "total-results": 162
-                            },
-                            {
-                                "title": "Osen",
-                                "value": "1.20016.20329",
-                                "total-results": 5
+                                "total-results": 4
                             },
                             {
                                 "title": "Overhalla",
                                 "value": "1.20016.20361",
-                                "total-results": 14
+                                "total-results": 1
                             },
                             {
                                 "title": "Rennebu",
                                 "value": "1.20016.20331",
-                                "total-results": 14
+                                "total-results": 1
                             },
                             {
                                 "title": "Roan",
                                 "value": "1.20016.20328",
-                                "total-results": 2
+                                "total-results": 1
                             },
                             {
                                 "title": "Røros",
                                 "value": "1.20016.20334",
-                                "total-results": 10
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Røyrvik",
+                                "value": "1.20016.20357",
+                                "total-results": 2
                             },
                             {
                                 "title": "Selbu",
                                 "value": "1.20016.20341",
-                                "total-results": 23
+                                "total-results": 1
                             },
                             {
                                 "title": "Skaun",
                                 "value": "1.20016.20338",
-                                "total-results": 43
+                                "total-results": 7
                             },
                             {
                                 "title": "Snåsa",
                                 "value": "1.20016.20355",
-                                "total-results": 8
+                                "total-results": 1
                             },
                             {
                                 "title": "Steinkjer",
                                 "value": "1.20016.20343",
-                                "total-results": 110
+                                "total-results": 46
                             },
                             {
                                 "title": "Stjørdal",
                                 "value": "1.20016.20346",
-                                "total-results": 161
+                                "total-results": 44
                             },
                             {
                                 "title": "Trondheim",
@@ -2707,26 +2221,26 @@
                                         {
                                             "title": "Trondheim Sentrum",
                                             "value": "2.20016.20318.20505",
-                                            "total-results": 136
+                                            "total-results": 197
                                         },
                                         {
                                             "title": "Trondheim Sør",
                                             "value": "2.20016.20318.20502",
-                                            "total-results": 665
+                                            "total-results": 80
                                         },
                                         {
                                             "title": "Trondheim Vest",
                                             "value": "2.20016.20318.20501",
-                                            "total-results": 119
+                                            "total-results": 80
                                         },
                                         {
                                             "title": "Trondheim Øst",
                                             "value": "2.20016.20318.20504",
-                                            "total-results": 958
+                                            "total-results": 348
                                         }
                                     ]
                                 },
-                                "total-results": 1878
+                                "total-results": 705
                             },
                             {
                                 "title": "Tydal",
@@ -2736,31 +2250,31 @@
                             {
                                 "title": "Verdal",
                                 "value": "1.20016.20350",
-                                "total-results": 113
+                                "total-results": 16
                             },
                             {
                                 "title": "Verran",
                                 "value": "1.20016.20352",
-                                "total-results": 17
+                                "total-results": 2
                             },
                             {
                                 "title": "Vikna",
                                 "value": "1.20016.20364",
-                                "total-results": 119
+                                "total-results": 4
                             },
                             {
                                 "title": "Ørland",
                                 "value": "1.20016.20323",
-                                "total-results": 92
+                                "total-results": 11
                             },
                             {
                                 "title": "Åfjord",
                                 "value": "1.20016.20327",
-                                "total-results": 14
+                                "total-results": 3
                             }
                         ]
                     },
-                    "total-results": 3791
+                    "total-results": 1021
                 },
                 {
                     "title": "Vestfold",
@@ -2772,37 +2286,37 @@
                             {
                                 "title": "Færder",
                                 "value": "1.20008.20143",
-                                "total-results": 135
+                                "total-results": 45
                             },
                             {
                                 "title": "Holmestrand",
                                 "value": "1.20008.20132",
-                                "total-results": 142
+                                "total-results": 17
                             },
                             {
                                 "title": "Horten",
                                 "value": "1.20008.20131",
-                                "total-results": 159
+                                "total-results": 54
                             },
                             {
                                 "title": "Larvik",
                                 "value": "1.20008.20135",
-                                "total-results": 241
+                                "total-results": 61
                             },
                             {
                                 "title": "Re",
                                 "value": "1.20008.20139",
-                                "total-results": 47
+                                "total-results": 12
                             },
                             {
                                 "title": "Sandefjord",
                                 "value": "1.20008.20134",
-                                "total-results": 307
+                                "total-results": 116
                             },
                             {
                                 "title": "Sande (Vestfold)",
                                 "value": "1.20008.20137",
-                                "total-results": 104
+                                "total-results": 8
                             },
                             {
                                 "title": "Svelvik",
@@ -2812,11 +2326,11 @@
                             {
                                 "title": "Tønsberg",
                                 "value": "1.20008.20133",
-                                "total-results": 433
+                                "total-results": 164
                             }
                         ]
                     },
-                    "total-results": 1539
+                    "total-results": 481
                 },
                 {
                     "title": "Vest-Agder",
@@ -2826,24 +2340,19 @@
                         "name": "location",
                         "queries": [
                             {
-                                "title": "Audnedal",
-                                "value": "1.20011.20188",
-                                "total-results": 6
-                            },
-                            {
                                 "title": "Farsund",
                                 "value": "1.20011.20181",
-                                "total-results": 128
+                                "total-results": 4
                             },
                             {
                                 "title": "Flekkefjord",
                                 "value": "1.20011.20182",
-                                "total-results": 83
+                                "total-results": 2
                             },
                             {
                                 "title": "Hægebostad",
                                 "value": "1.20011.20191",
-                                "total-results": 6
+                                "total-results": 1
                             },
                             {
                                 "title": "Kristiansand",
@@ -2855,80 +2364,70 @@
                                         {
                                             "title": "Kristiansand Nord",
                                             "value": "2.20011.20179.20707",
-                                            "total-results": 30
+                                            "total-results": 11
                                         },
                                         {
                                             "title": "Kristiansand Sentrum",
                                             "value": "2.20011.20179.20536",
-                                            "total-results": 530
+                                            "total-results": 151
                                         },
                                         {
                                             "title": "Kristiansand Vest",
                                             "value": "2.20011.20179.20709",
-                                            "total-results": 222
+                                            "total-results": 58
                                         },
                                         {
                                             "title": "Kristiansand Øst",
                                             "value": "2.20011.20179.20708",
-                                            "total-results": 265
+                                            "total-results": 90
                                         }
                                     ]
                                 },
-                                "total-results": 1047
+                                "total-results": 310
                             },
                             {
                                 "title": "Kvinesdal",
                                 "value": "1.20011.20192",
-                                "total-results": 62
+                                "total-results": 3
                             },
                             {
                                 "title": "Lindesnes",
                                 "value": "1.20011.20189",
-                                "total-results": 46
+                                "total-results": 8
                             },
                             {
                                 "title": "Lyngdal",
                                 "value": "1.20011.20190",
-                                "total-results": 118
+                                "total-results": 25
                             },
                             {
                                 "title": "Mandal",
                                 "value": "1.20011.20180",
-                                "total-results": 116
+                                "total-results": 29
                             },
                             {
                                 "title": "Marnardal",
                                 "value": "1.20011.20186",
-                                "total-results": 9
-                            },
-                            {
-                                "title": "Sirdal",
-                                "value": "1.20011.20193",
-                                "total-results": 3
+                                "total-results": 2
                             },
                             {
                                 "title": "Songdalen",
                                 "value": "1.20011.20184",
-                                "total-results": 56
+                                "total-results": 14
                             },
                             {
                                 "title": "Søgne",
                                 "value": "1.20011.20185",
-                                "total-results": 141
+                                "total-results": 24
                             },
                             {
                                 "title": "Vennesla",
                                 "value": "1.20011.20183",
-                                "total-results": 190
-                            },
-                            {
-                                "title": "Åseral",
-                                "value": "1.20011.20187",
-                                "total-results": 9
+                                "total-results": 22
                             }
                         ]
                     },
-                    "total-results": 2020
+                    "total-results": 444
                 },
                 {
                     "title": "Østfold",
@@ -2940,96 +2439,91 @@
                             {
                                 "title": "Aremark",
                                 "value": "1.20002.20026",
-                                "total-results": 2
+                                "total-results": 1
                             },
                             {
                                 "title": "Askim",
                                 "value": "1.20002.20031",
-                                "total-results": 104
+                                "total-results": 23
                             },
                             {
                                 "title": "Eidsberg",
                                 "value": "1.20002.20032",
-                                "total-results": 35
+                                "total-results": 12
                             },
                             {
                                 "title": "Fredrikstad",
                                 "value": "1.20002.20024",
-                                "total-results": 480
+                                "total-results": 169
                             },
                             {
                                 "title": "Halden",
                                 "value": "1.20002.20021",
-                                "total-results": 117
+                                "total-results": 68
                             },
                             {
                                 "title": "Hobøl",
                                 "value": "1.20002.20038",
-                                "total-results": 24
+                                "total-results": 12
                             },
                             {
                                 "title": "Hvaler",
                                 "value": "1.20002.20025",
-                                "total-results": 32
+                                "total-results": 5
                             },
                             {
                                 "title": "Marker",
                                 "value": "1.20002.20027",
-                                "total-results": 10
+                                "total-results": 6
                             },
                             {
                                 "title": "Moss",
                                 "value": "1.20002.20022",
-                                "total-results": 218
+                                "total-results": 87
                             },
                             {
                                 "title": "Rakkestad",
                                 "value": "1.20002.20034",
-                                "total-results": 27
+                                "total-results": 6
                             },
                             {
                                 "title": "Rygge",
                                 "value": "1.20002.20036",
-                                "total-results": 82
-                            },
-                            {
-                                "title": "Rømskog",
-                                "value": "1.20002.20028",
-                                "total-results": 2
+                                "total-results": 26
                             },
                             {
                                 "title": "Råde",
                                 "value": "1.20002.20035",
-                                "total-results": 18
+                                "total-results": 8
                             },
                             {
                                 "title": "Sarpsborg",
                                 "value": "1.20002.20023",
-                                "total-results": 317
+                                "total-results": 77
                             },
                             {
                                 "title": "Skiptvet",
                                 "value": "1.20002.20033",
-                                "total-results": 7
+                                "total-results": 9
                             },
                             {
                                 "title": "Spydeberg",
                                 "value": "1.20002.20030",
-                                "total-results": 45
+                                "total-results": 8
                             },
                             {
                                 "title": "Trøgstad",
                                 "value": "1.20002.20029",
-                                "total-results": 14
+                                "total-results": 12
                             },
                             {
                                 "title": "Våler (Østfold)",
                                 "value": "1.20002.20037",
-                                "total-results": 32
+                                "total-results": 3
                             }
                         ]
                     },
-                    "total-results": 1566
+                    "total-results": 532
                 }
             ]
         },
@@ -3038,110 +2532,160 @@
             "name": "property_type",
             "queries": [
                 {
-                    "title": "Leilighet",
-                    "value": "3",
-                    "total-results": 22190
-                },
-                {
-                    "title": "Enebolig",
-                    "value": "1",
-                    "total-results": 8125
-                },
-                {
-                    "title": "Rekkehus",
-                    "value": "4",
-                    "total-results": 2417
-                },
-                {
-                    "title": "Tomannsbolig",
-                    "value": "2",
-                    "total-results": 2149
-                },
-                {
                     "title": "Andre",
                     "value": "18",
-                    "total-results": 349
-                },
-                {
-                    "title": "Gårdsbruk/Småbruk",
-                    "value": "11",
-                    "total-results": 195
-                },
-                {
-                    "title": "Prosjekt",
-                    "value": "24",
-                    "total-results": 126
-                },
-                {
-                    "title": "Annet fritid",
-                    "value": "13",
-                    "total-results": 56
-                },
-                {
-                    "title": "Tomter",
-                    "value": "14",
-                    "total-results": 52
-                },
-                {
-                    "title": "Hyttetomt",
-                    "value": "15",
-                    "total-results": 50
-                },
-                {
-                    "title": "Garasje/Parkering",
-                    "value": "6",
-                    "total-results": 35
-                },
-                {
-                    "title": "Hytte",
-                    "value": "12",
-                    "total-results": 30
+                    "total-results": 88
                 },
                 {
                     "title": "Bygård/Flermannsbolig",
                     "value": "20",
-                    "total-results": 19
-                },
-                {
-                    "title": "Produksjon/Industri",
-                    "value": "9",
-                    "total-results": 8
-                },
-                {
-                    "title": "Kontor",
-                    "value": "5",
                     "total-results": 1
+                },
+                {
+                    "title": "Enebolig",
+                    "value": "1",
+                    "total-results": 919
+                },
+                {
+                    "title": "Garasje/Parkering",
+                    "value": "6",
+                    "total-results": 292
+                },
+                {
+                    "title": "Hybel",
+                    "value": "16",
+                    "total-results": 1191
+                },
+                {
+                    "title": "Leilighet",
+                    "value": "3",
+                    "total-results": 6831
+                },
+                {
+                    "title": "Rekkehus",
+                    "value": "4",
+                    "total-results": 108
+                },
+                {
+                    "title": "Rom i bofellesskap",
+                    "value": "17",
+                    "total-results": 1188
+                },
+                {
+                    "title": "Tomannsbolig",
+                    "value": "2",
+                    "total-results": 337
                 }
             ]
         },
-        "ownership_type": {
-            "title": "Eierform",
-            "name": "ownership_type",
+        "rent_from": {
+            "title": "Ledig fra",
+            "name": "rent_from",
             "queries": [
                 {
-                    "title": "Aksje",
-                    "value": "2",
-                    "total-results": 111
+                    "title": "desember 2018",
+                    "value": "201812",
+                    "total-results": 122
                 },
                 {
-                    "title": "Andel",
-                    "value": "4",
-                    "total-results": 5827
+                    "title": "januar 2019",
+                    "value": "201901",
+                    "total-results": 4099
                 },
                 {
-                    "title": "Annet",
-                    "value": "255",
-                    "total-results": 24
+                    "title": "februar 2019",
+                    "value": "201902",
+                    "total-results": 3843
                 },
                 {
-                    "title": "Eier (Selveier)",
-                    "value": "3",
-                    "total-results": 29875
+                    "title": "mars 2019",
+                    "value": "201903",
+                    "total-results": 1414
                 },
                 {
-                    "title": "Obligasjon",
-                    "value": "1",
-                    "total-results": 5
+                    "title": "april 2019",
+                    "value": "201904",
+                    "total-results": 451
+                },
+                {
+                    "title": "mai 2019",
+                    "value": "201905",
+                    "total-results": 83
+                },
+                {
+                    "title": "juni 2019",
+                    "value": "201906",
+                    "total-results": 29
+                },
+                {
+                    "title": "juli 2019",
+                    "value": "201907",
+                    "total-results": 18
+                },
+                {
+                    "title": "august 2019",
+                    "value": "201908",
+                    "total-results": 17
+                },
+                {
+                    "title": "september 2019",
+                    "value": "201909",
+                    "total-results": 6
+                },
+                {
+                    "title": "oktober 2019",
+                    "value": "201910",
+                    "total-results": 6
+                },
+                {
+                    "title": "november 2019",
+                    "value": "201911",
+                    "total-results": 3
+                },
+                {
+                    "title": "desember 2019",
+                    "value": "201912",
+                    "total-results": 7
+                },
+                {
+                    "title": "januar 2020",
+                    "value": "202001",
+                    "total-results": 3
+                },
+                {
+                    "title": "februar 2020",
+                    "value": "202002",
+                    "total-results": 3
+                },
+                {
+                    "title": "mars 2020",
+                    "value": "202003",
+                    "total-results": 4
+                },
+                {
+                    "title": "juni 2020",
+                    "value": "202006",
+                    "total-results": 2
+                },
+                {
+                    "title": "august 2020",
+                    "value": "202008",
+                    "total-results": 1
+                },
+                {
+                    "title": "november 2020",
+                    "value": "202011",
+                    "total-results": 1
+                },
+                {
+                    "title": "mai 2021",
+                    "value": "202105",
+                    "total-results": 1
+                },
+                {
+                    "title": "desember 2021",
+                    "value": "202112",
+                    "total-results": 1
                 }
             ]
         }

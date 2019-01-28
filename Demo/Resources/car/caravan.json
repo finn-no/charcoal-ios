@@ -1,0 +1,397 @@
+{
+    "market": "caravan",
+    "hits": 2566,
+    "label": "Campingvogner",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "make",
+        "sales_form",
+        "year",
+        "mileage",
+        "price",
+        "location",
+        "no_of_sleepers",
+        "caravan_segment",
+        "caravan_dealer_segment",
+        "length",
+        "width",
+        "weight"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year"
+        },
+        "mileage": {
+            "title": "Kilometerstand",
+            "range": true,
+            "name": "mileage"
+        },
+        "no_of_sleepers": {
+            "title": "Sengeplasser",
+            "range": true,
+            "name": "no_of_sleepers"
+        },
+        "weight": {
+            "title": "Totalvekt",
+            "range": true,
+            "name": "weight"
+        },
+        "length": {
+            "title": "Lengde",
+            "range": true,
+            "name": "length"
+        },
+        "width": {
+            "title": "Bredde",
+            "range": true,
+            "name": "width"
+        },
+        "caravan_dealer_segment": {
+            "title": "Annonsør",
+            "name": "caravan_dealer_segment",
+            "queries": [
+                {
+                    "title": "Forhandler",
+                    "value": "2",
+                    "total-results": 2068
+                },
+                {
+                    "title": "Privat",
+                    "value": "3",
+                    "total-results": 498
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Annet bilutsalg",
+                    "value": "2",
+                    "total-results": 2068
+                },
+                {
+                    "title": "Privat",
+                    "value": "3",
+                    "total-results": 498
+                }
+            ]
+        },
+        "caravan_segment": {
+            "title": "Kjøretøygruppe",
+            "name": "caravan_segment",
+            "queries": [
+                {
+                    "title": "Annet",
+                    "value": "3",
+                    "total-results": 41
+                },
+                {
+                    "title": "Campingvogn",
+                    "value": "1",
+                    "total-results": 2525
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Kjøretøyet står i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 274
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "20010",
+                    "total-results": 38
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "20007",
+                    "total-results": 141
+                },
+                {
+                    "title": "Finnmark",
+                    "value": "20020",
+                    "total-results": 69
+                },
+                {
+                    "title": "Hedmark",
+                    "value": "20005",
+                    "total-results": 205
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "20013",
+                    "total-results": 152
+                },
+                {
+                    "title": "Møre og Romsdal",
+                    "value": "20015",
+                    "total-results": 172
+                },
+                {
+                    "title": "Nordland",
+                    "value": "20018",
+                    "total-results": 260
+                },
+                {
+                    "title": "Oppland",
+                    "value": "20006",
+                    "total-results": 142
+                },
+                {
+                    "title": "Oslo",
+                    "value": "20061",
+                    "total-results": 6
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "20012",
+                    "total-results": 237
+                },
+                {
+                    "title": "Sogn og Fjordane",
+                    "value": "20014",
+                    "total-results": 23
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 97
+                },
+                {
+                    "title": "Troms",
+                    "value": "20019",
+                    "total-results": 158
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "20016",
+                    "total-results": 242
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "20008",
+                    "total-results": 71
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "20011",
+                    "total-results": 58
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 202
+                }
+            ]
+        },
+        "sales_form": {
+            "title": "Salgsform",
+            "name": "sales_form",
+            "queries": [
+                {
+                    "title": "Til leie",
+                    "value": "2",
+                    "total-results": 93
+                },
+                {
+                    "title": "Til salgs",
+                    "value": "1",
+                    "total-results": 2473
+                }
+            ]
+        },
+        "make": {
+            "title": "Merke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "Adria",
+                    "value": "10",
+                    "total-results": 379
+                },
+                {
+                    "title": "Andre",
+                    "value": "570",
+                    "total-results": 48
+                },
+                {
+                    "title": "Atlas",
+                    "value": "8268",
+                    "total-results": 4
+                },
+                {
+                    "title": "Bjølseth",
+                    "value": "30",
+                    "total-results": 29
+                },
+                {
+                    "title": "Bürstner",
+                    "value": "50",
+                    "total-results": 175
+                },
+                {
+                    "title": "Cabby",
+                    "value": "60",
+                    "total-results": 58
+                },
+                {
+                    "title": "Camp-Let",
+                    "value": "8365",
+                    "total-results": 3
+                },
+                {
+                    "title": "Carado",
+                    "value": "8341",
+                    "total-results": 1
+                },
+                {
+                    "title": "Caravelair",
+                    "value": "70",
+                    "total-results": 26
+                },
+                {
+                    "title": "Dethleffs",
+                    "value": "130",
+                    "total-results": 153
+                },
+                {
+                    "title": "Eifelland",
+                    "value": "140",
+                    "total-results": 2
+                },
+                {
+                    "title": "Fendt",
+                    "value": "7980",
+                    "total-results": 92
+                },
+                {
+                    "title": "Hobby",
+                    "value": "230",
+                    "total-results": 674
+                },
+                {
+                    "title": "Home-car",
+                    "value": "240",
+                    "total-results": 1
+                },
+                {
+                    "title": "Husvogner",
+                    "value": "8300",
+                    "total-results": 26
+                },
+                {
+                    "title": "Hymer",
+                    "value": "250",
+                    "total-results": 33
+                },
+                {
+                    "title": "KABE",
+                    "value": "7979",
+                    "total-results": 300
+                },
+                {
+                    "title": "Knaus",
+                    "value": "270",
+                    "total-results": 197
+                },
+                {
+                    "title": "LMC",
+                    "value": "8364",
+                    "total-results": 29
+                },
+                {
+                    "title": "LMC/Münsterland",
+                    "value": "290",
+                    "total-results": 68
+                },
+                {
+                    "title": "Polar",
+                    "value": "390",
+                    "total-results": 95
+                },
+                {
+                    "title": "Poletta",
+                    "value": "8165",
+                    "total-results": 1
+                },
+                {
+                    "title": "Savsjø",
+                    "value": "8083",
+                    "total-results": 2
+                },
+                {
+                    "title": "Solifer",
+                    "value": "460",
+                    "total-results": 98
+                },
+                {
+                    "title": "Sprite",
+                    "value": "470",
+                    "total-results": 3
+                },
+                {
+                    "title": "Tabbert",
+                    "value": "500",
+                    "total-results": 28
+                },
+                {
+                    "title": "Tec",
+                    "value": "8308",
+                    "total-results": 9
+                },
+                {
+                    "title": "Weinsberg",
+                    "value": "530",
+                    "total-results": 9
+                },
+                {
+                    "title": "Wilk",
+                    "value": "550",
+                    "total-results": 4
+                },
+                {
+                    "title": "Willerby",
+                    "value": "8252",
+                    "total-results": 3
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 44
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

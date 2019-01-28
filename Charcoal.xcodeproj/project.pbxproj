@@ -35,6 +35,8 @@
 		08716B6721FB108D003180D8 /* realestate-leisure-sale-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5A21FB108D003180D8 /* realestate-leisure-sale-abroad.json */; };
 		08716B6821FB108D003180D8 /* realestate-plot.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5B21FB108D003180D8 /* realestate-plot.json */; };
 		08716B6921FB108D003180D8 /* realestate-leisure-plot.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5C21FB108D003180D8 /* realestate-leisure-plot.json */; };
+		08716B9721FF40F6003180D8 /* mobile-home.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9621FF40F6003180D8 /* mobile-home.json */; };
+		08716B9921FF4112003180D8 /* caravan.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9821FF4112003180D8 /* caravan.json */; };
 		088C090F21F5C3AA00983132 /* job-full-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C090E21F5C3AA00983132 /* job-full-time.json */; };
 		088C091121F5CE4200983132 /* job-part-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091021F5CE4200983132 /* job-part-time.json */; };
 		088C091321F5CE4C00983132 /* job-management.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091221F5CE4C00983132 /* job-management.json */; };
@@ -257,6 +259,8 @@
 		08716B5A21FB108D003180D8 /* realestate-leisure-sale-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-leisure-sale-abroad.json"; sourceTree = "<group>"; };
 		08716B5B21FB108D003180D8 /* realestate-plot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-plot.json"; sourceTree = "<group>"; };
 		08716B5C21FB108D003180D8 /* realestate-leisure-plot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-leisure-plot.json"; sourceTree = "<group>"; };
+		08716B9621FF40F6003180D8 /* mobile-home.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-home.json"; sourceTree = "<group>"; };
+		08716B9821FF4112003180D8 /* caravan.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = caravan.json; sourceTree = "<group>"; };
 		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
 		088C091021F5CE4200983132 /* job-part-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-part-time.json"; sourceTree = "<group>"; };
 		088C091221F5CE4C00983132 /* job-management.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-management.json"; sourceTree = "<group>"; };
@@ -518,6 +522,8 @@
 			children = (
 				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
 				554D154F20C0782200FA3930 /* car-norway.json */,
+				08716B9621FF40F6003180D8 /* mobile-home.json */,
+				08716B9821FF4112003180D8 /* caravan.json */,
 			);
 			path = car;
 			sourceTree = "<group>";
@@ -1208,12 +1214,14 @@
 				08716B5D21FB108D003180D8 /* realestate-business-plot.json in Resources */,
 				08716B6321FB108D003180D8 /* realestate-development.json in Resources */,
 				08716B5F21FB108D003180D8 /* realestate-homes.json in Resources */,
+				08716B9721FF40F6003180D8 /* mobile-home.json in Resources */,
 				088C091B21F5E67900983132 /* atv.json in Resources */,
 				08716B6621FB108D003180D8 /* company-for-sale.json in Resources */,
 				08716B6221FB108D003180D8 /* realestate-leisure-sale.json in Resources */,
 				088C091121F5CE4200983132 /* job-part-time.json in Resources */,
 				08716B5E21FB108D003180D8 /* realestate-letting-wanted.json in Resources */,
 				08716B6421FB108D003180D8 /* realestate-business-sale.json in Resources */,
+				08716B9921FF4112003180D8 /* caravan.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
 				08716B4721F89D4A003180D8 /* boat-parts.json in Resources */,
 				088C091521F5E09900983132 /* mc.json in Resources */,

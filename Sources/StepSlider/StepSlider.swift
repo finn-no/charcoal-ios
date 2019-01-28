@@ -113,12 +113,12 @@ final class StepSlider: UISlider {
         } else if valueWithoutOffset > maximumValueWithoutOffset {
             return .upperBound
         } else {
-            let rounded = valueWithoutOffset.truncatingRemainder(dividingBy: 1) != 0
-            return .value(index: index, rounded: rounded)
+            return .value(index: index, rounded: false)
         }
     }
 
     private func setValueForSlider(_ value: Float, animated: Bool) {
+        previousValue = value
         setValue(value, animated: animated)
         updateAccessibilityValue()
     }
@@ -135,7 +135,8 @@ final class StepSlider: UISlider {
             return
         }
 
-        let stepChanged = newValue != previousValue
+        let stepChanged = step != newStep
+        let valueChanged = newValue != previousValue
 
         value = newValue
         step = newStep
@@ -148,8 +149,10 @@ final class StepSlider: UISlider {
             }
         }
 
-        updateAccessibilityValue()
-        delegate?.stepSlider(self, didChangeValue: value)
+        if valueChanged {
+            updateAccessibilityValue()
+            delegate?.stepSlider(self, didChangeValue: value)
+        }
 
         if slideEnded {
             delegate?.stepSlider(self, didEndSlideInteraction: step)

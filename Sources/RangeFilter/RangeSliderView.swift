@@ -21,6 +21,9 @@ final class RangeSliderView: UIControl {
     private lazy var lowValueSlider = makeStepSlider()
     private lazy var highValueSlider = makeStepSlider()
 
+    private lazy var lowSliderStep: Step = lowValueSlider.step
+    private lazy var highSliderStep: Step = highValueSlider.step
+
     private lazy var trackView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -101,6 +104,7 @@ final class RangeSliderView: UIControl {
 
 extension RangeSliderView {
     func setLowStep(_ step: Step, animated: Bool) {
+        lowSliderStep = step
         let step = highValueSlider.step < step ? highValueSlider.step : step
 
         lowValueSlider.setStep(step, animated: animated)
@@ -109,6 +113,7 @@ extension RangeSliderView {
     }
 
     func setHighStep(_ step: Step, animated: Bool) {
+        highSliderStep = step
         let step = lowValueSlider.step > step ? lowValueSlider.step : step
 
         highValueSlider.setStep(step, animated: animated)
@@ -222,19 +227,11 @@ extension RangeSliderView: StepSliderDelegate {
             FeedbackGenerator.generate(.collision)
         }
 
-        if stepSlider == highValueSlider {
-            delegate?.rangeSliderView(self, didChangeHighStep: step, didFinishSlideInteraction: false)
-        } else {
-            delegate?.rangeSliderView(self, didChangeLowStep: step, didFinishSlideInteraction: false)
-        }
+        handleStepUpdate(newStep: step, stepSlider: stepSlider)
     }
 
     func stepSlider(_ stepSlider: StepSlider, didEndSlideInteraction step: Step) {
-        if stepSlider == highValueSlider {
-            delegate?.rangeSliderView(self, didChangeHighStep: step, didFinishSlideInteraction: true)
-        } else {
-            delegate?.rangeSliderView(self, didChangeLowStep: step, didFinishSlideInteraction: true)
-        }
+        handleStepUpdate(newStep: step, stepSlider: stepSlider)
     }
 
     func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String {
@@ -249,6 +246,18 @@ extension RangeSliderView: StepSliderDelegate {
             return "range_above_upper_bound_title".localized()
         default:
             return ""
+        }
+    }
+
+    private func handleStepUpdate(newStep: Step, stepSlider: StepSlider) {
+        if stepSlider == highValueSlider {
+            highSliderStep = newStep
+            setLowStep(lowSliderStep, animated: false)
+            delegate?.rangeSliderView(self, didChangeHighStep: newStep, didFinishSlideInteraction: false)
+        } else {
+            lowSliderStep = newStep
+            setHighStep(highSliderStep, animated: false)
+            delegate?.rangeSliderView(self, didChangeLowStep: newStep, didFinishSlideInteraction: false)
         }
     }
 }

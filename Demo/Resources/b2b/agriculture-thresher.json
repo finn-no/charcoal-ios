@@ -1,0 +1,168 @@
+{
+    "market": "agriculture-thresher",
+    "hits": 60,
+    "label": "Tresker",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "make",
+        "price",
+        "year",
+        "engine_effect",
+        "dealer_segment"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year"
+        },
+        "engine_effect": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "engine_effect"
+        },
+        "make": {
+            "title": "Merke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "Andre",
+                    "value": "0/200",
+                    "total-results": 1
+                },
+                {
+                    "title": "Case",
+                    "value": "0/8016",
+                    "total-results": 1
+                },
+                {
+                    "title": "CLAAS",
+                    "value": "0/310",
+                    "total-results": 17
+                },
+                {
+                    "title": "Deutz Fahr",
+                    "value": "0/10",
+                    "total-results": 2
+                },
+                {
+                    "title": "Fendt",
+                    "value": "0/8017",
+                    "total-results": 1
+                },
+                {
+                    "title": "John Deere",
+                    "value": "0/30",
+                    "total-results": 6
+                },
+                {
+                    "title": "Massey Ferguson",
+                    "value": "0/40",
+                    "total-results": 13
+                },
+                {
+                    "title": "New Holland",
+                    "value": "0/170",
+                    "total-results": 14
+                },
+                {
+                    "title": "Sampo",
+                    "value": "0/330",
+                    "total-results": 5
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Kjøretøyet står i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 5
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "20007",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hedmark",
+                    "value": "20005",
+                    "total-results": 12
+                },
+                {
+                    "title": "Oppland",
+                    "value": "20006",
+                    "total-results": 1
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 2
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "20016",
+                    "total-results": 13
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "20008",
+                    "total-results": 9
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 15
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Forhandler",
+                    "value": "0",
+                    "total-results": 59
+                },
+                {
+                    "title": "Privat",
+                    "value": "1",
+                    "total-results": 1
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 1
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

@@ -1,0 +1,166 @@
+{
+    "market": "truck-abroad",
+    "hits": 18,
+    "label": "Lastebil og henger utland",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "truck_segment",
+        "make",
+        "price",
+        "year",
+        "engine_effect",
+        "weight",
+        "dealer_segment"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year"
+        },
+        "engine_effect": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "engine_effect"
+        },
+        "weight": {
+            "title": "Vekt",
+            "range": true,
+            "name": "weight"
+        },
+        "make": {
+            "title": "Merke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "MAN",
+                    "value": "150",
+                    "total-results": 2
+                },
+                {
+                    "title": "Mercedes-Benz",
+                    "value": "20",
+                    "total-results": 7
+                },
+                {
+                    "title": "Renault",
+                    "value": "160",
+                    "total-results": 3
+                },
+                {
+                    "title": "Scania",
+                    "value": "30",
+                    "total-results": 2
+                },
+                {
+                    "title": "Volkswagen",
+                    "value": "8139",
+                    "total-results": 1
+                },
+                {
+                    "title": "Volvo",
+                    "value": "180",
+                    "total-results": 3
+                }
+            ]
+        },
+        "truck_segment": {
+            "title": "Kjøretøygruppe",
+            "name": "truck_segment",
+            "queries": [
+                {
+                    "title": "Annet",
+                    "value": "10",
+                    "total-results": 1
+                },
+                {
+                    "title": "Betongbil",
+                    "value": "321",
+                    "total-results": 1
+                },
+                {
+                    "title": "Dyretransport",
+                    "value": "330",
+                    "total-results": 12
+                },
+                {
+                    "title": "Krokløft",
+                    "value": "130",
+                    "total-results": 1
+                },
+                {
+                    "title": "Liftdumper",
+                    "value": "140",
+                    "total-results": 1
+                },
+                {
+                    "title": "Planbil",
+                    "value": "280",
+                    "total-results": 1
+                },
+                {
+                    "title": "Renovasjonsbil",
+                    "value": "170",
+                    "total-results": 1
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Annet bilutsalg",
+                    "value": "2",
+                    "total-results": 16
+                },
+                {
+                    "title": "Privat",
+                    "value": "3",
+                    "total-results": 2
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Kjøretøyet står i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 4
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 0
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

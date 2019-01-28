@@ -14,11 +14,8 @@ class DemoFilter {
     var selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
     lazy var verticalSetup: VerticalSetupDemo = {
-        let verticalsCarNorway = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: true, isExternal: false, file: "car-norway"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: false, isExternal: false, file: "car-abroad")]
-        let verticalsCarAbroad = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: false, isExternal: false, file: "car-norway"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: true, isExternal: false, file: "car-abroad")]
-
         var marketDemos: [MarketDemos] = [
-            [MarketDemos(market: "car-norway", demos: verticalsCarNorway), MarketDemos(market: "car-abroad", demos: verticalsCarAbroad)],
+            carVerticalDemos(),
             jobVerticalDemos(),
             boatVerticalDemos(),
             mcVerticalDemos(),
@@ -85,6 +82,17 @@ class DemoFilter {
             }
             return MarketDemos(market: market.rawValue, demos: demos)
         }
+    }
+
+    private func carVerticalDemos() -> [MarketDemos] {
+        let markets: [(market: FilterMarketCar, title: String)] = [
+            (market: .norway, title: "Biler i Norge"),
+            (market: .abroad, title: "Biler i utlandet"),
+            (market: .mobileHome, title: "Bobil"),
+            (market: .caravan, title: "Campingvogn"),
+        ]
+
+        return createVerticalDemos(from: markets)
     }
 
     private func boatVerticalDemos() -> [MarketDemos] {

@@ -21,9 +21,9 @@ extension FilterMarketCar: FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .norway, .abroad:
-            return [.condition, .published, .priceChanged, .dealerSegment]
-        default:
-            return [.published]
+            return [.published, .priceChanged, .dealerSegment]
+        case .mobileHome, .caravan:
+            return [.published, .caravanDealerSegment]
         }
     }
 
@@ -47,7 +47,8 @@ extension FilterMarketCar: FilterConfiguration {
                 .carEquipment,
                 .wheelSets,
                 .warrantyInsurance,
-                .registrationClass
+                .condition,
+                .registrationClass,
             ]
         case .abroad:
             return [
@@ -69,7 +70,8 @@ extension FilterMarketCar: FilterConfiguration {
                 .carEquipment,
                 .wheelSets,
                 .warrantyInsurance,
-                .registrationClass
+                .condition,
+                .registrationClass,
             ]
         case .mobileHome:
             return [
@@ -83,11 +85,10 @@ extension FilterMarketCar: FilterConfiguration {
                 .numberOfSeats,
                 .engineEffect,
                 .mobileHomeSegment,
-                .caravanDealerSegment,
                 .transmission,
                 .wheelDrive,
                 .length,
-                .weight
+                .weight,
             ]
         case .caravan:
             return [
@@ -99,10 +100,9 @@ extension FilterMarketCar: FilterConfiguration {
                 .location,
                 .noOfSleepers,
                 .caravanSegment,
-                .caravanDealerSegment,
                 .length,
                 .width,
-                .weight
+                .weight,
             ]
         }
     }

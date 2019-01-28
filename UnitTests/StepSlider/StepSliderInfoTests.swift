@@ -17,12 +17,8 @@ final class StepSliderInfoTests: XCTestCase {
 
         XCTAssertEqual(info.minimumValue, 100)
         XCTAssertEqual(info.maximumValue, 10000)
-        XCTAssertEqual(info.minimumValueWithOffset, 100)
-        XCTAssertEqual(info.maximumValueWithOffset, 10000)
         XCTAssertFalse(info.hasLowerBoundOffset)
         XCTAssertFalse(info.hasUpperBoundOffset)
-        XCTAssertEqual(info.accessibilityStepIncrement, 1)
-        XCTAssertEqual(info.range, 100 ... 10000)
         XCTAssertEqual(info.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
         XCTAssertEqual(info.referenceValues, [100, 1000, 10000])
     }
@@ -39,12 +35,8 @@ final class StepSliderInfoTests: XCTestCase {
 
         XCTAssertEqual(info.minimumValue, 100)
         XCTAssertEqual(info.maximumValue, 10000)
-        XCTAssertEqual(info.minimumValueWithOffset, 99)
-        XCTAssertEqual(info.maximumValueWithOffset, 10001)
         XCTAssertTrue(info.hasLowerBoundOffset)
         XCTAssertTrue(info.hasUpperBoundOffset)
-        XCTAssertEqual(info.accessibilityStepIncrement, 2)
-        XCTAssertEqual(info.range, 100 ... 10000)
         XCTAssertEqual(info.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
         XCTAssertEqual(info.referenceValues, [100, 1000, 10000])
     }
@@ -73,17 +65,13 @@ final class StepSliderInfoTests: XCTestCase {
 
         XCTAssertEqual(info.minimumValue, 100)
         XCTAssertEqual(info.maximumValue, 5000)
-        XCTAssertEqual(info.minimumValueWithOffset, 99)
-        XCTAssertEqual(info.maximumValueWithOffset, 5001)
         XCTAssertTrue(info.hasLowerBoundOffset)
         XCTAssertTrue(info.hasUpperBoundOffset)
-        XCTAssertEqual(info.accessibilityStepIncrement, 2)
-        XCTAssertEqual(info.range, 100 ... 5000)
         XCTAssertEqual(info.values, [100, 1100, 2100, 3100, 4100, 5000])
         XCTAssertEqual(info.referenceValues, [100, 3100, 5000])
     }
 
-    func testIsLowValueInValidRange() {
+    func testValueForStepWithoutOffsets() {
         let info = StepSliderInfo(
             minimumValue: 0,
             maximumValue: 5,
@@ -92,27 +80,26 @@ final class StepSliderInfoTests: XCTestCase {
             hasUpperBoundOffset: true
         )
 
-        XCTAssertTrue(info.isLowValueInValidRange(2))
-        XCTAssertTrue(info.isLowValueInValidRange(5))
-
-        XCTAssertFalse(info.isLowValueInValidRange(-1))
-        XCTAssertFalse(info.isLowValueInValidRange(-5))
-        XCTAssertFalse(info.isLowValueInValidRange(0))
+        XCTAssertNil(info.value(for: .lowerBound))
+        XCTAssertNil(info.value(for: .upperBound))
+        XCTAssertEqual(info.value(for: .value(index: 0, rounded: false)), 0)
+        XCTAssertEqual(info.value(for: .value(index: 2, rounded: false)), 2)
+        XCTAssertEqual(info.value(for: .value(index: 2, rounded: true)), 2)
     }
 
-    func testIsHighValueInValidRange() {
+    func testValueForStepWithOffsets() {
         let info = StepSliderInfo(
             minimumValue: 0,
             maximumValue: 5,
             incrementedBy: 1,
-            hasLowerBoundOffset: true,
-            hasUpperBoundOffset: true
+            hasLowerBoundOffset: false,
+            hasUpperBoundOffset: false
         )
 
-        XCTAssertTrue(info.isHighValueInValidRange(0))
-        XCTAssertTrue(info.isHighValueInValidRange(3))
-        XCTAssertTrue(info.isHighValueInValidRange(5))
-
-        XCTAssertFalse(info.isHighValueInValidRange(6))
+        XCTAssertEqual(info.value(for: .lowerBound), 0)
+        XCTAssertEqual(info.value(for: .upperBound), 5)
+        XCTAssertEqual(info.value(for: .value(index: 0, rounded: false)), 0)
+        XCTAssertEqual(info.value(for: .value(index: 2, rounded: false)), 2)
+        XCTAssertEqual(info.value(for: .value(index: 2, rounded: true)), 2)
     }
 }

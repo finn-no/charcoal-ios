@@ -9,6 +9,8 @@ public enum FilterKey: String, CodingKey {
     case area
     case boatClass = "class"
     case bodyType = "body_type"
+    case caravanDealerSegment = "caravan_dealer_segment"
+    case caravanSegment = "caravan_segment"
     case carEquipment = "car_equipment"
     case category
     case condition
@@ -30,13 +32,17 @@ public enum FilterKey: String, CodingKey {
     case isSold = "is_sold"
     case jobDuration = "job_duration"
     case jobSector = "job_sector"
+    case leasepriceInit = "leaseprice_init"
+    case leasepriceMonth = "leaseprice_month"
     case leisureSituation = "leisure_situation"
+    case length
     case lengthFeet = "length_feet"
     case location
     case make
     case managerRole = "manager_role"
     case markets
     case mileage
+    case mobileHomeSegment = "mobile_home_segment"
     case motorAdLocation = "motor_ad_location"
     case motorIncluded = "motor_included"
     case motorSize = "motor_size"
@@ -66,6 +72,7 @@ public enum FilterKey: String, CodingKey {
     case type
     case viewing
     case warrantyInsurance = "warranty_insurance"
+    case weight
     case width
     case wheelDrive = "wheel_drive"
     case wheelSets = "wheel_sets"

@@ -20,10 +20,10 @@ extension FilterMarketCar: FilterConfiguration {
 
     var preferenceFilterKeys: [FilterKey] {
         switch self {
-        case .norway:
+        case .norway, .abroad:
             return [.condition, .published, .priceChanged, .dealerSegment]
-        case .abroad:
-            return [.condition, .published, .priceChanged, .dealerSegment]
+        default:
+            return [.published]
         }
     }
 
@@ -45,9 +45,9 @@ extension FilterMarketCar: FilterConfiguration {
                 .wheelDrive,
                 .transmission,
                 .carEquipment,
-                .warrantyInsurance,
                 .wheelSets,
-                .registrationClass,
+                .warrantyInsurance,
+                .registrationClass
             ]
         case .abroad:
             return [
@@ -55,6 +55,8 @@ extension FilterMarketCar: FilterConfiguration {
                 .salesForm,
                 .year,
                 .mileage,
+                .leasepriceInit,
+                .leasepriceMonth,
                 .price,
                 .location,
                 .bodyType,
@@ -65,9 +67,42 @@ extension FilterMarketCar: FilterConfiguration {
                 .wheelDrive,
                 .transmission,
                 .carEquipment,
-                .warrantyInsurance,
                 .wheelSets,
-                .registrationClass,
+                .warrantyInsurance,
+                .registrationClass
+            ]
+        case .mobileHome:
+            return [
+                .make,
+                .salesForm,
+                .year,
+                .mileage,
+                .price,
+                .location,
+                .noOfSleepers,
+                .numberOfSeats,
+                .engineEffect,
+                .mobileHomeSegment,
+                .caravanDealerSegment,
+                .transmission,
+                .wheelDrive,
+                .length,
+                .weight
+            ]
+        case .caravan:
+            return [
+                .make,
+                .salesForm,
+                .year,
+                .mileage,
+                .price,
+                .location,
+                .noOfSleepers,
+                .caravanSegment,
+                .caravanDealerSegment,
+                .length,
+                .width,
+                .weight
             ]
         }
     }

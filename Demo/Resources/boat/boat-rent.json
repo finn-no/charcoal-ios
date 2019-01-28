@@ -1,0 +1,459 @@
+{
+    "market": "boat-rent",
+    "hits": 74,
+    "label": "Båter til leie",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "class",
+        "price",
+        "length_feet",
+        "year",
+        "fuel",
+        "motor_size",
+        "no_of_seats",
+        "no_of_sleepers"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year"
+        },
+        "length_feet": {
+            "title": "Lengde",
+            "range": true,
+            "name": "length_feet"
+        },
+        "motor_size": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "motor_size"
+        },
+        "no_of_seats": {
+            "title": "Sitteplasser",
+            "range": true,
+            "name": "no_of_seats"
+        },
+        "no_of_sleepers": {
+            "title": "Sengeplasser",
+            "range": true,
+            "name": "no_of_sleepers"
+        },
+        "make": {
+            "title": "Båtmerke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "Allures",
+                    "value": "1000507",
+                    "total-results": 1
+                },
+                {
+                    "title": "Andre",
+                    "value": "3877",
+                    "total-results": 11
+                },
+                {
+                    "title": "Askeladden",
+                    "value": "3832",
+                    "total-results": 1
+                },
+                {
+                    "title": "Bavaria",
+                    "value": "2824",
+                    "total-results": 9
+                },
+                {
+                    "title": "Beneteau",
+                    "value": "2634",
+                    "total-results": 7
+                },
+                {
+                    "title": "Dufour",
+                    "value": "6981",
+                    "total-results": 3
+                },
+                {
+                    "title": "Fairline",
+                    "value": "2596",
+                    "total-results": 2
+                },
+                {
+                    "title": "Ferretti",
+                    "value": "7699",
+                    "total-results": 1
+                },
+                {
+                    "title": "Finnmaster",
+                    "value": "7935",
+                    "total-results": 1
+                },
+                {
+                    "title": "Furuholmen",
+                    "value": "8157",
+                    "total-results": 1
+                },
+                {
+                    "title": "Gemi",
+                    "value": "1000508",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hallberg Rassy",
+                    "value": "2625",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hanse",
+                    "value": "7598",
+                    "total-results": 4
+                },
+                {
+                    "title": "Hardanger",
+                    "value": "2976",
+                    "total-results": 1
+                },
+                {
+                    "title": "Jeanneau",
+                    "value": "2623",
+                    "total-results": 2
+                },
+                {
+                    "title": "Joda",
+                    "value": "3864",
+                    "total-results": 1
+                },
+                {
+                    "title": "Junker",
+                    "value": "7021",
+                    "total-results": 1
+                },
+                {
+                    "title": "Kaasbøll",
+                    "value": "1000482",
+                    "total-results": 1
+                },
+                {
+                    "title": "Lagoon",
+                    "value": "7875",
+                    "total-results": 3
+                },
+                {
+                    "title": "Marex",
+                    "value": "2580",
+                    "total-results": 1
+                },
+                {
+                    "title": "Pioner",
+                    "value": "2566",
+                    "total-results": 1
+                },
+                {
+                    "title": "Princess",
+                    "value": "2564",
+                    "total-results": 3
+                },
+                {
+                    "title": "Quicksilver",
+                    "value": "2512",
+                    "total-results": 2
+                },
+                {
+                    "title": "Ramin",
+                    "value": "7787",
+                    "total-results": 1
+                },
+                {
+                    "title": "Regal",
+                    "value": "2562",
+                    "total-results": 1
+                },
+                {
+                    "title": "Riva",
+                    "value": "7692",
+                    "total-results": 1
+                },
+                {
+                    "title": "River",
+                    "value": "7128",
+                    "total-results": 1
+                },
+                {
+                    "title": "Ryds",
+                    "value": "2561",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sandström",
+                    "value": "1000377",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sargo",
+                    "value": "1000470",
+                    "total-results": 1
+                },
+                {
+                    "title": "SeaDoo",
+                    "value": "8310",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sealine",
+                    "value": "2555",
+                    "total-results": 1
+                },
+                {
+                    "title": "Skorgenes",
+                    "value": "2549",
+                    "total-results": 1
+                },
+                {
+                    "title": "Sunseeker",
+                    "value": "2544",
+                    "total-results": 1
+                },
+                {
+                    "title": "Viknes",
+                    "value": "2535",
+                    "total-results": 1
+                },
+                {
+                    "title": "X-Yachts",
+                    "value": "2611",
+                    "total-results": 2
+                },
+                {
+                    "title": "Zodiac",
+                    "value": "2509",
+                    "total-results": 1
+                }
+            ]
+        },
+        "motor_included": {
+            "title": "Motor inkludert",
+            "name": "motor_included"
+        },
+        "motor_type": {
+            "title": "Motortype",
+            "name": "motor_type",
+            "queries": [
+                {
+                    "title": "Innenbords",
+                    "value": "Innenbords",
+                    "total-results": 51
+                },
+                {
+                    "title": "Utenbords",
+                    "value": "Utenbords",
+                    "total-results": 13
+                }
+            ]
+        },
+        "fuel": {
+            "title": "Drivstoff",
+            "name": "fuel",
+            "queries": [
+                {
+                    "title": "Bensin",
+                    "value": "1",
+                    "total-results": 14
+                },
+                {
+                    "title": "Diesel",
+                    "value": "2",
+                    "total-results": 43
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Forhandler",
+                    "value": "0",
+                    "total-results": 25
+                },
+                {
+                    "title": "Privat",
+                    "value": "1",
+                    "total-results": 49
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Båten ligger i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 17
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "20010",
+                    "total-results": 1
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "20013",
+                    "total-results": 2
+                },
+                {
+                    "title": "Møre og Romsdal",
+                    "value": "20015",
+                    "total-results": 2
+                },
+                {
+                    "title": "Nordland",
+                    "value": "20018",
+                    "total-results": 3
+                },
+                {
+                    "title": "Oslo",
+                    "value": "20061",
+                    "total-results": 9
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "20012",
+                    "total-results": 9
+                },
+                {
+                    "title": "Sogn og Fjordane",
+                    "value": "20014",
+                    "total-results": 2
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 1
+                },
+                {
+                    "title": "Troms",
+                    "value": "20019",
+                    "total-results": 2
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "20016",
+                    "total-results": 2
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "20008",
+                    "total-results": 5
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "20011",
+                    "total-results": 2
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 4
+                }
+            ]
+        },
+        "class": {
+            "title": "Båttype",
+            "name": "class",
+            "queries": [
+                {
+                    "title": "Andre",
+                    "value": "2258",
+                    "total-results": 4
+                },
+                {
+                    "title": "Cabincruiser",
+                    "value": "6923",
+                    "total-results": 7
+                },
+                {
+                    "title": "Daycruiser",
+                    "value": "2184",
+                    "total-results": 3
+                },
+                {
+                    "title": "RIB",
+                    "value": "7343",
+                    "total-results": 1
+                },
+                {
+                    "title": "Seilbåt/Motorseiler",
+                    "value": "2188",
+                    "total-results": 37
+                },
+                {
+                    "title": "Skjærgårdsjeep/Landstedsbåt",
+                    "value": "3827",
+                    "total-results": 7
+                },
+                {
+                    "title": "Trebåt/Snekke",
+                    "value": "6922",
+                    "total-results": 2
+                },
+                {
+                    "title": "Vannscooter",
+                    "value": "2190",
+                    "total-results": 1
+                },
+                {
+                    "title": "Yacht",
+                    "value": "7959",
+                    "total-results": 10
+                },
+                {
+                    "title": "Yrkesbåt/Sjark/Skøyte",
+                    "value": "6921",
+                    "total-results": 2
+                }
+            ]
+        },
+        "segment": {
+            "title": "Tilstand",
+            "name": "segment",
+            "queries": [
+                {
+                    "title": "Båter til leie",
+                    "value": "122",
+                    "total-results": 74
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 1
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

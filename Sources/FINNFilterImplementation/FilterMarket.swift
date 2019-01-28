@@ -4,185 +4,13 @@
 
 import Foundation
 
-protocol FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool
-    var preferenceFilterKeys: [FilterKey] { get }
-    var supportedFiltersKeys: [FilterKey] { get }
-    var mapFilterKey: FilterKey? { get }
-}
-
-enum FilterMarket: FilterConfiguration {
-    enum Bap: String, FilterConfiguration, CaseIterable {
-        case bap
-
-        func handlesVerticalId(_ vertical: String) -> Bool {
-            return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
-        }
-
-        var preferenceFilterKeys: [FilterKey] {
-            return [.searchType, .segment, .condition, .published]
-        }
-
-        var supportedFiltersKeys: [FilterKey] {
-            return [
-                .location,
-                .category,
-                .price,
-            ]
-        }
-
-        var mapFilterKey: FilterKey? {
-            return .location
-        }
-    }
-
-    enum Realestate: String, FilterConfiguration, CaseIterable {
-        case homes = "realestate-homes"
-
-        func handlesVerticalId(_ vertical: String) -> Bool {
-            return rawValue == vertical
-        }
-
-        var preferenceFilterKeys: [FilterKey] {
-            return [.published, .isSold, .isNewProperty, .isPrivateBroker]
-        }
-
-        var supportedFiltersKeys: [FilterKey] {
-            return [
-                .location,
-                .price,
-                .priceCollective,
-                .rent,
-                .area,
-                .noOfBedrooms,
-                .constructionYear,
-                .propertyType,
-                .ownershipType,
-                .facilities,
-                .viewing,
-                .floorNavigator,
-                .energyLabel,
-                .plotArea,
-            ]
-        }
-
-        var mapFilterKey: FilterKey? {
-            return .location
-        }
-    }
-
-    enum Car: String, FilterConfiguration, CaseIterable {
-        case norway = "car-norway"
-        case abroad = "car-abroad"
-
-        func handlesVerticalId(_ vertical: String) -> Bool {
-            return rawValue == vertical
-        }
-
-        var preferenceFilterKeys: [FilterKey] {
-            switch self {
-            case .norway:
-                return [.condition, .published, .priceChanged, .dealerSegment]
-            case .abroad:
-                return [.condition, .published, .priceChanged, .dealerSegment]
-            }
-        }
-
-        var supportedFiltersKeys: [FilterKey] {
-            switch self {
-            case .norway:
-                return [
-                    .make,
-                    .salesForm,
-                    .year,
-                    .mileage,
-                    .price,
-                    .location,
-                    .bodyType,
-                    .engineFuel,
-                    .exteriorColour,
-                    .engineEffect,
-                    .numberOfSeats,
-                    .wheelDrive,
-                    .transmission,
-                    .carEquipment,
-                    .warrantyInsurance,
-                    .wheelSets,
-                    .registrationClass,
-                ]
-            case .abroad:
-                return [
-                    .make,
-                    .salesForm,
-                    .year,
-                    .mileage,
-                    .price,
-                    .location,
-                    .bodyType,
-                    .engineFuel,
-                    .exteriorColour,
-                    .engineEffect,
-                    .numberOfSeats,
-                    .wheelDrive,
-                    .transmission,
-                    .carEquipment,
-                    .warrantyInsurance,
-                    .wheelSets,
-                    .registrationClass,
-                ]
-            }
-        }
-
-        var mapFilterKey: FilterKey? {
-            return .location
-        }
-    }
-
-    enum Job: String, FilterConfiguration, CaseIterable {
-        case fullTime = "job-full-time"
-        case partTime = "job-part-time"
-        case management = "job-management"
-
-        func handlesVerticalId(_ vertical: String) -> Bool {
-            return rawValue == vertical
-        }
-
-        var preferenceFilterKeys: [FilterKey] {
-            return [.published]
-        }
-
-        var supportedFiltersKeys: [FilterKey] {
-            switch self {
-            case .partTime:
-                return [
-                    .location,
-                    .occupation,
-                    .industry,
-                    .jobDuration,
-                    .jobSector,
-                ]
-            case .fullTime, .management:
-                return [
-                    .location,
-                    .occupation,
-                    .industry,
-                    .jobDuration,
-                    .extent,
-                    .jobSector,
-                    .managerRole,
-                ]
-            }
-        }
-
-        var mapFilterKey: FilterKey? {
-            return .location
-        }
-    }
-
-    case bap(Bap)
-    case realestate(Realestate)
-    case car(Car)
-    case job(Job)
+enum FilterMarket {
+    case bap(FilterMarketBap)
+    case realestate(FilterMarketRealestate)
+    case car(FilterMarketCar)
+    case mc(FilterMarketMC)
+    case job(FilterMarketJob)
+    case boat(FilterMarketBoat)
 
     init?(market: String) {
         guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
@@ -200,11 +28,19 @@ enum FilterMarket: FilterConfiguration {
             return realestate
         case let .car(car):
             return car
+        case let .mc(mc):
+            return mc
         case let .job(job):
             return job
+        case let .boat(boat):
+            return boat
         }
     }
+}
 
+// MARK: - FilterConfiguration
+
+extension FilterMarket: FilterConfiguration {
     func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }
@@ -220,13 +56,21 @@ enum FilterMarket: FilterConfiguration {
     var mapFilterKey: FilterKey? {
         return currentFilterConfig.mapFilterKey
     }
+
+    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
+        return currentFilterConfig.createFilterInfoFrom(rangeFilterData: rangeFilterData)
+    }
 }
+
+// MARK: - CaseIterable
 
 extension FilterMarket: CaseIterable {
     static var allCases: [FilterMarket] {
-        return Bap.allCases.map(FilterMarket.bap)
-            + Realestate.allCases.map(FilterMarket.realestate)
-            + Car.allCases.map(FilterMarket.car)
-            + Job.allCases.map(FilterMarket.job)
+        return FilterMarketBap.allCases.map(FilterMarket.bap)
+            + FilterMarketRealestate.allCases.map(FilterMarket.realestate)
+            + FilterMarketCar.allCases.map(FilterMarket.car)
+            + FilterMarketMC.allCases.map(FilterMarket.mc)
+            + FilterMarketJob.allCases.map(FilterMarket.job)
+            + FilterMarketBoat.allCases.map(FilterMarket.boat)
     }
 }

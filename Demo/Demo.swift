@@ -77,7 +77,7 @@ enum Sections: String, CaseIterable {
         case .fullscreen:
             let selectedView = FullscreenViews.allCases[indexPath.row]
             switch selectedView {
-            case .torget, .bil, .eiendom, .job:
+            case .torget, .bil, .eiendom, .job, .mc, .boat:
                 return .bottomSheet
             }
         }
@@ -161,7 +161,9 @@ enum FullscreenViews: String, CaseIterable {
     case torget
     case bil
     case eiendom
+    case mc
     case job
+    case boat
 
     var viewController: UIViewController {
         let filter: FilterSetup
@@ -173,8 +175,12 @@ enum FullscreenViews: String, CaseIterable {
             filter = DemoFilter.filterDataFromJSONFile(named: "car-norway")
         case .eiendom:
             filter = DemoFilter.filterDataFromJSONFile(named: "realestate-homes")
+        case .mc:
+            filter = DemoFilter.filterDataFromJSONFile(named: "mc")
         case .job:
             filter = DemoFilter.filterDataFromJSONFile(named: "job-full-time")
+        case .boat:
+            filter = DemoFilter.filterDataFromJSONFile(named: "boat-sale")
         }
 
         let demoFilter = DemoFilter(filter: filter)
@@ -256,7 +262,7 @@ class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
     func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
     }
 
-    func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
+    func geoValue() -> GeoFilterValue? {
         return nil
     }
 }

@@ -286,11 +286,9 @@ class ParameterBasedFilterInfoSelectionDataSourceTests: XCTestCase {
     }
 
     func testSelectionDataSourceShouldSupportGettingGeoFilterValue() {
-        let createdObjects = createAreaFilter()
-        let filter = createdObjects.area
         let selectionDataSource = ParameterBasedFilterInfoSelectionDataSource(queryItems: [URLQueryItem(name: "radius", value: "10000"), URLQueryItem(name: "lat", value: "60"), URLQueryItem(name: "lon", value: "10.8"), URLQueryItem(name: "geoLocationName", value: "Aplace")])
 
-        let geoFilterValue = selectionDataSource.geoValue(for: filter)
+        let geoFilterValue = selectionDataSource.geoValue()
 
         XCTAssertNotNil(geoFilterValue)
         XCTAssertEqual(60, geoFilterValue?.latitude)

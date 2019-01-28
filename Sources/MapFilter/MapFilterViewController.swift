@@ -44,24 +44,6 @@ public class MapFilterViewController: FilterViewController {
         showApplyButton(true, animated: false)
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let currentSelection = selectionDataSource.geoValue(for: filterInfo) else {
-            return
-        }
-        mapFilterView?.setInitialSelection(latitude: currentSelection.latitude, longitude: currentSelection.longitude, radius: currentSelection.radius, locationName: currentSelection.locationName)
-    }
-
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        // TODO: This should be done when apply or back is pressed
-        guard let mapFilterView = mapFilterView, let coordinate = mapFilterViewManager?.centerCoordinate else {
-            return
-        }
-        selectionDataSource.setValue(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: mapFilterView.currentRadius, locationName: nil, for: filterInfo)
-    }
-
     private func setup() {
         view.backgroundColor = .milk
         mapFilterView?.translatesAutoresizingMaskIntoConstraints = false
@@ -77,15 +59,29 @@ public class MapFilterViewController: FilterViewController {
             mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
+
+    private func returnToMapFromLocationSearch() {
+        mapFilterView?.searchBar = searchLocationViewController.searchBar
+        mapFilterView?.setNeedsLayout()
+
+        searchLocationViewController.willMove(toParent: nil)
+        searchLocationViewController.view.removeFromSuperview()
+        searchLocationViewController.removeFromParent()
+    }
+
+    override func applyButtonTapped() {
+        guard let mapFilterView = mapFilterView, let coordinate = mapFilterView.centerPoint else {
+            return
+        }
+        selectionDataSource.setValue(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: mapFilterView.currentRadius, locationName: nil, for: filterInfo)
+    }
 }
 
 extension MapFilterViewController: SearchLocationViewControllerDelegate {
     public func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        returnToMapFromLocationSearch()
 
-        // TODO: start getting location
+        mapFilterViewManager?.centerOnUserLocation()
     }
 
     public func searchLocationViewControllerShouldBePresented(_ searchLocationViewController: SearchLocationViewController) {
@@ -98,22 +94,14 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
     }
 
     public func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
-        mapFilterView?.searchBar = searchLocationViewController.searchBar
-        mapFilterView?.setNeedsLayout()
-
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        returnToMapFromLocationSearch()
     }
 
     public func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didSelectLocation location: LocationInfo?) {
-        mapFilterView?.searchBar = searchLocationViewController.searchBar
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        returnToMapFromLocationSearch()
 
         if let location = location {
-            mapFilterViewManager?.centerCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            mapFilterViewManager?.goToLocation(location)
         }
     }
 }

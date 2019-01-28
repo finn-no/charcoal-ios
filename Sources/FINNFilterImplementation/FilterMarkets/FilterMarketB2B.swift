@@ -120,6 +120,93 @@ extension FilterMarketB2B: FilterConfiguration {
         }
 
         switch filterKey {
+        case .price:
+            switch self {
+            case .bus:
+                lowValue = 0
+                highValue = 500_000
+                increment = 10_000
+                rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            case .agricultureTractor:
+                lowValue = 0
+                highValue = 1_000_000
+                increment = 10_000
+                rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            case .vanNorway, .vanAbroad:
+                lowValue = 10_000
+                highValue = 700_000
+                increment = 10_000
+                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            default:
+                lowValue = 30_000
+                highValue = 1_000_000
+                increment = 10_000
+                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            }
+            unit = "kr"
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+        case .year:
+            switch self {
+            case .bus, .vanNorway, .vanAbroad:
+                lowValue = 1990
+            default:
+                lowValue = 1985
+            }
+
+            highValue = Calendar.current.component(.year, from: Date())
+            unit = "år"
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
+        case .engineEffect:
+            switch self {
+            case .bus:
+                lowValue = 100
+                highValue = 500
+                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            case .agricultureTractor, .agricultureThresher:
+                lowValue = 0
+                highValue = 500
+                rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            case .vanNorway, .vanAbroad:
+                lowValue = 50
+                highValue = 500
+                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            default:
+                lowValue = 100
+                highValue = 600
+                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            }
+            unit = "hk"
+            increment = 10
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .weight:
+            lowValue = 1_000
+            highValue = 40_000
+            unit = "kg"
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            increment = 50
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .mileage:
+            lowValue = 0
+            highValue = 200_000
+            unit = "km"
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            increment = 1000
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+        case .numberOfSeats:
+            lowValue = 0
+            highValue = 10
+            unit = "seter"
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         default:
             return nil
         }

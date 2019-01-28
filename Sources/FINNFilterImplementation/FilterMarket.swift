@@ -11,6 +11,7 @@ enum FilterMarket {
     case mc(FilterMarketMC)
     case job(FilterMarketJob)
     case boat(FilterMarketBoat)
+    case b2b(FilterMarketB2B)
 
     init?(market: String) {
         guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
@@ -34,6 +35,8 @@ enum FilterMarket {
             return job
         case let .boat(boat):
             return boat
+        case let .b2b(b2b):
+            return b2b
         }
     }
 }
@@ -65,12 +68,35 @@ extension FilterMarket: FilterConfiguration {
 // MARK: - CaseIterable
 
 extension FilterMarket: CaseIterable {
-    static var allCases: [FilterMarket] {
+    private static var allB2BMarkets: [FilterMarket] {
+        return FilterMarketB2B.allCases.map(FilterMarket.b2b)
+    }
+
+    private static var allBapMarkets: [FilterMarket] {
         return FilterMarketBap.allCases.map(FilterMarket.bap)
-            + FilterMarketRealestate.allCases.map(FilterMarket.realestate)
-            + FilterMarketCar.allCases.map(FilterMarket.car)
-            + FilterMarketMC.allCases.map(FilterMarket.mc)
-            + FilterMarketJob.allCases.map(FilterMarket.job)
-            + FilterMarketBoat.allCases.map(FilterMarket.boat)
+    }
+
+    private static var allBoatMarkets: [FilterMarket] {
+        return FilterMarketBoat.allCases.map(FilterMarket.boat)
+    }
+
+    private static var allCarMarkets: [FilterMarket] {
+        return FilterMarketCar.allCases.map(FilterMarket.car)
+    }
+
+    private static var allJobMarkets: [FilterMarket] {
+        return FilterMarketJob.allCases.map(FilterMarket.job)
+    }
+
+    private static var allMCMarkets: [FilterMarket] {
+        return FilterMarketMC.allCases.map(FilterMarket.mc)
+    }
+
+    private static var allRealestateMarkets: [FilterMarket] {
+        return FilterMarketRealestate.allCases.map(FilterMarket.realestate)
+    }
+
+    static var allCases: [FilterMarket] {
+        return allB2BMarkets + allBapMarkets + allBoatMarkets + allCarMarkets + allJobMarkets + allMCMarkets + allRealestateMarkets
     }
 }

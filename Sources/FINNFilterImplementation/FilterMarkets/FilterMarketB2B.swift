@@ -31,21 +31,71 @@ extension FilterMarketB2B: FilterConfiguration {
         switch self {
         case .truck, .truckAbroad:
             return [
+                .location,
+                .truckSegment,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+                .weight,
+                .dealerSegment,
             ]
         case .bus:
             return [
+                .location,
+                .busSegment,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+                .dealerSegment,
             ]
         case .construction:
             return [
+                .location,
+                .constructionSegment,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+                .dealerSegment,
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
+                .location,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+                .dealerSegment,
             ]
         case .agricultureTools:
             return [
+                .location,
+                .category,
+                .price,
+                .year,
+                .dealerSegment,
             ]
         case .vanNorway, .vanAbroad:
             return [
+                .make,
+                .year,
+                .mileage,
+                .price,
+                .bodyType,
+                .location,
+                .engineFuel,
+                .exteriorColour,
+                .engineEffect,
+                .numberOfSeats,
+                .wheelDrive,
+                .dealerSegment,
+                .transmission,
+                .wheelSets,
+                .warrantyInsurance,
+                .condition,
+                .salesForm,
             ]
         }
     }

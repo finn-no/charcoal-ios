@@ -7,6 +7,8 @@ import Foundation
 enum FilterMarketCar: String, CaseIterable {
     case norway = "car-norway"
     case abroad = "car-abroad"
+    case mobileHome = "mobile-home"
+    case caravan
 }
 
 // MARK: - FilterConfiguration

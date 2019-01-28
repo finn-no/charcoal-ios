@@ -22,8 +22,12 @@ enum Step: Equatable {
 extension Step: Comparable {
     static func < (lhs: Step, rhs: Step) -> Bool {
         switch (lhs, rhs) {
-        case let (.value(lhsIndex, _), .value(rhsIndex, _)):
-            return lhsIndex < rhsIndex
+        case let (.value(lhsIndex, lhsRounded), .value(rhsIndex, rhsRounded)):
+            if lhsIndex == rhsIndex {
+                return !lhsRounded && rhsRounded
+            } else {
+                return lhsIndex < rhsIndex
+            }
         case (.lowerBound, .lowerBound):
             return false
         case (.upperBound, .upperBound):

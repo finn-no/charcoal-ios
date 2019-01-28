@@ -23,6 +23,8 @@ final class StepTests: XCTestCase {
         XCTAssertFalse(step < step)
         XCTAssertFalse(step < Step.lowerBound)
         XCTAssertTrue(step < Step.upperBound)
+        XCTAssertTrue(step < Step.value(index: 3, rounded: true))
+        XCTAssertFalse(Step.value(index: 3, rounded: true) < step)
 
         XCTAssertFalse(Step.upperBound < Step.upperBound)
         XCTAssertFalse(Step.upperBound < step)

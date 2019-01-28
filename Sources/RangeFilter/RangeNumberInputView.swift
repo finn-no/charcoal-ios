@@ -199,6 +199,7 @@ extension RangeNumberInputView {
         lowValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.lowValue] = value
+        validateInputs(activeInputGroup: .lowValue)
     }
 
     func setHighValue(_ value: Int, animated: Bool) {
@@ -206,6 +207,7 @@ extension RangeNumberInputView {
         highValueInputTextField.text = valueText
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
         inputValues[.highValue] = value
+        validateInputs(activeInputGroup: .highValue)
     }
 
     func setLowValueHint(text: String) {
@@ -224,8 +226,7 @@ extension RangeNumberInputView {
         highValueInputUnitLabel.font = highValueInputTextField.font
     }
 
-    private func validateInputs() {
-        let activeInputGroup: InputGroup = lowValueInputTextField.isFirstResponder ? .lowValue : .highValue
+    private func validateInputs(activeInputGroup: InputGroup) {
         let inactiveInputGroup: InputGroup = activeInputGroup == .lowValue ? .highValue : .lowValue
 
         updateValidationStatus(for: activeInputGroup, isValid: isValidValue(for: activeInputGroup))
@@ -443,7 +444,7 @@ extension RangeNumberInputView {
         let otherInputGroup: InputGroup = inputGroup == .lowValue ? .highValue : .lowValue
         setInputGroup(otherInputGroup, active: false)
         setInputGroup(inputGroup, active: true)
-        validateInputs()
+        validateInputs(activeInputGroup: lowValueInputTextField.isFirstResponder ? .lowValue : .highValue)
     }
 
     private func setInputGroup(_ inputGroup: InputGroup, active: Bool) {

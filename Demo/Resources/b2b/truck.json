@@ -1,0 +1,591 @@
+{
+    "market": "truck",
+    "hits": 2031,
+    "label": "Lastebil og henger",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "truck_segment",
+        "make",
+        "price",
+        "year",
+        "engine_effect",
+        "weight",
+        "dealer_segment"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year"
+        },
+        "engine_effect": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "engine_effect"
+        },
+        "weight": {
+            "title": "Vekt",
+            "range": true,
+            "name": "weight"
+        },
+        "make": {
+            "title": "Merke",
+            "name": "make",
+            "queries": [
+                {
+                    "title": "AMT Trailer",
+                    "value": "8189",
+                    "total-results": 1
+                },
+                {
+                    "title": "Andre",
+                    "value": "220",
+                    "total-results": 336
+                },
+                {
+                    "title": "Bedford",
+                    "value": "8137",
+                    "total-results": 2
+                },
+                {
+                    "title": "Broshuis",
+                    "value": "8149",
+                    "total-results": 14
+                },
+                {
+                    "title": "Bussbygg",
+                    "value": "8167",
+                    "total-results": 3
+                },
+                {
+                    "title": "Carnehl",
+                    "value": "8179",
+                    "total-results": 15
+                },
+                {
+                    "title": "Chereau",
+                    "value": "8147",
+                    "total-results": 8
+                },
+                {
+                    "title": "DAF",
+                    "value": "10",
+                    "total-results": 25
+                },
+                {
+                    "title": "Damm",
+                    "value": "240",
+                    "total-results": 12
+                },
+                {
+                    "title": "Ekeri",
+                    "value": "70",
+                    "total-results": 33
+                },
+                {
+                    "title": "Equi-Trek",
+                    "value": "8185",
+                    "total-results": 5
+                },
+                {
+                    "title": "Faymonville",
+                    "value": "8192",
+                    "total-results": 10
+                },
+                {
+                    "title": "Fiat",
+                    "value": "80",
+                    "total-results": 3
+                },
+                {
+                    "title": "Fliegl",
+                    "value": "8151",
+                    "total-results": 6
+                },
+                {
+                    "title": "Ford",
+                    "value": "100",
+                    "total-results": 11
+                },
+                {
+                    "title": "Fuso",
+                    "value": "8188",
+                    "total-results": 10
+                },
+                {
+                    "title": "Hammar",
+                    "value": "8156",
+                    "total-results": 2
+                },
+                {
+                    "title": "HFR",
+                    "value": "8154",
+                    "total-results": 17
+                },
+                {
+                    "title": "HM",
+                    "value": "8191",
+                    "total-results": 2
+                },
+                {
+                    "title": "HRD",
+                    "value": "8165",
+                    "total-results": 29
+                },
+                {
+                    "title": "Humbaur",
+                    "value": "8184",
+                    "total-results": 3
+                },
+                {
+                    "title": "Istrail",
+                    "value": "8146",
+                    "total-results": 22
+                },
+                {
+                    "title": "Isuzu",
+                    "value": "8187",
+                    "total-results": 2
+                },
+                {
+                    "title": "Iveco",
+                    "value": "130",
+                    "total-results": 69
+                },
+                {
+                    "title": "JPM",
+                    "value": "8190",
+                    "total-results": 2
+                },
+                {
+                    "title": "Kel-Berg",
+                    "value": "8181",
+                    "total-results": 40
+                },
+                {
+                    "title": "Knapen",
+                    "value": "8183",
+                    "total-results": 7
+                },
+                {
+                    "title": "Kögel",
+                    "value": "8143",
+                    "total-results": 7
+                },
+                {
+                    "title": "KRONE",
+                    "value": "8148",
+                    "total-results": 16
+                },
+                {
+                    "title": "Langendorf",
+                    "value": "8166",
+                    "total-results": 6
+                },
+                {
+                    "title": "Leci-trailer",
+                    "value": "8159",
+                    "total-results": 6
+                },
+                {
+                    "title": "Limetec",
+                    "value": "8182",
+                    "total-results": 1
+                },
+                {
+                    "title": "Magirus Deutz",
+                    "value": "140",
+                    "total-results": 1
+                },
+                {
+                    "title": "MAN",
+                    "value": "150",
+                    "total-results": 129
+                },
+                {
+                    "title": "Maur Bilpåbygg",
+                    "value": "8162",
+                    "total-results": 20
+                },
+                {
+                    "title": "Mercedes-Benz",
+                    "value": "20",
+                    "total-results": 202
+                },
+                {
+                    "title": "Mitsubishi",
+                    "value": "260",
+                    "total-results": 16
+                },
+                {
+                    "title": "Närko",
+                    "value": "8141",
+                    "total-results": 24
+                },
+                {
+                    "title": "NC Maskinhenger",
+                    "value": "8177",
+                    "total-results": 7
+                },
+                {
+                    "title": "Nissan",
+                    "value": "210",
+                    "total-results": 5
+                },
+                {
+                    "title": "Nooteboom",
+                    "value": "8157",
+                    "total-results": 2
+                },
+                {
+                    "title": "Nor Slep",
+                    "value": "230",
+                    "total-results": 70
+                },
+                {
+                    "title": "Pacton",
+                    "value": "8150",
+                    "total-results": 4
+                },
+                {
+                    "title": "Peugeot",
+                    "value": "8186",
+                    "total-results": 3
+                },
+                {
+                    "title": "Red River",
+                    "value": "8193",
+                    "total-results": 3
+                },
+                {
+                    "title": "Renault",
+                    "value": "160",
+                    "total-results": 54
+                },
+                {
+                    "title": "Scania",
+                    "value": "30",
+                    "total-results": 320
+                },
+                {
+                    "title": "Scanslep",
+                    "value": "8169",
+                    "total-results": 9
+                },
+                {
+                    "title": "Schmitz",
+                    "value": "8155",
+                    "total-results": 9
+                },
+                {
+                    "title": "Sisu",
+                    "value": "190",
+                    "total-results": 2
+                },
+                {
+                    "title": "Toyota",
+                    "value": "200",
+                    "total-results": 1
+                },
+                {
+                    "title": "Trail King",
+                    "value": "8164",
+                    "total-results": 1
+                },
+                {
+                    "title": "Trio-Lift",
+                    "value": "8152",
+                    "total-results": 5
+                },
+                {
+                    "title": "Tyllis",
+                    "value": "8145",
+                    "total-results": 10
+                },
+                {
+                    "title": "Vang",
+                    "value": "8180",
+                    "total-results": 12
+                },
+                {
+                    "title": "Van Hool",
+                    "value": "8175",
+                    "total-results": 5
+                },
+                {
+                    "title": "Volkswagen",
+                    "value": "8139",
+                    "total-results": 10
+                },
+                {
+                    "title": "Volvo",
+                    "value": "180",
+                    "total-results": 377
+                },
+                {
+                    "title": "Wilco",
+                    "value": "8161",
+                    "total-results": 5
+                }
+            ]
+        },
+        "truck_segment": {
+            "title": "Kjøretøygruppe",
+            "name": "truck_segment",
+            "queries": [
+                {
+                    "title": "Annet",
+                    "value": "10",
+                    "total-results": 145
+                },
+                {
+                    "title": "Bergingsbil",
+                    "value": "90",
+                    "total-results": 44
+                },
+                {
+                    "title": "Betongbil",
+                    "value": "321",
+                    "total-results": 27
+                },
+                {
+                    "title": "Bilfrakter",
+                    "value": "100",
+                    "total-results": 9
+                },
+                {
+                    "title": "Brannbil",
+                    "value": "110",
+                    "total-results": 6
+                },
+                {
+                    "title": "Chassis",
+                    "value": "70",
+                    "total-results": 29
+                },
+                {
+                    "title": "Containerbil",
+                    "value": "300",
+                    "total-results": 41
+                },
+                {
+                    "title": "Dyretransport",
+                    "value": "330",
+                    "total-results": 59
+                },
+                {
+                    "title": "Henger",
+                    "value": "180",
+                    "total-results": 594
+                },
+                {
+                    "title": "Kranbil",
+                    "value": "120",
+                    "total-results": 111
+                },
+                {
+                    "title": "Krokløft",
+                    "value": "130",
+                    "total-results": 87
+                },
+                {
+                    "title": "Liftdumper",
+                    "value": "140",
+                    "total-results": 8
+                },
+                {
+                    "title": "Planbil",
+                    "value": "280",
+                    "total-results": 51
+                },
+                {
+                    "title": "Renovasjonsbil",
+                    "value": "170",
+                    "total-results": 13
+                },
+                {
+                    "title": "Skapbil",
+                    "value": "310",
+                    "total-results": 228
+                },
+                {
+                    "title": "Spesialkjøretøy",
+                    "value": "210",
+                    "total-results": 46
+                },
+                {
+                    "title": "Tankbil",
+                    "value": "50",
+                    "total-results": 16
+                },
+                {
+                    "title": "Tippbil",
+                    "value": "230",
+                    "total-results": 230
+                },
+                {
+                    "title": "Trekkvogn",
+                    "value": "250",
+                    "total-results": 265
+                },
+                {
+                    "title": "Tømmerbil",
+                    "value": "260",
+                    "total-results": 7
+                },
+                {
+                    "title": "Veteranbil",
+                    "value": "150",
+                    "total-results": 11
+                }
+            ]
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Annet bilutsalg",
+                    "value": "2",
+                    "total-results": 1451
+                },
+                {
+                    "title": "Merkeforhandler",
+                    "value": "1",
+                    "total-results": 274
+                },
+                {
+                    "title": "Privat",
+                    "value": "3",
+                    "total-results": 306
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Kjøretøyet står i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 286
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "20010",
+                    "total-results": 18
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "20007",
+                    "total-results": 85
+                },
+                {
+                    "title": "Finnmark",
+                    "value": "20020",
+                    "total-results": 52
+                },
+                {
+                    "title": "Hedmark",
+                    "value": "20005",
+                    "total-results": 61
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "20013",
+                    "total-results": 109
+                },
+                {
+                    "title": "Møre og Romsdal",
+                    "value": "20015",
+                    "total-results": 69
+                },
+                {
+                    "title": "Nordland",
+                    "value": "20018",
+                    "total-results": 93
+                },
+                {
+                    "title": "Oppland",
+                    "value": "20006",
+                    "total-results": 134
+                },
+                {
+                    "title": "Oslo",
+                    "value": "20061",
+                    "total-results": 60
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "20012",
+                    "total-results": 124
+                },
+                {
+                    "title": "Sogn og Fjordane",
+                    "value": "20014",
+                    "total-results": 24
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 50
+                },
+                {
+                    "title": "Troms",
+                    "value": "20019",
+                    "total-results": 120
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "20016",
+                    "total-results": 383
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "20008",
+                    "total-results": 171
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "20011",
+                    "total-results": 28
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 160
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 28
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

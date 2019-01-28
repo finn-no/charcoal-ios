@@ -20,6 +20,7 @@ class DemoFilter {
             boatVerticalDemos(),
             mcVerticalDemos(),
             realestateVerticalDemos(),
+            b2bVerticalDemos(),
         ].flatMap { $0 }
 
         let verticalDemos: [String: [VerticalDemo]] = marketDemos.reduce(into: [:]) {
@@ -152,6 +153,22 @@ class DemoFilter {
             let isExternal = market == .travelFhh
             return isExternal
         })
+    }
+
+    private func b2bVerticalDemos() -> [MarketDemos] {
+        let markets: [(market: FilterMarketB2B, title: String)] = [
+            (market: .truck, title: "Lastebil og henger"),
+            (market: .truckAbroad, title: "Lastebil og henger i utlandet"),
+            (market: .bus, title: "Buss og minibuss"),
+            (market: .construction, title: "Bygg og anlegg"),
+            (market: .agricultureTractor, title: "Traktor"),
+            (market: .agricultureThresher, title: "Tresker"),
+            (market: .agricultureTools, title: "Landbruksredskap"),
+            (market: .vanNorway, title: "Varebiler i Norge"),
+            (market: .vanAbroad, title: "Varebiler i utlandet"),
+        ]
+
+        return createVerticalDemos(from: markets)
     }
 }
 

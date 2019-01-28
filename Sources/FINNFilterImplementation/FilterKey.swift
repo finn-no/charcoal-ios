@@ -11,9 +11,11 @@ public enum FilterKey: String, CodingKey {
     case bodyType = "body_type"
     case caravanDealerSegment = "caravan_dealer_segment"
     case caravanSegment = "caravan_segment"
+    case busSegment = "bus_segment"
     case carEquipment = "car_equipment"
     case category
     case condition
+    case constructionSegment = "construction_segment"
     case constructionYear = "construction_year"
     case dealerSegment = "dealer_segment"
     case energyLabel = "energy_label"
@@ -69,6 +71,7 @@ public enum FilterKey: String, CodingKey {
     case searchType = "search_type"
     case segment
     case transmission
+    case truckSegment = "truck_segment"
     case type
     case viewing
     case warrantyInsurance = "warranty_insurance"

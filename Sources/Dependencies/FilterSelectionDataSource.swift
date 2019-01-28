@@ -70,10 +70,17 @@ public enum MultiLevelListItemSelectionState {
 }
 
 public struct GeoFilterValue {
-    let latitude: Double
-    let longitude: Double
-    let radius: Int
-    let locationName: String?
+    public let latitude: Double
+    public let longitude: Double
+    public let radius: Int
+    public let locationName: String?
+
+    public init(latitude: Double, longitude: Double, radius: Int, locationName: String?) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.radius = radius
+        self.locationName = locationName
+    }
 }
 
 public protocol FilterSelectionDataSource: AnyObject {
@@ -94,5 +101,5 @@ public protocol FilterSelectionDataSource: AnyObject {
     func stepperValue(for filterInfo: StepperFilterInfoType) -> Int?
     func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType)
     func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType)
-    func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue?
+    func geoValue() -> GeoFilterValue?
 }

@@ -225,7 +225,7 @@ private extension FilterRootViewController {
         if lhs.count != rhs.count {
             return true
         }
-        return !lhs.elementsEqual(rhs, by: { hasUIChanges(lhs: $0, rhs: $1) })
+        return !lhs.elementsEqual(rhs, by: { !hasUIChanges(lhs: $0, rhs: $1) })
     }
 
     private func hasUIChanges(lhs: Vertical, rhs: Vertical) -> Bool {
@@ -236,14 +236,14 @@ private extension FilterRootViewController {
         if lhs.count != rhs.count {
             return true
         }
-        return !lhs.elementsEqual(rhs, by: { hasUIChanges(lhs: $0, rhs: $1) })
+        return !lhs.elementsEqual(rhs, by: { !hasUIChanges(lhs: $0, rhs: $1) })
     }
 
     private func hasUIChanges(lhs: PreferenceFilterInfoType, rhs: PreferenceFilterInfoType) -> Bool {
         if lhs.title != rhs.title || lhs.isMultiSelect != rhs.isMultiSelect || lhs.values.count != rhs.values.count {
             return true
         }
-        return !lhs.values.elementsEqual(rhs.values, by: { hasUIChanges(lhs: $0, rhs: $1) })
+        return !lhs.values.elementsEqual(rhs.values, by: { !hasUIChanges(lhs: $0, rhs: $1) })
     }
 
     private func hasUIChanges(lhs: FilterValueType, rhs: FilterValueType) -> Bool {
@@ -254,7 +254,7 @@ private extension FilterRootViewController {
         if lhs.count != rhs.count {
             return true
         }
-        return !lhs.elementsEqual(rhs, by: { hasUIChanges(lhs: $0, rhs: $1) })
+        return !lhs.elementsEqual(rhs, by: { !hasUIChanges(lhs: $0, rhs: $1) })
     }
 
     private func hasUIChanges(lhs: FilterInfoType, rhs: FilterInfoType) -> Bool {

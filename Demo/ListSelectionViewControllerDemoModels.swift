@@ -125,7 +125,7 @@ class DemoListFilterSelectionDataSource: FilterSelectionDataSource {
     func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
     }
 
-    func geoValue(for filterInfo: FilterInfoType) -> GeoFilterValue? {
+    func geoValue() -> GeoFilterValue? {
         return nil
     }
 }

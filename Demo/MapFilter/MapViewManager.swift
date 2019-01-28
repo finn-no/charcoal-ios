@@ -8,18 +8,10 @@ import MapKit
 import UIKit
 
 class MapViewManager: NSObject, MapFilterViewManager {
-    private let initialCenterPoint = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
+    let locationName: String? = nil
 
-    var centerCoordinate: CLLocationCoordinate2D? {
-        get {
-            return mapKitMapView.centerCoordinate
-        }
-        set {
-            guard let newCenter = newValue else {
-                return
-            }
-            mapKitMapView.setCenter(newCenter, animated: false)
-        }
+    func centerOnUserLocation() {
+        didTapLocateUserButton()
     }
 
     private let pulseAnimationKey = "LocateUserPulseAnimation"
@@ -76,7 +68,6 @@ class MapViewManager: NSObject, MapFilterViewManager {
         containerView.addSubview(mapKitMapView)
         mapKitMapView.fillInSuperview()
         DispatchQueue.main.async {
-            self.mapKitMapView.centerCoordinate = self.initialCenterPoint
             self.mapKitMapView.showsUserLocation = true
         }
     }
@@ -91,6 +82,10 @@ class MapViewManager: NSObject, MapFilterViewManager {
         let radiusToShow = Double(radius) * 2.2
         let coordinateRegion = MKCoordinateRegion(center: mapKitMapView.centerCoordinate, latitudinalMeters: CLLocationDistance(radiusToShow), longitudinalMeters: CLLocationDistance(radiusToShow))
         mapKitMapView.setRegion(coordinateRegion, animated: true)
+    }
+
+    func goToLocation(_ location: LocationInfo) {
+        mapKitMapView.setCenter(CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), animated: true)
     }
 
     @objc private func didTapLocateUserButton() {
@@ -133,7 +128,6 @@ class MapViewManager: NSObject, MapFilterViewManager {
 
 extension MapViewManager: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        print("regionWillChangeAnimated")
         guard let gestureRecognizers = mapView.subviews.first?.gestureRecognizers else {
             return
         }
@@ -147,7 +141,7 @@ extension MapViewManager: MKMapViewDelegate {
     }
 
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeRegion(self, userInitiated: nextRegionChangeIsFromUserInteraction, animated: animated)
+        mapFilterViewManagerDelegate?.mapFilterViewManagerDidChangeRegion(self, newCenterCoordinate: mapView.centerCoordinate, userInitiated: nextRegionChangeIsFromUserInteraction, animated: animated)
         nextRegionChangeIsFromUserInteraction = false
     }
 }

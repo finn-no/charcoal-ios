@@ -6,18 +6,21 @@ import MapKit
 import UIKit
 
 public protocol MapFilterViewManagerDelegate: AnyObject {
-    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool)
+    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, newCenterCoordinate: CLLocationCoordinate2D, userInitiated: Bool, animated: Bool)
+    func mapFilterViewManagerDidChangeLocationName(_ mapFilterViewManager: MapFilterViewManager, newLocationName: String?)
 }
 
 public protocol MapFilterViewManager: AnyObject {
     var mapFilterViewManagerDelegate: MapFilterViewManagerDelegate? { get set }
     func mapViewLengthForMeters(_: Int) -> CGFloat
     func selectionRadiusChangedTo(_ radius: Int)
-    var centerCoordinate: CLLocationCoordinate2D? { get set }
     func addMapView(toFillInside containerView: UIView)
+    func centerOnUserLocation()
+    var locationName: String? { get }
+    func goToLocation(_ location: LocationInfo)
 }
 
-public class MapFilterView: UIView {
+class MapFilterView: UIView {
     var searchBar: UISearchBar? {
         didSet {
             setupSearchBar(searchBar)
@@ -62,9 +65,7 @@ public class MapFilterView: UIView {
 
     private let mapFilterViewManager: MapFilterViewManager
     private(set) var currentRadius = 40000
-    var centerPoint: CLLocationCoordinate2D? {
-        return mapFilterViewManager.centerCoordinate
-    }
+    var centerPoint: CLLocationCoordinate2D?
 
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
         didSet {
@@ -72,7 +73,7 @@ public class MapFilterView: UIView {
         }
     }
 
-    public init(mapFilterViewManager: MapFilterViewManager) {
+    init(mapFilterViewManager: MapFilterViewManager) {
         self.mapFilterViewManager = mapFilterViewManager
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
         setup()
@@ -90,7 +91,7 @@ public class MapFilterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
 
         // Update radius so it fits for new view sizes
@@ -105,13 +106,6 @@ public class MapFilterView: UIView {
 
         // Use a delay incase the view is being changed to new sizes by user
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
-    }
-
-    public func setInitialSelection(latitude: Double, longitude: Double, radius: Int, locationName: String?) {
-        mapFilterViewManager.centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        currentRadius = radius
-        searchBar?.text = locationName
-        distanceSlider.setCurrentValue(currentRadius)
     }
 }
 
@@ -163,10 +157,15 @@ private extension MapFilterView {
 }
 
 extension MapFilterView: MapFilterViewManagerDelegate {
-    public func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, userInitiated: Bool, animated: Bool) {
+    func mapFilterViewManagerDidChangeLocationName(_ mapFilterViewManager: MapFilterViewManager, newLocationName: String?) {
+        searchBar?.text = newLocationName
+    }
+
+    func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, newCenterCoordinate: CLLocationCoordinate2D, userInitiated: Bool, animated: Bool) {
+        centerPoint = newCenterCoordinate
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
         if userInitiated {
-            searchBar?.text = nil
+            searchBar?.text = mapFilterViewManager.locationName
         }
     }
 }

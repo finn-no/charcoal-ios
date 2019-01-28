@@ -66,10 +66,14 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
         })
         parentApplyButtonOwner?.showApplyButton(show, animated: false)
     }
+
+    func applyButtonTapped() {
+    }
 }
 
 extension FilterViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        applyButtonTapped()
         navigationController?.popToRootViewController(animated: true)
     }
 }

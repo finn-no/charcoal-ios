@@ -5,6 +5,7 @@
 import Foundation
 
 public enum FilterKey: String, CodingKey {
+    case animalsAllowed = "animals_allowed"
     case area
     case boatClass = "class"
     case bodyType = "body_type"
@@ -22,12 +23,14 @@ public enum FilterKey: String, CodingKey {
     case facilities
     case floorNavigator = "floor_navigator"
     case fuel
+    case furnished
     case industry
     case isNewProperty = "is_new_property"
     case isPrivateBroker = "is_private_broker"
     case isSold = "is_sold"
     case jobDuration = "job_duration"
     case jobSector = "job_sector"
+    case leisureSituation = "leisure_situation"
     case lengthFeet = "length_feet"
     case location
     case make
@@ -39,12 +42,14 @@ public enum FilterKey: String, CodingKey {
     case motorSize = "motor_size"
     case motorType = "motor_type"
     case noOfBedrooms = "no_of_bedrooms"
+    case noOfOccupants = "no_of_occupants"
     case noOfSeats = "no_of_seats"
     case noOfSleepers = "no_of_sleepers"
     case numberOfSeats = "number_of_seats"
     case occupation
     case ownershipType = "ownership_type"
     case plotArea = "plot_area"
+    case plotOwned = "plot_owned"
     case price
     case priceChanged = "price_changed"
     case priceCollective = "price_collective"
@@ -53,6 +58,7 @@ public enum FilterKey: String, CodingKey {
     case query = "q"
     case registrationClass = "registration_class"
     case rent
+    case rentFrom = "rent_from"
     case salesForm = "sales_form"
     case searchType = "search_type"
     case segment

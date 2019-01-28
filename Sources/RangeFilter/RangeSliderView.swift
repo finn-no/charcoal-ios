@@ -5,8 +5,8 @@
 import UIKit
 
 protocol RangeSliderViewDelegate: AnyObject {
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowStep: Step, didFinishSlideInteraction slideEnded: Bool)
-    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighStep: Step, didFinishSlideInteraction slideEnded: Bool)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowStep: Step)
+    func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeHighStep: Step)
 }
 
 final class RangeSliderView: UIControl {
@@ -253,11 +253,11 @@ extension RangeSliderView: StepSliderDelegate {
         if stepSlider == highValueSlider {
             highSliderStep = newStep
             setLowStep(lowSliderStep, animated: false)
-            delegate?.rangeSliderView(self, didChangeHighStep: newStep, didFinishSlideInteraction: false)
+            delegate?.rangeSliderView(self, didChangeHighStep: newStep)
         } else {
             lowSliderStep = newStep
             setHighStep(highSliderStep, animated: false)
-            delegate?.rangeSliderView(self, didChangeLowStep: newStep, didFinishSlideInteraction: false)
+            delegate?.rangeSliderView(self, didChangeLowStep: newStep)
         }
     }
 }

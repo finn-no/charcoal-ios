@@ -12,14 +12,22 @@ protocol StepSliderDelegate: AnyObject {
     func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String
 }
 
-class StepSlider: UISlider {
+final class StepSlider: UISlider {
     weak var delegate: StepSliderDelegate?
     var generatesHapticFeedbackOnValueChange = true
-    private(set) var step: Step
 
+    private(set) var step: Step
     private var previousValue: Float = 0
     private let maximumValueWithoutOffset: Float
     private let leftOffset: Float
+
+    var currentTrackRect: CGRect {
+        return trackRect(forBounds: bounds)
+    }
+
+    var currentThumbRect: CGRect {
+        return thumbRect(forBounds: bounds, trackRect: currentTrackRect, value: value)
+    }
 
     // MARK: - Init
 
@@ -50,7 +58,23 @@ class StepSlider: UISlider {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Slider
+    // MARK: - Accessibility
+
+    override func accessibilityDecrement() {
+        setValueForSlider(value - 1, animated: false)
+        sendActions(for: .valueChanged)
+    }
+
+    override func accessibilityIncrement() {
+        setValueForSlider(value + 1, animated: false)
+        sendActions(for: .valueChanged)
+    }
+
+    private func updateAccessibilityValue() {
+        accessibilityValue = delegate?.stepSlider(self, accessibilityValueForStep: step)
+    }
+
+    // MARK: - Setup
 
     private func setup() {
         minimumTrackTintColor = .clear
@@ -58,20 +82,40 @@ class StepSlider: UISlider {
 
         setThumbImage(RangeSliderView.Style.sliderThumbImage, for: .normal)
         setThumbImage(RangeSliderView.Style.activeSliderThumbImage, for: .highlighted)
+
         addTarget(self, action: #selector(sliderValueChanged(sender:event:)), for: .valueChanged)
     }
 
-    var currentTrackRect: CGRect {
-        return trackRect(forBounds: bounds)
-    }
-
-    var currentThumbRect: CGRect {
-        return thumbRect(forBounds: bounds, trackRect: currentTrackRect, value: value)
-    }
+    // MARK: - Slider
 
     func setStep(_ step: Step, animated: Bool) {
         self.step = step
         setValueForSlider(value(from: step), animated: animated)
+    }
+
+    func value(from step: Step) -> Float {
+        switch step {
+        case let .value(index, rounded):
+            return Float(index) + leftOffset + (rounded ? 0.5 : 0)
+        case .lowerBound:
+            return minimumValue
+        case .upperBound:
+            return maximumValue
+        }
+    }
+
+    private func step(from value: Float) -> Step {
+        let valueWithoutOffset = roundf(value - leftOffset)
+        let index = Int(valueWithoutOffset)
+
+        if valueWithoutOffset < minimumValue {
+            return .lowerBound
+        } else if valueWithoutOffset > maximumValueWithoutOffset {
+            return .upperBound
+        } else {
+            let rounded = valueWithoutOffset.truncatingRemainder(dividingBy: 1) != 0
+            return .value(index: index, rounded: rounded)
+        }
     }
 
     private func setValueForSlider(_ value: Float, animated: Bool) {
@@ -79,7 +123,9 @@ class StepSlider: UISlider {
         updateAccessibilityValue()
     }
 
-    @objc func sliderValueChanged(sender slider: UISlider, event: UIEvent) {
+    // MARK: - Actions
+
+    @objc private func sliderValueChanged(sender slider: UISlider, event: UIEvent) {
         let slideEnded = event.allTouches?.first.map({ $0.phase == .ended }) ?? true
         let newStep = step(from: slider.value)
         let newValue = value(from: newStep)
@@ -108,44 +154,5 @@ class StepSlider: UISlider {
         if slideEnded {
             delegate?.stepSlider(self, didEndSlideInteraction: step)
         }
-    }
-
-    override func accessibilityDecrement() {
-        setValueForSlider(value - 1, animated: false)
-        sendActions(for: .valueChanged)
-    }
-
-    override func accessibilityIncrement() {
-        setValueForSlider(value + 1, animated: false)
-        sendActions(for: .valueChanged)
-    }
-
-    func value(from step: Step) -> Float {
-        switch step {
-        case let .value(index, rounded):
-            return Float(index) + leftOffset + (rounded ? 0.5 : 0)
-        case .lowerBound:
-            return minimumValue
-        case .upperBound:
-            return maximumValue
-        }
-    }
-
-    private func step(from value: Float) -> Step {
-        let valueWithoutOffset = roundf(value - leftOffset)
-        let index = Int(valueWithoutOffset)
-
-        if valueWithoutOffset < minimumValue {
-            return .lowerBound
-        } else if valueWithoutOffset > maximumValueWithoutOffset {
-            return .upperBound
-        } else {
-            let rounded = valueWithoutOffset.truncatingRemainder(dividingBy: 1) != 0
-            return .value(index: index, rounded: rounded)
-        }
-    }
-
-    private func updateAccessibilityValue() {
-        accessibilityValue = delegate?.stepSlider(self, accessibilityValueForStep: step)
     }
 }

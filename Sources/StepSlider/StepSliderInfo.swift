@@ -81,6 +81,6 @@ public struct StepSliderInfo {
             return maximumValue
         }
 
-        return step.index.map({ values[safe: $0] }) ?? nil
+        return values.value(for: step)
     }
 }

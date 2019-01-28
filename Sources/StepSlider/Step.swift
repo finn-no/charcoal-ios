@@ -17,6 +17,8 @@ enum Step: Equatable {
     }
 }
 
+// MARK: - Comparable
+
 extension Step: Comparable {
     static func < (lhs: Step, rhs: Step) -> Bool {
         switch (lhs, rhs) {

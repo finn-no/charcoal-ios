@@ -83,7 +83,6 @@
 		559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB520B6D771009B734D /* RangeNumberInputView.swift */; };
 		559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB920B83178009B734D /* RangeFilterView.swift */; };
 		559C6CBD20BBE709009B734D /* RangeFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */; };
-		559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CC020BC24B9009B734D /* RangeControl.swift */; };
 		55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 55ABF8AF20CFD8A100E31229 /* bap-sale.json */; };
 		55BDA76120DB7E8C00331FFC /* FilterInfoBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76020DB7E8C00331FFC /* FilterInfoBuilderTests.swift */; };
 		55BDA76420DB7F3900331FFC /* FilterInfoBuildersTestsFilter.json in Resources */ = {isa = PBXBuildFile; fileRef = 55BDA76320DB7F3900331FFC /* FilterInfoBuildersTestsFilter.json */; };
@@ -153,10 +152,12 @@
 		9BFC089421341FFA00AB8A11 /* FilterSelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */; };
 		CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */; };
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
+		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
+		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
 		CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */; };
 		CFFD9F9421F21B0900997D14 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9321F21B0900997D14 /* FilterViewController.swift */; };
-		CFFD9F9621F2257900997D14 /* Array+StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+StepSlider.swift */; };
-		CFFD9F9821F2285400997D14 /* StepValueResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* StepValueResult.swift */; };
+		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
+		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
 		DA3F763D2188812700D21C3A /* StepperFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3F763C2188812700D21C3A /* StepperFilterInfo.swift */; };
 		DA51040B21BE5F19004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA51040C21BE5F59004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
@@ -294,7 +295,6 @@
 		559C6CB520B6D771009B734D /* RangeNumberInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
 		559C6CB920B83178009B734D /* RangeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterView.swift; sourceTree = "<group>"; };
 		559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoView.swift; sourceTree = "<group>"; };
-		559C6CC020BC24B9009B734D /* RangeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeControl.swift; sourceTree = "<group>"; };
 		55ABF8AF20CFD8A100E31229 /* bap-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bap-sale.json"; sourceTree = "<group>"; };
 		55BDA76020DB7E8C00331FFC /* FilterInfoBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInfoBuilderTests.swift; sourceTree = "<group>"; };
 		55BDA76320DB7F3900331FFC /* FilterInfoBuildersTestsFilter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = FilterInfoBuildersTestsFilter.json; path = "UnitTests/Test Data/FilterInfoBuilderTests/FilterInfoBuildersTestsFilter.json"; sourceTree = SOURCE_ROOT; };
@@ -364,10 +364,12 @@
 		9BFC089321341FFA00AB8A11 /* FilterSelectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionDataSource.swift; sourceTree = "<group>"; };
 		CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfo.swift; sourceTree = "<group>"; };
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
+		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
+		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfoTests.swift; sourceTree = "<group>"; };
 		CFFD9F9321F21B0900997D14 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		CFFD9F9521F2257900997D14 /* Array+StepSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+StepSlider.swift"; sourceTree = "<group>"; };
-		CFFD9F9721F2285400997D14 /* StepValueResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepValueResult.swift; sourceTree = "<group>"; };
+		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
+		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		DA3F763C2188812700D21C3A /* StepperFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterInfo.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
@@ -649,13 +651,12 @@
 		5515EA4320BD5B5600AC98A3 /* RangeFilter */ = {
 			isa = PBXGroup;
 			children = (
-				559C6CC020BC24B9009B734D /* RangeControl.swift */,
 				9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */,
 				559C6CB920B83178009B734D /* RangeFilterView.swift */,
 				55E869DD20E2674B008B921E /* RangeFilterViewController.swift */,
 				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
-				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
 				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
+				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
 			);
 			path = RangeFilter;
 			sourceTree = "<group>";
@@ -979,10 +980,10 @@
 		CFFD9F8A21F07A7700997D14 /* StepSlider */ = {
 			isa = PBXGroup;
 			children = (
+				CFFD9F9521F2257900997D14 /* Array+Step.swift */,
+				CFFD9F9721F2285400997D14 /* Step.swift */,
 				9B741D1B21B6B1CA00D18097 /* StepSlider.swift */,
 				CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */,
-				CFFD9F9521F2257900997D14 /* Array+StepSlider.swift */,
-				CFFD9F9721F2285400997D14 /* StepValueResult.swift */,
 			);
 			path = StepSlider;
 			sourceTree = "<group>";
@@ -990,7 +991,9 @@
 		CFFD9F8B21F09F6200997D14 /* StepSlider */ = {
 			isa = PBXGroup;
 			children = (
+				CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */,
 				CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */,
+				CFB13DAF21FF2B1800F8D126 /* StepTests.swift */,
 			);
 			path = StepSlider;
 			sourceTree = "<group>";
@@ -1269,7 +1272,6 @@
 				5525324620A2E755000CBD21 /* FilterDependencyContainer.swift in Sources */,
 				465F616B219B7A1900CF568B /* FilterData.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
-				559C6CC220BC24D0009B734D /* RangeControl.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */,
 				9BFC089421341FFA00AB8A11 /* FilterSelectionDataSource.swift in Sources */,
@@ -1311,7 +1313,7 @@
 				9BB827B1216CD0860014028C /* RangeFilterInfoType.swift in Sources */,
 				9BE0D54521A5696100F0B63B /* ErrorViewController.swift in Sources */,
 				55858A1720AAC2EB00B100EA /* FilterDataSource.swift in Sources */,
-				CFFD9F9821F2285400997D14 /* StepValueResult.swift in Sources */,
+				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA3F763D2188812700D21C3A /* StepperFilterInfo.swift in Sources */,
@@ -1359,7 +1361,7 @@
 				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				55E869E220E39373008B921E /* FilterNavigator.swift in Sources */,
 				4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */,
-				CFFD9F9621F2257900997D14 /* Array+StepSlider.swift in Sources */,
+				CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */,
 				DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */,
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
@@ -1400,7 +1402,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */,
+				CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */,
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
+				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
 				9BE5EC9021EE0BB1009C5E1A /* FilterSelectionDataTests.swift in Sources */,
 				559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */,
 				9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */,

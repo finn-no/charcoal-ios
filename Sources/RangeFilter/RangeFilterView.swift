@@ -276,6 +276,7 @@ extension RangeFilterView: RangeSliderViewDelegate {
 
     private func handleSliderUpdates(for inputValue: InputValue, step: Step, slideEnded: Bool) {
         let didStepChange = inputValues[inputValue] != step
+
         if didStepChange {
             updateNumberInput(for: inputValue, with: step, fromSlider: true)
             inputValues[inputValue] = step

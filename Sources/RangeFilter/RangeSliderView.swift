@@ -122,7 +122,6 @@ extension RangeSliderView {
         let closestStep = sliderInfo.values.closestStep(for: value)
         let translatedValue = lowValueSlider.value(from: closestStep)
         let thumbRect = lowValueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: Float(translatedValue))
-
         let thumbRadius = RangeSliderView.visibleThumbWidth / 2 - 2
         let rectOffsetingInvisibleThumbPadding = thumbRect.offsetBy(dx: thumbRadius, dy: 0)
 
@@ -138,6 +137,7 @@ extension RangeSliderView {
         highValueSlider.setStep(.upperBound, animated: false)
 
         activeRangeTrackView.isHidden = true
+
         addSubview(trackView)
         addSubview(activeRangeTrackView)
         addSubview(lowValueSlider)
@@ -177,7 +177,7 @@ extension RangeSliderView {
     }
 
     private func updateActiveTrackRange() {
-        if frame == CGRect.zero {
+        if frame == .zero {
             return
         }
 

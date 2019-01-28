@@ -37,8 +37,8 @@ final class RangeSliderView: UIControl {
 
     typealias RangeValue = Int
     typealias SliderRange = ClosedRange<RangeValue>
-    let sliderInfo: StepSliderInfo<RangeValue>
-    let formatter: SliderValueFormatter
+    private let sliderInfo: StepSliderInfo<RangeValue>
+    private let formatter: SliderValueFormatter
 
     var generatesHapticFeedbackOnValueChange = true {
         didSet {
@@ -116,6 +116,8 @@ extension RangeSliderView: RangeControl {
     }
 
     func setLowValue(_ value: RangeValue, animated: Bool) {
+        let value = highValueSlider.roundedStepValue.map({ $0 < value ? $0 : value }) ?? value
+
         guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
             return
         }
@@ -126,6 +128,8 @@ extension RangeSliderView: RangeControl {
     }
 
     func setHighValue(_ value: RangeValue, animated: Bool) {
+        let value = lowValueSlider.roundedStepValue.map({ $0 > value ? $0 : value }) ?? value
+
         guard let findResult = sliderInfo.values.findClosestStep(for: value) else {
             return
         }
@@ -244,6 +248,10 @@ extension RangeSliderView: StepSliderDelegate {
     }
 
     func stepSlider<StepValueKind>(_ stepSlider: StepSlider<StepValueKind>, didChangeRoundedStepValue value: StepValueKind) {
+        if lowValueSlider.roundedStepValue == highValueSlider.roundedStepValue, generatesHapticFeedbackOnValueChange {
+            FeedbackGenerator.generate(.collision)
+        }
+
         if stepSlider == highValueSlider {
             delegate?.rangeSliderView(self, didChangeHighValue: highValue, didFinishSlideInteraction: false)
         } else {

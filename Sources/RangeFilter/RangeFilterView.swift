@@ -43,7 +43,7 @@ public final class RangeFilterView: UIControl {
             displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput
         )
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
-        rangeNumberInputView.addTarget(self, action: #selector(numberInputValueChanged(_:)), for: .valueChanged)
+        rangeNumberInputView.delegate = self
 
         return rangeNumberInputView
     }()
@@ -187,26 +187,6 @@ private extension RangeFilterView {
         }
     }
 
-    @objc func numberInputValueChanged(_ sender: RangeNumberInputView) {
-        if let lowValue = sender.lowValue {
-            updateSliderLowValue(with: lowValue)
-            numberInputView.setLowValueHint(text: "")
-            inputValues[.low] = lowValue
-            delegate?.rangeFilterView(self, didSetLowValue: lowValue)
-        } else {
-            delegate?.rangeFilterView(self, didSetLowValue: nil)
-        }
-
-        if let highValue = sender.highValue {
-            updateSliderHighValue(with: highValue)
-            numberInputView.setHighValueHint(text: "")
-            inputValues[.high] = highValue
-            delegate?.rangeFilterView(self, didSetHighValue: highValue)
-        } else {
-            delegate?.rangeFilterView(self, didSetHighValue: nil)
-        }
-    }
-
     func updateSliderLowValue(with value: RangeValue) {
         let newValue = value < sliderInfo.minimumValue ? sliderInfo.minimumValueWithOffset : value
         sliderInputView.setLowValue(newValue, animated: false)
@@ -256,6 +236,32 @@ private extension RangeFilterView {
         let iphone6ScreenWidth: CGFloat = 375
 
         return frame.width < iphone6ScreenWidth
+    }
+}
+
+// MARK: - RangeNumberInputViewDelegate
+
+extension RangeFilterView: RangeNumberInputViewDelegate {
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeLowValue value: Int?) {
+        if let lowValue = value {
+            updateSliderLowValue(with: lowValue)
+            numberInputView.setLowValueHint(text: "")
+            inputValues[.low] = lowValue
+            delegate?.rangeFilterView(self, didSetLowValue: lowValue)
+        } else {
+            delegate?.rangeFilterView(self, didSetLowValue: nil)
+        }
+    }
+
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeHighValue value: Int?) {
+        if let highValue = value {
+            updateSliderHighValue(with: highValue)
+            numberInputView.setHighValueHint(text: "")
+            inputValues[.high] = highValue
+            delegate?.rangeFilterView(self, didSetHighValue: highValue)
+        } else {
+            delegate?.rangeFilterView(self, didSetHighValue: nil)
+        }
     }
 }
 

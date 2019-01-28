@@ -5,37 +5,30 @@
 @testable import Charcoal
 
 class DemoFilter {
+    private struct MarketDemos {
+        let market: String
+        let demos: [VerticalDemo]
+    }
+
     var filterData: FilterSetup
     var selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
     lazy var verticalSetup: VerticalSetupDemo = {
         let verticalsCarNorway = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: true, isExternal: false, file: "car-norway"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: false, isExternal: false, file: "car-abroad")]
         let verticalsCarAbroad = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: false, isExternal: false, file: "car-norway"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: true, isExternal: false, file: "car-abroad")]
-        let verticalsRealestateHomes = [
-            VerticalDemo(id: "realestate-homes", title: "Bolig til salgs", isCurrent: true, isExternal: false, file: "realestate-homes"),
-            VerticalDemo(id: "realestate-development", title: "Nye boliger", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-plot", title: "Boligtomter", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-leisure-sale", title: "Fritidsbolig til salgs", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-leisure-sale-abroad", title: "Bolig i utlandet", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-leisure-plot", title: "Fritidstomter", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-letting", title: "Bolig til leie", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-letting-wanted", title: "Bolig ønskes leid", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-business-sale", title: "Næringseiendom til salgs", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-business-letting", title: "Næringseiendom til leie", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-business-plot", title: "Næringstomt", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-company-for-sale", title: "Bedrifter til salgs", isCurrent: false, isExternal: false, file: nil),
-            VerticalDemo(id: "realestate-travel-fhh", title: "Feriehus og hytter", isCurrent: false, isExternal: true, file: nil),
-        ]
 
-        var verticalDemos = [
-            "car-norway": verticalsCarNorway,
-            "car-abroad": verticalsCarAbroad,
-            "realestate-homes": verticalsRealestateHomes,
-        ]
+        var marketDemos: [MarketDemos] = [
+            [MarketDemos(market: "car-norway", demos: verticalsCarNorway), MarketDemos(market: "car-abroad", demos: verticalsCarAbroad)],
+            jobVerticalDemos(),
+            boatVerticalDemos(),
+            mcVerticalDemos(),
+            realestateVerticalDemos(),
+            b2bVerticalDemos(),
+        ].flatMap { $0 }
 
-        verticalDemos.merge(jobVerticalDemos(), uniquingKeysWith: { _, new in new })
-        verticalDemos.merge(boatVerticalDemos(), uniquingKeysWith: { _, new in new })
-        verticalDemos.merge(mcVerticalDemos(), uniquingKeysWith: { _, new in new })
+        let verticalDemos: [String: [VerticalDemo]] = marketDemos.reduce(into: [:]) {
+            $0[$1.market] = $1.demos
+        }
 
         return VerticalSetupDemo(verticals: verticalDemos)
     }()
@@ -85,50 +78,86 @@ class DemoFilter {
 
     // Market vertical creation.
 
-    private func createVerticalDemos<T: RawRepresentable>(from markets: [T: String], isExternal: (T) -> Bool = { _ in return false }) -> [String: [VerticalDemo]] where T.RawValue == String {
-        var verticalDemos = [String: [VerticalDemo]]()
-
-        markets.forEach { market in
-            verticalDemos[market.key.rawValue] = markets.map {
-                let isExternal = isExternal($0.key)
-                return VerticalDemo(id: $0.key.rawValue, title: $0.value, isCurrent: $0.key == market.key, isExternal: isExternal, file: $0.key.rawValue)
+    private func createVerticalDemos<T: RawRepresentable>(from markets: [(market: T, title: String)], isExternal: ((T) -> Bool)? = nil) -> [MarketDemos] where T.RawValue == String {
+        return markets.map { market, _ in
+            let demos = markets.map { (subMarket, title) -> VerticalDemo in
+                let isExternal = isExternal?(subMarket) ?? false
+                return VerticalDemo(id: subMarket.rawValue, title: title, isCurrent: subMarket == market, isExternal: isExternal, file: subMarket.rawValue)
             }
+            return MarketDemos(market: market.rawValue, demos: demos)
         }
-
-        return verticalDemos
     }
 
-    private func boatVerticalDemos() -> [String: [VerticalDemo]] {
-        let markets: [FilterMarketBoat: String] = [
-            .boatSale: "Båter til salgs",
-            .boatUsedWanted: "Båt ønskes kjøpt",
-            .boatRent: "Båter til leie",
-            .boatMotor: "Båtmotorer til salgs",
-            .boatParts: "Motordeler til salgs",
-            .boatPartsMotorWanted: "Motor/deler ønskes kjøpt",
-            .boatDock: "Båtplasser tilbys",
-            .boatDockWanted: "Båtplasser ønskes",
+    private func boatVerticalDemos() -> [MarketDemos] {
+        let markets: [(market: FilterMarketBoat, title: String)] = [
+            (market: .boatSale, title: "Båter til salgs"),
+            (market: .boatUsedWanted, title: "Båt ønskes kjøpt"),
+            (market: .boatRent, title: "Båter til leie"),
+            (market: .boatMotor, title: "Båtmotorer til salgs"),
+            (market: .boatParts, title: "Motordeler til salgs"),
+            (market: .boatPartsMotorWanted, title: "Motor/deler ønskes kjøpt"),
+            (market: .boatDock, title: "Båtplasser tilbys"),
+            (market: .boatDockWanted, title: "Båtplasser ønskes"),
         ]
 
         return createVerticalDemos(from: markets)
     }
 
-    private func jobVerticalDemos() -> [String: [VerticalDemo]] {
-        let markets: [FilterMarketJob: String] = [
-            .fullTime: "Alle stillinger",
-            .partTime: "Deltidsstillinger",
-            .management: "Lederstillinger",
+    private func jobVerticalDemos() -> [MarketDemos] {
+        let markets: [(market: FilterMarketJob, title: String)] = [
+            (market: .fullTime, title: "Alle stillinger"),
+            (market: .partTime, title: "Deltidsstillinger"),
+            (market: .management, title: "Lederstillinger"),
         ]
 
         return createVerticalDemos(from: markets)
     }
 
-    private func mcVerticalDemos() -> [String: [VerticalDemo]] {
-        let markets: [FilterMarketMC: String] = [
-            .mc: "Motorsykler",
-            .mopedScooter: "Scootere og mopeder",
-            .snowmobile: "Snøscootere",
-            .atv: "ATV-er",
+    private func mcVerticalDemos() -> [MarketDemos] {
+        let markets: [(market: FilterMarketMC, title: String)] = [
+            (market: .mc, title: "Motorsykler"),
+            (market: .mopedScooter, title: "Scootere og mopeder"),
+            (market: .snowmobile, title: "Snøscootere"),
+            (market: .atv, title: "ATV-er"),
+        ]
+
+        return createVerticalDemos(from: markets)
+    }
+
+    private func realestateVerticalDemos() -> [MarketDemos] {
+        let markets: [(market: FilterMarketRealestate, title: String)] = [
+            (market: .homes, title: "Boliger til salgs"),
+            (market: .development, title: "Nye boliger"),
+            (market: .plot, title: "Boligtomter"),
+            (market: .leisureSale, title: "Fritidsbolig til salgs"),
+            (market: .leisureSaleAbroad, title: "Bolig i utlandet"),
+            (market: .leisurePlot, title: "Fritidstomter"),
+            (market: .letting, title: "Bolig til leie"),
+            (market: .lettingWanted, title: "Bolig ønskes leid"),
+            (market: .businessSale, title: "Næringseiendom til salgs"),
+            (market: .businessLetting, title: "Næringseiendom til leie"),
+            (market: .businessPlot, title: "Næringstomt"),
+            (market: .companyForSale, title: "Bedrifter til salgs"),
+            (market: .travelFhh, title: "Feriehus og hytter"),
+        ]
+
+        return createVerticalDemos(from: markets, isExternal: { market in
+            let isExternal = market == .travelFhh
+            return isExternal
+        })
+    }
+
+    private func b2bVerticalDemos() -> [MarketDemos] {
+        let markets: [(market: FilterMarketB2B, title: String)] = [
+            (market: .truck, title: "Lastebil og henger"),
+            (market: .truckAbroad, title: "Lastebil og henger i utlandet"),
+            (market: .bus, title: "Buss og minibuss"),
+            (market: .construction, title: "Bygg og anlegg"),
+            (market: .agricultureTractor, title: "Traktor"),
+            (market: .agricultureThresher, title: "Tresker"),
+            (market: .agricultureTools, title: "Landbruksredskap"),
+            (market: .vanNorway, title: "Varebiler i Norge"),
+            (market: .vanAbroad, title: "Varebiler i utlandet"),
         ]
 
         return createVerticalDemos(from: markets)

@@ -1,0 +1,942 @@
+{
+    "market": "realestate-leisure-sale-abroad",
+    "hits": 13793,
+    "label": "Bolig til salgs i utlandet",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "price",
+        "area",
+        "no_of_bedrooms",
+        "property_type",
+        "facilities",
+        "leisure_situation"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Prisantydning",
+            "range": true,
+            "name": "price"
+        },
+        "no_of_bedrooms": {
+            "title": "Antall soverom",
+            "range": true,
+            "name": "no_of_bedrooms"
+        },
+        "area": {
+            "title": "Størrelse",
+            "range": true,
+            "name": "area"
+        },
+        "price_collective": {
+            "title": "Pris med fellesgjeld",
+            "range": true,
+            "name": "price_collective"
+        },
+        "is_private_broker": {
+            "title": "Privat/Megler",
+            "name": "is_private_broker",
+            "queries": [
+                {
+                    "title": "Megler",
+                    "value": "0",
+                    "total-results": 13725
+                },
+                {
+                    "title": "Privat",
+                    "value": "1",
+                    "total-results": 68
+                }
+            ]
+        },
+        "facilities": {
+            "title": "Fasiliteter",
+            "name": "facilities",
+            "queries": [
+                {
+                    "title": "Balkong/Terrasse",
+                    "value": "1",
+                    "total-results": 9530
+                },
+                {
+                    "title": "Garasje/P-plass",
+                    "value": "23",
+                    "total-results": 8307
+                },
+                {
+                    "title": "Heis",
+                    "value": "4",
+                    "total-results": 50
+                },
+                {
+                    "title": "Ingen gjenboere",
+                    "value": "5",
+                    "total-results": 333
+                },
+                {
+                    "title": "Peis/Ildsted",
+                    "value": "2",
+                    "total-results": 2270
+                },
+                {
+                    "title": "Strandlinje",
+                    "value": "17",
+                    "total-results": 2693
+                },
+                {
+                    "title": "Turterreng",
+                    "value": "22",
+                    "total-results": 6550
+                },
+                {
+                    "title": "Utsikt",
+                    "value": "209",
+                    "total-results": 7994
+                },
+                {
+                    "title": "Vaktmester-/vektertjeneste",
+                    "value": "30",
+                    "total-results": 3992
+                }
+            ]
+        },
+        "viewing": {
+            "title": "Visningsdato",
+            "name": "viewing",
+            "queries": [
+                {
+                    "title": "torsdag 24. januar",
+                    "value": "20190124",
+                    "total-results": 2
+                },
+                {
+                    "title": "fredag 25. januar",
+                    "value": "20190125",
+                    "total-results": 1
+                },
+                {
+                    "title": "lørdag 26. januar",
+                    "value": "20190126",
+                    "total-results": 2
+                },
+                {
+                    "title": "søndag 27. januar",
+                    "value": "20190127",
+                    "total-results": 6
+                },
+                {
+                    "title": "mandag 28. januar",
+                    "value": "20190128",
+                    "total-results": 3
+                },
+                {
+                    "title": "tirsdag 29. januar",
+                    "value": "20190129",
+                    "total-results": 3
+                },
+                {
+                    "title": "onsdag 30. januar",
+                    "value": "20190130",
+                    "total-results": 4
+                },
+                {
+                    "title": "torsdag 31. januar",
+                    "value": "20190131",
+                    "total-results": 5
+                },
+                {
+                    "title": "lørdag 02. februar",
+                    "value": "20190202",
+                    "total-results": 8
+                },
+                {
+                    "title": "tirsdag 05. februar",
+                    "value": "20190205",
+                    "total-results": 1
+                },
+                {
+                    "title": "torsdag 07. februar",
+                    "value": "20190207",
+                    "total-results": 2
+                },
+                {
+                    "title": "fredag 08. februar",
+                    "value": "20190208",
+                    "total-results": 2
+                },
+                {
+                    "title": "lørdag 09. februar",
+                    "value": "20190209",
+                    "total-results": 2
+                },
+                {
+                    "title": "lørdag 16. februar",
+                    "value": "20190216",
+                    "total-results": 1
+                },
+                {
+                    "title": "søndag 17. februar",
+                    "value": "20190217",
+                    "total-results": 2
+                },
+                {
+                    "title": "torsdag 21. februar",
+                    "value": "20190221",
+                    "total-results": 1
+                },
+                {
+                    "title": "søndag 24. februar",
+                    "value": "20190224",
+                    "total-results": 1
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 98
+                }
+            ]
+        },
+        "energy_label": {
+            "title": "Energikarakter",
+            "name": "energy_label",
+            "queries": [
+                {
+                    "title": "A",
+                    "value": "1",
+                    "total-results": 54
+                },
+                {
+                    "title": "B",
+                    "value": "2",
+                    "total-results": 68
+                },
+                {
+                    "title": "C",
+                    "value": "3",
+                    "total-results": 73
+                },
+                {
+                    "title": "D",
+                    "value": "4",
+                    "total-results": 104
+                },
+                {
+                    "title": "E",
+                    "value": "5",
+                    "total-results": 105
+                },
+                {
+                    "title": "F",
+                    "value": "6",
+                    "total-results": 33
+                },
+                {
+                    "title": "G",
+                    "value": "7",
+                    "total-results": 139
+                }
+            ]
+        },
+        "plot_owned": {
+            "title": "Tomt",
+            "name": "plot_owned",
+            "queries": [
+                {
+                    "title": "Selveiet",
+                    "value": "true",
+                    "total-results": 3387
+                }
+            ]
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Afrika",
+                    "value": "0.25003",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Egypt",
+                                "value": "1.25003.-62",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Kenya",
+                                "value": "1.25003.-70",
+                                "total-results": 1
+                            }
+                        ]
+                    },
+                    "total-results": 6
+                },
+                {
+                    "title": "Asia",
+                    "value": "0.25001",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Afghanistan",
+                                "value": "1.25001.-91",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "De Forente Arabiske Emirater",
+                                "value": "1.25001.20785",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Filippinene",
+                                "value": "1.25001.-94",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Thailand",
+                                "value": "1.25001.-117",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Nord-Thailand",
+                                            "value": "2.25001.-117.20927",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Sentrale Thailand",
+                                            "value": "2.25001.-117.20929",
+                                            "total-results": 124
+                                        },
+                                        {
+                                            "title": "Sør-Thailand",
+                                            "value": "2.25001.-117.20930",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 127
+                            },
+                            {
+                                "title": "Tyrkia",
+                                "value": "1.25001.-53",
+                                "total-results": 2
+                            }
+                        ]
+                    },
+                    "total-results": 139
+                },
+                {
+                    "title": "Europa",
+                    "value": "0.25002",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Albania",
+                                "value": "1.25002.-7",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Bulgaria",
+                                "value": "1.25002.-119",
+                                "total-results": 15
+                            },
+                            {
+                                "title": "Danmark",
+                                "value": "1.25002.-2",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Bornholm",
+                                            "value": "2.25002.-2.19011",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Fyn - Langeland - Tåsingen",
+                                            "value": "2.25002.-2.19008",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Limfjord",
+                                            "value": "2.25002.-2.19003",
+                                            "total-results": 23
+                                        },
+                                        {
+                                            "title": "Nordjylland",
+                                            "value": "2.25002.-2.19005",
+                                            "total-results": 366
+                                        },
+                                        {
+                                            "title": "Nordvestjylland",
+                                            "value": "2.25002.-2.19004",
+                                            "total-results": 6
+                                        },
+                                        {
+                                            "title": "Sjælland",
+                                            "value": "2.25002.-2.19009",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Østjylland",
+                                            "value": "2.25002.-2.19006",
+                                            "total-results": 16
+                                        },
+                                        {
+                                            "title": "Øvrige Danmark",
+                                            "value": "2.25002.-2.19012",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 417
+                            },
+                            {
+                                "title": "Frankrike",
+                                "value": "1.25002.-166",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Acquitaine",
+                                            "value": "2.25002.-166.20747",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Alpes-de-Haute-Provence",
+                                            "value": "2.25002.-166.20751",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Alpes-Maritimes",
+                                            "value": "2.25002.-166.20753",
+                                            "total-results": 1194
+                                        },
+                                        {
+                                            "title": "Bourgogne",
+                                            "value": "2.25002.-166.20745",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Languedoc Roussillon",
+                                            "value": "2.25002.-166.20748",
+                                            "total-results": 109
+                                        },
+                                        {
+                                            "title": "Provence-Alpes-Côte d'Azur",
+                                            "value": "2.25002.-166.20749",
+                                            "total-results": 588
+                                        },
+                                        {
+                                            "title": "Var",
+                                            "value": "2.25002.-166.20755",
+                                            "total-results": 137
+                                        },
+                                        {
+                                            "title": "Øvrige Frankrike",
+                                            "value": "2.25002.-166.20740",
+                                            "total-results": 8
+                                        }
+                                    ]
+                                },
+                                "total-results": 2046
+                            },
+                            {
+                                "title": "Hellas",
+                                "value": "1.25002.-22",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Kreta",
+                                            "value": "2.25002.-22.2200354",
+                                            "total-results": 46
+                                        },
+                                        {
+                                            "title": "Lesvos",
+                                            "value": "2.25002.-22.81914",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 47
+                            },
+                            {
+                                "title": "Italia",
+                                "value": "1.25002.-127",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Gardasjøen, Veneto og Iseosjøen",
+                                            "value": "2.25002.-127.20914",
+                                            "total-results": 7
+                                        },
+                                        {
+                                            "title": "Lazio",
+                                            "value": "2.25002.-127.20915",
+                                            "total-results": 7
+                                        },
+                                        {
+                                            "title": "Liguria/Italienske riviera",
+                                            "value": "2.25002.-127.20916",
+                                            "total-results": 10
+                                        },
+                                        {
+                                            "title": "Lombardia",
+                                            "value": "2.25002.-127.20917",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Piemonte/Aosta",
+                                            "value": "2.25002.-127.20918",
+                                            "total-results": 54
+                                        },
+                                        {
+                                            "title": "Toscana",
+                                            "value": "2.25002.-127.20919",
+                                            "total-results": 15
+                                        },
+                                        {
+                                            "title": "Øvrige Italia",
+                                            "value": "2.25002.-127.20920",
+                                            "total-results": 8
+                                        }
+                                    ]
+                                },
+                                "total-results": 102
+                            },
+                            {
+                                "title": "Kroatia",
+                                "value": "1.25002.-128",
+                                "total-results": 22
+                            },
+                            {
+                                "title": "Kypros",
+                                "value": "1.25002.-14",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Nord-Kypros",
+                                            "value": "2.25002.-14.22001",
+                                            "total-results": 186
+                                        },
+                                        {
+                                            "title": "Sør-Kypros",
+                                            "value": "2.25002.-14.22002",
+                                            "total-results": 6
+                                        }
+                                    ]
+                                },
+                                "total-results": 192
+                            },
+                            {
+                                "title": "Malta",
+                                "value": "1.25002.-130",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Polen",
+                                "value": "1.25002.-44",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Portugal",
+                                "value": "1.25002.-132",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Algarve",
+                                            "value": "2.25002.-132.20921",
+                                            "total-results": 12
+                                        },
+                                        {
+                                            "title": "Lisboa-området",
+                                            "value": "2.25002.-132.20923",
+                                            "total-results": 6
+                                        }
+                                    ]
+                                },
+                                "total-results": 18
+                            },
+                            {
+                                "title": "Spania",
+                                "value": "1.25002.-134",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Balearene",
+                                            "value": "2.25002.-134.18180",
+                                            "total-results": 131
+                                        },
+                                        {
+                                            "title": "Costa Blanca nord",
+                                            "value": "2.25002.-134.18100",
+                                            "total-results": 2220
+                                        },
+                                        {
+                                            "title": "Costa Blanca sør",
+                                            "value": "2.25002.-134.18090",
+                                            "total-results": 4401
+                                        },
+                                        {
+                                            "title": "Costa Brava/Dorada",
+                                            "value": "2.25002.-134.18150",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Costa Calida",
+                                            "value": "2.25002.-134.18070",
+                                            "total-results": 295
+                                        },
+                                        {
+                                            "title": "Costa del Sol",
+                                            "value": "2.25002.-134.18020",
+                                            "total-results": 2145
+                                        },
+                                        {
+                                            "title": "Costa del Sol midt",
+                                            "value": "2.25002.-134.20939",
+                                            "total-results": 28
+                                        },
+                                        {
+                                            "title": "Costa del Sol vest",
+                                            "value": "2.25002.-134.20938",
+                                            "total-results": 16
+                                        },
+                                        {
+                                            "title": "Costa del Sol øst",
+                                            "value": "2.25002.-134.20940",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Costa de Almeria/Tropical",
+                                            "value": "2.25002.-134.18040",
+                                            "total-results": 8
+                                        },
+                                        {
+                                            "title": "Costa de la Luz",
+                                            "value": "2.25002.-134.18010",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Costa de Valencia/Azahar",
+                                            "value": "2.25002.-134.18120",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Gran Canaria",
+                                            "value": "2.25002.-134.18171",
+                                            "total-results": 390
+                                        },
+                                        {
+                                            "title": "La Gomera",
+                                            "value": "2.25002.-134.18175",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Tenerife",
+                                            "value": "2.25002.-134.18174",
+                                            "total-results": 16
+                                        },
+                                        {
+                                            "title": "Øvrige Kanariøyene",
+                                            "value": "2.25002.-134.18170",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 9690
+                            },
+                            {
+                                "title": "Sverige",
+                                "value": "1.25002.-135",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Blekinge",
+                                            "value": "2.25002.-135.18210",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Dalarna",
+                                            "value": "2.25002.-135.18220",
+                                            "total-results": 13
+                                        },
+                                        {
+                                            "title": "Halland",
+                                            "value": "2.25002.-135.18213",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Jämtland",
+                                            "value": "2.25002.-135.18223",
+                                            "total-results": 45
+                                        },
+                                        {
+                                            "title": "Norrbotten",
+                                            "value": "2.25002.-135.18225",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Värmland",
+                                            "value": "2.25002.-135.18217",
+                                            "total-results": 186
+                                        },
+                                        {
+                                            "title": "Västerbotten",
+                                            "value": "2.25002.-135.18224",
+                                            "total-results": 28
+                                        },
+                                        {
+                                            "title": "Västra Götaland",
+                                            "value": "2.25002.-135.18214",
+                                            "total-results": 324
+                                        }
+                                    ]
+                                },
+                                "total-results": 602
+                            },
+                            {
+                                "title": "Tyrkia",
+                                "value": "1.25002.-53",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Egeerhavskysten",
+                                            "value": "2.25002.-53.20909",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Middelhavsområdet øst",
+                                            "value": "2.25002.-53.20911",
+                                            "total-results": 242
+                                        }
+                                    ]
+                                },
+                                "total-results": 247
+                            }
+                        ]
+                    },
+                    "total-results": 13406
+                },
+                {
+                    "title": "Nord-Amerika",
+                    "value": "0.25017",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Mexico",
+                                "value": "1.25017.-157",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "USA",
+                                "value": "1.25017.-158",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Alabama",
+                                            "value": "2.25017.-158.21001",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Florida",
+                                            "value": "2.25017.-158.21009",
+                                            "total-results": 154
+                                        },
+                                        {
+                                            "title": "Florida Central West",
+                                            "value": "2.25017.-158.21056",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Florida Central/Disney",
+                                            "value": "2.25017.-158.21057",
+                                            "total-results": 59
+                                        },
+                                        {
+                                            "title": "Florida South East",
+                                            "value": "2.25017.-158.21060",
+                                            "total-results": 89
+                                        }
+                                    ]
+                                },
+                                "total-results": 155
+                            }
+                        ]
+                    },
+                    "total-results": 156
+                },
+                {
+                    "title": "Sør-Amerika",
+                    "value": "0.25009",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Brasil",
+                                "value": "1.25009.-149",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Ceara",
+                                            "value": "2.25009.-149.20901",
+                                            "total-results": 16
+                                        },
+                                        {
+                                            "title": "Natal midt",
+                                            "value": "2.25009.-149.20905",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Natal nord",
+                                            "value": "2.25009.-149.20904",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Natal sør",
+                                            "value": "2.25009.-149.20906",
+                                            "total-results": 7
+                                        },
+                                        {
+                                            "title": "Rio de Janeiro",
+                                            "value": "2.25009.-149.20902",
+                                            "total-results": 2
+                                        },
+                                        {
+                                            "title": "Sao Paulo",
+                                            "value": "2.25009.-149.20907",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Øvrige Brasil",
+                                            "value": "2.25009.-149.20908",
+                                            "total-results": 1
+                                        }
+                                    ]
+                                },
+                                "total-results": 32
+                            }
+                        ]
+                    },
+                    "total-results": 32
+                }
+            ]
+        },
+        "property_type": {
+            "title": "Boligtype",
+            "name": "property_type",
+            "queries": [
+                {
+                    "title": "Andre",
+                    "value": "18",
+                    "total-results": 13
+                },
+                {
+                    "title": "Annet fritid",
+                    "value": "13",
+                    "total-results": 264
+                },
+                {
+                    "title": "Enebolig",
+                    "value": "1",
+                    "total-results": 5145
+                },
+                {
+                    "title": "Gårdsbruk/Småbruk",
+                    "value": "11",
+                    "total-results": 46
+                },
+                {
+                    "title": "Hytte",
+                    "value": "12",
+                    "total-results": 272
+                },
+                {
+                    "title": "Leilighet",
+                    "value": "3",
+                    "total-results": 6493
+                },
+                {
+                    "title": "Rekkehus",
+                    "value": "4",
+                    "total-results": 1331
+                },
+                {
+                    "title": "Tomannsbolig",
+                    "value": "2",
+                    "total-results": 138
+                },
+                {
+                    "title": "Tomter",
+                    "value": "14",
+                    "total-results": 23
+                }
+            ]
+        },
+        "leisure_situation": {
+            "title": "Beliggenhet",
+            "name": "leisure_situation",
+            "queries": [
+                {
+                    "title": "Innlandet",
+                    "value": "3",
+                    "total-results": 1522
+                },
+                {
+                    "title": "På fjellet",
+                    "value": "1",
+                    "total-results": 126
+                },
+                {
+                    "title": "Ved sjøen",
+                    "value": "2",
+                    "total-results": 10798
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

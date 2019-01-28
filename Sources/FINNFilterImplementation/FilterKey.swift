@@ -5,12 +5,15 @@
 import Foundation
 
 public enum FilterKey: String, CodingKey {
+    case animalsAllowed = "animals_allowed"
     case area
     case boatClass = "class"
     case bodyType = "body_type"
+    case busSegment = "bus_segment"
     case carEquipment = "car_equipment"
     case category
     case condition
+    case constructionSegment = "construction_segment"
     case constructionYear = "construction_year"
     case dealerSegment = "dealer_segment"
     case energyLabel = "energy_label"
@@ -22,12 +25,14 @@ public enum FilterKey: String, CodingKey {
     case facilities
     case floorNavigator = "floor_navigator"
     case fuel
+    case furnished
     case industry
     case isNewProperty = "is_new_property"
     case isPrivateBroker = "is_private_broker"
     case isSold = "is_sold"
     case jobDuration = "job_duration"
     case jobSector = "job_sector"
+    case leisureSituation = "leisure_situation"
     case lengthFeet = "length_feet"
     case location
     case make
@@ -39,12 +44,14 @@ public enum FilterKey: String, CodingKey {
     case motorSize = "motor_size"
     case motorType = "motor_type"
     case noOfBedrooms = "no_of_bedrooms"
+    case noOfOccupants = "no_of_occupants"
     case noOfSeats = "no_of_seats"
     case noOfSleepers = "no_of_sleepers"
     case numberOfSeats = "number_of_seats"
     case occupation
     case ownershipType = "ownership_type"
     case plotArea = "plot_area"
+    case plotOwned = "plot_owned"
     case price
     case priceChanged = "price_changed"
     case priceCollective = "price_collective"
@@ -53,13 +60,16 @@ public enum FilterKey: String, CodingKey {
     case query = "q"
     case registrationClass = "registration_class"
     case rent
+    case rentFrom = "rent_from"
     case salesForm = "sales_form"
     case searchType = "search_type"
     case segment
     case transmission
+    case truckSegment = "truck_segment"
     case type
     case viewing
     case warrantyInsurance = "warranty_insurance"
+    case weight
     case width
     case wheelDrive = "wheel_drive"
     case wheelSets = "wheel_sets"

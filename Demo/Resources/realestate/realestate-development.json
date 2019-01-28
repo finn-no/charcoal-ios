@@ -1,0 +1,2288 @@
+{
+    "market": "realestate-development",
+    "hits": 4195,
+    "label": "Nye boliger",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "price",
+        "price_collective",
+        "area",
+        "no_of_bedrooms",
+        "property_type",
+        "ownership_type",
+        "facilities",
+        "energy_label"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Prisantydning",
+            "range": true,
+            "name": "price"
+        },
+        "no_of_bedrooms": {
+            "title": "Antall soverom",
+            "range": true,
+            "name": "no_of_bedrooms"
+        },
+        "area": {
+            "title": "Størrelse",
+            "range": true,
+            "name": "area"
+        },
+        "price_collective": {
+            "title": "Pris med fellesgjeld",
+            "range": true,
+            "name": "price_collective"
+        },
+        "is_private_broker": {
+            "title": "Privat/Megler",
+            "name": "is_private_broker",
+            "queries": [
+                {
+                    "title": "Megler",
+                    "value": "0",
+                    "total-results": 19558
+                }
+            ]
+        },
+        "facilities": {
+            "title": "Fasiliteter",
+            "name": "facilities",
+            "queries": [
+                {
+                    "title": "Balkong/Terrasse",
+                    "value": "1",
+                    "total-results": 11176
+                },
+                {
+                    "title": "Garasje/P-plass",
+                    "value": "23",
+                    "total-results": 10513
+                },
+                {
+                    "title": "Heis",
+                    "value": "4",
+                    "total-results": 7285
+                },
+                {
+                    "title": "Ingen gjenboere",
+                    "value": "5",
+                    "total-results": 1024
+                },
+                {
+                    "title": "Peis/Ildsted",
+                    "value": "2",
+                    "total-results": 2672
+                },
+                {
+                    "title": "Strandlinje",
+                    "value": "17",
+                    "total-results": 495
+                },
+                {
+                    "title": "Turterreng",
+                    "value": "22",
+                    "total-results": 8926
+                },
+                {
+                    "title": "Utsikt",
+                    "value": "209",
+                    "total-results": 7077
+                },
+                {
+                    "title": "Vaktmester-/vektertjeneste",
+                    "value": "30",
+                    "total-results": 2385
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 726
+                }
+            ]
+        },
+        "energy_label": {
+            "title": "Energikarakter",
+            "name": "energy_label",
+            "queries": [
+                {
+                    "title": "A",
+                    "value": "1",
+                    "total-results": 349
+                },
+                {
+                    "title": "B",
+                    "value": "2",
+                    "total-results": 1726
+                },
+                {
+                    "title": "C",
+                    "value": "3",
+                    "total-results": 2105
+                },
+                {
+                    "title": "D",
+                    "value": "4",
+                    "total-results": 230
+                },
+                {
+                    "title": "E",
+                    "value": "5",
+                    "total-results": 2
+                },
+                {
+                    "title": "G",
+                    "value": "7",
+                    "total-results": 43
+                }
+            ]
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "0.20003",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Asker",
+                                "value": "1.20003.20046",
+                                "total-results": 111
+                            },
+                            {
+                                "title": "Aurskog-Høland",
+                                "value": "1.20003.20047",
+                                "total-results": 50
+                            },
+                            {
+                                "title": "Bærum",
+                                "value": "1.20003.20045",
+                                "total-results": 405
+                            },
+                            {
+                                "title": "Eidsvoll",
+                                "value": "1.20003.20058",
+                                "total-results": 237
+                            },
+                            {
+                                "title": "Enebakk",
+                                "value": "1.20003.20051",
+                                "total-results": 27
+                            },
+                            {
+                                "title": "Fet",
+                                "value": "1.20003.20049",
+                                "total-results": 66
+                            },
+                            {
+                                "title": "Frogn - Drøbak",
+                                "value": "1.20003.20042",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Gjerdrum",
+                                "value": "1.20003.20055",
+                                "total-results": 73
+                            },
+                            {
+                                "title": "Lørenskog",
+                                "value": "1.20003.20052",
+                                "total-results": 600
+                            },
+                            {
+                                "title": "Nannestad",
+                                "value": "1.20003.20059",
+                                "total-results": 110
+                            },
+                            {
+                                "title": "Nesodden",
+                                "value": "1.20003.20043",
+                                "total-results": 44
+                            },
+                            {
+                                "title": "Nes (Akershus)",
+                                "value": "1.20003.20057",
+                                "total-results": 136
+                            },
+                            {
+                                "title": "Nittedal",
+                                "value": "1.20003.20054",
+                                "total-results": 176
+                            },
+                            {
+                                "title": "Oppegård",
+                                "value": "1.20003.20044",
+                                "total-results": 197
+                            },
+                            {
+                                "title": "Rælingen",
+                                "value": "1.20003.20050",
+                                "total-results": 27
+                            },
+                            {
+                                "title": "Skedsmo",
+                                "value": "1.20003.20053",
+                                "total-results": 364
+                            },
+                            {
+                                "title": "Ski",
+                                "value": "1.20003.20040",
+                                "total-results": 135
+                            },
+                            {
+                                "title": "Sørum",
+                                "value": "1.20003.20048",
+                                "total-results": 75
+                            },
+                            {
+                                "title": "Ullensaker",
+                                "value": "1.20003.20056",
+                                "total-results": 324
+                            },
+                            {
+                                "title": "Vestby - Son",
+                                "value": "1.20003.20039",
+                                "total-results": 135
+                            },
+                            {
+                                "title": "Ås",
+                                "value": "1.20003.20041",
+                                "total-results": 8
+                            }
+                        ]
+                    },
+                    "total-results": 3303
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "0.20010",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Arendal",
+                                "value": "1.20010.20166",
+                                "total-results": 268
+                            },
+                            {
+                                "title": "Birkenes",
+                                "value": "1.20010.20172",
+                                "total-results": 37
+                            },
+                            {
+                                "title": "Froland",
+                                "value": "1.20010.20170",
+                                "total-results": 37
+                            },
+                            {
+                                "title": "Grimstad",
+                                "value": "1.20010.20165",
+                                "total-results": 110
+                            },
+                            {
+                                "title": "Iveland",
+                                "value": "1.20010.20174",
+                                "total-results": 15
+                            },
+                            {
+                                "title": "Lillesand",
+                                "value": "1.20010.20171",
+                                "total-results": 88
+                            },
+                            {
+                                "title": "Risør",
+                                "value": "1.20010.20164",
+                                "total-results": 22
+                            },
+                            {
+                                "title": "Tvedestrand",
+                                "value": "1.20010.20169",
+                                "total-results": 24
+                            },
+                            {
+                                "title": "Valle",
+                                "value": "1.20010.20177",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Vegårshei",
+                                "value": "1.20010.20168",
+                                "total-results": 1
+                            }
+                        ]
+                    },
+                    "total-results": 606
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "0.20007",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Drammen",
+                                "value": "1.20007.20110",
+                                "total-results": 106
+                            },
+                            {
+                                "title": "Flesberg",
+                                "value": "1.20007.20128",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Gol",
+                                "value": "1.20007.20116",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Hemsedal",
+                                "value": "1.20007.20117",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Hol",
+                                "value": "1.20007.20119",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Hole",
+                                "value": "1.20007.20113",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Hurum",
+                                "value": "1.20007.20127",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Kongsberg",
+                                "value": "1.20007.20111",
+                                "total-results": 75
+                            },
+                            {
+                                "title": "Lier",
+                                "value": "1.20007.20125",
+                                "total-results": 104
+                            },
+                            {
+                                "title": "Modum",
+                                "value": "1.20007.20122",
+                                "total-results": 43
+                            },
+                            {
+                                "title": "Nedre Eiker",
+                                "value": "1.20007.20124",
+                                "total-results": 74
+                            },
+                            {
+                                "title": "Ringerike",
+                                "value": "1.20007.20112",
+                                "total-results": 116
+                            },
+                            {
+                                "title": "Røyken",
+                                "value": "1.20007.20126",
+                                "total-results": 32
+                            },
+                            {
+                                "title": "Øvre Eiker",
+                                "value": "1.20007.20123",
+                                "total-results": 141
+                            },
+                            {
+                                "title": "Ål i Hallingdal",
+                                "value": "1.20007.20118",
+                                "total-results": 8
+                            }
+                        ]
+                    },
+                    "total-results": 711
+                },
+                {
+                    "title": "Finnmark",
+                    "value": "0.20020",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Alta",
+                                "value": "1.20020.20441",
+                                "total-results": 121
+                            },
+                            {
+                                "title": "Hammerfest",
+                                "value": "1.20020.20439",
+                                "total-results": 14
+                            },
+                            {
+                                "title": "Kvalsund",
+                                "value": "1.20020.20444",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Porsanger",
+                                "value": "1.20020.20447",
+                                "total-results": 27
+                            },
+                            {
+                                "title": "Sør-Varanger",
+                                "value": "1.20020.20455",
+                                "total-results": 25
+                            }
+                        ]
+                    },
+                    "total-results": 189
+                },
+                {
+                    "title": "Hedmark",
+                    "value": "0.20005",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Eidskog",
+                                "value": "1.20005.20069",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Elverum",
+                                "value": "1.20005.20073",
+                                "total-results": 86
+                            },
+                            {
+                                "title": "Grue",
+                                "value": "1.20005.20070",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Hamar",
+                                "value": "1.20005.20063",
+                                "total-results": 121
+                            },
+                            {
+                                "title": "Kongsvinger",
+                                "value": "1.20005.20062",
+                                "total-results": 78
+                            },
+                            {
+                                "title": "Løten",
+                                "value": "1.20005.20065",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Nord-Odal",
+                                "value": "1.20005.20067",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Os (Hedmark)",
+                                "value": "1.20005.20083",
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Ringsaker",
+                                "value": "1.20005.20064",
+                                "total-results": 149
+                            },
+                            {
+                                "title": "Stange",
+                                "value": "1.20005.20066",
+                                "total-results": 38
+                            },
+                            {
+                                "title": "Sør-Odal",
+                                "value": "1.20005.20068",
+                                "total-results": 15
+                            },
+                            {
+                                "title": "Trysil",
+                                "value": "1.20005.20074",
+                                "total-results": 7
+                            },
+                            {
+                                "title": "Tynset",
+                                "value": "1.20005.20080",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Åmot",
+                                "value": "1.20005.20075",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Åsnes",
+                                "value": "1.20005.20071",
+                                "total-results": 12
+                            }
+                        ]
+                    },
+                    "total-results": 553
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "0.20013",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Askøy",
+                                "value": "1.20013.20243",
+                                "total-results": 38
+                            },
+                            {
+                                "title": "Austevoll",
+                                "value": "1.20013.20240",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Austrheim",
+                                "value": "1.20013.20251",
+                                "total-results": 7
+                            },
+                            {
+                                "title": "Bergen",
+                                "value": "1.20013.20220",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Arna",
+                                            "value": "2.20013.20220.20537",
+                                            "total-results": 13
+                                        },
+                                        {
+                                            "title": "Bergen Sentrum",
+                                            "value": "2.20013.20220.20465",
+                                            "total-results": 184
+                                        },
+                                        {
+                                            "title": "Bergen Vest",
+                                            "value": "2.20013.20220.20479",
+                                            "total-results": 71
+                                        },
+                                        {
+                                            "title": "Fana",
+                                            "value": "2.20013.20220.20473",
+                                            "total-results": 612
+                                        },
+                                        {
+                                            "title": "Fyllingsdalen",
+                                            "value": "2.20013.20220.20475",
+                                            "total-results": 102
+                                        },
+                                        {
+                                            "title": "Landås",
+                                            "value": "2.20013.20220.20471",
+                                            "total-results": 46
+                                        },
+                                        {
+                                            "title": "Åsane",
+                                            "value": "2.20013.20220.20470",
+                                            "total-results": 156
+                                        }
+                                    ]
+                                },
+                                "total-results": 1184
+                            },
+                            {
+                                "title": "Bømlo",
+                                "value": "1.20013.20224",
+                                "total-results": 80
+                            },
+                            {
+                                "title": "Eidfjord",
+                                "value": "1.20013.20232",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Etne",
+                                "value": "1.20013.20221",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Fitjar",
+                                "value": "1.20013.20226",
+                                "total-results": 14
+                            },
+                            {
+                                "title": "Fjell",
+                                "value": "1.20013.20242",
+                                "total-results": 154
+                            },
+                            {
+                                "title": "Fusa",
+                                "value": "1.20013.20237",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Kvam",
+                                "value": "1.20013.20236",
+                                "total-results": 40
+                            },
+                            {
+                                "title": "Kvinnherad",
+                                "value": "1.20013.20228",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Lindås",
+                                "value": "1.20013.20250",
+                                "total-results": 67
+                            },
+                            {
+                                "title": "Masfjorden",
+                                "value": "1.20013.20253",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Meland",
+                                "value": "1.20013.20247",
+                                "total-results": 39
+                            },
+                            {
+                                "title": "Osterøy",
+                                "value": "1.20013.20246",
+                                "total-results": 41
+                            },
+                            {
+                                "title": "Os (Hordaland)",
+                                "value": "1.20013.20239",
+                                "total-results": 64
+                            },
+                            {
+                                "title": "Radøy",
+                                "value": "1.20013.20249",
+                                "total-results": 14
+                            },
+                            {
+                                "title": "Samnanger",
+                                "value": "1.20013.20238",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Stord",
+                                "value": "1.20013.20225",
+                                "total-results": 74
+                            },
+                            {
+                                "title": "Sund",
+                                "value": "1.20013.20241",
+                                "total-results": 56
+                            },
+                            {
+                                "title": "Sveio",
+                                "value": "1.20013.20223",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Tysnes",
+                                "value": "1.20013.20227",
+                                "total-results": 11
+                            },
+                            {
+                                "title": "Ullensvang",
+                                "value": "1.20013.20231",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Voss",
+                                "value": "1.20013.20235",
+                                "total-results": 38
+                            },
+                            {
+                                "title": "Øygarden",
+                                "value": "1.20013.20248",
+                                "total-results": 27
+                            }
+                        ]
+                    },
+                    "total-results": 1988
+                },
+                {
+                    "title": "Møre og Romsdal",
+                    "value": "0.20015",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Aukra",
+                                "value": "1.20015.20304",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Aure",
+                                "value": "1.20015.20314",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Averøy",
+                                "value": "1.20015.20307",
+                                "total-results": 11
+                            },
+                            {
+                                "title": "Eide",
+                                "value": "1.20015.20306",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Fræna",
+                                "value": "1.20015.20305",
+                                "total-results": 36
+                            },
+                            {
+                                "title": "Giske",
+                                "value": "1.20015.20297",
+                                "total-results": 37
+                            },
+                            {
+                                "title": "Gjemnes",
+                                "value": "1.20015.20309",
+                                "total-results": 11
+                            },
+                            {
+                                "title": "Haram",
+                                "value": "1.20015.20298",
+                                "total-results": 48
+                            },
+                            {
+                                "title": "Hareid",
+                                "value": "1.20015.20287",
+                                "total-results": 20
+                            },
+                            {
+                                "title": "Herøy (M.R.)",
+                                "value": "1.20015.20285",
+                                "total-results": 39
+                            },
+                            {
+                                "title": "Kristiansund",
+                                "value": "1.20015.20281",
+                                "total-results": 90
+                            },
+                            {
+                                "title": "Molde",
+                                "value": "1.20015.20280",
+                                "total-results": 153
+                            },
+                            {
+                                "title": "Norddal",
+                                "value": "1.20015.20291",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Rauma",
+                                "value": "1.20015.20300",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Rindal",
+                                "value": "1.20015.20313",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Sande (M.R.)",
+                                "value": "1.20015.20284",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Skodje",
+                                "value": "1.20015.20295",
+                                "total-results": 25
+                            },
+                            {
+                                "title": "Smøla",
+                                "value": "1.20015.20317",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Stordal",
+                                "value": "1.20015.20293",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Stranda",
+                                "value": "1.20015.20292",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Sula",
+                                "value": "1.20015.20296",
+                                "total-results": 42
+                            },
+                            {
+                                "title": "Sunndal",
+                                "value": "1.20015.20311",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Surnadal",
+                                "value": "1.20015.20312",
+                                "total-results": 12
+                            },
+                            {
+                                "title": "Sykkylven",
+                                "value": "1.20015.20294",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Tingvoll",
+                                "value": "1.20015.20310",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Ulstein",
+                                "value": "1.20015.20286",
+                                "total-results": 59
+                            },
+                            {
+                                "title": "Vanylven",
+                                "value": "1.20015.20283",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Vestnes",
+                                "value": "1.20015.20299",
+                                "total-results": 25
+                            },
+                            {
+                                "title": "Volda",
+                                "value": "1.20015.20288",
+                                "total-results": 28
+                            },
+                            {
+                                "title": "Ørskog",
+                                "value": "1.20015.20290",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Ørsta",
+                                "value": "1.20015.20289",
+                                "total-results": 47
+                            },
+                            {
+                                "title": "Ålesund",
+                                "value": "1.20015.20282",
+                                "total-results": 334
+                            }
+                        ]
+                    },
+                    "total-results": 1073
+                },
+                {
+                    "title": "Nordland",
+                    "value": "0.20018",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Alstahaug",
+                                "value": "1.20018.20375",
+                                "total-results": 19
+                            },
+                            {
+                                "title": "Bindal",
+                                "value": "1.20018.20369",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Bodø",
+                                "value": "1.20018.20367",
+                                "total-results": 159
+                            },
+                            {
+                                "title": "Brønnøy",
+                                "value": "1.20018.20371",
+                                "total-results": 20
+                            },
+                            {
+                                "title": "Evenes",
+                                "value": "1.20018.20399",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Fauske",
+                                "value": "1.20018.20391",
+                                "total-results": 15
+                            },
+                            {
+                                "title": "Hadsel",
+                                "value": "1.20018.20406",
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Hamarøy",
+                                "value": "1.20018.20395",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Herøy (Nordland)",
+                                "value": "1.20018.20374",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Lurøy",
+                                "value": "1.20018.20384",
+                                "total-results": 14
+                            },
+                            {
+                                "title": "Meløy",
+                                "value": "1.20018.20387",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Moskenes",
+                                "value": "1.20018.20411",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Narvik",
+                                "value": "1.20018.20368",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Nesna",
+                                "value": "1.20018.20381",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Rana",
+                                "value": "1.20018.20383",
+                                "total-results": 44
+                            },
+                            {
+                                "title": "Saltdal",
+                                "value": "1.20018.20390",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Sortland",
+                                "value": "1.20018.20409",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Steigen",
+                                "value": "1.20018.20394",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Sømna",
+                                "value": "1.20018.20370",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Vefsn",
+                                "value": "1.20018.20377",
+                                "total-results": 109
+                            },
+                            {
+                                "title": "Vega",
+                                "value": "1.20018.20372",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Vestvågøy",
+                                "value": "1.20018.20404",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Vågan",
+                                "value": "1.20018.20405",
+                                "total-results": 45
+                            }
+                        ]
+                    },
+                    "total-results": 507
+                },
+                {
+                    "title": "Oppland",
+                    "value": "0.20006",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Gausdal",
+                                "value": "1.20006.20096",
+                                "total-results": 20
+                            },
+                            {
+                                "title": "Gjøvik",
+                                "value": "1.20006.20085",
+                                "total-results": 62
+                            },
+                            {
+                                "title": "Gran",
+                                "value": "1.20006.20101",
+                                "total-results": 59
+                            },
+                            {
+                                "title": "Jevnaker",
+                                "value": "1.20006.20099",
+                                "total-results": 24
+                            },
+                            {
+                                "title": "Lillehammer",
+                                "value": "1.20006.20084",
+                                "total-results": 103
+                            },
+                            {
+                                "title": "Lom",
+                                "value": "1.20006.20089",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Lunner",
+                                "value": "1.20006.20100",
+                                "total-results": 23
+                            },
+                            {
+                                "title": "Nordre Land",
+                                "value": "1.20006.20103",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Nord-Aurdal",
+                                "value": "1.20006.20106",
+                                "total-results": 20
+                            },
+                            {
+                                "title": "Nord-Fron",
+                                "value": "1.20006.20091",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Ringebu",
+                                "value": "1.20006.20094",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Sel",
+                                "value": "1.20006.20092",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Sør-Aurdal",
+                                "value": "1.20006.20104",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Sør-Fron",
+                                "value": "1.20006.20093",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Vang",
+                                "value": "1.20006.20109",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Vestre Toten",
+                                "value": "1.20006.20098",
+                                "total-results": 86
+                            },
+                            {
+                                "title": "Østre Toten",
+                                "value": "1.20006.20097",
+                                "total-results": 45
+                            },
+                            {
+                                "title": "Øyer",
+                                "value": "1.20006.20095",
+                                "total-results": 17
+                            },
+                            {
+                                "title": "Øystre Slidre",
+                                "value": "1.20006.20108",
+                                "total-results": 13
+                            }
+                        ]
+                    },
+                    "total-results": 504
+                },
+                {
+                    "title": "Oslo",
+                    "value": "0.20061",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Bjerke",
+                                "value": "1.20061.20528",
+                                "total-results": 378
+                            },
+                            {
+                                "title": "Bygdøy - Frogner",
+                                "value": "1.20061.20507",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Bøler",
+                                "value": "1.20061.20519",
+                                "total-results": 28
+                            },
+                            {
+                                "title": "Ekeberg - Bekkelaget",
+                                "value": "1.20061.20515",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Furuset",
+                                "value": "1.20061.20524",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Gamle Oslo",
+                                "value": "1.20061.20512",
+                                "total-results": 414
+                            },
+                            {
+                                "title": "Grefsen - Kjelsås",
+                                "value": "1.20061.20529",
+                                "total-results": 146
+                            },
+                            {
+                                "title": "Grorud",
+                                "value": "1.20061.20527",
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Grünerløkka - Sofienberg",
+                                "value": "1.20061.20511",
+                                "total-results": 290
+                            },
+                            {
+                                "title": "Hellerud",
+                                "value": "1.20061.20523",
+                                "total-results": 17
+                            },
+                            {
+                                "title": "Helsfyr - Sinsen",
+                                "value": "1.20061.20522",
+                                "total-results": 181
+                            },
+                            {
+                                "title": "Manglerud",
+                                "value": "1.20061.20520",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Nordstrand",
+                                "value": "1.20061.20516",
+                                "total-results": 13
+                            },
+                            {
+                                "title": "Røa",
+                                "value": "1.20061.20532",
+                                "total-results": 92
+                            },
+                            {
+                                "title": "Sagene - Torshov",
+                                "value": "1.20061.20510",
+                                "total-results": 106
+                            },
+                            {
+                                "title": "Sogn",
+                                "value": "1.20061.20530",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "St.Hanshaugen - Ullevål",
+                                "value": "1.20061.20509",
+                                "total-results": 34
+                            },
+                            {
+                                "title": "Søndre Nordstrand",
+                                "value": "1.20061.20517",
+                                "total-results": 57
+                            },
+                            {
+                                "title": "Ullern",
+                                "value": "1.20061.20533",
+                                "total-results": 58
+                            },
+                            {
+                                "title": "Uranienborg - Majorstuen",
+                                "value": "1.20061.20508",
+                                "total-results": 71
+                            },
+                            {
+                                "title": "Vinderen",
+                                "value": "1.20061.20531",
+                                "total-results": 36
+                            }
+                        ]
+                    },
+                    "total-results": 1795
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "0.20012",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Bjerkreim",
+                                "value": "1.20012.20200",
+                                "total-results": 7
+                            },
+                            {
+                                "title": "Bokn",
+                                "value": "1.20012.20215",
+                                "total-results": 13
+                            },
+                            {
+                                "title": "Eigersund",
+                                "value": "1.20012.20194",
+                                "total-results": 67
+                            },
+                            {
+                                "title": "Finnøy",
+                                "value": "1.20012.20212",
+                                "total-results": 17
+                            },
+                            {
+                                "title": "Forsand",
+                                "value": "1.20012.20207",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Gjesdal",
+                                "value": "1.20012.20204",
+                                "total-results": 25
+                            },
+                            {
+                                "title": "Haugesund",
+                                "value": "1.20012.20197",
+                                "total-results": 191
+                            },
+                            {
+                                "title": "Hjelmeland",
+                                "value": "1.20012.20209",
+                                "total-results": 11
+                            },
+                            {
+                                "title": "Hå",
+                                "value": "1.20012.20201",
+                                "total-results": 129
+                            },
+                            {
+                                "title": "Karmøy",
+                                "value": "1.20012.20217",
+                                "total-results": 199
+                            },
+                            {
+                                "title": "Klepp",
+                                "value": "1.20012.20202",
+                                "total-results": 103
+                            },
+                            {
+                                "title": "Kvitsøy",
+                                "value": "1.20012.20214",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Lund",
+                                "value": "1.20012.20199",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Randaberg",
+                                "value": "1.20012.20206",
+                                "total-results": 95
+                            },
+                            {
+                                "title": "Rennesøy",
+                                "value": "1.20012.20213",
+                                "total-results": 12
+                            },
+                            {
+                                "title": "Sandnes",
+                                "value": "1.20012.20195",
+                                "total-results": 508
+                            },
+                            {
+                                "title": "Sauda",
+                                "value": "1.20012.20211",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Sola",
+                                "value": "1.20012.20205",
+                                "total-results": 129
+                            },
+                            {
+                                "title": "Stavanger",
+                                "value": "1.20012.20196",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Bjergsted/Byhaugen/ Kalh/Kampen",
+                                            "value": "2.20012.20196.20714",
+                                            "total-results": 24
+                                        },
+                                        {
+                                            "title": "Eiganes/Stokka/Sandal",
+                                            "value": "2.20012.20196.20716",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Forus/Godeset",
+                                            "value": "2.20012.20196.20718",
+                                            "total-results": 11
+                                        },
+                                        {
+                                            "title": "Gausel",
+                                            "value": "2.20012.20196.20719",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Hinna",
+                                            "value": "2.20012.20196.20720",
+                                            "total-results": 36
+                                        },
+                                        {
+                                            "title": "Hundvåg/Byøyer",
+                                            "value": "2.20012.20196.20721",
+                                            "total-results": 62
+                                        },
+                                        {
+                                            "title": "Kvernevik",
+                                            "value": "2.20012.20196.20722",
+                                            "total-results": 35
+                                        },
+                                        {
+                                            "title": "Madlamark/Gosen/Granneslia",
+                                            "value": "2.20012.20196.20723",
+                                            "total-results": 15
+                                        },
+                                        {
+                                            "title": "Madlasandnes/Hafrsfjord/Sunde",
+                                            "value": "2.20012.20196.20724",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Stavanger Sentrum/Vestre platå",
+                                            "value": "2.20012.20196.20712",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Stavanger Øst",
+                                            "value": "2.20012.20196.20713",
+                                            "total-results": 139
+                                        },
+                                        {
+                                            "title": "Tasta/Vardenes/ Dusavik",
+                                            "value": "2.20012.20196.20726",
+                                            "total-results": 3
+                                        },
+                                        {
+                                            "title": "Vaulen",
+                                            "value": "2.20012.20196.20728",
+                                            "total-results": 1
+                                        },
+                                        {
+                                            "title": "Våland/Bekkefaret",
+                                            "value": "2.20012.20196.20729",
+                                            "total-results": 45
+                                        },
+                                        {
+                                            "title": "Åsen/Hillevåg/Auglend",
+                                            "value": "2.20012.20196.20730",
+                                            "total-results": 40
+                                        }
+                                    ]
+                                },
+                                "total-results": 418
+                            },
+                            {
+                                "title": "Strand",
+                                "value": "1.20012.20208",
+                                "total-results": 71
+                            },
+                            {
+                                "title": "Suldal",
+                                "value": "1.20012.20210",
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Time",
+                                "value": "1.20012.20203",
+                                "total-results": 104
+                            },
+                            {
+                                "title": "Tysvær",
+                                "value": "1.20012.20216",
+                                "total-results": 72
+                            },
+                            {
+                                "title": "Vindafjord",
+                                "value": "1.20012.20219",
+                                "total-results": 19
+                            }
+                        ]
+                    },
+                    "total-results": 2230
+                },
+                {
+                    "title": "Sogn og Fjordane",
+                    "value": "0.20014",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Askvoll",
+                                "value": "1.20014.20267",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Aurland",
+                                "value": "1.20014.20263",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Balestrand",
+                                "value": "1.20014.20260",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Eid",
+                                "value": "1.20014.20276",
+                                "total-results": 38
+                            },
+                            {
+                                "title": "Fjaler",
+                                "value": "1.20014.20268",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Flora",
+                                "value": "1.20014.20254",
+                                "total-results": 29
+                            },
+                            {
+                                "title": "Førde",
+                                "value": "1.20014.20271",
+                                "total-results": 40
+                            },
+                            {
+                                "title": "Gloppen",
+                                "value": "1.20014.20278",
+                                "total-results": 22
+                            },
+                            {
+                                "title": "Gulen",
+                                "value": "1.20014.20255",
+                                "total-results": 49
+                            },
+                            {
+                                "title": "Hornindal",
+                                "value": "1.20014.20277",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Hyllestad",
+                                "value": "1.20014.20257",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Høyanger",
+                                "value": "1.20014.20258",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Jølster",
+                                "value": "1.20014.20270",
+                                "total-results": 7
+                            },
+                            {
+                                "title": "Leikanger",
+                                "value": "1.20014.20261",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Luster",
+                                "value": "1.20014.20266",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Lærdal",
+                                "value": "1.20014.20264",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Naustdal",
+                                "value": "1.20014.20272",
+                                "total-results": 43
+                            },
+                            {
+                                "title": "Selje",
+                                "value": "1.20014.20275",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Sogndal",
+                                "value": "1.20014.20262",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Stryn",
+                                "value": "1.20014.20279",
+                                "total-results": 18
+                            },
+                            {
+                                "title": "Vik",
+                                "value": "1.20014.20259",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Vågsøy",
+                                "value": "1.20014.20274",
+                                "total-results": 25
+                            },
+                            {
+                                "title": "Årdal",
+                                "value": "1.20014.20265",
+                                "total-results": 22
+                            }
+                        ]
+                    },
+                    "total-results": 357
+                },
+                {
+                    "title": "Telemark",
+                    "value": "0.20009",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Bamble",
+                                "value": "1.20009.20150",
+                                "total-results": 30
+                            },
+                            {
+                                "title": "Bø (Telemark)",
+                                "value": "1.20009.20154",
+                                "total-results": 32
+                            },
+                            {
+                                "title": "Kragerø",
+                                "value": "1.20009.20151",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Kviteseid",
+                                "value": "1.20009.20159",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Nome",
+                                "value": "1.20009.20153",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Notodden",
+                                "value": "1.20009.20148",
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Porsgrunn",
+                                "value": "1.20009.20146",
+                                "total-results": 70
+                            },
+                            {
+                                "title": "Sauherad",
+                                "value": "1.20009.20155",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Seljord",
+                                "value": "1.20009.20158",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Siljan",
+                                "value": "1.20009.20149",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Skien",
+                                "value": "1.20009.20147",
+                                "total-results": 99
+                            },
+                            {
+                                "title": "Vinje",
+                                "value": "1.20009.20163",
+                                "total-results": 12
+                            }
+                        ]
+                    },
+                    "total-results": 289
+                },
+                {
+                    "title": "Troms",
+                    "value": "0.20019",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Balsfjord",
+                                "value": "1.20019.20429",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Bardu",
+                                "value": "1.20019.20420",
+                                "total-results": 23
+                            },
+                            {
+                                "title": "Harstad",
+                                "value": "1.20019.20412",
+                                "total-results": 56
+                            },
+                            {
+                                "title": "Karlsøy",
+                                "value": "1.20019.20430",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Lenvik",
+                                "value": "1.20019.20428",
+                                "total-results": 24
+                            },
+                            {
+                                "title": "Målselv",
+                                "value": "1.20019.20422",
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Nordreisa",
+                                "value": "1.20019.20435",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Skånland",
+                                "value": "1.20019.20415",
+                                "total-results": 11
+                            },
+                            {
+                                "title": "Storfjord",
+                                "value": "1.20019.20432",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Sørreisa",
+                                "value": "1.20019.20423",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Tromsø",
+                                "value": "1.20019.20413",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Kvaløya",
+                                            "value": "2.20019.20413.20815",
+                                            "total-results": 4
+                                        },
+                                        {
+                                            "title": "Tromsdalen/Tomasjord/Kroken",
+                                            "value": "2.20019.20413.20814",
+                                            "total-results": 28
+                                        },
+                                        {
+                                            "title": "Tromsøya, Midten",
+                                            "value": "2.20019.20413.20817",
+                                            "total-results": 135
+                                        },
+                                        {
+                                            "title": "Tromsøya, Nord",
+                                            "value": "2.20019.20413.20816",
+                                            "total-results": 15
+                                        },
+                                        {
+                                            "title": "Tromsøya, Sør",
+                                            "value": "2.20019.20413.20818",
+                                            "total-results": 105
+                                        }
+                                    ]
+                                },
+                                "total-results": 287
+                            }
+                        ]
+                    },
+                    "total-results": 450
+                },
+                {
+                    "title": "Trøndelag",
+                    "value": "0.20016",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Bjugn",
+                                "value": "1.20016.20326",
+                                "total-results": 41
+                            },
+                            {
+                                "title": "Flatanger",
+                                "value": "1.20016.20363",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Frøya",
+                                "value": "1.20016.20322",
+                                "total-results": 12
+                            },
+                            {
+                                "title": "Grong",
+                                "value": "1.20016.20359",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Hemne",
+                                "value": "1.20016.20319",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Hitra",
+                                "value": "1.20016.20321",
+                                "total-results": 45
+                            },
+                            {
+                                "title": "Inderøy",
+                                "value": "1.20016.20354",
+                                "total-results": 32
+                            },
+                            {
+                                "title": "Indre Fosen",
+                                "value": "1.20016.20325",
+                                "total-results": 19
+                            },
+                            {
+                                "title": "Klæbu",
+                                "value": "1.20016.20339",
+                                "total-results": 29
+                            },
+                            {
+                                "title": "Levanger",
+                                "value": "1.20016.20349",
+                                "total-results": 77
+                            },
+                            {
+                                "title": "Malvik",
+                                "value": "1.20016.20340",
+                                "total-results": 37
+                            },
+                            {
+                                "title": "Meldal",
+                                "value": "1.20016.20332",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Melhus",
+                                "value": "1.20016.20337",
+                                "total-results": 68
+                            },
+                            {
+                                "title": "Meråker",
+                                "value": "1.20016.20345",
+                                "total-results": 8
+                            },
+                            {
+                                "title": "Midtre Gauldal",
+                                "value": "1.20016.20336",
+                                "total-results": 4
+                            },
+                            {
+                                "title": "Namsos",
+                                "value": "1.20016.20344",
+                                "total-results": 41
+                            },
+                            {
+                                "title": "Nærøy",
+                                "value": "1.20016.20365",
+                                "total-results": 35
+                            },
+                            {
+                                "title": "Oppdal",
+                                "value": "1.20016.20330",
+                                "total-results": 45
+                            },
+                            {
+                                "title": "Orkdal",
+                                "value": "1.20016.20333",
+                                "total-results": 85
+                            },
+                            {
+                                "title": "Osen",
+                                "value": "1.20016.20329",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Overhalla",
+                                "value": "1.20016.20361",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Rennebu",
+                                "value": "1.20016.20331",
+                                "total-results": 6
+                            },
+                            {
+                                "title": "Røros",
+                                "value": "1.20016.20334",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Selbu",
+                                "value": "1.20016.20341",
+                                "total-results": 10
+                            },
+                            {
+                                "title": "Skaun",
+                                "value": "1.20016.20338",
+                                "total-results": 14
+                            },
+                            {
+                                "title": "Snåsa",
+                                "value": "1.20016.20355",
+                                "total-results": 3
+                            },
+                            {
+                                "title": "Steinkjer",
+                                "value": "1.20016.20343",
+                                "total-results": 34
+                            },
+                            {
+                                "title": "Stjørdal",
+                                "value": "1.20016.20346",
+                                "total-results": 77
+                            },
+                            {
+                                "title": "Trondheim",
+                                "value": "1.20016.20318",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Trondheim Sentrum",
+                                            "value": "2.20016.20318.20505",
+                                            "total-results": 25
+                                        },
+                                        {
+                                            "title": "Trondheim Sør",
+                                            "value": "2.20016.20318.20502",
+                                            "total-results": 419
+                                        },
+                                        {
+                                            "title": "Trondheim Vest",
+                                            "value": "2.20016.20318.20501",
+                                            "total-results": 35
+                                        },
+                                        {
+                                            "title": "Trondheim Øst",
+                                            "value": "2.20016.20318.20504",
+                                            "total-results": 569
+                                        }
+                                    ]
+                                },
+                                "total-results": 1048
+                            },
+                            {
+                                "title": "Verdal",
+                                "value": "1.20016.20350",
+                                "total-results": 74
+                            },
+                            {
+                                "title": "Verran",
+                                "value": "1.20016.20352",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Vikna",
+                                "value": "1.20016.20364",
+                                "total-results": 110
+                            },
+                            {
+                                "title": "Ørland",
+                                "value": "1.20016.20323",
+                                "total-results": 57
+                            },
+                            {
+                                "title": "Åfjord",
+                                "value": "1.20016.20327",
+                                "total-results": 7
+                            }
+                        ]
+                    },
+                    "total-results": 2059
+                },
+                {
+                    "title": "Vestfold",
+                    "value": "0.20008",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Færder",
+                                "value": "1.20008.20143",
+                                "total-results": 78
+                            },
+                            {
+                                "title": "Holmestrand",
+                                "value": "1.20008.20132",
+                                "total-results": 98
+                            },
+                            {
+                                "title": "Horten",
+                                "value": "1.20008.20131",
+                                "total-results": 119
+                            },
+                            {
+                                "title": "Larvik",
+                                "value": "1.20008.20135",
+                                "total-results": 103
+                            },
+                            {
+                                "title": "Re",
+                                "value": "1.20008.20139",
+                                "total-results": 25
+                            },
+                            {
+                                "title": "Sandefjord",
+                                "value": "1.20008.20134",
+                                "total-results": 171
+                            },
+                            {
+                                "title": "Sande (Vestfold)",
+                                "value": "1.20008.20137",
+                                "total-results": 85
+                            },
+                            {
+                                "title": "Svelvik",
+                                "value": "1.20008.20136",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Tønsberg",
+                                "value": "1.20008.20133",
+                                "total-results": 302
+                            }
+                        ]
+                    },
+                    "total-results": 951
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "0.20011",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Audnedal",
+                                "value": "1.20011.20188",
+                                "total-results": 1
+                            },
+                            {
+                                "title": "Farsund",
+                                "value": "1.20011.20181",
+                                "total-results": 53
+                            },
+                            {
+                                "title": "Flekkefjord",
+                                "value": "1.20011.20182",
+                                "total-results": 32
+                            },
+                            {
+                                "title": "Hægebostad",
+                                "value": "1.20011.20191",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Kristiansand",
+                                "value": "1.20011.20179",
+                                "filter": {
+                                    "title": "Område",
+                                    "name": "location",
+                                    "queries": [
+                                        {
+                                            "title": "Kristiansand Nord",
+                                            "value": "2.20011.20179.20707",
+                                            "total-results": 8
+                                        },
+                                        {
+                                            "title": "Kristiansand Sentrum",
+                                            "value": "2.20011.20179.20536",
+                                            "total-results": 395
+                                        },
+                                        {
+                                            "title": "Kristiansand Vest",
+                                            "value": "2.20011.20179.20709",
+                                            "total-results": 78
+                                        },
+                                        {
+                                            "title": "Kristiansand Øst",
+                                            "value": "2.20011.20179.20708",
+                                            "total-results": 156
+                                        }
+                                    ]
+                                },
+                                "total-results": 637
+                            },
+                            {
+                                "title": "Kvinesdal",
+                                "value": "1.20011.20192",
+                                "total-results": 14
+                            },
+                            {
+                                "title": "Lindesnes",
+                                "value": "1.20011.20189",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Lyngdal",
+                                "value": "1.20011.20190",
+                                "total-results": 65
+                            },
+                            {
+                                "title": "Mandal",
+                                "value": "1.20011.20180",
+                                "total-results": 65
+                            },
+                            {
+                                "title": "Marnardal",
+                                "value": "1.20011.20186",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Songdalen",
+                                "value": "1.20011.20184",
+                                "total-results": 14
+                            },
+                            {
+                                "title": "Søgne",
+                                "value": "1.20011.20185",
+                                "total-results": 83
+                            },
+                            {
+                                "title": "Vennesla",
+                                "value": "1.20011.20183",
+                                "total-results": 83
+                            }
+                        ]
+                    },
+                    "total-results": 1060
+                },
+                {
+                    "title": "Østfold",
+                    "value": "0.20002",
+                    "filter": {
+                        "title": "Område",
+                        "name": "location",
+                        "queries": [
+                            {
+                                "title": "Askim",
+                                "value": "1.20002.20031",
+                                "total-results": 56
+                            },
+                            {
+                                "title": "Eidsberg",
+                                "value": "1.20002.20032",
+                                "total-results": 9
+                            },
+                            {
+                                "title": "Fredrikstad",
+                                "value": "1.20002.20024",
+                                "total-results": 337
+                            },
+                            {
+                                "title": "Halden",
+                                "value": "1.20002.20021",
+                                "total-results": 48
+                            },
+                            {
+                                "title": "Hobøl",
+                                "value": "1.20002.20038",
+                                "total-results": 13
+                            },
+                            {
+                                "title": "Hvaler",
+                                "value": "1.20002.20025",
+                                "total-results": 16
+                            },
+                            {
+                                "title": "Marker",
+                                "value": "1.20002.20027",
+                                "total-results": 5
+                            },
+                            {
+                                "title": "Moss",
+                                "value": "1.20002.20022",
+                                "total-results": 103
+                            },
+                            {
+                                "title": "Rakkestad",
+                                "value": "1.20002.20034",
+                                "total-results": 13
+                            },
+                            {
+                                "title": "Rygge",
+                                "value": "1.20002.20036",
+                                "total-results": 61
+                            },
+                            {
+                                "title": "Råde",
+                                "value": "1.20002.20035",
+                                "total-results": 12
+                            },
+                            {
+                                "title": "Sarpsborg",
+                                "value": "1.20002.20023",
+                                "total-results": 221
+                            },
+                            {
+                                "title": "Spydeberg",
+                                "value": "1.20002.20030",
+                                "total-results": 23
+                            },
+                            {
+                                "title": "Trøgstad",
+                                "value": "1.20002.20029",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Våler (Østfold)",
+                                "value": "1.20002.20037",
+                                "total-results": 14
+                            }
+                        ]
+                    },
+                    "total-results": 933
+                }
+            ]
+        },
+        "property_type": {
+            "title": "Boligtype",
+            "name": "property_type",
+            "queries": [
+                {
+                    "title": "Andre",
+                    "value": "18",
+                    "total-results": 203
+                },
+                {
+                    "title": "Annet fritid",
+                    "value": "13",
+                    "total-results": 44
+                },
+                {
+                    "title": "Bygård/Flermannsbolig",
+                    "value": "20",
+                    "total-results": 8
+                },
+                {
+                    "title": "Enebolig",
+                    "value": "1",
+                    "total-results": 2171
+                },
+                {
+                    "title": "Hytte",
+                    "value": "12",
+                    "total-results": 20
+                },
+                {
+                    "title": "Hyttetomt",
+                    "value": "15",
+                    "total-results": 46
+                },
+                {
+                    "title": "Leilighet",
+                    "value": "3",
+                    "total-results": 14536
+                },
+                {
+                    "title": "Prosjekt",
+                    "value": "24",
+                    "total-results": 126
+                },
+                {
+                    "title": "Rekkehus",
+                    "value": "4",
+                    "total-results": 1427
+                },
+                {
+                    "title": "Tomannsbolig",
+                    "value": "2",
+                    "total-results": 930
+                },
+                {
+                    "title": "Tomter",
+                    "value": "14",
+                    "total-results": 20
+                }
+            ]
+        },
+        "ownership_type": {
+            "title": "Eierform",
+            "name": "ownership_type",
+            "queries": [
+                {
+                    "title": "Andel",
+                    "value": "4",
+                    "total-results": 2687
+                },
+                {
+                    "title": "Annet",
+                    "value": "255",
+                    "total-results": 12
+                },
+                {
+                    "title": "Eier (Selveier)",
+                    "value": "3",
+                    "total-results": 16853
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

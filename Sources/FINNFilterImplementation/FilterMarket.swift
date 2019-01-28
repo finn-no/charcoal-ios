@@ -60,6 +60,10 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.mapFilterKey
     }
 
+    func contextFilterKeys(for key: FilterKey) -> [FilterKey] {
+        return currentFilterConfig.contextFilterKeys(for: key)
+    }
+
     func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
         return currentFilterConfig.createFilterInfoFrom(rangeFilterData: rangeFilterData)
     }

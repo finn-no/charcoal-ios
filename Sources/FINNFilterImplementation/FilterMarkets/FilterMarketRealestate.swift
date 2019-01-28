@@ -150,6 +150,10 @@ extension FilterMarketRealestate: FilterConfiguration {
         return .location
     }
 
+    func contextFilterKeys(for key: FilterKey) -> [FilterKey] {
+        return []
+    }
+
     func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
         let parameterName = rangeFilterData.parameterName
         let name = rangeFilterData.title

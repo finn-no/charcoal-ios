@@ -31,6 +31,15 @@ extension FilterMarketBap: FilterConfiguration {
         return .location
     }
 
+    func contextFilterKeys(for key: FilterKey) -> [FilterKey] {
+        switch key {
+        case .category:
+            return []
+        default:
+            return []
+        }
+    }
+
     func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
         let parameterName = rangeFilterData.parameterName
         let name = rangeFilterData.title

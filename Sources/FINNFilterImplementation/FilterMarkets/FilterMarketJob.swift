@@ -48,6 +48,10 @@ extension FilterMarketJob: FilterConfiguration {
         return .location
     }
 
+    func contextFilterKeys(for key: FilterKey) -> [FilterKey] {
+        return []
+    }
+
     func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
         return nil
     }

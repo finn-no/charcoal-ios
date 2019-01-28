@@ -232,7 +232,7 @@ extension RangeNumberInputView {
         updateValidationStatus(for: inactiveInputGroup, isValid: true)
     }
 
-    private func updateValidationStatus(for inputGroup: InputGroup, isValid: Bool) {
+    private func updateValidationStatus(for inputGroup: InputGroup, isValid: Bool, generateHapticFeedback: Bool = false) {
         let textColor = isValid ? Style.textColor : Style.errorTextColor
 
         switch inputGroup {
@@ -245,8 +245,9 @@ extension RangeNumberInputView {
         }
 
         let isCurrentValueValid = inputValidationStatus[inputGroup] ?? true
+        let useHaptics = generateHapticFeedback && generatesHapticFeedbackOnValueChange
 
-        if !isValid && isCurrentValueValid && generatesHapticFeedbackOnValueChange {
+        if !isValid && isCurrentValueValid && useHaptics {
             FeedbackGenerator.generate(.error)
         }
 
@@ -312,7 +313,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         textField.accessibilityValue = "\(newValue) \(accessibilityValueSuffix ?? "")"
 
         inputValues[inputGroup] = newValue
-        validateInputs()
+        updateValidationStatus(for: inputGroup, isValid: isValidValue(for: inputGroup), generateHapticFeedback: true)
 
         switch inputGroup {
         case .lowValue:

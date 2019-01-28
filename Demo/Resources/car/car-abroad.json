@@ -1,7 +1,7 @@
 {
     "market": "car-abroad",
-    "hits": 222,
-    "label": "Parallelimporterte biler",
+    "hits": 207,
+    "label": "Biler i utlandet",
     "type": "search",
     "filters": [
         "markets",
@@ -84,23 +84,13 @@
                                 "total-results": 1
                             },
                             {
-                                "title": "Giulietta",
-                                "value": "1.3233.3785",
-                                "total-results": 1
-                            },
-                            {
                                 "title": "Sprint",
                                 "value": "1.3233.3237",
                                 "total-results": 1
                             }
                         ]
                     },
-                    "total-results": 3
-                },
-                {
-                    "title": "Andre",
-                    "value": "0.2252",
-                    "total-results": 1
+                    "total-results": 2
                 },
                 {
                     "title": "Audi",
@@ -117,7 +107,7 @@
                             {
                                 "title": "A4 allroad",
                                 "value": "1.744.2000140",
-                                "total-results": 3
+                                "total-results": 2
                             },
                             {
                                 "title": "A5",
@@ -135,9 +125,9 @@
                                 "total-results": 1
                             },
                             {
-                                "title": "Q3",
-                                "value": "1.744.2000190",
-                                "total-results": 1
+                                "title": "Andre",
+                                "value": "1.744.2053",
+                                "total-results": 3
                             },
                             {
                                 "title": "Q5",
@@ -151,7 +141,7 @@
                             }
                         ]
                     },
-                    "total-results": 14
+                    "total-results": 15
                 },
                 {
                     "title": "Bentley",
@@ -177,6 +167,11 @@
                         "name": "model",
                         "queries": [
                             {
+                                "title": "M3",
+                                "value": "1.749.893",
+                                "total-results": 1
+                            },
+                            {
                                 "title": "X5",
                                 "value": "1.749.6737",
                                 "total-results": 5
@@ -194,7 +189,7 @@
                             {
                                 "title": "3-serie",
                                 "value": "1.749.2132",
-                                "total-results": 9
+                                "total-results": 8
                             },
                             {
                                 "title": "4-serie",
@@ -204,7 +199,7 @@
                             {
                                 "title": "5-serie",
                                 "value": "1.749.2131",
-                                "total-results": 23
+                                "total-results": 22
                             },
                             {
                                 "title": "6-serie",
@@ -218,23 +213,7 @@
                             }
                         ]
                     },
-                    "total-results": 53
-                },
-                {
-                    "title": "Cadillac",
-                    "value": "0.752",
-                    "filter": {
-                        "title": "Modell",
-                        "name": "model",
-                        "queries": [
-                            {
-                                "title": "SRX",
-                                "value": "1.752.7988",
-                                "total-results": 1
-                            }
-                        ]
-                    },
-                    "total-results": 1
+                    "total-results": 52
                 },
                 {
                     "title": "Chevrolet",
@@ -244,45 +223,13 @@
                         "name": "model",
                         "queries": [
                             {
-                                "title": "Camaro",
-                                "value": "1.753.905",
-                                "total-results": 1
-                            }
-                        ]
-                    },
-                    "total-results": 1
-                },
-                {
-                    "title": "Chrysler",
-                    "value": "0.754",
-                    "filter": {
-                        "title": "Modell",
-                        "name": "model",
-                        "queries": [
-                            {
-                                "title": "Voyager",
-                                "value": "1.754.928",
-                                "total-results": 1
-                            }
-                        ]
-                    },
-                    "total-results": 1
-                },
-                {
-                    "title": "Dodge",
-                    "value": "0.764",
-                    "filter": {
-                        "title": "Modell",
-                        "name": "model",
-                        "queries": [
-                            {
-                                "title": "Andre",
-                                "value": "1.764.2073",
+                                "title": "Bel Air",
+                                "value": "1.753.2000406",
                                 "total-results": 1
                             },
                             {
-                                "title": "Challenger",
-                                "value": "1.764.2074",
+                                "title": "Camaro",
+                                "value": "1.753.905",
                                 "total-results": 1
                             }
                         ]
@@ -304,7 +251,7 @@
                             {
                                 "title": "500",
                                 "value": "1.766.2000071",
-                                "total-results": 2
+                                "total-results": 1
                             },
                             {
                                 "title": "500L",
@@ -313,7 +260,7 @@
                             }
                         ]
                     },
-                    "total-results": 5
+                    "total-results": 4
                 },
                 {
                     "title": "Ford",
@@ -325,37 +272,6 @@
                             {
                                 "title": "Focus",
                                 "value": "1.767.3739",
-                                "total-results": 1
-                            },
-                            {
-                                "title": "Grand C-MAX",
-                                "value": "1.767.2000218",
-                                "total-results": 1
-                            },
-                            {
-                                "title": "Mustang",
-                                "value": "1.767.1056",
-                                "total-results": 1
-                            },
-                            {
-                                "title": "Transit Connect",
-                                "value": "1.767.8191",
-                                "total-results": 1
-                            }
-                        ]
-                    },
-                    "total-results": 4
-                },
-                {
-                    "title": "Honda",
-                    "value": "0.771",
-                    "filter": {
-                        "title": "Modell",
-                        "name": "model",
-                        "queries": [
-                            {
-                                "title": "Civic",
-                                "value": "1.771.1088",
                                 "total-results": 1
                             }
                         ]
@@ -384,22 +300,6 @@
                     "total-results": 3
                 },
                 {
-                    "title": "Iveco",
-                    "value": "0.7280",
-                    "filter": {
-                        "title": "Modell",
-                        "name": "model",
-                        "queries": [
-                            {
-                                "title": "Daily",
-                                "value": "1.7280.7294",
-                                "total-results": 1
-                            }
-                        ]
-                    },
-                    "total-results": 1
-                },
-                {
                     "title": "Jaguar",
                     "value": "0.775",
                     "filter": {
@@ -407,13 +307,8 @@
                         "name": "model",
                         "queries": [
                             {
-                                "title": "Andre",
-                                "value": "1.775.2084",
-                                "total-results": 1
-                            },
-                            {
-                                "title": "E-TYPE",
-                                "value": "1.775.2000124",
+                                "title": "I-PACE",
+                                "value": "1.775.2000447",
                                 "total-results": 1
                             },
                             {
@@ -423,7 +318,7 @@
                             }
                         ]
                     },
-                    "total-results": 3
+                    "total-results": 2
                 },
                 {
                     "title": "Kia",
@@ -433,8 +328,29 @@
                         "name": "model",
                         "queries": [
                             {
+                                "title": "Niro",
+                                "value": "1.777.2000392",
+                                "total-results": 4
+                            },
+                            {
                                 "title": "Picanto",
                                 "value": "1.777.8178",
+                                "total-results": 1
+                            }
+                        ]
+                    },
+                    "total-results": 5
+                },
+                {
+                    "title": "Land Rover",
+                    "value": "0.781",
+                    "filter": {
+                        "title": "Modell",
+                        "name": "model",
+                        "queries": [
+                            {
+                                "title": "Defender",
+                                "value": "1.781.6742",
                                 "total-results": 1
                             }
                         ]
@@ -454,6 +370,11 @@
                                 "total-results": 2
                             },
                             {
+                                "title": "Andre",
+                                "value": "1.785.2094",
+                                "total-results": 1
+                            },
+                            {
                                 "title": "A-Klasse",
                                 "value": "1.785.3777",
                                 "total-results": 2
@@ -464,11 +385,6 @@
                                 "total-results": 3
                             },
                             {
-                                "title": "CLK",
-                                "value": "1.785.6713",
-                                "total-results": 1
-                            },
-                            {
                                 "title": "C-Klasse",
                                 "value": "1.785.3776",
                                 "total-results": 12
@@ -476,7 +392,7 @@
                             {
                                 "title": "E-Klasse",
                                 "value": "1.785.3775",
-                                "total-results": 28
+                                "total-results": 26
                             },
                             {
                                 "title": "E-klasse All-Terrain",
@@ -486,7 +402,7 @@
                             {
                                 "title": "Geländewagen",
                                 "value": "1.785.2259",
-                                "total-results": 2
+                                "total-results": 4
                             },
                             {
                                 "title": "GLA",
@@ -506,7 +422,7 @@
                             {
                                 "title": "M-Klasse",
                                 "value": "1.785.3774",
-                                "total-results": 3
+                                "total-results": 2
                             },
                             {
                                 "title": "SLK",
@@ -516,11 +432,11 @@
                             {
                                 "title": "S-Klasse",
                                 "value": "1.785.3773",
-                                "total-results": 2
+                                "total-results": 1
                             }
                         ]
                     },
-                    "total-results": 78
+                    "total-results": 76
                 },
                 {
                     "title": "MG",
@@ -548,16 +464,11 @@
                             {
                                 "title": "Outlander",
                                 "value": "1.787.7713",
-                                "total-results": 6
-                            },
-                            {
-                                "title": "Space Star",
-                                "value": "1.787.3752",
-                                "total-results": 1
+                                "total-results": 5
                             }
                         ]
                     },
-                    "total-results": 7
+                    "total-results": 5
                 },
                 {
                     "title": "Nissan",
@@ -574,43 +485,6 @@
                         ]
                     },
                     "total-results": 3
-                },
-                {
-                    "title": "Opel",
-                    "value": "0.795",
-                    "filter": {
-                        "title": "Modell",
-                        "name": "model",
-                        "queries": [
-                            {
-                                "title": "Astra",
-                                "value": "1.795.1247",
-                                "total-results": 1
-                            },
-                            {
-                                "title": "Combo",
-                                "value": "1.795.1252",
-                                "total-results": 1
-                            }
-                        ]
-                    },
-                    "total-results": 2
-                },
-                {
-                    "title": "Pontiac",
-                    "value": "0.800",
-                    "filter": {
-                        "title": "Modell",
-                        "name": "model",
-                        "queries": [
-                            {
-                                "title": "Andre",
-                                "value": "1.800.2109",
-                                "total-results": 1
-                            }
-                        ]
-                    },
-                    "total-results": 1
                 },
                 {
                     "title": "Porsche",
@@ -669,11 +543,11 @@
                             {
                                 "title": "Superb",
                                 "value": "1.808.7532",
-                                "total-results": 5
+                                "total-results": 4
                             }
                         ]
                     },
-                    "total-results": 9
+                    "total-results": 8
                 },
                 {
                     "title": "Tesla",
@@ -704,8 +578,8 @@
                                 "total-results": 1
                             },
                             {
-                                "title": "MR2",
-                                "value": "1.813.1398",
+                                "title": "HiAce",
+                                "value": "1.813.1394",
                                 "total-results": 1
                             },
                             {
@@ -725,11 +599,6 @@
                         "name": "model",
                         "queries": [
                             {
-                                "title": "Caddy",
-                                "value": "1.817.6709",
-                                "total-results": 1
-                            },
-                            {
                                 "title": "Golf",
                                 "value": "1.817.1433",
                                 "total-results": 4
@@ -737,6 +606,11 @@
                             {
                                 "title": "Passat",
                                 "value": "1.817.1437",
+                                "total-results": 2
+                            },
+                            {
+                                "title": "Passat Alltrack",
+                                "value": "1.817.2000209",
                                 "total-results": 1
                             },
                             {
@@ -751,7 +625,7 @@
                             }
                         ]
                     },
-                    "total-results": 8
+                    "total-results": 9
                 },
                 {
                     "title": "Volvo",
@@ -760,11 +634,6 @@
                         "title": "Modell",
                         "name": "model",
                         "queries": [
-                            {
-                                "title": "V70",
-                                "value": "1.818.3077",
-                                "total-results": 1
-                            },
                             {
                                 "title": "V90",
                                 "value": "1.818.2000386",
@@ -787,7 +656,7 @@
                             }
                         ]
                     },
-                    "total-results": 7
+                    "total-results": 6
                 }
             ]
         },
@@ -803,22 +672,22 @@
                 {
                     "title": "Annet",
                     "value": "6",
-                    "total-results": 12
+                    "total-results": 11
                 },
                 {
                     "title": "Lett lastebil",
                     "value": "5",
-                    "total-results": 1
+                    "total-results": 3
                 },
                 {
                     "title": "Personbil",
                     "value": "1",
-                    "total-results": 204
+                    "total-results": 192
                 },
                 {
                     "title": "Varebil",
                     "value": "2",
-                    "total-results": 5
+                    "total-results": 1
                 }
             ]
         },
@@ -829,27 +698,22 @@
                 {
                     "title": "Bensin",
                     "value": "0/1",
-                    "total-results": 66
+                    "total-results": 47
                 },
                 {
                     "title": "Diesel",
                     "value": "0/2",
-                    "total-results": 103
+                    "total-results": 102
                 },
                 {
                     "title": "Elektrisitet",
                     "value": "0/4",
-                    "total-results": 12
-                },
-                {
-                    "title": "Gass",
-                    "value": "0/3",
-                    "total-results": 1
+                    "total-results": 17
                 },
                 {
                     "title": "Hybrid",
                     "value": "0/11111",
-                    "total-results": 40
+                    "total-results": 41
                 }
             ]
         },
@@ -860,7 +724,7 @@
                 {
                     "title": "Garanti",
                     "value": "1",
-                    "total-results": 113
+                    "total-results": 112
                 }
             ]
         },
@@ -871,12 +735,12 @@
                 {
                     "title": "Ett hjulsett",
                     "value": "1",
-                    "total-results": 128
+                    "total-results": 121
                 },
                 {
                     "title": "To hjulsett",
                     "value": "2",
-                    "total-results": 13
+                    "total-results": 14
                 }
             ]
         },
@@ -887,7 +751,7 @@
                 {
                     "title": "Bruktbil til salgs",
                     "value": "1",
-                    "total-results": 219
+                    "total-results": 204
                 },
                 {
                     "title": "Leasing",
@@ -908,7 +772,12 @@
                 {
                     "title": "Blå",
                     "value": "2",
-                    "total-results": 16
+                    "total-results": 15
+                },
+                {
+                    "title": "Bronse",
+                    "value": "3",
+                    "total-results": 1
                 },
                 {
                     "title": "Brun",
@@ -918,42 +787,42 @@
                 {
                     "title": "Grønn",
                     "value": "5",
-                    "total-results": 2
+                    "total-results": 3
                 },
                 {
                     "title": "Grå",
                     "value": "6",
-                    "total-results": 40
-                },
-                {
-                    "title": "Gul",
-                    "value": "7",
-                    "total-results": 1
+                    "total-results": 36
                 },
                 {
                     "title": "Hvit",
                     "value": "9",
-                    "total-results": 53
+                    "total-results": 48
+                },
+                {
+                    "title": "Oransje",
+                    "value": "11",
+                    "total-results": 1
                 },
                 {
                     "title": "Rød",
                     "value": "13",
-                    "total-results": 15
+                    "total-results": 11
                 },
                 {
                     "title": "Svart",
                     "value": "14",
-                    "total-results": 75
+                    "total-results": 74
                 },
                 {
                     "title": "Sølv",
                     "value": "15",
-                    "total-results": 17
+                    "total-results": 13
                 },
                 {
                     "title": "Turkis",
                     "value": "16",
-                    "total-results": 1
+                    "total-results": 2
                 }
             ]
         },
@@ -964,7 +833,7 @@
                 {
                     "title": "Nye i dag",
                     "value": "1",
-                    "total-results": 4
+                    "total-results": 1
                 }
             ]
         },
@@ -980,27 +849,27 @@
                 {
                     "title": "Hengerfeste",
                     "value": "23",
-                    "total-results": 41
+                    "total-results": 38
                 },
                 {
                     "title": "Motorvarmer",
                     "value": "35",
-                    "total-results": 37
+                    "total-results": 39
                 },
                 {
                     "title": "Navigasjonssystem",
                     "value": "40",
-                    "total-results": 121
+                    "total-results": 123
                 },
                 {
                     "title": "Radio DAB+",
                     "value": "77",
-                    "total-results": 22
+                    "total-results": 26
                 },
                 {
                     "title": "Skinninteriør",
                     "value": "12",
-                    "total-results": 109
+                    "total-results": 108
                 }
             ]
         },
@@ -1011,12 +880,12 @@
                 {
                     "title": "Automat",
                     "value": "2",
-                    "total-results": 184
+                    "total-results": 179
                 },
                 {
                     "title": "Manuell",
                     "value": "1",
-                    "total-results": 38
+                    "total-results": 28
                 }
             ]
         },
@@ -1027,17 +896,12 @@
                 {
                     "title": "Annet bilutsalg",
                     "value": "2",
-                    "total-results": 191
-                },
-                {
-                    "title": "Merkeforhandler",
-                    "value": "1",
-                    "total-results": 2
+                    "total-results": 188
                 },
                 {
                     "title": "Privat",
                     "value": "3",
-                    "total-results": 29
+                    "total-results": 19
                 }
             ]
         },
@@ -1048,17 +912,17 @@
                 {
                     "title": "Bakhjulsdrift",
                     "value": "1",
-                    "total-results": 77
+                    "total-results": 66
                 },
                 {
                     "title": "Firehjulsdrift",
                     "value": "2",
-                    "total-results": 106
+                    "total-results": 110
                 },
                 {
                     "title": "Forhjulsdrift",
                     "value": "3",
-                    "total-results": 39
+                    "total-results": 31
                 }
             ]
         },
@@ -1069,7 +933,7 @@
                 {
                     "title": "Service",
                     "value": "1",
-                    "total-results": 59
+                    "total-results": 53
                 }
             ]
         },
@@ -1084,17 +948,17 @@
                 {
                     "title": "Akershus",
                     "value": "20003",
-                    "total-results": 141
+                    "total-results": 139
                 },
                 {
                     "title": "Aust-Agder",
                     "value": "20010",
-                    "total-results": 1
+                    "total-results": 3
                 },
                 {
                     "title": "Buskerud",
                     "value": "20007",
-                    "total-results": 6
+                    "total-results": 2
                 },
                 {
                     "title": "Hedmark",
@@ -1104,17 +968,22 @@
                 {
                     "title": "Hordaland",
                     "value": "20013",
-                    "total-results": 3
+                    "total-results": 2
+                },
+                {
+                    "title": "Nordland",
+                    "value": "20018",
+                    "total-results": 1
                 },
                 {
                     "title": "Oppland",
                     "value": "20006",
-                    "total-results": 3
+                    "total-results": 1
                 },
                 {
                     "title": "Oslo",
                     "value": "20061",
-                    "total-results": 6
+                    "total-results": 8
                 },
                 {
                     "title": "Rogaland",
@@ -1124,7 +993,7 @@
                 {
                     "title": "Trøndelag",
                     "value": "20016",
-                    "total-results": 2
+                    "total-results": 1
                 },
                 {
                     "title": "Vestfold",
@@ -1139,7 +1008,7 @@
                 {
                     "title": "Østfold",
                     "value": "20002",
-                    "total-results": 4
+                    "total-results": 1
                 }
             ]
         },
@@ -1151,32 +1020,32 @@
                 {
                     "title": "0-50000",
                     "value": "0-50000",
-                    "total-results": 8
+                    "total-results": 3
                 },
                 {
                     "title": "50001-100000",
                     "value": "50001-100000",
-                    "total-results": 9
+                    "total-results": 2
                 },
                 {
                     "title": "100001-150000",
                     "value": "100001-150000",
-                    "total-results": 6
+                    "total-results": 3
                 },
                 {
                     "title": "150001-250000",
                     "value": "150001-250000",
-                    "total-results": 12
+                    "total-results": 8
                 },
                 {
                     "title": "250001-500000",
                     "value": "250001-500000",
-                    "total-results": 91
+                    "total-results": 90
                 },
                 {
                     "title": "500001-",
                     "value": "500001-null",
-                    "total-results": 96
+                    "total-results": 101
                 }
             ]
         },
@@ -1187,22 +1056,22 @@
                 {
                     "title": "Annet",
                     "value": "11",
-                    "total-results": 5
+                    "total-results": 4
                 },
                 {
                     "title": "Cabriolet",
                     "value": "7",
-                    "total-results": 8
+                    "total-results": 6
                 },
                 {
                     "title": "Coupe",
                     "value": "6",
-                    "total-results": 16
+                    "total-results": 12
                 },
                 {
                     "title": "Flerbruksbil",
                     "value": "5",
-                    "total-results": 4
+                    "total-results": 3
                 },
                 {
                     "title": "Kasse",
@@ -1217,27 +1086,22 @@
                 {
                     "title": "Kombi 5-dørs",
                     "value": "2",
-                    "total-results": 32
-                },
-                {
-                    "title": "Pickup",
-                    "value": "8",
-                    "total-results": 1
+                    "total-results": 30
                 },
                 {
                     "title": "Sedan",
                     "value": "3",
-                    "total-results": 50
+                    "total-results": 45
                 },
                 {
                     "title": "Stasjonsvogn",
                     "value": "4",
-                    "total-results": 66
+                    "total-results": 60
                 },
                 {
                     "title": "SUV/Offroad",
                     "value": "9",
-                    "total-results": 37
+                    "total-results": 44
                 }
             ]
         },
@@ -1246,72 +1110,6 @@
             "name": "price_changed"
         }
     },
-    "menubar": [
-        {
-            "type": "sort",
-            "label": "Sortér",
-            "data": {
-                "parameter": "sort",
-                "values": [
-                    {
-                        "label": "Publisert",
-                        "value": "0",
-                        "selected": true
-                    },
-                    {
-                        "label": "Modell",
-                        "value": "1",
-                        "selected": false
-                    },
-                    {
-                        "label": "Pris lav-høy",
-                        "value": "2",
-                        "selected": false
-                    },
-                    {
-                        "label": "Pris høy-lav",
-                        "value": "3",
-                        "selected": false
-                    },
-                    {
-                        "label": "Km lav-høy",
-                        "value": "4",
-                        "selected": false
-                    },
-                    {
-                        "label": "Km høy-lav",
-                        "value": "5",
-                        "selected": false
-                    },
-                    {
-                        "label": "År nyest-eldst",
-                        "value": "6",
-                        "selected": false
-                    },
-                    {
-                        "label": "År eldst-nyest",
-                        "value": "7",
-                        "selected": false
-                    },
-                    {
-                        "label": "Mest relevant",
-                        "value": "9",
-                        "selected": false
-                    },
-                    {
-                        "label": "Nærmest",
-                        "value": "99",
-                        "selected": false
-                    }
-                ]
-            }
-        }
-    ],
-    "sections": [
-        {
-            "cells": []
-        }
-    ],
     "map": {
         "parameter": "bbox",
         "areaParameters": [

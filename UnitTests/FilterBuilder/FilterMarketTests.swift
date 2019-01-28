@@ -16,7 +16,7 @@ extension FilterMarketTests {
     func verifyAllCasesIsExhaustive(filterMarket: FilterMarket) -> Bool {
         switch filterMarket {
         case .bap(.bap),
-             .car(.norway), .car(.abroad),
+             .car(.norway), .car(.abroad), .car(.mobileHome), .car(.caravan),
              .mc(.mc), .mc(.mopedScooter), .mc(.snowmobile), .mc(.atv),
              .job(.fullTime), .job(.partTime), .job(.management),
              .boat(.boatSale), .boat(.boatUsedWanted), .boat(.boatRent), .boat(.boatMotor), .boat(.boatParts), .boat(.boatPartsMotorWanted), .boat(.boatDock), .boat(.boatDockWanted),

@@ -33,10 +33,10 @@ class FilterInfoBuilderTests: XCTestCase, TestDataDecoder {
         XCTAssertNotNil(builder)
         XCTAssertNotNil(buildResult)
         XCTAssertEqual(numberOfSearchQueryFilterInfoElements, 1)
-        XCTAssertEqual(numberOfPreferenceFilterInfoElements, 4)
+        XCTAssertEqual(numberOfPreferenceFilterInfoElements, 3)
         XCTAssertEqual(numberOfRangeFilterInfoElements, 5)
         XCTAssertEqual(numberOfMultiLevelListSelectionFilterInfoElements, 1)
-        XCTAssertEqual(numberOfListSelectionFilterInfoElements, 11)
+        XCTAssertEqual(numberOfListSelectionFilterInfoElements, 12)
     }
 
     func testFilterInfoBuilderBuildsPreferenceFilterInfoWithExpectedValues() {

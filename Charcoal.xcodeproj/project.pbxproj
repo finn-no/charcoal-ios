@@ -15,6 +15,14 @@
 		08716B3321F73D92003180D8 /* FilterMarketBap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3221F73D92003180D8 /* FilterMarketBap.swift */; };
 		08716B3521F73DDE003180D8 /* FilterMarketBoat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */; };
 		08716B3721F76424003180D8 /* FilterKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3621F76424003180D8 /* FilterKey.swift */; };
+		08716B3F21F89C7C003180D8 /* boat-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B3E21F89C7C003180D8 /* boat-sale.json */; };
+		08716B4121F89CD6003180D8 /* boat-used-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4021F89CD6003180D8 /* boat-used-wanted.json */; };
+		08716B4321F89CE0003180D8 /* boat-rent.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4221F89CE0003180D8 /* boat-rent.json */; };
+		08716B4721F89D4A003180D8 /* boat-parts.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4621F89D4A003180D8 /* boat-parts.json */; };
+		08716B4921F89D83003180D8 /* boat-motor.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4821F89D83003180D8 /* boat-motor.json */; };
+		08716B4B21F89DBB003180D8 /* boat-parts-motor-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4A21F89DBB003180D8 /* boat-parts-motor-wanted.json */; };
+		08716B4D21F89DDE003180D8 /* boat-dock.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4C21F89DDE003180D8 /* boat-dock.json */; };
+		08716B4F21F89DE5003180D8 /* boat-dock-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4E21F89DE5003180D8 /* boat-dock-wanted.json */; };
 		088C090F21F5C3AA00983132 /* job-full-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C090E21F5C3AA00983132 /* job-full-time.json */; };
 		088C091121F5CE4200983132 /* job-part-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091021F5CE4200983132 /* job-part-time.json */; };
 		088C091321F5CE4C00983132 /* job-management.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091221F5CE4C00983132 /* job-management.json */; };
@@ -218,6 +226,14 @@
 		08716B3221F73D92003180D8 /* FilterMarketBap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBap.swift; sourceTree = "<group>"; };
 		08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBoat.swift; sourceTree = "<group>"; };
 		08716B3621F76424003180D8 /* FilterKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterKey.swift; sourceTree = "<group>"; };
+		08716B3E21F89C7C003180D8 /* boat-sale.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-sale.json"; sourceTree = "<group>"; };
+		08716B4021F89CD6003180D8 /* boat-used-wanted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-used-wanted.json"; sourceTree = "<group>"; };
+		08716B4221F89CE0003180D8 /* boat-rent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-rent.json"; sourceTree = "<group>"; };
+		08716B4621F89D4A003180D8 /* boat-parts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-parts.json"; sourceTree = "<group>"; };
+		08716B4821F89D83003180D8 /* boat-motor.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-motor.json"; sourceTree = "<group>"; };
+		08716B4A21F89DBB003180D8 /* boat-parts-motor-wanted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-parts-motor-wanted.json"; sourceTree = "<group>"; };
+		08716B4C21F89DDE003180D8 /* boat-dock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-dock.json"; sourceTree = "<group>"; };
+		08716B4E21F89DE5003180D8 /* boat-dock-wanted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-dock-wanted.json"; sourceTree = "<group>"; };
 		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
 		088C091021F5CE4200983132 /* job-part-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-part-time.json"; sourceTree = "<group>"; };
 		088C091221F5CE4C00983132 /* job-management.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-management.json"; sourceTree = "<group>"; };
@@ -410,6 +426,67 @@
 				08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */,
 			);
 			path = FilterMarkets;
+			sourceTree = "<group>";
+		};
+		08716B3821F89B80003180D8 /* boat */ = {
+			isa = PBXGroup;
+			children = (
+				08716B3E21F89C7C003180D8 /* boat-sale.json */,
+				08716B4021F89CD6003180D8 /* boat-used-wanted.json */,
+				08716B4221F89CE0003180D8 /* boat-rent.json */,
+				08716B4821F89D83003180D8 /* boat-motor.json */,
+				08716B4621F89D4A003180D8 /* boat-parts.json */,
+				08716B4A21F89DBB003180D8 /* boat-parts-motor-wanted.json */,
+				08716B4C21F89DDE003180D8 /* boat-dock.json */,
+				08716B4E21F89DE5003180D8 /* boat-dock-wanted.json */,
+			);
+			path = boat;
+			sourceTree = "<group>";
+		};
+		08716B3921F89B86003180D8 /* job */ = {
+			isa = PBXGroup;
+			children = (
+				088C090E21F5C3AA00983132 /* job-full-time.json */,
+				088C091021F5CE4200983132 /* job-part-time.json */,
+				088C091221F5CE4C00983132 /* job-management.json */,
+			);
+			path = job;
+			sourceTree = "<group>";
+		};
+		08716B3A21F89B8C003180D8 /* mc */ = {
+			isa = PBXGroup;
+			children = (
+				088C091421F5E09900983132 /* mc.json */,
+				088C091621F5E5EE00983132 /* moped-scooter.json */,
+				088C091821F5E63800983132 /* snowmobile.json */,
+				088C091A21F5E67900983132 /* atv.json */,
+			);
+			path = mc;
+			sourceTree = "<group>";
+		};
+		08716B3B21F89BA6003180D8 /* bap */ = {
+			isa = PBXGroup;
+			children = (
+				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
+			);
+			path = bap;
+			sourceTree = "<group>";
+		};
+		08716B3C21F89BAE003180D8 /* realestate */ = {
+			isa = PBXGroup;
+			children = (
+				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
+			);
+			path = realestate;
+			sourceTree = "<group>";
+		};
+		08716B3D21F89BB4003180D8 /* car */ = {
+			isa = PBXGroup;
+			children = (
+				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
+				554D154F20C0782200FA3930 /* car-norway.json */,
+			);
+			path = car;
 			sourceTree = "<group>";
 		};
 		44ECE645208F7F7B0017AC82 = {
@@ -651,17 +728,12 @@
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				55ABF8AF20CFD8A100E31229 /* bap-sale.json */,
-				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
-				554D154F20C0782200FA3930 /* car-norway.json */,
-				55BDA77420DCCD8E00331FFC /* realestate-homes.json */,
-				088C091421F5E09900983132 /* mc.json */,
-				088C091621F5E5EE00983132 /* moped-scooter.json */,
-				088C091821F5E63800983132 /* snowmobile.json */,
-				088C091A21F5E67900983132 /* atv.json */,
-				088C090E21F5C3AA00983132 /* job-full-time.json */,
-				088C091021F5CE4200983132 /* job-part-time.json */,
-				088C091221F5CE4C00983132 /* job-management.json */,
+				08716B3B21F89BA6003180D8 /* bap */,
+				08716B3821F89B80003180D8 /* boat */,
+				08716B3D21F89BB4003180D8 /* car */,
+				08716B3921F89B86003180D8 /* job */,
+				08716B3A21F89B8C003180D8 /* mc */,
+				08716B3C21F89BAE003180D8 /* realestate */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1080,18 +1152,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				088C091321F5CE4C00983132 /* job-management.json in Resources */,
+				08716B4921F89D83003180D8 /* boat-motor.json in Resources */,
+				08716B4121F89CD6003180D8 /* boat-used-wanted.json in Resources */,
 				55BDA77520DCCD8E00331FFC /* realestate-homes.json in Resources */,
+				08716B4321F89CE0003180D8 /* boat-rent.json in Resources */,
 				088C090F21F5C3AA00983132 /* job-full-time.json in Resources */,
 				44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */,
+				08716B4F21F89DE5003180D8 /* boat-dock-wanted.json in Resources */,
 				088C091921F5E63800983132 /* snowmobile.json in Resources */,
 				088C091721F5E5EE00983132 /* moped-scooter.json in Resources */,
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
 				55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */,
+				08716B4B21F89DBB003180D8 /* boat-parts-motor-wanted.json in Resources */,
 				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
+				08716B3F21F89C7C003180D8 /* boat-sale.json in Resources */,
 				9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */,
+				08716B4D21F89DDE003180D8 /* boat-dock.json in Resources */,
 				088C091B21F5E67900983132 /* atv.json in Resources */,
 				088C091121F5CE4200983132 /* job-part-time.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
+				08716B4721F89D4A003180D8 /* boat-parts.json in Resources */,
 				088C091521F5E09900983132 /* mc.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

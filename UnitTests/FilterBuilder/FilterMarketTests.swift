@@ -19,7 +19,8 @@ extension FilterMarketTests {
              .realestate(.homes),
              .car(.norway), .car(.abroad),
              .mc(.mc), .mc(.mopedScooter), .mc(.snowmobile), .mc(.atv),
-             .job(.fullTime), .job(.partTime), .job(.management):
+             .job(.fullTime), .job(.partTime), .job(.management),
+             .boat(.boatSale), .boat(.boatUsedWanted), .boat(.boatRent), .boat(.boatMotor), .boat(.boatParts), .boat(.boatPartsMotorWanted), .boat(.boatDock), .boat(.boatDockWanted):
             break
         }
         return true

@@ -2,13 +2,13 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Charcoal
+@testable import Charcoal
 
 class DemoFilter {
     var filterData: FilterSetup
     var selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
     let filterSelectionTitleProvider = FilterSelectionTitleProvider()
-    var verticalSetup: VerticalSetupDemo = {
+    lazy var verticalSetup: VerticalSetupDemo = {
         let verticalsCarNorway = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: true, isExternal: false, file: "car-norway"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: false, isExternal: false, file: "car-abroad")]
         let verticalsCarAbroad = [VerticalDemo(id: "car-norway", title: "Biler i Norge", isCurrent: false, isExternal: false, file: "car-norway"), VerticalDemo(id: "car-abroad", title: "Biler i Utlandet", isCurrent: true, isExternal: false, file: "car-abroad")]
         let verticalsRealestateHomes = [
@@ -26,59 +26,18 @@ class DemoFilter {
             VerticalDemo(id: "realestate-company-for-sale", title: "Bedrifter til salgs", isCurrent: false, isExternal: false, file: nil),
             VerticalDemo(id: "realestate-travel-fhh", title: "Feriehus og hytter", isCurrent: false, isExternal: true, file: nil),
         ]
-        let verticalsMC = [
-            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: true, isExternal: false, file: "mc"),
-            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: false, isExternal: false, file: "moped-scooter"),
-            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: false, isExternal: false, file: "snowmobile"),
-            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: false, isExternal: false, file: "atv"),
-        ]
-        let verticalsMopedScooter = [
-            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: false, isExternal: false, file: "mc"),
-            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: true, isExternal: false, file: "moped-scooter"),
-            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: false, isExternal: false, file: "snowmobile"),
-            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: false, isExternal: false, file: "atv"),
-        ]
-        let verticalsSnowmobile = [
-            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: false, isExternal: false, file: "mc"),
-            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: false, isExternal: false, file: "moped-scooter"),
-            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: true, isExternal: false, file: "snowmobile"),
-            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: false, isExternal: false, file: "atv"),
-        ]
-        let verticalsATV = [
-            VerticalDemo(id: "mc", title: "Motorsykler", isCurrent: false, isExternal: false, file: "mc"),
-            VerticalDemo(id: "moped-scooter", title: "Scootere og mopeder", isCurrent: false, isExternal: false, file: "moped-scooter"),
-            VerticalDemo(id: "snowmobile", title: "Snøscootere", isCurrent: false, isExternal: false, file: "snowmobile"),
-            VerticalDemo(id: "atv", title: "ATV-er", isCurrent: true, isExternal: false, file: "atv"),
-        ]
-        let verticalsJobFullTime = [
-            VerticalDemo(id: "job-full-time", title: "Alle stillinger", isCurrent: true, isExternal: false, file: "job-full-time"),
-            VerticalDemo(id: "job-part-time", title: "Deltidsstillinger", isCurrent: false, isExternal: false, file: "job-part-time"),
-            VerticalDemo(id: "job-management", title: "Lederstillinger", isCurrent: false, isExternal: false, file: "job-management"),
-        ]
-        let verticalsJobPartTime = [
-            VerticalDemo(id: "job-full-time", title: "Alle stillinger", isCurrent: false, isExternal: false, file: "job-full-time"),
-            VerticalDemo(id: "job-part-time", title: "Deltidsstillinger", isCurrent: true, isExternal: false, file: "job-part-time"),
-            VerticalDemo(id: "job-management", title: "Lederstillinger", isCurrent: false, isExternal: false, file: "job-management"),
-        ]
-        let verticalsJobManagement = [
-            VerticalDemo(id: "job-full-time", title: "Alle stillinger", isCurrent: false, isExternal: false, file: "job-full-time"),
-            VerticalDemo(id: "job-part-time", title: "Deltidsstillinger", isCurrent: false, isExternal: false, file: "job-part-time"),
-            VerticalDemo(id: "job-management", title: "Lederstillinger", isCurrent: true, isExternal: false, file: "job-management"),
-        ]
 
-        let verticals = VerticalSetupDemo(verticals: [
+        var verticalDemos = [
             "car-norway": verticalsCarNorway,
             "car-abroad": verticalsCarAbroad,
             "realestate-homes": verticalsRealestateHomes,
-            "mc": verticalsMC,
-            "moped-scooter": verticalsMopedScooter,
-            "snowmobile": verticalsSnowmobile,
-            "atv": verticalsATV,
-            "job-full-time": verticalsJobFullTime,
-            "job-part-time": verticalsJobPartTime,
-            "job-management": verticalsJobManagement,
-        ])
-        return verticals
+        ]
+
+        verticalDemos.merge(jobVerticalDemos(), uniquingKeysWith: { _, new in new })
+        verticalDemos.merge(boatVerticalDemos(), uniquingKeysWith: { _, new in new })
+        verticalDemos.merge(mcVerticalDemos(), uniquingKeysWith: { _, new in new })
+
+        return VerticalSetupDemo(verticals: verticalDemos)
     }()
 
     var loadedFilter: FilterInfoBuilderResult?
@@ -122,6 +81,57 @@ class DemoFilter {
         // Use this to test decoding from pre-parsed data (dictionary)
         let jsonObj = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
         return FilterSetup.decode(from: jsonObj as? [AnyHashable: Any])!
+    }
+
+    // Market vertical creation.
+
+    private func createVerticalDemos<T: RawRepresentable>(from markets: [T: String], isExternal: (T) -> Bool = { _ in return false }) -> [String: [VerticalDemo]] where T.RawValue == String {
+        var verticalDemos = [String: [VerticalDemo]]()
+
+        markets.forEach { market in
+            verticalDemos[market.key.rawValue] = markets.map {
+                let isExternal = isExternal($0.key)
+                return VerticalDemo(id: $0.key.rawValue, title: $0.value, isCurrent: $0.key == market.key, isExternal: isExternal, file: $0.key.rawValue)
+            }
+        }
+
+        return verticalDemos
+    }
+
+    private func boatVerticalDemos() -> [String: [VerticalDemo]] {
+        let markets: [FilterMarketBoat: String] = [
+            .boatSale: "Båter til salgs",
+            .boatUsedWanted: "Båt ønskes kjøpt",
+            .boatRent: "Båter til leie",
+            .boatMotor: "Båtmotorer til salgs",
+            .boatParts: "Motordeler til salgs",
+            .boatPartsMotorWanted: "Motor/deler ønskes kjøpt",
+            .boatDock: "Båtplasser tilbys",
+            .boatDockWanted: "Båtplasser ønskes",
+        ]
+
+        return createVerticalDemos(from: markets)
+    }
+
+    private func jobVerticalDemos() -> [String: [VerticalDemo]] {
+        let markets: [FilterMarketJob: String] = [
+            .fullTime: "Alle stillinger",
+            .partTime: "Deltidsstillinger",
+            .management: "Lederstillinger",
+        ]
+
+        return createVerticalDemos(from: markets)
+    }
+
+    private func mcVerticalDemos() -> [String: [VerticalDemo]] {
+        let markets: [FilterMarketMC: String] = [
+            .mc: "Motorsykler",
+            .mopedScooter: "Scootere og mopeder",
+            .snowmobile: "Snøscootere",
+            .atv: "ATV-er",
+        ]
+
+        return createVerticalDemos(from: markets)
     }
 }
 

@@ -1,0 +1,136 @@
+{
+    "market": "boat-parts-motor-wanted",
+    "hits": 45,
+    "label": "Båtmotorer ønskes kjøpt",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "published",
+        "location",
+        "type",
+        "price",
+        "engine_effect"
+    ],
+    "filter-data": {
+        "price": {
+            "title": "Pris",
+            "range": true,
+            "name": "price"
+        },
+        "year": {
+            "title": "Årsmodell",
+            "range": true,
+            "name": "year"
+        },
+        "engine_effect": {
+            "title": "Hestekrefter",
+            "range": true,
+            "name": "engine_effect"
+        },
+        "dealer_segment": {
+            "title": "Annonsør",
+            "name": "dealer_segment",
+            "queries": [
+                {
+                    "title": "Forhandler",
+                    "value": "0",
+                    "total-results": 29
+                },
+                {
+                    "title": "Privat",
+                    "value": "1",
+                    "total-results": 16
+                }
+            ]
+        },
+        "type": {
+            "title": "Motortype",
+            "name": "type",
+            "queries": [
+                {
+                    "title": "Innenbords",
+                    "value": "1",
+                    "total-results": 7
+                },
+                {
+                    "title": "Utenbords",
+                    "value": "2",
+                    "total-results": 38
+                }
+            ]
+        },
+        "motor_ad_location": {
+            "title": "Kjøretøyet står i",
+            "name": "motor_ad_location"
+        },
+        "location": {
+            "title": "Område",
+            "name": "location",
+            "queries": [
+                {
+                    "title": "Akershus",
+                    "value": "20003",
+                    "total-results": 1
+                },
+                {
+                    "title": "Aust-Agder",
+                    "value": "20010",
+                    "total-results": 2
+                },
+                {
+                    "title": "Buskerud",
+                    "value": "20007",
+                    "total-results": 3
+                },
+                {
+                    "title": "Hordaland",
+                    "value": "20013",
+                    "total-results": 18
+                },
+                {
+                    "title": "Oslo",
+                    "value": "20061",
+                    "total-results": 1
+                },
+                {
+                    "title": "Rogaland",
+                    "value": "20012",
+                    "total-results": 3
+                },
+                {
+                    "title": "Telemark",
+                    "value": "20009",
+                    "total-results": 6
+                },
+                {
+                    "title": "Vest-Agder",
+                    "value": "20011",
+                    "total-results": 5
+                },
+                {
+                    "title": "Østfold",
+                    "value": "20002",
+                    "total-results": 6
+                }
+            ]
+        },
+        "published": {
+            "title": "Publisert",
+            "name": "published",
+            "queries": [
+                {
+                    "title": "Nye i dag",
+                    "value": "1",
+                    "total-results": 1
+                }
+            ]
+        }
+    },
+    "map": {
+        "parameter": "bbox",
+        "areaParameters": [
+            "location"
+        ]
+    }
+}

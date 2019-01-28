@@ -24,7 +24,7 @@ extension FilterMarketB2B: FilterConfiguration {
     }
 
     var preferenceFilterKeys: [FilterKey] {
-        return [.published]
+        return [.published, .dealerSegment]
     }
 
     var supportedFiltersKeys: [FilterKey] {
@@ -37,8 +37,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 .price,
                 .year,
                 .engineEffect,
-                .weight,
-                .dealerSegment,
+                .weight
             ]
         case .bus:
             return [
@@ -47,8 +46,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 .make,
                 .price,
                 .year,
-                .engineEffect,
-                .dealerSegment,
+                .engineEffect
             ]
         case .construction:
             return [
@@ -57,8 +55,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 .make,
                 .price,
                 .year,
-                .engineEffect,
-                .dealerSegment,
+                .engineEffect
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
@@ -66,16 +63,14 @@ extension FilterMarketB2B: FilterConfiguration {
                 .make,
                 .price,
                 .year,
-                .engineEffect,
-                .dealerSegment,
+                .engineEffect
             ]
         case .agricultureTools:
             return [
                 .location,
                 .category,
                 .price,
-                .year,
-                .dealerSegment,
+                .year
             ]
         case .vanNorway, .vanAbroad:
             return [
@@ -90,12 +85,11 @@ extension FilterMarketB2B: FilterConfiguration {
                 .engineEffect,
                 .numberOfSeats,
                 .wheelDrive,
-                .dealerSegment,
                 .transmission,
                 .wheelSets,
                 .warrantyInsurance,
                 .condition,
-                .salesForm,
+                .salesForm
             ]
         }
     }

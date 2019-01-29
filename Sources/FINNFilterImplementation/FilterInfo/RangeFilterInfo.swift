@@ -9,7 +9,7 @@ final class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
 
     let parameterName: String
     let title: String
-    let sliderInfo: StepSliderInfo<Int>
+    let sliderInfo: StepSliderInfo
     let unit: String
     let isCurrencyValueRange: Bool
     let accessibilityValueSuffix: String?

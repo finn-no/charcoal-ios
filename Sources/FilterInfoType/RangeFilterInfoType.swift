@@ -3,7 +3,7 @@
 //
 
 public protocol RangeFilterInfoType: FilterInfoType {
-    var sliderInfo: StepSliderInfo<Int> { get }
+    var sliderInfo: StepSliderInfo { get }
 
     var unit: String { get }
     var isCurrencyValueRange: Bool { get }

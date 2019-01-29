@@ -4,22 +4,15 @@
 
 import Foundation
 
-public typealias SliderValueKind = Comparable & Numeric
-
-public struct StepSliderInfo<T: SliderValueKind> {
-    public let minimumValue: T
-    public let maximumValue: T
-    public let minimumValueWithOffset: T
-    public let maximumValueWithOffset: T
+public struct StepSliderInfo {
+    public let minimumValue: Int
+    public let maximumValue: Int
     public let hasLowerBoundOffset: Bool
     public let hasUpperBoundOffset: Bool
-    public let accessibilityStepIncrement: Int
-    public let range: ClosedRange<T>
-    public let values: [T]
-    public let valuesWithOffsets: [T]
+    public let values: [Int]
 
-    public var referenceValues: [T] {
-        var result = [T]()
+    public var referenceValues: [Int] {
+        var result = [Int]()
 
         if let first = values.first {
             result.append(first)
@@ -40,45 +33,26 @@ public struct StepSliderInfo<T: SliderValueKind> {
 
     // MARK: - Init
 
-    public init(minimumValue: T,
-                maximumValue: T,
-                stepValues: [T],
+    public init(minimumValue: Int,
+                maximumValue: Int,
+                stepValues: [Int],
                 hasLowerBoundOffset: Bool,
                 hasUpperBoundOffset: Bool,
                 accessibilityStepIncrement: Int? = nil) {
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
-
-        let offset: T = 1
-        minimumValueWithOffset = hasLowerBoundOffset ? minimumValue - offset : minimumValue
-        maximumValueWithOffset = hasUpperBoundOffset ? maximumValue + offset : maximumValue
-
         self.hasLowerBoundOffset = hasLowerBoundOffset
         self.hasUpperBoundOffset = hasUpperBoundOffset
-        self.accessibilityStepIncrement = accessibilityStepIncrement ?? 1
-        range = minimumValue ... maximumValue
         values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
-
-        var valuesWithOffsets = values
-
-        if hasLowerBoundOffset {
-            valuesWithOffsets.insert(minimumValueWithOffset, at: 0)
-        }
-
-        if hasUpperBoundOffset {
-            valuesWithOffsets.append(maximumValueWithOffset)
-        }
-
-        self.valuesWithOffsets = valuesWithOffsets
     }
 
-    public init(minimumValue: T,
-                maximumValue: T,
-                incrementedBy increment: T,
+    public init(minimumValue: Int,
+                maximumValue: Int,
+                incrementedBy increment: Int,
                 hasLowerBoundOffset: Bool,
                 hasUpperBoundOffset: Bool,
                 accessibilityStepIncrement: Int? = nil) {
-        var values = [T]()
+        var values = [Int]()
         var value = minimumValue
 
         while value + increment < maximumValue {
@@ -98,15 +72,15 @@ public struct StepSliderInfo<T: SliderValueKind> {
 
     // MARK: - Helpers
 
-    func isLowValueInValidRange(_ lowValue: T) -> Bool {
-        if lowValue >= range.lowerBound {
-            return !(lowValue == 0 && range.lowerBound == 0)
-        } else {
-            return false
+    func value(for step: Step) -> Int? {
+        if !hasLowerBoundOffset && step == .lowerBound {
+            return minimumValue
         }
-    }
 
-    func isHighValueInValidRange(_ highValue: T) -> Bool {
-        return highValue <= range.upperBound
+        if !hasUpperBoundOffset && step == .upperBound {
+            return maximumValue
+        }
+
+        return values.value(for: step)
     }
 }

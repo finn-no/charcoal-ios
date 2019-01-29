@@ -5,6 +5,9 @@
 import Foundation
 
 public final class RangeFilterViewController: FilterViewController {
+    private let filterInfo: RangeFilterInfoType
+    private var currentRangeValue: RangeValue?
+
     lazy var rangeFilterView: RangeFilterView = {
         let view = RangeFilterView(filterInfo: filterInfo)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -12,8 +15,7 @@ public final class RangeFilterViewController: FilterViewController {
         return view
     }()
 
-    var currentRangeValue: RangeValue?
-    let filterInfo: RangeFilterInfoType
+    // MARK: - Init
 
     public required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -29,12 +31,16 @@ public final class RangeFilterViewController: FilterViewController {
         fatalError("init(string:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         setSelectionValue(selectionDataSource.rangeValue(for: filterInfo))
     }
 }
+
+// MARK: - Private
 
 private extension RangeFilterViewController {
     func setup() {
@@ -53,8 +59,8 @@ private extension RangeFilterViewController {
 
     func setSelectionValue(_ range: RangeValue?) {
         currentRangeValue = range
-        rangeFilterView.setLowValue(range?.lowValue, animated: false)
         rangeFilterView.setHighValue(range?.highValue, animated: false)
+        rangeFilterView.setLowValue(range?.lowValue, animated: false)
     }
 
     func updateSelectionDataSource() {
@@ -66,6 +72,8 @@ private extension RangeFilterViewController {
         showApplyButton(true)
     }
 }
+
+// MARK: - RangeFilterViewDelegate
 
 extension RangeFilterViewController: RangeFilterViewDelegate {
     public func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {

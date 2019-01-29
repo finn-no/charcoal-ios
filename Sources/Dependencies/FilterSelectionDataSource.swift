@@ -5,21 +5,28 @@
 import Foundation
 
 public protocol FilterSelectionInfo {
+    var isValid: Bool { get }
 }
 
 public struct FilterSelectionDataInfo: FilterSelectionInfo {
     public let filter: FilterInfoType
     public let value: String
+    public let isValid = true
 }
 
 public struct FilterRangeSelectionInfo: FilterSelectionInfo {
     public let filter: RangeFilterInfoType
     public let value: RangeValue
+
+    public var isValid: Bool {
+        return filter.sliderInfo.isValidRangeValue(value)
+    }
 }
 
 public struct FilterStepperSelectionInfo: FilterSelectionInfo {
     public let filter: StepperFilterInfoType
     public let value: Int
+    public let isValid = true
 }
 
 public enum RangeValue {

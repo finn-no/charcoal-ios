@@ -414,6 +414,7 @@ extension ParameterBasedFilterInfoSelectionDataSourceTests {
 private class MockFilterInfo: ParameterBasedFilterInfo {
     var parameterName: String
     var title: String
+    var isContextFilter: Bool = false
 
     init(parameterName: String, title: String) {
         self.parameterName = parameterName

@@ -37,7 +37,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 .price,
                 .year,
                 .engineEffect,
-                .weight
+                .weight,
             ]
         case .bus:
             return [
@@ -46,7 +46,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 .make,
                 .price,
                 .year,
-                .engineEffect
+                .engineEffect,
             ]
         case .construction:
             return [
@@ -55,7 +55,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 .make,
                 .price,
                 .year,
-                .engineEffect
+                .engineEffect,
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
@@ -63,14 +63,14 @@ extension FilterMarketB2B: FilterConfiguration {
                 .make,
                 .price,
                 .year,
-                .engineEffect
+                .engineEffect,
             ]
         case .agricultureTools:
             return [
                 .location,
                 .category,
                 .price,
-                .year
+                .year,
             ]
         case .vanNorway, .vanAbroad:
             return [
@@ -89,7 +89,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 .wheelSets,
                 .warrantyInsurance,
                 .condition,
-                .salesForm
+                .salesForm,
             ]
         }
     }
@@ -123,22 +123,22 @@ extension FilterMarketB2B: FilterConfiguration {
             case .bus:
                 lowValue = 0
                 highValue = 500_000
-                increment = 10_000
+                increment = 10000
                 rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             case .agricultureTractor:
                 lowValue = 0
                 highValue = 1_000_000
-                increment = 10_000
+                increment = 10000
                 rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
             case .vanNorway, .vanAbroad:
-                lowValue = 10_000
+                lowValue = 10000
                 highValue = 700_000
-                increment = 10_000
+                increment = 10000
                 rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             default:
-                lowValue = 30_000
+                lowValue = 30000
                 highValue = 1_000_000
-                increment = 10_000
+                increment = 10000
                 rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             }
             unit = "kr"
@@ -182,8 +182,8 @@ extension FilterMarketB2B: FilterConfiguration {
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
         case .weight:
-            lowValue = 1_000
-            highValue = 40_000
+            lowValue = 1000
+            highValue = 40000
             unit = "kg"
             rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             increment = 50

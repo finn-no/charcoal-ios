@@ -102,4 +102,22 @@ final class StepSliderInfoTests: XCTestCase {
         XCTAssertEqual(info.value(for: .value(index: 2, rounded: false)), 2)
         XCTAssertEqual(info.value(for: .value(index: 2, rounded: true)), 2)
     }
+
+    func testIsValidRangeValue() {
+        let info = StepSliderInfo(
+            minimumValue: 0,
+            maximumValue: 5,
+            incrementedBy: 1,
+            hasLowerBoundOffset: false,
+            hasUpperBoundOffset: false
+        )
+
+        XCTAssertTrue(info.isValidRangeValue(.maximum(highValue: 1000)))
+        XCTAssertTrue(info.isValidRangeValue(.minimum(lowValue: 1000)))
+        XCTAssertTrue(info.isValidRangeValue(.closed(lowValue: 0, highValue: 5)))
+        XCTAssertTrue(info.isValidRangeValue(.closed(lowValue: 1, highValue: 4)))
+        XCTAssertTrue(info.isValidRangeValue(.closed(lowValue: 2, highValue: 2)))
+        XCTAssertFalse(info.isValidRangeValue(.closed(lowValue: 2, highValue: 1)))
+        XCTAssertFalse(info.isValidRangeValue(.closed(lowValue: 10, highValue: 10000)))
+    }
 }

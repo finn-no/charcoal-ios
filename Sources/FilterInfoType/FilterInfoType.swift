@@ -6,6 +6,7 @@ import Foundation
 
 public protocol FilterInfoType {
     var title: String { get }
+    var isContextFilter: Bool { get set }
 }
 
 public struct FilterValueUniqueKey: Hashable {

@@ -9,6 +9,47 @@ protocol FilterCellDelegate: AnyObject {
 }
 
 class FilterCell: UITableViewCell {
+
+    // MARK: - Public properties
+
+    weak var delegate: FilterCellDelegate?
+
+    var filterName: String? {
+        didSet {
+            nameLabel.text = filterName
+        }
+    }
+
+    var selectedValues: [SelectionWithTitle]? {
+        didSet {
+            currentValuesContainer.configure(with: selectedValues)
+        }
+    }
+
+    var isContextFilter: Bool = false {
+        didSet {
+            dotView.isHidden = !isContextFilter
+            nameLabelLeadingConstraint.isActive = isContextFilter
+        }
+    }
+
+    override var textLabel: UILabel? {
+        return nil
+    }
+
+    // MARK: - Private properties
+
+    private let dotSize: CGFloat = 10
+    private lazy var nameLabelLeadingConstraint = nameLabel.leadingAnchor.constraint(equalTo: dotView.trailingAnchor, constant: .mediumSpacing)
+
+    private lazy var dotView: UIView = {
+        let view = UIView(withAutoLayout: true)
+        view.isHidden = true
+        view.backgroundColor = .red
+        view.layer.cornerRadius = dotSize / 2
+        return view
+    }()
+
     private lazy var nameLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -25,24 +66,6 @@ class FilterCell: UITableViewCell {
         return view
     }()
 
-    override var textLabel: UILabel? {
-        return nil
-    }
-
-    weak var delegate: FilterCellDelegate?
-
-    var filterName: String? {
-        didSet {
-            nameLabel.text = filterName
-        }
-    }
-
-    var selectedValues: [SelectionWithTitle]? {
-        didSet {
-            currentValuesContainer.configure(with: selectedValues)
-        }
-    }
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -57,6 +80,8 @@ class FilterCell: UITableViewCell {
         super.prepareForReuse()
         selectedValues = nil
         filterName = nil
+        dotView.isHidden = true
+        nameLabelLeadingConstraint.isActive = false
     }
 }
 
@@ -64,6 +89,7 @@ private extension FilterCell {
     func setup() {
         selectionStyle = .none
 
+        contentView.addSubview(dotView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(currentValuesContainer)
 
@@ -73,9 +99,14 @@ private extension FilterCell {
         addSubview(separatorLine)
 
         NSLayoutConstraint.activate([
+            dotView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
+            dotView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            dotView.heightAnchor.constraint(equalToConstant: dotSize),
+            dotView.widthAnchor.constraint(equalToConstant: dotSize),
+
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumSpacing),
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumSpacing),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
+            nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
 
             currentValuesContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             currentValuesContainer.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),
@@ -84,7 +115,7 @@ private extension FilterCell {
 
             separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separatorLine.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
             separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }

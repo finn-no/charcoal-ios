@@ -339,6 +339,7 @@ extension FilterRootViewController: UITableViewDataSource {
                 cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
                 cell.accessoryType = .disclosureIndicator
                 cell.delegate = self
+                cell.isContextFilter = listSelectionInfo.isContextFilter
                 return cell
             case let multiLevelListSelectionInfo as MultiLevelListSelectionFilterInfoType:
                 let cell = tableView.dequeue(FilterCell.self, for: indexPath)
@@ -346,6 +347,7 @@ extension FilterRootViewController: UITableViewDataSource {
                 cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
                 cell.accessoryType = .disclosureIndicator
                 cell.delegate = self
+                cell.isContextFilter = multiLevelListSelectionInfo.isContextFilter
                 return cell
             case let rangeInfo as RangeFilterInfoType:
                 let cell = tableView.dequeue(FilterCell.self, for: indexPath)
@@ -353,6 +355,7 @@ extension FilterRootViewController: UITableViewDataSource {
                 cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
                 cell.accessoryType = .disclosureIndicator
                 cell.delegate = self
+                cell.isContextFilter = rangeInfo.isContextFilter
                 return cell
             case let stepperInfo as StepperFilterInfoType:
                 let cell = tableView.dequeue(FilterCell.self, for: indexPath)
@@ -360,6 +363,7 @@ extension FilterRootViewController: UITableViewDataSource {
                 cell.selectedValues = selectionValues.map({ SelectionWithTitle(selectionInfo: $0, title: filterSelectionTitleProvider.titleForSelection($0)) })
                 cell.accessoryType = .disclosureIndicator
                 cell.delegate = self
+                cell.isContextFilter = stepperInfo.isContextFilter
                 return cell
             default:
                 fatalError("Unimplemented component \(String(describing: filterInfo))")

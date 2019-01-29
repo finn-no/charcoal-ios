@@ -11,6 +11,7 @@ public class StepperFilterInfo: StepperFilterInfoType, ParameterBasedFilterInfo 
     public let upperLimit: Int
     public let title: String
     public let parameterName: String
+    public var isContextFilter: Bool = false
 
     public init(unit: String, steps: Int, lowerLimit: Int, upperLimit: Int, title: String, parameterName: String) {
         self.unit = unit

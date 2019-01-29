@@ -10,6 +10,7 @@ struct StepperData: StepperFilterInfoType {
     let lowerLimit = 0
     let upperLimit = 6
     let title = "Antall Soverom"
+    var isContextFilter: Bool = false
 }
 
 class StepperFilterDemoView: UIView {

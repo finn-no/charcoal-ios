@@ -22,6 +22,8 @@ class DemoListSelectionFilterInfo: ListSelectionFilterInfoType {
         return "Topp kategori"
     }
 
+    var isContextFilter: Bool = false
+
     static let listItems: [DemoListItem] = {
         return [
             DemoListItem(title: "Antikviteter og kunst", results: 64769, isSelected: false),

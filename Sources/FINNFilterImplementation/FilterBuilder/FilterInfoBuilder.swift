@@ -102,28 +102,41 @@ private extension FilterInfoBuilder {
     }
 
     func buildFilterInfo(fromKeys keys: [FilterKey], mapKey: FilterKey?, addValuesTo lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> [FilterInfoType] {
-        var filterInfo = [FilterInfoType]()
+        guard let market = FilterMarket(market: filter.market) else { return [] }
+        var filterInfoArray = [FilterInfoType]()
 
         keys.forEach({ key in
-            guard let filterData = filter.filterData(forKey: key) else {
+            guard let filterInfo = self.filterInfo(for: key, mapKey: mapKey, lookup: &lookup) else {
                 return
             }
+            filterInfoArray.append(filterInfo)
 
-            if let isRange = filterData.isRange, isRange {
-                guard let market = FilterMarket(market: filter.market), let rangeFilterInfo = market.createFilterInfoFrom(rangeFilterData: filterData) else { return }
-                filterInfo.append(rangeFilterInfo)
-            } else if FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterData) {
-                if let mulitLevelSelectionFilterInfo = buildMultiLevelListSelectionFilterInfo(fromFilterData: filterData, isMapFilter: key == mapKey, addValuesTo: &lookup) {
-                    filterInfo.append(mulitLevelSelectionFilterInfo)
+            let contextFilterKeys = market.contextFilterKeys(for: key)
+            contextFilterKeys.forEach({ contextFilterKey in
+                guard var contextFilterInfo = self.filterInfo(for: contextFilterKey, mapKey: mapKey, lookup: &lookup) else {
+                    return
                 }
-            } else if FilterInfoBuilder.isListSelectionFilter(filterData: filterData) {
-                if let selectionListFilterInfo = buildSelectionListFilterInfo(from: filterData, isMapFilter: key == mapKey, addValuesTo: &lookup) {
-                    filterInfo.append(selectionListFilterInfo)
-                }
-            }
+                contextFilterInfo.isContextFilter = true
+                filterInfoArray.append(contextFilterInfo)
+            })
         })
 
-        return filterInfo
+        return filterInfoArray
+    }
+
+    private func filterInfo(for key: FilterKey, mapKey: FilterKey?, lookup: inout [FilterValueUniqueKey: FilterValueWithNumberOfHitsType]) -> FilterInfoType? {
+        guard let filterData = filter.filterData(forKey: key), let market = FilterMarket(market: filter.market) else {
+            return nil
+        }
+
+        if let isRange = filterData.isRange, isRange {
+            return market.createFilterInfoFrom(rangeFilterData: filterData)
+        } else if FilterInfoBuilder.isMultiLevelListSelectionFilter(filterData: filterData) {
+            return buildMultiLevelListSelectionFilterInfo(fromFilterData: filterData, isMapFilter: key == mapKey, addValuesTo: &lookup)
+        } else if FilterInfoBuilder.isListSelectionFilter(filterData: filterData) {
+            return buildSelectionListFilterInfo(from: filterData, isMapFilter: key == mapKey, addValuesTo: &lookup)
+        }
+        return nil
     }
 }
 

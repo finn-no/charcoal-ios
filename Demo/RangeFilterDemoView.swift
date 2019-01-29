@@ -52,6 +52,7 @@ private struct RangeFilterInfo: RangeFilterInfoType {
     let accessibilityValueSuffix: String? = nil
     let usesSmallNumberInputFont = false
     let displaysUnitInNumberInput = true
+    var isContextFilter: Bool = false
 
     let sliderInfo = StepSliderInfo(
         minimumValue: 0,

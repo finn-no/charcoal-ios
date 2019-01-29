@@ -212,6 +212,7 @@ extension String {
 struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
     var placeholderText: String
     var title: String
+    var isContextFilter: Bool = false
 }
 
 class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {

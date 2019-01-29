@@ -9,6 +9,7 @@ class MultiLevelListSelectionFilterInfo: MultiLevelListSelectionFilterInfoType, 
     let isMultiSelect: Bool
     let results: Int
     let value: String
+    var isContextFilter: Bool = false
     private(set) weak var parent: MultiLevelListSelectionFilterInfoType?
     var selectionState: MultiLevelListItemSelectionState
     var hasParent: Bool {

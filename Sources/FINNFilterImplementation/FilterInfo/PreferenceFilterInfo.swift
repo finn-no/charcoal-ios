@@ -7,6 +7,7 @@ class PreferenceFilterInfo: PreferenceFilterInfoType, ParameterBasedFilterInfo {
     let title: String
     let values: [FilterValueType]
     let isMultiSelect: Bool
+    var isContextFilter: Bool = false
 
     init(parameterName: String, title: String, values: [FilterValueType], isMultiSelect: Bool = true) {
         self.parameterName = parameterName

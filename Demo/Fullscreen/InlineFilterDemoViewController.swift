@@ -45,23 +45,23 @@ extension InlineFilterDemoViewController {
                     PreferenceValueTypeDemo(title: "Til salgs", value: "1", results: 1),
                     PreferenceValueTypeDemo(title: "Gis bort", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Ønskes kjøpt", value: "3", results: 1),
-            ], isMultiSelect: true),
+            ], isMultiSelect: true, isContextFilter: false),
             PreferenceInfoDemo(title: "Tilstand", values:
                 [
                     PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
                     PreferenceValueTypeDemo(title: "Brukt", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Nytt", value: "3", results: 1),
-            ], isMultiSelect: false),
+            ], isMultiSelect: false, isContextFilter: false),
             PreferenceInfoDemo(title: "Selger", values:
                 [
                     PreferenceValueTypeDemo(title: "Alle", value: "0", results: 1),
                     PreferenceValueTypeDemo(title: "Forhandler", value: "2", results: 1),
                     PreferenceValueTypeDemo(title: "Privat", value: "3", results: 1),
-            ], isMultiSelect: false),
+            ], isMultiSelect: false, isContextFilter: false),
             PreferenceInfoDemo(title: "Publisert", values:
                 [
                     PreferenceValueTypeDemo(title: "Nye i dag", value: "1", results: 1),
-            ], isMultiSelect: false),
+            ], isMultiSelect: false, isContextFilter: false),
         ]
     }
 }
@@ -111,6 +111,7 @@ struct PreferenceInfoDemo: PreferenceFilterInfoType {
     var title: String
     var values: [FilterValueType]
     var isMultiSelect: Bool
+    var isContextFilter: Bool = false
 }
 
 struct PreferenceValueTypeDemo: FilterValueType {

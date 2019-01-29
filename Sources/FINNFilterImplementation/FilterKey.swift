@@ -38,6 +38,7 @@ public enum FilterKey: String, CodingKey {
     case leasepriceMonth = "leaseprice_month"
     case leisureSituation = "leisure_situation"
     case length
+    case lengthCm = "length_cm"
     case lengthFeet = "length_feet"
     case location
     case make

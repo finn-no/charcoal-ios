@@ -8,6 +8,7 @@ class ListSelectionFilterInfo: ListSelectionFilterInfoType, ParameterBasedFilter
     let values: [FilterValueType]
     let isMultiSelect: Bool
     let isMapFilter: Bool
+    var isContextFilter: Bool = false
 
     init(parameterName: String, title: String, values: [FilterValueType], isMultiSelect: Bool, isMapFilter: Bool) {
         self.parameterName = parameterName

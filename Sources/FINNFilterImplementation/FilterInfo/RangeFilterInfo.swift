@@ -15,6 +15,7 @@ final class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
     let accessibilityValueSuffix: String?
     let usesSmallNumberInputFont: Bool
     let displaysUnitInNumberInput: Bool
+    var isContextFilter: Bool = false
 
     init(parameterName: String, title: String, lowValue: Int, highValue: Int, increment: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
         self.parameterName = parameterName

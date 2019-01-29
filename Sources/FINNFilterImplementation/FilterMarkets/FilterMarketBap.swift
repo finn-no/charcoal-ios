@@ -34,7 +34,7 @@ extension FilterMarketBap: FilterConfiguration {
     func contextFilterKeys(for key: FilterKey) -> [FilterKey] {
         switch key {
         case .category:
-            return []
+            return [.lengthCm]
         default:
             return []
         }
@@ -63,6 +63,16 @@ extension FilterMarketBap: FilterConfiguration {
             increment = 1000
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+
+        case .lengthCm:
+            lowValue = 50
+            highValue = 220
+            unit = "cm"
+            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+            increment = 5
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+
         default:
             return nil
         }

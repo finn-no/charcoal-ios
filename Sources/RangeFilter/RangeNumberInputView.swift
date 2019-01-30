@@ -23,7 +23,8 @@ final class RangeNumberInputView: UIView {
     var generatesHapticFeedbackOnValueChange = true
     var accessibilityValueSuffix: String?
 
-    private let minValue: Int
+    private let minimumValue: Int
+    private let maximumValue: Int
     private let unit: String
     private let formatter: RangeFilterValueFormatter
     private var inputFontSize: CGFloat
@@ -136,8 +137,10 @@ final class RangeNumberInputView: UIView {
 
     // MARK: - Init
 
-    init(minValue: Int, unit: String, formatter: RangeFilterValueFormatter, inputFontSize: InputFontSize = .large, displaysUnitInNumberInput: Bool = true) {
-        self.minValue = minValue
+    init(minimumValue: Int, maximumValue: Int, unit: String, formatter: RangeFilterValueFormatter,
+         inputFontSize: InputFontSize = .large, displaysUnitInNumberInput: Bool = true) {
+        self.minimumValue = minimumValue
+        self.maximumValue = maximumValue
         self.unit = unit
         self.formatter = formatter
         self.inputFontSize = inputFontSize.rawValue
@@ -198,7 +201,7 @@ extension RangeNumberInputView {
         let valueText = text(from: value)
         lowValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
-        inputValues[.lowValue] = value
+        inputValues[.lowValue] = value == minimumValue ? nil : value
         validateInputs(activeInputGroup: .lowValue)
     }
 
@@ -206,7 +209,7 @@ extension RangeNumberInputView {
         let valueText = text(from: value)
         highValueInputTextField.text = valueText
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
-        inputValues[.highValue] = value
+        inputValues[.highValue] = value == maximumValue ? nil : value
         validateInputs(activeInputGroup: .highValue)
     }
 
@@ -299,7 +302,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         text.removeWhitespaces()
 
         if text.isEmpty {
-            text = "\(minValue)"
+            text = "\(minimumValue)"
         }
 
         guard let inputGroup = inputGroupMap[textField] else {
@@ -331,7 +334,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
 
 extension RangeNumberInputView {
     private func setup() {
-        let valueText = text(from: minValue)
+        let valueText = text(from: minimumValue)
         lowValueInputTextField.text = valueText
         highValueInputTextField.text = valueText
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"

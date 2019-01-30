@@ -58,6 +58,7 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         selectedValues.forEach { selectedValue in
             let button = RemoveFilterValueButton(title: selectedValue.title)
             button.translatesAutoresizingMaskIntoConstraints = false
+            button.backgroundColor = selectedValue.selectionInfo.isValid ? .primaryBlue : .cherry
             buttonContainerView.addArrangedSubview(button)
             button.addTarget(self, action: #selector(didTapRemoveButton(_:)), for: .touchUpInside)
         }

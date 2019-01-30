@@ -34,7 +34,8 @@ public final class RangeFilterView: UIView {
     private lazy var numberInputView: RangeNumberInputView = {
         let inputFontSize: RangeNumberInputView.InputFontSize = filterInfo.usesSmallNumberInputFont ? .small : .large
         let rangeNumberInputView = RangeNumberInputView(
-            minValue: sliderInfo.minimumValue,
+            minimumValue: sliderInfo.minimumValue,
+            maximumValue: sliderInfo.maximumValue,
             unit: filterInfo.unit,
             formatter: formatter,
             inputFontSize: inputFontSize,

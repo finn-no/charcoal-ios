@@ -80,8 +80,7 @@ class FilterCell: UITableViewCell {
         super.prepareForReuse()
         selectedValues = nil
         filterName = nil
-        dotView.isHidden = true
-        nameLabelLeadingConstraint.isActive = false
+        isContextFilter = false
     }
 }
 

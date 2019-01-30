@@ -6,6 +6,7 @@ import UIKit
 
 public protocol FilterRootStateControllerDelegate: AnyObject {
     func filterRootStateController(_: FilterRootStateController, shouldChangeVertical vertical: Vertical)
+    func filterRootStateControllerDidPressApplyButton(_: FilterRootStateController)
     func filterRootStateControllerShouldShowResults(_: FilterRootStateController)
 }
 
@@ -126,7 +127,17 @@ public class FilterRootStateController: UIViewController {
     }
 }
 
+extension FilterRootStateController: ApplySelectionButtonDelegate {
+    public func filterViewControllerDidPressApplyButton(_ viewController: FilterViewController) {
+        delegate?.filterRootStateControllerDidPressApplyButton(self)
+    }
+}
+
 extension FilterRootStateController: FilterRootViewControllerDelegate {
+    public func filterRootViewControllerDidPressApplyButton(_: FilterRootViewController) {
+        delegate?.filterRootStateControllerDidPressApplyButton(self)
+    }
+
     public func filterRootViewController(_: FilterRootViewController, didChangeVertical vertical: Vertical) {
         delegate?.filterRootStateController(self, shouldChangeVertical: vertical)
     }

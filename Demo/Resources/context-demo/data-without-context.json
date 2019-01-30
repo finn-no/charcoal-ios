@@ -1,0 +1,56 @@
+{
+    "market": "bap-sale",
+    "hits": 1374683,
+    "label": "Torget til salgs",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "category"
+    ],
+    "filter-data": {
+        "category": {
+            "title": "Kategori",
+            "name": "category",
+            "queries": [
+                {
+                    "title": "Skisport",
+                    "value": "1.69.3962",
+                    "total-results": 9035,
+                    "filter": {
+                        "title": "Produktkategori",
+                        "name": "product_category",
+                        "total-results": 9035,
+                        "queries": [
+                            {
+                                "title": "Alpint",
+                                "value": "2.69.3962.253",
+                                "total-results": 3765
+                            },
+                            {
+                                "title": "Annet skiutstyr",
+                                "value": "2.69.3962.256",
+                                "total-results": 751
+                            },
+                            {
+                                "title": "Langrenn",
+                                "value": "2.69.3962.255",
+                                "total-results": 3004
+                            },
+                            {
+                                "title": "Snowboard",
+                                "value": "2.69.3962.252",
+                                "total-results": 1031
+                            },
+                            {
+                                "title": "Telemark",
+                                "value": "2.69.3962.254",
+                                "total-results": 224
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -32,6 +32,8 @@ class DemoFilter {
 
     var loadedFilter: FilterInfoBuilderResult?
 
+    var isContextDemo = false
+
     private lazy var formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
@@ -65,8 +67,8 @@ class DemoFilter {
         let data = dataFromJSONFile(named: name)
 
         // Use this to test decoding directly from data
-        // let jsonDecoder = JSONDecoder()
-        // return try! jsonDecoder.decode(FilterSetup.self, from: data)
+        //let jsonDecoder = JSONDecoder()
+        //return try! jsonDecoder.decode(FilterSetup.self, from: data)
 
         // Use this to test decoding from pre-parsed data (dictionary)
         let jsonObj = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
@@ -217,6 +219,14 @@ extension DemoFilter: FilterRootStateControllerDelegate {
             self.loadFilterSetup(filterSetup)
             stateController?.change(to: .loadFreshFilters(data: self))
         }
+    }
+
+    func filterRootStateControllerDidPressApplyButton(_ stateController: FilterRootStateController) {
+        guard isContextDemo else { return }
+        let contextFilterSetup = DemoFilter.filterDataFromJSONFile(named: "data-with-context")
+        let filterInfoBuilder = FilterInfoBuilder(filter: contextFilterSetup, selectionDataSource: selectionDataSource)
+        loadedFilter = filterInfoBuilder.build()
+        stateController.change(to: .filtersUpdated(data: self))
     }
 
     func filterRootStateControllerShouldShowResults(_: FilterRootStateController) {

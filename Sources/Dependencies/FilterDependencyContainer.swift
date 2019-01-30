@@ -5,6 +5,8 @@
 import Foundation
 
 public class FilterDependencyContainer {
+    public weak var applyButtonDelegate: ApplySelectionButtonDelegate?
+
     private let selectionDataSource: FilterSelectionDataSource
     private let searchQuerySuggestionsDataSource: SearchQuerySuggestionsDataSource?
     private weak var filterRootStateControllerDelegate: FilterRootStateControllerDelegate?
@@ -45,7 +47,9 @@ extension FilterDependencyContainer: ViewControllerFactory {
     }
 
     public func makeMultiLevelListSelectionFilterViewController(from multiLevelListSelectionListFilterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator) -> MultiLevelListSelectionFilterViewController {
-        return MultiLevelListSelectionFilterViewController(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        let controller = MultiLevelListSelectionFilterViewController(filterInfo: multiLevelListSelectionListFilterInfo, dataSource: navigator.dataSource, selectionDataSource: selectionDataSource, navigator: navigator)
+        controller.applyButtonDelegate = applyButtonDelegate
+        return controller
     }
 
     public func makeSublevelViewController(for filterInfo: MultiLevelListSelectionFilterInfoType, navigator: FilterNavigator) -> MultiLevelListSelectionFilterViewController {

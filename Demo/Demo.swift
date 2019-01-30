@@ -73,6 +73,8 @@ enum Sections: String, CaseIterable {
                 return .none
             case .mapFilter:
                 return .none
+            case .contextFilters:
+                return .bottomSheet
             }
         case .fullscreen:
             let selectedView = FullscreenViews.allCases[indexPath.row]
@@ -117,6 +119,7 @@ enum ComponentViews: String, CaseIterable {
     case stepperFilter
     case inlineFilter
     case mapFilter
+    case contextFilters
 
     var viewController: UIViewController {
         switch self {
@@ -153,6 +156,20 @@ enum ComponentViews: String, CaseIterable {
             let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource(), navigator: nil)
             mapFilterViewController.mapFilterViewManager = mapViewManager
             return mapFilterViewController
+
+        case .contextFilters:
+            let filterData = DemoFilter.filterDataFromJSONFile(named: "data-without-context")
+            let demoFilter = DemoFilter(filter: filterData)
+            demoFilter.isContextDemo = true
+            let navigationController = FilterNavigationController()
+            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: nil, filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: nil, searchLocationDataSource: nil)
+            let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
+
+            let stateController = rootFilterNavigator.start()
+            factory.applyButtonDelegate = stateController
+            stateController.change(to: .loadFreshFilters(data: demoFilter))
+
+            return navigationController
         }
     }
 }

@@ -10,7 +10,6 @@
                 "published",
                 "location",
                 "category",
-                "length_cm",
                 "price",
                 "segment",
                 "condition"
@@ -73,11 +72,6 @@
                         "total-results": 209398
                         }
                         ]
-        },
-        "length_cm": {
-            "title": "Lengde i cm",
-            "range": true,
-            "name": "length_cm"
         },
         "location": {
             "title": "Område",

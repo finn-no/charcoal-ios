@@ -158,16 +158,14 @@ enum ComponentViews: String, CaseIterable {
             return mapFilterViewController
 
         case .contextFilters:
-            let filterData = DemoFilter.filterDataFromJSONFile(named: "data-without-context")
-            let demoFilter = DemoFilter(filter: filterData)
-            demoFilter.isContextDemo = true
+            let demoFilter = ContextFilterDemo(filename: "data-without-context")
             let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: nil, filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: nil, searchLocationDataSource: nil)
+            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: nil, filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: nil, searchLocationDataSource: nil)
             let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
 
             let stateController = rootFilterNavigator.start()
-            factory.applyButtonDelegate = stateController
             stateController.change(to: .loadFreshFilters(data: demoFilter))
+            demoFilter.rootStateController = stateController
 
             return navigationController
         }

@@ -194,6 +194,7 @@
 		DAEB179721A6986500D9AAD6 /* SearchQueryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */; };
 		DAEDFEDC220194DF0069E755 /* data-without-context.json in Resources */ = {isa = PBXBuildFile; fileRef = DAEDFEDB220194DF0069E755 /* data-without-context.json */; };
 		DAEDFEE42201C4350069E755 /* data-with-context.json in Resources */ = {isa = PBXBuildFile; fileRef = DAEDFEE32201C4350069E755 /* data-with-context.json */; };
+		DAEDFF062201FEBA0069E755 /* ContextFilterDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEDFF052201FEBA0069E755 /* ContextFilterDemo.swift */; };
 		DAF3CA7021830293007235B0 /* StepperFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
@@ -425,6 +426,7 @@
 		DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryViewController.swift; sourceTree = "<group>"; };
 		DAEDFEDB220194DF0069E755 /* data-without-context.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "data-without-context.json"; sourceTree = "<group>"; };
 		DAEDFEE32201C4350069E755 /* data-with-context.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "data-with-context.json"; sourceTree = "<group>"; };
+		DAEDFF052201FEBA0069E755 /* ContextFilterDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextFilterDemo.swift; sourceTree = "<group>"; };
 		DAF3CA6F21830293007235B0 /* StepperFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
 		DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterDemoView.swift; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 				9BAF4F85212EE64F003DD663 /* SearchQuery */,
 				DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */,
 				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
+				DAEDFF052201FEBA0069E755 /* ContextFilterDemo.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -1503,6 +1506,7 @@
 				DA51041C21BE6AFE004048BD /* Font.swift in Sources */,
 				55893236209C7ECF00512FF8 /* ListSelectionViewControllerDemoModels.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,
+				DAEDFF062201FEBA0069E755 /* ContextFilterDemo.swift in Sources */,
 				9BF778CF21C1663D006C0416 /* MapViewManager.swift in Sources */,
 				DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */,
 				44ECE6AD208F816D0017AC82 /* DemoViewsTableViewController.swift in Sources */,

@@ -4,10 +4,6 @@
 
 import Foundation
 
-public protocol ApplySelectionButtonDelegate: class {
-    func filterViewControllerDidPressApplyButton(_ viewController: FilterViewController)
-}
-
 public protocol ApplySelectionButtonOwner: class {
     var isShowingApplyButton: Bool { get }
     func showApplyButton(_ show: Bool, animated: Bool)
@@ -23,7 +19,6 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
 
     public var isShowingApplyButton: Bool = false
     public weak var parentApplyButtonOwner: ApplySelectionButtonOwner?
-    public weak var applyButtonDelegate: ApplySelectionButtonDelegate?
 
     lazy var applySelectionButton: FilterBottomButtonView = {
         let buttonView = FilterBottomButtonView()
@@ -79,7 +74,6 @@ public class FilterViewController: UIViewController, ApplySelectionButtonOwner {
 extension FilterViewController: FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         applyButtonTapped()
-        applyButtonDelegate?.filterViewControllerDidPressApplyButton(self)
         navigationController?.popToRootViewController(animated: true)
     }
 }

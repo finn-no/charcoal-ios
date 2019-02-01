@@ -5,8 +5,16 @@
 import Foundation
 
 public final class RangeFilterViewController: FilterViewController {
+
+    // MARK: - Private attributes
+
     private let filterInfo: RangeFilterInfoType
     private var currentRangeValue: RangeValue?
+    private lazy var swallowPanGesture: UIPanGestureRecognizer = {
+        let gestureRecognizer = UIPanGestureRecognizer()
+        gestureRecognizer.cancelsTouchesInView = true
+        return gestureRecognizer
+    }()
 
     lazy var rangeFilterView: RangeFilterView = {
         let view = RangeFilterView(filterInfo: filterInfo)
@@ -44,6 +52,7 @@ public final class RangeFilterViewController: FilterViewController {
 
 private extension RangeFilterViewController {
     func setup() {
+        view.addGestureRecognizer(swallowPanGesture)
         view.backgroundColor = .milk
         title = filterInfo.title
 

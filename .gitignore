@@ -29,11 +29,7 @@ DerivedData
 *.gcda
 *.bcsymbolmap
 
-Carthage/Checkouts/*
-Carthage/Build/watchOS/*
-Carthage/Build/tvOS/FilterKit.framework*
-Carthage/Build/Mac/FilterKit.framework*
-Carthage/Build/iOS/FilterKit.framework*
+Pods/
 FilterKit.framework.zip
 
 # fastlane

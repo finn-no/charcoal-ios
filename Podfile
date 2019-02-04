@@ -18,14 +18,14 @@ inhibit_all_warnings!
 # Disable sending stats
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
-abstract_target "SharedDependencies" do
-  target 'Charcoal' do
-    pod 'FinniversKit', :git => 'https://github.com/finn-no/FinniversKit.git', :branch => 'master'
-    pod 'HockeySDK', '~> 5.0'
+target 'Charcoal' do
+  pod 'FinniversKit', :git => 'https://github.com/finn-no/FinniversKit.git', :branch => 'master'
+end
+target 'Demo' do
+  pod 'HockeySDK/AllFeaturesLib', '5.1.4'
 
-    target 'Demo' do
-      inherit! :search_paths
-    end
+  target 'UnitTests' do
+    inherit! :search_paths
   end
 end
 

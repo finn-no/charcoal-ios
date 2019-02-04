@@ -2,13 +2,11 @@ PODS:
   - FinniversKit (0.6.0):
     - FinniversKit/DNA (= 0.6.0)
   - FinniversKit/DNA (0.6.0)
-  - HockeySDK (5.1.4):
-    - HockeySDK/DefaultLib (= 5.1.4)
-  - HockeySDK/DefaultLib (5.1.4)
+  - HockeySDK/AllFeaturesLib (5.1.4)
 
 DEPENDENCIES:
   - FinniversKit (from `https://github.com/finn-no/FinniversKit.git`, branch `master`)
-  - HockeySDK (~> 5.0)
+  - HockeySDK/AllFeaturesLib (= 5.1.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -28,6 +26,6 @@ SPEC CHECKSUMS:
   FinniversKit: 040b21cb55e16e890dfb871f4deb8a3407b7df5e
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
 
-PODFILE CHECKSUM: 319c8d8bbe0d97b68488568312a5ec9a3cf45717
+PODFILE CHECKSUM: 85bdbcd7be6dd61674994953b5053b42843fabef
 
 COCOAPODS: 1.6.0.rc.2

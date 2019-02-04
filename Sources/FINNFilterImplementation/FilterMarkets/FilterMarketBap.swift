@@ -21,8 +21,8 @@ extension FilterMarketBap: FilterConfiguration {
 
     var supportedFiltersKeys: [FilterKey] {
         return [
-            .location,
             .category,
+            .location,
             .price,
         ]
     }

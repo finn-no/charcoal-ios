@@ -335,9 +335,13 @@ extension RangeNumberInputView: UITextFieldDelegate {
 extension RangeNumberInputView {
     private func setup() {
         let valueText = text(from: minimumValue)
+
         lowValueInputTextField.text = valueText
-        highValueInputTextField.text = valueText
+        lowValueInputTextField.inputAccessoryView = UIToolbar(target: self, nextTextField: highValueInputTextField)
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
+
+        highValueInputTextField.text = valueText
+        highValueInputTextField.inputAccessoryView = UIToolbar(target: self, previousTextField: lowValueInputTextField)
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
 
         if displaysUnitInNumberInput {
@@ -537,5 +541,22 @@ private extension String {
     mutating func removeWhitespaces() {
         let components = self.components(separatedBy: .whitespaces)
         self = components.joined(separator: "")
+    }
+}
+
+private extension UIToolbar {
+    convenience init(target: UIView, previousTextField: UITextField? = nil, nextTextField: UITextField? = nil) {
+        self.init()
+
+        let items: [RangeToolbarItem] = [
+            .arrow(imageAsset: .arrowLeft, target: previousTextField),
+            .fixedSpace(width: .mediumLargeSpacing),
+            .arrow(imageAsset: .arrowRight, target: nextTextField),
+            .flexibleSpace,
+            .done(target: target),
+        ]
+
+        sizeToFit()
+        setItems(items.map({ $0.buttonItem }), animated: false)
     }
 }

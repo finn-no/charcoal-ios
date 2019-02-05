@@ -15,6 +15,8 @@ extension UIImage {
 
 enum ImageAsset: String {
     case arrowDown
+    case arrowLeft
+    case arrowRight
     case checkboxOff
     case checkboxOn
     case checkboxPartial
@@ -38,6 +40,8 @@ enum ImageAsset: String {
     public static var imageNames: [ImageAsset] {
         return [
             .arrowDown,
+            .arrowLeft,
+            .arrowRight,
             .checkboxOff,
             .checkboxOn,
             .checkboxPartial,

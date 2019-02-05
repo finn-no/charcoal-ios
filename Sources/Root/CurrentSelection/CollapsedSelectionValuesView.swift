@@ -30,8 +30,13 @@ class CollapsedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
             collapsedLabel.text = nil
             return
         }
-        let titles = selectedValues.compactMap({ $0.title })
-        collapsedLabel.text = "(\(selectedValues.count)) " + titles.joined(separator: ", ")
+        let titlesJoined = selectedValues.compactMap({ $0.title }).joined(separator: ", ")
+
+        if selectedValues.count > 1 {
+            collapsedLabel.text = "(\(selectedValues.count)) " + titlesJoined
+        } else {
+            collapsedLabel.text = titlesJoined
+        }
     }
 
     private func setup() {

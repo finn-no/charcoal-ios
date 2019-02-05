@@ -337,11 +337,11 @@ extension RangeNumberInputView {
         let valueText = text(from: minimumValue)
 
         lowValueInputTextField.text = valueText
-        lowValueInputTextField.inputAccessoryView = makeToolbar(nextTextField: highValueInputTextField)
+        lowValueInputTextField.inputAccessoryView = UIToolbar(target: self, nextTextField: highValueInputTextField)
         lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
 
         highValueInputTextField.text = valueText
-        highValueInputTextField.inputAccessoryView = makeToolbar(previousTextField: lowValueInputTextField)
+        highValueInputTextField.inputAccessoryView = UIToolbar(target: self, previousTextField: lowValueInputTextField)
         highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
 
         if displaysUnitInNumberInput {
@@ -513,65 +513,6 @@ extension RangeNumberInputView {
     }
 }
 
-// MARK: - Keyboard toolbar
-
-extension RangeNumberInputView {
-    private func makeToolbar(previousTextField: UITextField? = nil, nextTextField: UITextField? = nil) -> UIView {
-        let items: [BarButtonItem] = [
-            .arrow(imageAsset: .arrowLeft, target: previousTextField),
-            .fixedSpace(width: .mediumLargeSpacing),
-            .arrow(imageAsset: .arrowRight, target: nextTextField),
-            .flexibleSpace,
-            .done(target: self),
-        ]
-
-        let toolbar: UIToolbar = UIToolbar()
-        toolbar.sizeToFit()
-        toolbar.setItems(items.map({ $0.buttonItem }), animated: false)
-
-        return toolbar
-    }
-}
-
-private enum BarButtonItem {
-    case arrow(imageAsset: ImageAsset, target: UITextField?)
-    case fixedSpace(width: CGFloat)
-    case flexibleSpace
-    case done(target: Any?)
-
-    var buttonItem: UIBarButtonItem {
-        switch self {
-        case let .arrow(imageAsset, target):
-            let image = UIImage(named: imageAsset)
-            let button = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-            button.width = .largeSpacing
-
-            if let target = target {
-                button.target = target
-                button.action = #selector(UITextField.becomeFirstResponder)
-            } else {
-                button.isEnabled = false
-            }
-
-            return button
-        case let .fixedSpace(width):
-            let button = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-            button.width = width
-            return button
-        case .flexibleSpace:
-            return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        case let .done(target):
-            let button = UIBarButtonItem(title: "done".localized(), style: .plain, target: target, action: #selector(UIView.endEditing))
-            let states: [UIControl.State] = [.normal, .highlighted, .selected, .disabled]
-            states.forEach {
-                button.setTitleTextAttributes([.font: UIFont.title4], for: $0)
-            }
-
-            return button
-        }
-    }
-}
-
 // MARK: - Styles
 
 private struct Style {
@@ -600,5 +541,22 @@ private extension String {
     mutating func removeWhitespaces() {
         let components = self.components(separatedBy: .whitespaces)
         self = components.joined(separator: "")
+    }
+}
+
+private extension UIToolbar {
+    convenience init(target: UIView, previousTextField: UITextField? = nil, nextTextField: UITextField? = nil) {
+        self.init()
+
+        let items: [RangeToolbarItem] = [
+            .arrow(imageAsset: .arrowLeft, target: previousTextField),
+            .fixedSpace(width: .mediumLargeSpacing),
+            .arrow(imageAsset: .arrowRight, target: nextTextField),
+            .flexibleSpace,
+            .done(target: target),
+        ]
+
+        sizeToFit()
+        setItems(items.map({ $0.buttonItem }), animated: false)
     }
 }

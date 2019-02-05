@@ -35,8 +35,6 @@
 		08716B6721FB108D003180D8 /* realestate-leisure-sale-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5A21FB108D003180D8 /* realestate-leisure-sale-abroad.json */; };
 		08716B6821FB108D003180D8 /* realestate-plot.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5B21FB108D003180D8 /* realestate-plot.json */; };
 		08716B6921FB108D003180D8 /* realestate-leisure-plot.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5C21FB108D003180D8 /* realestate-leisure-plot.json */; };
-		08716B9721FF40F6003180D8 /* mobile-home.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9621FF40F6003180D8 /* mobile-home.json */; };
-		08716B9921FF4112003180D8 /* caravan.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9821FF4112003180D8 /* caravan.json */; };
 		08716B8B21FF2CCA003180D8 /* bus.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8221FF2CCA003180D8 /* bus.json */; };
 		08716B8C21FF2CCA003180D8 /* truck.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8321FF2CCA003180D8 /* truck.json */; };
 		08716B8D21FF2CCA003180D8 /* van-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8421FF2CCA003180D8 /* van-norway.json */; };
@@ -47,6 +45,8 @@
 		08716B9221FF2CCA003180D8 /* van-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8921FF2CCA003180D8 /* van-abroad.json */; };
 		08716B9321FF2CCA003180D8 /* construction.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8A21FF2CCA003180D8 /* construction.json */; };
 		08716B9521FF2CE4003180D8 /* FilterMarketB2B.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */; };
+		08716B9721FF40F6003180D8 /* mobile-home.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9621FF40F6003180D8 /* mobile-home.json */; };
+		08716B9921FF4112003180D8 /* caravan.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9821FF4112003180D8 /* caravan.json */; };
 		088C090F21F5C3AA00983132 /* job-full-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C090E21F5C3AA00983132 /* job-full-time.json */; };
 		088C091121F5CE4200983132 /* job-part-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091021F5CE4200983132 /* job-part-time.json */; };
 		088C091321F5CE4C00983132 /* job-management.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091221F5CE4C00983132 /* job-management.json */; };
@@ -177,6 +177,7 @@
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
+		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */; };
 		CFFD9F9421F21B0900997D14 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9321F21B0900997D14 /* FilterViewController.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
@@ -270,8 +271,6 @@
 		08716B5A21FB108D003180D8 /* realestate-leisure-sale-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-leisure-sale-abroad.json"; sourceTree = "<group>"; };
 		08716B5B21FB108D003180D8 /* realestate-plot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-plot.json"; sourceTree = "<group>"; };
 		08716B5C21FB108D003180D8 /* realestate-leisure-plot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-leisure-plot.json"; sourceTree = "<group>"; };
-		08716B9621FF40F6003180D8 /* mobile-home.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-home.json"; sourceTree = "<group>"; };
-		08716B9821FF4112003180D8 /* caravan.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = caravan.json; sourceTree = "<group>"; };
 		08716B8221FF2CCA003180D8 /* bus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bus.json; sourceTree = "<group>"; };
 		08716B8321FF2CCA003180D8 /* truck.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = truck.json; sourceTree = "<group>"; };
 		08716B8421FF2CCA003180D8 /* van-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "van-norway.json"; sourceTree = "<group>"; };
@@ -282,6 +281,8 @@
 		08716B8921FF2CCA003180D8 /* van-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "van-abroad.json"; sourceTree = "<group>"; };
 		08716B8A21FF2CCA003180D8 /* construction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = construction.json; sourceTree = "<group>"; };
 		08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketB2B.swift; sourceTree = "<group>"; };
+		08716B9621FF40F6003180D8 /* mobile-home.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-home.json"; sourceTree = "<group>"; };
+		08716B9821FF4112003180D8 /* caravan.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = caravan.json; sourceTree = "<group>"; };
 		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
 		088C091021F5CE4200983132 /* job-part-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-part-time.json"; sourceTree = "<group>"; };
 		088C091221F5CE4C00983132 /* job-management.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-management.json"; sourceTree = "<group>"; };
@@ -412,6 +413,7 @@
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
+		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfoTests.swift; sourceTree = "<group>"; };
 		CFFD9F9321F21B0900997D14 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
@@ -732,6 +734,7 @@
 				55E869DD20E2674B008B921E /* RangeFilterViewController.swift */,
 				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
 				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
+				CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */,
 				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
 			);
 			path = RangeFilter;
@@ -1421,6 +1424,7 @@
 				46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */,
 				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
+				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				08716B2B21F73B7A003180D8 /* FilterMarketCar.swift in Sources */,

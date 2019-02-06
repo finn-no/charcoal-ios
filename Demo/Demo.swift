@@ -117,7 +117,6 @@ enum ComponentViews: String, CaseIterable {
     case stepperFilter
     case inlineFilter
     case mapFilter
-    case dataStructure
 
     var viewController: UIViewController {
         switch self {
@@ -154,9 +153,6 @@ enum ComponentViews: String, CaseIterable {
             let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource(), navigator: nil)
             mapFilterViewController.mapFilterViewManager = mapViewManager
             return mapFilterViewController
-
-        case .dataStructure:
-            
         }
     }
 }

@@ -57,8 +57,7 @@ extension CCFilterViewController: CCViewControllerDelegate {
             mapController.searchLocationDataSource = mapFilterDataSource?.searchLocationDataSource(for: mapController)
         }
         nextController.delegate = viewController
-        let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
-        nextController.showBottomButton(showBottomButton, animated: false)
+        nextController.showBottomButton(viewController.isShowingApplyButton, animated: false)
         pushViewController(nextController, animated: true)
     }
 }

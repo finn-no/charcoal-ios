@@ -14,10 +14,12 @@ public class CCViewController: UIViewController, CCViewControllerDelegate {
     // MARK: - Public properties
 
     let filterNode: CCFilterNode
-    var isShowingBottomButton = false
+    var isShowingApplyButton = false
     weak var delegate: CCViewControllerDelegate?
 
     // MARK: - Private properties
+
+    lazy var bottomButtonBottomConstraint = bottomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
     lazy var bottomButton: FilterBottomButtonView = {
         let view = FilterBottomButtonView()
@@ -25,8 +27,6 @@ public class CCViewController: UIViewController, CCViewControllerDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    lazy var bottomButtonBottomConstraint = bottomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
     // MARK: - Setup
 
@@ -53,7 +53,7 @@ public class CCViewController: UIViewController, CCViewControllerDelegate {
 
     func showBottomButton(_ show: Bool, animated: Bool) {
         view.layoutIfNeeded()
-        isShowingBottomButton = show
+        isShowingApplyButton = show
         bottomButtonBottomConstraint.isActive = show
         let duration = animated ? 0.3 : 0
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {

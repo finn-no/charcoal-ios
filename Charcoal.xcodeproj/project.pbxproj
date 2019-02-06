@@ -201,6 +201,7 @@
 		DA39FA36220B17DB00608AC4 /* CCFilterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA25220B17DB00608AC4 /* CCFilterSelectionView.swift */; };
 		DA39FA38220B18E500608AC4 /* CCMapFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA37220B18E500608AC4 /* CCMapFilterNode.swift */; };
 		DA39FA3A220B1C4B00608AC4 /* CCRangeFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA39220B1C4B00608AC4 /* CCRangeFilterNode.swift */; };
+		DA39FA40220B30E700608AC4 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA3F220B30E700608AC4 /* Int.swift */; };
 		DA3F763D2188812700D21C3A /* StepperFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3F763C2188812700D21C3A /* StepperFilterInfo.swift */; };
 		DA51040B21BE5F19004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA51040C21BE5F59004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
@@ -456,6 +457,7 @@
 		DA39FA25220B17DB00608AC4 /* CCFilterSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCFilterSelectionView.swift; sourceTree = "<group>"; };
 		DA39FA37220B18E500608AC4 /* CCMapFilterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCMapFilterNode.swift; sourceTree = "<group>"; };
 		DA39FA39220B1C4B00608AC4 /* CCRangeFilterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCRangeFilterNode.swift; sourceTree = "<group>"; };
+		DA39FA3F220B30E700608AC4 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		DA3F763C2188812700D21C3A /* StepperFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterInfo.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
@@ -1034,6 +1036,7 @@
 				559C6CB320B6CB6D009B734D /* StringExtensions.swift */,
 				9BD6377D21244C0B00AB9DFE /* Color.swift */,
 				DA51041A21BE6AFE004048BD /* Font.swift */,
+				DA39FA3F220B30E700608AC4 /* Int.swift */,
 				5589322F209C3CDA00512FF8 /* UIKit */,
 			);
 			path = Extensions;
@@ -1130,13 +1133,10 @@
 		DA39FA10220B17DB00608AC4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA11220B17DB00608AC4 /* CCFilterConfiguration.swift */,
-				DA39FA12220B17DB00608AC4 /* CCFilter.swift */,
-				DA39FA13220B17DB00608AC4 /* CCFilterNode.swift */,
-				DA39FA39220B1C4B00608AC4 /* CCRangeFilterNode.swift */,
-				DA39FA37220B18E500608AC4 /* CCMapFilterNode.swift */,
-				DA39FA14220B17DB00608AC4 /* CCRangeSelectionTitlesBuilder.swift */,
-				DA39FA15220B17DB00608AC4 /* CCSelectionTitlesBuilder.swift */,
+				DA39FA3B220B2F1100608AC4 /* FilterConfiguration */,
+				DA39FA3C220B2F2800608AC4 /* Filter */,
+				DA39FA3D220B2F3E00608AC4 /* FilterNodes */,
+				DA39FA3E220B2F4800608AC4 /* SelectionTitlesBuilders */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1181,6 +1181,41 @@
 				DA39FA25220B17DB00608AC4 /* CCFilterSelectionView.swift */,
 			);
 			path = RootFilterViews;
+			sourceTree = "<group>";
+		};
+		DA39FA3B220B2F1100608AC4 /* FilterConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				DA39FA11220B17DB00608AC4 /* CCFilterConfiguration.swift */,
+			);
+			path = FilterConfiguration;
+			sourceTree = "<group>";
+		};
+		DA39FA3C220B2F2800608AC4 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				DA39FA12220B17DB00608AC4 /* CCFilter.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		DA39FA3D220B2F3E00608AC4 /* FilterNodes */ = {
+			isa = PBXGroup;
+			children = (
+				DA39FA13220B17DB00608AC4 /* CCFilterNode.swift */,
+				DA39FA39220B1C4B00608AC4 /* CCRangeFilterNode.swift */,
+				DA39FA37220B18E500608AC4 /* CCMapFilterNode.swift */,
+			);
+			path = FilterNodes;
+			sourceTree = "<group>";
+		};
+		DA39FA3E220B2F4800608AC4 /* SelectionTitlesBuilders */ = {
+			isa = PBXGroup;
+			children = (
+				DA39FA14220B17DB00608AC4 /* CCRangeSelectionTitlesBuilder.swift */,
+				DA39FA15220B17DB00608AC4 /* CCSelectionTitlesBuilder.swift */,
+			);
+			path = SelectionTitlesBuilders;
 			sourceTree = "<group>";
 		};
 		DAF3CA6E218301B3007235B0 /* StepperFilter */ = {
@@ -1540,6 +1575,7 @@
 				9BE5EC6B21CBC54F009C5E1A /* MapFilterCell.swift in Sources */,
 				55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */,
 				46A93B6F216D5C4900985139 /* MultiLevelSelectionListItemCell.swift in Sources */,
+				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
 				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,

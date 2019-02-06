@@ -76,10 +76,8 @@ extension CCRootFilterViewController: UITableViewDelegate {
         switch name {
         case "q":
             return
-
         case "preferences":
             return
-
         default:
             let selectedFilterNode = filterNode.children[indexPath.row]
             delegate?.viewController(self, didSelect: selectedFilterNode)

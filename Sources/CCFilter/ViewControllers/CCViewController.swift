@@ -14,7 +14,7 @@ public class CCViewController: UIViewController, CCViewControllerDelegate {
     // MARK: - Public properties
 
     let filterNode: CCFilterNode
-    var isShowingApplyButton = false
+    var isShowingBottomButton = false
     weak var delegate: CCViewControllerDelegate?
 
     // MARK: - Private properties
@@ -53,7 +53,7 @@ public class CCViewController: UIViewController, CCViewControllerDelegate {
 
     func showBottomButton(_ show: Bool, animated: Bool) {
         view.layoutIfNeeded()
-        isShowingApplyButton = show
+        isShowingBottomButton = show
         bottomButtonBottomConstraint.isActive = show
         let duration = animated ? 0.3 : 0
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {

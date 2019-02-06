@@ -37,6 +37,11 @@ public extension CCFilterNode {
         return children.reduce(false) { $0 || $1.hasSelectedChildren }
     }
 
+    var selectedChildren: [CCFilterNode] {
+        if isSelected { return [self] }
+        return children.reduce([]) { $0 + $1.selectedChildren }
+    }
+
     var urlItems: [String] {
         if isSelected, let value = value {
             return ["\(name)=\(value)"]

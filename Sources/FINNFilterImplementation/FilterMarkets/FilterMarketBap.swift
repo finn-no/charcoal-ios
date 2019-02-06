@@ -10,10 +10,14 @@ public enum FilterMarketBap: String, CaseIterable {
 
 extension FilterMarketBap: CCFilterConfiguration {
     public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
-        guard let key = FilterKey(stringValue: filterNode.name) else { return nil }
+        guard let key = FilterKey(stringValue: filterNode.name) else {
+            return CCListFilterViewController(filterNode: filterNode)
+        }
+
         switch key {
         case .price:
             guard let viewModel = createFilterInfoFrom(filterNode: filterNode) else { return nil }
+            filterNode.selectionTitlesBuilder = CCRangeSelectionTiltesBuilder()
             return CCRangeFilterViewController(filterNode: filterNode, viewModel: viewModel)
         default:
             return CCListFilterViewController(filterNode: filterNode)

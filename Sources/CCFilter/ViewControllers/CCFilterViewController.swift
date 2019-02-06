@@ -52,12 +52,16 @@ extension CCFilterViewController: CCViewControllerDelegate {
     func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
         guard !filterNode.children.isEmpty else { return }
         guard let nextController = config.viewController(for: filterNode) else { return }
+        nextController.delegate = viewController
+
         if let mapController = nextController as? CCMapFilterViewController {
             mapController.mapFilterViewManager = mapFilterDataSource?.mapFilterViewManager(for: mapController)
             mapController.searchLocationDataSource = mapFilterDataSource?.searchLocationDataSource(for: mapController)
         }
-        nextController.delegate = viewController
-        nextController.showBottomButton(viewController.isShowingApplyButton, animated: false)
+
+        let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
+        nextController.showBottomButton(showBottomButton, animated: false)
+
         pushViewController(nextController, animated: true)
     }
 }

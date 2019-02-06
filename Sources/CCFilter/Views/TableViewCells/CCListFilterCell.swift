@@ -49,7 +49,7 @@ extension CCListFilterCell {
         detailLabel.text = String(filterNode.numberOfResults)
         separatorInset = UIEdgeInsets(top: 0, left: 24 + .largeSpacing, bottom: 0, right: 0)
 
-        if filterNode.name == "map" {
+        if filterNode.name == CCMapFilterNode.filterKey {
             detailLabel.text = nil
             accessoryType = .disclosureIndicator
             iconView.image = UIImage(named: .mapFilterIcon)

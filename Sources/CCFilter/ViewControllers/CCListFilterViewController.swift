@@ -29,9 +29,11 @@ class CCListFilterViewController: CCViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "Bruk"
+
         if filterNode.value != nil {
-            selectAllNode = CCFilterNode(title: "All", name: "", numberOfResults: filterNode.numberOfResults)
+            selectAllNode = CCFilterNode(title: "All", name: "", isSelected: filterNode.isSelected, numberOfResults: filterNode.numberOfResults)
         }
+
         setup()
     }
 
@@ -98,9 +100,9 @@ extension CCListFilterViewController: UITableViewDelegate {
             filterNode.isSelected = allChildrenSelected
             selectAllNode?.isSelected = allChildrenSelected
             indexPathsToReload = [indexPath, selectAllIndexPath]
+            showBottomButton(true, animated: true)
         }
 
-        showBottomButton(true, animated: true)
         tableView.reloadRows(at: indexPathsToReload, with: .fade)
         delegate?.viewController(self, didSelect: selectedFilterNode)
     }

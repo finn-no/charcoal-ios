@@ -35,11 +35,11 @@ class CCRangeFilterViewController: CCViewController {
 
 extension CCRangeFilterViewController: RangeFilterViewDelegate {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
-        setValue(lowValue, forChildAt: 0)
+        setValue(lowValue, forChildAt: CCRangeFilterNode.Index.from.rawValue)
     }
 
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?) {
-        setValue(highValue, forChildAt: 1)
+        setValue(highValue, forChildAt: CCRangeFilterNode.Index.to.rawValue)
     }
 
     private func setValue(_ value: Int?, forChildAt index: Int) {
@@ -60,17 +60,11 @@ private extension CCRangeFilterViewController {
     func setup() {
         bottomButton.buttonTitle = "Bruk"
 
-        if let lowValue = filterNode.children[0].value {
-            rangeFilterView.setLowValue(Int(lowValue), animated: false)
-        } else {
-            rangeFilterView.setLowValue(nil, animated: false)
-        }
+        let lowValueNode = filterNode.children[CCRangeFilterNode.Index.from.rawValue]
+        rangeFilterView.setLowValue(Int(lowValueNode.value), animated: false)
 
-        if let highValue = filterNode.children[1].value {
-            rangeFilterView.setHighValue(Int(highValue), animated: false)
-        } else {
-            rangeFilterView.setHighValue(nil, animated: false)
-        }
+        let highValueNode = filterNode.children[CCRangeFilterNode.Index.to.rawValue]
+        rangeFilterView.setHighValue(Int(highValueNode.value), animated: false)
 
         view.addSubview(rangeFilterView)
         NSLayoutConstraint.activate([

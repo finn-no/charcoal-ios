@@ -28,6 +28,16 @@ struct FilterDataQuery: Decodable {
         return FilterDataQuery(title: title, value: value, totalResults: totalResults ?? 0, filter: filter)
     }
 
+    public func filterNode(name: String) -> CCFilterNode {
+        let filterNode = CCFilterNode(title: title, name: name, value: value, numberOfResults: totalResults)
+        if let filterData = filter {
+            filterNode.children = filterData.queries.map({ query -> CCFilterNode in
+                return query.filterNode(name: filterData.parameterName)
+            })
+        }
+        return filterNode
+    }
+
     static func decode(from array: [[AnyHashable: Any]]?) -> [FilterDataQuery]? {
         guard let array = array else {
             return nil

@@ -4,11 +4,17 @@
 
 import Foundation
 
-enum FilterMarketCar: String, CaseIterable {
+public enum FilterMarketCar: String, CaseIterable {
     case norway = "car-norway"
     case abroad = "car-abroad"
     case mobileHome = "mobile-home"
     case caravan
+}
+
+extension FilterMarketCar: CCFilterConfiguration {
+    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
+        return nil
+    }
 }
 
 // MARK: - FilterConfiguration

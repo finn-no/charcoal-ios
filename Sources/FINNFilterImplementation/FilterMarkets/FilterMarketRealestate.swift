@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarketRealestate: String, CaseIterable {
+public enum FilterMarketRealestate: String, CaseIterable {
     case homes = "realestate-homes"
     case development = "realestate-development"
     case plot = "realestate-plot"
@@ -18,6 +18,12 @@ enum FilterMarketRealestate: String, CaseIterable {
     case businessPlot = "realestate-business-plot"
     case companyForSale = "company-for-sale"
     case travelFhh = "realestate-travel-fhh"
+}
+
+extension FilterMarketRealestate: CCFilterConfiguration {
+    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
+        return nil
+    }
 }
 
 // MARK: - FilterConfiguration

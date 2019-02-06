@@ -167,34 +167,35 @@ enum FullscreenViews: String, CaseIterable {
     case b2b
 
     var viewController: UIViewController {
-        let filter: FilterSetup
+        let filterSetup: FilterSetup
+        let filterConfig: CCFilterConfiguration?
 
         switch self {
         case .torget:
-            filter = DemoFilter.filterDataFromJSONFile(named: "bap-sale")
+            filterSetup = DemoFilter.filterDataFromJSONFile(named: "bap-sale")
+            filterConfig = FilterMarket(market: "bap-sale")
         case .bil:
-            filter = DemoFilter.filterDataFromJSONFile(named: "car-norway")
+            filterSetup = DemoFilter.filterDataFromJSONFile(named: "car-norway")
+            filterConfig = FilterMarket(market: "car-norway")
         case .eiendom:
-            filter = DemoFilter.filterDataFromJSONFile(named: "realestate-homes")
+            filterSetup = DemoFilter.filterDataFromJSONFile(named: "realestate-homes")
+            filterConfig = FilterMarket(market: "realestate-homes")
         case .mc:
-            filter = DemoFilter.filterDataFromJSONFile(named: "mc")
+            filterSetup = DemoFilter.filterDataFromJSONFile(named: "mc")
+            filterConfig = FilterMarket(market: "mc")
         case .job:
-            filter = DemoFilter.filterDataFromJSONFile(named: "job-full-time")
+            filterSetup = DemoFilter.filterDataFromJSONFile(named: "job-full-time")
+            filterConfig = FilterMarket(market: "job-full-time")
         case .boat:
-            filter = DemoFilter.filterDataFromJSONFile(named: "boat-sale")
+            filterSetup = DemoFilter.filterDataFromJSONFile(named: "boat-sale")
+            filterConfig = FilterMarket(market: "boat-sale")
         case .b2b:
-            filter = DemoFilter.filterDataFromJSONFile(named: "truck")
+            filterSetup = DemoFilter.filterDataFromJSONFile(named: "truck")
+            filterConfig = FilterMarket(market: "truck")
         }
 
-        let demoFilter = DemoFilter(filter: filter)
-        let navigationController = FilterNavigationController()
-        let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: demoFilter, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
-        let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
-
-        let stateController = rootFilterNavigator.start()
-        stateController.change(to: .loadFreshFilters(data: demoFilter))
-
-        return navigationController
+        guard let filter = filterSetup.asCCFilter(), let config = filterConfig else { fatalError("Something went wrong!!") }
+        return CCFilterViewController(filter: filter, config: config)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 FINN.no. All rights reserved.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
 import Foundation

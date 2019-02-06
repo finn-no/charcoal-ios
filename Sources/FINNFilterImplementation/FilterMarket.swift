@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarket {
+public enum FilterMarket {
     case bap(FilterMarketBap)
     case realestate(FilterMarketRealestate)
     case car(FilterMarketCar)
@@ -13,7 +13,7 @@ enum FilterMarket {
     case boat(FilterMarketBoat)
     case b2b(FilterMarketB2B)
 
-    init?(market: String) {
+    public init?(market: String) {
         guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
             return nil
         }
@@ -38,6 +38,31 @@ enum FilterMarket {
         case let .b2b(b2b):
             return b2b
         }
+    }
+
+    private var currentCCFilterConfig: CCFilterConfiguration {
+        switch self {
+        case let .bap(bap):
+            return bap
+        case let .realestate(realestate):
+            return realestate
+        case let .car(car):
+            return car
+        case let .mc(mc):
+            return mc
+        case let .job(job):
+            return job
+        case let .boat(boat):
+            return boat
+        case let .b2b(b2b):
+            return b2b
+        }
+    }
+}
+
+extension FilterMarket: CCFilterConfiguration {
+    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
+        return currentCCFilterConfig.viewController(for: filterNode)
     }
 }
 
@@ -96,7 +121,7 @@ extension FilterMarket: CaseIterable {
         return FilterMarketRealestate.allCases.map(FilterMarket.realestate)
     }
 
-    static var allCases: [FilterMarket] {
+    public static var allCases: [FilterMarket] {
         return allB2BMarkets + allBapMarkets + allBoatMarkets + allCarMarkets + allJobMarkets + allMCMarkets + allRealestateMarkets
     }
 }

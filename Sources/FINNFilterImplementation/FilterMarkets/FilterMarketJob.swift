@@ -4,10 +4,16 @@
 
 import Foundation
 
-enum FilterMarketJob: String, CaseIterable {
+public enum FilterMarketJob: String, CaseIterable {
     case fullTime = "job-full-time"
     case partTime = "job-part-time"
     case management = "job-management"
+}
+
+extension FilterMarketJob: CCFilterConfiguration {
+    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
+        return nil
+    }
 }
 
 // MARK: - FilterConfiguration

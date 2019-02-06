@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 FINN.no. All rights reserved.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
 import Foundation
@@ -15,7 +15,6 @@ extension CCMapFilterNode {
 }
 
 class CCMapFilterNode: CCFilterNode {
-    
     static let filterKey = "map"
 
     init(title: String, name: String) {

@@ -408,9 +408,9 @@ extension FilterRootViewController: SearchViewControllerDelegate {
         searchViewController.didMove(toParent: self)
     }
 
-    public func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String?) {
+    public func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String) {
         searchQueryCell.searchBar = searchViewController.searchBar
-        guard let query = query, let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else {
+        guard let searchQueryFilterInfo = self.filterInfo(at: IndexPath(row: 0, section: Section.searchQuery.rawValue)) else {
             return
         }
         selectionDataSource?.setValue([query], for: searchQueryFilterInfo)

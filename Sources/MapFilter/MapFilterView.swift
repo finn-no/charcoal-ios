@@ -20,6 +20,11 @@ public protocol MapFilterViewManager: AnyObject {
     func goToLocation(_ location: LocationInfo)
 }
 
+protocol MapFilterViewDelegate: class {
+    func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int)
+    func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocation location: CLLocationCoordinate2D)
+}
+
 class MapFilterView: UIView {
     var searchBar: UISearchBar? {
         didSet {
@@ -66,6 +71,7 @@ class MapFilterView: UIView {
     private let mapFilterViewManager: MapFilterViewManager
     private(set) var currentRadius = 40000
     var centerPoint: CLLocationCoordinate2D?
+    weak var delegate: MapFilterViewDelegate?
 
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
         didSet {

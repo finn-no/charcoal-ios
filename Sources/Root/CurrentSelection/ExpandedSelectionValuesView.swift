@@ -56,16 +56,31 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         }
 
         selectedValues.forEach { selectedValue in
-            let button = RemoveFilterValueButton(title: selectedValue.title)
+            let button = FilterValueView(title: selectedValue.title)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.backgroundColor = selectedValue.selectionInfo.isValid ? .primaryBlue : .cherry
             buttonContainerView.addArrangedSubview(button)
-            button.addTarget(self, action: #selector(didTapRemoveButton(_:)), for: .touchUpInside)
+            // button.addTarget(self, action: #selector(didTapRemoveButton(_:)), for: .touchUpInside)
         }
     }
 }
 
-private class RemoveFilterValueButton: UIButton {
+private class FilterValueView: UIView {
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel(withAutoLayout: true)
+        label.font = .title5
+        label.textColor = .milk
+        return label
+    }()
+
+    private lazy var button: UIButton = {
+        let button = UIButton(withAutoLayout: true)
+        button.imageEdgeInsets = UIEdgeInsets(leading: .smallSpacing)
+        button.setImage(UIImage(named: .removeFilterValue), for: .normal)
+        // button.addTarget(self, action: #selector(didTapRemoveButton(_:)), for: .touchUpInside)
+        return button
+    }()
+
     init(title: String) {
         super.init(frame: .zero)
         setup(title: title)
@@ -77,25 +92,22 @@ private class RemoveFilterValueButton: UIButton {
     }
 
     private func setup(title: String) {
+        addSubview(titleLabel)
+        addSubview(button)
+
+        titleLabel.text = title
+
         layer.cornerRadius = 4
         backgroundColor = .primaryBlue
-        titleLabel?.font = .title5
-        setTitleColor(.milk, for: .normal)
-        contentEdgeInsets = UIEdgeInsets(leading: .mediumSpacing, trailing: .mediumSpacing)
-        imageEdgeInsets = UIEdgeInsets(leading: .smallSpacing)
-        setImage(UIImage(named: .removeFilterValue), for: .normal)
-        setTitle(title, for: .normal)
-    }
 
-    override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
-        var imageRect = super.imageRect(forContentRect: contentRect)
-        imageRect.origin.x = contentRect.maxX - imageRect.width - imageEdgeInsets.right + imageEdgeInsets.left
-        return imageRect
-    }
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
 
-    override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-        var titleRect = super.titleRect(forContentRect: contentRect)
-        titleRect.origin.x = titleRect.minX - imageRect(forContentRect: contentRect).width
-        return titleRect
+            button.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor),
+            button.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+        ])
     }
 }

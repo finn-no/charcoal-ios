@@ -69,7 +69,7 @@ extension SearchQueryViewController: UITableViewDataSource {
 
 extension SearchQueryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let query = suggestions[safe: indexPath.row] else { return }
+        guard let query = suggestions[safe: indexPath.row] else { return }
         searchBar.text = query
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.searchViewController(self, didSelectQuery: query)

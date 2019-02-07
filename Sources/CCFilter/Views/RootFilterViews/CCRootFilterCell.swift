@@ -82,7 +82,7 @@ extension CCRootFilterCell {
 extension CCRootFilterCell: CCFilterSelectionViewDelegate {
     func selectionView(_ selectionView: CCFilterSelectionView, didRemoveItemAt index: Int) {
         guard var selectedChildren = selectedChildren else { return }
-        selectedChildren[index].isSelected = false
+        selectedChildren[index].reset()
         selectedChildren.remove(at: index)
     }
 }

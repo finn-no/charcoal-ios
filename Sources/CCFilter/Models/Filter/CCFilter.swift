@@ -5,7 +5,7 @@
 import Foundation
 
 public class CCFilter {
-    public var root: CCFilterNode
+    var root: CCFilterNode
 
     public init(root: CCFilterNode) {
         self.root = root
@@ -15,5 +15,9 @@ public class CCFilter {
 public extension CCFilter {
     var urlEncoded: String {
         return root.urlItems.joined(separator: "&")
+    }
+
+    func reset() {
+        root.reset()
     }
 }

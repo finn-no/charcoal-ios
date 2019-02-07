@@ -22,6 +22,7 @@ class CCListFilterViewController: CCViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CCListFilterCell.self)
+        tableView.tableFooterView = UIView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -71,7 +72,7 @@ extension CCListFilterViewController: UITableViewDataSource {
             guard let selectAllNode = selectAllNode else { fatalError("I screwed up!") }
             cell.configure(for: selectAllNode)
         case .children:
-            cell.configure(for: filterNode.children[indexPath.row])
+            cell.configure(for: filterNode.child(at: indexPath.row))
         }
         return cell
     }
@@ -93,12 +94,10 @@ extension CCListFilterViewController: UITableViewDelegate {
             indexPathsToReload = [indexPath]
 
         case .children:
-            selectedFilterNode = filterNode.children[indexPath.row]
-            guard selectedFilterNode.children.isEmpty else { break }
+            selectedFilterNode = filterNode.child(at: indexPath.row)
+            guard selectedFilterNode.isLeafNode else { break }
             selectedFilterNode.isSelected = !selectedFilterNode.isSelected
-            let allChildrenSelected = filterNode.children.reduce(true) { $0 && $1.isSelected }
-            filterNode.isSelected = allChildrenSelected
-            selectAllNode?.isSelected = allChildrenSelected
+            selectAllNode?.isSelected = filterNode.isSelected
             indexPathsToReload = [indexPath, selectAllIndexPath]
             showBottomButton(true, animated: true)
         }

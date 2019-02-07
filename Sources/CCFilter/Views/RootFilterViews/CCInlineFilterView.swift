@@ -72,10 +72,9 @@ private extension CCInlineFilterView {
     }
 
     @objc func handleValueChanged(segment: Segment) {
-        guard let children = filterNode?.children, let index = segments.firstIndex(of: segment) else { return }
-        let node = children[index]
-        node.children.forEach { $0.isSelected = false }
-        segment.selectedItems.forEach { node.children[$0].isSelected = true }
+        guard let index = segments.firstIndex(of: segment), let childNode = filterNode?.child(at: index) else { return }
+        childNode.reset()
+        segment.selectedItems.forEach { childNode.child(at: $0).isSelected = true }
         delegate?.inlineFilterViewDidChangeValue(self)
     }
 

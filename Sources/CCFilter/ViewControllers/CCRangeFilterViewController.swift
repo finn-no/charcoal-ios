@@ -43,7 +43,7 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
     }
 
     private func setValue(_ value: Int?, forChildAt index: Int) {
-        guard let childNode = filterNode.children[safe: index] else { return }
+        let childNode = filterNode.child(at: index)
         if let value = value {
             childNode.value = String(value)
             childNode.isSelected = true
@@ -60,10 +60,10 @@ private extension CCRangeFilterViewController {
     func setup() {
         bottomButton.buttonTitle = "Bruk"
 
-        let lowValueNode = filterNode.children[CCRangeFilterNode.Index.from.rawValue]
+        let lowValueNode = filterNode.child(at: CCRangeFilterNode.Index.from.rawValue)
         rangeFilterView.setLowValue(Int(lowValueNode.value), animated: false)
 
-        let highValueNode = filterNode.children[CCRangeFilterNode.Index.to.rawValue]
+        let highValueNode = filterNode.child(at: CCRangeFilterNode.Index.to.rawValue)
         rangeFilterView.setHighValue(Int(highValueNode.value), animated: false)
 
         view.addSubview(rangeFilterView)

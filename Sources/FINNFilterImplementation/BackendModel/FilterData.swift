@@ -32,8 +32,8 @@ struct FilterData: Decodable {
             return CCRangeFilterNode(title: title, name: parameterName)
         }
         let filterNode = CCFilterNode(title: title, name: parameterName)
-        filterNode.children = queries.map { query -> CCFilterNode in
-            return query.filterNode(name: parameterName)
+        queries.forEach { query in
+            filterNode.add(child: query.filterNode(name: parameterName))
         }
         return filterNode
     }

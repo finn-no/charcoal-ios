@@ -50,7 +50,7 @@ extension CCFilterViewController: CCViewControllerDelegate {
     }
 
     func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
-        guard !filterNode.children.isEmpty else { return }
+        guard !filterNode.isLeafNode else { return }
         guard let nextController = config.viewController(for: filterNode) else { return }
         nextController.delegate = viewController
 

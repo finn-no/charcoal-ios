@@ -25,6 +25,8 @@ class CCMapFilterNode: CCFilterNode {
 
 extension CCMapFilterNode {
     func setup() {
-        children = Index.allCases.map { CCFilterNode(title: "", name: Key.allCases[$0.rawValue].rawValue) }
+        Index.allCases.forEach {
+            add(child: CCFilterNode(title: "", name: Key.allCases[$0.rawValue].rawValue))
+        }
     }
 }

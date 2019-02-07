@@ -56,7 +56,7 @@ extension CCListFilterCell {
             return
         }
 
-        if filterNode.children.isEmpty {
+        if filterNode.isLeafNode {
             accessoryType = .none
             detailLabelTrailingConstraint.constant = -.mediumLargeSpacing
         } else {

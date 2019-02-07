@@ -4,15 +4,30 @@
 
 import Foundation
 
+private protocol CCFilterNodeDelegate: class {
+    func childNodeDidChangeSelection(_ childNode: CCFilterNode)
+}
+
 public class CCFilterNode {
+
+    // MARK: - Public properties
+
     public let title: String
     public let name: String
     public var value: String?
-    public var isSelected: Bool
     public var numberOfResults: Int
-    public var children: [CCFilterNode] = []
-
     public var selectionTitlesBuilder: CCSelectionTitlesBuilder?
+
+    public var isSelected: Bool {
+        didSet { delegate?.childNodeDidChangeSelection(self) }
+    }
+
+    // MARK: - Private properties
+
+    private(set) var children: [CCFilterNode] = []
+    private weak var delegate: CCFilterNodeDelegate?
+
+    // MARK: - Setup
 
     public init(title: String, name: String, value: String? = nil, isSelected: Bool = false, numberOfResults: Int = 0) {
         self.title = title
@@ -21,9 +36,33 @@ public class CCFilterNode {
         self.isSelected = isSelected
         self.numberOfResults = numberOfResults
     }
-}
 
-public extension CCFilterNode {
+    func add(child: CCFilterNode, at index: Int? = nil) {
+        if let index = index { children.insert(child, at: index) }
+        else { children.append(child) }
+        child.delegate = self
+    }
+
+    func child(at index: Int) -> CCFilterNode {
+        return children[index]
+    }
+
+    func reset() {
+        isSelected = false
+        children.forEach { $0.reset() }
+    }
+
+    var isLeafNode: Bool {
+        return children.count == 0
+    }
+
+    var urlItems: [String] {
+        if isSelected, let value = value {
+            return ["\(name)=\(value)"]
+        }
+        return children.reduce([]) { $0 + $1.urlItems }
+    }
+
     var selectionTitles: [String] {
         if let titlesBuilder = selectionTitlesBuilder {
             return titlesBuilder.build(children)
@@ -41,19 +80,10 @@ public extension CCFilterNode {
         if isSelected { return [self] }
         return children.reduce([]) { $0 + $1.selectedChildren }
     }
-
-    var urlItems: [String] {
-        if isSelected, let value = value {
-            return ["\(name)=\(value)"]
-        }
-        return children.reduce([]) { $0 + $1.urlItems }
-    }
 }
 
-extension CCFilterNode: Equatable {
-    public static func == (lhs: CCFilterNode, rhs: CCFilterNode) -> Bool {
-        let equalName = lhs.name == rhs.name
-        let equalValue = lhs.value == rhs.value
-        return equalName && equalValue
+extension CCFilterNode: CCFilterNodeDelegate {
+    func childNodeDidChangeSelection(_ childNode: CCFilterNode) {
+        isSelected = children.reduce(true) { $0 && $1.isSelected }
     }
 }

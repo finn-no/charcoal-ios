@@ -21,7 +21,8 @@ final class FilterTagView: UIView {
     }()
 
     private lazy var removeButton: UIButton = {
-        let button = UIButton(withAutoLayout: true)
+        let button = RemoveButton(withAutoLayout: true)
+        button.adjustsImageWhenHighlighted = false
         button.imageEdgeInsets = UIEdgeInsets(leading: .smallSpacing, trailing: .smallSpacing)
         button.setImage(removeButtonImage, for: .normal)
         button.addTarget(self, action: #selector(handleRemoveButtonTap), for: .touchUpInside)
@@ -72,5 +73,23 @@ final class FilterTagView: UIView {
 
     @objc private func handleRemoveButtonTap() {
         delegate?.filterTagViewDidSelectRemove(self)
+    }
+}
+
+private final class RemoveButton: UIButton {
+    override var isHighlighted: Bool {
+        didSet {
+            updateAlpha(opaque: !isHighlighted)
+        }
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            updateAlpha(opaque: !isSelected)
+        }
+    }
+
+    private func updateAlpha(opaque: Bool) {
+        alpha = opaque ? 1 : 0.7
     }
 }

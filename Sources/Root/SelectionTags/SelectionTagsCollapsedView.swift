@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CollapsedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
+final class SelectionTagsCollapsedView: UIView, CurrentSelectionValuesContainer {
     var delegate: CurrentSelectionValuesContainerDelegate?
 
     private lazy var collapsedLabel: UILabel = {
@@ -15,6 +15,8 @@ class CollapsedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         return label
     }()
 
+    // MARK: - Init
+
     init() {
         super.init(frame: .zero)
         setup()
@@ -24,6 +26,8 @@ class CollapsedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         super.init(coder: aDecoder)
         setup()
     }
+
+    // MARK: - Setup
 
     func configure(with selectedValues: [SelectionWithTitle]?) {
         guard let selectedValues = selectedValues else {

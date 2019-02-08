@@ -11,8 +11,6 @@ class DemoFilter {
     }
 
     var filterData: FilterSetup
-    var selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
-    let filterSelectionTitleProvider = FilterSelectionTitleProvider()
     lazy var verticalSetup: VerticalSetupDemo = {
         var marketDemos: [MarketDemos] = [
             carVerticalDemos(),
@@ -29,8 +27,6 @@ class DemoFilter {
 
         return VerticalSetupDemo(verticals: verticalDemos)
     }()
-
-    var loadedFilter: FilterInfoBuilderResult?
 
     private lazy var formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -49,10 +45,6 @@ class DemoFilter {
 
     func loadFilterSetup(_ filterSetup: FilterSetup) {
         filterData = filterSetup
-        selectionDataSource = ParameterBasedFilterInfoSelectionDataSource()
-        selectionDataSource.delegate = self
-        let filterInfoBuilder = FilterInfoBuilder(filter: filterData, selectionDataSource: selectionDataSource)
-        loadedFilter = filterInfoBuilder.build()
     }
 
     static func dataFromJSONFile(named name: String) -> Data {
@@ -169,63 +161,5 @@ class DemoFilter {
         ]
 
         return createVerticalDemos(from: markets)
-    }
-}
-
-extension DemoFilter: FilterDataSource {
-    var searchQuery: SearchQueryFilterInfoType? {
-        return loadedFilter?.searchQuery
-    }
-
-    var preferences: [PreferenceFilterInfoType] {
-        return loadedFilter?.preferences ?? []
-    }
-
-    var filters: [FilterInfoType] {
-        return loadedFilter?.filters ?? []
-    }
-
-    var verticals: [Vertical] {
-        return verticalSetup.subVerticals(for: filterData.market)
-    }
-
-    var filterTitle: String {
-        return filterData.filterTitle
-    }
-
-    var numberOfHits: Int {
-        return filterData.hits
-    }
-
-    func numberOfHits(for filterValue: FilterValueType) -> Int {
-        return loadedFilter?.filterValueLookup[filterValue.lookupKey]?.results ?? 0
-    }
-}
-
-extension DemoFilter: FilterRootStateControllerDelegate {
-    func filterRootStateController(_ stateController: FilterRootStateController, shouldChangeVertical vertical: Vertical) {
-        guard let verticalDemo = vertical as? VerticalDemo, let verticalFile = verticalDemo.file else {
-            stateController.change(to: .failed(error: .unableToLoadFilterData, action: .ok(action: { stateController.change(to: .filters) })))
-            return
-        }
-        stateController.change(to: .loading)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) { [weak self, weak stateController] in
-            guard let self = self else {
-                return
-            }
-            let filterSetup = DemoFilter.filterDataFromJSONFile(named: verticalFile)
-            self.loadFilterSetup(filterSetup)
-            stateController?.change(to: .loadFreshFilters(data: self))
-        }
-    }
-
-    func filterRootStateControllerShouldShowResults(_: FilterRootStateController) {
-        // Let user close in other ways
-    }
-}
-
-extension DemoFilter: ParameterBasedFilterInfoSelectionDataSourceDelegate {
-    func parameterBasedFilterInfoSelectionDataSourceDidChange(_ selectionDataSource: ParameterBasedFilterInfoSelectionDataSource) {
-        print("Filter selection changed: \(selectionDataSource)")
     }
 }

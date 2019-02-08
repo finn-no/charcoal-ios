@@ -16,8 +16,8 @@ public enum FilterMarketBoat: String, CaseIterable {
 }
 
 extension FilterMarketBoat: CCFilterConfiguration {
-    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
-        return nil
+    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
+        return createFilterInfoFrom(filterNode: rangeNode)
     }
 }
 
@@ -109,9 +109,9 @@ extension FilterMarketBoat: FilterConfiguration {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        let parameterName = rangeFilterData.parameterName
-        let name = rangeFilterData.title
+    func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
+        let parameterName = filterNode.name
+        let name = filterNode.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -120,7 +120,7 @@ extension FilterMarketBoat: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: filterNode.name) else {
             return nil
         }
         switch filterKey {

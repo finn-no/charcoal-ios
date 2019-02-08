@@ -5,7 +5,7 @@
 import MapKit
 import UIKit
 
-public class CCMapFilterViewController: CCViewController {
+class CCMapFilterViewController: CCViewController {
 
     // MARK: - Public properties
 

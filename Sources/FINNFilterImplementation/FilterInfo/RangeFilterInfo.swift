@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-final class RangeFilterInfo: RangeFilterInfoType, ParameterBasedFilterInfo {
+public final class RangeFilterInfo {
     typealias RangeBoundsOffsets = (hasLowerBoundOffset: Bool, hasUpperBoundOffset: Bool)
     typealias AccessibilityValues = (stepIncrement: Int?, valueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)

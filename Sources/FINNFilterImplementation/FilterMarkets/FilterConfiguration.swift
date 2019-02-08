@@ -9,5 +9,4 @@ protocol FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }
     var supportedFiltersKeys: [FilterKey] { get }
     var mapFilterKey: FilterKey? { get }
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType?
 }

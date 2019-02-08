@@ -9,19 +9,8 @@ public enum FilterMarketBap: String, CaseIterable {
 }
 
 extension FilterMarketBap: CCFilterConfiguration {
-    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
-        guard let key = FilterKey(stringValue: filterNode.name) else {
-            return CCListFilterViewController(filterNode: filterNode)
-        }
-
-        switch key {
-        case .price:
-            guard let viewModel = createFilterInfoFrom(filterNode: filterNode) else { return nil }
-            filterNode.selectionTitlesBuilder = CCRangeSelectionTiltesBuilder()
-            return CCRangeFilterViewController(filterNode: filterNode, viewModel: viewModel)
-        default:
-            return CCListFilterViewController(filterNode: filterNode)
-        }
+    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
+        return createFilterInfoFrom(filterNode: rangeNode)
     }
 
     func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
@@ -88,7 +77,7 @@ extension FilterMarketBap: FilterConfiguration {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
+    func createFilterInfoFrom(rangeFilterData: FilterData) -> RangeFilterInfo? {
         let parameterName = rangeFilterData.parameterName
         let name = rangeFilterData.title
         let lowValue: Int

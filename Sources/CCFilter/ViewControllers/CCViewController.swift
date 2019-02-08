@@ -9,7 +9,7 @@ protocol CCViewControllerDelegate: class {
     func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode)
 }
 
-public class CCViewController: UIViewController, CCViewControllerDelegate {
+class CCViewController: UIViewController, CCViewControllerDelegate {
 
     // MARK: - Public properties
 

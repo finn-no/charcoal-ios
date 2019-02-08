@@ -5,5 +5,5 @@
 import Foundation
 
 public protocol CCFilterConfiguration {
-    func viewController(for filterNode: CCFilterNode) -> CCViewController?
+    func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo?
 }

@@ -83,7 +83,7 @@ extension CCListFilterViewController: UITableViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
         let selectedFilterNode: CCFilterNode
-        var indexPathsToReload: [IndexPath] = []
+        var indexPathsToReload: [IndexPath] = [indexPath]
 
         switch section {
         case .all:
@@ -91,14 +91,17 @@ extension CCListFilterViewController: UITableViewDelegate {
             filterNode.isSelected = !filterNode.isSelected
             selectAllNode.isSelected = !selectAllNode.isSelected
             selectedFilterNode = selectAllNode
-            indexPathsToReload = [indexPath]
 
         case .children:
             selectedFilterNode = filterNode.child(at: indexPath.row)
             guard selectedFilterNode.isLeafNode else { break }
             selectedFilterNode.isSelected = !selectedFilterNode.isSelected
             selectAllNode?.isSelected = filterNode.isSelected
-            indexPathsToReload = [indexPath, selectAllIndexPath]
+
+            if selectAllNode != nil {
+                indexPathsToReload.append(selectAllIndexPath)
+            }
+
             showBottomButton(true, animated: true)
         }
 

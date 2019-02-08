@@ -10,17 +10,17 @@ extension StepperFilterView {
     }
 }
 
-public class StepperFilterView: UIControl {
+class StepperFilterView: UIControl {
 
     // MARK: - Public properties
 
-    public var value: Int {
+    var value: Int {
         didSet { updateUI(forValue: value) }
     }
 
     // MARK: - Private properties
 
-    private let filterInfo: StepperFilterInfoType
+    private let filterInfo: RangeFilterInfo
 
     private lazy var textLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -55,9 +55,9 @@ public class StepperFilterView: UIControl {
 
     // MARK: - Setup
 
-    public init(filterInfo: StepperFilterInfoType) {
+    init(filterInfo: RangeFilterInfo) {
         self.filterInfo = filterInfo
-        value = filterInfo.lowerLimit
+        value = filterInfo.sliderInfo.minimumValue
         super.init(frame: .zero)
         setup()
         updateUI(forValue: value)
@@ -80,10 +80,10 @@ private extension StepperFilterView {
     func handleButtonPressed(with type: ButtonType) {
         switch type {
         case .minus:
-            let newValue = max(filterInfo.lowerLimit, value - filterInfo.steps)
+            let newValue = max(filterInfo.sliderInfo.maximumValue, value - 1)
             sendActionIfNeeded(forValue: newValue)
         case .plus:
-            let newValue = min(filterInfo.upperLimit, value + filterInfo.steps)
+            let newValue = min(filterInfo.sliderInfo.minimumValue, value + 1)
             sendActionIfNeeded(forValue: newValue)
         }
     }
@@ -101,14 +101,14 @@ private extension StepperFilterView {
     }
 
     func setText(withValue value: Int) {
-        if value > filterInfo.lowerLimit { textLabel.text = "\(value)+ \(filterInfo.unit)" }
+        if value > filterInfo.sliderInfo.minimumValue { textLabel.text = "\(value)+ \(filterInfo.unit)" }
         else { textLabel.text = "Alle" }
     }
 
     func updateButtons(forValue value: Int) {
         switch value {
-        case filterInfo.lowerLimit: deactivateButton(minusButton)
-        case filterInfo.upperLimit: deactivateButton(plusButton)
+        case filterInfo.sliderInfo.minimumValue: deactivateButton(minusButton)
+        case filterInfo.sliderInfo.maximumValue: deactivateButton(plusButton)
         default:
             activateButton(minusButton)
             activateButton(plusButton)

@@ -29,12 +29,16 @@ struct FilterData: Decodable {
 
     public func filterNode() -> CCFilterNode {
         if let isRange = isRange, isRange {
-            return CCRangeFilterNode(title: title, name: parameterName)
+            let rangeNode = CCRangeFilterNode(title: title, name: parameterName)
+            rangeNode.selectionTitlesBuilder = CCRangeSelectionTiltesBuilder()
+            return rangeNode
         }
+
         let filterNode = CCFilterNode(title: title, name: parameterName)
         queries.forEach { query in
             filterNode.add(child: query.filterNode(name: parameterName))
         }
+
         return filterNode
     }
 

@@ -4,19 +4,19 @@
 
 import UIKit
 
-public protocol RangeFilterViewDelegate: AnyObject {
+protocol RangeFilterViewDelegate: AnyObject {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?)
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?)
 }
 
-public final class RangeFilterView: UIView {
+final class RangeFilterView: UIView {
     private enum InputValue {
         case low, high
     }
 
     public weak var delegate: RangeFilterViewDelegate?
 
-    private let filterInfo: RangeFilterInfoType
+    private let filterInfo: RangeFilterInfo
     private let formatter: RangeFilterValueFormatter
     private var inputValues = [InputValue: Step]()
     private var referenceValueViews = [SliderReferenceValueView]()
@@ -63,7 +63,7 @@ public final class RangeFilterView: UIView {
 
     // MARK: - Init
 
-    public init(filterInfo: RangeFilterInfoType) {
+    init(filterInfo: RangeFilterInfo) {
         self.filterInfo = filterInfo
         formatter = RangeFilterValueFormatter(
             isValueCurrency: filterInfo.isCurrencyValueRange,
@@ -75,13 +75,13 @@ public final class RangeFilterView: UIView {
         setup()
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Overrides
 
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard self.point(inside: point, with: event) else {
             if numberInputView.isFirstResponder {
                 _ = numberInputView.resignFirstResponder()
@@ -100,13 +100,13 @@ public final class RangeFilterView: UIView {
         return nil
     }
 
-    public override var accessibilityFrame: CGRect {
+    override var accessibilityFrame: CGRect {
         didSet {
             sliderInputView.accessibilityFrame = accessibilityFrame
         }
     }
 
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         referenceValueViews.forEach({ view in
             let thumbRectForValue = sliderInputView.thumbRect(for: view.value)
             let leadingConstant = thumbRectForValue.midX - (view.frame.width / 2)
@@ -120,7 +120,7 @@ public final class RangeFilterView: UIView {
 
     // MARK: - Public
 
-    public func setLowValue(_ value: Int?, animated: Bool) {
+    func setLowValue(_ value: Int?, animated: Bool) {
         let step = value.map({ sliderInfo.values.closestStep(for: $0) }) ?? .lowerBound
 
         if let value = value {
@@ -132,7 +132,7 @@ public final class RangeFilterView: UIView {
         updateSliderLowValue(with: step)
     }
 
-    public func setHighValue(_ value: Int?, animated: Bool) {
+    func setHighValue(_ value: Int?, animated: Bool) {
         let step = value.map({ sliderInfo.values.closestStep(for: $0) }) ?? .upperBound
 
         if let value = value {

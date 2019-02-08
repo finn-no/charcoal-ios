@@ -9,7 +9,7 @@ class CCRootFilterCell: UITableViewCell {
     // MARK: - Private properties
 
     private var filterNode: CCFilterNode?
-    private var selectedChildren: [CCFilterNode]?
+    private var selectedChildren: [CCFilterNode] = []
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -54,7 +54,7 @@ class CCRootFilterCell: UITableViewCell {
         super.prepareForReuse()
         titleLabel.text = nil
         filterNode = nil
-        selectedChildren = nil
+        selectedChildren = []
     }
 
     override func layoutSubviews() {
@@ -81,9 +81,8 @@ extension CCRootFilterCell {
 
 extension CCRootFilterCell: CCFilterSelectionViewDelegate {
     func selectionView(_ selectionView: CCFilterSelectionView, didRemoveItemAt index: Int) {
-        guard var selectedChildren = selectedChildren else { return }
-        selectedChildren[index].reset()
-        selectedChildren.remove(at: index)
+        let removedNode = selectedChildren.remove(at: index)
+        removedNode.reset()
     }
 }
 

@@ -61,8 +61,8 @@ public enum FilterMarket {
 }
 
 extension FilterMarket: CCFilterConfiguration {
-    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
-        return currentCCFilterConfig.viewController(for: filterNode)
+    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
+        return currentCCFilterConfig.viewModel(for: rangeNode)
     }
 }
 
@@ -83,10 +83,6 @@ extension FilterMarket: FilterConfiguration {
 
     var mapFilterKey: FilterKey? {
         return currentFilterConfig.mapFilterKey
-    }
-
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        return currentFilterConfig.createFilterInfoFrom(rangeFilterData: rangeFilterData)
     }
 }
 

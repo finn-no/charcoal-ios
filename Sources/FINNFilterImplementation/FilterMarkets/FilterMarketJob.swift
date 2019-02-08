@@ -11,8 +11,8 @@ public enum FilterMarketJob: String, CaseIterable {
 }
 
 extension FilterMarketJob: CCFilterConfiguration {
-    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
-        return nil
+    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
+        return createFilterInfoFrom(filterNode: rangeNode)
     }
 }
 
@@ -54,7 +54,7 @@ extension FilterMarketJob: FilterConfiguration {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
+    func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
         return nil
     }
 }

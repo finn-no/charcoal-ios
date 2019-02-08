@@ -14,8 +14,8 @@ extension CCRangeFilterNode {
     }
 }
 
-class CCRangeFilterNode: CCFilterNode {
-    init(title: String, name: String) {
+public class CCRangeFilterNode: CCFilterNode {
+    public init(title: String, name: String) {
         super.init(title: title, name: name)
         setup()
     }

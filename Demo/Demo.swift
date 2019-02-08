@@ -2,8 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Charcoal
-import UIKit
+@testable import Charcoal
 
 enum Sections: String, CaseIterable {
     case components
@@ -59,8 +58,6 @@ enum Sections: String, CaseIterable {
         case .components:
             let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
-            case .rootFilters:
-                return .none
             case .listSelection:
                 return .none
             case .compactListFilter:
@@ -110,7 +107,6 @@ enum Sections: String, CaseIterable {
 }
 
 enum ComponentViews: String, CaseIterable {
-    case rootFilters
     case listSelection
     case compactListFilter
     case rangeFilter
@@ -120,24 +116,10 @@ enum ComponentViews: String, CaseIterable {
 
     var viewController: UIViewController {
         switch self {
-        case .rootFilters:
-            let filterData = DemoFilter.filterDataFromJSONFile(named: "car-norway")
-            let demoFilter = DemoFilter(filter: filterData)
-            let navigationController = FilterNavigationController()
-            let factory = FilterDependencyContainer(selectionDataSource: demoFilter.selectionDataSource, searchQuerySuggestionsDataSource: DemoSearchQuerySuggestionsDataSource(), filterDelegate: nil, filterSelectionTitleProvider: FilterSelectionTitleProvider(), mapFilterViewManager: MapViewManager(), searchLocationDataSource: DemoSearchLocationDataSource())
-            let rootFilterNavigator = factory.makeRootFilterNavigator(navigationController: navigationController)
-
-            let stateController = rootFilterNavigator.start()
-            stateController.change(to: .loadFreshFilters(data: demoFilter))
-
-            return navigationController
-
         case .listSelection:
-            let viewController = ListSelectionFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource(), navigator: nil)
-            return viewController
+            return CCListFilterViewController(filterNode: CCFilterNode(title: "Liste", name: ""))
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
-
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
         case .stepperFilter:
@@ -145,13 +127,10 @@ enum ComponentViews: String, CaseIterable {
 
         case .inlineFilter:
             let controller = InlineFilterDemoViewController()
-            controller.selectionDataSource = DemoEmptyFilterSelectionDataSource()
             return controller
-
         case .mapFilter:
             let mapViewManager = MapViewManager()
-            let mapFilterViewController = MapFilterViewController(filterInfo: DemoListSelectionFilterInfo(), dataSource: DemoListDataSource(), selectionDataSource: DemoListFilterSelectionDataSource(), navigator: nil)
-            mapFilterViewController.mapFilterViewManager = mapViewManager
+            let mapFilterViewController = CCMapFilterViewController(filterNode: CCMapFilterNode(title: "Område i kart", name: ""))
             return mapFilterViewController
         }
     }
@@ -207,84 +186,5 @@ enum TransitionStyle {
 extension String {
     var capitalizingFirstLetter: String {
         return prefix(1).uppercased() + dropFirst()
-    }
-}
-
-struct DemoSearchQueryFilterInfo: SearchQueryFilterInfoType {
-    var placeholderText: String
-    var title: String
-}
-
-class DemoEmptyFilterSelectionDataSource: FilterSelectionDataSource {
-    func setValueAndClearValueForChildren(_ value: String?, for filterInfo: MultiLevelListSelectionFilterInfoType) {
-    }
-
-    func clearValueAndValueForChildren(for filterInfo: MultiLevelListSelectionFilterInfoType) {
-    }
-
-    func clearSelection(at selectionValueIndex: Int, in selectionInfo: FilterSelectionInfo) {
-    }
-
-    func stepperValue(for filterInfo: StepperFilterInfoType) -> Int? {
-        return nil
-    }
-
-    func selectionState(_ filterInfo: MultiLevelListSelectionFilterInfoType) -> MultiLevelListItemSelectionState {
-        return .none
-    }
-
-    func value(for filterInfo: FilterInfoType) -> [String]? {
-        return nil
-    }
-
-    func valueAndSubLevelValues(for filterInfo: FilterInfoType) -> [FilterSelectionInfo] {
-        return []
-    }
-
-    func setValue(_ filterSelectionValue: [String]?, for filterInfo: FilterInfoType) {
-    }
-
-    func addValue(_ value: String, for filterInfo: FilterInfoType) {
-    }
-
-    func clearAll(for filterInfo: FilterInfoType) {
-    }
-
-    func clearValue(_ value: String, for filterInfo: FilterInfoType) {
-    }
-
-    func rangeValue(for filterInfo: RangeFilterInfoType) -> RangeValue? {
-        return nil
-    }
-
-    func setValue(_ range: RangeValue, for filterInfo: FilterInfoType) {
-    }
-
-    func setValue(latitude: Double, longitude: Double, radius: Int, locationName: String?, for filterInfo: FilterInfoType) {
-    }
-
-    func setValue(geoFilterValue: GeoFilterValue, for filterInfo: FilterInfoType) {
-    }
-
-    func geoValue() -> GeoFilterValue? {
-        return nil
-    }
-}
-
-class DemoEmptyDataSource: FilterDataSource {
-    var searchQuery: SearchQueryFilterInfoType?
-
-    var verticals: [Vertical] = []
-
-    var preferences: [PreferenceFilterInfoType] = []
-
-    var filters: [FilterInfoType] = []
-
-    var numberOfHits: Int = 0
-
-    var filterTitle: String = "Demo"
-
-    func numberOfHits(for filterValue: FilterValueType) -> Int {
-        return 42
     }
 }

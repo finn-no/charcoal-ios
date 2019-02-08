@@ -2,15 +2,22 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Charcoal
-import Foundation
+@testable import Charcoal
 
 public class RangeFilterDemoView: UIView {
-    let unit = "kr"
-    let accessibilityUnit = "kroner"
+    let filterInfo = RangeFilterInfo(
+        parameterName: "range",
+        title: "Range Filter",
+        lowValue: 0,
+        highValue: 30000,
+        increment: 1000,
+        rangeBoundsOffsets: (hasLowerBoundOffset: false, hasUpperBoundOffset: true),
+        unit: "kr",
+        accesibilityValues: (stepIncrement: nil, valueSuffix: nil),
+        appearanceProperties: (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+    )
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let filterInfo = RangeFilterInfo()
         let rangeFilterView = RangeFilterView(filterInfo: filterInfo)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
         rangeFilterView.setLowValue(filterInfo.sliderInfo.minimumValue, animated: false)
@@ -36,23 +43,4 @@ public class RangeFilterDemoView: UIView {
             rangeFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
-}
-
-// MARK: - Private
-
-private struct RangeFilterInfo: RangeFilterInfoType {
-    let title = "Range filter"
-    let unit = "kr"
-    let isCurrencyValueRange = true
-    let accessibilityValueSuffix: String? = nil
-    let usesSmallNumberInputFont = false
-    let displaysUnitInNumberInput = true
-
-    let sliderInfo = StepSliderInfo(
-        minimumValue: 0,
-        maximumValue: 30000,
-        stepValues: [100, 500, 1000, 2000, 3000, 4000, 5000, 8000, 10000, 15000, 20000],
-        hasLowerBoundOffset: true,
-        hasUpperBoundOffset: true
-    )
 }

@@ -2,22 +2,26 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Charcoal
-
-struct StepperData: StepperFilterInfoType {
-    let unit = "soverom"
-    let steps = 1
-    let lowerLimit = 0
-    let upperLimit = 6
-    let title = "Antall Soverom"
-}
+@testable import Charcoal
 
 class StepperFilterDemoView: UIView {
     private var didSetConstant = false
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(equalTo: topAnchor)
 
+    let filterInfo = RangeFilterInfo(
+        parameterName: "stepper",
+        title: "Stepper filter",
+        lowValue: 0,
+        highValue: 6,
+        increment: 1,
+        rangeBoundsOffsets: (hasLowerBoundOffset: false, hasUpperBoundOffset: true),
+        unit: "stk",
+        accesibilityValues: (stepIncrement: nil, valueSuffix: nil),
+        appearanceProperties: (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+    )
+
     private lazy var stepperFilterView: StepperFilterView = {
-        let view = StepperFilterView(filterInfo: StepperData())
+        let view = StepperFilterView(filterInfo: filterInfo)
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

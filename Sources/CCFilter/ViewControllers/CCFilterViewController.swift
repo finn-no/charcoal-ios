@@ -9,9 +9,9 @@ public protocol CCFilterViewControllerDelegate: class {
     func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController)
 }
 
-public protocol MapFilterDataSource: class {
-    func mapFilterViewManager(for mapFilterViewController: CCMapFilterViewController) -> MapFilterViewManager
-    func searchLocationDataSource(for mapFilterViewController: CCMapFilterViewController) -> SearchLocationDataSource
+public protocol CCFilterViewControllerDataSource: class {
+    func mapFilterViewManager(for filterViewController: CCFilterViewController) -> MapFilterViewManager
+    func searchLocationDataSource(for filterViewController: CCFilterViewController) -> SearchLocationDataSource
 }
 
 public class CCFilterViewController: UINavigationController {
@@ -22,7 +22,7 @@ public class CCFilterViewController: UINavigationController {
     public var config: CCFilterConfiguration
 
     public weak var filterDelegate: CCFilterViewControllerDelegate?
-    public weak var mapFilterDataSource: MapFilterDataSource?
+    public weak var mapFilterDataSource: CCFilterViewControllerDataSource?
 
     // MARK: - Private properties
 
@@ -51,17 +51,25 @@ extension CCFilterViewController: CCViewControllerDelegate {
 
     func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
         guard !filterNode.isLeafNode else { return }
-        guard let nextController = config.viewController(for: filterNode) else { return }
-        nextController.delegate = viewController
+        let nextViewController: CCViewController
 
-        if let mapController = nextController as? CCMapFilterViewController {
-            mapController.mapFilterViewManager = mapFilterDataSource?.mapFilterViewManager(for: mapController)
-            mapController.searchLocationDataSource = mapFilterDataSource?.searchLocationDataSource(for: mapController)
+        switch filterNode {
+        case let rangeNode as CCRangeFilterNode:
+            guard let viewModel = config.viewModel(for: rangeNode) else { return }
+            nextViewController = CCRangeFilterViewController(filterNode: rangeNode, viewModel: viewModel)
+
+        case let mapNode as CCMapFilterNode:
+            let mapFilterViewController = CCMapFilterViewController(filterNode: mapNode)
+            nextViewController = mapFilterViewController
+
+        default:
+            nextViewController = CCListFilterViewController(filterNode: filterNode)
         }
 
         let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
-        nextController.showBottomButton(showBottomButton, animated: false)
+        nextViewController.showBottomButton(showBottomButton, animated: false)
+        nextViewController.delegate = viewController
 
-        pushViewController(nextController, animated: true)
+        pushViewController(nextViewController, animated: true)
     }
 }

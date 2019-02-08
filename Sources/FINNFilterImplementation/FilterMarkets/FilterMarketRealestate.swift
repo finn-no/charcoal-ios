@@ -21,8 +21,8 @@ public enum FilterMarketRealestate: String, CaseIterable {
 }
 
 extension FilterMarketRealestate: CCFilterConfiguration {
-    public func viewController(for filterNode: CCFilterNode) -> CCViewController? {
-        return nil
+    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
+        return createFilterInfoFrom(filterNode: rangeNode)
     }
 }
 
@@ -156,9 +156,9 @@ extension FilterMarketRealestate: FilterConfiguration {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        let parameterName = rangeFilterData.parameterName
-        let name = rangeFilterData.title
+    func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
+        let parameterName = filterNode.name
+        let name = filterNode.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -167,7 +167,7 @@ extension FilterMarketRealestate: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: filterNode.name) else {
             return nil
         }
         switch filterKey {
@@ -215,7 +215,13 @@ extension FilterMarketRealestate: FilterConfiguration {
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         case .noOfBedrooms:
-            return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: rangeFilterData.title, parameterName: rangeFilterData.parameterName)
+            lowValue = 0
+            highValue = 6
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: false)
+            unit = "stk"
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         case .area:
             switch self {
             case .leisureSaleAbroad:

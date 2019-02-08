@@ -18,7 +18,7 @@ final class SelectionTagView: UIView {
         stackView.axis = .horizontal
         stackView.spacing = 0
         stackView.backgroundColor = .clear
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.alignment = .fill
         return stackView
     }()
@@ -40,6 +40,7 @@ final class SelectionTagView: UIView {
     }()
 
     private lazy var removeButtonImage = UIImage(named: .removeFilterValue)
+    private lazy var stackViewTrailingConstraint = stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
 
     // MARK: - Init
 
@@ -58,6 +59,7 @@ final class SelectionTagView: UIView {
     func configure(withTitle title: String?, showRemoveButton: Bool) {
         titleLabel.text = title
         removeButton.isHidden = !showRemoveButton
+        stackViewTrailingConstraint.constant = showRemoveButton ? 0 : -.mediumSpacing
     }
 
     private func setup() {
@@ -73,10 +75,10 @@ final class SelectionTagView: UIView {
         let buttonWidth = removeButtonImage.size.width + buttonInsets
 
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
+            stackViewTrailingConstraint,
         ])
 
         removeButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true

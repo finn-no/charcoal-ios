@@ -18,8 +18,8 @@ class FilterCell: UITableViewCell {
         return label
     }()
 
-    private lazy var currentValuesContainer: CurrentSelectionValuesContainerView = {
-        let view = CurrentSelectionValuesContainerView()
+    private lazy var selectionTagsContainerView: SelectionTagsContainerView = {
+        let view = SelectionTagsContainerView(withAutoLayout: true)
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -39,7 +39,7 @@ class FilterCell: UITableViewCell {
 
     var selectedValues: [SelectionWithTitle]? {
         didSet {
-            currentValuesContainer.configure(with: selectedValues)
+            selectionTagsContainerView.configure(with: selectedValues)
         }
     }
 
@@ -65,7 +65,7 @@ private extension FilterCell {
         selectionStyle = .none
 
         contentView.addSubview(nameLabel)
-        contentView.addSubview(currentValuesContainer)
+        contentView.addSubview(selectionTagsContainerView)
 
         let separatorLine = UIView(frame: .zero)
         separatorLine.backgroundColor = .sardine
@@ -77,10 +77,10 @@ private extension FilterCell {
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumSpacing),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
 
-            currentValuesContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            currentValuesContainer.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),
-            currentValuesContainer.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: .mediumLargeSpacing),
-            currentValuesContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            selectionTagsContainerView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),
+            selectionTagsContainerView.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: .mediumLargeSpacing),
+            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
             separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),

@@ -127,7 +127,7 @@
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
 		9B5A66F821A2E26C005C9118 /* FilterRootStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */; };
 		9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */; };
-		9B5E877121998B3500793A1A /* CurrentSelectionValuesContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */; };
+		9B5E877121998B3500793A1A /* SelectionTagsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E877021998B3500793A1A /* SelectionTagsContainerView.swift */; };
 		9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1521B5592C00D18097 /* MapFilterView.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
 		9B741D1A21B6990800D18097 /* ValueSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1921B6990800D18097 /* ValueSliderView.swift */; };
@@ -365,7 +365,7 @@
 		9B5A66F521A2E122005C9118 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRootStateController.swift; sourceTree = "<group>"; };
 		9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectionCell.swift; sourceTree = "<group>"; };
-		9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSelectionValuesContainerView.swift; sourceTree = "<group>"; };
+		9B5E877021998B3500793A1A /* SelectionTagsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsContainerView.swift; sourceTree = "<group>"; };
 		9B741D1521B5592C00D18097 /* MapFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterView.swift; sourceTree = "<group>"; };
 		9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderWithLabelView.swift; sourceTree = "<group>"; };
 		9B741D1921B6990800D18097 /* ValueSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderView.swift; sourceTree = "<group>"; };
@@ -978,7 +978,7 @@
 			isa = PBXGroup;
 			children = (
 				9BE0A068209724AF0000632B /* Cells */,
-				9BE9A05E219ADBCA00059C19 /* CurrentSelection */,
+				9BE9A05E219ADBCA00059C19 /* SelectionTags */,
 				9BE0D54421A5696100F0B63B /* ErrorViewController.swift */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				9B5A66F721A2E26C005C9118 /* FilterRootStateController.swift */,
@@ -1021,16 +1021,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		9BE9A05E219ADBCA00059C19 /* CurrentSelection */ = {
+		9BE9A05E219ADBCA00059C19 /* SelectionTags */ = {
 			isa = PBXGroup;
 			children = (
 				9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */,
-				9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */,
+				9B5E877021998B3500793A1A /* SelectionTagsContainerView.swift */,
 				9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */,
 				46F642532199C83B00C1D864 /* SelectionWithTitle.swift */,
 				CFB8AC52220C8CDC00512252 /* FilterTagView.swift */,
 			);
-			path = CurrentSelection;
+			path = SelectionTags;
 			sourceTree = "<group>";
 		};
 		9BF778CD21C1661D006C0416 /* MapFilter */ = {
@@ -1385,7 +1385,7 @@
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				9BE9A062219ADC4F00059C19 /* ExpandedSelectionValuesView.swift in Sources */,
 				5525324220A2DB02000CBD21 /* ViewControllerFactory.swift in Sources */,
-				9B5E877121998B3500793A1A /* CurrentSelectionValuesContainerView.swift in Sources */,
+				9B5E877121998B3500793A1A /* SelectionTagsContainerView.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
 				55858A2420AB08FA00B100EA /* MultiLevelListSelectionFilterViewController.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,

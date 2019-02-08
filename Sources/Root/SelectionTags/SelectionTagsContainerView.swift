@@ -13,27 +13,28 @@ protocol CurrentSelectionValuesContainerDelegate: AnyObject {
     func currentSelectionValuesContainerView(_: CurrentSelectionValuesContainer, didTapRemoveSelection: SelectionWithTitle)
 }
 
-class CurrentSelectionValuesContainerView: UIView, CurrentSelectionValuesContainer, CurrentSelectionValuesContainerDelegate {
+final class SelectionTagsContainerView: UIView, CurrentSelectionValuesContainer {
+    var delegate: CurrentSelectionValuesContainerDelegate?
     private let selectionContainerHeight: CGFloat = 30
 
-    private lazy var collapsedView: UIView & CurrentSelectionValuesContainer = {
+    private lazy var collapsedView: CollapsedSelectionValuesView = {
         let view = CollapsedSelectionValuesView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var expandedView: UIView & CurrentSelectionValuesContainer = {
+    private lazy var expandedView: ExpandedSelectionValuesView = {
         let view = ExpandedSelectionValuesView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    var delegate: CurrentSelectionValuesContainerDelegate?
+    // MARK: - Init
 
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
@@ -42,13 +43,23 @@ class CurrentSelectionValuesContainerView: UIView, CurrentSelectionValuesContain
         setup()
     }
 
+    // MARK: - Overrides
+
     override func layoutSubviews() {
         expandedView.layoutIfNeeded()
+
         let showCollapsedView = frame.width < expandedView.frame.width
         expandedView.isHidden = showCollapsedView
         collapsedView.isHidden = !showCollapsedView
 
         super.layoutSubviews()
+    }
+
+    // MARK: - Setup
+
+    func configure(with selectedValues: [SelectionWithTitle]?) {
+        collapsedView.configure(with: selectedValues)
+        expandedView.configure(with: selectedValues)
     }
 
     private func setup() {
@@ -68,13 +79,12 @@ class CurrentSelectionValuesContainerView: UIView, CurrentSelectionValuesContain
             collapsedView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
         ])
     }
+}
 
+// MARK: - CurrentSelectionValuesContainerDelegate
+
+extension SelectionTagsContainerView: CurrentSelectionValuesContainerDelegate {
     func currentSelectionValuesContainerView(_ container: CurrentSelectionValuesContainer, didTapRemoveSelection selection: SelectionWithTitle) {
         delegate?.currentSelectionValuesContainerView(container, didTapRemoveSelection: selection)
-    }
-
-    func configure(with selectedValues: [SelectionWithTitle]?) {
-        collapsedView.configure(with: selectedValues)
-        expandedView.configure(with: selectedValues)
     }
 }

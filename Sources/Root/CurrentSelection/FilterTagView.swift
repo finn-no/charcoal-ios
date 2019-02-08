@@ -11,6 +11,8 @@ protocol FilterTagViewDelegate: AnyObject {
 final class FilterTagView: UIView {
     weak var delegate: FilterTagViewDelegate?
 
+    // MARK: - Private vars
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel(withAutoLayout: true)
         label.font = .title5
@@ -18,7 +20,7 @@ final class FilterTagView: UIView {
         return label
     }()
 
-    private lazy var button: UIButton = {
+    private lazy var removeButton: UIButton = {
         let button = UIButton(withAutoLayout: true)
         button.imageEdgeInsets = UIEdgeInsets(leading: .smallSpacing, trailing: .smallSpacing)
         button.setImage(removeButtonImage, for: .normal)
@@ -44,24 +46,25 @@ final class FilterTagView: UIView {
 
     private func setup(title: String) {
         addSubview(titleLabel)
-        addSubview(button)
+        addSubview(removeButton)
 
         layer.cornerRadius = 4
         backgroundColor = .primaryBlue
         titleLabel.text = title
 
-        let buttonWidth = removeButtonImage.size.width + button.imageEdgeInsets.leading + button.imageEdgeInsets.trailing
+        let buttonInsets = removeButton.imageEdgeInsets.leading + removeButton.imageEdgeInsets.trailing
+        let buttonWidth = removeButtonImage.size.width + buttonInsets
 
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            titleLabel.trailingAnchor.constraint(equalTo: button.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: removeButton.leadingAnchor),
 
-            button.trailingAnchor.constraint(equalTo: trailingAnchor),
-            button.topAnchor.constraint(equalTo: topAnchor),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor),
-            button.widthAnchor.constraint(equalToConstant: buttonWidth), // 22)
+            removeButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            removeButton.topAnchor.constraint(equalTo: topAnchor),
+            removeButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            removeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
         ])
     }
 

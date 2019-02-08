@@ -55,6 +55,8 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
     }
 }
 
+// MARK: - FilterTagViewDelegate
+
 extension ExpandedSelectionValuesView: FilterTagViewDelegate {
     func filterTagViewDidSelectRemove(_ view: FilterTagView) {
         guard let tappedIndex = buttonContainerView.arrangedSubviews.index(of: view) else {

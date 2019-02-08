@@ -17,8 +17,8 @@ final class SelectionTagsCollapsedView: UIView, CurrentSelectionValuesContainer 
 
     // MARK: - Init
 
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 

@@ -4,12 +4,12 @@
 
 import UIKit
 
-class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
+final class SelectionTagsExpandedView: UIView, CurrentSelectionValuesContainer {
     var delegate: CurrentSelectionValuesContainerDelegate?
+    private var selectedValues: [SelectionWithTitle]?
 
     private lazy var buttonContainerView: UIStackView = {
-        let stackView = UIStackView(frame: .zero)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = UIStackView(withAutoLayout: true)
         stackView.axis = .horizontal
         stackView.spacing = .smallSpacing
         stackView.backgroundColor = .clear
@@ -18,10 +18,10 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         return stackView
     }()
 
-    private var selectedValues: [SelectionWithTitle]?
+    // MARK: - Init
 
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
@@ -30,10 +30,11 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         setup()
     }
 
+    // MARK: - Init
+
     private func setup() {
         backgroundColor = .clear
         addSubview(buttonContainerView)
-
         buttonContainerView.fillInSuperview()
     }
 
@@ -57,7 +58,7 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
 
 // MARK: - FilterTagViewDelegate
 
-extension ExpandedSelectionValuesView: FilterTagViewDelegate {
+extension SelectionTagsExpandedView: FilterTagViewDelegate {
     func filterTagViewDidSelectRemove(_ view: FilterTagView) {
         guard let tappedIndex = buttonContainerView.arrangedSubviews.index(of: view) else {
             return

@@ -4,25 +4,25 @@
 
 import UIKit
 
-protocol CurrentSelectionValuesContainer: AnyObject {
-    var delegate: CurrentSelectionValuesContainerDelegate? { get set }
-    func configure(with selectedValues: [SelectionWithTitle]?)
+protocol SelectionTagsContainerViewDelegate: AnyObject {
+    func selectionTagsContainerView(_ view: SelectionTagsContainerView, didTapRemoveSelection selection: SelectionWithTitle)
 }
 
-protocol CurrentSelectionValuesContainerDelegate: AnyObject {
-    func currentSelectionValuesContainerView(_: CurrentSelectionValuesContainer, didTapRemoveSelection: SelectionWithTitle)
-}
-
-final class SelectionTagsContainerView: UIView, CurrentSelectionValuesContainer {
-    var delegate: CurrentSelectionValuesContainerDelegate?
+final class SelectionTagsContainerView: UIView {
+    weak var delegate: SelectionTagsContainerViewDelegate?
     private let selectionContainerHeight: CGFloat = 30
+    private var selectedValues: [SelectionWithTitle]?
 
     private lazy var collapsedView = SelectionTagView(withAutoLayout: true)
 
-    private lazy var expandedView: SelectionTagsExpandedView = {
-        let view = SelectionTagsExpandedView(withAutoLayout: true)
-        view.delegate = self
-        return view
+    private lazy var expandedView: UIStackView = {
+        let stackView = UIStackView(withAutoLayout: true)
+        stackView.axis = .horizontal
+        stackView.spacing = .smallSpacing
+        stackView.backgroundColor = .clear
+        stackView.distribution = .fillProportionally
+        stackView.alignment = .fill
+        return stackView
     }()
 
     // MARK: - Init
@@ -52,8 +52,19 @@ final class SelectionTagsContainerView: UIView, CurrentSelectionValuesContainer 
     // MARK: - Setup
 
     func configure(with selectedValues: [SelectionWithTitle]?) {
-        collapsedView.configure(with: selectedValues)
-        expandedView.configure(with: selectedValues)
+        self.selectedValues = selectedValues
+
+        collapsedView.configure(withTitle: selectedValues?.joinedTitles, showRemoveButton: false)
+        expandedView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        selectedValues?.forEach { selectedValue in
+            let view = SelectionTagView()
+            view.configure(withTitle: selectedValue.title, showRemoveButton: true)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = selectedValue.selectionInfo.isValid ? .primaryBlue : .cherry
+            view.delegate = self
+            expandedView.addArrangedSubview(view)
+        }
     }
 
     private func setup() {
@@ -75,10 +86,27 @@ final class SelectionTagsContainerView: UIView, CurrentSelectionValuesContainer 
     }
 }
 
-// MARK: - CurrentSelectionValuesContainerDelegate
+// MARK: - FilterTagViewDelegate
 
-extension SelectionTagsContainerView: CurrentSelectionValuesContainerDelegate {
-    func currentSelectionValuesContainerView(_ container: CurrentSelectionValuesContainer, didTapRemoveSelection selection: SelectionWithTitle) {
-        delegate?.currentSelectionValuesContainerView(container, didTapRemoveSelection: selection)
+extension SelectionTagsContainerView: SelectionTagViewDelegate {
+    func selectionTagViewDidSelectRemove(_ view: SelectionTagView) {
+        guard let tappedIndex = expandedView.arrangedSubviews.index(of: view) else {
+            return
+        }
+
+        guard let selection = selectedValues?[safe: tappedIndex] else {
+            return
+        }
+
+        delegate?.selectionTagsContainerView(self, didTapRemoveSelection: selection)
+    }
+}
+
+// MARK: - Private extensions
+
+private extension Array where Element == SelectionWithTitle {
+    var joinedTitles: String {
+        let string = compactMap({ $0.title }).joined(separator: ", ")
+        return count > 1 ? "(\(count)) \(string)" : string
     }
 }

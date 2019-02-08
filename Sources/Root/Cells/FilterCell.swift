@@ -90,8 +90,10 @@ private extension FilterCell {
     }
 }
 
-extension FilterCell: CurrentSelectionValuesContainerDelegate {
-    func currentSelectionValuesContainerView(_: CurrentSelectionValuesContainer, didTapRemoveSelection selection: SelectionWithTitle) {
+// MARK: - SelectionTagsContainerViewDelegate
+
+extension FilterCell: SelectionTagsContainerViewDelegate {
+    func selectionTagsContainerView(_ view: SelectionTagsContainerView, didTapRemoveSelection selection: SelectionWithTitle) {
         delegate?.filterCell(self, didTapRemoveSelectedValue: selection)
     }
 }

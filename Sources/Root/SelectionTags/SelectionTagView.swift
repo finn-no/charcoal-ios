@@ -55,26 +55,9 @@ final class SelectionTagView: UIView {
 
     // MARK: - Setup
 
-    func configure(with title: String) {
-        removeButton.isHidden = false
+    func configure(withTitle title: String?, showRemoveButton: Bool) {
         titleLabel.text = title
-    }
-
-    func configure(with selectedValues: [SelectionWithTitle]?) {
-        removeButton.isHidden = true
-
-        guard let selectedValues = selectedValues else {
-            titleLabel.text = nil
-            return
-        }
-
-        let titlesJoined = selectedValues.compactMap({ $0.title }).joined(separator: ", ")
-
-        if selectedValues.count > 1 {
-            titleLabel.text = "(\(selectedValues.count)) " + titlesJoined
-        } else {
-            titleLabel.text = titlesJoined
-        }
+        removeButton.isHidden = !showRemoveButton
     }
 
     private func setup() {

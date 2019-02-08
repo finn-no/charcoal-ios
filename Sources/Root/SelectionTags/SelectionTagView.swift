@@ -4,12 +4,12 @@
 
 import UIKit
 
-protocol FilterTagViewDelegate: AnyObject {
-    func filterTagViewDidSelectRemove(_ view: FilterTagView)
+protocol SelectionTagViewDelegate: AnyObject {
+    func selectionTagViewDidSelectRemove(_ view: SelectionTagView)
 }
 
-final class FilterTagView: UIView {
-    weak var delegate: FilterTagViewDelegate?
+final class SelectionTagView: UIView {
+    weak var delegate: SelectionTagViewDelegate?
 
     // MARK: - Private vars
 
@@ -72,9 +72,11 @@ final class FilterTagView: UIView {
     // MARK: - Actions
 
     @objc private func handleRemoveButtonTap() {
-        delegate?.filterTagViewDidSelectRemove(self)
+        delegate?.selectionTagViewDidSelectRemove(self)
     }
 }
+
+// MARK: - Private types
 
 private final class RemoveButton: UIButton {
     override var isHighlighted: Bool {

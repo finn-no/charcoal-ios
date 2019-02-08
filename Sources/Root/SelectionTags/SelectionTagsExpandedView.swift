@@ -47,7 +47,7 @@ final class SelectionTagsExpandedView: UIView, CurrentSelectionValuesContainer {
         }
 
         selectedValues.forEach { selectedValue in
-            let view = FilterTagView(title: selectedValue.title)
+            let view = SelectionTagView(title: selectedValue.title)
             view.translatesAutoresizingMaskIntoConstraints = false
             view.backgroundColor = selectedValue.selectionInfo.isValid ? .primaryBlue : .cherry
             view.delegate = self
@@ -58,8 +58,8 @@ final class SelectionTagsExpandedView: UIView, CurrentSelectionValuesContainer {
 
 // MARK: - FilterTagViewDelegate
 
-extension SelectionTagsExpandedView: FilterTagViewDelegate {
-    func filterTagViewDidSelectRemove(_ view: FilterTagView) {
+extension SelectionTagsExpandedView: SelectionTagViewDelegate {
+    func selectionTagViewDidSelectRemove(_ view: SelectionTagView) {
         guard let tappedIndex = buttonContainerView.arrangedSubviews.index(of: view) else {
             return
         }

@@ -37,16 +37,6 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         buttonContainerView.fillInSuperview()
     }
 
-    @objc private func didTapRemoveButton(_ sender: UIButton) {
-        guard let tappedIndex = buttonContainerView.arrangedSubviews.index(of: sender) else {
-            return
-        }
-        guard let selection = selectedValues?[safe: tappedIndex] else {
-            return
-        }
-        delegate?.currentSelectionValuesContainerView(self, didTapRemoveSelection: selection)
-    }
-
     func configure(with selectedValues: [SelectionWithTitle]?) {
         buttonContainerView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         self.selectedValues = selectedValues
@@ -56,46 +46,25 @@ class ExpandedSelectionValuesView: UIView, CurrentSelectionValuesContainer {
         }
 
         selectedValues.forEach { selectedValue in
-            let button = RemoveFilterValueButton(title: selectedValue.title)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.backgroundColor = selectedValue.selectionInfo.isValid ? .primaryBlue : .cherry
-            buttonContainerView.addArrangedSubview(button)
-            button.addTarget(self, action: #selector(didTapRemoveButton(_:)), for: .touchUpInside)
+            let view = FilterTagView(title: selectedValue.title)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = selectedValue.selectionInfo.isValid ? .primaryBlue : .cherry
+            view.delegate = self
+            buttonContainerView.addArrangedSubview(view)
         }
     }
 }
 
-private class RemoveFilterValueButton: UIButton {
-    init(title: String) {
-        super.init(frame: .zero)
-        setup(title: title)
-    }
+// MARK: - FilterTagViewDelegate
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup(title: "")
-    }
-
-    private func setup(title: String) {
-        layer.cornerRadius = 4
-        backgroundColor = .primaryBlue
-        titleLabel?.font = .title5
-        setTitleColor(.milk, for: .normal)
-        contentEdgeInsets = UIEdgeInsets(leading: .mediumSpacing, trailing: .mediumSpacing)
-        imageEdgeInsets = UIEdgeInsets(leading: .smallSpacing)
-        setImage(UIImage(named: .removeFilterValue), for: .normal)
-        setTitle(title, for: .normal)
-    }
-
-    override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
-        var imageRect = super.imageRect(forContentRect: contentRect)
-        imageRect.origin.x = contentRect.maxX - imageRect.width - imageEdgeInsets.right + imageEdgeInsets.left
-        return imageRect
-    }
-
-    override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-        var titleRect = super.titleRect(forContentRect: contentRect)
-        titleRect.origin.x = titleRect.minX - imageRect(forContentRect: contentRect).width
-        return titleRect
+extension ExpandedSelectionValuesView: FilterTagViewDelegate {
+    func filterTagViewDidSelectRemove(_ view: FilterTagView) {
+        guard let tappedIndex = buttonContainerView.arrangedSubviews.index(of: view) else {
+            return
+        }
+        guard let selection = selectedValues?[safe: tappedIndex] else {
+            return
+        }
+        delegate?.currentSelectionValuesContainerView(self, didTapRemoveSelection: selection)
     }
 }

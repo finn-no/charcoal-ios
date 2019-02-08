@@ -33,6 +33,17 @@ public class CCRangeFilterNode: CCFilterNode {
             return fromNode.urlItems + toNode.urlItems
         }
     }
+
+    override func reset() {
+        isSelected = false
+        reset(child(at: Index.from.rawValue))
+        reset(child(at: Index.to.rawValue))
+    }
+
+    private func reset(_ child: CCFilterNode) {
+        child.value = nil
+        child.isSelected = false
+    }
 }
 
 extension CCRangeFilterNode {

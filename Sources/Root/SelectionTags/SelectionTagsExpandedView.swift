@@ -47,7 +47,8 @@ final class SelectionTagsExpandedView: UIView, CurrentSelectionValuesContainer {
         }
 
         selectedValues.forEach { selectedValue in
-            let view = SelectionTagView(title: selectedValue.title)
+            let view = SelectionTagView()
+            view.configure(with: selectedValue.title)
             view.translatesAutoresizingMaskIntoConstraints = false
             view.backgroundColor = selectedValue.selectionInfo.isValid ? .primaryBlue : .cherry
             view.delegate = self

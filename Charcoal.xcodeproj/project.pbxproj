@@ -168,7 +168,6 @@
 		9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */; };
 		9BE5EC8E21EDE83D009C5E1A /* FilterSelectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC8D21EDE83C009C5E1A /* FilterSelectionData.swift */; };
 		9BE5EC9021EE0BB1009C5E1A /* FilterSelectionDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC8F21EE0BB1009C5E1A /* FilterSelectionDataTests.swift */; };
-		9BE9A060219ADC2000059C19 /* SelectionTagsCollapsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A05F219ADC2000059C19 /* SelectionTagsCollapsedView.swift */; };
 		9BE9A062219ADC4F00059C19 /* SelectionTagsExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A061219ADC4F00059C19 /* SelectionTagsExpandedView.swift */; };
 		9BF778CC21C16374006C0416 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF778CB21C16374006C0416 /* MapFilterViewController.swift */; };
 		9BF778CF21C1663D006C0416 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF778CE21C1663D006C0416 /* MapViewManager.swift */; };
@@ -405,7 +404,6 @@
 		9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchLocationDataSource.swift; sourceTree = "<group>"; };
 		9BE5EC8D21EDE83C009C5E1A /* FilterSelectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionData.swift; sourceTree = "<group>"; };
 		9BE5EC8F21EE0BB1009C5E1A /* FilterSelectionDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionDataTests.swift; sourceTree = "<group>"; };
-		9BE9A05F219ADC2000059C19 /* SelectionTagsCollapsedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsCollapsedView.swift; sourceTree = "<group>"; };
 		9BE9A061219ADC4F00059C19 /* SelectionTagsExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsExpandedView.swift; sourceTree = "<group>"; };
 		9BF778CB21C16374006C0416 /* MapFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
 		9BF778CE21C1663D006C0416 /* MapViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
@@ -1024,7 +1022,6 @@
 		9BE9A05E219ADBCA00059C19 /* SelectionTags */ = {
 			isa = PBXGroup;
 			children = (
-				9BE9A05F219ADC2000059C19 /* SelectionTagsCollapsedView.swift */,
 				9B5E877021998B3500793A1A /* SelectionTagsContainerView.swift */,
 				9BE9A061219ADC4F00059C19 /* SelectionTagsExpandedView.swift */,
 				CFB8AC52220C8CDC00512252 /* SelectionTagView.swift */,
@@ -1410,7 +1407,6 @@
 				DA51041B21BE6AFE004048BD /* Font.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineFilterViewCell.swift in Sources */,
 				9BE0A04B2091BE750000632B /* FilterRootViewController.swift in Sources */,
-				9BE9A060219ADC2000059C19 /* SelectionTagsCollapsedView.swift in Sources */,
 				9B8D53B02153BC1800FB9573 /* FilterSelectionTitleProvider.swift in Sources */,
 				9BF778CC21C16374006C0416 /* MapFilterViewController.swift in Sources */,
 				9BB827A9216CCFA10014028C /* SearchQueryFilterInfoType.swift in Sources */,

@@ -17,11 +17,7 @@ final class SelectionTagsContainerView: UIView, CurrentSelectionValuesContainer 
     var delegate: CurrentSelectionValuesContainerDelegate?
     private let selectionContainerHeight: CGFloat = 30
 
-    private lazy var collapsedView: SelectionTagsCollapsedView = {
-        let view = SelectionTagsCollapsedView(withAutoLayout: true)
-        view.delegate = self
-        return view
-    }()
+    private lazy var collapsedView = SelectionTagView(withAutoLayout: true)
 
     private lazy var expandedView: SelectionTagsExpandedView = {
         let view = SelectionTagsExpandedView(withAutoLayout: true)

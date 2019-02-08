@@ -13,6 +13,16 @@ final class SelectionTagView: UIView {
 
     // MARK: - Private vars
 
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(withAutoLayout: true)
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        stackView.backgroundColor = .clear
+        stackView.distribution = .fillProportionally
+        stackView.alignment = .fill
+        return stackView
+    }()
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel(withAutoLayout: true)
         label.font = .title5
@@ -33,40 +43,60 @@ final class SelectionTagView: UIView {
 
     // MARK: - Init
 
-    init(title: String) {
-        super.init(frame: .zero)
-        setup(title: title)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup(title: "")
+        setup()
     }
 
     // MARK: - Setup
 
-    private func setup(title: String) {
-        addSubview(titleLabel)
-        addSubview(removeButton)
+    func configure(with title: String) {
+        removeButton.isHidden = false
+        titleLabel.text = title
+    }
 
+    func configure(with selectedValues: [SelectionWithTitle]?) {
+        removeButton.isHidden = true
+
+        guard let selectedValues = selectedValues else {
+            titleLabel.text = nil
+            return
+        }
+
+        let titlesJoined = selectedValues.compactMap({ $0.title }).joined(separator: ", ")
+
+        if selectedValues.count > 1 {
+            titleLabel.text = "(\(selectedValues.count)) " + titlesJoined
+        } else {
+            titleLabel.text = titlesJoined
+        }
+    }
+
+    private func setup() {
         layer.cornerRadius = 4
         backgroundColor = .primaryBlue
-        titleLabel.text = title
+
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(removeButton)
+
+        addSubview(stackView)
 
         let buttonInsets = removeButton.imageEdgeInsets.leading + removeButton.imageEdgeInsets.trailing
         let buttonWidth = removeButtonImage.size.width + buttonInsets
 
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: .mediumSpacing),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            titleLabel.trailingAnchor.constraint(equalTo: removeButton.leadingAnchor),
-
-            removeButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            removeButton.topAnchor.constraint(equalTo: topAnchor),
-            removeButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-            removeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+
+        removeButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
     }
 
     // MARK: - Actions

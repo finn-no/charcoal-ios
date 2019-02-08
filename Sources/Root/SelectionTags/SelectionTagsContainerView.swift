@@ -10,7 +10,7 @@ protocol SelectionTagsContainerViewDelegate: AnyObject {
 
 final class SelectionTagsContainerView: UIView {
     weak var delegate: SelectionTagsContainerViewDelegate?
-    private let selectionContainerHeight: CGFloat = 30
+    private let tagViewHeight: CGFloat = 30
     private var selectedValues: [SelectionWithTitle]?
 
     private lazy var collapsedView = SelectionTagView(withAutoLayout: true)
@@ -75,11 +75,11 @@ final class SelectionTagsContainerView: UIView {
             heightAnchor.constraint(equalToConstant: 44),
 
             expandedView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            expandedView.heightAnchor.constraint(equalToConstant: selectionContainerHeight),
+            expandedView.heightAnchor.constraint(equalToConstant: tagViewHeight),
             expandedView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
             collapsedView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            collapsedView.heightAnchor.constraint(equalToConstant: selectionContainerHeight),
+            collapsedView.heightAnchor.constraint(equalToConstant: tagViewHeight),
             collapsedView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collapsedView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
         ])

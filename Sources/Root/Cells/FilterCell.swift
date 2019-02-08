@@ -21,7 +21,6 @@ class FilterCell: UITableViewCell {
     private lazy var selectionTagsContainerView: SelectionTagsContainerView = {
         let view = SelectionTagsContainerView(withAutoLayout: true)
         view.delegate = self
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 

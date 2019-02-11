@@ -132,6 +132,7 @@
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
+		CFB8AC53220C8CDC00512252 /* FilterTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB8AC52220C8CDC00512252 /* FilterTagView.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
@@ -341,6 +342,7 @@
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
+		CFB8AC52220C8CDC00512252 /* FilterTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTagView.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfoTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
@@ -825,6 +827,28 @@
 				46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		9BE0A068209724AF0000632B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9BE0A05F2091FFA50000632B /* FilterCell.swift */,
+				9BE0A069209724D70000632B /* InlineFilterCell.swift */,
+				9BE0A0532091D2130000632B /* SearchQueryCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9BE9A05E219ADBCA00059C19 /* CurrentSelection */ = {
+			isa = PBXGroup;
+			children = (
+				9BE9A05F219ADC2000059C19 /* CollapsedSelectionValuesView.swift */,
+				9B5E877021998B3500793A1A /* CurrentSelectionValuesContainerView.swift */,
+				9BE9A061219ADC4F00059C19 /* ExpandedSelectionValuesView.swift */,
+				46F642532199C83B00C1D864 /* SelectionWithTitle.swift */,
+				CFB8AC52220C8CDC00512252 /* FilterTagView.swift */,
+			);
+			path = CurrentSelection;
 			sourceTree = "<group>";
 		};
 		9BF778CD21C1661D006C0416 /* MapFilter */ = {
@@ -1313,6 +1337,8 @@
 				DA39FA27220B17DB00608AC4 /* CCFilter.swift in Sources */,
 				DA39FA2B220B17DB00608AC4 /* CCRootFilterViewController.swift in Sources */,
 				DA643FB7220C720A001ED360 /* CCStepperViewController.swift in Sources */,
+				CFB8AC53220C8CDC00512252 /* FilterTagView.swift in Sources */,
+				55858A1320AAC26400B100EA /* FilterInfoType.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,

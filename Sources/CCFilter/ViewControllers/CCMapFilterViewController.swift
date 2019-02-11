@@ -12,6 +12,10 @@ class CCMapFilterViewController: CCViewController {
     var mapFilterViewManager: MapFilterViewManager?
     var searchLocationDataSource: SearchLocationDataSource?
 
+    var mapNode: CCMapFilterNode? {
+        return filterNode as? CCMapFilterNode
+    }
+
     // MARK: - Private properties
 
     private lazy var mapFilterView: MapFilterView? = {
@@ -40,19 +44,19 @@ class CCMapFilterViewController: CCViewController {
 
 extension CCMapFilterViewController: MapFilterViewDelegate {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
-        let radiusNode = filterNode.child(at: CCMapFilterNode.Index.radius.rawValue)
-        radiusNode.value = String(radius)
-        radiusNode.isSelected = true
+        let radiusNode = mapNode?.radiusNode
+        radiusNode?.value = String(radius)
+        radiusNode?.isSelected = true
     }
 
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocation location: CLLocationCoordinate2D) {
-        let latitudeNode = filterNode.child(at: CCMapFilterNode.Index.lat.rawValue)
-        latitudeNode.value = String(location.latitude)
-        latitudeNode.isSelected = true
+        let latitudeNode = mapNode?.latitudeNode
+        latitudeNode?.value = String(location.latitude)
+        latitudeNode?.isSelected = true
 
-        let longitudeNode = filterNode.child(at: CCMapFilterNode.Index.lon.rawValue)
-        longitudeNode.value = String(location.longitude)
-        longitudeNode.isSelected = true
+        let longitudeNode = mapNode?.longitudeNode
+        longitudeNode?.value = String(location.longitude)
+        longitudeNode?.isSelected = true
     }
 }
 

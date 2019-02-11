@@ -46,11 +46,11 @@ private extension CCStepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
         switch sender.value {
         case viewModel.sliderInfo.minimumValue:
-            filterNode.child(at: 0).value = nil
-            filterNode.child(at: 0).isSelected = false
+            filterNode.child(at: 0)?.value = nil
+            filterNode.child(at: 0)?.isSelected = false
         default:
-            filterNode.child(at: 0).value = String(sender.value)
-            filterNode.child(at: 0).isSelected = true
+            filterNode.child(at: 0)?.value = String(sender.value)
+            filterNode.child(at: 0)?.isSelected = true
         }
         showBottomButton(true, animated: true)
     }

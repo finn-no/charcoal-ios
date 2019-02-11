@@ -4,40 +4,35 @@
 
 import Foundation
 
-extension CCRangeFilterNode {
-    enum Key: String, CaseIterable {
-        case from = "_from", to = "_to"
-    }
-
-    enum Index: Int, CaseIterable {
-        case from, to
-    }
-}
-
 public class CCRangeFilterNode: CCFilterNode {
+
+    // MARK: - Internal properties
+
+    let lowValueNode: CCFilterNode
+    let highValueNode: CCFilterNode
+
     public init(title: String, name: String) {
+        lowValueNode = CCFilterNode(title: "", name: name + "_from")
+        highValueNode = CCFilterNode(title: "", name: name + "_to")
         super.init(title: title, name: name)
         setup()
     }
 
-    override var urlItems: [String] {
-        let fromNode = child(at: Index.from.rawValue)
-        let toNode = child(at: Index.to.rawValue)
-
+    override var queryItems: [URLQueryItem] {
         if isSelected {
-            guard let fromValue = fromNode.value, let toValue = toNode.value else { return [] }
-            let fromItem = "\(fromNode.name)=\(fromValue)"
-            let toItem = "\(toNode.name)=\(toValue)"
+            guard let lowValue = lowValueNode.value, let highValue = highValueNode.value else { return [] }
+            let fromItem = URLQueryItem(name: lowValueNode.name, value: lowValue)
+            let toItem = URLQueryItem(name: highValueNode.name, value: highValue)
             return [fromItem, toItem]
         } else {
-            return fromNode.urlItems + toNode.urlItems
+            return lowValueNode.queryItems + highValueNode.queryItems
         }
     }
 
     override func reset() {
         isSelected = false
-        reset(child(at: Index.from.rawValue))
-        reset(child(at: Index.to.rawValue))
+        reset(lowValueNode)
+        reset(highValueNode)
     }
 
     private func reset(_ child: CCFilterNode) {
@@ -48,8 +43,7 @@ public class CCRangeFilterNode: CCFilterNode {
 
 extension CCRangeFilterNode {
     func setup() {
-        Index.allCases.forEach {
-            add(child: CCFilterNode(title: "", name: name + Key.allCases[$0.rawValue].rawValue))
-        }
+        add(child: lowValueNode)
+        add(child: highValueNode)
     }
 }

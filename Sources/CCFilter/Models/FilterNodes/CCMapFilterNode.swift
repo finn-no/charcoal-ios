@@ -4,29 +4,36 @@
 
 import Foundation
 
-extension CCMapFilterNode {
-    enum Key: String, CaseIterable {
-        case lat, lon, radius, geoLocationName
-    }
+public class CCMapFilterNode: CCFilterNode {
 
-    enum Index: Int, CaseIterable {
-        case lat, lon, radius, geoLocationName
-    }
-}
+    // MARK: - Public properies
 
-class CCMapFilterNode: CCFilterNode {
-    static let filterKey = "map"
+    public static let filterKey = "map"
 
-    init(title: String, name: String) {
+    // MARK: - Internal properties
+
+    let latitudeNode: CCFilterNode
+    let longitudeNode: CCFilterNode
+    let radiusNode: CCFilterNode
+    let geoLocationNode: CCFilterNode
+
+    // MARK: - Setup
+
+    public init(title: String, name: String) {
+        latitudeNode = CCFilterNode(title: "", name: "lat")
+        longitudeNode = CCFilterNode(title: "", name: "lon")
+        radiusNode = CCFilterNode(title: "", name: "radius")
+        geoLocationNode = CCFilterNode(title: "", name: "geoLocationName")
         super.init(title: title, name: name, value: nil, isSelected: false, numberOfResults: 0)
         setup()
     }
 }
 
-extension CCMapFilterNode {
+private extension CCMapFilterNode {
     func setup() {
-        Index.allCases.forEach {
-            add(child: CCFilterNode(title: "", name: Key.allCases[$0.rawValue].rawValue))
-        }
+        add(child: latitudeNode)
+        add(child: longitudeNode)
+        add(child: radiusNode)
+        add(child: geoLocationNode)
     }
 }

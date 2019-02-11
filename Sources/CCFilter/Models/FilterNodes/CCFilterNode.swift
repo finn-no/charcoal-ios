@@ -15,8 +15,7 @@ public class CCFilterNode {
     public let title: String
     public let name: String
     public var value: String?
-    public var numberOfResults: Int
-    public var selectionTitlesBuilder: CCSelectionTitlesBuilder?
+    public let numberOfResults: Int
 
     public var isSelected: Bool {
         didSet { delegate?.childNodeDidChangeSelection(self) }
@@ -26,6 +25,7 @@ public class CCFilterNode {
 
     private(set) var children: [CCFilterNode] = []
     private weak var delegate: CCFilterNodeDelegate?
+    public var selectionTitlesBuilder: CCSelectionTitlesBuilder?
 
     // MARK: - Setup
 
@@ -37,13 +37,19 @@ public class CCFilterNode {
         self.numberOfResults = numberOfResults
     }
 
+    // MARK: - Public methods
+
     func add(child: CCFilterNode, at index: Int? = nil) {
-        if let index = index { children.insert(child, at: index) }
-        else { children.append(child) }
+        if let index = index {
+            children.insert(child, at: index)
+        } else {
+            children.append(child)
+        }
         child.delegate = self
     }
 
-    func child(at index: Int) -> CCFilterNode {
+    func child(at index: Int) -> CCFilterNode? {
+        guard index < children.count else { return nil }
         return children[index]
     }
 
@@ -53,14 +59,14 @@ public class CCFilterNode {
     }
 
     var isLeafNode: Bool {
-        return children.count == 0
+        return children.isEmpty
     }
 
-    var urlItems: [String] {
+    var queryItems: [URLQueryItem] {
         if isSelected, let value = value {
-            return ["\(name)=\(value)"]
+            return [URLQueryItem(name: name, value: value)]
         }
-        return children.reduce([]) { $0 + $1.urlItems }
+        return children.reduce([]) { $0 + $1.queryItems }
     }
 
     var selectionTitles: [String] {
@@ -84,6 +90,6 @@ public class CCFilterNode {
 
 extension CCFilterNode: CCFilterNodeDelegate {
     func childNodeDidChangeSelection(_ childNode: CCFilterNode) {
-        isSelected = children.reduce(true) { $0 && $1.isSelected }
+        isSelected = children.allSatisfy { $0.isSelected }
     }
 }

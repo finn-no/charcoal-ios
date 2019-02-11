@@ -45,7 +45,6 @@ public class CCFilterViewController: UINavigationController {
 extension CCFilterViewController: CCViewControllerDelegate {
     func viewControllerDidPressBottomButton(_ viewController: CCViewController) {
         filterDelegate?.filterViewControllerFilterSelectionChanged(self)
-        print(filter.urlEncoded)
         popToRootViewController(animated: true)
     }
 

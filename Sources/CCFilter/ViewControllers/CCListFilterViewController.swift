@@ -72,7 +72,9 @@ extension CCListFilterViewController: UITableViewDataSource {
             guard let selectAllNode = selectAllNode else { fatalError("I screwed up!") }
             cell.configure(for: selectAllNode)
         case .children:
-            cell.configure(for: filterNode.child(at: indexPath.row))
+            if let childNode = filterNode.child(at: indexPath.row) {
+                cell.configure(for: childNode)
+            }
         }
         return cell
     }
@@ -93,7 +95,8 @@ extension CCListFilterViewController: UITableViewDelegate {
             selectedFilterNode = selectAllNode
 
         case .children:
-            selectedFilterNode = filterNode.child(at: indexPath.row)
+            guard let childNode = filterNode.child(at: indexPath.row) else { return }
+            selectedFilterNode = childNode
             guard selectedFilterNode.isLeafNode else { break }
             selectedFilterNode.isSelected = !selectedFilterNode.isSelected
             selectAllNode?.isSelected = filterNode.isSelected

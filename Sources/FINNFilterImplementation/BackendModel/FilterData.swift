@@ -29,7 +29,9 @@ struct FilterData: Decodable {
 
     public func filterNode() -> CCFilterNode {
         if isRange == true {
-            return CCRangeFilterNode(title: title, name: parameterName)
+            let rangeNode = CCRangeFilterNode(title: title, name: parameterName)
+            rangeNode.selectionTitlesBuilder = CCRangeSelectionTiltesBuilder()
+            return rangeNode
         }
 
         let filterNode = CCFilterNode(title: title, name: parameterName)

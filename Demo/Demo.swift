@@ -130,7 +130,8 @@ enum ComponentViews: String, CaseIterable {
             return controller
         case .mapFilter:
             let mapViewManager = MapViewManager()
-            let mapFilterViewController = CCMapFilterViewController(filterNode: CCMapFilterNode(title: "Område i kart", name: ""))
+            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""))
+            mapFilterViewController.mapFilterViewManager = mapViewManager
             return mapFilterViewController
         }
     }

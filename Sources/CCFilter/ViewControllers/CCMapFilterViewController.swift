@@ -12,11 +12,9 @@ class CCMapFilterViewController: CCViewController {
     var mapFilterViewManager: MapFilterViewManager?
     var searchLocationDataSource: SearchLocationDataSource?
 
-    var mapNode: CCMapFilterNode? {
-        return filterNode as? CCMapFilterNode
-    }
-
     // MARK: - Private properties
+
+    private let mapFilterNode: CCMapFilterNode
 
     private lazy var mapFilterView: MapFilterView? = {
         guard let mapFilterViewManager = mapFilterViewManager else {
@@ -35,28 +33,39 @@ class CCMapFilterViewController: CCViewController {
         return searchLocationViewController
     }()
 
+    // MARK: - Setup
+
+    init(mapFilterNode: CCMapFilterNode) {
+        self.mapFilterNode = mapFilterNode
+        super.init(filterNode: mapFilterNode)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        bottomButton.buttonTitle = "Bruk"
+        bottomButton.buttonTitle = "apply_button_title".localized()
         setup()
     }
 }
 
 extension CCMapFilterViewController: MapFilterViewDelegate {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
-        let radiusNode = mapNode?.radiusNode
-        radiusNode?.value = String(radius)
-        radiusNode?.isSelected = true
+        let radiusNode = mapFilterNode.radiusNode
+        radiusNode.value = String(radius)
+        radiusNode.isSelected = true
     }
 
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocation location: CLLocationCoordinate2D) {
-        let latitudeNode = mapNode?.latitudeNode
-        latitudeNode?.value = String(location.latitude)
-        latitudeNode?.isSelected = true
+        let latitudeNode = mapFilterNode.latitudeNode
+        latitudeNode.value = String(location.latitude)
+        latitudeNode.isSelected = true
 
-        let longitudeNode = mapNode?.longitudeNode
-        longitudeNode?.value = String(location.longitude)
-        longitudeNode?.isSelected = true
+        let longitudeNode = mapFilterNode.longitudeNode
+        longitudeNode.value = String(location.longitude)
+        longitudeNode.isSelected = true
     }
 }
 

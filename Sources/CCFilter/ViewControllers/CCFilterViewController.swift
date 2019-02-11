@@ -55,10 +55,10 @@ extension CCFilterViewController: CCViewControllerDelegate {
         switch filterNode {
         case let rangeNode as CCRangeFilterNode:
             guard let viewModel = config.viewModel(for: rangeNode) else { return }
-            nextViewController = CCRangeFilterViewController(filterNode: rangeNode, viewModel: viewModel)
+            nextViewController = CCRangeFilterViewController(rangeFilterNode: rangeNode, viewModel: viewModel)
 
         case let mapNode as CCMapFilterNode:
-            let mapFilterViewController = CCMapFilterViewController(filterNode: mapNode)
+            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode)
             nextViewController = mapFilterViewController
 
         default:

@@ -52,17 +52,17 @@ public struct FilterSetup: Decodable {
             return nil
         }
 
-        let searchQueryNode = CCFilterNode(title: "Ord i annonsen", name: "q")
+        let searchQueryNode = CCFilterNode(title: "search_placeholder".localized(), name: "q")
 
-        let preferenceFilters = filterMarket.preferenceFilterKeys.compactMap { self.filterData(forKey: $0) }
-        let preferenceNode = CCFilterNode(title: "Preferences", name: "preferences")
+        let preferenceFilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
+        let preferenceNode = CCFilterNode(title: "", name: "preferences")
         preferenceFilters.forEach { preferenceNode.add(child: $0.filterNode()) }
 
-        let filters = filterMarket.supportedFiltersKeys.compactMap { self.filterData(forKey: $0) }
+        let filters = filterMarket.supportedFiltersKeys.compactMap { filterData(forKey: $0) }
         let filterNodes = filters.map { $0.filterNode() }
 
         if let locationNode = filterNodes.first(where: { $0.name == FilterKey.location.rawValue }) {
-            let mapNode = CCMapFilterNode(title: "Område i kart", name: CCMapFilterNode.filterKey)
+            let mapNode = CCMapFilterNode(title: "map_filter_title".localized(), name: CCMapFilterNode.filterKey)
             locationNode.add(child: mapNode, at: 0)
         }
 

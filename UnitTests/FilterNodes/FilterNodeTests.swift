@@ -18,19 +18,18 @@ final class FilterNodeTests: XCTestCase {
         filterNode.add(child: CCFilterNode(title: "Child 1", name: "index-0"))
         filterNode.add(child: CCFilterNode(title: "Child 2", name: "index-2"))
         filterNode.add(child: CCFilterNode(title: "Child 3", name: "index-1"), at: 1)
-        XCTAssertEqual(filterNode.child(at: 1).name, "index-1")
+        XCTAssertEqual(filterNode.child(at: 1)?.name, "index-1")
     }
 
     func testUrlItem() {
         let filterNode = CCFilterNode(title: "Title", name: "name", value: "value", isSelected: true, numberOfResults: 0)
-        let urlItems = filterNode.urlItems
+        let urlItems = filterNode.queryItems
         XCTAssertEqual(urlItems.count, 1)
-        XCTAssertEqual(urlItems.first, "name=value")
     }
 
     func testUrlItemValueNil() {
         let filterNode = CCFilterNode(title: "Title", name: "name", value: nil, isSelected: true, numberOfResults: 0)
-        let urlItems = filterNode.urlItems
+        let urlItems = filterNode.queryItems
         XCTAssertEqual(urlItems.count, 0)
     }
 
@@ -38,17 +37,15 @@ final class FilterNodeTests: XCTestCase {
         let filterNode = CCFilterNode(title: "Title", name: "name")
         filterNode.add(child: CCFilterNode(title: "Title1", name: "name1", value: "value1", isSelected: true))
         filterNode.add(child: CCFilterNode(title: "Title2", name: "name2", value: "value2", isSelected: true))
-        let urlItems = filterNode.urlItems
+        let urlItems = filterNode.queryItems
         XCTAssertEqual(urlItems.count, 2)
-        XCTAssertEqual(urlItems.first, "name1=value1")
-        XCTAssertEqual(urlItems.last, "name2=value2")
     }
 
     func testMultipleUrlItemsRootIsSelected() {
         let filterNode = CCFilterNode(title: "Title", name: "name", value: "value", isSelected: true)
         filterNode.add(child: CCFilterNode(title: "Title1", name: "name1", value: "value1", isSelected: true))
         filterNode.add(child: CCFilterNode(title: "Title2", name: "name2", value: "value2", isSelected: true))
-        let urlItems = filterNode.urlItems
+        let urlItems = filterNode.queryItems
         XCTAssertEqual(urlItems.count, 1)
     }
 

@@ -4,40 +4,35 @@
 
 import Foundation
 
-extension CCRangeFilterNode {
-    enum Key: String, CaseIterable {
-        case from = "_from", to = "_to"
-    }
-
-    enum Index: Int, CaseIterable {
-        case from, to
-    }
-}
-
 public class CCRangeFilterNode: CCFilterNode {
+
+    // MARK: - Internal properties
+
+    let lowNode: CCFilterNode
+    let highNode: CCFilterNode
+
     public init(title: String, name: String) {
+        lowNode = CCFilterNode(title: "", name: name + "_from")
+        highNode = CCFilterNode(title: "", name: name + "_to")
         super.init(title: title, name: name)
         setup()
     }
 
-    override var urlItems: [String] {
-        let fromNode = child(at: Index.from.rawValue)
-        let toNode = child(at: Index.to.rawValue)
-
+    override var queryItems: [URLQueryItem] {
         if isSelected {
-            guard let fromValue = fromNode.value, let toValue = toNode.value else { return [] }
-            let fromItem = "\(fromNode.name)=\(fromValue)"
-            let toItem = "\(toNode.name)=\(toValue)"
+            guard let lowValue = lowNode.value, let highValue = highNode.value else { return [] }
+            let fromItem = URLQueryItem(name: lowNode.name, value: lowValue)
+            let toItem = URLQueryItem(name: highNode.name, value: highValue)
             return [fromItem, toItem]
         } else {
-            return fromNode.urlItems + toNode.urlItems
+            return lowNode.queryItems + highNode.queryItems
         }
     }
 
     override func reset() {
         isSelected = false
-        reset(child(at: Index.from.rawValue))
-        reset(child(at: Index.to.rawValue))
+        reset(lowNode)
+        reset(highNode)
     }
 
     private func reset(_ child: CCFilterNode) {
@@ -48,8 +43,7 @@ public class CCRangeFilterNode: CCFilterNode {
 
 extension CCRangeFilterNode {
     func setup() {
-        Index.allCases.forEach {
-            add(child: CCFilterNode(title: "", name: name + Key.allCases[$0.rawValue].rawValue))
-        }
+        add(child: lowNode)
+        add(child: highNode)
     }
 }

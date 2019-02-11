@@ -11,6 +11,6 @@ final class FilterTests: XCTestCase {
         rootNode.add(child: CCFilterNode(title: "Child 1", name: "name1", value: "value1", isSelected: true, numberOfResults: 0))
         rootNode.add(child: CCFilterNode(title: "Child 2", name: "name2", value: "value2", isSelected: true, numberOfResults: 0))
         let filter = CCFilter(root: rootNode)
-        XCTAssertEqual(filter.urlEncoded, "name1=value1&name2=value2")
+        XCTAssertEqual(filter.queryItems.count, 2)
     }
 }

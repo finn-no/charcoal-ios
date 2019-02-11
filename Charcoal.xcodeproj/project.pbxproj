@@ -559,6 +559,8 @@
 				DAF3CA6E218301B3007235B0 /* StepperFilter */,
 				CFFD9F8A21F07A7700997D14 /* StepSlider */,
 				46905238217F5CB500F8E7FD /* Vertical */,
+				DA0DEEF8220DADD5005BB386 /* CCFilter */,
+				DA0DEEF9220DADDD005BB386 /* CCFilterNode */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -597,6 +599,8 @@
 				44ECE685208F7FDE0017AC82 /* Info.plist */,
 				559C620120DA88330083A574 /* Test Data */,
 				55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */,
+				DA0DEEF6220DACA9005BB386 /* FilterNodes */,
+				DA8D6847220DAC3A00D31941 /* Filter */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1415,6 +1419,8 @@
 				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
 				DA8D683F220D88A300D31941 /* FilterTests.swift in Sources */,
 				559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */,
+				DA0DEF01220DB0E0005BB386 /* MapNodeTests.swift in Sources */,
+				DA8D6849220DAC4700D31941 /* FilterNodeTests.swift in Sources */,
 				9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -23,6 +23,7 @@
 "cancel" = "Avbryt";
 "done" = "Ferdig";
 "value_slider_control_value_slider_accessibility_label" = "Slider for verdi";
+"search_placeholder" = "Ord i annonsen";
 "map_filter_title" = "Område i kart";
 "my_home_address" = "Min hjemmeadresse";
 "my_current_location" = "Min nåværende posisjon";

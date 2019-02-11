@@ -11,23 +11,23 @@ final class RangeNodeTests: XCTestCase {
 
         XCTAssertEqual(rangeNode.children.count, 2)
 
-        XCTAssertEqual(rangeNode.lowNode.name, "range_from")
-        XCTAssertEqual(rangeNode.highNode.name, "range_to")
+        XCTAssertEqual(rangeNode.lowValueNode.name, "range_from")
+        XCTAssertEqual(rangeNode.highValueNode.name, "range_to")
     }
 
     func testUrlItems() {
         let rangeNode = CCRangeFilterNode(title: "Range", name: "range")
 
-        rangeNode.lowNode.value = "value1"
-        rangeNode.lowNode.isSelected = true
+        rangeNode.lowValueNode.value = "value1"
+        rangeNode.lowValueNode.isSelected = true
 
-        rangeNode.highNode.value = "value2"
-        rangeNode.highNode.isSelected = true
+        rangeNode.highValueNode.value = "value2"
+        rangeNode.highValueNode.isSelected = true
 
         let urlItems = rangeNode.queryItems
         XCTAssertEqual(urlItems.count, 2)
 
-        rangeNode.lowNode.isSelected = false
+        rangeNode.lowValueNode.isSelected = false
         let urlItems2 = rangeNode.queryItems
         XCTAssertEqual(urlItems2.count, 1)
     }

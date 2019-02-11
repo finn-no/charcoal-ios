@@ -8,31 +8,31 @@ public class CCRangeFilterNode: CCFilterNode {
 
     // MARK: - Internal properties
 
-    let lowNode: CCFilterNode
-    let highNode: CCFilterNode
+    let lowValueNode: CCFilterNode
+    let highValueNode: CCFilterNode
 
     public init(title: String, name: String) {
-        lowNode = CCFilterNode(title: "", name: name + "_from")
-        highNode = CCFilterNode(title: "", name: name + "_to")
+        lowValueNode = CCFilterNode(title: "", name: name + "_from")
+        highValueNode = CCFilterNode(title: "", name: name + "_to")
         super.init(title: title, name: name)
         setup()
     }
 
     override var queryItems: [URLQueryItem] {
         if isSelected {
-            guard let lowValue = lowNode.value, let highValue = highNode.value else { return [] }
-            let fromItem = URLQueryItem(name: lowNode.name, value: lowValue)
-            let toItem = URLQueryItem(name: highNode.name, value: highValue)
+            guard let lowValue = lowValueNode.value, let highValue = highValueNode.value else { return [] }
+            let fromItem = URLQueryItem(name: lowValueNode.name, value: lowValue)
+            let toItem = URLQueryItem(name: highValueNode.name, value: highValue)
             return [fromItem, toItem]
         } else {
-            return lowNode.queryItems + highNode.queryItems
+            return lowValueNode.queryItems + highValueNode.queryItems
         }
     }
 
     override func reset() {
         isSelected = false
-        reset(lowNode)
-        reset(highNode)
+        reset(lowValueNode)
+        reset(highValueNode)
     }
 
     private func reset(_ child: CCFilterNode) {
@@ -43,7 +43,7 @@ public class CCRangeFilterNode: CCFilterNode {
 
 extension CCRangeFilterNode {
     func setup() {
-        add(child: lowNode)
-        add(child: highNode)
+        add(child: lowValueNode)
+        add(child: highValueNode)
     }
 }

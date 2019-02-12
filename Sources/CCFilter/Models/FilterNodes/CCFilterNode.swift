@@ -46,4 +46,8 @@ public class CCFilterNode {
     var isLeafNode: Bool {
         return children.isEmpty
     }
+
+    var key: String {
+        return "\(name).\(title.lowercased())"
+    }
 }

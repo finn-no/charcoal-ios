@@ -10,26 +10,17 @@ final class FilterSelectionStore {
     func value(for node: CCFilterNode) -> String? {
         return selections[node.key]
     }
+
+    func clear() {
+        selections.removeAll()
+    }
 }
 
 // MARK: - Selection
 
 extension FilterSelectionStore {
-    func isSelected(node: CCFilterNode) -> Bool {
-        let allChildredSelected = !node.children.isEmpty && node.children.allSatisfy { isSelected(node: $0) }
-        return value(for: node) != nil || allChildredSelected
-    }
-
-    func toggle(node: CCFilterNode) {
-        if isSelected(node: node) {
-            unselect(node: node)
-        } else {
-            select(node: node)
-        }
-    }
-
     func select(node: CCFilterNode, value: String? = nil) {
-        selections[node.key] = node.value ?? value
+        selections[node.key] = value ?? node.value
     }
 
     func unselect(node: CCFilterNode, withChildren: Bool = false) {
@@ -41,33 +32,50 @@ extension FilterSelectionStore {
             }
         }
     }
+
+    func toggle(node: CCFilterNode) {
+        if isSelected(node: node) {
+            unselect(node: node)
+        } else {
+            select(node: node)
+        }
+    }
+
+    func isSelected(node: CCFilterNode) -> Bool {
+        let allChildredSelected = !node.children.isEmpty && node.children.allSatisfy { isSelected(node: $0) }
+        return value(for: node) != nil || allChildredSelected
+    }
 }
 
 // MARK: - Helpers
 
 extension FilterSelectionStore {
-    func urlItems(for node: CCFilterNode) -> [String] {
-        if let value = value(for: node) {
-            return ["\(node.key)=\(value)"]
-        }
-
-        return node.children.reduce([]) { $0 + urlItems(for: $1) }
-    }
-
     func queryItems(for node: CCFilterNode) -> [URLQueryItem] {
         if let value = value(for: node) {
-            return [URLQueryItem(name: node.key, value: value)]
+            return [URLQueryItem(name: node.name, value: value)]
         }
 
         return node.children.reduce([]) { $0 + queryItems(for: $1) }
     }
 
     func titles(for node: CCFilterNode) -> [String] {
-        if isSelected(node: node) {
-            return buildTitles(for: node)
+        if let rangeNode = node as? CCRangeFilterNode {
+            let lowValue = value(for: rangeNode.lowValueNode)
+            let highValue = value(for: rangeNode.highValueNode)
+            if let lowValue = lowValue, let highValue = highValue {
+                return ["\(lowValue) - \(highValue)"]
+            } else if let lowValue = lowValue {
+                return ["\(lowValue) - ..."]
+            } else if let highValue = highValue {
+                return ["... - \(highValue)"]
+            } else {
+                return []
+            }
+        } else if isSelected(node: node) {
+            return [node.title]
+        } else {
+            return node.children.reduce([]) { $0 + titles(for: $1) }
         }
-
-        return node.children.reduce([]) { $0 + titles(for: $1) }
     }
 
     func hasSelectedChildren(node: CCFilterNode) -> Bool {
@@ -84,31 +92,5 @@ extension FilterSelectionStore {
         }
 
         return node.children.reduce([]) { $0 + selectedChildren(for: $1) }
-    }
-
-    private func buildTitles(for node: CCFilterNode) -> [String] {
-        if let rangeNode = node as? CCRangeFilterNode {
-            let lowValue = value(for: rangeNode.lowValueNode)
-            let highValue = value(for: rangeNode.highValueNode)
-            if let lowValue = lowValue, let highValue = highValue {
-                return ["\(lowValue) - \(highValue)"]
-            } else if let lowValue = lowValue {
-                return ["\(lowValue) - ..."]
-            } else if let highValue = highValue {
-                return ["... - \(highValue)"]
-            } else {
-                return []
-            }
-        } else {
-            return [node.title]
-        }
-    }
-}
-
-// MARK: - Private
-
-private extension CCFilterNode {
-    var key: String {
-        return "\(name)\(title.lowercased())"
     }
 }

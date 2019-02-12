@@ -63,11 +63,11 @@ private extension CCRangeFilterViewController {
             return
         }
 
-        let lowValueNode = rangeNode.lowValueNode
-        rangeFilterView.setLowValue(Int(lowValueNode.value), animated: false)
+        let lowValue = selectionStore.value(for: rangeNode.lowValueNode)
+        rangeFilterView.setLowValue(Int(lowValue), animated: false)
 
-        let highValueNode = rangeNode.highValueNode
-        rangeFilterView.setHighValue(Int(highValueNode.value), animated: false)
+        let highValue = selectionStore.value(for: rangeNode.highValueNode)
+        rangeFilterView.setHighValue(Int(highValue), animated: false)
 
         view.addSubview(rangeFilterView)
         NSLayoutConstraint.activate([

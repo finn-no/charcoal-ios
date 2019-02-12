@@ -12,11 +12,9 @@ class CCMapFilterViewController: CCViewController {
     var mapFilterViewManager: MapFilterViewManager?
     var searchLocationDataSource: SearchLocationDataSource?
 
-    var mapNode: CCMapFilterNode? {
-        return filterNode as? CCMapFilterNode
-    }
-
     // MARK: - Private properties
+
+    private let mapFilterNode: CCMapFilterNode
 
     private lazy var mapFilterView: MapFilterView? = {
         guard let mapFilterViewManager = mapFilterViewManager else {
@@ -35,28 +33,36 @@ class CCMapFilterViewController: CCViewController {
         return searchLocationViewController
     }()
 
+    // MARK: - Setup
+
+    init(mapFilterNode: CCMapFilterNode, selectionStore: FilterSelectionStore) {
+        self.mapFilterNode = mapFilterNode
+        super.init(filterNode: mapFilterNode, selectionStore: selectionStore)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        bottomButton.buttonTitle = "Bruk"
+        bottomButton.buttonTitle = "apply_button_title".localized()
         setup()
     }
 }
 
 extension CCMapFilterViewController: MapFilterViewDelegate {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
-        if let radiusNode = mapNode?.radiusNode {
-            selectionStore.select(node: radiusNode, value: String(radius))
-        }
+        let radiusNode = mapFilterNode.radiusNode
+        selectionStore.select(node: radiusNode, value: String(radius))
     }
 
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocation location: CLLocationCoordinate2D) {
-        if let latitudeNode = mapNode?.latitudeNode {
-            selectionStore.select(node: latitudeNode, value: String(location.latitude))
-        }
+        let latitudeNode = mapFilterNode.latitudeNode
+        selectionStore.select(node: latitudeNode, value: String(location.latitude))
 
-        if let longitudeNode = mapNode?.longitudeNode {
-            selectionStore.select(node: longitudeNode, value: String(location.latitude))
-        }
+        let longitudeNode = mapFilterNode.longitudeNode
+        selectionStore.select(node: longitudeNode, value: String(location.latitude))
     }
 }
 

@@ -35,7 +35,7 @@ class CCRootFilterViewController: CCViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showBottomButton(true, animated: false)
-        bottomButton.buttonTitle = String(format: "Vis %i treff", filterNode.numberOfResults)
+        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filterNode.numberOfResults)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
         setup()
     }
@@ -80,14 +80,13 @@ extension CCRootFilterViewController: UITableViewDataSource {
 
 extension CCRootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let name = filterNode.children[indexPath.row].name
-        switch name {
+        let selectedFilterNode = filterNode.children[indexPath.row]
+        switch selectedFilterNode.name {
         case "q":
             return
         case "preferences":
             return
         default:
-            let selectedFilterNode = filterNode.children[indexPath.row]
             delegate?.viewController(self, didSelect: selectedFilterNode)
         }
     }

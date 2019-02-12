@@ -8,6 +8,7 @@ class CCRangeFilterViewController: CCViewController {
 
     // MARK: - Private properties
 
+    private let rangeFilterNode: CCRangeFilterNode
     private let viewModel: RangeFilterInfo
 
     private lazy var rangeFilterView: RangeFilterView = {
@@ -17,9 +18,10 @@ class CCRangeFilterViewController: CCViewController {
         return view
     }()
 
-    init(filterNode: CCFilterNode, viewModel: RangeFilterInfo) {
+    init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo) {
+        self.rangeFilterNode = rangeFilterNode
         self.viewModel = viewModel
-        super.init(filterNode: filterNode)
+        super.init(filterNode: rangeFilterNode)
         setup()
     }
 
@@ -35,30 +37,29 @@ class CCRangeFilterViewController: CCViewController {
 
 extension CCRangeFilterViewController: RangeFilterViewDelegate {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
-        setValue(lowValue, forChildAt: 0)
+        setValue(lowValue, forChild: rangeFilterNode.lowValueNode)
     }
 
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?) {
-        setValue(highValue, forChildAt: 1)
+        setValue(highValue, forChild: rangeFilterNode.highValueNode)
     }
 
-    private func setValue(_ value: Int?, forChildAt index: Int) {
-        guard let childNode = filterNode.child(at: index) else { return }
+    private func setValue(_ value: Int?, forChild node: CCFilterNode) {
         if let value = value {
-            childNode.value = String(value)
-            childNode.isSelected = true
+            node.value = String(value)
+            node.isSelected = true
         } else {
-            childNode.value = nil
-            childNode.isSelected = false
+            node.value = nil
+            node.isSelected = false
         }
-        delegate?.viewController(self, didSelect: childNode)
+        delegate?.viewController(self, didSelect: node)
         showBottomButton(true, animated: true)
     }
 }
 
 private extension CCRangeFilterViewController {
     func setup() {
-        bottomButton.buttonTitle = "Bruk"
+        bottomButton.buttonTitle = "apply_button_title".localized()
 
         guard let rangeNode = filterNode as? CCRangeFilterNode else {
             return

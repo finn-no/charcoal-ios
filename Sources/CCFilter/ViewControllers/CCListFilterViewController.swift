@@ -29,10 +29,10 @@ class CCListFilterViewController: CCViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomButton.buttonTitle = "Bruk"
+        bottomButton.buttonTitle = "apply_button_title".localized()
 
         if filterNode.value != nil {
-            selectAllNode = CCFilterNode(title: "All", name: "", isSelected: filterNode.isSelected, numberOfResults: filterNode.numberOfResults)
+            selectAllNode = CCFilterNode(title: "all_items_title".localized(), name: "", isSelected: filterNode.isSelected, numberOfResults: filterNode.numberOfResults)
         }
 
         setup()
@@ -69,8 +69,9 @@ extension CCListFilterViewController: UITableViewDataSource {
         let cell = tableView.dequeue(CCListFilterCell.self, for: indexPath)
         switch section {
         case .all:
-            guard let selectAllNode = selectAllNode else { fatalError("I screwed up!") }
-            cell.configure(for: selectAllNode)
+            if let selectAllNode = selectAllNode {
+                cell.configure(for: selectAllNode)
+            }
         case .children:
             if let childNode = filterNode.child(at: indexPath.row) {
                 cell.configure(for: childNode)

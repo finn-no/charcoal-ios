@@ -143,8 +143,6 @@
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
 		DA39FA26220B17DB00608AC4 /* CCFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA11220B17DB00608AC4 /* CCFilterConfiguration.swift */; };
-		DA39FA29220B17DB00608AC4 /* CCRangeSelectionTitlesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA14220B17DB00608AC4 /* CCRangeSelectionTitlesBuilder.swift */; };
-		DA39FA2A220B17DB00608AC4 /* CCSelectionTitlesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA15220B17DB00608AC4 /* CCSelectionTitlesBuilder.swift */; };
 		DA39FA2B220B17DB00608AC4 /* CCRootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */; };
 		DA39FA2C220B17DB00608AC4 /* CCListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA18220B17DB00608AC4 /* CCListFilterViewController.swift */; };
 		DA39FA2D220B17DB00608AC4 /* CCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* CCViewController.swift */; };
@@ -355,8 +353,6 @@
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		DA39FA11220B17DB00608AC4 /* CCFilterConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCFilterConfiguration.swift; sourceTree = "<group>"; };
-		DA39FA14220B17DB00608AC4 /* CCRangeSelectionTitlesBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRangeSelectionTitlesBuilder.swift; sourceTree = "<group>"; };
-		DA39FA15220B17DB00608AC4 /* CCSelectionTitlesBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCSelectionTitlesBuilder.swift; sourceTree = "<group>"; };
 		DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRootFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA18220B17DB00608AC4 /* CCListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCListFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA19220B17DB00608AC4 /* CCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCViewController.swift; sourceTree = "<group>"; };
@@ -905,7 +901,6 @@
 				DA39FA3B220B2F1100608AC4 /* FilterConfiguration */,
 				DA39FA3C220B2F2800608AC4 /* Filter */,
 				DA39FA3D220B2F3E00608AC4 /* FilterNodes */,
-				DA39FA3E220B2F4800608AC4 /* SelectionTitlesBuilders */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -980,15 +975,6 @@
 				CF0B19E42211B4EF00D8D9B7 /* CCFilterNode.swift */,
 			);
 			path = FilterNodes;
-			sourceTree = "<group>";
-		};
-		DA39FA3E220B2F4800608AC4 /* SelectionTitlesBuilders */ = {
-			isa = PBXGroup;
-			children = (
-				DA39FA14220B17DB00608AC4 /* CCRangeSelectionTitlesBuilder.swift */,
-				DA39FA15220B17DB00608AC4 /* CCSelectionTitlesBuilder.swift */,
-			);
-			path = SelectionTitlesBuilders;
 			sourceTree = "<group>";
 		};
 		DA643FB8220C8642001ED360 /* BottomButton */ = {
@@ -1320,7 +1306,6 @@
 				CF0B19ED2211B8C500D8D9B7 /* CCFilterSelectionStore.swift in Sources */,
 				9B741D1C21B6B1CB00D18097 /* StepSlider.swift in Sources */,
 				08716B3721F76424003180D8 /* FilterKey.swift in Sources */,
-				DA39FA29220B17DB00608AC4 /* CCRangeSelectionTitlesBuilder.swift in Sources */,
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
@@ -1330,7 +1315,6 @@
 				CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* CCInlineFilterView.swift in Sources */,
-				DA39FA2A220B17DB00608AC4 /* CCSelectionTitlesBuilder.swift in Sources */,
 				08716B3321F73D92003180D8 /* FilterMarketBap.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* CCFilter.swift in Sources */,

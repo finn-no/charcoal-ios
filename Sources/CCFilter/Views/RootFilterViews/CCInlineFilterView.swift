@@ -12,7 +12,7 @@ class CCInlineFilterView: UIView {
 
     // MARK: - Public Properties
 
-    var filterNode: CCFilterNode? {
+    var segmentTitles: [[String]] = [] {
         didSet {
             setupItems()
         }
@@ -81,9 +81,8 @@ private extension CCInlineFilterView {
 
     func setupItems() {
         segments = []
-        guard let nodes = filterNode?.children else { return }
-        for node in nodes {
-            let titles = node.children.map { $0.title }
+
+        for titles in segmentTitles {
             let segment = Segment(titles: titles)
             segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
             segments.append(segment)

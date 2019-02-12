@@ -13,8 +13,6 @@ class CCRootFilterCell: UITableViewCell {
 
     // MARK: - Private properties
 
-    private var filterNode: CCFilterNode?
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +55,6 @@ class CCRootFilterCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
-        filterNode = nil
     }
 
     override func layoutSubviews() {
@@ -69,12 +66,10 @@ class CCRootFilterCell: UITableViewCell {
 }
 
 extension CCRootFilterCell {
-    func configure(for filterNode: CCFilterNode, titles: [String]) {
-        self.filterNode = filterNode
-
-        titleLabel.text = filterNode.title
-        collectionSelectionView.add(titles: titles)
-        collapsedSelectionView.add(titles: titles)
+    func configure(withTitle title: String, selectionTitles: [String]) {
+        titleLabel.text = title
+        collectionSelectionView.add(titles: selectionTitles)
+        collapsedSelectionView.add(titles: selectionTitles)
     }
 }
 

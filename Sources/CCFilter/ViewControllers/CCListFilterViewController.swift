@@ -130,3 +130,28 @@ private extension CCListFilterViewController {
         ])
     }
 }
+
+private extension CCListFilterViewController {
+    func makeViewModel(for node: CCFilterNode) -> CClistFilterCellViewModel {
+        let isSelected = selectionStore.isSelected(node: node)
+        let hasSelectedChildren = selectionStore.hasSelectedChildren(node: node)
+
+        if node.name == CCMapFilterNode.filterKey {
+            return CClistFilterCellViewModel(
+                title: node.title,
+                detail: nil,
+                accessoryType: .disclosureIndicator,
+                icon: UIImage(named: .mapFilterIcon)
+            )
+        } else {
+            let iconAsset: ImageAsset = isSelected ? .checkboxOn : hasSelectedChildren ? .checkboxPartial : .checkboxOff
+
+            return CClistFilterCellViewModel(
+                title: node.title,
+                detail: String(filterNode.numberOfResults),
+                accessoryType: node.isLeafNode ? .none : .disclosureIndicator,
+                icon: UIImage(named: iconAsset)
+            )
+        }
+    }
+}

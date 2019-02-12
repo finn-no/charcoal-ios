@@ -1,10 +1,14 @@
+//
+//  Copyright © FINN.no AS, Inc. All rights reserved.
+//
+
 ////
 ////  Copyright © FINN.no AS, Inc. All rights reserved.
 ////
 //
-//import Foundation
+// import Foundation
 //
-//class CCRangeSelectionTiltesBuilder: CCSelectionTitlesBuilder {
+// class CCRangeSelectionTiltesBuilder: CCSelectionTitlesBuilder {
 //    func build(_ selectedNodes: [CCFilterNode]) -> [String] {
 //        let lowValue = selectedNodes[0].value
 //        let highValue = selectedNodes[1].value
@@ -18,4 +22,4 @@
 //            return []
 //        }
 //    }
-//}
+// }

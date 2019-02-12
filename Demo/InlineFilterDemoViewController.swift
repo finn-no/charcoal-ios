@@ -32,7 +32,7 @@ final class InlineFilterDemoViewController: UIViewController {
 }
 
 extension InlineFilterDemoViewController: CCInlineFilterViewDelegate {
-    func inlineFilterViewDidChangeValue(_ inlineFilterView: CCInlineFilterView) {
+    func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
         return
     }
 }

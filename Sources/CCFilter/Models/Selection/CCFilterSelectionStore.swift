@@ -7,6 +7,14 @@ import Foundation
 final class FilterSelectionStore {
     private var selections = [String: String]()
 
+    func value(for node: CCFilterNode) -> String? {
+        return selections[node.key]
+    }
+}
+
+// MARK: - Selection
+
+extension FilterSelectionStore {
     func isSelected(node: CCFilterNode) -> Bool {
         return value(for: node) != nil
     }
@@ -14,38 +22,44 @@ final class FilterSelectionStore {
     func toggle(node: CCFilterNode) {
         if isSelected(node: node) {
             unselect(node: node)
-        } else if let value = node.value {
+        } else {
             select(node: node)
         }
     }
 
     func select(node: CCFilterNode, value: String? = nil) {
         selections[node.key] = node.value ?? value
-        // isSelected = children.reduce(true) { $0 && $1.isSelected }
+        updateParentSelection(for: node)
     }
 
-    func value(for node: CCFilterNode) -> String? {
-        return selections[node.key]
-    }
-
-    func unselect(node: CCFilterNode) {
+    func unselect(node: CCFilterNode, withChildren: Bool) {
         selections.removeValue(forKey: node.key)
 
-        node.children.forEach {
-            unselect(node: $0)
+        if withChildren {
+            node.children.forEach {
+                selections.removeValue(forKey: $0.key)
+            }
         }
 
-        updateSelection(for: node)
+        updateParentSelection(for: node)
     }
 
-    private func updateSelection(for node: CCFilterNode) {
-//        node.isSelected = children.allSatisfy { $0.isSelected }
-//
-//        func childNodeDidChangeSelection(_ childNode: CCFilterNode) {
-//
-//        }
-    }
+    private func updateParentSelection(for node: CCFilterNode) {
+        guard let parent = node.parent else {
+            return
+        }
 
+        if parent.children.allSatisfy({ isSelected(node: $0) }) {
+            select(node: parent)
+        } else {
+            unselect(node: node, withChildren: false)
+        }
+    }
+}
+
+// MARK: - Helpers
+
+extension FilterSelectionStore {
     func urlItems(for node: CCFilterNode) -> [String] {
         if let value = value(for: node) {
             return ["\(node.key)=\(value)"]

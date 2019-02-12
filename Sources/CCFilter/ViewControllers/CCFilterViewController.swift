@@ -33,7 +33,7 @@ public class CCFilterViewController: UINavigationController {
     public init(filter: CCFilter, config: CCFilterConfiguration) {
         self.filter = filter
         self.config = config
-        self.selectionStore = FilterSelectionStore()
+        selectionStore = FilterSelectionStore()
         rootFilterViewController = CCRootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.delegate = self
@@ -60,8 +60,8 @@ extension CCFilterViewController: CCViewControllerDelegate {
             guard let viewModel = config.viewModel(for: rangeNode) else { return }
             nextViewController = CCRangeFilterViewController(
                 rangeFilterNode: rangeNode,
-                selectionStore: selectionStore,
-                viewModel: viewModel
+                viewModel: viewModel,
+                selectionStore: selectionStore
             )
         case let mapNode as CCMapFilterNode:
             let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode, selectionStore: selectionStore)

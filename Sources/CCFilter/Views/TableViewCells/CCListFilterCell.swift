@@ -44,7 +44,7 @@ class CCListFilterCell: UITableViewCell {
 }
 
 extension CCListFilterCell {
-    func configure(for viewModel: CClistFilterCellViewModel) {
+    func configure(for viewModel: CCListFilterCellViewModel) {
         titleLabel.text = viewModel.title
         detailLabel.text = viewModel.detail
         accessoryType = viewModel.accessoryType

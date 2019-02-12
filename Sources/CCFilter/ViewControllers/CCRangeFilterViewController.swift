@@ -17,8 +17,8 @@ class CCRangeFilterViewController: CCViewController {
         view.delegate = self
         return view
     }()
-    
-    init(rangeFilterNode: CCRangeFilterNode, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
+
+    init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
         self.rangeFilterNode = rangeFilterNode
         self.viewModel = viewModel
         super.init(filterNode: rangeFilterNode, selectionStore: selectionStore)

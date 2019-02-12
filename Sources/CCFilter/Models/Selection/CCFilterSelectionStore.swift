@@ -16,7 +16,8 @@ final class FilterSelectionStore {
 
 extension FilterSelectionStore {
     func isSelected(node: CCFilterNode) -> Bool {
-        return value(for: node) != nil
+        let allChildredSelected = !node.children.isEmpty && node.children.allSatisfy { isSelected(node: $0) }
+        return value(for: node) != nil || allChildredSelected
     }
 
     func toggle(node: CCFilterNode) {

@@ -87,11 +87,16 @@ extension CCListFilterViewController: UITableViewDataSource {
             cell.configure(for: .selectAll(from: filterNode, isSelected: isSelected))
         case .children:
             if let node = filterNode.child(at: indexPath.row) {
-                let isSelected = selectionStore.isSelected(node: node)
-                let hasSelectedChildren = selectionStore.hasSelectedChildren(node: node)
-                cell.configure(for: .regular(from: node, isSelected: isSelected, hasSelectedChildren: hasSelectedChildren))
+                if node.name == CCMapFilterNode.filterKey {
+                    cell.configure(for: .map(from: node))
+                } else {
+                    let isSelected = selectionStore.isSelected(node: node)
+                    let hasSelectedChildren = selectionStore.hasSelectedChildren(node: node)
+                    cell.configure(for: .regular(from: node, isSelected: isSelected, hasSelectedChildren: hasSelectedChildren))
+                }
             }
         }
+
         return cell
     }
 }
@@ -102,31 +107,31 @@ extension CCListFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
-        let selectedFilterNode: CCFilterNode
-        var indexPathsToReload: [IndexPath] = [indexPath]
-
         switch section {
         case .all:
+            for childNode in filterNode.children {
+                selectionStore.unselect(node: childNode)
+            }
+
             selectionStore.toggle(node: filterNode)
-            selectedFilterNode = filterNode
+            tableView.reloadData()
+            showBottomButton(true, animated: true)
         case .children:
-            guard let childNode = filterNode.child(at: indexPath.row) else { return }
+            guard let childNode = filterNode.child(at: indexPath.row) else {
+                return
+            }
 
-            selectedFilterNode = childNode
-
-            if selectedFilterNode.isLeafNode {
-                selectionStore.toggle(node: selectedFilterNode)
-
-                if showSelectAllCell {
-                    let selectAllIndexPath = IndexPath(item: 0, section: Section.all.rawValue)
-                    indexPathsToReload.append(selectAllIndexPath)
-                }
-
+            if childNode.isLeafNode {
+                selectionStore.unselect(node: filterNode)
+                selectionStore.toggle(node: childNode)
                 showBottomButton(true, animated: true)
             }
-        }
 
-        tableView.reloadRows(at: indexPathsToReload, with: .fade)
-        delegate?.viewController(self, didSelect: selectedFilterNode)
+            let selectAllIndexPath = showSelectAllCell ? IndexPath(item: 0, section: Section.all.rawValue) : nil
+            let indexPaths = [indexPath, selectAllIndexPath].compactMap({ $0 })
+            tableView.reloadRows(at: indexPaths, with: .fade)
+
+            delegate?.viewController(self, didSelect: childNode)
+        }
     }
 }

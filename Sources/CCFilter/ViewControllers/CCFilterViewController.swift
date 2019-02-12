@@ -64,8 +64,7 @@ extension CCFilterViewController: CCViewControllerDelegate {
                 selectionStore: selectionStore
             )
         case let mapNode as CCMapFilterNode:
-            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode, selectionStore: selectionStore)
-            nextViewController = mapFilterViewController
+            nextViewController = CCMapFilterViewController(mapFilterNode: mapNode, selectionStore: selectionStore)
         default:
             nextViewController = CCListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)
         }

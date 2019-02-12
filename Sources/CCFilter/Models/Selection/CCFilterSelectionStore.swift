@@ -29,30 +29,15 @@ extension FilterSelectionStore {
 
     func select(node: CCFilterNode, value: String? = nil) {
         selections[node.key] = node.value ?? value
-        updateParentSelection(for: node)
     }
 
-    func unselect(node: CCFilterNode, withChildren: Bool) {
+    func unselect(node: CCFilterNode, withChildren: Bool = false) {
         selections.removeValue(forKey: node.key)
 
         if withChildren {
             node.children.forEach {
-                selections.removeValue(forKey: $0.key)
+                unselect(node: $0, withChildren: true)
             }
-        }
-
-        updateParentSelection(for: node)
-    }
-
-    private func updateParentSelection(for node: CCFilterNode) {
-        guard let parent = node.parent else {
-            return
-        }
-
-        if parent.children.allSatisfy({ isSelected(node: $0) }) {
-            select(node: parent)
-        } else {
-            unselect(node: node, withChildren: false)
         }
     }
 }
@@ -123,6 +108,6 @@ extension FilterSelectionStore {
 
 private extension CCFilterNode {
     var key: String {
-        return name
+        return "\(name)\(title.lowercased())"
     }
 }

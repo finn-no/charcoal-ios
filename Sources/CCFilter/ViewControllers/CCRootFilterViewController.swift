@@ -101,7 +101,7 @@ extension CCRootFilterViewController: CCRootFilterCellDelegate {
         let currentFilterNode = filterNode.children[indexPath.row]
         let selectedChildren = selectionStore.selectedChildren(for: currentFilterNode)
 
-        selectionStore.unselect(node: selectedChildren[index])
+        selectionStore.unselect(node: selectedChildren[index], withChildren: true)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
@@ -109,7 +109,8 @@ extension CCRootFilterViewController: CCRootFilterCellDelegate {
 extension CCRootFilterViewController: CCInlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
         guard let childNode = filterNode.child(at: index) else { return }
-        selectionStore.unselect(node: childNode)
+
+        selectionStore.unselect(node: childNode, withChildren: true)
 
         for index in segment.selectedItems {
             if let node = childNode.child(at: index) {

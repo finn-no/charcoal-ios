@@ -17,9 +17,9 @@ class CCRangeFilterViewController: CCViewController {
         return view
     }()
 
-    init(filterNode: CCFilterNode, viewModel: RangeFilterInfo) {
+    init(filterNode: CCFilterNode, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
         self.viewModel = viewModel
-        super.init(filterNode: filterNode)
+        super.init(filterNode: filterNode, selectionStore: selectionStore)
         setup()
     }
 
@@ -45,11 +45,9 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
     private func setValue(_ value: Int?, forChildAt index: Int) {
         guard let childNode = filterNode.child(at: index) else { return }
         if let value = value {
-            childNode.value = String(value)
-            childNode.isSelected = true
+            selectionStore.select(node: childNode, value: String(value))
         } else {
-            childNode.value = nil
-            childNode.isSelected = false
+            selectionStore.unselect(node: childNode)
         }
         delegate?.viewController(self, didSelect: childNode)
         showBottomButton(true, animated: true)

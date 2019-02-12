@@ -32,7 +32,11 @@ class CCListFilterViewController: CCViewController {
         bottomButton.buttonTitle = "Bruk"
 
         if filterNode.value != nil {
-            selectAllNode = CCFilterNode(title: "All", name: "", isSelected: filterNode.isSelected, numberOfResults: filterNode.numberOfResults)
+            selectAllNode = CCFilterNode(
+                title: "All",
+                name: "",
+                numberOfResults: filterNode.numberOfResults
+            )
         }
 
         setup()
@@ -90,7 +94,8 @@ extension CCListFilterViewController: UITableViewDelegate {
         switch section {
         case .all:
             guard let selectAllNode = selectAllNode else { return }
-            filterNode.isSelected = !filterNode.isSelected
+
+            selectionStore.toggle(node: filterNode)
             selectAllNode.isSelected = !selectAllNode.isSelected
             selectedFilterNode = selectAllNode
 
@@ -98,7 +103,7 @@ extension CCListFilterViewController: UITableViewDelegate {
             guard let childNode = filterNode.child(at: indexPath.row) else { return }
             selectedFilterNode = childNode
             guard selectedFilterNode.isLeafNode else { break }
-            selectedFilterNode.isSelected = !selectedFilterNode.isSelected
+            selectionStore.toggle(node: selectedFilterNode)
             selectAllNode?.isSelected = filterNode.isSelected
 
             if selectAllNode != nil {

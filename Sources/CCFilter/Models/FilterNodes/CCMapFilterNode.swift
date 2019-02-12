@@ -24,7 +24,7 @@ public class CCMapFilterNode: CCFilterNode {
         longitudeNode = CCFilterNode(title: "", name: "lon")
         radiusNode = CCFilterNode(title: "", name: "radius")
         geoLocationNode = CCFilterNode(title: "", name: "geoLocationName")
-        super.init(title: title, name: name, value: nil, isSelected: false, numberOfResults: 0)
+        super.init(title: title, name: name, value: nil, numberOfResults: 0)
         setup()
     }
 }

@@ -6,18 +6,21 @@ import Foundation
 
 final class FilterSelectionStore {
     private var selections = [String: String]()
-    private let selectionTitlesBuilder: CCSelectionTitlesBuilder
-
-    init(selectionTitlesBuilder: CCSelectionTitlesBuilder) {
-        self.selectionTitlesBuilder = selectionTitlesBuilder
-    }
 
     func isSelected(node: CCFilterNode) -> Bool {
         return value(for: node) != nil
     }
 
-    func select(value: String, for node: CCFilterNode) {
-        selections[node.key] = value
+    func toggle(node: CCFilterNode) {
+        if isSelected(node: node) {
+            unselect(node: node)
+        } else if let value = node.value {
+            select(node: node)
+        }
+    }
+
+    func select(node: CCFilterNode, value: String? = nil) {
+        selections[node.key] = node.value ?? value
         // isSelected = children.reduce(true) { $0 && $1.isSelected }
     }
 
@@ -25,12 +28,22 @@ final class FilterSelectionStore {
         return selections[node.key]
     }
 
-    func reset(node: CCFilterNode) {
+    func unselect(node: CCFilterNode) {
         selections.removeValue(forKey: node.key)
 
         node.children.forEach {
-            reset(node: $0)
+            unselect(node: $0)
         }
+
+        updateSelection(for: node)
+    }
+
+    private func updateSelection(for node: CCFilterNode) {
+//        node.isSelected = children.allSatisfy { $0.isSelected }
+//
+//        func childNodeDidChangeSelection(_ childNode: CCFilterNode) {
+//
+//        }
     }
 
     func urlItems(for node: CCFilterNode) -> [String] {
@@ -75,8 +88,8 @@ final class FilterSelectionStore {
 
     private func buildTitles(for node: CCFilterNode) -> [String] {
         if let rangeNode = node as? CCRangeFilterNode {
-            let lowValue = rangeNode.lowValueNode.value
-            let highValue = rangeNode.highValueNode.value
+            let lowValue = value(for: rangeNode.lowValueNode)
+            let highValue = value(for: rangeNode.highValueNode)
             if let lowValue = lowValue, let highValue = highValue {
                 return ["\(lowValue) - \(highValue)"]
             } else if let lowValue = lowValue {

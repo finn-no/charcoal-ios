@@ -44,7 +44,7 @@ class CCListFilterCell: UITableViewCell {
 }
 
 extension CCListFilterCell {
-    func configure(for filterNode: CCFilterNode) {
+    func configure(for filterNode: CCFilterNode, isSelected: Bool, hasSelectedChildren: Bool) {
         titleLabel.text = filterNode.title
         detailLabel.text = String(filterNode.numberOfResults)
         separatorInset = UIEdgeInsets(top: 0, left: 24 + .largeSpacing, bottom: 0, right: 0)
@@ -64,10 +64,10 @@ extension CCListFilterCell {
             detailLabelTrailingConstraint.constant = 0
         }
 
-        if filterNode.isSelected {
+        if isSelected {
             iconView.image = UIImage(named: .checkboxOn)
         } else {
-            if filterNode.hasSelectedChildren {
+            if hasSelectedChildren {
                 iconView.image = UIImage(named: .checkboxPartial)
             } else {
                 iconView.image = UIImage(named: .checkboxOff)

@@ -133,6 +133,7 @@
 		CF0B19E92211B4EF00D8D9B7 /* CCRangeFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19E62211B4EF00D8D9B7 /* CCRangeFilterNode.swift */; };
 		CF0B19EB2211B51E00D8D9B7 /* CCFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EA2211B51E00D8D9B7 /* CCFilter.swift */; };
 		CF0B19ED2211B8C500D8D9B7 /* CCFilterSelectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EC2211B8C500D8D9B7 /* CCFilterSelectionStore.swift */; };
+		CF0B19F02211CE2E00D8D9B7 /* FilterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EF2211CE2E00D8D9B7 /* FilterSelection.swift */; };
 		CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */; };
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
@@ -343,6 +344,7 @@
 		CF0B19E62211B4EF00D8D9B7 /* CCRangeFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRangeFilterNode.swift; sourceTree = "<group>"; };
 		CF0B19EA2211B51E00D8D9B7 /* CCFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCFilter.swift; sourceTree = "<group>"; };
 		CF0B19EC2211B8C500D8D9B7 /* CCFilterSelectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCFilterSelectionStore.swift; sourceTree = "<group>"; };
+		CF0B19EF2211CE2E00D8D9B7 /* FilterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelection.swift; sourceTree = "<group>"; };
 		CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfo.swift; sourceTree = "<group>"; };
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
@@ -849,6 +851,15 @@
 			path = FilterBuilder;
 			sourceTree = "<group>";
 		};
+		CF0B19EE2211CE1D00D8D9B7 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				CF0B19EC2211B8C500D8D9B7 /* CCFilterSelectionStore.swift */,
+				CF0B19EF2211CE2E00D8D9B7 /* FilterSelection.swift */,
+			);
+			path = Selection;
+			sourceTree = "<group>";
+		};
 		CF88577B21F61D710056CC81 /* Haptics */ = {
 			isa = PBXGroup;
 			children = (
@@ -891,11 +902,11 @@
 		DA39FA10220B17DB00608AC4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CF0B19EE2211CE1D00D8D9B7 /* Selection */,
 				DA39FA3B220B2F1100608AC4 /* FilterConfiguration */,
 				DA39FA3C220B2F2800608AC4 /* Filter */,
 				DA39FA3D220B2F3E00608AC4 /* FilterNodes */,
 				DA39FA3E220B2F4800608AC4 /* SelectionTitlesBuilders */,
-				CF0B19EC2211B8C500D8D9B7 /* CCFilterSelectionStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1366,6 +1377,7 @@
 				08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */,
 				08716B2921F73B0B003180D8 /* FilterMarketMC.swift in Sources */,
 				559C61F820DA4D860083A574 /* FilterSetup.swift in Sources */,
+				CF0B19F02211CE2E00D8D9B7 /* FilterSelection.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				DA39FA2F220B17DB00608AC4 /* CCRangeFilterViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,

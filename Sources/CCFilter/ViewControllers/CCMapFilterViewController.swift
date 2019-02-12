@@ -44,19 +44,19 @@ class CCMapFilterViewController: CCViewController {
 
 extension CCMapFilterViewController: MapFilterViewDelegate {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
-        let radiusNode = mapNode?.radiusNode
-        radiusNode?.value = String(radius)
-        radiusNode?.isSelected = true
+        if let radiusNode = mapNode?.radiusNode {
+            selectionStore.select(node: radiusNode, value: String(radius))
+        }
     }
 
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocation location: CLLocationCoordinate2D) {
-        let latitudeNode = mapNode?.latitudeNode
-        latitudeNode?.value = String(location.latitude)
-        latitudeNode?.isSelected = true
+        if let latitudeNode = mapNode?.latitudeNode {
+            selectionStore.select(node: latitudeNode, value: String(location.latitude))
+        }
 
-        let longitudeNode = mapNode?.longitudeNode
-        longitudeNode?.value = String(location.longitude)
-        longitudeNode?.isSelected = true
+        if let longitudeNode = mapNode?.longitudeNode {
+            selectionStore.select(node: longitudeNode, value: String(location.latitude))
+        }
     }
 }
 

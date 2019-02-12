@@ -48,7 +48,7 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
         if let value = value {
             selectionStore.select(node: node, value: String(value))
         } else {
-            selectionStore.unselect(node: node)
+            selectionStore.deselect(node: node)
         }
         delegate?.viewController(self, didSelect: node)
         showBottomButton(true, animated: true)

@@ -23,19 +23,19 @@ extension FilterSelectionStore {
         selections[node.key] = value ?? node.value
     }
 
-    func unselect(node: CCFilterNode, withChildren: Bool = false) {
+    func deselect(node: CCFilterNode, withChildren: Bool = false) {
         selections.removeValue(forKey: node.key)
 
         if withChildren {
             node.children.forEach {
-                unselect(node: $0, withChildren: true)
+                deselect(node: $0, withChildren: true)
             }
         }
     }
 
     func toggle(node: CCFilterNode) {
         if isSelected(node: node) {
-            unselect(node: node)
+            deselect(node: node)
         } else {
             select(node: node)
         }

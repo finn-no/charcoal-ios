@@ -46,7 +46,7 @@ private extension CCStepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
         switch sender.value {
         case viewModel.sliderInfo.minimumValue:
-            selectionStore.unselect(node: filterNode)
+            selectionStore.deselect(node: filterNode)
         default:
             selectionStore.select(node: filterNode, value: String(sender.value))
         }

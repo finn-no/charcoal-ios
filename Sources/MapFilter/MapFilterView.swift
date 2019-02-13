@@ -20,15 +20,28 @@ public protocol MapFilterViewManager: AnyObject {
     func goToLocation(_ location: LocationInfo)
 }
 
-protocol MapFilterViewDelegate: class {
+protocol MapFilterViewDelegate: AnyObject {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int)
-    func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocation location: CLLocationCoordinate2D)
+    func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocationCoordinate coordinate: CLLocationCoordinate2D?)
+    func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocationName locationName: String?)
 }
 
-class MapFilterView: UIView {
+final class MapFilterView: UIView {
+    weak var delegate: MapFilterViewDelegate?
+
     var searchBar: UISearchBar? {
         didSet {
             setupSearchBar(searchBar)
+        }
+    }
+
+    private let mapFilterViewManager: MapFilterViewManager
+    private var currentRadius: Int
+    private var centerPoint: CLLocationCoordinate2D?
+
+    private var updateViewDispatchWorkItem: DispatchWorkItem? {
+        didSet {
+            oldValue?.cancel()
         }
     }
 
@@ -68,21 +81,17 @@ class MapFilterView: UIView {
         return slider
     }()
 
-    private let mapFilterViewManager: MapFilterViewManager
-    private(set) var currentRadius = 40000
-    var centerPoint: CLLocationCoordinate2D?
-    weak var delegate: MapFilterViewDelegate?
+    // MARK: - Init
 
-    private var updateViewDispatchWorkItem: DispatchWorkItem? {
-        didSet {
-            oldValue?.cancel()
-        }
-    }
-
-    init(mapFilterViewManager: MapFilterViewManager) {
+    init(mapFilterViewManager: MapFilterViewManager, radius: Int?, centerPoint: CLLocationCoordinate2D?) {
         self.mapFilterViewManager = mapFilterViewManager
+        currentRadius = radius ?? 40000
+        self.centerPoint = centerPoint
+
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
+
         setup()
+
         let searchBar = UISearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.backgroundColor = .milk
@@ -90,6 +99,7 @@ class MapFilterView: UIView {
         distanceSlider.setCurrentValue(currentRadius)
         mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
         showSelectionView()
+
         self.mapFilterViewManager.mapFilterViewManagerDelegate = self
     }
 
@@ -165,6 +175,7 @@ private extension MapFilterView {
 extension MapFilterView: MapFilterViewManagerDelegate {
     func mapFilterViewManagerDidChangeLocationName(_ mapFilterViewManager: MapFilterViewManager, newLocationName: String?) {
         searchBar?.text = newLocationName
+        delegate?.mapFilterView(self, didChangeLocationName: newLocationName)
     }
 
     func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, newCenterCoordinate: CLLocationCoordinate2D, userInitiated: Bool, animated: Bool) {
@@ -173,6 +184,8 @@ extension MapFilterView: MapFilterViewManagerDelegate {
         if userInitiated {
             searchBar?.text = mapFilterViewManager.locationName
         }
+
+        delegate?.mapFilterView(self, didChangeLocationCoordinate: newCenterCoordinate)
     }
 }
 
@@ -184,6 +197,8 @@ extension MapFilterView: ValueSliderWithLabelViewDelegate {
         currentRadius = value
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
         mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
+
+        delegate?.mapFilterView(self, didChangeRadius: currentRadius)
     }
 }
 

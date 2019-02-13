@@ -117,7 +117,10 @@ enum ComponentViews: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .listSelection:
-            return CCListFilterViewController(filterNode: CCFilterNode(title: "Liste", name: ""))
+            return CCListFilterViewController(
+                filterNode: CCFilterNode(title: "Liste", name: "list"),
+                selectionStore: FilterSelectionStore()
+            )
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
         case .rangeFilter:
@@ -130,7 +133,10 @@ enum ComponentViews: String, CaseIterable {
             return controller
         case .mapFilter:
             let mapViewManager = MapViewManager()
-            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""))
+            let mapFilterViewController = CCMapFilterViewController(
+                mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""),
+                selectionStore: FilterSelectionStore()
+            )
             mapFilterViewController.mapFilterViewManager = mapViewManager
             return mapFilterViewController
         }

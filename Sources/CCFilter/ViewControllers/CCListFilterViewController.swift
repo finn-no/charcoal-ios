@@ -4,18 +4,12 @@
 
 import FinniversKit
 
-extension CCListFilterViewController {
-    enum Section: Int {
+final class CCListFilterViewController: CCViewController {
+    private enum Section: Int {
         case all, children
     }
-}
-
-class CCListFilterViewController: CCViewController {
 
     // MARK: - Private properties
-
-    private var selectAllNode: CCFilterNode?
-    private let selectAllIndexPath = IndexPath(item: 0, section: Section.all.rawValue)
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -27,14 +21,15 @@ class CCListFilterViewController: CCViewController {
         return tableView
     }()
 
+    private var showSelectAllCell: Bool {
+        return filterNode.value != nil
+    }
+
+    // MARK: - Overrides
+
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "apply_button_title".localized()
-
-        if filterNode.value != nil {
-            selectAllNode = CCFilterNode(title: "all_items_title".localized(), name: "", isSelected: filterNode.isSelected, numberOfResults: filterNode.numberOfResults)
-        }
-
         setup()
     }
 
@@ -49,72 +44,9 @@ class CCListFilterViewController: CCViewController {
         showBottomButton(true, animated: false)
         tableView.reloadData()
     }
-}
 
-extension CCListFilterViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
+    // MARK: - Setup
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = Section(rawValue: section) else { return 0 }
-        switch section {
-        case .all: return selectAllNode != nil ? 1 : 0
-        case .children: return filterNode.children.count
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
-        let cell = tableView.dequeue(CCListFilterCell.self, for: indexPath)
-        switch section {
-        case .all:
-            if let selectAllNode = selectAllNode {
-                cell.configure(for: selectAllNode)
-            }
-        case .children:
-            if let childNode = filterNode.child(at: indexPath.row) {
-                cell.configure(for: childNode)
-            }
-        }
-        return cell
-    }
-}
-
-extension CCListFilterViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let section = Section(rawValue: indexPath.section) else { return }
-
-        let selectedFilterNode: CCFilterNode
-        var indexPathsToReload: [IndexPath] = [indexPath]
-
-        switch section {
-        case .all:
-            guard let selectAllNode = selectAllNode else { return }
-            filterNode.isSelected = !filterNode.isSelected
-            selectAllNode.isSelected = !selectAllNode.isSelected
-            selectedFilterNode = selectAllNode
-
-        case .children:
-            guard let childNode = filterNode.child(at: indexPath.row) else { return }
-            selectedFilterNode = childNode
-            guard selectedFilterNode.isLeafNode else { break }
-            selectedFilterNode.isSelected = !selectedFilterNode.isSelected
-            selectAllNode?.isSelected = filterNode.isSelected
-
-            if selectAllNode != nil {
-                indexPathsToReload.append(selectAllIndexPath)
-            }
-
-            showBottomButton(true, animated: true)
-        }
-
-        tableView.reloadRows(at: indexPathsToReload, with: .fade)
-        delegate?.viewController(self, didSelect: selectedFilterNode)
-    }
-}
-
-private extension CCListFilterViewController {
     func setup() {
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -123,5 +55,83 @@ private extension CCListFilterViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension CCListFilterViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let section = Section(rawValue: section) else { return 0 }
+
+        switch section {
+        case .all:
+            return showSelectAllCell ? 1 : 0
+        case .children:
+            return filterNode.children.count
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
+
+        let cell = tableView.dequeue(CCListFilterCell.self, for: indexPath)
+
+        switch section {
+        case .all:
+            let isSelected = selectionStore.isSelected(node: filterNode)
+            cell.configure(for: .selectAll(from: filterNode, isSelected: isSelected))
+        case .children:
+            if let node = filterNode.child(at: indexPath.row) {
+                if node.name == CCMapFilterNode.filterKey {
+                    cell.configure(for: .map(from: node))
+                } else {
+                    let isSelected = selectionStore.isSelected(node: node)
+                    let hasSelectedChildren = selectionStore.hasSelectedChildren(node: node)
+                    cell.configure(for: .regular(from: node, isSelected: isSelected, hasSelectedChildren: hasSelectedChildren))
+                }
+            }
+        }
+
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension CCListFilterViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else { return }
+
+        switch section {
+        case .all:
+            for childNode in filterNode.children {
+                selectionStore.deselect(node: childNode)
+            }
+
+            selectionStore.toggle(node: filterNode)
+            tableView.reloadData()
+            showBottomButton(true, animated: true)
+        case .children:
+            guard let childNode = filterNode.child(at: indexPath.row) else {
+                return
+            }
+
+            if childNode.isLeafNode {
+                selectionStore.deselect(node: filterNode)
+                selectionStore.toggle(node: childNode)
+                showBottomButton(true, animated: true)
+            }
+
+            let selectAllIndexPath = showSelectAllCell ? IndexPath(item: 0, section: Section.all.rawValue) : nil
+            let indexPaths = [indexPath, selectAllIndexPath].compactMap({ $0 })
+            tableView.reloadRows(at: indexPaths, with: .fade)
+
+            delegate?.viewController(self, didSelect: childNode)
+        }
     }
 }

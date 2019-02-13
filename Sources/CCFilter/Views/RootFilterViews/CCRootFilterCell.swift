@@ -4,12 +4,14 @@
 
 import UIKit
 
+protocol CCRootFilterCellDelegate: AnyObject {
+    func rootFilterCell(_ cell: CCRootFilterCell, didRemoveItemAt index: Int)
+}
+
 class CCRootFilterCell: UITableViewCell {
+    weak var delegate: CCRootFilterCellDelegate?
 
     // MARK: - Private properties
-
-    private var filterNode: CCFilterNode?
-    private var selectedChildren: [CCFilterNode] = []
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -53,8 +55,6 @@ class CCRootFilterCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
-        filterNode = nil
-        selectedChildren = []
     }
 
     override func layoutSubviews() {
@@ -66,23 +66,16 @@ class CCRootFilterCell: UITableViewCell {
 }
 
 extension CCRootFilterCell {
-    func configure(for filterNode: CCFilterNode) {
-        self.filterNode = filterNode
-        // I only test for this because fetching all selected children is a bit costly
-        if filterNode.hasSelectedChildren {
-            selectedChildren = filterNode.selectedChildren
-        }
-
-        titleLabel.text = filterNode.title
-        collectionSelectionView.add(titles: filterNode.selectionTitles)
-        collapsedSelectionView.add(titles: filterNode.selectionTitles)
+    func configure(withTitle title: String, selectionTitles: [String]) {
+        titleLabel.text = title
+        collectionSelectionView.add(titles: selectionTitles)
+        collapsedSelectionView.add(titles: selectionTitles)
     }
 }
 
 extension CCRootFilterCell: CCFilterSelectionViewDelegate {
     func selectionView(_ selectionView: CCFilterSelectionView, didRemoveItemAt index: Int) {
-        let removedNode = selectedChildren.remove(at: index)
-        removedNode.reset()
+        delegate?.rootFilterCell(self, didRemoveItemAt: index)
     }
 }
 

@@ -18,10 +18,10 @@ class CCRangeFilterViewController: CCViewController {
         return view
     }()
 
-    init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo) {
+    init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
         self.rangeFilterNode = rangeFilterNode
         self.viewModel = viewModel
-        super.init(filterNode: rangeFilterNode)
+        super.init(filterNode: rangeFilterNode, selectionStore: selectionStore)
         setup()
     }
 
@@ -46,11 +46,9 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
 
     private func setValue(_ value: Int?, forChild node: CCFilterNode) {
         if let value = value {
-            node.value = String(value)
-            node.isSelected = true
+            selectionStore.select(node: node, value: String(value))
         } else {
-            node.value = nil
-            node.isSelected = false
+            selectionStore.deselect(node: node)
         }
         delegate?.viewController(self, didSelect: node)
         showBottomButton(true, animated: true)
@@ -65,11 +63,11 @@ private extension CCRangeFilterViewController {
             return
         }
 
-        let lowValueNode = rangeNode.lowValueNode
-        rangeFilterView.setLowValue(Int(lowValueNode.value), animated: false)
+        let lowValue = selectionStore.value(for: rangeNode.lowValueNode)
+        rangeFilterView.setLowValue(Int(lowValue), animated: false)
 
-        let highValueNode = rangeNode.highValueNode
-        rangeFilterView.setHighValue(Int(highValueNode.value), animated: false)
+        let highValue = selectionStore.value(for: rangeNode.highValueNode)
+        rangeFilterView.setHighValue(Int(highValue), animated: false)
 
         view.addSubview(rangeFilterView)
         NSLayoutConstraint.activate([

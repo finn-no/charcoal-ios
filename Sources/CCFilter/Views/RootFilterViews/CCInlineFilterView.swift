@@ -5,14 +5,14 @@
 import UIKit
 
 protocol CCInlineFilterViewDelegate: class {
-    func inlineFilterViewDidChangeValue(_ inlineFilterView: CCInlineFilterView)
+    func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int)
 }
 
 class CCInlineFilterView: UIView {
 
     // MARK: - Public Properties
 
-    var filterNode: CCFilterNode? {
+    var segmentTitles: [[String]] = [] {
         didSet {
             setupItems()
         }
@@ -72,17 +72,17 @@ private extension CCInlineFilterView {
     }
 
     @objc func handleValueChanged(segment: Segment) {
-        guard let index = segments.firstIndex(of: segment), let childNode = filterNode?.child(at: index) else { return }
-        childNode.reset()
-        segment.selectedItems.forEach { childNode.child(at: $0)?.isSelected = true }
-        delegate?.inlineFilterViewDidChangeValue(self)
+        guard let index = segments.firstIndex(of: segment) else {
+            return
+        }
+
+        delegate?.inlineFilterView(self, didChangeSegment: segment, at: index)
     }
 
     func setupItems() {
         segments = []
-        guard let nodes = filterNode?.children else { return }
-        for node in nodes {
-            let titles = node.children.map { $0.title }
+
+        for titles in segmentTitles {
             let segment = Segment(titles: titles)
             segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
             segments.append(segment)

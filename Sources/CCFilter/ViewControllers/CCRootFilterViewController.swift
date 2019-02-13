@@ -26,6 +26,10 @@ class CCRootFilterViewController: CCViewController {
         return searchQueryViewController
     }()
 
+    private var searchNode: CCFilterNode? {
+        return filterNode.children.first { $0.name == "q" }
+    }
+
     // MARK: - Setup
 
     override func viewDidLoad() {
@@ -49,6 +53,7 @@ extension CCRootFilterViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentFilterNode = filterNode.children[indexPath.row]
+
         switch currentFilterNode.name {
         case "q":
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
@@ -59,12 +64,16 @@ extension CCRootFilterViewController: UITableViewDataSource {
         case "preferences":
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
-            cell.configure(with: currentFilterNode)
+            let segmentTitles = currentFilterNode.children.map({ $0.children.map({ $0.title }) })
+            cell.configure(with: segmentTitles)
             return cell
 
         default:
             let cell = tableView.dequeue(CCRootFilterCell.self, for: indexPath)
-            cell.configure(for: currentFilterNode)
+            cell.delegate = self
+
+            let titles = selectionStore.titles(for: currentFilterNode)
+            cell.configure(withTitle: currentFilterNode.title, selectionTitles: titles)
             return cell
         }
     }
@@ -84,9 +93,30 @@ extension CCRootFilterViewController: UITableViewDelegate {
     }
 }
 
+extension CCRootFilterViewController: CCRootFilterCellDelegate {
+    func rootFilterCell(_ cell: CCRootFilterCell, didRemoveItemAt index: Int) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+
+        let currentFilterNode = filterNode.children[indexPath.row]
+        let selectedChildren = selectionStore.selectedChildren(for: currentFilterNode)
+
+        selectionStore.deselect(node: selectedChildren[index], withChildren: true)
+    }
+}
+
 extension CCRootFilterViewController: CCInlineFilterViewDelegate {
-    func inlineFilterViewDidChangeValue(_ inlineFilterView: CCInlineFilterView) {
-        delegate?.viewControllerDidPressBottomButton(self)
+    func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
+        guard let childNode = filterNode.child(at: index) else { return }
+
+        selectionStore.deselect(node: childNode, withChildren: true)
+
+        for index in segment.selectedItems {
+            if let node = childNode.child(at: index) {
+                selectionStore.select(node: node)
+            }
+        }
     }
 }
 
@@ -96,16 +126,20 @@ extension CCRootFilterViewController: SearchViewControllerDelegate {
     }
 
     func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController) {
-        let searchNode = filterNode.children.first { $0.name == "q" }
-        searchNode?.value = nil
-        searchNode?.isSelected = false
+        guard let searchNode = searchNode else {
+            return
+        }
+
+        selectionStore.deselect(node: searchNode)
         tableView.reloadData()
     }
 
     func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String) {
-        let searchNode = filterNode.children.first { $0.name == "q" }
-        searchNode?.value = query
-        searchNode?.isSelected = true
+        guard let searchNode = searchNode else {
+            return
+        }
+
+        selectionStore.select(node: searchNode, value: query)
         tableView.reloadData()
     }
 }

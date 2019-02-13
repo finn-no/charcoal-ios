@@ -27,6 +27,7 @@ protocol MapFilterViewDelegate: AnyObject {
 }
 
 final class MapFilterView: UIView {
+    private static let defaultRadius = 40000
     weak var delegate: MapFilterViewDelegate?
 
     var searchBar: UISearchBar? {
@@ -35,9 +36,14 @@ final class MapFilterView: UIView {
         }
     }
 
+    var locationName: String? {
+        return searchBar?.text
+    }
+
     private let mapFilterViewManager: MapFilterViewManager
-    private var currentRadius: Int
-    private var centerPoint: CLLocationCoordinate2D?
+    private(set) var currentRadius: Int
+    private(set) var centerPoint: CLLocationCoordinate2D?
+    private var hasChanges = false
 
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
         didSet {
@@ -85,8 +91,8 @@ final class MapFilterView: UIView {
 
     init(mapFilterViewManager: MapFilterViewManager, radius: Int?, centerPoint: CLLocationCoordinate2D?) {
         self.mapFilterViewManager = mapFilterViewManager
-        currentRadius = radius ?? 40000
         self.centerPoint = centerPoint
+        currentRadius = radius ?? MapFilterView.defaultRadius
 
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
 
@@ -175,17 +181,23 @@ private extension MapFilterView {
 extension MapFilterView: MapFilterViewManagerDelegate {
     func mapFilterViewManagerDidChangeLocationName(_ mapFilterViewManager: MapFilterViewManager, newLocationName: String?) {
         searchBar?.text = newLocationName
+        hasChanges = true
         delegate?.mapFilterView(self, didChangeLocationName: newLocationName)
     }
 
     func mapFilterViewManagerDidChangeRegion(_ mapFilterViewManager: MapFilterViewManager, newCenterCoordinate: CLLocationCoordinate2D, userInitiated: Bool, animated: Bool) {
         centerPoint = newCenterCoordinate
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
+
         if userInitiated {
+            hasChanges = true
+            delegate?.mapFilterView(self, didChangeLocationName: mapFilterViewManager.locationName)
             searchBar?.text = mapFilterViewManager.locationName
         }
 
-        delegate?.mapFilterView(self, didChangeLocationCoordinate: newCenterCoordinate)
+        if hasChanges {
+            delegate?.mapFilterView(self, didChangeLocationCoordinate: newCenterCoordinate)
+        }
     }
 }
 
@@ -198,6 +210,7 @@ extension MapFilterView: ValueSliderWithLabelViewDelegate {
         mapSelectionCircleView.radius = mapFilterViewManager.mapViewLengthForMeters(currentRadius)
         mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
 
+        hasChanges = true
         delegate?.mapFilterView(self, didChangeRadius: currentRadius)
     }
 }

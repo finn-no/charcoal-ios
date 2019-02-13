@@ -43,7 +43,7 @@ final class CCMapFilterViewController: CCViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Lifecycle
+    // MARK: - Overrides
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +52,13 @@ final class CCMapFilterViewController: CCViewController {
 
         showBottomButton(true, animated: false)
         setup()
+    }
+
+    override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        radius = mapFilterView.currentRadius
+        coordinate = mapFilterView.centerPoint
+        locationName = mapFilterView.locationName
+        super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
     }
 
     // MARK: - Setup

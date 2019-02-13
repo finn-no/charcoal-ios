@@ -42,8 +42,15 @@ extension FilterSelectionStore {
     }
 
     func isSelected(node: CCFilterNode) -> Bool {
-        let allChildredSelected = !node.children.isEmpty && node.children.allSatisfy { isSelected(node: $0) }
-        return value(for: node) != nil || allChildredSelected
+        let selected: Bool
+
+        if node is CCMapFilterNode || node is CCRangeFilterNode {
+            selected = node.children.contains(where: { isSelected(node: $0) })
+        } else {
+            selected = !node.children.isEmpty && node.children.allSatisfy { isSelected(node: $0) }
+        }
+
+        return value(for: node) != nil || selected
     }
 }
 
@@ -71,6 +78,8 @@ extension FilterSelectionStore {
             } else {
                 return []
             }
+        } else if let mapNode = node as? CCMapFilterNode, hasSelectedChildren(node: mapNode) {
+            return ["map_filter_title".localized()]
         } else if isSelected(node: node) {
             return [node.title]
         } else {

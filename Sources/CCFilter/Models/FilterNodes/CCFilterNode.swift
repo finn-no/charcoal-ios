@@ -48,6 +48,7 @@ public class CCFilterNode {
     }
 
     var key: String {
-        return "\(name).\(title.lowercased())"
+        let value = self.value ?? ""
+        return "\(name).\(title.lowercased())\(value)"
     }
 }

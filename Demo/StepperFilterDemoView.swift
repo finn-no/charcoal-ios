@@ -9,8 +9,7 @@ class StepperFilterDemoView: UIView {
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(equalTo: topAnchor)
 
     let filterInfo = RangeFilterInfo(
-        parameterName: "stepper",
-        title: "Stepper filter",
+        kind: .stepper,
         lowValue: 0,
         highValue: 6,
         increment: 1,

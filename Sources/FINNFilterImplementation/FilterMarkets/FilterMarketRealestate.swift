@@ -157,8 +157,6 @@ extension FilterMarketRealestate: FilterConfiguration {
     }
 
     func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
-        let parameterName = filterNode.name
-        let name = filterNode.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -222,9 +220,8 @@ extension FilterMarketRealestate: FilterConfiguration {
             increment = 1
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
-            return StepperFilterInfo(
-                parameterName: parameterName,
-                title: name,
+            return RangeFilterInfo(
+                kind: .stepper,
                 lowValue: lowValue,
                 highValue: highValue,
                 increment: increment,
@@ -271,8 +268,7 @@ extension FilterMarketRealestate: FilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,

@@ -55,17 +55,18 @@ extension CCFilterViewController: CCViewControllerDelegate {
         switch filterNode {
         case let rangeNode as CCRangeFilterNode:
             guard let viewModel = config.viewModel(for: rangeNode) else { return }
-            if let stepperViewModel = viewModel as? StepperFilterInfo {
-                nextViewController = CCStepperFilterViewController(
-                    filterNode: rangeNode,
-                    selectionStore: selectionStore,
-                    viewModel: stepperViewModel
-                )
-            } else {
+            switch viewModel.kind {
+            case .slider:
                 nextViewController = CCRangeFilterViewController(
                     rangeFilterNode: rangeNode,
                     viewModel: viewModel,
                     selectionStore: selectionStore
+                )
+            case .stepper:
+                nextViewController = CCStepperFilterViewController(
+                    filterNode: rangeNode,
+                    selectionStore: selectionStore,
+                    viewModel: viewModel
                 )
             }
         case let mapNode as CCMapFilterNode:

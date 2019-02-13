@@ -59,16 +59,17 @@ extension CCFilterViewController: CCViewControllerDelegate {
 
         case let mapNode as CCMapFilterNode:
             let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode)
+            mapFilterViewController.mapFilterViewManager = mapFilterDataSource?.mapFilterViewManager(for: self)
+            mapFilterViewController.searchLocationDataSource = mapFilterDataSource?.searchLocationDataSource(for: self)
             nextViewController = mapFilterViewController
 
         default:
             nextViewController = CCListFilterViewController(filterNode: filterNode)
+            let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
+            nextViewController.showBottomButton(showBottomButton, animated: false)
         }
 
-        let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
-        nextViewController.showBottomButton(showBottomButton, animated: false)
         nextViewController.delegate = viewController
-
         pushViewController(nextViewController, animated: true)
     }
 }

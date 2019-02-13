@@ -9,6 +9,9 @@ import UIKit
 // MARK: - DemoViewsTableViewController
 
 class DemoViewsTableViewController: UITableViewController {
+    private let mapViewManager = MapViewManager()
+    private let searchLocationDataSource = DemoSearchLocationDataSource()
+
     init() {
         super.init(style: .grouped)
     }
@@ -28,6 +31,9 @@ class DemoViewsTableViewController: UITableViewController {
         super.viewDidAppear(animated)
 
         if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
+            if let filterViewController = viewController as? CCFilterViewController {
+                filterViewController.dataSource = self
+            }
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         }
@@ -68,6 +74,9 @@ extension DemoViewsTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         Sections.lastSelectedIndexPath = indexPath
         if let viewController = Sections.viewController(for: indexPath) {
+            if let filterViewController = viewController as? CCFilterViewController {
+                filterViewController.dataSource = self
+            }
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         }
@@ -84,6 +93,16 @@ extension DemoViewsTableViewController {
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         Sections.lastSelectedIndexPath = nil
         super.dismiss(animated: flag, completion: completion)
+    }
+}
+
+extension DemoViewsTableViewController: CCFilterViewControllerDataSource {
+    func mapFilterViewManager(for filterViewController: CCFilterViewController) -> MapFilterViewManager {
+        return mapViewManager
+    }
+
+    func searchLocationDataSource(for filterViewController: CCFilterViewController) -> SearchLocationDataSource {
+        return searchLocationDataSource
     }
 }
 

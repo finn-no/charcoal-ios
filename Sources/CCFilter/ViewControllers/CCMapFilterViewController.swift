@@ -9,27 +9,26 @@ class CCMapFilterViewController: CCViewController {
 
     // MARK: - Public properties
 
-    var mapFilterViewManager: MapFilterViewManager?
-    var searchLocationDataSource: SearchLocationDataSource?
+    var mapFilterViewManager: MapFilterViewManager? {
+        didSet {
+            setup()
+        }
+    }
+
+    var searchLocationDataSource: SearchLocationDataSource? {
+        didSet {
+            searchLocationViewController.searchLocationDataSource = searchLocationDataSource
+        }
+    }
 
     // MARK: - Private properties
 
     private let mapFilterNode: CCMapFilterNode
-
-    private lazy var mapFilterView: MapFilterView? = {
-        guard let mapFilterViewManager = mapFilterViewManager else {
-            return nil
-        }
-        let mapFilterView = MapFilterView(mapFilterViewManager: mapFilterViewManager)
-        mapFilterView.searchBar = searchLocationViewController.searchBar
-        mapFilterView.delegate = self
-        return mapFilterView
-    }()
+    private var mapFilterView: MapFilterView?
 
     private lazy var searchLocationViewController: SearchLocationViewController = {
         let searchLocationViewController = SearchLocationViewController()
         searchLocationViewController.delegate = self
-        searchLocationViewController.searchLocationDataSource = searchLocationDataSource
         return searchLocationViewController
     }()
 
@@ -47,7 +46,8 @@ class CCMapFilterViewController: CCViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "apply_button_title".localized()
-        setup()
+        view.backgroundColor = .milk
+        showBottomButton(true, animated: false)
     }
 }
 
@@ -98,19 +98,28 @@ extension CCMapFilterViewController: SearchLocationViewControllerDelegate {
 }
 
 private extension CCMapFilterViewController {
-    func setup() {
-        view.backgroundColor = .milk
-        mapFilterView?.translatesAutoresizingMaskIntoConstraints = false
+    func createMapFilterView(with manager: MapFilterViewManager) -> MapFilterView {
+        let mapFilterView = MapFilterView(mapFilterViewManager: manager)
+        mapFilterView.searchBar = searchLocationViewController.searchBar
+        mapFilterView.delegate = self
+        mapFilterView.translatesAutoresizingMaskIntoConstraints = false
+        return mapFilterView
+    }
 
-        guard let mapFilterView = mapFilterView else {
+    func setup() {
+        guard let manager = mapFilterViewManager else {
             return
         }
-        view.addSubview(mapFilterView)
+
+        let mapView = mapFilterView ?? createMapFilterView(with: manager)
+        mapFilterView = mapView
+
+        view.addSubview(mapView)
         NSLayoutConstraint.activate([
-            mapFilterView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapFilterView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
-            mapFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomButton.height),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 

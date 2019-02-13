@@ -59,7 +59,7 @@ enum Sections: String, CaseIterable {
             let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
             case .listSelection:
-                return .none
+                return .bottomSheet
             case .compactListFilter:
                 return .bottomSheet
             case .rangeFilter:
@@ -69,7 +69,7 @@ enum Sections: String, CaseIterable {
             case .inlineFilter:
                 return .none
             case .mapFilter:
-                return .none
+                return .bottomSheet
             }
         case .fullscreen:
             let selectedView = FullscreenViews.allCases[indexPath.row]
@@ -117,8 +117,11 @@ enum ComponentViews: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .listSelection:
+            let rootNode = CCFilterNode(title: "Liste", name: "")
+            rootNode.add(child: CCFilterNode(title: "Akershus", name: "", numberOfResults: 1238))
+            rootNode.add(child: CCFilterNode(title: "Buskerud", name: "", numberOfResults: 3421))
             return CCListFilterViewController(
-                filterNode: CCFilterNode(title: "Liste", name: "list"),
+                filterNode: rootNode,
                 selectionStore: FilterSelectionStore()
             )
         case .compactListFilter:
@@ -127,18 +130,16 @@ enum ComponentViews: String, CaseIterable {
             return ViewController<RangeFilterDemoView>()
         case .stepperFilter:
             return ViewController<StepperFilterDemoView>()
-
         case .inlineFilter:
             let controller = InlineFilterDemoViewController()
             return controller
         case .mapFilter:
-            let mapViewManager = MapViewManager()
-            let mapFilterViewController = CCMapFilterViewController(
+            return CCMapFilterViewController(
                 mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""),
-                selectionStore: FilterSelectionStore()
+                selectionStore: FilterSelectionStore(),
+                mapFilterViewManager: MapViewManager(),
+                searchLocationDataSource: DemoSearchLocationDataSource()
             )
-            mapFilterViewController.mapFilterViewManager = mapViewManager
-            return mapFilterViewController
         }
     }
 }

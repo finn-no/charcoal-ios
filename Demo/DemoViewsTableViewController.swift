@@ -28,6 +28,10 @@ class DemoViewsTableViewController: UITableViewController {
         super.viewDidAppear(animated)
 
         if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
+            if let filterViewController = viewController as? CCFilterViewController {
+                filterViewController.mapFilterViewManager = MapViewManager()
+                filterViewController.searchLocationDataSource = DemoSearchLocationDataSource()
+            }
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         }
@@ -68,6 +72,10 @@ extension DemoViewsTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         Sections.lastSelectedIndexPath = indexPath
         if let viewController = Sections.viewController(for: indexPath) {
+            if let filterViewController = viewController as? CCFilterViewController {
+                filterViewController.mapFilterViewManager = MapViewManager()
+                filterViewController.searchLocationDataSource = DemoSearchLocationDataSource()
+            }
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         }

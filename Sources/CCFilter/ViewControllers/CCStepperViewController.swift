@@ -27,10 +27,10 @@ class CCStepperFilterViewController: CCViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bottomButton.buttonTitle = "apply_button_title".localized()
         view.addSubview(stepperFilterView)
         NSLayoutConstraint.activate([
             topConstraint,
-            stepperFilterView.bottomAnchor.constraint(lessThanOrEqualTo: bottomButton.topAnchor),
             stepperFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stepperFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])

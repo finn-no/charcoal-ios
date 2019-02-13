@@ -118,8 +118,6 @@ extension FilterMarketCar: FilterConfiguration {
     }
 
     func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
-        let parameterName = filterNode.name
-        let name = filterNode.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -267,8 +265,7 @@ extension FilterMarketCar: FilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,

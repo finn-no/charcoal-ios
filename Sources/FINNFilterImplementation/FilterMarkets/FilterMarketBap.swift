@@ -14,8 +14,6 @@ extension FilterMarketBap: CCFilterConfiguration {
     }
 
     func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
-        let parameterName = filterNode.name
-        let name = filterNode.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -41,8 +39,7 @@ extension FilterMarketBap: CCFilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,
@@ -78,8 +75,6 @@ extension FilterMarketBap: FilterConfiguration {
     }
 
     func createFilterInfoFrom(rangeFilterData: FilterData) -> RangeFilterInfo? {
-        let parameterName = rangeFilterData.parameterName
-        let name = rangeFilterData.title
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -105,8 +100,7 @@ extension FilterMarketBap: FilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,

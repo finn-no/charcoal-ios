@@ -3,12 +3,16 @@
 //
 
 public final class RangeFilterInfo {
+    enum Kind {
+        case slider
+        case stepper
+    }
+
     typealias RangeBoundsOffsets = (hasLowerBoundOffset: Bool, hasUpperBoundOffset: Bool)
     typealias AccessibilityValues = (stepIncrement: Int?, valueSuffix: String?)
     typealias AppearenceProperties = (usesSmallNumberInputFont: Bool, displaysUnitInNumberInput: Bool, isCurrencyValueRange: Bool)
 
-    let parameterName: String
-    let title: String
+    let kind: Kind
     let sliderInfo: StepSliderInfo
     let unit: String
     let isCurrencyValueRange: Bool
@@ -16,9 +20,8 @@ public final class RangeFilterInfo {
     let usesSmallNumberInputFont: Bool
     let displaysUnitInNumberInput: Bool
 
-    init(parameterName: String, title: String, lowValue: Int, highValue: Int, increment: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
-        self.parameterName = parameterName
-        self.title = title
+    init(kind: Kind, lowValue: Int, highValue: Int, increment: Int, rangeBoundsOffsets: RangeBoundsOffsets, unit: String, accesibilityValues: AccessibilityValues, appearanceProperties: AppearenceProperties) {
+        self.kind = kind
         self.unit = unit
         sliderInfo = StepSliderInfo(
             minimumValue: lowValue,

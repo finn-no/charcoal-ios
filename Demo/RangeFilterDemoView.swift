@@ -6,8 +6,7 @@
 
 public class RangeFilterDemoView: UIView {
     let filterInfo = RangeFilterInfo(
-        parameterName: "range",
-        title: "Range Filter",
+        kind: .slider,
         lowValue: 0,
         highValue: 30000,
         increment: 1000,

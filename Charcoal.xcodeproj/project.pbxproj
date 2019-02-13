@@ -709,7 +709,6 @@
 			isa = PBXGroup;
 			children = (
 				465F6167219B6ECF00CF568B /* BackendModel */,
-				9BB8279C216C9BCB0014028C /* FilterInfo */,
 				08716B2721F73AD2003180D8 /* FilterMarkets */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				08716B3621F76424003180D8 /* FilterKey.swift */,
@@ -787,14 +786,6 @@
 				9BB82799216B57730014028C /* DebugLog.swift */,
 			);
 			path = Logger;
-			sourceTree = "<group>";
-		};
-		9BB8279C216C9BCB0014028C /* FilterInfo */ = {
-			isa = PBXGroup;
-			children = (
-				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
-			);
-			path = FilterInfo;
 			sourceTree = "<group>";
 		};
 		9BE0A0402091BE750000632B /* Root */ = {
@@ -901,6 +892,7 @@
 				DA39FA3B220B2F1100608AC4 /* FilterConfiguration */,
 				DA39FA3C220B2F2800608AC4 /* Filter */,
 				DA39FA3D220B2F3E00608AC4 /* FilterNodes */,
+				DA454D6A22145829009514F4 /* ViewModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -975,6 +967,14 @@
 				CF0B19E42211B4EF00D8D9B7 /* CCFilterNode.swift */,
 			);
 			path = FilterNodes;
+			sourceTree = "<group>";
+		};
+		DA454D6A22145829009514F4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		DA643FB8220C8642001ED360 /* BottomButton */ = {

@@ -103,7 +103,6 @@ extension CCRootFilterViewController: CCRootFilterCellDelegate {
         let selectedChildren = selectionStore.selectedChildren(for: currentFilterNode)
 
         selectionStore.deselect(node: selectedChildren[index], withChildren: true)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 

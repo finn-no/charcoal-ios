@@ -55,13 +55,14 @@ extension CCListFilterCell {
         } else {
             detailLabelTrailingConstraint.constant = 0
         }
-
-        separatorInset = UIEdgeInsets(top: 0, left: 24 + .largeSpacing, bottom: 0, right: 0)
     }
 }
 
 private extension CCListFilterCell {
     func setup() {
+        separatorInset = UIEdgeInsets(top: 0, left: 24 + .largeSpacing, bottom: 0, right: 0)
+        selectionStyle = .none
+
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(detailLabel)

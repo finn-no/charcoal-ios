@@ -58,9 +58,10 @@ extension CCFilterViewController: CCViewControllerDelegate {
             nextViewController = CCRangeFilterViewController(rangeFilterNode: rangeNode, viewModel: viewModel)
 
         case let mapNode as CCMapFilterNode:
-            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode)
-            mapFilterViewController.mapFilterViewManager = mapFilterDataSource?.mapFilterViewManager(for: self)
-            mapFilterViewController.searchLocationDataSource = mapFilterDataSource?.searchLocationDataSource(for: self)
+            guard let mapFilterViewManager = mapFilterDataSource?.mapFilterViewManager(for: self) else { return }
+            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode,
+                                                                    mapFilterViewManager: mapFilterViewManager,
+                                                                    searchLocationDataSource: mapFilterDataSource?.searchLocationDataSource(for: self))
             nextViewController = mapFilterViewController
 
         default:

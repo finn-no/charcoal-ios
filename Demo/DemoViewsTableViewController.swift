@@ -30,13 +30,13 @@ class DemoViewsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
-            if let filterViewController = viewController as? CCFilterViewController {
-                filterViewController.dataSource = self
-            }
-            let transitionStyle = Sections.transitionStyle(for: indexPath)
-            presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
-        }
+//        if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
+//            if let filterViewController = viewController as? CCFilterViewController {
+//                filterViewController.mapFilterDataSource = self
+//            }
+//            let transitionStyle = Sections.transitionStyle(for: indexPath)
+//            presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
+//        }
     }
 
     private func setup() {
@@ -75,7 +75,7 @@ extension DemoViewsTableViewController {
         Sections.lastSelectedIndexPath = indexPath
         if let viewController = Sections.viewController(for: indexPath) {
             if let filterViewController = viewController as? CCFilterViewController {
-                filterViewController.dataSource = self
+                filterViewController.mapFilterDataSource = self
             }
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)

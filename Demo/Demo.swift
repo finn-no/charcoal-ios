@@ -59,7 +59,7 @@ enum Sections: String, CaseIterable {
             let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
             case .listSelection:
-                return .none
+                return .bottomSheet
             case .compactListFilter:
                 return .bottomSheet
             case .rangeFilter:
@@ -69,7 +69,7 @@ enum Sections: String, CaseIterable {
             case .inlineFilter:
                 return .none
             case .mapFilter:
-                return .none
+                return .bottomSheet
             }
         case .fullscreen:
             let selectedView = FullscreenViews.allCases[indexPath.row]
@@ -117,21 +117,23 @@ enum ComponentViews: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .listSelection:
-            return CCListFilterViewController(filterNode: CCFilterNode(title: "Liste", name: ""))
+            let rootNode = CCFilterNode(title: "Liste", name: "")
+            rootNode.add(child: CCFilterNode(title: "Akershus", name: "", value: nil, isSelected: true, numberOfResults: 1238))
+            rootNode.add(child: CCFilterNode(title: "Buskerud", name: "", value: nil, isSelected: false, numberOfResults: 3421))
+            return CCListFilterViewController(filterNode: rootNode)
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
         case .stepperFilter:
             return ViewController<StepperFilterDemoView>()
-
         case .inlineFilter:
             let controller = InlineFilterDemoViewController()
             return controller
         case .mapFilter:
-            let mapViewManager = MapViewManager()
-            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""))
-            mapFilterViewController.mapFilterViewManager = mapViewManager
+            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""),
+                                                                    mapFilterViewManager: MapViewManager(),
+                                                                    searchLocationDataSource: DemoSearchLocationDataSource())
             return mapFilterViewController
         }
     }

@@ -9,11 +9,6 @@ public protocol CCFilterViewControllerDelegate: class {
     func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController)
 }
 
-public protocol CCFilterViewControllerDataSource: class {
-    func mapFilterViewManager(for filterViewController: CCFilterViewController) -> MapFilterViewManager
-    func searchLocationDataSource(for filterViewController: CCFilterViewController) -> SearchLocationDataSource
-}
-
 public class CCFilterViewController: UINavigationController {
 
     // MARK: - Public properties
@@ -22,7 +17,9 @@ public class CCFilterViewController: UINavigationController {
     public var config: CCFilterConfiguration
 
     public weak var filterDelegate: CCFilterViewControllerDelegate?
-    public weak var mapFilterDataSource: CCFilterViewControllerDataSource?
+
+    public var mapFilterViewManager: MapFilterViewManager?
+    public var searchLocationDataSource: SearchLocationDataSource?
 
     private let selectionStore: FilterSelectionStore
 
@@ -64,11 +61,11 @@ extension CCFilterViewController: CCViewControllerDelegate {
                 selectionStore: selectionStore
             )
         case let mapNode as CCMapFilterNode:
-            guard let mapFilterViewManager = mapFilterDataSource?.mapFilterViewManager(for: self) else { return }
+            guard let mapFilterViewManager = mapFilterViewManager else { return }
             let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode,
                                                                     selectionStore: selectionStore,
                                                                     mapFilterViewManager: mapFilterViewManager,
-                                                                    searchLocationDataSource: mapFilterDataSource?.searchLocationDataSource(for: self))
+                                                                    searchLocationDataSource: searchLocationDataSource)
             nextViewController = mapFilterViewController
 
         default:

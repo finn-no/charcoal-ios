@@ -80,10 +80,10 @@ private extension StepperFilterView {
     func handleButtonPressed(with type: ButtonType) {
         switch type {
         case .minus:
-            let newValue = max(filterInfo.sliderInfo.maximumValue, value - 1)
+            let newValue = max(filterInfo.sliderInfo.minimumValue, value - 1)
             sendActionIfNeeded(forValue: newValue)
         case .plus:
-            let newValue = min(filterInfo.sliderInfo.minimumValue, value + 1)
+            let newValue = min(filterInfo.sliderInfo.maximumValue, value + 1)
             sendActionIfNeeded(forValue: newValue)
         }
     }

@@ -222,6 +222,17 @@ extension FilterMarketRealestate: FilterConfiguration {
             increment = 1
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+            return StepperFilterInfo(
+                parameterName: parameterName,
+                title: name,
+                lowValue: lowValue,
+                highValue: highValue,
+                increment: increment,
+                rangeBoundsOffsets: rangeBoundsOffsets,
+                unit: unit,
+                accesibilityValues: accessibilityValues,
+                appearanceProperties: appearanceProperties
+            )
         case .area:
             switch self {
             case .leisureSaleAbroad:

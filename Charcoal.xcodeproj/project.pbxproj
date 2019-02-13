@@ -156,6 +156,7 @@
 		DA39FA35220B17DB00608AC4 /* CCCollectionSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA24220B17DB00608AC4 /* CCCollectionSelectionView.swift */; };
 		DA39FA36220B17DB00608AC4 /* CCFilterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA25220B17DB00608AC4 /* CCFilterSelectionView.swift */; };
 		DA39FA40220B30E700608AC4 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA3F220B30E700608AC4 /* Int.swift */; };
+		DA454D6C22145913009514F4 /* StepperFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA454D6B22145913009514F4 /* StepperFilterInfo.swift */; };
 		DA51040B21BE5F19004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA51040C21BE5F59004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA51041121BE66A1004048BD /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51041021BE66A1004048BD /* HockeySDK.framework */; };
@@ -366,6 +367,7 @@
 		DA39FA24220B17DB00608AC4 /* CCCollectionSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCollectionSelectionView.swift; sourceTree = "<group>"; };
 		DA39FA25220B17DB00608AC4 /* CCFilterSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCFilterSelectionView.swift; sourceTree = "<group>"; };
 		DA39FA3F220B30E700608AC4 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		DA454D6B22145913009514F4 /* StepperFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterInfo.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		DA51041A21BE6AFE004048BD /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -709,7 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				465F6167219B6ECF00CF568B /* BackendModel */,
-				9BB8279C216C9BCB0014028C /* FilterInfo */,
 				08716B2721F73AD2003180D8 /* FilterMarkets */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				08716B3621F76424003180D8 /* FilterKey.swift */,
@@ -787,14 +788,6 @@
 				9BB82799216B57730014028C /* DebugLog.swift */,
 			);
 			path = Logger;
-			sourceTree = "<group>";
-		};
-		9BB8279C216C9BCB0014028C /* FilterInfo */ = {
-			isa = PBXGroup;
-			children = (
-				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
-			);
-			path = FilterInfo;
 			sourceTree = "<group>";
 		};
 		9BE0A0402091BE750000632B /* Root */ = {
@@ -901,6 +894,7 @@
 				DA39FA3B220B2F1100608AC4 /* FilterConfiguration */,
 				DA39FA3C220B2F2800608AC4 /* Filter */,
 				DA39FA3D220B2F3E00608AC4 /* FilterNodes */,
+				DA454D6A22145829009514F4 /* ViewModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -975,6 +969,15 @@
 				CF0B19E42211B4EF00D8D9B7 /* CCFilterNode.swift */,
 			);
 			path = FilterNodes;
+			sourceTree = "<group>";
+		};
+		DA454D6A22145829009514F4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
+				DA454D6B22145913009514F4 /* StepperFilterInfo.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		DA643FB8220C8642001ED360 /* BottomButton */ = {
@@ -1320,6 +1323,7 @@
 				CF0B19EB2211B51E00D8D9B7 /* CCFilter.swift in Sources */,
 				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
 				9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */,
+				DA454D6C22145913009514F4 /* StepperFilterInfo.swift in Sources */,
 				CF0B19E82211B4EF00D8D9B7 /* CCMapFilterNode.swift in Sources */,
 				DA39FA2B220B17DB00608AC4 /* CCRootFilterViewController.swift in Sources */,
 				DA643FB7220C720A001ED360 /* CCStepperViewController.swift in Sources */,

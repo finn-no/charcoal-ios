@@ -16,13 +16,3 @@ public class CCFilter {
         self.root = root
     }
 }
-
-public extension CCFilter {
-    var queryItems: [URLQueryItem] {
-        return root.queryItems
-    }
-
-    func reset() {
-        root.reset()
-    }
-}

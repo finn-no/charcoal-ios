@@ -118,9 +118,12 @@ enum ComponentViews: String, CaseIterable {
         switch self {
         case .listSelection:
             let rootNode = CCFilterNode(title: "Liste", name: "")
-            rootNode.add(child: CCFilterNode(title: "Akershus", name: "", value: nil, isSelected: true, numberOfResults: 1238))
-            rootNode.add(child: CCFilterNode(title: "Buskerud", name: "", value: nil, isSelected: false, numberOfResults: 3421))
-            return CCListFilterViewController(filterNode: rootNode)
+            rootNode.add(child: CCFilterNode(title: "Akershus", name: "", numberOfResults: 1238))
+            rootNode.add(child: CCFilterNode(title: "Buskerud", name: "", numberOfResults: 3421))
+            return CCListFilterViewController(
+                filterNode: rootNode,
+                selectionStore: FilterSelectionStore()
+            )
         case .compactListFilter:
             return ViewController<CompactListFilterViewDemoView>()
         case .rangeFilter:
@@ -131,10 +134,12 @@ enum ComponentViews: String, CaseIterable {
             let controller = InlineFilterDemoViewController()
             return controller
         case .mapFilter:
-            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""),
-                                                                    mapFilterViewManager: MapViewManager(),
-                                                                    searchLocationDataSource: DemoSearchLocationDataSource())
-            return mapFilterViewController
+            return CCMapFilterViewController(
+                mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""),
+                selectionStore: FilterSelectionStore(),
+                mapFilterViewManager: MapViewManager(),
+                searchLocationDataSource: DemoSearchLocationDataSource()
+            )
         }
     }
 }

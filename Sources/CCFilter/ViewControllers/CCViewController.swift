@@ -14,6 +14,7 @@ class CCViewController: UIViewController, CCViewControllerDelegate {
     // MARK: - Public properties
 
     let filterNode: CCFilterNode
+    let selectionStore: FilterSelectionStore
     var isShowingBottomButton = false
     weak var delegate: CCViewControllerDelegate?
 
@@ -30,8 +31,9 @@ class CCViewController: UIViewController, CCViewControllerDelegate {
 
     // MARK: - Setup
 
-    init(filterNode: CCFilterNode) {
+    init(filterNode: CCFilterNode, selectionStore: FilterSelectionStore) {
         self.filterNode = filterNode
+        self.selectionStore = selectionStore
         super.init(nibName: nil, bundle: nil)
     }
 

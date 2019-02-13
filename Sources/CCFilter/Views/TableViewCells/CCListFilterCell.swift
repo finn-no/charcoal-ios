@@ -44,35 +44,19 @@ class CCListFilterCell: UITableViewCell {
 }
 
 extension CCListFilterCell {
-    func configure(for filterNode: CCFilterNode) {
-        titleLabel.text = filterNode.title
-        detailLabel.text = String(filterNode.numberOfResults)
-        separatorInset = UIEdgeInsets(top: 0, left: 24 + .largeSpacing, bottom: 0, right: 0)
+    func configure(for viewModel: CCListFilterCellViewModel) {
+        titleLabel.text = viewModel.title
+        detailLabel.text = viewModel.detail
+        accessoryType = viewModel.accessoryType
+        iconView.image = viewModel.icon
 
-        if filterNode.name == CCMapFilterNode.filterKey {
-            detailLabel.text = nil
-            accessoryType = .disclosureIndicator
-            iconView.image = UIImage(named: .mapFilterIcon)
-            return
-        }
-
-        if filterNode.isLeafNode {
-            accessoryType = .none
+        if viewModel.accessoryType == .none {
             detailLabelTrailingConstraint.constant = -.mediumLargeSpacing
         } else {
-            accessoryType = .disclosureIndicator
             detailLabelTrailingConstraint.constant = 0
         }
 
-        if filterNode.isSelected {
-            iconView.image = UIImage(named: .checkboxOn)
-        } else {
-            if filterNode.hasSelectedChildren {
-                iconView.image = UIImage(named: .checkboxPartial)
-            } else {
-                iconView.image = UIImage(named: .checkboxOff)
-            }
-        }
+        separatorInset = UIEdgeInsets(top: 0, left: 24 + .largeSpacing, bottom: 0, right: 0)
     }
 }
 

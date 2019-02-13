@@ -30,7 +30,6 @@ struct FilterData: Decodable {
     public func filterNode() -> CCFilterNode {
         if isRange == true {
             let rangeNode = CCRangeFilterNode(title: title, name: parameterName)
-            rangeNode.selectionTitlesBuilder = CCRangeSelectionTiltesBuilder()
             return rangeNode
         }
 

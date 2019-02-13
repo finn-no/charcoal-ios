@@ -33,11 +33,11 @@ class CCMapFilterViewController: CCViewController {
 
     // MARK: - Setup
 
-    init(mapFilterNode: CCMapFilterNode, mapFilterViewManager: MapFilterViewManager, searchLocationDataSource: SearchLocationDataSource?) {
+    init(mapFilterNode: CCMapFilterNode, selectionStore: FilterSelectionStore, mapFilterViewManager: MapFilterViewManager, searchLocationDataSource: SearchLocationDataSource?) {
         self.mapFilterNode = mapFilterNode
         self.mapFilterViewManager = mapFilterViewManager
         self.searchLocationDataSource = searchLocationDataSource
-        super.init(filterNode: mapFilterNode)
+        super.init(filterNode: mapFilterNode, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -56,18 +56,15 @@ class CCMapFilterViewController: CCViewController {
 extension CCMapFilterViewController: MapFilterViewDelegate {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
         let radiusNode = mapFilterNode.radiusNode
-        radiusNode.value = String(radius)
-        radiusNode.isSelected = true
+        selectionStore.select(node: radiusNode, value: String(radius))
     }
 
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeLocation location: CLLocationCoordinate2D) {
         let latitudeNode = mapFilterNode.latitudeNode
-        latitudeNode.value = String(location.latitude)
-        latitudeNode.isSelected = true
+        selectionStore.select(node: latitudeNode, value: String(location.latitude))
 
         let longitudeNode = mapFilterNode.longitudeNode
-        longitudeNode.value = String(location.longitude)
-        longitudeNode.isSelected = true
+        selectionStore.select(node: longitudeNode, value: String(location.latitude))
     }
 }
 

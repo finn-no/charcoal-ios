@@ -24,6 +24,8 @@ public class CCFilterViewController: UINavigationController {
     public weak var filterDelegate: CCFilterViewControllerDelegate?
     public weak var mapFilterDataSource: CCFilterViewControllerDataSource?
 
+    private let selectionStore: FilterSelectionStore
+
     // MARK: - Private properties
 
     private var rootFilterViewController: CCRootFilterViewController
@@ -31,7 +33,8 @@ public class CCFilterViewController: UINavigationController {
     public init(filter: CCFilter, config: CCFilterConfiguration) {
         self.filter = filter
         self.config = config
-        rootFilterViewController = CCRootFilterViewController(filterNode: filter.root)
+        selectionStore = FilterSelectionStore()
+        rootFilterViewController = CCRootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.delegate = self
         setViewControllers([rootFilterViewController], animated: false)
@@ -55,17 +58,21 @@ extension CCFilterViewController: CCViewControllerDelegate {
         switch filterNode {
         case let rangeNode as CCRangeFilterNode:
             guard let viewModel = config.viewModel(for: rangeNode) else { return }
-            nextViewController = CCRangeFilterViewController(rangeFilterNode: rangeNode, viewModel: viewModel)
-
+            nextViewController = CCRangeFilterViewController(
+                rangeFilterNode: rangeNode,
+                viewModel: viewModel,
+                selectionStore: selectionStore
+            )
         case let mapNode as CCMapFilterNode:
             guard let mapFilterViewManager = mapFilterDataSource?.mapFilterViewManager(for: self) else { return }
             let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode,
+                                                                    selectionStore: selectionStore,
                                                                     mapFilterViewManager: mapFilterViewManager,
                                                                     searchLocationDataSource: mapFilterDataSource?.searchLocationDataSource(for: self))
             nextViewController = mapFilterViewController
 
         default:
-            nextViewController = CCListFilterViewController(filterNode: filterNode)
+            nextViewController = CCListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
             nextViewController.showBottomButton(showBottomButton, animated: false)
         }

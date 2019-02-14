@@ -6,6 +6,10 @@ import Foundation
 
 public class CCFilter {
 
+    // MARK: - Public properties
+
+    public var verticals: [Vertical]?
+
     // MARK: - Private properties
 
     let root: CCFilterNode

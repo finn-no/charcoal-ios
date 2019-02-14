@@ -545,7 +545,6 @@
 				44ECE661208F7FA20017AC82 /* Charcoal.h */,
 				44ECE698208F80320017AC82 /* Charcoal.swift */,
 				5510EDAA20BFCCFE006E4A0F /* CompactList */,
-				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				559C61F620DA4CAA0083A574 /* FINNFilterImplementation */,
 				CF88577B21F61D710056CC81 /* Haptics */,
@@ -645,6 +644,7 @@
 		46905238217F5CB500F8E7FD /* Vertical */ = {
 			isa = PBXGroup;
 			children = (
+				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
 				55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */,
 				46905239217F5CD000F8E7FD /* Vertical.swift */,
 				9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */,

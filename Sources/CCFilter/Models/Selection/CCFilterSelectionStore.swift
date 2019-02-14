@@ -23,29 +23,25 @@ final class FilterSelectionStore {
 // MARK: - Selection
 
 extension FilterSelectionStore {
-    func select(node: CCFilterNode) {
-        selections[node.key] = node.value
-    }
-
-    func select<T: LosslessStringConvertible>(node: CCFilterNode, value: T? = nil) {
+    func setValue<T: LosslessStringConvertible>(_ value: T?, for node: CCFilterNode) {
         selections[node.key] = value.map(String.init)
     }
 
-    func deselect(node: CCFilterNode, withChildren: Bool = false) {
+    func removeValue(for node: CCFilterNode, withChildren: Bool = false) {
         selections.removeValue(forKey: node.key)
 
         if withChildren {
             node.children.forEach {
-                deselect(node: $0, withChildren: true)
+                removeValue(for: $0, withChildren: withChildren)
             }
         }
     }
 
-    func toggle(node: CCFilterNode) {
+    func toggleValue(for node: CCFilterNode) {
         if isSelected(node: node) {
-            deselect(node: node)
+            removeValue(for: node)
         } else {
-            select(node: node)
+            setValue(node.value, for: node)
         }
     }
 
@@ -77,17 +73,12 @@ extension FilterSelectionStore {
         if let rangeNode = node as? CCRangeFilterNode {
             let lowValue = value(for: rangeNode.lowValueNode)
             let highValue = value(for: rangeNode.highValueNode)
-            if let lowValue = lowValue, let highValue = highValue {
-                return ["\(lowValue) - \(highValue)"]
-            } else if let lowValue = lowValue {
-                return ["\(lowValue) - ..."]
-            } else if let highValue = highValue {
-                return ["... - \(highValue)"]
-            } else {
+
+            if lowValue == nil && highValue == nil {
                 return []
+            } else {
+                return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        } else if let mapNode = node as? CCMapFilterNode, hasSelectedChildren(node: mapNode) {
-            return ["map_filter_title".localized()]
         } else if isSelected(node: node) {
             return [node.title]
         } else {

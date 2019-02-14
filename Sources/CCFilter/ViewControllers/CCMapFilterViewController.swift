@@ -138,7 +138,7 @@ private extension CCMapFilterViewController {
             return Int(selectionStore.value(for: mapFilterNode.radiusNode))
         }
         set {
-            selectionStore.select(node: mapFilterNode.radiusNode, value: newValue)
+            selectionStore.setValue(newValue, for: mapFilterNode.radiusNode)
         }
     }
 
@@ -155,8 +155,8 @@ private extension CCMapFilterViewController {
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
         set {
-            selectionStore.select(node: mapFilterNode.latitudeNode, value: newValue?.latitude)
-            selectionStore.select(node: mapFilterNode.longitudeNode, value: newValue?.longitude)
+            selectionStore.setValue(newValue?.latitude, for: mapFilterNode)
+            selectionStore.setValue(newValue?.longitude, for: mapFilterNode)
         }
     }
 
@@ -165,7 +165,7 @@ private extension CCMapFilterViewController {
             return selectionStore.value(for: mapFilterNode.geoLocationNode)
         }
         set {
-            selectionStore.select(node: mapFilterNode.geoLocationNode, value: newValue)
+            selectionStore.setValue(newValue, for: mapFilterNode.geoLocationNode)
         }
     }
 }

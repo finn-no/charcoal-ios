@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CCRangeFilterViewController: CCViewController {
+final class CCRangeFilterViewController: CCViewController {
 
     // MARK: - Private properties
 
@@ -45,7 +45,7 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
     }
 
     private func setValue(_ value: Int?, forChild node: CCFilterNode) {
-        selectionStore.select(node: node, value: value)
+        selectionStore.setValue(value, for: node)
         delegate?.viewController(self, didSelect: node)
         showBottomButton(true, animated: true)
     }

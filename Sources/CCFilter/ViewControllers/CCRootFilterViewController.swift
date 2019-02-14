@@ -122,7 +122,7 @@ extension CCRootFilterViewController: CCRootFilterCellDelegate {
         let currentFilterNode = filterNode.children[indexPath.row]
         let selectedChildren = selectionStore.selectedChildren(for: currentFilterNode)
 
-        selectionStore.deselect(node: selectedChildren[index], withChildren: true)
+        selectionStore.removeValue(for: selectedChildren[index], withChildren: true)
     }
 }
 
@@ -130,11 +130,11 @@ extension CCRootFilterViewController: CCInlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
         guard let childNode = filterNode.child(at: index) else { return }
 
-        selectionStore.deselect(node: childNode, withChildren: true)
+        selectionStore.removeValue(for: childNode, withChildren: true)
 
         for index in segment.selectedItems {
             if let node = childNode.child(at: index) {
-                selectionStore.select(node: node)
+                selectionStore.setValue(node.value, for: node)
             }
         }
     }
@@ -166,7 +166,7 @@ extension CCRootFilterViewController: SearchViewControllerDelegate {
             return
         }
 
-        selectionStore.deselect(node: searchNode)
+        selectionStore.removeValue(for: searchNode)
         tableView.reloadData()
     }
 
@@ -175,7 +175,7 @@ extension CCRootFilterViewController: SearchViewControllerDelegate {
             return
         }
 
-        selectionStore.select(node: searchNode, value: query)
+        selectionStore.setValue(query, for: searchNode)
         tableView.reloadData()
     }
 }

@@ -6,11 +6,14 @@ import UIKit
 
 protocol CCInlineFilterViewDelegate: class {
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int)
+    func inlineFilterView(_ inlineFilterview: CCInlineFilterView, didTapExpandableSegment segment: Segment)
 }
 
 class CCInlineFilterView: UIView {
 
     // MARK: - Public Properties
+
+    var vertical: String?
 
     var segmentTitles: [[String]] = [] {
         didSet {
@@ -79,8 +82,19 @@ private extension CCInlineFilterView {
         delegate?.inlineFilterView(self, didChangeSegment: segment, at: index)
     }
 
+    @objc func handleExpandedSegment(segment: Segment) {
+        guard segment.isExpandable else { return }
+        delegate?.inlineFilterView(self, didTapExpandableSegment: segment)
+    }
+
     func setupItems() {
         segments = []
+
+        if let vertical = vertical {
+            let segment = Segment(titles: [vertical], isExpandable: true)
+            segment.addTarget(self, action: #selector(handleExpandedSegment(segment:)), for: .touchUpInside)
+            segments.append(segment)
+        }
 
         for titles in segmentTitles {
             let segment = Segment(titles: titles)

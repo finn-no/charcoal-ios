@@ -13,7 +13,7 @@ class CCViewController: UIViewController, CCViewControllerDelegate {
 
     // MARK: - Public properties
 
-    let filterNode: CCFilterNode
+    var filterNode: CCFilterNode
     let selectionStore: FilterSelectionStore
     var isShowingBottomButton = false
     weak var delegate: CCViewControllerDelegate?

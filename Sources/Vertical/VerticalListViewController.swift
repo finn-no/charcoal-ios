@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol VerticalListViewControllerDelegate: AnyObject {
-    func verticalListViewController(_: VerticalListViewController, didSelectVertical vertical: Vertical, at index: Int)
+    func verticalListViewController(_: VerticalListViewController, didSelectVerticalAtIndex index: Int)
 }
 
 public class VerticalListViewController: UIViewController {
@@ -23,12 +23,15 @@ public class VerticalListViewController: UIViewController {
     }()
 
     public weak var delegate: VerticalListViewControllerDelegate?
+    public let popoverTransitionDelegate = CustomPopoverPresentationTransitioningDelegate()
 
     private let verticals: [Vertical]
 
     public required init(verticals: [Vertical]) {
         self.verticals = verticals
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .custom
+        transitioningDelegate = popoverTransitionDelegate
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -39,6 +42,20 @@ public class VerticalListViewController: UIViewController {
         super.viewDidLoad()
 
         setup()
+    }
+
+    func setup(withSourceView source: UIView, inContainerView view: UIView) {
+        let sourceViewBottom = view.convert(CGPoint(x: 0, y: source.bounds.maxY), from: source).y
+        let maxHeightForPopover = view.bounds.height - sourceViewBottom - 20
+        let numberOfRowsFitting = maxHeightForPopover / VerticalListViewController.rowHeight
+
+        let popoverHeight: CGFloat
+        if numberOfRowsFitting < CGFloat(verticals.count) {
+            popoverHeight = (floor(numberOfRowsFitting) - 0.5) * VerticalListViewController.rowHeight
+        } else {
+            popoverHeight = CGFloat(verticals.count) * VerticalListViewController.rowHeight
+        }
+        preferredContentSize = CGSize(width: view.frame.size.width, height: popoverHeight)
     }
 
     private func setup() {
@@ -77,9 +94,7 @@ extension VerticalListViewController: UITableViewDataSource {
 
 extension VerticalListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vertical = verticals[safe: indexPath.item] {
-            delegate?.verticalListViewController(self, didSelectVertical: vertical, at: indexPath.item)
-        }
+        delegate?.verticalListViewController(self, didSelectVerticalAtIndex: indexPath.item)
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

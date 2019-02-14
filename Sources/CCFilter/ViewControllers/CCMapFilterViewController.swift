@@ -138,25 +138,25 @@ private extension CCMapFilterViewController {
             return Int(selectionStore.value(for: mapFilterNode.radiusNode))
         }
         set {
-            selectionStore.select(node: mapFilterNode.radiusNode, value: newValue.map(String.init))
+            selectionStore.select(node: mapFilterNode.radiusNode, value: newValue)
         }
     }
 
     var coordinate: CLLocationCoordinate2D? {
         get {
-            guard let latitude = selectionStore.value(for: mapFilterNode.latitudeNode).flatMap(Double.init) else {
+            guard let latitude: Double = selectionStore.value(for: mapFilterNode.latitudeNode) else {
                 return nil
             }
 
-            guard let longitude = selectionStore.value(for: mapFilterNode.longitudeNode).flatMap(Double.init) else {
+            guard let longitude: Double = selectionStore.value(for: mapFilterNode.longitudeNode) else {
                 return nil
             }
 
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
         set {
-            selectionStore.select(node: mapFilterNode.latitudeNode, value: newValue.map({ String($0.latitude) }))
-            selectionStore.select(node: mapFilterNode.longitudeNode, value: newValue.map({ String($0.longitude) }))
+            selectionStore.select(node: mapFilterNode.latitudeNode, value: newValue?.latitude)
+            selectionStore.select(node: mapFilterNode.longitudeNode, value: newValue?.longitude)
         }
     }
 

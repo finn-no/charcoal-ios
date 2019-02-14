@@ -45,11 +45,7 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
     }
 
     private func setValue(_ value: Int?, forChild node: CCFilterNode) {
-        if let value = value {
-            selectionStore.select(node: node, value: String(value))
-        } else {
-            selectionStore.deselect(node: node)
-        }
+        selectionStore.select(node: node, value: value)
         delegate?.viewController(self, didSelect: node)
         showBottomButton(true, animated: true)
     }
@@ -70,6 +66,7 @@ private extension CCRangeFilterViewController {
         rangeFilterView.setHighValue(Int(highValue), animated: false)
 
         view.addSubview(rangeFilterView)
+
         NSLayoutConstraint.activate([
             rangeFilterView.topAnchor.constraint(equalTo: view.topAnchor, constant: 48),
             rangeFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

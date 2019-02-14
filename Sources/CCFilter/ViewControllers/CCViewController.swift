@@ -9,7 +9,7 @@ protocol CCViewControllerDelegate: class {
     func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode)
 }
 
-class CCViewController: UIViewController, CCViewControllerDelegate {
+class CCViewController: UIViewController, CCViewControllerDelegate, FilterBottomButtonViewDelegate {
 
     // MARK: - Public properties
 
@@ -70,9 +70,9 @@ class CCViewController: UIViewController, CCViewControllerDelegate {
     func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
         delegate?.viewController(viewController, didSelect: filterNode)
     }
-}
 
-extension CCViewController: FilterBottomButtonViewDelegate {
+    // MARK: - FilterBottomButtonViewDelegate
+
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         delegate?.viewControllerDidPressBottomButton(self)
     }

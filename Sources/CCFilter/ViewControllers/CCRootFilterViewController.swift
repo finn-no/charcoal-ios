@@ -4,7 +4,19 @@
 
 import UIKit
 
+protocol CCRootFilterViewControllerDelegate: CCViewControllerDelegate {
+    func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int)
+}
+
 class CCRootFilterViewController: CCViewController {
+
+    // MARK: - Public properties
+
+    var verticals: [Vertical]?
+
+    weak var rootDelegate: CCRootFilterViewControllerDelegate? {
+        didSet { delegate = rootDelegate }
+    }
 
     // MARK: - Private properties
 
@@ -44,6 +56,13 @@ class CCRootFilterViewController: CCViewController {
         super.viewController(viewController, didSelect: filterNode)
         tableView.reloadData()
     }
+
+    func set(filterNode: CCFilterNode, verticals: [Vertical]?) {
+        self.filterNode = filterNode
+        self.verticals = verticals
+        navigationItem.title = filterNode.title
+        tableView.reloadData()
+    }
 }
 
 extension CCRootFilterViewController: UITableViewDataSource {
@@ -65,7 +84,8 @@ extension CCRootFilterViewController: UITableViewDataSource {
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
             let segmentTitles = currentFilterNode.children.map({ $0.children.map({ $0.title }) })
-            cell.configure(with: segmentTitles)
+            let vertical = verticals?.first(where: { $0.isCurrent })
+            cell.configure(with: segmentTitles, vertical: vertical?.title)
             return cell
 
         default:
@@ -117,6 +137,22 @@ extension CCRootFilterViewController: CCInlineFilterViewDelegate {
                 selectionStore.select(node: node)
             }
         }
+    }
+
+    func inlineFilterView(_ inlineFilterview: CCInlineFilterView, didTapExpandableSegment segment: Segment) {
+        guard let verticals = verticals else { return }
+        let verticalViewController = VerticalListViewController(verticals: verticals)
+        verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }
+        verticalViewController.popoverTransitionDelegate.sourceView = segment
+        verticalViewController.delegate = self
+        present(verticalViewController, animated: true, completion: nil)
+    }
+}
+
+extension CCRootFilterViewController: VerticalListViewControllerDelegate {
+    func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
+        verticalViewController.dismiss(animated: false)
+        rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
     }
 }
 

@@ -32,6 +32,10 @@ final class InlineFilterDemoViewController: UIViewController {
 }
 
 extension InlineFilterDemoViewController: CCInlineFilterViewDelegate {
+    func inlineFilterView(_ inlineFilterview: CCInlineFilterView, didTapExpandableSegment segment: Segment) {
+        return
+    }
+
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
         return
     }

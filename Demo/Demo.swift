@@ -36,6 +36,18 @@ enum Sections: String, CaseIterable {
         return rawClassName?.replacingOccurrences(of: "DemoView", with: "").capitalizingFirstLetter ?? "Unknown"
     }
 
+    static func marketName(for indexPath: IndexPath) -> String? {
+        guard let section = Sections.allCases[safe: indexPath.section] else {
+            return nil
+        }
+        switch section {
+        case .components:
+            return nil
+        case .fullscreen:
+            return FullscreenViews.allCases[safe: indexPath.row]?.marketName
+        }
+    }
+
     static func viewController(for indexPath: IndexPath) -> UIViewController? {
         guard let section = Sections.allCases[safe: indexPath.section] else {
             return nil
@@ -153,36 +165,20 @@ enum FullscreenViews: String, CaseIterable {
     case boat
     case b2b
 
-    var viewController: UIViewController {
-        let filterSetup: FilterSetup
-        let filterConfig: CCFilterConfiguration?
+    var viewController: UIViewController? {
+        return nil
+    }
 
+    var marketName: String {
         switch self {
-        case .torget:
-            filterSetup = DemoFilter.filterDataFromJSONFile(named: "bap-sale")
-            filterConfig = FilterMarket(market: "bap-sale")
-        case .bil:
-            filterSetup = DemoFilter.filterDataFromJSONFile(named: "car-norway")
-            filterConfig = FilterMarket(market: "car-norway")
-        case .eiendom:
-            filterSetup = DemoFilter.filterDataFromJSONFile(named: "realestate-homes")
-            filterConfig = FilterMarket(market: "realestate-homes")
-        case .mc:
-            filterSetup = DemoFilter.filterDataFromJSONFile(named: "mc")
-            filterConfig = FilterMarket(market: "mc")
-        case .job:
-            filterSetup = DemoFilter.filterDataFromJSONFile(named: "job-full-time")
-            filterConfig = FilterMarket(market: "job-full-time")
-        case .boat:
-            filterSetup = DemoFilter.filterDataFromJSONFile(named: "boat-sale")
-            filterConfig = FilterMarket(market: "boat-sale")
-        case .b2b:
-            filterSetup = DemoFilter.filterDataFromJSONFile(named: "truck")
-            filterConfig = FilterMarket(market: "truck")
+        case .torget: return "bap-sale"
+        case .bil: return "car-norway"
+        case .eiendom: return "realestate-homes"
+        case .mc: return "mc"
+        case .job: return "job-full-time"
+        case .boat: return "boat-sale"
+        case .b2b: return "truck"
         }
-
-        guard let filter = filterSetup.asCCFilter(), let config = filterConfig else { fatalError("Something went wrong!!") }
-        return CCFilterViewController(filter: filter, config: config)
     }
 }
 

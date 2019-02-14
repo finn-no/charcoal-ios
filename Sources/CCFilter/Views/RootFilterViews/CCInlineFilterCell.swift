@@ -30,7 +30,8 @@ class CCInlineFilterCell: UITableViewCell {
 }
 
 extension CCInlineFilterCell {
-    func configure(with segmentTitles: [[String]]) {
+    func configure(with segmentTitles: [[String]], vertical: String? = nil) {
+        inlineFilterView.vertical = vertical
         inlineFilterView.segmentTitles = segmentTitles
     }
 }

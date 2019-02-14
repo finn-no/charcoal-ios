@@ -38,7 +38,7 @@ public class CCFilterViewController: UINavigationController {
     private let selectionStore: FilterSelectionStore
     private var rootFilterViewController: CCRootFilterViewController
 
-    private let loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
+    private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
     public init(filter: CCFilter, config: CCFilterConfiguration) {
         self.filter = filter

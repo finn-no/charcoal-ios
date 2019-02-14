@@ -40,6 +40,8 @@ public class CCFilterViewController: UINavigationController {
 
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
+    // MARK: - Init
+
     public init(filter: CCFilter, config: CCFilterConfiguration) {
         self.filter = filter
         self.config = config

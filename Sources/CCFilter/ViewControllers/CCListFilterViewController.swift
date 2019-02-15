@@ -110,7 +110,7 @@ extension CCListFilterViewController: UITableViewDelegate {
         switch section {
         case .all:
             for childNode in filterNode.children {
-                selectionStore.removeValue(for: childNode)
+                selectionStore.removeValues(for: childNode)
             }
 
             selectionStore.toggleValue(for: filterNode)
@@ -122,7 +122,10 @@ extension CCListFilterViewController: UITableViewDelegate {
             }
 
             if childNode.isLeafNode {
-                selectionStore.removeValue(for: filterNode)
+                if selectionStore.isSelected(filterNode) {
+                    selectionStore.removeValues(for: filterNode)
+                }
+
                 selectionStore.toggleValue(for: childNode)
                 showBottomButton(true, animated: true)
             }

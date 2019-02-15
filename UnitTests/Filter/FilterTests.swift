@@ -48,13 +48,13 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertEqual(store.value(for: node), 10)
     }
 
-    func testRemoveValueForNode() {
+    func testRemoveValuesForNode() {
         let node = CCFilterNode(title: "Test", name: "test", value: "value")
 
         store.setValue(from: node)
         XCTAssertTrue(store.isSelected(node))
 
-        store.removeValue(for: node)
+        store.removeValues(for: node)
         XCTAssertFalse(store.isSelected(node))
     }
 
@@ -131,7 +131,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         store.setValue(from: childB)
         XCTAssertEqual(store.titles(for: parent), ["Parent"])
 
-        store.removeValue(for: childB)
+        store.removeValues(for: childB)
         XCTAssertEqual(store.titles(for: parent), ["Child A"])
     }
 

@@ -56,7 +56,27 @@ public class CCFilterViewController: UINavigationController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    // MARK: - Private
+
+    private func updateLoading() {
+        if isLoading {
+            add(loadingViewController)
+            loadingViewController.viewWillAppear(false)
+        } else {
+            loadingViewController.remove()
+        }
+    }
 }
+
+// MARK: - CCRootFilterViewControllerDelegate
 
 extension CCFilterViewController: CCRootFilterViewControllerDelegate {
     func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int) {
@@ -108,13 +128,13 @@ extension CCFilterViewController: CCRootFilterViewControllerDelegate {
     }
 }
 
-private extension CCFilterViewController {
-    func updateLoading() {
-        if isLoading {
-            add(loadingViewController)
-            loadingViewController.viewWillAppear(false)
-        } else {
-            loadingViewController.remove()
+// MARK: - UIGestureRecognizerDelegate
+
+extension CCFilterViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let slider = touch.view as? UISlider, slider.isEnabled, !slider.isHidden {
+            return false
         }
+        return true
     }
 }

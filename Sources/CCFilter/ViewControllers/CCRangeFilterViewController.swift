@@ -55,14 +55,10 @@ private extension CCRangeFilterViewController {
     func setup() {
         bottomButton.buttonTitle = "apply_button_title".localized()
 
-        guard let rangeNode = filterNode as? CCRangeFilterNode else {
-            return
-        }
-
-        let lowValue = selectionStore.value(for: rangeNode.lowValueNode)
+        let lowValue = selectionStore.value(for: rangeFilterNode.lowValueNode)
         rangeFilterView.setLowValue(Int(lowValue), animated: false)
 
-        let highValue = selectionStore.value(for: rangeNode.highValueNode)
+        let highValue = selectionStore.value(for: rangeFilterNode.highValueNode)
         rangeFilterView.setHighValue(Int(highValue), animated: false)
 
         view.addSubview(rangeFilterView)

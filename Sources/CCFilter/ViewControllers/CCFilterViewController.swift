@@ -61,7 +61,7 @@ public class CCFilterViewController: UINavigationController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        interactivePopGestureRecognizer?.delegate = self
+        delegate = self
     }
 
     // MARK: - Private
@@ -130,11 +130,12 @@ extension CCFilterViewController: CCRootFilterViewControllerDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension CCFilterViewController: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if let slider = touch.view as? UISlider, slider.isEnabled, !slider.isHidden {
-            return false
+extension CCFilterViewController: UINavigationControllerDelegate {
+    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if viewController is CCRangeFilterViewController {
+            interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            interactivePopGestureRecognizer?.isEnabled = true
         }
-        return true
     }
 }

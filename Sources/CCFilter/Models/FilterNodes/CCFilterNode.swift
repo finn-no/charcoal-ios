@@ -5,20 +5,23 @@
 import Foundation
 
 public class CCFilterNode {
-
-    // MARK: - Public properties
-
     public let title: String
     public let name: String
     public let value: String?
     public let numberOfResults: Int
-
-    // MARK: - Private properties
-
     private(set) var children: [CCFilterNode] = []
     private(set) weak var parent: CCFilterNode?
 
-    // MARK: - Setup
+    public var id: String {
+        let value = self.value.map({ ".\($0)" }) ?? ""
+        return "\(title.lowercased()).\(name)\(value)"
+    }
+
+    public var isLeafNode: Bool {
+        return children.isEmpty
+    }
+
+    // MARK: - Init
 
     public init(title: String, name: String, value: String? = nil, numberOfResults: Int = 0) {
         self.title = title
@@ -29,7 +32,7 @@ public class CCFilterNode {
 
     // MARK: - Public methods
 
-    func add(child: CCFilterNode, at index: Int? = nil) {
+    public func add(child: CCFilterNode, at index: Int? = nil) {
         if let index = index {
             children.insert(child, at: index)
         } else {
@@ -38,17 +41,8 @@ public class CCFilterNode {
         child.parent = self
     }
 
-    func child(at index: Int) -> CCFilterNode? {
+    public func child(at index: Int) -> CCFilterNode? {
         guard index < children.count else { return nil }
         return children[index]
-    }
-
-    var isLeafNode: Bool {
-        return children.isEmpty
-    }
-
-    var key: String {
-        let value = self.value ?? ""
-        return "\(name).\(title.lowercased())\(value)"
     }
 }

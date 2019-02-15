@@ -8,7 +8,11 @@ final class FilterSelectionStore {
     private var selections = [String: String]()
 
     func value(for node: CCFilterNode) -> String? {
-        return selections[node.key]
+        return selections[node.id]
+    }
+
+    func value<T: LosslessStringConvertible>(for node: CCFilterNode) -> T? {
+        return selections[node.id].flatMap(T.init)
     }
 
     func clear() {
@@ -19,35 +23,37 @@ final class FilterSelectionStore {
 // MARK: - Selection
 
 extension FilterSelectionStore {
-    func select(node: CCFilterNode, value: String? = nil) {
-        selections[node.key] = value ?? node.value
+    func setValue(from node: CCFilterNode) {
+        selections[node.id] = node.value
     }
 
-    func deselect(node: CCFilterNode, withChildren: Bool = false) {
-        selections.removeValue(forKey: node.key)
+    func setValue<T: LosslessStringConvertible>(_ value: T?, for node: CCFilterNode) {
+        selections[node.id] = value.map(String.init)
+    }
 
-        if withChildren {
-            node.children.forEach {
-                deselect(node: $0, withChildren: true)
-            }
+    func removeValues(for node: CCFilterNode) {
+        selections.removeValue(forKey: node.id)
+
+        node.children.forEach {
+            removeValues(for: $0)
         }
     }
 
-    func toggle(node: CCFilterNode) {
-        if isSelected(node: node) {
-            deselect(node: node)
+    func toggleValue(for node: CCFilterNode) {
+        if isSelected(node) {
+            removeValues(for: node)
         } else {
-            select(node: node)
+            setValue(node.value, for: node)
         }
     }
 
-    func isSelected(node: CCFilterNode) -> Bool {
+    func isSelected(_ node: CCFilterNode) -> Bool {
         let selected: Bool
 
         if node is CCMapFilterNode || node is CCRangeFilterNode {
-            selected = node.children.contains(where: { isSelected(node: $0) })
+            selected = node.children.contains(where: { isSelected($0) })
         } else {
-            selected = !node.children.isEmpty && node.children.allSatisfy { isSelected(node: $0) }
+            selected = !node.children.isEmpty && node.children.allSatisfy { isSelected($0) }
         }
 
         return value(for: node) != nil || selected
@@ -69,18 +75,13 @@ extension FilterSelectionStore {
         if let rangeNode = node as? CCRangeFilterNode {
             let lowValue = value(for: rangeNode.lowValueNode)
             let highValue = value(for: rangeNode.highValueNode)
-            if let lowValue = lowValue, let highValue = highValue {
-                return ["\(lowValue) - \(highValue)"]
-            } else if let lowValue = lowValue {
-                return ["\(lowValue) - ..."]
-            } else if let highValue = highValue {
-                return ["... - \(highValue)"]
-            } else {
+
+            if lowValue == nil && highValue == nil {
                 return []
+            } else {
+                return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        } else if let mapNode = node as? CCMapFilterNode, hasSelectedChildren(node: mapNode) {
-            return ["map_filter_title".localized()]
-        } else if isSelected(node: node) {
+        } else if isSelected(node) {
             return [node.title]
         } else {
             return node.children.reduce([]) { $0 + titles(for: $1) }
@@ -88,7 +89,7 @@ extension FilterSelectionStore {
     }
 
     func hasSelectedChildren(node: CCFilterNode) -> Bool {
-        if isSelected(node: node) {
+        if isSelected(node) {
             return true
         }
 
@@ -96,7 +97,7 @@ extension FilterSelectionStore {
     }
 
     func selectedChildren(for node: CCFilterNode) -> [CCFilterNode] {
-        if isSelected(node: node) {
+        if isSelected(node) {
             return [node]
         }
 

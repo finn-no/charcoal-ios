@@ -8,11 +8,11 @@ final class FilterSelectionStore {
     private var selections = [String: String]()
 
     func value(for node: CCFilterNode) -> String? {
-        return selections[node.key]
+        return selections[node.id]
     }
 
     func value<T: LosslessStringConvertible>(for node: CCFilterNode) -> T? {
-        return selections[node.key].flatMap(T.init)
+        return selections[node.id].flatMap(T.init)
     }
 
     func clear() {
@@ -24,15 +24,15 @@ final class FilterSelectionStore {
 
 extension FilterSelectionStore {
     func setValue(from node: CCFilterNode) {
-        selections[node.key] = node.value
+        selections[node.id] = node.value
     }
 
     func setValue<T: LosslessStringConvertible>(_ value: T?, for node: CCFilterNode) {
-        selections[node.key] = value.map(String.init)
+        selections[node.id] = value.map(String.init)
     }
 
     func removeValues(for node: CCFilterNode) {
-        selections.removeValue(forKey: node.key)
+        selections.removeValue(forKey: node.id)
 
         node.children.forEach {
             removeValues(for: $0)

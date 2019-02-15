@@ -15,57 +15,57 @@ final class FilterSelectionStoreTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testValueForNode() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "valueA")
-
-        store.select(node: node)
-        XCTAssertEqual(store.value(for: node), "valueA")
-
-        store.select(node: node, value: "valueB")
-        XCTAssertEqual(store.value(for: node), "valueB")
-    }
-
     func testClear() {
         let nodeA = CCFilterNode(title: "Test A", name: "testA", value: "valueB")
         let nodeB = CCFilterNode(title: "Test B", name: "testB", value: "valueB")
 
-        store.select(node: nodeA)
-        store.select(node: nodeB)
+        store.setValue(from: nodeA)
+        store.setValue(from: nodeB)
 
-        XCTAssertTrue(store.isSelected(node: nodeA))
-        XCTAssertTrue(store.isSelected(node: nodeB))
+        XCTAssertTrue(store.isSelected(nodeA))
+        XCTAssertTrue(store.isSelected(nodeB))
 
         store.clear()
 
-        XCTAssertFalse(store.isSelected(node: nodeA))
-        XCTAssertFalse(store.isSelected(node: nodeB))
+        XCTAssertFalse(store.isSelected(nodeA))
+        XCTAssertFalse(store.isSelected(nodeB))
     }
 
-    func testSelect() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "value")
+    func testSetValueFromNode() {
+        let node = CCFilterNode(title: "Test", name: "test", value: "valueA")
 
-        store.select(node: node)
-        XCTAssertTrue(store.isSelected(node: node))
+        store.setValue(from: node)
+        XCTAssertEqual(store.value(for: node), "valueA")
     }
 
-    func testDeselect() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "value")
+    func testSetValueForNode() {
+        let node = CCFilterNode(title: "Test", name: "test", value: "valueA")
 
-        store.select(node: node)
-        XCTAssertTrue(store.isSelected(node: node))
+        store.setValue("valueB", for: node)
+        XCTAssertEqual(store.value(for: node), "valueB")
 
-        store.deselect(node: node)
-        XCTAssertFalse(store.isSelected(node: node))
+        store.setValue(10, for: node)
+        XCTAssertEqual(store.value(for: node), 10)
     }
 
-    func testToggle() {
+    func testRemoveValueForNode() {
         let node = CCFilterNode(title: "Test", name: "test", value: "value")
 
-        store.toggle(node: node)
-        XCTAssertTrue(store.isSelected(node: node))
+        store.setValue(from: node)
+        XCTAssertTrue(store.isSelected(node))
 
-        store.toggle(node: node)
-        XCTAssertFalse(store.isSelected(node: node))
+        store.removeValue(for: node)
+        XCTAssertFalse(store.isSelected(node))
+    }
+
+    func testToggleValueForNode() {
+        let node = CCFilterNode(title: "Test", name: "test", value: "value")
+
+        store.toggleValue(for: node)
+        XCTAssertTrue(store.isSelected(node))
+
+        store.toggleValue(for: node)
+        XCTAssertFalse(store.isSelected(node))
     }
 
     func testIsSelected() {
@@ -76,18 +76,18 @@ final class FilterSelectionStoreTests: XCTestCase {
         parent.add(child: childA)
         parent.add(child: childB)
 
-        store.select(node: childA)
-        XCTAssertTrue(store.isSelected(node: childA))
-        XCTAssertFalse(store.isSelected(node: parent))
+        store.setValue(from: childA)
+        XCTAssertTrue(store.isSelected(childA))
+        XCTAssertFalse(store.isSelected(parent))
 
-        store.select(node: childB)
-        XCTAssertTrue(store.isSelected(node: childB))
-        XCTAssertTrue(store.isSelected(node: parent))
+        store.setValue(from: childB)
+        XCTAssertTrue(store.isSelected(childB))
+        XCTAssertTrue(store.isSelected(parent))
     }
 
     func testQueryItems() {
         let node = CCFilterNode(title: "Test", name: "test", value: "value")
-        store.select(node: node)
+        store.setValue(from: node)
 
         let expected = [URLQueryItem(name: "test", value: "value")]
         XCTAssertEqual(store.queryItems(for: node), expected)
@@ -101,8 +101,8 @@ final class FilterSelectionStoreTests: XCTestCase {
         parent.add(child: childA)
         parent.add(child: childB)
 
-        store.select(node: childA)
-        store.select(node: childB)
+        store.setValue(from: childA)
+        store.setValue(from: childB)
 
         let expected = [
             URLQueryItem(name: "childA", value: "valueA"),
@@ -115,7 +115,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     func testTitles() {
         let node = CCFilterNode(title: "Test", name: "test", value: "value")
 
-        store.select(node: node)
+        store.setValue(from: node)
         XCTAssertEqual(store.titles(for: node), ["Test"])
     }
 
@@ -127,11 +127,11 @@ final class FilterSelectionStoreTests: XCTestCase {
         parent.add(child: childA)
         parent.add(child: childB)
 
-        store.select(node: childA)
-        store.select(node: childB)
+        store.setValue(from: childA)
+        store.setValue(from: childB)
         XCTAssertEqual(store.titles(for: parent), ["Parent"])
 
-        store.deselect(node: childB)
+        store.removeValue(for: childB)
         XCTAssertEqual(store.titles(for: parent), ["Child A"])
     }
 
@@ -140,7 +140,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         let child = CCFilterNode(title: "Child A", name: "childA", value: "valueA")
         parent.add(child: child)
 
-        store.select(node: child)
+        store.setValue(from: child)
         XCTAssertTrue(store.hasSelectedChildren(node: parent))
     }
 
@@ -149,9 +149,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         let child = CCFilterNode(title: "Child A", name: "childA", value: "valueA")
         parent.add(child: child)
 
-        XCTAssertTrue(store.selectedChildren(for: parent).isEmpty)
-
-        store.select(node: child)
+        store.setValue(from: child)
         XCTAssertEqual(store.selectedChildren(for: parent).count, 1)
     }
 }

@@ -83,14 +83,14 @@ extension CCListFilterViewController: UITableViewDataSource {
 
         switch section {
         case .all:
-            let isSelected = selectionStore.isSelected(node: filterNode)
+            let isSelected = selectionStore.isSelected(filterNode)
             cell.configure(for: .selectAll(from: filterNode, isSelected: isSelected))
         case .children:
             if let node = filterNode.child(at: indexPath.row) {
                 if node.name == CCMapFilterNode.filterKey {
                     cell.configure(for: .map(from: node))
                 } else {
-                    let isSelected = selectionStore.isSelected(node: node)
+                    let isSelected = selectionStore.isSelected(node)
                     let hasSelectedChildren = selectionStore.hasSelectedChildren(node: node)
                     cell.configure(for: .regular(from: node, isSelected: isSelected, hasSelectedChildren: hasSelectedChildren))
                 }

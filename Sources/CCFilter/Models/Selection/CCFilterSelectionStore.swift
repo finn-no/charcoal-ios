@@ -23,6 +23,10 @@ final class FilterSelectionStore {
 // MARK: - Selection
 
 extension FilterSelectionStore {
+    func setValue(from node: CCFilterNode) {
+        selections[node.key] = node.value
+    }
+
     func setValue<T: LosslessStringConvertible>(_ value: T?, for node: CCFilterNode) {
         selections[node.key] = value.map(String.init)
     }
@@ -38,20 +42,20 @@ extension FilterSelectionStore {
     }
 
     func toggleValue(for node: CCFilterNode) {
-        if isSelected(node: node) {
+        if isSelected(node) {
             removeValue(for: node)
         } else {
             setValue(node.value, for: node)
         }
     }
 
-    func isSelected(node: CCFilterNode) -> Bool {
+    func isSelected(_ node: CCFilterNode) -> Bool {
         let selected: Bool
 
         if node is CCMapFilterNode || node is CCRangeFilterNode {
-            selected = node.children.contains(where: { isSelected(node: $0) })
+            selected = node.children.contains(where: { isSelected($0) })
         } else {
-            selected = !node.children.isEmpty && node.children.allSatisfy { isSelected(node: $0) }
+            selected = !node.children.isEmpty && node.children.allSatisfy { isSelected($0) }
         }
 
         return value(for: node) != nil || selected
@@ -79,7 +83,7 @@ extension FilterSelectionStore {
             } else {
                 return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        } else if isSelected(node: node) {
+        } else if isSelected(node) {
             return [node.title]
         } else {
             return node.children.reduce([]) { $0 + titles(for: $1) }
@@ -87,7 +91,7 @@ extension FilterSelectionStore {
     }
 
     func hasSelectedChildren(node: CCFilterNode) -> Bool {
-        if isSelected(node: node) {
+        if isSelected(node) {
             return true
         }
 
@@ -95,7 +99,7 @@ extension FilterSelectionStore {
     }
 
     func selectedChildren(for node: CCFilterNode) -> [CCFilterNode] {
-        if isSelected(node: node) {
+        if isSelected(node) {
             return [node]
         }
 

@@ -134,7 +134,7 @@ extension CCRootFilterViewController: CCInlineFilterViewDelegate {
 
         for index in segment.selectedItems {
             if let node = childNode.child(at: index) {
-                selectionStore.setValue(node.value, for: node)
+                selectionStore.setValue(from: node)
             }
         }
     }

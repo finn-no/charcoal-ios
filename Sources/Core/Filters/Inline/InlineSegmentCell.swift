@@ -4,7 +4,7 @@
 
 import Foundation
 
-class InlineFilterViewCell: UICollectionViewCell {
+class InlineSegmentCell: UICollectionViewCell {
     static let cellHeight: CGFloat = 38
 
     var segment: Segment? {
@@ -19,7 +19,7 @@ class InlineFilterViewCell: UICollectionViewCell {
     }
 }
 
-private extension InlineFilterViewCell {
+private extension InlineSegmentCell {
     func setupSubview(_ view: UIView?) {
         guard let view = view else {
             return
@@ -31,7 +31,7 @@ private extension InlineFilterViewCell {
             view.topAnchor.constraint(equalTo: contentView.topAnchor),
             view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: InlineFilterViewCell.cellHeight),
+            contentView.heightAnchor.constraint(equalToConstant: InlineSegmentCell.cellHeight),
         ])
     }
 }

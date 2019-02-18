@@ -31,13 +31,13 @@ class CCInlineFilterView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = .mediumLargeSpacing
-        layout.estimatedItemSize = CGSize(width: 300, height: InlineFilterViewCell.cellHeight)
+        layout.estimatedItemSize = CGSize(width: 300, height: InlineSegmentCell.cellHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .milk
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.contentInset = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: 0)
-        collectionView.register(InlineFilterViewCell.self)
+        collectionView.register(InlineSegmentCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -60,7 +60,7 @@ extension CCInlineFilterView: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeue(InlineFilterViewCell.self, for: indexPath)
+        let cell = collectionView.dequeue(InlineSegmentCell.self, for: indexPath)
         cell.segment = segments[indexPath.item]
         return cell
     }

@@ -8,7 +8,7 @@ import UIKit
 final class MapFilterViewController: FilterViewController {
     private let mapFilterViewManager: MapFilterViewManager
     private let searchLocationDataSource: SearchLocationDataSource?
-    private let mapFilterNode: MapFilter
+    private let mapFilter: MapFilter
 
     private lazy var mapFilterView: MapFilterView = {
         let mapFilterView = MapFilterView(
@@ -31,12 +31,12 @@ final class MapFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(mapFilterNode: MapFilter, selectionStore: FilterSelectionStore,
+    init(mapFilter: MapFilter, selectionStore: FilterSelectionStore,
          mapFilterViewManager: MapFilterViewManager, searchLocationDataSource: SearchLocationDataSource?) {
-        self.mapFilterNode = mapFilterNode
+        self.mapFilter = mapFilter
         self.mapFilterViewManager = mapFilterViewManager
         self.searchLocationDataSource = searchLocationDataSource
-        super.init(filterNode: mapFilterNode, selectionStore: selectionStore)
+        super.init(filter: mapFilter, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -135,37 +135,37 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
 private extension MapFilterViewController {
     var radius: Int? {
         get {
-            return Int(selectionStore.value(for: mapFilterNode.radiusNode))
+            return Int(selectionStore.value(for: mapFilter.radiusFilter))
         }
         set {
-            selectionStore.setValue(newValue, for: mapFilterNode.radiusNode)
+            selectionStore.setValue(newValue, for: mapFilter.radiusFilter)
         }
     }
 
     var coordinate: CLLocationCoordinate2D? {
         get {
-            guard let latitude: Double = selectionStore.value(for: mapFilterNode.latitudeNode) else {
+            guard let latitude: Double = selectionStore.value(for: mapFilter.latitudeFilter) else {
                 return nil
             }
 
-            guard let longitude: Double = selectionStore.value(for: mapFilterNode.longitudeNode) else {
+            guard let longitude: Double = selectionStore.value(for: mapFilter.longitudeFilter) else {
                 return nil
             }
 
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
         set {
-            selectionStore.setValue(newValue?.latitude, for: mapFilterNode)
-            selectionStore.setValue(newValue?.longitude, for: mapFilterNode)
+            selectionStore.setValue(newValue?.latitude, for: mapFilter)
+            selectionStore.setValue(newValue?.longitude, for: mapFilter)
         }
     }
 
     var locationName: String? {
         get {
-            return selectionStore.value(for: mapFilterNode.geoLocationNode)
+            return selectionStore.value(for: mapFilter.locationNameFilter)
         }
         set {
-            selectionStore.setValue(newValue, for: mapFilterNode.geoLocationNode)
+            selectionStore.setValue(newValue, for: mapFilter.locationNameFilter)
         }
     }
 }

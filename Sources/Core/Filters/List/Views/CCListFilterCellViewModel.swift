@@ -14,31 +14,31 @@ struct CCListFilterCellViewModel {
 // MARK: - Kind
 
 extension CCListFilterCellViewModel {
-    static func regular(from node: Filter, isSelected: Bool, hasSelectedChildren: Bool) -> CCListFilterCellViewModel {
+    static func regular(from filter: Filter, isSelected: Bool, hasSelectedChildren: Bool) -> CCListFilterCellViewModel {
         let iconAsset: ImageAsset = isSelected ? .checkboxOn : hasSelectedChildren ? .checkboxPartial : .checkboxOff
 
         return CCListFilterCellViewModel(
-            title: node.title,
-            detail: String(node.numberOfResults),
-            accessoryType: node.isLeafNode ? .none : .disclosureIndicator,
+            title: filter.title,
+            detail: String(filter.numberOfResults),
+            accessoryType: filter.hasNoSubfilters ? .none : .disclosureIndicator,
             icon: UIImage(named: iconAsset)
         )
     }
 
-    static func selectAll(from node: Filter, isSelected: Bool) -> CCListFilterCellViewModel {
+    static func selectAll(from filter: Filter, isSelected: Bool) -> CCListFilterCellViewModel {
         let iconAsset: ImageAsset = isSelected ? .checkboxOn : .checkboxOff
 
         return CCListFilterCellViewModel(
             title: "all_items_title".localized(),
-            detail: String(node.numberOfResults),
+            detail: String(filter.numberOfResults),
             accessoryType: .none,
             icon: UIImage(named: iconAsset)
         )
     }
 
-    static func map(from node: Filter) -> CCListFilterCellViewModel {
+    static func map(from filter: Filter) -> CCListFilterCellViewModel {
         return CCListFilterCellViewModel(
-            title: node.title,
+            title: filter.title,
             detail: nil,
             accessoryType: .disclosureIndicator,
             icon: UIImage(named: .mapFilterIcon)

@@ -15,7 +15,7 @@ public class CharcoalViewController: UINavigationController {
 
     public var filter: FilterContainer {
         didSet {
-            rootFilterViewController.set(filterNode: filter.rootFilter, verticals: filter.verticals)
+            rootFilterViewController.set(filter: filter.rootFilter, verticals: filter.verticals)
             isLoading = false
         }
     }
@@ -45,7 +45,7 @@ public class CharcoalViewController: UINavigationController {
         self.filter = filter
         self.config = config
         selectionStore = FilterSelectionStore(queryItems: queryItems)
-        rootFilterViewController = RootFilterViewController(filterNode: filter.rootFilter, selectionStore: selectionStore)
+        rootFilterViewController = RootFilterViewController(filter: filter.rootFilter, selectionStore: selectionStore)
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self
@@ -92,36 +92,37 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         popToRootViewController(animated: true)
     }
 
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter) {
-        guard !filterNode.isLeafNode else { return }
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
+        guard !filter.hasNoSubfilters else { return }
         let nextViewController: FilterViewController
 
-        switch filterNode {
-        case let rangeNode as RangeFilterNode:
-            guard let viewModel = config.viewModel(forKey: rangeNode.name) else { return }
+        switch filter {
+        case let rangeFilter as RangeFilter:
+            guard let viewModel = config.viewModel(forKey: rangeFilter.name) else { return }
             switch viewModel.kind {
             case .slider:
                 nextViewController = RangeFilterViewController(
-                    rangeFilterNode: rangeNode,
+                    rangeFilter: rangeFilter,
                     viewModel: viewModel,
                     selectionStore: selectionStore
                 )
             case .stepper:
                 nextViewController = StepperFilterViewController(
-                    filterNode: rangeNode,
+                    filter: rangeFilter,
                     selectionStore: selectionStore,
                     viewModel: viewModel
                 )
             }
-        case let mapNode as MapFilter:
+        case let mapFilter as MapFilter:
             guard let mapFilterViewManager = mapFilterViewManager else { return }
-            nextViewController = MapFilterViewController(mapFilterNode: mapNode,
-                                                         selectionStore: selectionStore,
-                                                         mapFilterViewManager: mapFilterViewManager,
-                                                         searchLocationDataSource: searchLocationDataSource)
-
+            nextViewController = MapFilterViewController(
+                mapFilter: mapFilter,
+                selectionStore: selectionStore,
+                mapFilterViewManager: mapFilterViewManager,
+                searchLocationDataSource: searchLocationDataSource
+            )
         default:
-            nextViewController = ListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)
+            nextViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
             nextViewController.showBottomButton(showBottomButton, animated: false)
         }

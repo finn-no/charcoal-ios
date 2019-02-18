@@ -15,19 +15,19 @@ final class FilterSelectionStore {
 
     // MARK: - Values
 
-    func value<T: LosslessStringConvertible>(for node: Filter) -> T? {
-        return queryItem(for: node)?.value.flatMap({ T($0) })
+    func value<T: LosslessStringConvertible>(for filter: Filter) -> T? {
+        return queryItem(for: filter)?.value.flatMap({ T($0) })
     }
 
     func clear() {
         queryItems.removeAll()
     }
 
-    private func queryItem(for node: Filter) -> URLQueryItem? {
-        if let value = node.value {
-            return queryItems.first(where: { $0.name == node.name && $0.value == value })
-        } else if node.isLeafNode {
-            return queryItems.first(where: { $0.name == node.name })
+    private func queryItem(for filter: Filter) -> URLQueryItem? {
+        if let value = filter.value {
+            return queryItems.first(where: { $0.name == filter.name && $0.value == value })
+        } else if filter.hasNoSubfilters {
+            return queryItems.first(where: { $0.name == filter.name })
         } else {
             return nil
         }
@@ -37,91 +37,91 @@ final class FilterSelectionStore {
 // MARK: - Selection
 
 extension FilterSelectionStore {
-    func setValue(from node: Filter) {
-        setValue(node.value, for: node)
+    func setValue(from filter: Filter) {
+        setValue(filter.value, for: filter)
     }
 
-    func setValue<T: LosslessStringConvertible>(_ value: T?, for node: Filter) {
-        removeValues(for: node)
+    func setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
+        removeValues(for: filter)
 
         if let value = value {
-            let queryItem = URLQueryItem(name: node.name, value: String(value))
+            let queryItem = URLQueryItem(name: filter.name, value: String(value))
             queryItems.insert(queryItem)
         }
     }
 
-    func removeValues(for node: Filter) {
-        if let queryItem = queryItem(for: node) {
+    func removeValues(for filter: Filter) {
+        if let queryItem = queryItem(for: filter) {
             queryItems.remove(queryItem)
         }
 
-        node.children.forEach {
+        filter.children.forEach {
             removeValues(for: $0)
         }
     }
 
-    func toggleValue(for node: Filter) {
-        if isSelected(node) {
-            removeValues(for: node)
+    func toggleValue(for filter: Filter) {
+        if isSelected(filter) {
+            removeValues(for: filter)
         } else {
-            setValue(node.value, for: node)
+            setValue(filter.value, for: filter)
         }
     }
 
-    func isSelected(_ node: Filter) -> Bool {
+    func isSelected(_ filter: Filter) -> Bool {
         let selected: Bool
 
-        if node is MapFilter || node is RangeFilterNode {
-            selected = node.children.contains(where: { isSelected($0) })
+        if filter is MapFilter || filter is RangeFilter {
+            selected = filter.children.contains(where: { isSelected($0) })
         } else {
-            selected = !node.children.isEmpty && node.children.allSatisfy { isSelected($0) }
+            selected = !filter.children.isEmpty && filter.children.allSatisfy { isSelected($0) }
         }
 
-        return queryItem(for: node) != nil || selected
+        return queryItem(for: filter) != nil || selected
     }
 }
 
 // MARK: - Helpers
 
 extension FilterSelectionStore {
-    func queryItems(for node: Filter) -> [URLQueryItem] {
-        if let queryItem = queryItem(for: node) {
+    func queryItems(for filter: Filter) -> [URLQueryItem] {
+        if let queryItem = queryItem(for: filter) {
             return [queryItem]
         }
 
-        return node.children.reduce([]) { $0 + queryItems(for: $1) }
+        return filter.children.reduce([]) { $0 + queryItems(for: $1) }
     }
 
-    func titles(for node: Filter) -> [String] {
-        if let rangeNode = node as? RangeFilterNode {
-            let lowValue: String? = value(for: rangeNode.lowValueNode)
-            let highValue: String? = value(for: rangeNode.highValueNode)
+    func titles(for filter: Filter) -> [String] {
+        if let rangeFilter = filter as? RangeFilter {
+            let lowValue: String? = value(for: rangeFilter.lowValueFilter)
+            let highValue: String? = value(for: rangeFilter.highValueFilter)
 
             if lowValue == nil && highValue == nil {
                 return []
             } else {
                 return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        } else if isSelected(node) {
-            return [node.title]
+        } else if isSelected(filter) {
+            return [filter.title]
         } else {
-            return node.children.reduce([]) { $0 + titles(for: $1) }
+            return filter.children.reduce([]) { $0 + titles(for: $1) }
         }
     }
 
-    func hasSelectedChildren(node: Filter) -> Bool {
-        if isSelected(node) {
+    func hasSelectedChildren(_ filter: Filter) -> Bool {
+        if isSelected(filter) {
             return true
         }
 
-        return node.children.reduce(false) { $0 || hasSelectedChildren(node: $1) }
+        return filter.children.reduce(false) { $0 || hasSelectedChildren($1) }
     }
 
-    func selectedChildren(for node: Filter) -> [Filter] {
-        if isSelected(node) {
-            return [node]
+    func selectedChildren(for filter: Filter) -> [Filter] {
+        if isSelected(filter) {
+            return [filter]
         }
 
-        return node.children.reduce([]) { $0 + selectedChildren(for: $1) }
+        return filter.children.reduce([]) { $0 + selectedChildren(for: $1) }
     }
 }

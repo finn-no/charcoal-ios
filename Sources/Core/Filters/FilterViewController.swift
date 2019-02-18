@@ -6,14 +6,14 @@ import UIKit
 
 protocol FilterViewControllerDelegate: class {
     func filterViewControllerDidSelectApply(_ viewController: FilterViewController)
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter)
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
 }
 
 class FilterViewController: UIViewController, FilterViewControllerDelegate, FilterBottomButtonViewDelegate {
 
     // MARK: - Public properties
 
-    var filterNode: Filter
+    var filter: Filter
     let selectionStore: FilterSelectionStore
     var isShowingBottomButton = false
     weak var delegate: FilterViewControllerDelegate?
@@ -31,8 +31,8 @@ class FilterViewController: UIViewController, FilterViewControllerDelegate, Filt
 
     // MARK: - Setup
 
-    init(filterNode: Filter, selectionStore: FilterSelectionStore) {
-        self.filterNode = filterNode
+    init(filter: Filter, selectionStore: FilterSelectionStore) {
+        self.filter = filter
         self.selectionStore = selectionStore
         super.init(nibName: nil, bundle: nil)
     }
@@ -44,7 +44,7 @@ class FilterViewController: UIViewController, FilterViewControllerDelegate, Filt
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .milk
-        navigationItem.title = filterNode.title
+        navigationItem.title = filter.title
         setup()
     }
 
@@ -67,8 +67,8 @@ class FilterViewController: UIViewController, FilterViewControllerDelegate, Filt
         delegate?.filterViewControllerDidSelectApply(viewController)
     }
 
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter) {
-        delegate?.filterViewController(viewController, didSelectFilter: filterNode)
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
+        delegate?.filterViewController(viewController, didSelectFilter: filter)
     }
 
     // MARK: - FilterBottomButtonViewDelegate

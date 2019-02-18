@@ -52,22 +52,21 @@ public struct FilterSetup: Decodable {
             return nil
         }
 
-        let searchQueryNode = Filter(title: "search_placeholder".localized(), name: "q")
+        let searchQueryFilter = Filter(title: "search_placeholder".localized(), name: "q")
 
         let preferenceFilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
-        let preferenceNode = Filter(title: "", name: "preferences")
-        preferenceFilters.forEach { preferenceNode.add(child: $0.filterNode()) }
+        let preferenceFilter = Filter(title: "", name: "preferences")
+        preferenceFilters.forEach { preferenceFilter.add(child: $0.asFilter()) }
 
-        let filters = filterMarket.supportedFiltersKeys.compactMap { filterData(forKey: $0) }
-        let filterNodes = filters.map { $0.filterNode() }
+        let filters = filterMarket.supportedFiltersKeys.compactMap { filterData(forKey: $0)?.asFilter() }
 
-        if let locationNode = filterNodes.first(where: { $0.name == FilterKey.location.rawValue }) {
-            let mapNode = MapFilter(title: "map_filter_title".localized(), name: MapFilter.filterKey)
-            locationNode.add(child: mapNode, at: 0)
+        if let locationFilter = filters.first(where: { $0.name == FilterKey.location.rawValue }) {
+            let mapFilter = MapFilter(title: "map_filter_title".localized(), name: MapFilter.filterKey)
+            locationFilter.add(child: mapFilter, at: 0)
         }
 
         let root = Filter(title: filterTitle, name: market, numberOfResults: hits)
-        ([searchQueryNode, preferenceNode] + filterNodes).forEach { root.add(child: $0) }
+        ([searchQueryFilter, preferenceFilter] + filters).forEach { root.add(child: $0) }
 
         return FilterContainer(root: root)
     }

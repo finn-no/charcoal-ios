@@ -12,11 +12,6 @@ class CCFilterNode {
     private(set) var children: [CCFilterNode] = []
     private(set) weak var parent: CCFilterNode?
 
-    var id: String {
-        let value = self.value.map({ ".\($0)" }) ?? ""
-        return "\(title.lowercased()).\(name)\(value)"
-    }
-
     var isLeafNode: Bool {
         return children.isEmpty
     }

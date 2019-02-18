@@ -5,18 +5,24 @@
 import Foundation
 
 final class FilterSelectionStore {
-    private var selections = [String: String]()
-
-    func value(for node: CCFilterNode) -> String? {
-        return selections[node.id]
-    }
+    var queryItems = Set<URLQueryItem>()
 
     func value<T: LosslessStringConvertible>(for node: CCFilterNode) -> T? {
-        return selections[node.id].flatMap(T.init)
+        return queryItem(for: node)?.value.flatMap({ T($0) })
     }
 
     func clear() {
-        selections.removeAll()
+        queryItems.removeAll()
+    }
+
+    private func queryItem(for node: CCFilterNode) -> URLQueryItem? {
+        if let value = node.value {
+            return queryItems.first(where: { $0.name == node.name && $0.value == value })
+        } else if node.isLeafNode {
+            return queryItems.first(where: { $0.name == node.name })
+        } else {
+            return nil
+        }
     }
 }
 
@@ -24,15 +30,22 @@ final class FilterSelectionStore {
 
 extension FilterSelectionStore {
     func setValue(from node: CCFilterNode) {
-        selections[node.id] = node.value
+        setValue(node.value, for: node)
     }
 
     func setValue<T: LosslessStringConvertible>(_ value: T?, for node: CCFilterNode) {
-        selections[node.id] = value.map(String.init)
+        if let value = value {
+            let queryItem = URLQueryItem(name: node.name, value: String(value))
+            queryItems.insert(queryItem)
+        } else {
+            removeValues(for: node)
+        }
     }
 
     func removeValues(for node: CCFilterNode) {
-        selections.removeValue(forKey: node.id)
+        if let queryItem = queryItem(for: node) {
+            queryItems.remove(queryItem)
+        }
 
         node.children.forEach {
             removeValues(for: $0)
@@ -56,7 +69,7 @@ extension FilterSelectionStore {
             selected = !node.children.isEmpty && node.children.allSatisfy { isSelected($0) }
         }
 
-        return value(for: node) != nil || selected
+        return queryItem(for: node) != nil || selected
     }
 }
 
@@ -64,8 +77,8 @@ extension FilterSelectionStore {
 
 extension FilterSelectionStore {
     func queryItems(for node: CCFilterNode) -> [URLQueryItem] {
-        if let value = value(for: node) {
-            return [URLQueryItem(name: node.name, value: value)]
+        if let queryItem = queryItem(for: node) {
+            return [queryItem]
         }
 
         return node.children.reduce([]) { $0 + queryItems(for: $1) }
@@ -73,8 +86,8 @@ extension FilterSelectionStore {
 
     func titles(for node: CCFilterNode) -> [String] {
         if let rangeNode = node as? CCRangeFilterNode {
-            let lowValue = value(for: rangeNode.lowValueNode)
-            let highValue = value(for: rangeNode.highValueNode)
+            let lowValue: String? = value(for: rangeNode.lowValueNode)
+            let highValue: String? = value(for: rangeNode.highValueNode)
 
             if lowValue == nil && highValue == nil {
                 return []

@@ -539,23 +539,12 @@
 		44ECE660208F7FA20017AC82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA0F220B17DB00608AC4 /* CCFilter */,
+				44ECE6AF208F83BD0017AC82 /* Resources */,
+				CF4C8702221ADF2700DFAF2A /* Core */,
 				44ECE661208F7FA20017AC82 /* Charcoal.h */,
 				44ECE698208F80320017AC82 /* Charcoal.swift */,
-				5510EDAA20BFCCFE006E4A0F /* CompactList */,
-				9BE0A04D2091C12A0000632B /* Extensions */,
 				559C61F620DA4CAA0083A574 /* FINNFilterImplementation */,
-				CF88577B21F61D710056CC81 /* Haptics */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
-				DAFD7A0D21AE96CE00A468B2 /* InlineFilter */,
-				9BB82798216B57630014028C /* Logger */,
-				9B741D1421B558FC00D18097 /* MapFilter */,
-				5515EA4320BD5B5600AC98A3 /* RangeFilter */,
-				44ECE6AF208F83BD0017AC82 /* Resources */,
-				9BE0A0402091BE750000632B /* Root */,
-				DAF3CA6E218301B3007235B0 /* StepperFilter */,
-				CFFD9F8A21F07A7700997D14 /* StepSlider */,
-				46905238217F5CB500F8E7FD /* Vertical */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -844,6 +833,27 @@
 			path = Selection;
 			sourceTree = "<group>";
 		};
+		CF4C8702221ADF2700DFAF2A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CF88577B21F61D710056CC81 /* Haptics */,
+				DAFD7A0D21AE96CE00A468B2 /* InlineFilter */,
+				9BB82798216B57630014028C /* Logger */,
+				9B741D1421B558FC00D18097 /* MapFilter */,
+				5515EA4320BD5B5600AC98A3 /* RangeFilter */,
+				9BE0A0402091BE750000632B /* Root */,
+				DAF3CA6E218301B3007235B0 /* StepperFilter */,
+				CFFD9F8A21F07A7700997D14 /* StepSlider */,
+				46905238217F5CB500F8E7FD /* Vertical */,
+				9BE0A04D2091C12A0000632B /* Extensions */,
+				5510EDAA20BFCCFE006E4A0F /* CompactList */,
+				DA39FA1D220B17DB00608AC4 /* Views */,
+				DA39FA16220B17DB00608AC4 /* ViewControllers */,
+				DA39FA10220B17DB00608AC4 /* Models */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		CF88577B21F61D710056CC81 /* Haptics */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,16 +881,6 @@
 				CFB13DAF21FF2B1800F8D126 /* StepTests.swift */,
 			);
 			path = StepSlider;
-			sourceTree = "<group>";
-		};
-		DA39FA0F220B17DB00608AC4 /* CCFilter */ = {
-			isa = PBXGroup;
-			children = (
-				DA39FA10220B17DB00608AC4 /* Models */,
-				DA39FA16220B17DB00608AC4 /* ViewControllers */,
-				DA39FA1D220B17DB00608AC4 /* Views */,
-			);
-			path = CCFilter;
 			sourceTree = "<group>";
 		};
 		DA39FA10220B17DB00608AC4 /* Models */ = {

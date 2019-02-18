@@ -8,13 +8,13 @@ protocol CCRootFilterViewControllerDelegate: class {
     func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int)
 }
 
-class CCRootFilterViewController: CCViewController {
+class CCRootFilterViewController: FilterViewController {
 
     // MARK: - Public properties
 
     var verticals: [Vertical]?
 
-    weak var rootDelegate: (CCRootFilterViewControllerDelegate & CCViewControllerDelegate)? {
+    weak var rootDelegate: (CCRootFilterViewControllerDelegate & FilterViewControllerDelegate)? {
         didSet { delegate = rootDelegate }
     }
 
@@ -52,8 +52,8 @@ class CCRootFilterViewController: CCViewController {
         setup()
     }
 
-    override func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
-        super.viewController(viewController, didSelect: filterNode)
+    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+        super.filterViewController(viewController, didSelectFilter: filterNode)
         tableView.reloadData()
     }
 
@@ -108,7 +108,7 @@ extension CCRootFilterViewController: UITableViewDelegate {
         case "preferences":
             return
         default:
-            delegate?.viewController(self, didSelect: selectedFilterNode)
+            delegate?.filterViewController(self, didSelectFilter: selectedFilterNode)
         }
     }
 }

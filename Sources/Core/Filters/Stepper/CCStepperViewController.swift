@@ -5,7 +5,7 @@
 import FinniversKit
 import UIKit
 
-class CCStepperFilterViewController: CCViewController {
+class CCStepperFilterViewController: FilterViewController {
     private let viewModel: RangeFilterInfo
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(lessThanOrEqualTo: view.topAnchor)
 

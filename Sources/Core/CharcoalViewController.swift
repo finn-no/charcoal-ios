@@ -84,15 +84,17 @@ extension CharcoalViewController: CCRootFilterViewControllerDelegate {
     }
 }
 
-extension CharcoalViewController: CCViewControllerDelegate {
-    func viewControllerDidPressBottomButton(_ viewController: CCViewController) {
+// MARK: - FilterViewControllerDelegate
+
+extension CharcoalViewController: FilterViewControllerDelegate {
+    func filterViewControllerDidSelectApply(_ viewController: FilterViewController) {
         filterDelegate?.charcoalViewControllerDidChangeSelection(self)
         popToRootViewController(animated: true)
     }
 
-    func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
         guard !filterNode.isLeafNode else { return }
-        let nextViewController: CCViewController
+        let nextViewController: FilterViewController
 
         switch filterNode {
         case let rangeNode as CCRangeFilterNode:

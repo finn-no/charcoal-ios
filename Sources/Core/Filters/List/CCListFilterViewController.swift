@@ -4,7 +4,7 @@
 
 import FinniversKit
 
-final class CCListFilterViewController: CCViewController {
+final class CCListFilterViewController: FilterViewController {
     private enum Section: Int {
         case all, children
     }
@@ -39,8 +39,8 @@ final class CCListFilterViewController: CCViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
     }
 
-    override func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
-        super.viewController(viewController, didSelect: filterNode)
+    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+        super.filterViewController(viewController, didSelectFilter: filterNode)
         showBottomButton(true, animated: false)
         tableView.reloadData()
     }
@@ -134,7 +134,7 @@ extension CCListFilterViewController: UITableViewDelegate {
             let indexPaths = [indexPath, selectAllIndexPath].compactMap({ $0 })
             tableView.reloadRows(at: indexPaths, with: .fade)
 
-            delegate?.viewController(self, didSelect: childNode)
+            delegate?.filterViewController(self, didSelectFilter: childNode)
         }
     }
 }

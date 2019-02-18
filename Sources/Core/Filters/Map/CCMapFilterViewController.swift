@@ -5,7 +5,7 @@
 import MapKit
 import UIKit
 
-final class CCMapFilterViewController: CCViewController {
+final class CCMapFilterViewController: FilterViewController {
     private let mapFilterViewManager: MapFilterViewManager
     private let searchLocationDataSource: SearchLocationDataSource?
     private let mapFilterNode: CCMapFilterNode

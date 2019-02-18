@@ -4,19 +4,19 @@
 
 import UIKit
 
-protocol CCViewControllerDelegate: class {
-    func viewControllerDidPressBottomButton(_ viewController: CCViewController)
-    func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode)
+protocol FilterViewControllerDelegate: class {
+    func filterViewControllerDidSelectApply(_ viewController: FilterViewController)
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode)
 }
 
-class CCViewController: UIViewController, CCViewControllerDelegate, FilterBottomButtonViewDelegate {
+class FilterViewController: UIViewController, FilterViewControllerDelegate, FilterBottomButtonViewDelegate {
 
     // MARK: - Public properties
 
     var filterNode: CCFilterNode
     let selectionStore: FilterSelectionStore
     var isShowingBottomButton = false
-    weak var delegate: CCViewControllerDelegate?
+    weak var delegate: FilterViewControllerDelegate?
 
     // MARK: - Private properties
 
@@ -63,22 +63,22 @@ class CCViewController: UIViewController, CCViewControllerDelegate, FilterBottom
         })
     }
 
-    func viewControllerDidPressBottomButton(_ viewController: CCViewController) {
-        delegate?.viewControllerDidPressBottomButton(viewController)
+    func filterViewControllerDidSelectApply(_ viewController: FilterViewController) {
+        delegate?.filterViewControllerDidSelectApply(viewController)
     }
 
-    func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
-        delegate?.viewController(viewController, didSelect: filterNode)
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+        delegate?.filterViewController(viewController, didSelectFilter: filterNode)
     }
 
     // MARK: - FilterBottomButtonViewDelegate
 
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.viewControllerDidPressBottomButton(self)
+        delegate?.filterViewControllerDidSelectApply(self)
     }
 }
 
-private extension CCViewController {
+private extension FilterViewController {
     func setup() {
         view.addSubview(bottomButton)
         NSLayoutConstraint.activate([

@@ -4,7 +4,7 @@
 
 import UIKit
 
-final class CCRangeFilterViewController: FilterViewController {
+final class RangeFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
@@ -18,6 +18,8 @@ final class CCRangeFilterViewController: FilterViewController {
         return view
     }()
 
+    // MARK: - Init
+
     init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
         self.rangeFilterNode = rangeFilterNode
         self.viewModel = viewModel
@@ -29,13 +31,17 @@ final class CCRangeFilterViewController: FilterViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
 }
 
-extension CCRangeFilterViewController: RangeFilterViewDelegate {
+// MARK: - RangeFilterViewDelegate
+
+extension RangeFilterViewController: RangeFilterViewDelegate {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
         setValue(lowValue, forChild: rangeFilterNode.lowValueNode)
     }
@@ -51,7 +57,7 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
     }
 }
 
-private extension CCRangeFilterViewController {
+private extension RangeFilterViewController {
     func setup() {
         bottomButton.buttonTitle = "apply_button_title".localized()
 

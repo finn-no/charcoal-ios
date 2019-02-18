@@ -101,7 +101,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             guard let viewModel = config.viewModel(forKey: rangeNode.name) else { return }
             switch viewModel.kind {
             case .slider:
-                nextViewController = CCRangeFilterViewController(
+                nextViewController = RangeFilterViewController(
                     rangeFilterNode: rangeNode,
                     viewModel: viewModel,
                     selectionStore: selectionStore
@@ -135,7 +135,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
 extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if viewController is CCRangeFilterViewController {
+        if viewController is RangeFilterViewController {
             interactivePopGestureRecognizer?.isEnabled = false
         } else {
             interactivePopGestureRecognizer?.isEnabled = true

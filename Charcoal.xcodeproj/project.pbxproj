@@ -113,7 +113,6 @@
 		9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
-		9BAF4F87212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */; };
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
 		9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */; };
 		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
@@ -320,7 +319,6 @@
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
 		9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
-		9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchQuerySuggestionsHelper.swift; sourceTree = "<group>"; };
 		9BB82799216B57730014028C /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterInfo.swift; sourceTree = "<group>"; };
 		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -548,23 +546,15 @@
 		44ECE66C208F7FD00017AC82 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
-				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */,
-				55646DB520933D56006AA2DA /* Components */,
-				44ECE6A7208F816D0017AC82 /* Demo.swift */,
-				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
-				9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */,
-				55946B7D20970237008AB7CE /* InlineFilterDemoViewController.swift */,
 				44ECE679208F7FD20017AC82 /* Info.plist */,
-				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
+				44ECE66D208F7FD00017AC82 /* AppDelegate.swift */,
+				55646DB520933D56006AA2DA /* Components */,
+				9BE0A0502091CED70000632B /* Config */,
+				CF4C8707221AEB6500DFAF2A /* Extensions */,
 				9BF778CD21C1661D006C0416 /* MapFilter */,
-				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
 				5598F20E20C008F900E148E0 /* Resources */,
-				9BE0A0502091CED70000632B /* Root */,
-				9BAF4F85212EE64F003DD663 /* SearchQuery */,
-				DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */,
-				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
+				CF4C8708221AED3000DFAF2A /* ViewControllers */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -661,6 +651,9 @@
 		55646DB520933D56006AA2DA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				55946B7D20970237008AB7CE /* InlineFilterDemoViewController.swift */,
+				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
+				DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */,
 				55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */,
 			);
 			path = Components;
@@ -679,6 +672,8 @@
 		5598F20E20C008F900E148E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
+				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
 				08716B8121FF2CBE003180D8 /* b2b */,
 				08716B3B21F89BA6003180D8 /* bap */,
 				08716B3821F89B80003180D8 /* boat */,
@@ -758,14 +753,6 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		9BAF4F85212EE64F003DD663 /* SearchQuery */ = {
-			isa = PBXGroup;
-			children = (
-				9BAF4F86212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift */,
-			);
-			path = SearchQuery;
-			sourceTree = "<group>";
-		};
 		9BB82798216B57630014028C /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -796,13 +783,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		9BE0A0502091CED70000632B /* Root */ = {
+		9BE0A0502091CED70000632B /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				44ECE6A7208F816D0017AC82 /* Demo.swift */,
 				9BE0A0512091CF270000632B /* DemoFilterRootViewControllerHelper.swift */,
 				46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */,
 			);
-			path = Root;
+			path = Config;
 			sourceTree = "<group>";
 		};
 		9BF778CD21C1661D006C0416 /* MapFilter */ = {
@@ -879,6 +867,23 @@
 				DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */,
 			);
 			path = FreeText;
+			sourceTree = "<group>";
+		};
+		CF4C8707221AEB6500DFAF2A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CF4C8708221AED3000DFAF2A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				44ECE6A8208F816D0017AC82 /* DemoViewsTableViewController.swift */,
+				44ECE6A6208F816D0017AC82 /* ViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		CF88577B21F61D710056CC81 /* Haptics */ = {
@@ -1352,7 +1357,6 @@
 				9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */,
 				55946B7E20970237008AB7CE /* InlineFilterDemoViewController.swift in Sources */,
 				DA51041321BE680D004048BD /* Color.swift in Sources */,
-				9BAF4F87212EE689003DD663 /* DemoSearchQuerySuggestionsHelper.swift in Sources */,
 				44ECE6AB208F816D0017AC82 /* ViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
 				9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */,

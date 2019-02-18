@@ -42,11 +42,11 @@ extension FilterSelectionStore {
     }
 
     func setValue<T: LosslessStringConvertible>(_ value: T?, for node: CCFilterNode) {
+        removeValues(for: node)
+
         if let value = value {
             let queryItem = URLQueryItem(name: node.name, value: String(value))
             queryItems.insert(queryItem)
-        } else {
-            removeValues(for: node)
         }
     }
 

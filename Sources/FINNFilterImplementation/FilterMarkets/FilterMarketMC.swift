@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarketMC: String, CaseIterable {
+public enum FilterMarketMC: String, CaseIterable {
     case mc
     case mopedScooter = "moped-scooter"
     case snowmobile
@@ -14,11 +14,15 @@ enum FilterMarketMC: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketMC: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return createFilterInfoFrom(key: key)
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .mc:
             return [.published, .segment, .dealerSegment]
@@ -27,7 +31,7 @@ extension FilterMarketMC: FilterConfiguration {
         }
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         switch self {
         case .mc:
             return [
@@ -64,13 +68,11 @@ extension FilterMarketMC: FilterConfiguration {
         }
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        let parameterName = rangeFilterData.parameterName
-        let name = rangeFilterData.title
+    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -79,7 +81,7 @@ extension FilterMarketMC: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
         switch filterKey {
@@ -128,8 +130,7 @@ extension FilterMarketMC: FilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,

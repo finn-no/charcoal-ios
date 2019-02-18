@@ -47,6 +47,31 @@ public struct FilterSetup: Decodable {
         }
     }
 
+    public func asCCFilter() -> CCFilter? {
+        guard let filterMarket = FilterMarket(market: market) else {
+            return nil
+        }
+
+        let searchQueryNode = CCFilterNode(title: "search_placeholder".localized(), name: "q")
+
+        let preferenceFilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
+        let preferenceNode = CCFilterNode(title: "", name: "preferences")
+        preferenceFilters.forEach { preferenceNode.add(child: $0.filterNode()) }
+
+        let filters = filterMarket.supportedFiltersKeys.compactMap { filterData(forKey: $0) }
+        let filterNodes = filters.map { $0.filterNode() }
+
+        if let locationNode = filterNodes.first(where: { $0.name == FilterKey.location.rawValue }) {
+            let mapNode = CCMapFilterNode(title: "map_filter_title".localized(), name: CCMapFilterNode.filterKey)
+            locationNode.add(child: mapNode, at: 0)
+        }
+
+        let root = CCFilterNode(title: filterTitle, name: market, numberOfResults: hits)
+        ([searchQueryNode, preferenceNode] + filterNodes).forEach { root.add(child: $0) }
+
+        return CCFilter(root: root)
+    }
+
     public static func decode(from dict: [AnyHashable: Any]?) -> FilterSetup? {
         guard let dict = dict else {
             return nil

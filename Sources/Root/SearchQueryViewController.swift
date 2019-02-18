@@ -12,7 +12,7 @@ public protocol SearchQuerySuggestionsDataSource: AnyObject {
 public protocol SearchViewControllerDelegate: class {
     func presentSearchViewController(_ searchViewController: SearchQueryViewController)
     func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController)
-    func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String?)
+    func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String)
 }
 
 public class SearchQueryViewController: UIViewController {
@@ -69,7 +69,7 @@ extension SearchQueryViewController: UITableViewDataSource {
 
 extension SearchQueryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let query = suggestions[safe: indexPath.row]
+        guard let query = suggestions[safe: indexPath.row] else { return }
         searchBar.text = query
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.searchViewController(self, didSelectQuery: query)
@@ -100,7 +100,8 @@ extension SearchQueryViewController: UISearchBarDelegate {
     }
 
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        delegate?.searchViewController(self, didSelectQuery: searchBar.text)
+        guard let text = searchBar.text else { return }
+        delegate?.searchViewController(self, didSelectQuery: text)
         currentQuery = searchBar.text
         returnToSuperView()
     }
@@ -108,7 +109,7 @@ extension SearchQueryViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let currentQuery = currentQuery {
             // return to previous search
-            delegate?.searchViewController(self, didSelectQuery: nil)
+            delegate?.searchViewController(self, didSelectQuery: currentQuery)
             searchBar.text = currentQuery
             suggestions(forSearchText: currentQuery)
         } else {

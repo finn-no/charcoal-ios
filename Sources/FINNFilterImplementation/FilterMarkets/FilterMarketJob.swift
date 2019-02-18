@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarketJob: String, CaseIterable {
+public enum FilterMarketJob: String, CaseIterable {
     case fullTime = "job-full-time"
     case partTime = "job-part-time"
     case management = "job-management"
@@ -13,15 +13,19 @@ enum FilterMarketJob: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketJob: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return nil
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         return [.published]
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         switch self {
         case .partTime:
             return [
@@ -44,11 +48,7 @@ extension FilterMarketJob: FilterConfiguration {
         }
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return .location
-    }
-
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        return nil
     }
 }

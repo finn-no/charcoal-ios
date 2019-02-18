@@ -9,15 +9,24 @@ import UIKit
 // MARK: - DemoViewsTableViewController
 
 class DemoViewsTableViewController: UITableViewController {
+
+    // MARK: - Private properties
+
+    private var demoFilter: DemoFilter?
+
+    // MARK: - Override properties
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    // MARK: - Setup
+
     init() {
         super.init(style: .grouped)
     }
 
     required init?(coder aDecoder: NSCoder) { fatalError("") }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +35,8 @@ class DemoViewsTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        if let indexPath = Sections.lastSelectedIndexPath, let viewController = Sections.viewController(for: indexPath) {
-            let transitionStyle = Sections.transitionStyle(for: indexPath)
-            presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
-        }
+        guard let indexPath = Sections.lastSelectedIndexPath else { return }
+        presentViewController(for: indexPath)
     }
 
     private func setup() {
@@ -38,6 +44,33 @@ class DemoViewsTableViewController: UITableViewController {
         tableView.backgroundColor = UIColor.secondaryBlue
         tableView.delegate = self
         tableView.separatorStyle = .none
+    }
+
+    private func ccFilter(for marketName: String) -> CCFilter? {
+        let filterSetup = DemoFilter.filterDataFromJSONFile(named: marketName)
+        demoFilter = DemoFilter(filter: filterSetup)
+        guard let filter = filterSetup.asCCFilter() else { return nil }
+        filter.verticals = demoFilter?.verticalSetup.subVerticals(for: filterSetup.market)
+        return filter
+    }
+
+    private func presentViewController(for indexPath: IndexPath) {
+        let section = Sections.allCases[indexPath.section]
+        switch section {
+        case .components:
+            guard let viewController = Sections.viewController(for: indexPath) else { return }
+            let transitionStyle = Sections.transitionStyle(for: indexPath)
+            presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
+        case .fullscreen:
+            guard let market = Sections.marketName(for: indexPath), let filter = ccFilter(for: market), let filterConfig = FilterMarket(market: market) else { return }
+            let controller = CCFilterViewController(filter: filter, config: filterConfig)
+            controller.filterDelegate = self
+            controller.mapFilterViewManager = MapViewManager()
+            controller.searchLocationDataSource = DemoSearchLocationDataSource()
+
+            let bottomSheet = BottomSheet(rootViewController: controller)
+            present(bottomSheet, animated: true)
+        }
     }
 }
 
@@ -67,10 +100,7 @@ extension DemoViewsTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         Sections.lastSelectedIndexPath = indexPath
-        if let viewController = Sections.viewController(for: indexPath) {
-            let transitionStyle = Sections.transitionStyle(for: indexPath)
-            presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
-        }
+        presentViewController(for: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -84,6 +114,21 @@ extension DemoViewsTableViewController {
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         Sections.lastSelectedIndexPath = nil
         super.dismiss(animated: flag, completion: completion)
+    }
+}
+
+extension DemoViewsTableViewController: CCFilterViewControllerDelegate {
+    func filterViewControllerFilterSelectionChanged(_ filterViewController: CCFilterViewController) {}
+    func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController) {}
+
+    func filterViewController(_ filterViewController: CCFilterViewController, didSelect vertical: Vertical) {
+        guard let vertical = vertical as? VerticalDemo else { return }
+        guard let filter = ccFilter(for: vertical.id) else { return }
+
+        filterViewController.isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            filterViewController.filter = filter
+        }
     }
 }
 

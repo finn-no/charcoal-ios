@@ -4,22 +4,26 @@
 
 import Foundation
 
-enum FilterMarketBap: String, CaseIterable {
+public enum FilterMarketBap: String, CaseIterable {
     case bap
 }
 
 // MARK: - FilterConfiguration
 
 extension FilterMarketBap: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return createFilterInfoFrom(key: key)
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         return [.searchType, .segment, .condition, .published]
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         return [
             .category,
             .location,
@@ -27,13 +31,11 @@ extension FilterMarketBap: FilterConfiguration {
         ]
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        let parameterName = rangeFilterData.parameterName
-        let name = rangeFilterData.title
+    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -42,7 +44,7 @@ extension FilterMarketBap: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
         switch filterKey {
@@ -59,8 +61,7 @@ extension FilterMarketBap: FilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,

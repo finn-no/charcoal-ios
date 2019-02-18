@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarket {
+public enum FilterMarket {
     case bap(FilterMarketBap)
     case realestate(FilterMarketRealestate)
     case car(FilterMarketCar)
@@ -13,7 +13,7 @@ enum FilterMarket {
     case boat(FilterMarketBoat)
     case b2b(FilterMarketB2B)
 
-    init?(market: String) {
+    public init?(market: String) {
         guard let market = FilterMarket.allCases.first(where: { $0.handlesVerticalId(market) }) else {
             return nil
         }
@@ -44,24 +44,24 @@ enum FilterMarket {
 // MARK: - FilterConfiguration
 
 extension FilterMarket: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return currentFilterConfig.viewModel(forKey: key)
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         return currentFilterConfig.preferenceFilterKeys
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         return currentFilterConfig.supportedFiltersKeys
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return currentFilterConfig.mapFilterKey
-    }
-
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        return currentFilterConfig.createFilterInfoFrom(rangeFilterData: rangeFilterData)
     }
 }
 
@@ -96,7 +96,7 @@ extension FilterMarket: CaseIterable {
         return FilterMarketRealestate.allCases.map(FilterMarket.realestate)
     }
 
-    static var allCases: [FilterMarket] {
+    public static var allCases: [FilterMarket] {
         return allB2BMarkets + allBapMarkets + allBoatMarkets + allCarMarkets + allJobMarkets + allMCMarkets + allRealestateMarkets
     }
 }

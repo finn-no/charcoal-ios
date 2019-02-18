@@ -4,28 +4,28 @@
 
 import Foundation
 
-public class Segment: UIControl {
+class Segment: UIControl {
 
     // MARK: - Public properties
 
-    public var selectedItems: [Int] = [] {
+    var selectedItems: [Int] = [] {
         didSet {
             updateSelectedItems()
         }
     }
 
-    public var isMultiSelect = true
+    var isMultiSelect = true
+    let isExpandable: Bool
 
     // MARK: - Private properties
 
-    private let isExpandable: Bool
     private let titles: [String]
     private var buttons: [SegmentButton] = []
     private var splitLines: [UIView] = []
 
     // MARK: - Setup
 
-    public init(titles: [String], isExpandable: Bool = false) {
+    init(titles: [String], isExpandable: Bool = false) {
         self.titles = titles
         self.isExpandable = isExpandable
         super.init(frame: .zero)
@@ -47,7 +47,8 @@ private extension Segment {
     }
 
     func updateSelectedItems() {
-        buttons.enumerated().forEach { $1.isSelected = selectedItems.contains($0) }
+        buttons.forEach { $0.isSelected = false }
+        selectedItems.forEach { buttons[$0].isSelected = true }
     }
 
     @objc func handleButton(sender: SegmentButton) {

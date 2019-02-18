@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarketBoat: String, CaseIterable {
+public enum FilterMarketBoat: String, CaseIterable {
     case boatSale = "boat-sale"
     case boatUsedWanted = "boat-used-wanted"
     case boatRent = "boat-rent"
@@ -18,11 +18,15 @@ enum FilterMarketBoat: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketBoat: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return createFilterInfoFrom(key: key)
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .boatSale:
             return [.published, .segment]
@@ -31,7 +35,7 @@ extension FilterMarketBoat: FilterConfiguration {
         }
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         switch self {
         case .boatSale:
             return [
@@ -99,13 +103,11 @@ extension FilterMarketBoat: FilterConfiguration {
         }
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        let parameterName = rangeFilterData.parameterName
-        let name = rangeFilterData.title
+    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -114,7 +116,7 @@ extension FilterMarketBoat: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
         switch filterKey {
@@ -191,8 +193,7 @@ extension FilterMarketBoat: FilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,

@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FilterMarketRealestate: String, CaseIterable {
+public enum FilterMarketRealestate: String, CaseIterable {
     case homes = "realestate-homes"
     case development = "realestate-development"
     case plot = "realestate-plot"
@@ -23,11 +23,15 @@ enum FilterMarketRealestate: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketRealestate: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return createFilterInfoFrom(key: key)
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         let defaultFilter: [FilterKey] = [.published]
         switch self {
         case .homes:
@@ -36,7 +40,7 @@ extension FilterMarketRealestate: FilterConfiguration {
         }
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         switch self {
         case .homes:
             return [
@@ -146,13 +150,11 @@ extension FilterMarketRealestate: FilterConfiguration {
         }
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return .location
     }
 
-    func createFilterInfoFrom(rangeFilterData: FilterData) -> FilterInfoType? {
-        let parameterName = rangeFilterData.parameterName
-        let name = rangeFilterData.title
+    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -161,7 +163,7 @@ extension FilterMarketRealestate: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: rangeFilterData.parameterName) else {
+        guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
         switch filterKey {
@@ -209,7 +211,23 @@ extension FilterMarketRealestate: FilterConfiguration {
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
         case .noOfBedrooms:
-            return StepperFilterInfo(unit: "soverom", steps: 1, lowerLimit: 0, upperLimit: 6, title: rangeFilterData.title, parameterName: rangeFilterData.parameterName)
+            lowValue = 0
+            highValue = 6
+            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: false)
+            unit = "stk"
+            increment = 1
+            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+            return RangeFilterInfo(
+                kind: .stepper,
+                lowValue: lowValue,
+                highValue: highValue,
+                increment: increment,
+                rangeBoundsOffsets: rangeBoundsOffsets,
+                unit: unit,
+                accesibilityValues: accessibilityValues,
+                appearanceProperties: appearanceProperties
+            )
         case .area:
             switch self {
             case .leisureSaleAbroad:
@@ -248,8 +266,7 @@ extension FilterMarketRealestate: FilterConfiguration {
         }
 
         return RangeFilterInfo(
-            parameterName: parameterName,
-            title: name,
+            kind: .slider,
             lowValue: lowValue,
             highValue: highValue,
             increment: increment,

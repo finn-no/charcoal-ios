@@ -5,7 +5,7 @@
 import FinniversKit
 import UIKit
 
-class CCStepperFilterViewController: FilterViewController {
+final class StepperFilterViewController: FilterViewController {
     private let viewModel: RangeFilterInfo
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(lessThanOrEqualTo: view.topAnchor)
 
@@ -16,6 +16,8 @@ class CCStepperFilterViewController: FilterViewController {
         return view
     }()
 
+    // MARK: - Init
+
     init(filterNode: CCFilterNode, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
         self.viewModel = viewModel
         super.init(filterNode: filterNode, selectionStore: selectionStore)
@@ -24,6 +26,8 @@ class CCStepperFilterViewController: FilterViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +46,9 @@ class CCStepperFilterViewController: FilterViewController {
     }
 }
 
-private extension CCStepperFilterViewController {
+// MARK: - Actions
+
+private extension StepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
         switch sender.value {
         case viewModel.sliderInfo.minimumValue:

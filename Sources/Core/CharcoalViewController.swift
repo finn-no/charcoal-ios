@@ -107,7 +107,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                     selectionStore: selectionStore
                 )
             case .stepper:
-                nextViewController = CCStepperFilterViewController(
+                nextViewController = StepperFilterViewController(
                     filterNode: rangeNode,
                     selectionStore: selectionStore,
                     viewModel: viewModel

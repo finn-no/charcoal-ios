@@ -4,13 +4,12 @@
 
 import UIKit
 
-public protocol CCFilterViewControllerDelegate: class {
-    func filterViewControllerFilterSelectionChanged(_ filterViewController: CCFilterViewController)
-    func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController)
-    func filterViewController(_ filterViewController: CCFilterViewController, didSelect vertical: Vertical)
+public protocol CharcoalViewControllerDelegate: class {
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
+    func charcoalViewControllerDidChangeSelection(_ viewController: CharcoalViewController)
 }
 
-public class CCFilterViewController: UINavigationController {
+public class CharcoalViewController: UINavigationController {
 
     // MARK: - Public properties
 
@@ -28,7 +27,7 @@ public class CCFilterViewController: UINavigationController {
     }
 
     public var config: FilterConfiguration
-    public weak var filterDelegate: CCFilterViewControllerDelegate?
+    public weak var filterDelegate: CharcoalViewControllerDelegate?
 
     public var mapFilterViewManager: MapFilterViewManager?
     public var searchLocationDataSource: SearchLocationDataSource?
@@ -78,16 +77,16 @@ public class CCFilterViewController: UINavigationController {
 
 // MARK: - CCRootFilterViewControllerDelegate
 
-extension CCFilterViewController: CCRootFilterViewControllerDelegate {
+extension CharcoalViewController: CCRootFilterViewControllerDelegate {
     func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int) {
         guard let vertical = filter.verticals?[safe: index] else { return }
-        filterDelegate?.filterViewController(self, didSelect: vertical)
+        filterDelegate?.charcoalViewController(self, didSelect: vertical)
     }
 }
 
-extension CCFilterViewController: CCViewControllerDelegate {
+extension CharcoalViewController: CCViewControllerDelegate {
     func viewControllerDidPressBottomButton(_ viewController: CCViewController) {
-        filterDelegate?.filterViewControllerFilterSelectionChanged(self)
+        filterDelegate?.charcoalViewControllerDidChangeSelection(self)
         popToRootViewController(animated: true)
     }
 
@@ -132,7 +131,7 @@ extension CCFilterViewController: CCViewControllerDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension CCFilterViewController: UINavigationControllerDelegate {
+extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if viewController is CCRangeFilterViewController {
             interactivePopGestureRecognizer?.isEnabled = false

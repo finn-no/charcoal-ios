@@ -146,7 +146,7 @@ enum ComponentViews: String, CaseIterable {
             let controller = InlineFilterDemoViewController()
             return controller
         case .mapFilter:
-            return CCMapFilterViewController(
+            return MapFilterViewController(
                 mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""),
                 selectionStore: FilterSelectionStore(),
                 mapFilterViewManager: MapViewManager(),

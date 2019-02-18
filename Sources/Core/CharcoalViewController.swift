@@ -115,7 +115,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             }
         case let mapNode as CCMapFilterNode:
             guard let mapFilterViewManager = mapFilterViewManager else { return }
-            nextViewController = CCMapFilterViewController(mapFilterNode: mapNode,
+            nextViewController = MapFilterViewController(mapFilterNode: mapNode,
                                                            selectionStore: selectionStore,
                                                            mapFilterViewManager: mapFilterViewManager,
                                                            searchLocationDataSource: searchLocationDataSource)

@@ -5,7 +5,7 @@
 import MapKit
 import UIKit
 
-final class CCMapFilterViewController: FilterViewController {
+final class MapFilterViewController: FilterViewController {
     private let mapFilterViewManager: MapFilterViewManager
     private let searchLocationDataSource: SearchLocationDataSource?
     private let mapFilterNode: CCMapFilterNode
@@ -86,7 +86,7 @@ final class CCMapFilterViewController: FilterViewController {
 
 // MARK: - MapFilterViewDelegate
 
-extension CCMapFilterViewController: MapFilterViewDelegate {
+extension MapFilterViewController: MapFilterViewDelegate {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
         self.radius = radius
     }
@@ -102,7 +102,7 @@ extension CCMapFilterViewController: MapFilterViewDelegate {
 
 // MARK: - SearchLocationViewControllerDelegate
 
-extension CCMapFilterViewController: SearchLocationViewControllerDelegate {
+extension MapFilterViewController: SearchLocationViewControllerDelegate {
     public func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
         mapFilterViewManager.centerOnUserLocation()
@@ -132,7 +132,7 @@ extension CCMapFilterViewController: SearchLocationViewControllerDelegate {
 
 // MARK: - Store
 
-private extension CCMapFilterViewController {
+private extension MapFilterViewController {
     var radius: Int? {
         get {
             return Int(selectionStore.value(for: mapFilterNode.radiusNode))

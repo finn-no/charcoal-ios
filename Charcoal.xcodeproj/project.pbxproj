@@ -143,7 +143,7 @@
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
 		DA39FA2B220B17DB00608AC4 /* CCRootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */; };
 		DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* FilterViewController.swift */; };
-		DA39FA2E220B17DB00608AC4 /* CCMapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1A220B17DB00608AC4 /* CCMapFilterViewController.swift */; };
+		DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */; };
 		DA39FA2F220B17DB00608AC4 /* CCRangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1B220B17DB00608AC4 /* CCRangeFilterViewController.swift */; };
 		DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */; };
 		DA39FA31220B17DB00608AC4 /* CCListFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1F220B17DB00608AC4 /* CCListFilterCell.swift */; };
@@ -349,7 +349,7 @@
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRootFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA19220B17DB00608AC4 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		DA39FA1A220B17DB00608AC4 /* CCMapFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCMapFilterViewController.swift; sourceTree = "<group>"; };
+		DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA1B220B17DB00608AC4 /* CCRangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRangeFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharcoalViewController.swift; sourceTree = "<group>"; };
 		DA39FA1F220B17DB00608AC4 /* CCListFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCListFilterCell.swift; sourceTree = "<group>"; };
@@ -743,7 +743,7 @@
 		9B741D1421B558FC00D18097 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA1A220B17DB00608AC4 /* CCMapFilterViewController.swift */,
+				DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */,
 				46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */,
 				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
 				9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */,
@@ -1345,7 +1345,7 @@
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
 				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
-				DA39FA2E220B17DB00608AC4 /* CCMapFilterViewController.swift in Sources */,
+				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 				559C61F320DA4C8D0083A574 /* (null) in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

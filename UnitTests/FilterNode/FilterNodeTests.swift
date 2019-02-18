@@ -6,14 +6,6 @@
 import XCTest
 
 final class FilterNodeTests: XCTestCase {
-    func testId() {
-        let nodeA = CCFilterNode(title: "Test", name: "name", value: "value")
-        XCTAssertEqual(nodeA.id, "test.name.value")
-
-        let nodeB = CCFilterNode(title: "Test", name: "name", value: nil)
-        XCTAssertEqual(nodeB.id, "test.name")
-    }
-
     func testIsLeafNode() {
         let filterNode = CCFilterNode(title: "Test", name: "test")
         XCTAssertTrue(filterNode.isLeafNode)

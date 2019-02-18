@@ -4,7 +4,7 @@
 
 import FinniversKit
 
-final class CCListFilterViewController: FilterViewController {
+final class ListFilterViewController: FilterViewController {
     private enum Section: Int {
         case all, children
     }
@@ -60,7 +60,7 @@ final class CCListFilterViewController: FilterViewController {
 
 // MARK: - UITableViewDataSource
 
-extension CCListFilterViewController: UITableViewDataSource {
+extension ListFilterViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -103,7 +103,7 @@ extension CCListFilterViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension CCListFilterViewController: UITableViewDelegate {
+extension ListFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
 

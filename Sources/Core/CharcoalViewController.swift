@@ -121,7 +121,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                                                            searchLocationDataSource: searchLocationDataSource)
 
         default:
-            nextViewController = CCListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)
+            nextViewController = ListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
             nextViewController.showBottomButton(showBottomButton, animated: false)
         }

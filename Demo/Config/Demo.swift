@@ -132,7 +132,7 @@ enum ComponentViews: String, CaseIterable {
             let rootNode = CCFilterNode(title: "Liste", name: "")
             rootNode.add(child: CCFilterNode(title: "Akershus", name: "", numberOfResults: 1238))
             rootNode.add(child: CCFilterNode(title: "Buskerud", name: "", numberOfResults: 3421))
-            return CCListFilterViewController(
+            return ListFilterViewController(
                 filterNode: rootNode,
                 selectionStore: FilterSelectionStore()
             )

@@ -14,9 +14,9 @@ Pod::Spec.new do |s|
   s.requires_arc     = true
   s.swift_version    = '4.2'
   s.source_files     = 'Sources/**/*.swift'
-  s.resources    = 'Sources/Resources/*.xcassets', 'Sources/Resources/*.lproj'
+  s.resources    = 'Resources/*.xcassets', 'Resources/*.lproj'
   s.resource_bundles = {
-      'Charcoal' => ['Sources/Resources/*.xcassets', 'Sources/Resources/*.lproj']
+      'Charcoal' => ['Resources/*.xcassets', 'Resources/*.lproj']
   }
   s.frameworks       = 'Foundation', 'UIKit', 'FinniversKit'
   s.dependency 'FinniversKit'

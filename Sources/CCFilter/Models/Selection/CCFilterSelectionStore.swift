@@ -5,7 +5,15 @@
 import Foundation
 
 final class FilterSelectionStore {
-    var queryItems = Set<URLQueryItem>()
+    private var queryItems: Set<URLQueryItem>
+
+    // MARK: - Init
+
+    init(queryItems: Set<URLQueryItem> = []) {
+        self.queryItems = queryItems
+    }
+
+    // MARK: - Values
 
     func value<T: LosslessStringConvertible>(for node: CCFilterNode) -> T? {
         return queryItem(for: node)?.value.flatMap({ T($0) })

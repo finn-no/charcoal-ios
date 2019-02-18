@@ -42,10 +42,10 @@ public class CCFilterViewController: UINavigationController {
 
     // MARK: - Init
 
-    public init(filter: CCFilter, config: FilterConfiguration) {
+    public init(filter: CCFilter, config: FilterConfiguration, queryItems: Set<URLQueryItem> = []) {
         self.filter = filter
         self.config = config
-        selectionStore = FilterSelectionStore()
+        selectionStore = FilterSelectionStore(queryItems: queryItems)
         rootFilterViewController = CCRootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)

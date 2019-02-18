@@ -35,7 +35,7 @@ public class CharcoalViewController: UINavigationController {
     // MARK: - Private properties
 
     private let selectionStore: FilterSelectionStore
-    private var rootFilterViewController: CCRootFilterViewController
+    private var rootFilterViewController: RootFilterViewController
 
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
@@ -45,7 +45,7 @@ public class CharcoalViewController: UINavigationController {
         self.filter = filter
         self.config = config
         selectionStore = FilterSelectionStore(queryItems: queryItems)
-        rootFilterViewController = CCRootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
+        rootFilterViewController = RootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self
@@ -75,10 +75,10 @@ public class CharcoalViewController: UINavigationController {
     }
 }
 
-// MARK: - CCRootFilterViewControllerDelegate
+// MARK: - RootFilterViewControllerDelegate
 
-extension CharcoalViewController: CCRootFilterViewControllerDelegate {
-    func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int) {
+extension CharcoalViewController: RootFilterViewControllerDelegate {
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int) {
         guard let vertical = filter.verticals?[safe: index] else { return }
         filterDelegate?.charcoalViewController(self, didSelect: vertical)
     }
@@ -116,9 +116,9 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         case let mapNode as CCMapFilterNode:
             guard let mapFilterViewManager = mapFilterViewManager else { return }
             nextViewController = MapFilterViewController(mapFilterNode: mapNode,
-                                                           selectionStore: selectionStore,
-                                                           mapFilterViewManager: mapFilterViewManager,
-                                                           searchLocationDataSource: searchLocationDataSource)
+                                                         selectionStore: selectionStore,
+                                                         mapFilterViewManager: mapFilterViewManager,
+                                                         searchLocationDataSource: searchLocationDataSource)
 
         default:
             nextViewController = ListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)

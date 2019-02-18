@@ -8,7 +8,7 @@ final class RangeFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
-    private let rangeFilterNode: CCRangeFilterNode
+    private let rangeFilterNode: RangeFilterNode
     private let viewModel: RangeFilterInfo
 
     private lazy var rangeFilterView: RangeFilterView = {
@@ -20,7 +20,7 @@ final class RangeFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
+    init(rangeFilterNode: RangeFilterNode, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
         self.rangeFilterNode = rangeFilterNode
         self.viewModel = viewModel
         super.init(filterNode: rangeFilterNode, selectionStore: selectionStore)
@@ -50,7 +50,7 @@ extension RangeFilterViewController: RangeFilterViewDelegate {
         setValue(highValue, forChild: rangeFilterNode.highValueNode)
     }
 
-    private func setValue(_ value: Int?, forChild node: CCFilterNode) {
+    private func setValue(_ value: Int?, forChild node: Filter) {
         selectionStore.setValue(value, for: node)
         delegate?.filterViewController(self, didSelectFilter: node)
         showBottomButton(true, animated: true)

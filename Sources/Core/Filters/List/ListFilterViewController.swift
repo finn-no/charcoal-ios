@@ -39,7 +39,7 @@ final class ListFilterViewController: FilterViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
     }
 
-    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter) {
         super.filterViewController(viewController, didSelectFilter: filterNode)
         showBottomButton(true, animated: false)
         tableView.reloadData()
@@ -87,7 +87,7 @@ extension ListFilterViewController: UITableViewDataSource {
             cell.configure(for: .selectAll(from: filterNode, isSelected: isSelected))
         case .children:
             if let node = filterNode.child(at: indexPath.row) {
-                if node.name == CCMapFilterNode.filterKey {
+                if node.name == MapFilter.filterKey {
                     cell.configure(for: .map(from: node))
                 } else {
                     let isSelected = selectionStore.isSelected(node)

@@ -6,14 +6,14 @@ import UIKit
 
 protocol FilterViewControllerDelegate: class {
     func filterViewControllerDidSelectApply(_ viewController: FilterViewController)
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode)
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter)
 }
 
 class FilterViewController: UIViewController, FilterViewControllerDelegate, FilterBottomButtonViewDelegate {
 
     // MARK: - Public properties
 
-    var filterNode: CCFilterNode
+    var filterNode: Filter
     let selectionStore: FilterSelectionStore
     var isShowingBottomButton = false
     weak var delegate: FilterViewControllerDelegate?
@@ -31,7 +31,7 @@ class FilterViewController: UIViewController, FilterViewControllerDelegate, Filt
 
     // MARK: - Setup
 
-    init(filterNode: CCFilterNode, selectionStore: FilterSelectionStore) {
+    init(filterNode: Filter, selectionStore: FilterSelectionStore) {
         self.filterNode = filterNode
         self.selectionStore = selectionStore
         super.init(nibName: nil, bundle: nil)
@@ -67,7 +67,7 @@ class FilterViewController: UIViewController, FilterViewControllerDelegate, Filt
         delegate?.filterViewControllerDidSelectApply(viewController)
     }
 
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter) {
         delegate?.filterViewController(viewController, didSelectFilter: filterNode)
     }
 

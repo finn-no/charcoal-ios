@@ -92,12 +92,12 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         popToRootViewController(animated: true)
     }
 
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter) {
         guard !filterNode.isLeafNode else { return }
         let nextViewController: FilterViewController
 
         switch filterNode {
-        case let rangeNode as CCRangeFilterNode:
+        case let rangeNode as RangeFilterNode:
             guard let viewModel = config.viewModel(forKey: rangeNode.name) else { return }
             switch viewModel.kind {
             case .slider:
@@ -113,7 +113,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                     viewModel: viewModel
                 )
             }
-        case let mapNode as CCMapFilterNode:
+        case let mapNode as MapFilter:
             guard let mapFilterViewManager = mapFilterViewManager else { return }
             nextViewController = MapFilterViewController(mapFilterNode: mapNode,
                                                          selectionStore: selectionStore,

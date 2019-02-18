@@ -4,22 +4,22 @@
 
 import Foundation
 
-class CCRangeFilterNode: CCFilterNode {
+final class RangeFilterNode: Filter {
 
     // MARK: - Internal properties
 
-    let lowValueNode: CCFilterNode
-    let highValueNode: CCFilterNode
+    let lowValueNode: Filter
+    let highValueNode: Filter
 
     init(title: String, name: String) {
-        lowValueNode = CCFilterNode(title: "", name: name + "_from")
-        highValueNode = CCFilterNode(title: "", name: name + "_to")
+        lowValueNode = Filter(title: "", name: name + "_from")
+        highValueNode = Filter(title: "", name: name + "_to")
         super.init(title: title, name: name)
         setup()
     }
 }
 
-extension CCRangeFilterNode {
+extension RangeFilterNode {
     func setup() {
         add(child: lowValueNode)
         add(child: highValueNode)

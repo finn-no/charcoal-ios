@@ -4,13 +4,13 @@
 
 import Foundation
 
-class CCFilterNode {
+class Filter {
     let title: String
     let name: String
     let value: String?
     let numberOfResults: Int
-    private(set) var children: [CCFilterNode] = []
-    private(set) weak var parent: CCFilterNode?
+    private(set) var children: [Filter] = []
+    private(set) weak var parent: Filter?
 
     var isLeafNode: Bool {
         return children.isEmpty
@@ -27,7 +27,7 @@ class CCFilterNode {
 
     // MARK: - Public methods
 
-    func add(child: CCFilterNode, at index: Int? = nil) {
+    func add(child: Filter, at index: Int? = nil) {
         if let index = index {
             children.insert(child, at: index)
         } else {
@@ -36,7 +36,7 @@ class CCFilterNode {
         child.parent = self
     }
 
-    func child(at index: Int) -> CCFilterNode? {
+    func child(at index: Int) -> Filter? {
         guard index < children.count else { return nil }
         return children[index]
     }

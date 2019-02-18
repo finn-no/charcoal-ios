@@ -129,9 +129,9 @@ enum ComponentViews: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .listSelection:
-            let rootNode = CCFilterNode(title: "Liste", name: "")
-            rootNode.add(child: CCFilterNode(title: "Akershus", name: "", numberOfResults: 1238))
-            rootNode.add(child: CCFilterNode(title: "Buskerud", name: "", numberOfResults: 3421))
+            let rootNode = Filter(title: "Liste", name: "")
+            rootNode.add(child: Filter(title: "Akershus", name: "", numberOfResults: 1238))
+            rootNode.add(child: Filter(title: "Buskerud", name: "", numberOfResults: 3421))
             return ListFilterViewController(
                 filterNode: rootNode,
                 selectionStore: FilterSelectionStore()
@@ -147,7 +147,7 @@ enum ComponentViews: String, CaseIterable {
             return controller
         case .mapFilter:
             return MapFilterViewController(
-                mapFilterNode: CCMapFilterNode(title: "Område i kart", name: ""),
+                mapFilterNode: MapFilter(title: "Område i kart", name: ""),
                 selectionStore: FilterSelectionStore(),
                 mapFilterViewManager: MapViewManager(),
                 searchLocationDataSource: DemoSearchLocationDataSource()

@@ -18,7 +18,7 @@ final class StepperFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(filterNode: CCFilterNode, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
+    init(filterNode: Filter, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
         self.viewModel = viewModel
         super.init(filterNode: filterNode, selectionStore: selectionStore)
     }

@@ -12,11 +12,11 @@ public class CCFilter {
 
     // MARK: - Private properties
 
-    let root: CCFilterNode
+    let root: Filter
 
     // MARK: - Setup
 
-    init(root: CCFilterNode) {
+    init(root: Filter) {
         self.root = root
     }
 }

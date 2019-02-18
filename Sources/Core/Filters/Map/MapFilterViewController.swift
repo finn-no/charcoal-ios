@@ -8,7 +8,7 @@ import UIKit
 final class MapFilterViewController: FilterViewController {
     private let mapFilterViewManager: MapFilterViewManager
     private let searchLocationDataSource: SearchLocationDataSource?
-    private let mapFilterNode: CCMapFilterNode
+    private let mapFilterNode: MapFilter
 
     private lazy var mapFilterView: MapFilterView = {
         let mapFilterView = MapFilterView(
@@ -31,7 +31,7 @@ final class MapFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(mapFilterNode: CCMapFilterNode, selectionStore: FilterSelectionStore,
+    init(mapFilterNode: MapFilter, selectionStore: FilterSelectionStore,
          mapFilterViewManager: MapFilterViewManager, searchLocationDataSource: SearchLocationDataSource?) {
         self.mapFilterNode = mapFilterNode
         self.mapFilterViewManager = mapFilterViewManager

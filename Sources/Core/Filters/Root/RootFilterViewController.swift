@@ -38,7 +38,7 @@ final class RootFilterViewController: FilterViewController {
         return searchQueryViewController
     }()
 
-    private var searchNode: CCFilterNode? {
+    private var searchNode: Filter? {
         return filterNode.children.first { $0.name == "q" }
     }
 
@@ -52,12 +52,12 @@ final class RootFilterViewController: FilterViewController {
         setup()
     }
 
-    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: Filter) {
         super.filterViewController(viewController, didSelectFilter: filterNode)
         tableView.reloadData()
     }
 
-    func set(filterNode: CCFilterNode, verticals: [Vertical]?) {
+    func set(filterNode: Filter, verticals: [Vertical]?) {
         self.filterNode = filterNode
         self.verticals = verticals
         navigationItem.title = filterNode.title

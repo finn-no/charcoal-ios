@@ -4,7 +4,7 @@
 
 import Foundation
 
-class CCMapFilterNode: CCFilterNode {
+final class MapFilter: Filter {
 
     // MARK: - Public properies
 
@@ -12,24 +12,24 @@ class CCMapFilterNode: CCFilterNode {
 
     // MARK: - Internal properties
 
-    let latitudeNode: CCFilterNode
-    let longitudeNode: CCFilterNode
-    let radiusNode: CCFilterNode
-    let geoLocationNode: CCFilterNode
+    let latitudeNode: Filter
+    let longitudeNode: Filter
+    let radiusNode: Filter
+    let geoLocationNode: Filter
 
     // MARK: - Setup
 
     init(title: String, name: String) {
-        latitudeNode = CCFilterNode(title: "", name: "lat")
-        longitudeNode = CCFilterNode(title: "", name: "lon")
-        radiusNode = CCFilterNode(title: "", name: "radius")
-        geoLocationNode = CCFilterNode(title: "", name: "geoLocationName")
+        latitudeNode = Filter(title: "", name: "lat")
+        longitudeNode = Filter(title: "", name: "lon")
+        radiusNode = Filter(title: "", name: "radius")
+        geoLocationNode = Filter(title: "", name: "geoLocationName")
         super.init(title: title, name: name, value: nil, numberOfResults: 0)
         setup()
     }
 }
 
-private extension CCMapFilterNode {
+private extension MapFilter {
     func setup() {
         add(child: latitudeNode)
         add(child: longitudeNode)

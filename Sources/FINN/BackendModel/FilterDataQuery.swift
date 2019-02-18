@@ -28,8 +28,8 @@ struct FilterDataQuery: Decodable {
         return FilterDataQuery(title: title, value: value, totalResults: totalResults ?? 0, filter: filter)
     }
 
-    func filterNode(name: String) -> CCFilterNode {
-        let filterNode = CCFilterNode(title: title, name: name, value: value, numberOfResults: totalResults)
+    func filterNode(name: String) -> Filter {
+        let filterNode = Filter(title: title, name: name, value: value, numberOfResults: totalResults)
         if let filterData = filter {
             filterData.queries.forEach({ query in
                 filterNode.add(child: query.filterNode(name: filterData.parameterName))

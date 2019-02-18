@@ -14,7 +14,7 @@ struct CCListFilterCellViewModel {
 // MARK: - Kind
 
 extension CCListFilterCellViewModel {
-    static func regular(from node: CCFilterNode, isSelected: Bool, hasSelectedChildren: Bool) -> CCListFilterCellViewModel {
+    static func regular(from node: Filter, isSelected: Bool, hasSelectedChildren: Bool) -> CCListFilterCellViewModel {
         let iconAsset: ImageAsset = isSelected ? .checkboxOn : hasSelectedChildren ? .checkboxPartial : .checkboxOff
 
         return CCListFilterCellViewModel(
@@ -25,7 +25,7 @@ extension CCListFilterCellViewModel {
         )
     }
 
-    static func selectAll(from node: CCFilterNode, isSelected: Bool) -> CCListFilterCellViewModel {
+    static func selectAll(from node: Filter, isSelected: Bool) -> CCListFilterCellViewModel {
         let iconAsset: ImageAsset = isSelected ? .checkboxOn : .checkboxOff
 
         return CCListFilterCellViewModel(
@@ -36,7 +36,7 @@ extension CCListFilterCellViewModel {
         )
     }
 
-    static func map(from node: CCFilterNode) -> CCListFilterCellViewModel {
+    static func map(from node: Filter) -> CCListFilterCellViewModel {
         return CCListFilterCellViewModel(
             title: node.title,
             detail: nil,

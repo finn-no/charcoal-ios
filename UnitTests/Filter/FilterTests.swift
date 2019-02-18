@@ -16,8 +16,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     // MARK: - Tests
 
     func testClear() {
-        let nodeA = CCFilterNode(title: "Test A", name: "testA", value: "valueB")
-        let nodeB = CCFilterNode(title: "Test B", name: "testB", value: "valueB")
+        let nodeA = Filter(title: "Test A", name: "testA", value: "valueB")
+        let nodeB = Filter(title: "Test B", name: "testB", value: "valueB")
 
         store.setValue(from: nodeA)
         store.setValue(from: nodeB)
@@ -32,14 +32,14 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testSetValueFromNode() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "valueA")
+        let node = Filter(title: "Test", name: "test", value: "valueA")
 
         store.setValue(from: node)
         XCTAssertEqual(store.value(for: node), "valueA")
     }
 
     func testSetValueForNode() {
-        let node = CCFilterNode(title: "Test", name: "test")
+        let node = Filter(title: "Test", name: "test")
 
         store.setValue("valueB", for: node)
         XCTAssertEqual(store.value(for: node), "valueB")
@@ -49,7 +49,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testRemoveValuesForNode() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "value")
+        let node = Filter(title: "Test", name: "test", value: "value")
 
         store.setValue(from: node)
         XCTAssertTrue(store.isSelected(node))
@@ -59,9 +59,9 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testRemoveValuesForNodeWithChildren() {
-        let parent = CCFilterNode(title: "Test", name: "parent", value: "value")
-        let childA = CCFilterNode(title: "Child A", name: "childA", value: "valueB")
-        let childB = CCFilterNode(title: "Child B", name: "childB", value: "valueB")
+        let parent = Filter(title: "Test", name: "parent", value: "value")
+        let childA = Filter(title: "Child A", name: "childA", value: "valueB")
+        let childB = Filter(title: "Child B", name: "childB", value: "valueB")
 
         parent.add(child: childA)
         parent.add(child: childB)
@@ -77,7 +77,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testToggleValueForNode() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "value")
+        let node = Filter(title: "Test", name: "test", value: "value")
 
         store.toggleValue(for: node)
         XCTAssertTrue(store.isSelected(node))
@@ -87,9 +87,9 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testIsSelected() {
-        let parent = CCFilterNode(title: "Test", name: "parent", value: "value")
-        let childA = CCFilterNode(title: "Child A", name: "childA", value: "valueB")
-        let childB = CCFilterNode(title: "Child B", name: "childB", value: "valueB")
+        let parent = Filter(title: "Test", name: "parent", value: "value")
+        let childA = Filter(title: "Child A", name: "childA", value: "valueB")
+        let childB = Filter(title: "Child B", name: "childB", value: "valueB")
 
         parent.add(child: childA)
         parent.add(child: childB)
@@ -104,7 +104,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testQueryItems() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "value")
+        let node = Filter(title: "Test", name: "test", value: "value")
         store.setValue(from: node)
 
         let expected = [URLQueryItem(name: "test", value: "value")]
@@ -112,9 +112,9 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testQueryItemsWithChildren() {
-        let parent = CCFilterNode(title: "Test", name: "parent", value: "value")
-        let childA = CCFilterNode(title: "Child A", name: "childA", value: "valueA")
-        let childB = CCFilterNode(title: "Child B", name: "childB", value: "valueB")
+        let parent = Filter(title: "Test", name: "parent", value: "value")
+        let childA = Filter(title: "Child A", name: "childA", value: "valueA")
+        let childB = Filter(title: "Child B", name: "childB", value: "valueB")
 
         parent.add(child: childA)
         parent.add(child: childB)
@@ -131,16 +131,16 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testTitles() {
-        let node = CCFilterNode(title: "Test", name: "test", value: "value")
+        let node = Filter(title: "Test", name: "test", value: "value")
 
         store.setValue(from: node)
         XCTAssertEqual(store.titles(for: node), ["Test"])
     }
 
     func testTitlesWithChildren() {
-        let parent = CCFilterNode(title: "Parent", name: "parent", value: "value")
-        let childA = CCFilterNode(title: "Child A", name: "childA", value: "valueA")
-        let childB = CCFilterNode(title: "Child B", name: "childB", value: "valueB")
+        let parent = Filter(title: "Parent", name: "parent", value: "value")
+        let childA = Filter(title: "Child A", name: "childA", value: "valueA")
+        let childB = Filter(title: "Child B", name: "childB", value: "valueB")
 
         parent.add(child: childA)
         parent.add(child: childB)
@@ -154,8 +154,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testHasSelectedChildren() {
-        let parent = CCFilterNode(title: "Parent", name: "parent", value: "value")
-        let child = CCFilterNode(title: "Child A", name: "childA", value: "valueA")
+        let parent = Filter(title: "Parent", name: "parent", value: "value")
+        let child = Filter(title: "Child A", name: "childA", value: "valueA")
         parent.add(child: child)
 
         store.setValue(from: child)
@@ -163,8 +163,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testSelectedChildren() {
-        let parent = CCFilterNode(title: "Parent", name: "parent", value: "value")
-        let child = CCFilterNode(title: "Child A", name: "childA", value: "valueA")
+        let parent = Filter(title: "Parent", name: "parent", value: "value")
+        let child = Filter(title: "Child A", name: "childA", value: "valueA")
         parent.add(child: child)
 
         store.setValue(from: child)

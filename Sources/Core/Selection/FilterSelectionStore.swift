@@ -55,7 +55,7 @@ extension FilterSelectionStore {
             queryItems.remove(queryItem)
         }
 
-        filter.children.forEach {
+        filter.subfilters.forEach {
             removeValues(for: $0)
         }
     }
@@ -72,9 +72,9 @@ extension FilterSelectionStore {
         let selected: Bool
 
         if filter is MapFilter || filter is RangeFilter {
-            selected = filter.children.contains(where: { isSelected($0) })
+            selected = filter.subfilters.contains(where: { isSelected($0) })
         } else {
-            selected = !filter.children.isEmpty && filter.children.allSatisfy { isSelected($0) }
+            selected = !filter.subfilters.isEmpty && filter.subfilters.allSatisfy { isSelected($0) }
         }
 
         return queryItem(for: filter) != nil || selected
@@ -89,7 +89,7 @@ extension FilterSelectionStore {
             return [queryItem]
         }
 
-        return filter.children.reduce([]) { $0 + queryItems(for: $1) }
+        return filter.subfilters.reduce([]) { $0 + queryItems(for: $1) }
     }
 
     func titles(for filter: Filter) -> [String] {
@@ -105,23 +105,23 @@ extension FilterSelectionStore {
         } else if isSelected(filter) {
             return [filter.title]
         } else {
-            return filter.children.reduce([]) { $0 + titles(for: $1) }
+            return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
         }
     }
 
-    func hasSelectedChildren(_ filter: Filter) -> Bool {
+    func hasSelectedSubfilters(for filter: Filter) -> Bool {
         if isSelected(filter) {
             return true
         }
 
-        return filter.children.reduce(false) { $0 || hasSelectedChildren($1) }
+        return filter.subfilters.reduce(false) { $0 || hasSelectedSubfilters(for: $1) }
     }
 
-    func selectedChildren(for filter: Filter) -> [Filter] {
+    func selectedSubfilters(for filter: Filter) -> [Filter] {
         if isSelected(filter) {
             return [filter]
         }
 
-        return filter.children.reduce([]) { $0 + selectedChildren(for: $1) }
+        return filter.subfilters.reduce([]) { $0 + selectedSubfilters(for: $1) }
     }
 }

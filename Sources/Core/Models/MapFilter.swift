@@ -31,9 +31,9 @@ final class MapFilter: Filter {
 
 private extension MapFilter {
     func setup() {
-        add(child: latitudeFilter)
-        add(child: longitudeFilter)
-        add(child: radiusFilter)
-        add(child: locationNameFilter)
+        add(subfilter: latitudeFilter)
+        add(subfilter: longitudeFilter)
+        add(subfilter: radiusFilter)
+        add(subfilter: locationNameFilter)
     }
 }

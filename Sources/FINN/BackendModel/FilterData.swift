@@ -35,7 +35,7 @@ struct FilterData: Decodable {
 
         let filter = Filter(title: title, name: parameterName)
         queries.forEach { query in
-            filter.add(child: query.asFilter(with: parameterName))
+            filter.add(subfilter: query.asFilter(with: parameterName))
         }
 
         return filter

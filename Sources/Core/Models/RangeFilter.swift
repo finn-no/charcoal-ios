@@ -21,7 +21,7 @@ final class RangeFilter: Filter {
 
 extension RangeFilter {
     func setup() {
-        add(child: lowValueFilter)
-        add(child: highValueFilter)
+        add(subfilter: lowValueFilter)
+        add(subfilter: highValueFilter)
     }
 }

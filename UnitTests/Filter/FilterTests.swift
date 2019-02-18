@@ -10,23 +10,23 @@ final class FilterTests: XCTestCase {
         let filter = Filter(title: "Test", name: "test")
         XCTAssertTrue(filter.isLeafFilter)
 
-        filter.add(child: Filter(title: "Child 1", name: "child-1"))
-        filter.add(child: Filter(title: "Child 2", name: "child-2"))
+        filter.add(subfilter: Filter(title: "subfilter 1", name: "subfilter-1"))
+        filter.add(subfilter: Filter(title: "subfilter 2", name: "subfilter-2"))
         XCTAssertFalse(filter.isLeafFilter)
     }
 
-    func testAddChild() {
+    func testAddsubfilter() {
         let filter = Filter(title: "Test", name: "test")
-        filter.add(child: Filter(title: "Child 1", name: "child-1"))
-        filter.add(child: Filter(title: "Child 2", name: "child-2"))
-        XCTAssertEqual(filter.children.count, 2)
+        filter.add(subfilter: Filter(title: "subfilter 1", name: "subfilter-1"))
+        filter.add(subfilter: Filter(title: "subfilter 2", name: "subfilter-2"))
+        XCTAssertEqual(filter.subfilters.count, 2)
     }
 
-    func testAddChildAtIndex() {
+    func testAddsubfilterAtIndex() {
         let filter = Filter(title: "Test", name: "test")
-        filter.add(child: Filter(title: "Child 1", name: "index-0"))
-        filter.add(child: Filter(title: "Child 2", name: "index-2"))
-        filter.add(child: Filter(title: "Child 3", name: "index-1"), at: 1)
-        XCTAssertEqual(filter.child(at: 1)?.name, "index-1")
+        filter.add(subfilter: Filter(title: "subfilter 1", name: "index-0"))
+        filter.add(subfilter: Filter(title: "subfilter 2", name: "index-2"))
+        filter.add(subfilter: Filter(title: "subfilter 3", name: "index-1"), at: 1)
+        XCTAssertEqual(filter.subfilter(at: 1)?.name, "index-1")
     }
 }

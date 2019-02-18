@@ -14,8 +14,8 @@ struct CCListFilterCellViewModel {
 // MARK: - Kind
 
 extension CCListFilterCellViewModel {
-    static func regular(from filter: Filter, isSelected: Bool, hasSelectedChildren: Bool) -> CCListFilterCellViewModel {
-        let iconAsset: ImageAsset = isSelected ? .checkboxOn : hasSelectedChildren ? .checkboxPartial : .checkboxOff
+    static func regular(from filter: Filter, isSelected: Bool, hasSelectedSubfilters: Bool) -> CCListFilterCellViewModel {
+        let iconAsset: ImageAsset = isSelected ? .checkboxOn : hasSelectedSubfilters ? .checkboxPartial : .checkboxOff
 
         return CCListFilterCellViewModel(
             title: filter.title,

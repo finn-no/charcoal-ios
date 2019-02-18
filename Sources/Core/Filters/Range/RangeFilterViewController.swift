@@ -43,16 +43,16 @@ final class RangeFilterViewController: FilterViewController {
 
 extension RangeFilterViewController: RangeFilterViewDelegate {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
-        setValue(lowValue, forChild: rangeFilter.lowValueFilter)
+        setValue(lowValue, forSubfilter: rangeFilter.lowValueFilter)
     }
 
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?) {
-        setValue(highValue, forChild: rangeFilter.highValueFilter)
+        setValue(highValue, forSubfilter: rangeFilter.highValueFilter)
     }
 
-    private func setValue(_ value: Int?, forChild filter: Filter) {
-        selectionStore.setValue(value, for: filter)
-        delegate?.filterViewController(self, didSelectFilter: filter)
+    private func setValue(_ value: Int?, forSubfilter subfilter: Filter) {
+        selectionStore.setValue(value, for: subfilter)
+        delegate?.filterViewController(self, didSelectFilter: subfilter)
         showBottomButton(true, animated: true)
     }
 }

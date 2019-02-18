@@ -39,7 +39,7 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var searchFilter: Filter? {
-        return filter.children.first { $0.name == "q" }
+        return filter.subfilters.first { $0.name == "q" }
     }
 
     // MARK: - Setup
@@ -67,11 +67,11 @@ final class RootFilterViewController: FilterViewController {
 
 extension RootFilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filter.children.count
+        return filter.subfilters.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentFilter = filter.children[indexPath.row]
+        let currentFilter = filter.subfilters[indexPath.row]
 
         switch currentFilter.name {
         case "q":
@@ -83,7 +83,7 @@ extension RootFilterViewController: UITableViewDataSource {
         case "preferences":
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
-            let segmentTitles = currentFilter.children.map({ $0.children.map({ $0.title }) })
+            let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
             let vertical = verticals?.first(where: { $0.isCurrent })
             cell.configure(with: segmentTitles, vertical: vertical?.title)
             return cell
@@ -101,7 +101,7 @@ extension RootFilterViewController: UITableViewDataSource {
 
 extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedFilter = filter.children[indexPath.row]
+        let selectedFilter = filter.subfilters[indexPath.row]
         switch selectedFilter.name {
         case "q":
             return
@@ -119,8 +119,8 @@ extension RootFilterViewController: CCRootFilterCellDelegate {
             return
         }
 
-        let currentFilter = filter.children[indexPath.row]
-        let selectedSubfilters = selectionStore.selectedChildren(for: currentFilter)
+        let currentFilter = filter.subfilters[indexPath.row]
+        let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
     }
@@ -128,12 +128,12 @@ extension RootFilterViewController: CCRootFilterCellDelegate {
 
 extension RootFilterViewController: CCInlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
-        guard let subfilter = filter.child(at: index) else { return }
+        guard let subfilter = filter.subfilter(at: index) else { return }
 
         selectionStore.removeValues(for: subfilter)
 
         for index in segment.selectedItems {
-            if let subfilter = subfilter.child(at: index) {
+            if let subfilter = subfilter.subfilter(at: index) {
                 selectionStore.setValue(from: subfilter)
             }
         }

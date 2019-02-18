@@ -9,11 +9,11 @@ class Filter {
     let name: String
     let value: String?
     let numberOfResults: Int
-    private(set) var children: [Filter] = []
+    private(set) var subfilters: [Filter] = []
     private(set) weak var parent: Filter?
 
     var isLeafFilter: Bool {
-        return children.isEmpty
+        return subfilters.isEmpty
     }
 
     // MARK: - Init
@@ -27,17 +27,17 @@ class Filter {
 
     // MARK: - Public methods
 
-    func add(child: Filter, at index: Int? = nil) {
+    func add(subfilter: Filter, at index: Int? = nil) {
         if let index = index {
-            children.insert(child, at: index)
+            subfilters.insert(subfilter, at: index)
         } else {
-            children.append(child)
+            subfilters.append(subfilter)
         }
-        child.parent = self
+        subfilter.parent = self
     }
 
-    func child(at index: Int) -> Filter? {
-        guard index < children.count else { return nil }
-        return children[index]
+    func subfilter(at index: Int) -> Filter? {
+        guard index < subfilters.count else { return nil }
+        return subfilters[index]
     }
 }

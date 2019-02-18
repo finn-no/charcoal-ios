@@ -130,8 +130,8 @@ enum ComponentViews: String, CaseIterable {
         switch self {
         case .listSelection:
             let rootFilter = Filter(title: "Liste", name: "")
-            rootFilter.add(child: Filter(title: "Akershus", name: "", numberOfResults: 1238))
-            rootFilter.add(child: Filter(title: "Buskerud", name: "", numberOfResults: 3421))
+            rootFilter.add(subfilter: Filter(title: "Akershus", name: "", numberOfResults: 1238))
+            rootFilter.add(subfilter: Filter(title: "Buskerud", name: "", numberOfResults: 3421))
             return ListFilterViewController(
                 filter: rootFilter,
                 selectionStore: FilterSelectionStore()

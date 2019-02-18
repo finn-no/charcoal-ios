@@ -56,17 +56,17 @@ public struct FilterSetup: Decodable {
 
         let preferenceFilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
         let preferenceFilter = Filter(title: "", name: "preferences")
-        preferenceFilters.forEach { preferenceFilter.add(child: $0.asFilter()) }
+        preferenceFilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
 
         let filters = filterMarket.supportedFiltersKeys.compactMap { filterData(forKey: $0)?.asFilter() }
 
         if let locationFilter = filters.first(where: { $0.name == FilterKey.location.rawValue }) {
             let mapFilter = MapFilter(title: "map_filter_title".localized(), name: MapFilter.filterKey)
-            locationFilter.add(child: mapFilter, at: 0)
+            locationFilter.add(subfilter: mapFilter, at: 0)
         }
 
         let root = Filter(title: filterTitle, name: market, numberOfResults: hits)
-        ([searchQueryFilter, preferenceFilter] + filters).forEach { root.add(child: $0) }
+        ([searchQueryFilter, preferenceFilter] + filters).forEach { root.add(subfilter: $0) }
 
         return FilterContainer(root: root)
     }

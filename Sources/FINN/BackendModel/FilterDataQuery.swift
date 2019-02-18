@@ -32,7 +32,7 @@ struct FilterDataQuery: Decodable {
         let filter = Filter(title: title, name: name, value: value, numberOfResults: totalResults)
         if let filterData = self.filter {
             filterData.queries.forEach({ query in
-                filter.add(child: query.asFilter(with: filterData.parameterName))
+                filter.add(subfilter: query.asFilter(with: filterData.parameterName))
             })
         }
         return filter

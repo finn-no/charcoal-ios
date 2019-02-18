@@ -6,7 +6,7 @@ import FinniversKit
 
 final class ListFilterViewController: FilterViewController {
     private enum Section: Int {
-        case all, children
+        case all, subfilters
     }
 
     // MARK: - Private properties
@@ -71,8 +71,8 @@ extension ListFilterViewController: UITableViewDataSource {
         switch section {
         case .all:
             return showSelectAllCell ? 1 : 0
-        case .children:
-            return filter.children.count
+        case .subfilters:
+            return filter.subfilters.count
         }
     }
 
@@ -85,14 +85,14 @@ extension ListFilterViewController: UITableViewDataSource {
         case .all:
             let isSelected = selectionStore.isSelected(filter)
             cell.configure(for: .selectAll(from: filter, isSelected: isSelected))
-        case .children:
-            if let subfilter = filter.child(at: indexPath.row) {
+        case .subfilters:
+            if let subfilter = filter.subfilter(at: indexPath.row) {
                 if subfilter.name == MapFilter.filterKey {
                     cell.configure(for: .map(from: subfilter))
                 } else {
                     let isSelected = selectionStore.isSelected(subfilter)
-                    let hasSelectedChildren = selectionStore.hasSelectedChildren(subfilter)
-                    cell.configure(for: .regular(from: subfilter, isSelected: isSelected, hasSelectedChildren: hasSelectedChildren))
+                    let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
+                    cell.configure(for: .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters))
                 }
             }
         }
@@ -109,15 +109,15 @@ extension ListFilterViewController: UITableViewDelegate {
 
         switch section {
         case .all:
-            for subfilter in filter.children {
+            for subfilter in filter.subfilters {
                 selectionStore.removeValues(for: subfilter)
             }
 
             selectionStore.toggleValue(for: filter)
             tableView.reloadData()
             showBottomButton(true, animated: true)
-        case .children:
-            guard let subfilter = filter.child(at: indexPath.row) else {
+        case .subfilters:
+            guard let subfilter = filter.subfilter(at: indexPath.row) else {
                 return
             }
 

@@ -13,9 +13,9 @@ public class CharcoalViewController: UINavigationController {
 
     // MARK: - Public properties
 
-    public var filter: CCFilter {
+    public var filter: FilterContainer {
         didSet {
-            rootFilterViewController.set(filterNode: filter.root, verticals: filter.verticals)
+            rootFilterViewController.set(filterNode: filter.rootFilter, verticals: filter.verticals)
             isLoading = false
         }
     }
@@ -41,11 +41,11 @@ public class CharcoalViewController: UINavigationController {
 
     // MARK: - Init
 
-    public init(filter: CCFilter, config: FilterConfiguration, queryItems: Set<URLQueryItem> = []) {
+    public init(filter: FilterContainer, config: FilterConfiguration, queryItems: Set<URLQueryItem> = []) {
         self.filter = filter
         self.config = config
         selectionStore = FilterSelectionStore(queryItems: queryItems)
-        rootFilterViewController = RootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
+        rootFilterViewController = RootFilterViewController(filterNode: filter.rootFilter, selectionStore: selectionStore)
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self

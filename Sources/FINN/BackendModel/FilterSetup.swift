@@ -47,7 +47,7 @@ public struct FilterSetup: Decodable {
         }
     }
 
-    public func asCCFilter() -> CCFilter? {
+    public func asCCFilter() -> FilterContainer? {
         guard let filterMarket = FilterMarket(market: market) else {
             return nil
         }
@@ -69,7 +69,7 @@ public struct FilterSetup: Decodable {
         let root = Filter(title: filterTitle, name: market, numberOfResults: hits)
         ([searchQueryNode, preferenceNode] + filterNodes).forEach { root.add(child: $0) }
 
-        return CCFilter(root: root)
+        return FilterContainer(root: root)
     }
 
     public static func decode(from dict: [AnyHashable: Any]?) -> FilterSetup? {

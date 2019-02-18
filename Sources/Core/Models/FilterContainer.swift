@@ -4,7 +4,7 @@
 
 import Foundation
 
-public class CCFilter {
+public class FilterContainer {
 
     // MARK: - Public properties
 
@@ -12,11 +12,11 @@ public class CCFilter {
 
     // MARK: - Private properties
 
-    let root: Filter
+    let rootFilter: Filter
 
     // MARK: - Setup
 
     init(root: Filter) {
-        self.root = root
+        rootFilter = root
     }
 }

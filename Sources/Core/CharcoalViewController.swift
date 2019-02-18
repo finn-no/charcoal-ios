@@ -93,7 +93,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     }
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
-        guard !filter.hasNoSubfilters else { return }
+        guard !filter.isLeafFilter else { return }
         let nextViewController: FilterViewController
 
         switch filter {

@@ -26,7 +26,7 @@ final class FilterSelectionStore {
     private func queryItem(for filter: Filter) -> URLQueryItem? {
         if let value = filter.value {
             return queryItems.first(where: { $0.name == filter.name && $0.value == value })
-        } else if filter.hasNoSubfilters {
+        } else if filter.isLeafFilter {
             return queryItems.first(where: { $0.name == filter.name })
         } else {
             return nil

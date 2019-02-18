@@ -20,7 +20,7 @@ extension CCListFilterCellViewModel {
         return CCListFilterCellViewModel(
             title: filter.title,
             detail: String(filter.numberOfResults),
-            accessoryType: filter.hasNoSubfilters ? .none : .disclosureIndicator,
+            accessoryType: filter.isLeafFilter ? .none : .disclosureIndicator,
             icon: UIImage(named: iconAsset)
         )
     }

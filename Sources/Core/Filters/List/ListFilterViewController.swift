@@ -121,7 +121,7 @@ extension ListFilterViewController: UITableViewDelegate {
                 return
             }
 
-            if subfilter.hasNoSubfilters {
+            if subfilter.isLeafFilter {
                 if selectionStore.isSelected(filter) {
                     selectionStore.removeValues(for: filter)
                 }

@@ -12,7 +12,7 @@ class Filter {
     private(set) var children: [Filter] = []
     private(set) weak var parent: Filter?
 
-    var hasNoSubfilters: Bool {
+    var isLeafFilter: Bool {
         return children.isEmpty
     }
 

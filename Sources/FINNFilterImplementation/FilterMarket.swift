@@ -39,49 +39,28 @@ public enum FilterMarket {
             return b2b
         }
     }
-
-    private var currentCCFilterConfig: CCFilterConfiguration {
-        switch self {
-        case let .bap(bap):
-            return bap
-        case let .realestate(realestate):
-            return realestate
-        case let .car(car):
-            return car
-        case let .mc(mc):
-            return mc
-        case let .job(job):
-            return job
-        case let .boat(boat):
-            return boat
-        case let .b2b(b2b):
-            return b2b
-        }
-    }
-}
-
-extension FilterMarket: CCFilterConfiguration {
-    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
-        return currentCCFilterConfig.viewModel(for: rangeNode)
-    }
 }
 
 // MARK: - FilterConfiguration
 
 extension FilterMarket: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return currentFilterConfig.viewModel(forKey: key)
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         return currentFilterConfig.preferenceFilterKeys
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         return currentFilterConfig.supportedFiltersKeys
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return currentFilterConfig.mapFilterKey
     }
 }

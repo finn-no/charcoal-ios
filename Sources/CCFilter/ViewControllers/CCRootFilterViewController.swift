@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol CCRootFilterViewControllerDelegate: CCViewControllerDelegate {
+protocol CCRootFilterViewControllerDelegate: class {
     func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int)
 }
 
@@ -14,7 +14,7 @@ class CCRootFilterViewController: CCViewController {
 
     var verticals: [Vertical]?
 
-    weak var rootDelegate: CCRootFilterViewControllerDelegate? {
+    weak var rootDelegate: (CCRootFilterViewControllerDelegate & CCViewControllerDelegate)? {
         didSet { delegate = rootDelegate }
     }
 

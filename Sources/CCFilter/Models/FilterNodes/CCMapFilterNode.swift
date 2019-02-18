@@ -4,11 +4,11 @@
 
 import Foundation
 
-public class CCMapFilterNode: CCFilterNode {
+class CCMapFilterNode: CCFilterNode {
 
     // MARK: - Public properies
 
-    public static let filterKey = "map"
+    static let filterKey = "map"
 
     // MARK: - Internal properties
 
@@ -19,7 +19,7 @@ public class CCMapFilterNode: CCFilterNode {
 
     // MARK: - Setup
 
-    public init(title: String, name: String) {
+    init(title: String, name: String) {
         latitudeNode = CCFilterNode(title: "", name: "lat")
         longitudeNode = CCFilterNode(title: "", name: "lon")
         radiusNode = CCFilterNode(title: "", name: "radius")

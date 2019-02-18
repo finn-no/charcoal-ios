@@ -142,7 +142,6 @@
 		CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
-		DA39FA26220B17DB00608AC4 /* CCFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA11220B17DB00608AC4 /* CCFilterConfiguration.swift */; };
 		DA39FA2B220B17DB00608AC4 /* CCRootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */; };
 		DA39FA2C220B17DB00608AC4 /* CCListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA18220B17DB00608AC4 /* CCListFilterViewController.swift */; };
 		DA39FA2D220B17DB00608AC4 /* CCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* CCViewController.swift */; };
@@ -352,7 +351,6 @@
 		CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfoTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
-		DA39FA11220B17DB00608AC4 /* CCFilterConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCFilterConfiguration.swift; sourceTree = "<group>"; };
 		DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRootFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA18220B17DB00608AC4 /* CCListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCListFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA19220B17DB00608AC4 /* CCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCViewController.swift; sourceTree = "<group>"; };
@@ -889,7 +887,6 @@
 			isa = PBXGroup;
 			children = (
 				CF0B19EE2211CE1D00D8D9B7 /* Selection */,
-				DA39FA3B220B2F1100608AC4 /* FilterConfiguration */,
 				DA39FA3C220B2F2800608AC4 /* Filter */,
 				DA39FA3D220B2F3E00608AC4 /* FilterNodes */,
 				DA454D6A22145829009514F4 /* ViewModels */,
@@ -941,14 +938,6 @@
 				9BE0A0532091D2130000632B /* SearchQueryCell.swift */,
 			);
 			path = RootFilterViews;
-			sourceTree = "<group>";
-		};
-		DA39FA3B220B2F1100608AC4 /* FilterConfiguration */ = {
-			isa = PBXGroup;
-			children = (
-				DA39FA11220B17DB00608AC4 /* CCFilterConfiguration.swift */,
-			);
-			path = FilterConfiguration;
 			sourceTree = "<group>";
 		};
 		DA39FA3C220B2F2800608AC4 /* Filter */ = {
@@ -1366,7 +1355,6 @@
 				DA39FA2F220B17DB00608AC4 /* CCRangeFilterViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */,
-				DA39FA26220B17DB00608AC4 /* CCFilterConfiguration.swift in Sources */,
 				4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */,
 				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */,

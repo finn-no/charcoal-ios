@@ -11,20 +11,18 @@ public enum FilterMarketCar: String, CaseIterable {
     case caravan
 }
 
-extension FilterMarketCar: CCFilterConfiguration {
-    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
-        return createFilterInfoFrom(filterNode: rangeNode)
-    }
-}
-
 // MARK: - FilterConfiguration
 
 extension FilterMarketCar: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return createFilterInfoFrom(key: key)
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .norway, .abroad:
             return [.published, .priceChanged, .dealerSegment]
@@ -33,7 +31,7 @@ extension FilterMarketCar: FilterConfiguration {
         }
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         switch self {
         case .norway:
             return [
@@ -113,11 +111,11 @@ extension FilterMarketCar: FilterConfiguration {
         }
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return .location
     }
 
-    func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
+    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -126,7 +124,7 @@ extension FilterMarketCar: FilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: filterNode.name) else {
+        guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
         switch filterKey {

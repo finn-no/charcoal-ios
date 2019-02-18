@@ -7,7 +7,7 @@ import UIKit
 public protocol CCFilterViewControllerDelegate: class {
     func filterViewControllerFilterSelectionChanged(_ filterViewController: CCFilterViewController)
     func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController)
-    func filterViewController(_ filterViewController: CCFilterViewController, didSelectVerticalAt index: Int)
+    func filterViewController(_ filterViewController: CCFilterViewController, didSelect vertical: Vertical)
 }
 
 public class CCFilterViewController: UINavigationController {
@@ -27,7 +27,7 @@ public class CCFilterViewController: UINavigationController {
         }
     }
 
-    public var config: CCFilterConfiguration
+    public var config: FilterConfiguration
     public weak var filterDelegate: CCFilterViewControllerDelegate?
 
     public var mapFilterViewManager: MapFilterViewManager?
@@ -42,7 +42,7 @@ public class CCFilterViewController: UINavigationController {
 
     // MARK: - Init
 
-    public init(filter: CCFilter, config: CCFilterConfiguration) {
+    public init(filter: CCFilter, config: FilterConfiguration) {
         self.filter = filter
         self.config = config
         selectionStore = FilterSelectionStore()
@@ -80,9 +80,12 @@ public class CCFilterViewController: UINavigationController {
 
 extension CCFilterViewController: CCRootFilterViewControllerDelegate {
     func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int) {
-        filterDelegate?.filterViewController(self, didSelectVerticalAt: index)
+        guard let vertical = filter.verticals?[safe: index] else { return }
+        filterDelegate?.filterViewController(self, didSelect: vertical)
     }
+}
 
+extension CCFilterViewController: CCViewControllerDelegate {
     func viewControllerDidPressBottomButton(_ viewController: CCViewController) {
         filterDelegate?.filterViewControllerFilterSelectionChanged(self)
         popToRootViewController(animated: true)
@@ -94,7 +97,7 @@ extension CCFilterViewController: CCRootFilterViewControllerDelegate {
 
         switch filterNode {
         case let rangeNode as CCRangeFilterNode:
-            guard let viewModel = config.viewModel(for: rangeNode) else { return }
+            guard let viewModel = config.viewModel(forKey: rangeNode.name) else { return }
             switch viewModel.kind {
             case .slider:
                 nextViewController = CCRangeFilterViewController(
@@ -111,11 +114,10 @@ extension CCFilterViewController: CCRootFilterViewControllerDelegate {
             }
         case let mapNode as CCMapFilterNode:
             guard let mapFilterViewManager = mapFilterViewManager else { return }
-            let mapFilterViewController = CCMapFilterViewController(mapFilterNode: mapNode,
-                                                                    selectionStore: selectionStore,
-                                                                    mapFilterViewManager: mapFilterViewManager,
-                                                                    searchLocationDataSource: searchLocationDataSource)
-            nextViewController = mapFilterViewController
+            nextViewController = CCMapFilterViewController(mapFilterNode: mapNode,
+                                                           selectionStore: selectionStore,
+                                                           mapFilterViewManager: mapFilterViewManager,
+                                                           searchLocationDataSource: searchLocationDataSource)
 
         default:
             nextViewController = CCListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)

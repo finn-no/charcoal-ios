@@ -4,14 +4,14 @@
 
 import Foundation
 
-public class CCRangeFilterNode: CCFilterNode {
+class CCRangeFilterNode: CCFilterNode {
 
     // MARK: - Internal properties
 
     let lowValueNode: CCFilterNode
     let highValueNode: CCFilterNode
 
-    public init(title: String, name: String) {
+    init(title: String, name: String) {
         lowValueNode = CCFilterNode(title: "", name: name + "_from")
         highValueNode = CCFilterNode(title: "", name: name + "_to")
         super.init(title: title, name: name)

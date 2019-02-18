@@ -10,24 +10,22 @@ public enum FilterMarketJob: String, CaseIterable {
     case management = "job-management"
 }
 
-extension FilterMarketJob: CCFilterConfiguration {
-    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
-        return createFilterInfoFrom(filterNode: rangeNode)
-    }
-}
-
 // MARK: - FilterConfiguration
 
 extension FilterMarketJob: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return nil
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }
 
-    var preferenceFilterKeys: [FilterKey] {
+    public var preferenceFilterKeys: [FilterKey] {
         return [.published]
     }
 
-    var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [FilterKey] {
         switch self {
         case .partTime:
             return [
@@ -50,11 +48,7 @@ extension FilterMarketJob: FilterConfiguration {
         }
     }
 
-    var mapFilterKey: FilterKey? {
+    public var mapFilterKey: FilterKey? {
         return .location
-    }
-
-    func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
-        return nil
     }
 }

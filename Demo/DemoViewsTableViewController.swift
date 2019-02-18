@@ -121,10 +121,9 @@ extension DemoViewsTableViewController: CCFilterViewControllerDelegate {
     func filterViewControllerFilterSelectionChanged(_ filterViewController: CCFilterViewController) {}
     func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController) {}
 
-    func filterViewController(_ filterViewController: CCFilterViewController, didSelectVerticalAt index: Int) {
-        guard let market = demoFilter?.filterData.market else { return }
-        guard let selectedVertical = demoFilter?.verticalSetup.subVerticals(for: market)[index] as? VerticalDemo else { return }
-        guard let filter = ccFilter(for: selectedVertical.id) else { return }
+    func filterViewController(_ filterViewController: CCFilterViewController, didSelect vertical: Vertical) {
+        guard let vertical = vertical as? VerticalDemo else { return }
+        guard let filter = ccFilter(for: vertical.id) else { return }
 
         filterViewController.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

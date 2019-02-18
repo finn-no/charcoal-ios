@@ -16,12 +16,93 @@ public enum FilterMarketB2B: String, CaseIterable {
     case vanAbroad = "van-abroad"
 }
 
-extension FilterMarketB2B: CCFilterConfiguration {
-    public func viewModel(for rangeNode: CCRangeFilterNode) -> RangeFilterInfo? {
-        return createFilterInfoFrom(filterNode: rangeNode)
+// MARK: - FilterConfiguration
+
+extension FilterMarketB2B: FilterConfiguration {
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+        return createFilterInfoFrom(key: key)
     }
 
-    func createFilterInfoFrom(filterNode: CCFilterNode) -> RangeFilterInfo? {
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical
+    }
+
+    public var preferenceFilterKeys: [FilterKey] {
+        return [.published, .dealerSegment]
+    }
+
+    public var supportedFiltersKeys: [FilterKey] {
+        switch self {
+        case .truck, .truckAbroad:
+            return [
+                .location,
+                .truckSegment,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+                .weight,
+            ]
+        case .bus:
+            return [
+                .location,
+                .busSegment,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+            ]
+        case .construction:
+            return [
+                .location,
+                .constructionSegment,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+            ]
+        case .agricultureTractor, .agricultureThresher:
+            return [
+                .location,
+                .make,
+                .price,
+                .year,
+                .engineEffect,
+            ]
+        case .agricultureTools:
+            return [
+                .location,
+                .category,
+                .price,
+                .year,
+            ]
+        case .vanNorway, .vanAbroad:
+            return [
+                .make,
+                .year,
+                .mileage,
+                .price,
+                .bodyType,
+                .location,
+                .engineFuel,
+                .exteriorColour,
+                .engineEffect,
+                .numberOfSeats,
+                .wheelDrive,
+                .transmission,
+                .wheelSets,
+                .warrantyInsurance,
+                .condition,
+                .salesForm,
+            ]
+        }
+    }
+
+    public var mapFilterKey: FilterKey? {
+        return .location
+    }
+
+    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -30,7 +111,7 @@ extension FilterMarketB2B: CCFilterConfiguration {
         let accessibilityValues: RangeFilterInfo.AccessibilityValues
         let appearanceProperties: RangeFilterInfo.AppearenceProperties
 
-        guard let filterKey = FilterKey(stringValue: filterNode.name) else {
+        guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
 
@@ -136,88 +217,5 @@ extension FilterMarketB2B: CCFilterConfiguration {
             accesibilityValues: accessibilityValues,
             appearanceProperties: appearanceProperties
         )
-    }
-}
-
-// MARK: - FilterConfiguration
-
-extension FilterMarketB2B: FilterConfiguration {
-    func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical
-    }
-
-    var preferenceFilterKeys: [FilterKey] {
-        return [.published, .dealerSegment]
-    }
-
-    var supportedFiltersKeys: [FilterKey] {
-        switch self {
-        case .truck, .truckAbroad:
-            return [
-                .location,
-                .truckSegment,
-                .make,
-                .price,
-                .year,
-                .engineEffect,
-                .weight,
-            ]
-        case .bus:
-            return [
-                .location,
-                .busSegment,
-                .make,
-                .price,
-                .year,
-                .engineEffect,
-            ]
-        case .construction:
-            return [
-                .location,
-                .constructionSegment,
-                .make,
-                .price,
-                .year,
-                .engineEffect,
-            ]
-        case .agricultureTractor, .agricultureThresher:
-            return [
-                .location,
-                .make,
-                .price,
-                .year,
-                .engineEffect,
-            ]
-        case .agricultureTools:
-            return [
-                .location,
-                .category,
-                .price,
-                .year,
-            ]
-        case .vanNorway, .vanAbroad:
-            return [
-                .make,
-                .year,
-                .mileage,
-                .price,
-                .bodyType,
-                .location,
-                .engineFuel,
-                .exteriorColour,
-                .engineEffect,
-                .numberOfSeats,
-                .wheelDrive,
-                .transmission,
-                .wheelSets,
-                .warrantyInsurance,
-                .condition,
-                .salesForm,
-            ]
-        }
-    }
-
-    var mapFilterKey: FilterKey? {
-        return .location
     }
 }

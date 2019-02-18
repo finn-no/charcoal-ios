@@ -16,7 +16,7 @@ public class CCFilter {
 
     // MARK: - Setup
 
-    public init(root: CCFilterNode) {
+    init(root: CCFilterNode) {
         self.root = root
     }
 }

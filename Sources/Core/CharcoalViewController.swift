@@ -4,13 +4,12 @@
 
 import UIKit
 
-public protocol CCFilterViewControllerDelegate: class {
-    func filterViewControllerFilterSelectionChanged(_ filterViewController: CCFilterViewController)
-    func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController)
-    func filterViewController(_ filterViewController: CCFilterViewController, didSelect vertical: Vertical)
+public protocol CharcoalViewControllerDelegate: class {
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
+    func charcoalViewControllerDidChangeSelection(_ viewController: CharcoalViewController)
 }
 
-public class CCFilterViewController: UINavigationController {
+public class CharcoalViewController: UINavigationController {
 
     // MARK: - Public properties
 
@@ -28,7 +27,7 @@ public class CCFilterViewController: UINavigationController {
     }
 
     public var config: FilterConfiguration
-    public weak var filterDelegate: CCFilterViewControllerDelegate?
+    public weak var filterDelegate: CharcoalViewControllerDelegate?
 
     public var mapFilterViewManager: MapFilterViewManager?
     public var searchLocationDataSource: SearchLocationDataSource?
@@ -36,7 +35,7 @@ public class CCFilterViewController: UINavigationController {
     // MARK: - Private properties
 
     private let selectionStore: FilterSelectionStore
-    private var rootFilterViewController: CCRootFilterViewController
+    private var rootFilterViewController: RootFilterViewController
 
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
@@ -46,7 +45,7 @@ public class CCFilterViewController: UINavigationController {
         self.filter = filter
         self.config = config
         selectionStore = FilterSelectionStore(queryItems: queryItems)
-        rootFilterViewController = CCRootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
+        rootFilterViewController = RootFilterViewController(filterNode: filter.root, selectionStore: selectionStore)
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self
@@ -76,37 +75,39 @@ public class CCFilterViewController: UINavigationController {
     }
 }
 
-// MARK: - CCRootFilterViewControllerDelegate
+// MARK: - RootFilterViewControllerDelegate
 
-extension CCFilterViewController: CCRootFilterViewControllerDelegate {
-    func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int) {
+extension CharcoalViewController: RootFilterViewControllerDelegate {
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int) {
         guard let vertical = filter.verticals?[safe: index] else { return }
-        filterDelegate?.filterViewController(self, didSelect: vertical)
+        filterDelegate?.charcoalViewController(self, didSelect: vertical)
     }
 }
 
-extension CCFilterViewController: CCViewControllerDelegate {
-    func viewControllerDidPressBottomButton(_ viewController: CCViewController) {
-        filterDelegate?.filterViewControllerFilterSelectionChanged(self)
+// MARK: - FilterViewControllerDelegate
+
+extension CharcoalViewController: FilterViewControllerDelegate {
+    func filterViewControllerDidSelectApply(_ viewController: FilterViewController) {
+        filterDelegate?.charcoalViewControllerDidChangeSelection(self)
         popToRootViewController(animated: true)
     }
 
-    func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
+    func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
         guard !filterNode.isLeafNode else { return }
-        let nextViewController: CCViewController
+        let nextViewController: FilterViewController
 
         switch filterNode {
         case let rangeNode as CCRangeFilterNode:
             guard let viewModel = config.viewModel(forKey: rangeNode.name) else { return }
             switch viewModel.kind {
             case .slider:
-                nextViewController = CCRangeFilterViewController(
+                nextViewController = RangeFilterViewController(
                     rangeFilterNode: rangeNode,
                     viewModel: viewModel,
                     selectionStore: selectionStore
                 )
             case .stepper:
-                nextViewController = CCStepperFilterViewController(
+                nextViewController = StepperFilterViewController(
                     filterNode: rangeNode,
                     selectionStore: selectionStore,
                     viewModel: viewModel
@@ -114,13 +115,13 @@ extension CCFilterViewController: CCViewControllerDelegate {
             }
         case let mapNode as CCMapFilterNode:
             guard let mapFilterViewManager = mapFilterViewManager else { return }
-            nextViewController = CCMapFilterViewController(mapFilterNode: mapNode,
-                                                           selectionStore: selectionStore,
-                                                           mapFilterViewManager: mapFilterViewManager,
-                                                           searchLocationDataSource: searchLocationDataSource)
+            nextViewController = MapFilterViewController(mapFilterNode: mapNode,
+                                                         selectionStore: selectionStore,
+                                                         mapFilterViewManager: mapFilterViewManager,
+                                                         searchLocationDataSource: searchLocationDataSource)
 
         default:
-            nextViewController = CCListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)
+            nextViewController = ListFilterViewController(filterNode: filterNode, selectionStore: selectionStore)
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
             nextViewController.showBottomButton(showBottomButton, animated: false)
         }
@@ -132,9 +133,9 @@ extension CCFilterViewController: CCViewControllerDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension CCFilterViewController: UINavigationControllerDelegate {
+extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if viewController is CCRangeFilterViewController {
+        if viewController is RangeFilterViewController {
             interactivePopGestureRecognizer?.isEnabled = false
         } else {
             interactivePopGestureRecognizer?.isEnabled = true

@@ -133,6 +133,9 @@
 		CF0B19ED2211B8C500D8D9B7 /* CCFilterSelectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EC2211B8C500D8D9B7 /* CCFilterSelectionStore.swift */; };
 		CF0B19F22212C6DA00D8D9B7 /* CCListFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19F12212C6DA00D8D9B7 /* CCListFilterCellViewModel.swift */; };
 		CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */; };
+		CF4C870A221AFC0900DFAF2A /* ListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */; };
+		CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */; };
+		CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */; };
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
@@ -140,12 +143,9 @@
 		CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
-		DA39FA2B220B17DB00608AC4 /* CCRootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */; };
-		DA39FA2C220B17DB00608AC4 /* CCListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA18220B17DB00608AC4 /* CCListFilterViewController.swift */; };
-		DA39FA2D220B17DB00608AC4 /* CCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* CCViewController.swift */; };
-		DA39FA2E220B17DB00608AC4 /* CCMapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1A220B17DB00608AC4 /* CCMapFilterViewController.swift */; };
-		DA39FA2F220B17DB00608AC4 /* CCRangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1B220B17DB00608AC4 /* CCRangeFilterViewController.swift */; };
-		DA39FA30220B17DB00608AC4 /* CCFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1C220B17DB00608AC4 /* CCFilterViewController.swift */; };
+		DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* FilterViewController.swift */; };
+		DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */; };
+		DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */; };
 		DA39FA31220B17DB00608AC4 /* CCListFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1F220B17DB00608AC4 /* CCListFilterCell.swift */; };
 		DA39FA32220B17DB00608AC4 /* CCInlineFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA21220B17DB00608AC4 /* CCInlineFilterCell.swift */; };
 		DA39FA33220B17DB00608AC4 /* CCInlineFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA22220B17DB00608AC4 /* CCInlineFilterView.swift */; };
@@ -161,7 +161,7 @@
 		DA51041B21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041C21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
-		DA643FB7220C720A001ED360 /* CCStepperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA643FB6220C720A001ED360 /* CCStepperViewController.swift */; };
+		DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA643FB6220C720A001ED360 /* StepperViewController.swift */; };
 		DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */; };
 		DA8D683C220D874400D31941 /* FilterNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683B220D874400D31941 /* FilterNodeTests.swift */; };
 		DA8D683F220D88A300D31941 /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683E220D88A300D31941 /* FilterTests.swift */; };
@@ -339,6 +339,9 @@
 		CF0B19EC2211B8C500D8D9B7 /* CCFilterSelectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCFilterSelectionStore.swift; sourceTree = "<group>"; };
 		CF0B19F12212C6DA00D8D9B7 /* CCListFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCListFilterCellViewModel.swift; sourceTree = "<group>"; };
 		CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfo.swift; sourceTree = "<group>"; };
+		CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterViewController.swift; sourceTree = "<group>"; };
+		CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
+		CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterViewController.swift; sourceTree = "<group>"; };
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
@@ -346,12 +349,9 @@
 		CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfoTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
-		DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRootFilterViewController.swift; sourceTree = "<group>"; };
-		DA39FA18220B17DB00608AC4 /* CCListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCListFilterViewController.swift; sourceTree = "<group>"; };
-		DA39FA19220B17DB00608AC4 /* CCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCViewController.swift; sourceTree = "<group>"; };
-		DA39FA1A220B17DB00608AC4 /* CCMapFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCMapFilterViewController.swift; sourceTree = "<group>"; };
-		DA39FA1B220B17DB00608AC4 /* CCRangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCRangeFilterViewController.swift; sourceTree = "<group>"; };
-		DA39FA1C220B17DB00608AC4 /* CCFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCFilterViewController.swift; sourceTree = "<group>"; };
+		DA39FA19220B17DB00608AC4 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
+		DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharcoalViewController.swift; sourceTree = "<group>"; };
 		DA39FA1F220B17DB00608AC4 /* CCListFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCListFilterCell.swift; sourceTree = "<group>"; };
 		DA39FA21220B17DB00608AC4 /* CCInlineFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInlineFilterCell.swift; sourceTree = "<group>"; };
 		DA39FA22220B17DB00608AC4 /* CCInlineFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInlineFilterView.swift; sourceTree = "<group>"; };
@@ -362,7 +362,7 @@
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		DA51041A21BE6AFE004048BD /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		DA643FB6220C720A001ED360 /* CCStepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCStepperViewController.swift; sourceTree = "<group>"; };
+		DA643FB6220C720A001ED360 /* StepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperViewController.swift; sourceTree = "<group>"; };
 		DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentButton.swift; sourceTree = "<group>"; };
 		DA8D683B220D874400D31941 /* FilterNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNodeTests.swift; sourceTree = "<group>"; };
 		DA8D683E220D88A300D31941 /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
@@ -636,7 +636,7 @@
 		5515EA4320BD5B5600AC98A3 /* Range */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA1B220B17DB00608AC4 /* CCRangeFilterViewController.swift */,
+				CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */,
 				9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */,
 				559C6CB920B83178009B734D /* RangeFilterView.swift */,
 				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
@@ -743,7 +743,7 @@
 		9B741D1421B558FC00D18097 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA1A220B17DB00608AC4 /* CCMapFilterViewController.swift */,
+				DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */,
 				46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */,
 				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
 				9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */,
@@ -764,7 +764,7 @@
 		9BE0A0402091BE750000632B /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA17220B17DB00608AC4 /* CCRootFilterViewController.swift */,
+				CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */,
 				DA39FA20220B17DB00608AC4 /* Views */,
 			);
 			path = Root;
@@ -814,7 +814,7 @@
 		CF4C8702221ADF2700DFAF2A /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA1C220B17DB00608AC4 /* CCFilterViewController.swift */,
+				DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				CF4C8703221AE0F000DFAF2A /* Filters */,
 				CF88577B21F61D710056CC81 /* Haptics */,
@@ -830,7 +830,7 @@
 		CF4C8703221AE0F000DFAF2A /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA19220B17DB00608AC4 /* CCViewController.swift */,
+				DA39FA19220B17DB00608AC4 /* FilterViewController.swift */,
 				5510EDAA20BFCCFE006E4A0F /* CompactList */,
 				CF4C8706221AE5AD00DFAF2A /* FreeText */,
 				DAFD7A0D21AE96CE00A468B2 /* Inline */,
@@ -928,7 +928,7 @@
 		DA39FA1D220B17DB00608AC4 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA18220B17DB00608AC4 /* CCListFilterViewController.swift */,
+				CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */,
 				DA39FA1E220B17DB00608AC4 /* Views */,
 			);
 			path = List;
@@ -983,7 +983,7 @@
 		DAF3CA6E218301B3007235B0 /* Stepper */ = {
 			isa = PBXGroup;
 			children = (
-				DA643FB6220C720A001ED360 /* CCStepperViewController.swift */,
+				DA643FB6220C720A001ED360 /* StepperViewController.swift */,
 				DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */,
 			);
 			path = Stepper;
@@ -1276,6 +1276,7 @@
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverPresentationTransitioningDelegate.swift in Sources */,
 				9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */,
+				CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */,
 				CF0B19ED2211B8C500D8D9B7 /* CCFilterSelectionStore.swift in Sources */,
 				9B741D1C21B6B1CB00D18097 /* StepSlider.swift in Sources */,
 				08716B3721F76424003180D8 /* FilterKey.swift in Sources */,
@@ -1284,22 +1285,22 @@
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
 				DA39FA32220B17DB00608AC4 /* CCInlineFilterCell.swift in Sources */,
 				CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */,
-				DA39FA30220B17DB00608AC4 /* CCFilterViewController.swift in Sources */,
+				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,
 				CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* CCInlineFilterView.swift in Sources */,
 				08716B3321F73D92003180D8 /* FilterMarketBap.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
+				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* CCFilter.swift in Sources */,
 				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
 				9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */,
 				CF0B19E82211B4EF00D8D9B7 /* CCMapFilterNode.swift in Sources */,
-				DA39FA2B220B17DB00608AC4 /* CCRootFilterViewController.swift in Sources */,
-				DA643FB7220C720A001ED360 /* CCStepperViewController.swift in Sources */,
+				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
-				DA39FA2D220B17DB00608AC4 /* CCViewController.swift in Sources */,
+				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
 				DA39FA36220B17DB00608AC4 /* CCFilterSelectionView.swift in Sources */,
 				DA51041B21BE6AFE004048BD /* Font.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
@@ -1321,7 +1322,6 @@
 				08716B2F21F73C87003180D8 /* FilterMarketJob.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
-				DA39FA2C220B17DB00608AC4 /* CCListFilterViewController.swift in Sources */,
 				CF0B19E92211B4EF00D8D9B7 /* CCRangeFilterNode.swift in Sources */,
 				CF0B19F22212C6DA00D8D9B7 /* CCListFilterCellViewModel.swift in Sources */,
 				08716B3121F73D2D003180D8 /* FilterMarketRealestate.swift in Sources */,
@@ -1335,17 +1335,17 @@
 				08716B2921F73B0B003180D8 /* FilterMarketMC.swift in Sources */,
 				559C61F820DA4D860083A574 /* FilterSetup.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
-				DA39FA2F220B17DB00608AC4 /* CCRangeFilterViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */,
 				4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */,
+				CF4C870A221AFC0900DFAF2A /* ListFilterViewController.swift in Sources */,
 				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */,
 				CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */,
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
 				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
-				DA39FA2E220B17DB00608AC4 /* CCMapFilterViewController.swift in Sources */,
+				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 				559C61F320DA4C8D0083A574 /* (null) in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

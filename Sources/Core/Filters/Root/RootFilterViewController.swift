@@ -4,17 +4,17 @@
 
 import UIKit
 
-protocol CCRootFilterViewControllerDelegate: class {
-    func rootFilterViewController(_ viewController: CCRootFilterViewController, didSelectVerticalAt index: Int)
+protocol RootFilterViewControllerDelegate: class {
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
 }
 
-class CCRootFilterViewController: CCViewController {
+final class RootFilterViewController: FilterViewController {
 
     // MARK: - Public properties
 
     var verticals: [Vertical]?
 
-    weak var rootDelegate: (CCRootFilterViewControllerDelegate & CCViewControllerDelegate)? {
+    weak var rootDelegate: (RootFilterViewControllerDelegate & FilterViewControllerDelegate)? {
         didSet { delegate = rootDelegate }
     }
 
@@ -52,8 +52,8 @@ class CCRootFilterViewController: CCViewController {
         setup()
     }
 
-    override func viewController(_ viewController: CCViewController, didSelect filterNode: CCFilterNode) {
-        super.viewController(viewController, didSelect: filterNode)
+    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
+        super.filterViewController(viewController, didSelectFilter: filterNode)
         tableView.reloadData()
     }
 
@@ -65,7 +65,7 @@ class CCRootFilterViewController: CCViewController {
     }
 }
 
-extension CCRootFilterViewController: UITableViewDataSource {
+extension RootFilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filterNode.children.count
     }
@@ -99,7 +99,7 @@ extension CCRootFilterViewController: UITableViewDataSource {
     }
 }
 
-extension CCRootFilterViewController: UITableViewDelegate {
+extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilterNode = filterNode.children[indexPath.row]
         switch selectedFilterNode.name {
@@ -108,12 +108,12 @@ extension CCRootFilterViewController: UITableViewDelegate {
         case "preferences":
             return
         default:
-            delegate?.viewController(self, didSelect: selectedFilterNode)
+            delegate?.filterViewController(self, didSelectFilter: selectedFilterNode)
         }
     }
 }
 
-extension CCRootFilterViewController: CCRootFilterCellDelegate {
+extension RootFilterViewController: CCRootFilterCellDelegate {
     func rootFilterCell(_ cell: CCRootFilterCell, didRemoveItemAt index: Int) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
@@ -126,7 +126,7 @@ extension CCRootFilterViewController: CCRootFilterCellDelegate {
     }
 }
 
-extension CCRootFilterViewController: CCInlineFilterViewDelegate {
+extension RootFilterViewController: CCInlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
         guard let childNode = filterNode.child(at: index) else { return }
 
@@ -149,14 +149,14 @@ extension CCRootFilterViewController: CCInlineFilterViewDelegate {
     }
 }
 
-extension CCRootFilterViewController: VerticalListViewControllerDelegate {
+extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
         verticalViewController.dismiss(animated: false)
         rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
     }
 }
 
-extension CCRootFilterViewController: SearchViewControllerDelegate {
+extension RootFilterViewController: SearchViewControllerDelegate {
     func presentSearchViewController(_ searchViewController: SearchQueryViewController) {
         add(searchViewController)
     }
@@ -180,7 +180,7 @@ extension CCRootFilterViewController: SearchViewControllerDelegate {
     }
 }
 
-private extension CCRootFilterViewController {
+private extension RootFilterViewController {
     func setup() {
         view.addSubview(tableView)
         NSLayoutConstraint.activate([

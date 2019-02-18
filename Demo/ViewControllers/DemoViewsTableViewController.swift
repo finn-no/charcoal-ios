@@ -63,7 +63,7 @@ class DemoViewsTableViewController: UITableViewController {
             presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         case .fullscreen:
             guard let market = Sections.marketName(for: indexPath), let filter = ccFilter(for: market), let filterConfig = FilterMarket(market: market) else { return }
-            let controller = CCFilterViewController(filter: filter, config: filterConfig)
+            let controller = CharcoalViewController(filter: filter, config: filterConfig)
             controller.filterDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
@@ -117,17 +117,18 @@ extension DemoViewsTableViewController {
     }
 }
 
-extension DemoViewsTableViewController: CCFilterViewControllerDelegate {
-    func filterViewControllerFilterSelectionChanged(_ filterViewController: CCFilterViewController) {}
-    func filterViewControllerDidPressShowResults(_ filterViewController: CCFilterViewController) {}
+// MARK: - CharcoalViewControllerDelegate
 
-    func filterViewController(_ filterViewController: CCFilterViewController, didSelect vertical: Vertical) {
+extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
+    func charcoalViewControllerDidChangeSelection(_ filterViewController: CharcoalViewController) {}
+
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
         guard let vertical = vertical as? VerticalDemo else { return }
         guard let filter = ccFilter(for: vertical.id) else { return }
 
-        filterViewController.isLoading = true
+        viewController.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            filterViewController.filter = filter
+            viewController.filter = filter
         }
     }
 }

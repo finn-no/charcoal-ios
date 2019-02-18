@@ -4,7 +4,7 @@
 
 import UIKit
 
-final class CCRangeFilterViewController: CCViewController {
+final class RangeFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
@@ -18,6 +18,8 @@ final class CCRangeFilterViewController: CCViewController {
         return view
     }()
 
+    // MARK: - Init
+
     init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
         self.rangeFilterNode = rangeFilterNode
         self.viewModel = viewModel
@@ -29,13 +31,17 @@ final class CCRangeFilterViewController: CCViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
 }
 
-extension CCRangeFilterViewController: RangeFilterViewDelegate {
+// MARK: - RangeFilterViewDelegate
+
+extension RangeFilterViewController: RangeFilterViewDelegate {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
         setValue(lowValue, forChild: rangeFilterNode.lowValueNode)
     }
@@ -46,12 +52,12 @@ extension CCRangeFilterViewController: RangeFilterViewDelegate {
 
     private func setValue(_ value: Int?, forChild node: CCFilterNode) {
         selectionStore.setValue(value, for: node)
-        delegate?.viewController(self, didSelect: node)
+        delegate?.filterViewController(self, didSelectFilter: node)
         showBottomButton(true, animated: true)
     }
 }
 
-private extension CCRangeFilterViewController {
+private extension RangeFilterViewController {
     func setup() {
         bottomButton.buttonTitle = "apply_button_title".localized()
 

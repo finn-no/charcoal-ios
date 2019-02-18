@@ -4,9 +4,9 @@ require "time"
 require "fileutils"
 require "digest/md5"
 
-input = ["Sources/Resources/Assets.xcassets"]
+input = ["Resources/Assets.xcassets"]
 output_filename = ARGV[0]
-output_path = File.join(File.dirname(__FILE__), "..",  "Sources", "Resources")
+output_path = File.join(File.dirname(__FILE__), "..", "Resources")
 
 temp_path = "/tmp/"
 

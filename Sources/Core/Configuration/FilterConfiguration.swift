@@ -13,5 +13,5 @@ public protocol FilterConfiguration {
     var preferencesFilterKey: FilterKey? { get }
 
     func handlesVerticalId(_ vertical: String) -> Bool
-    func viewModel(forKey key: String) -> RangeFilterInfo?
+    func rangeViewModel(forKey key: String) -> RangeFilterInfo?
 }

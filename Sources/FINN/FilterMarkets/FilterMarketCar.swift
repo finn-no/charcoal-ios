@@ -128,7 +128,7 @@ extension FilterMarketCar: FilterConfiguration {
         return .preferences
     }
 
-    public func viewModel(forKey key: String) -> RangeFilterInfo? {
+    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int

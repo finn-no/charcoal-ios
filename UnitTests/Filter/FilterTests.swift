@@ -18,7 +18,7 @@ final class FilterTests: XCTestCase {
         filter.add(subfilter: Filter(title: "subfilter 1", name: "index-0"))
         filter.add(subfilter: Filter(title: "subfilter 2", name: "index-2"))
         filter.add(subfilter: Filter(title: "subfilter 3", name: "index-1"), at: 1)
-        XCTAssertEqual(filter.subfilter(at: 1)?.name, "index-1")
+        XCTAssertEqual(filter.subfilter(at: 1)?.key, "index-1")
     }
 }
 

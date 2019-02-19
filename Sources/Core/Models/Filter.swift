@@ -11,7 +11,7 @@ class Filter {
     }
 
     let title: String
-    let name: String
+    let key: String
     let value: String?
     let numberOfResults: Int
     let kind: Kind
@@ -20,9 +20,9 @@ class Filter {
 
     // MARK: - Init
 
-    init(title: String, name: String, value: String? = nil, numberOfResults: Int = 0, kind: Kind = .normal) {
+    init(title: String, key: String, value: String? = nil, numberOfResults: Int = 0, kind: Kind = .normal) {
         self.title = title
-        self.name = name
+        self.key = key
         self.value = value
         self.numberOfResults = numberOfResults
         self.kind = kind

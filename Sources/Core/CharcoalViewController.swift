@@ -102,7 +102,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
         switch filter {
         case let rangeFilter as RangeFilter:
-            guard let viewModel = config.rangeViewModel(forKey: rangeFilter.name) else { return }
+            guard let viewModel = config.rangeViewModel(forKey: rangeFilter.key) else { return }
             switch viewModel.kind {
             case .slider:
                 nextViewController = RangeFilterViewController(

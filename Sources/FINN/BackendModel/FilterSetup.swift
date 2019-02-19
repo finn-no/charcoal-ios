@@ -55,12 +55,12 @@ public struct FilterSetup: Decodable {
         var rootSubfilters = [Filter]()
 
         if let name = filterMarket.searchFilterKey?.rawValue {
-            rootSubfilters.append(Filter(title: "search_placeholder".localized(), name: name))
+            rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: name))
         }
 
         if let name = filterMarket.preferencesFilterKey?.rawValue {
             let preferenceSubfilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
-            let preferenceFilter = Filter(title: "", name: name)
+            let preferenceFilter = Filter(title: "", key: name)
             preferenceSubfilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
 
             rootSubfilters.append(preferenceFilter)
@@ -71,21 +71,21 @@ public struct FilterSetup: Decodable {
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let locationFilter = supportedFilters.first(where: { $0.name == filterMarket.filterKeyWithMapSubfilter?.rawValue }) {
+        if let locationFilter = supportedFilters.first(where: { $0.key == filterMarket.filterKeyWithMapSubfilter?.rawValue }) {
             let mapFilter = MapFilter(
                 title: "map_filter_title".localized(),
-                name: "map",
-                latitudeName: "lat",
-                longitudeName: "lon",
-                radiusName: "radius",
-                locationName: "geoLocationName"
+                key: "map",
+                latitudeKey: "lat",
+                longitudeKey: "lon",
+                radiusKey: "radius",
+                locationKey: "geoLocationName"
             )
             locationFilter.add(subfilter: mapFilter, at: 0)
         }
 
         rootSubfilters.append(contentsOf: supportedFilters)
 
-        let root = Filter(title: filterTitle, name: market, numberOfResults: hits)
+        let root = Filter(title: filterTitle, key: market, numberOfResults: hits)
         rootSubfilters.forEach { root.add(subfilter: $0) }
 
         return FilterContainer(root: root)

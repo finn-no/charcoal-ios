@@ -19,14 +19,14 @@ final class MapFilter: Filter {
 
     // MARK: - Setup
 
-    init(title: String, name: String, latitudeName: String,
-         longitudeName: String, radiusName: String, locationName: String) {
-        latitudeFilter = Filter(title: "", name: latitudeName)
-        longitudeFilter = Filter(title: "", name: longitudeName)
-        radiusFilter = Filter(title: "", name: radiusName)
-        locationNameFilter = Filter(title: "", name: locationName)
+    init(title: String, key: String, latitudeKey: String,
+         longitudeKey: String, radiusKey: String, locationKey: String) {
+        latitudeFilter = Filter(title: "", key: latitudeKey)
+        longitudeFilter = Filter(title: "", key: longitudeKey)
+        radiusFilter = Filter(title: "", key: radiusKey)
+        locationNameFilter = Filter(title: "", key: locationKey)
 
-        super.init(title: title, name: name, value: nil, numberOfResults: 0)
+        super.init(title: title, key: key, value: nil, numberOfResults: 0)
         setup()
     }
 }

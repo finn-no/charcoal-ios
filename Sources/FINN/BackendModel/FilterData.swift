@@ -32,14 +32,14 @@ struct FilterData: Decodable {
             let rangeFilter = RangeFilter(
                 title: title,
                 name: parameterName,
-                lowValueName: parameterName + "_from",
-                highValueName: parameterName + "_to",
+                lowValueKey: parameterName + "_from",
+                highValueKey: parameterName + "_to",
                 kind: kind
             )
             return rangeFilter
         }
 
-        let filter = Filter(title: title, name: parameterName, kind: kind)
+        let filter = Filter(title: title, key: parameterName, kind: kind)
         queries.forEach { query in
             filter.add(subfilter: query.asFilter(with: parameterName))
         }

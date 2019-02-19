@@ -26,7 +26,7 @@ public extension FINNFilterConfiguration {
         return Set(contextFilters.map({ $0.rawValue }))
     }
 
-    var filterKeyWithMapSubfilter: String? {
+    var mapFilterParentFilterKey: String? {
         return filterKeyWithMapSubfilter?.rawValue
     }
 

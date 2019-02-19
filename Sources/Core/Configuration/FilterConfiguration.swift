@@ -8,7 +8,7 @@ public protocol FilterConfiguration {
     var preferenceFilterKeys: [String] { get }
     var supportedFiltersKeys: [String] { get }
     var contextFilters: Set<String> { get }
-    var filterKeyWithMapSubfilter: String? { get }
+    var mapFilterParentFilterKey: String? { get }
     var searchFilterKey: String? { get }
     var preferencesFilterKey: String? { get }
 

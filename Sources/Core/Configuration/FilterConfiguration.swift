@@ -9,6 +9,7 @@ public protocol FilterConfiguration {
     var supportedFiltersKeys: [FilterKey] { get }
     var contextFilters: Set<FilterKey> { get }
     var mapFilterKey: FilterKey? { get }
+    var mapFilterConfig: MapFilterConfiguration? { get }
     func handlesVerticalId(_ vertical: String) -> Bool
     func viewModel(forKey key: String) -> RangeFilterInfo?
 }

@@ -67,6 +67,10 @@ extension FilterMarket: FilterConfiguration {
     public var mapFilterKey: FilterKey? {
         return currentFilterConfig.mapFilterKey
     }
+
+    public var mapFilterConfig: MapFilterConfiguration? {
+        return currentFilterConfig.mapFilterConfig
+    }
 }
 
 // MARK: - CaseIterable

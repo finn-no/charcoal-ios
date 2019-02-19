@@ -14,10 +14,6 @@ public enum FilterMarketMC: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketMC: FilterConfiguration {
-    public func viewModel(forKey key: String) -> RangeFilterInfo? {
-        return createFilterInfoFrom(key: key)
-    }
-
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }
@@ -76,7 +72,11 @@ extension FilterMarketMC: FilterConfiguration {
         return .location
     }
 
-    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
+    public var mapFilterConfig: MapFilterConfiguration? {
+        return .default
+    }
+
+    public func viewModel(forKey key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int

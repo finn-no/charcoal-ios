@@ -146,8 +146,17 @@ enum ComponentViews: String, CaseIterable {
             let controller = InlineFilterDemoViewController()
             return controller
         case .mapFilter:
+            let mapFilter = MapFilter(
+                title: "Område i kart",
+                name: "map",
+                latitudeName: "lat",
+                longitudeName: "lon",
+                radiusName: "radius",
+                locationName: "geoLocationName"
+            )
+
             return MapFilterViewController(
-                mapFilter: MapFilter(title: "Område i kart", name: ""),
+                mapFilter: mapFilter,
                 selectionStore: FilterSelectionStore(),
                 mapFilterViewManager: MapViewManager(),
                 searchLocationDataSource: DemoSearchLocationDataSource()

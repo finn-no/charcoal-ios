@@ -63,8 +63,15 @@ public struct FilterSetup: Decodable {
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let locationFilter = filters.first(where: { $0.name == FilterKey.location.rawValue }) {
-            let mapFilter = MapFilter(title: "map_filter_title".localized(), name: MapFilter.filterKey)
+        if let locationFilter = filters.first(where: { $0.name == filterMarket.mapFilterKey?.rawValue }) {
+            let mapFilter = MapFilter(
+                title: "map_filter_title".localized(),
+                name: "map",
+                latitudeName: "lat",
+                longitudeName: "lon",
+                radiusName: "radius",
+                locationName: "geoLocationName"
+            )
             locationFilter.add(subfilter: mapFilter, at: 0)
         }
 

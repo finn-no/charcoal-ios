@@ -29,7 +29,13 @@ struct FilterData: Decodable {
 
     func asFilter(of kind: Filter.Kind = .normal) -> Filter {
         if isRange == true {
-            let rangeFilter = RangeFilter(title: title, name: parameterName, kind: kind)
+            let rangeFilter = RangeFilter(
+                title: title,
+                name: parameterName,
+                lowValueName: parameterName + "_from",
+                highValueName: parameterName + "_to",
+                kind: kind
+            )
             return rangeFilter
         }
 

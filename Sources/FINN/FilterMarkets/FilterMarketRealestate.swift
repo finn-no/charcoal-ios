@@ -154,10 +154,6 @@ extension FilterMarketRealestate: FilterConfiguration {
         return .location
     }
 
-    public var mapFilterConfig: MapFilterConfiguration? {
-        return .default
-    }
-
     public func viewModel(forKey key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int

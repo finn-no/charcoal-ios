@@ -8,12 +8,12 @@
 import UIKit
 
 extension UIImage {
-    convenience init(named imageAsset: ImageAsset, in bundle: Bundle? = .charcoal, compatibleWith traitCollection: UITraitCollection? = nil) {
+    convenience init(named imageAsset: CharcoalImageAsset, in bundle: Bundle? = .charcoal, compatibleWith traitCollection: UITraitCollection? = nil) {
         self.init(named: imageAsset.rawValue, in: bundle, compatibleWith: traitCollection)!
     }
 }
 
-enum ImageAsset: String {
+enum CharcoalImageAsset: String {
     case arrowDown
     case arrowLeft
     case arrowRight
@@ -37,7 +37,7 @@ enum ImageAsset: String {
     case sliderThumb
     case sliderThumbActive
 
-    public static var imageNames: [ImageAsset] {
+    public static var imageNames: [CharcoalImageAsset] {
         return [
             .arrowDown,
             .arrowLeft,

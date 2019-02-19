@@ -5,7 +5,7 @@
 import UIKit
 
 enum RangeToolbarItem {
-    case arrow(imageAsset: ImageAsset, target: UITextField?)
+    case arrow(imageAsset: CharcoalImageAsset, target: UITextField?)
     case fixedSpace(width: CGFloat)
     case flexibleSpace
     case done(target: UIView)

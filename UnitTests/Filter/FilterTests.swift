@@ -6,23 +6,14 @@
 import XCTest
 
 final class FilterTests: XCTestCase {
-    func testIsLeafFilter() {
-        let filter = Filter(title: "Test", name: "test")
-        XCTAssertTrue(filter.isLeafFilter)
-
-        filter.add(subfilter: Filter(title: "subfilter 1", name: "subfilter-1"))
-        filter.add(subfilter: Filter(title: "subfilter 2", name: "subfilter-2"))
-        XCTAssertFalse(filter.isLeafFilter)
-    }
-
-    func testAddsubfilter() {
+    func testAddSubfilter() {
         let filter = Filter(title: "Test", name: "test")
         filter.add(subfilter: Filter(title: "subfilter 1", name: "subfilter-1"))
         filter.add(subfilter: Filter(title: "subfilter 2", name: "subfilter-2"))
         XCTAssertEqual(filter.subfilters.count, 2)
     }
 
-    func testAddsubfilterAtIndex() {
+    func testAddSubfilterAtIndex() {
         let filter = Filter(title: "Test", name: "test")
         filter.add(subfilter: Filter(title: "subfilter 1", name: "index-0"))
         filter.add(subfilter: Filter(title: "subfilter 2", name: "index-2"))

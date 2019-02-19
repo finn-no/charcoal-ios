@@ -12,10 +12,6 @@ class Filter {
     private(set) var subfilters: [Filter] = []
     private(set) weak var parent: Filter?
 
-    var isLeafFilter: Bool {
-        return subfilters.isEmpty
-    }
-
     // MARK: - Init
 
     init(title: String, name: String, value: String? = nil, numberOfResults: Int = 0) {

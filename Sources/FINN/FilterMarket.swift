@@ -44,14 +44,6 @@ public enum FilterMarket {
 // MARK: - FilterConfiguration
 
 extension FilterMarket: FINNFilterConfiguration {
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
-        return currentFilterConfig.rangeViewModel(forKey: key)
-    }
-
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return currentFilterConfig.handlesVerticalId(vertical)
-    }
-
     public var preferenceFilterKeys: [FilterKey] {
         return currentFilterConfig.preferenceFilterKeys
     }
@@ -74,6 +66,14 @@ extension FilterMarket: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return currentFilterConfig.preferencesFilterKey
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return currentFilterConfig.handlesVerticalId(vertical)
+    }
+
+    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+        return currentFilterConfig.rangeViewModel(forKey: key)
     }
 }
 

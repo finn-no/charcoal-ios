@@ -14,10 +14,6 @@ public enum FilterMarketCar: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketCar: FINNFilterConfiguration {
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical
-    }
-
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .norway, .abroad:
@@ -126,6 +122,10 @@ extension FilterMarketCar: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical
     }
 
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {

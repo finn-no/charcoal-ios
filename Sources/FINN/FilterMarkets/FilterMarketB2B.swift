@@ -19,10 +19,6 @@ public enum FilterMarketB2B: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketB2B: FINNFilterConfiguration {
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical
-    }
-
     public var preferenceFilterKeys: [FilterKey] {
         return [.published, .dealerSegment]
     }
@@ -108,6 +104,10 @@ extension FilterMarketB2B: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical
     }
 
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {

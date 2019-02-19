@@ -23,10 +23,6 @@ public enum FilterMarketRealestate: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketRealestate: FINNFilterConfiguration {
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical
-    }
-
     public var preferenceFilterKeys: [FilterKey] {
         let defaultFilter: [FilterKey] = [.published]
         switch self {
@@ -160,6 +156,10 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical
     }
 
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {

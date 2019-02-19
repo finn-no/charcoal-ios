@@ -11,10 +11,6 @@ public enum FilterMarketBap: String, CaseIterable {
 // MARK: - FilterConfiguration
 
 extension FilterMarketBap: FINNFilterConfiguration {
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
-    }
-
     public var preferenceFilterKeys: [FilterKey] {
         return [.searchType, .segment, .condition, .published]
     }
@@ -72,6 +68,10 @@ extension FilterMarketBap: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
     }
 
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {

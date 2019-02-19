@@ -10,17 +10,11 @@
                 "published",
                 "location",
                 "category",
-                "shoe_size",
                 "price",
                 "segment",
                 "condition"
                 ],
     "filter-data": {
-        "shoe_size": {
-            "title": "Skostørrelse",
-            "range": true,
-            "name": "shoe_size"
-        },
         "price": {
             "title": "Pris",
             "range": true,

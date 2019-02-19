@@ -5,13 +5,6 @@
 import Foundation
 
 final class MapFilter: Filter {
-
-    // MARK: - Public properies
-
-    static let filterKey = "map"
-
-    // MARK: - Internal properties
-
     let latitudeFilter: Filter
     let longitudeFilter: Filter
     let radiusFilter: Filter

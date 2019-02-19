@@ -139,6 +139,8 @@
 		CF81E106221BFFE600D00423 /* SelectionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E105221BFFE600D00423 /* SelectionTagView.swift */; };
 		CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */; };
 		CF81E10D221C515800D00423 /* FINNFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */; };
+		CF81E110221C54A800D00423 /* RangeFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E10F221C54A800D00423 /* RangeFilterTests.swift */; };
+		CF81E112221C555500D00423 /* MapFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E111221C555500D00423 /* MapFilterTests.swift */; };
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
@@ -347,6 +349,8 @@
 		CF81E105221BFFE600D00423 /* SelectionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagView.swift; sourceTree = "<group>"; };
 		CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsContainerView.swift; sourceTree = "<group>"; };
 		CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNFilterConfiguration.swift; sourceTree = "<group>"; };
+		CF81E10F221C54A800D00423 /* RangeFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterTests.swift; sourceTree = "<group>"; };
+		CF81E111221C555500D00423 /* MapFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterTests.swift; sourceTree = "<group>"; };
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
@@ -565,7 +569,8 @@
 		44ECE682208F7FDE0017AC82 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				DA8D6840220D88C600D31941 /* Filter */,
+				CF81E10E221C549200D00423 /* Selection */,
+				DA8D6840220D88C600D31941 /* Models */,
 				CFFD9F8B21F09F6200997D14 /* StepSlider */,
 				9BFC0892213412BE00AB8A11 /* FilterBuilder */,
 				44ECE685208F7FDE0017AC82 /* Info.plist */,
@@ -909,6 +914,14 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		CF81E10E221C549200D00423 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */,
+			);
+			path = Selection;
+			sourceTree = "<group>";
+		};
 		CF88577B21F61D710056CC81 /* Haptics */ = {
 			isa = PBXGroup;
 			children = (
@@ -993,13 +1006,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		DA8D6840220D88C600D31941 /* Filter */ = {
+		DA8D6840220D88C600D31941 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				DA8D683B220D874400D31941 /* FilterTests.swift */,
-				DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */,
+				CF81E10F221C54A800D00423 /* RangeFilterTests.swift */,
+				CF81E111221C555500D00423 /* MapFilterTests.swift */,
 			);
-			path = Filter;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		DAF3CA6E218301B3007235B0 /* Stepper */ = {
@@ -1404,7 +1418,9 @@
 			files = (
 				DA8D683C220D874400D31941 /* FilterTests.swift in Sources */,
 				CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */,
+				CF81E112221C555500D00423 /* MapFilterTests.swift in Sources */,
 				CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */,
+				CF81E110221C54A800D00423 /* RangeFilterTests.swift in Sources */,
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
 				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
 				DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */,

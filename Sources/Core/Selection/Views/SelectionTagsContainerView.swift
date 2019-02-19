@@ -15,7 +15,7 @@ final class SelectionTagsContainerView: UIView {
 
     private lazy var collapsedView = SelectionTagView(withAutoLayout: true)
 
-    private lazy var expandedView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stackView = UIStackView(withAutoLayout: true)
         stackView.axis = .horizontal
         stackView.spacing = .smallSpacing
@@ -40,10 +40,10 @@ final class SelectionTagsContainerView: UIView {
     // MARK: - Overrides
 
     override func layoutSubviews() {
-        expandedView.layoutIfNeeded()
+        stackView.layoutIfNeeded()
 
-        let showCollapsedView = frame.width < expandedView.frame.width
-        expandedView.isHidden = showCollapsedView
+        let showCollapsedView = frame.width < stackView.frame.width
+        stackView.isHidden = showCollapsedView
         collapsedView.isHidden = !showCollapsedView
 
         super.layoutSubviews()
@@ -53,19 +53,19 @@ final class SelectionTagsContainerView: UIView {
 
     func configure(with selectionTitles: [String], isValid: Bool) {
         collapsedView.configure(withTitle: selectionTitles.joinedTitles, isValid: isValid, showRemoveButton: false)
-        expandedView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         selectionTitles.forEach { title in
             let view = SelectionTagView()
             view.configure(withTitle: title, isValid: isValid, showRemoveButton: true)
             view.translatesAutoresizingMaskIntoConstraints = false
             view.delegate = self
-            expandedView.addArrangedSubview(view)
+            stackView.addArrangedSubview(view)
         }
     }
 
     private func setup() {
-        addSubview(expandedView)
+        addSubview(stackView)
         addSubview(collapsedView)
 
         let tagViewHeight: CGFloat = 30
@@ -73,9 +73,9 @@ final class SelectionTagsContainerView: UIView {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
 
-            expandedView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            expandedView.heightAnchor.constraint(equalToConstant: tagViewHeight),
-            expandedView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: tagViewHeight),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
             collapsedView.centerYAnchor.constraint(equalTo: centerYAnchor),
             collapsedView.heightAnchor.constraint(equalToConstant: tagViewHeight),
@@ -89,7 +89,7 @@ final class SelectionTagsContainerView: UIView {
 
 extension SelectionTagsContainerView: SelectionTagViewDelegate {
     func selectionTagViewDidSelectRemove(_ view: SelectionTagView) {
-        guard let index = expandedView.arrangedSubviews.index(of: view) else {
+        guard let index = stackView.arrangedSubviews.index(of: view) else {
             return
         }
 

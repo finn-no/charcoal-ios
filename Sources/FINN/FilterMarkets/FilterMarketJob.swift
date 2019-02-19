@@ -12,7 +12,7 @@ public enum FilterMarketJob: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketJob: FilterConfiguration {
+extension FilterMarketJob: FINNFilterConfiguration {
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
         return nil
     }

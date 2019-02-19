@@ -17,7 +17,7 @@ public enum FilterMarketBoat: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketBoat: FilterConfiguration {
+extension FilterMarketBoat: FINNFilterConfiguration {
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

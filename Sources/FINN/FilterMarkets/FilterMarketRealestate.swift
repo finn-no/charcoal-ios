@@ -22,7 +22,7 @@ public enum FilterMarketRealestate: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketRealestate: FilterConfiguration {
+extension FilterMarketRealestate: FINNFilterConfiguration {
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

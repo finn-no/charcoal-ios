@@ -21,7 +21,7 @@ public enum FilterMarket {
         self = market
     }
 
-    private var currentFilterConfig: FilterConfiguration {
+    private var currentFilterConfig: FINNFilterConfiguration {
         switch self {
         case let .bap(bap):
             return bap
@@ -43,7 +43,7 @@ public enum FilterMarket {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarket: FilterConfiguration {
+extension FilterMarket: FINNFilterConfiguration {
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
         return currentFilterConfig.rangeViewModel(forKey: key)
     }

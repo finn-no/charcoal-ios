@@ -5,12 +5,12 @@
 import Foundation
 
 public protocol FilterConfiguration {
-    var preferenceFilterKeys: [FilterKey] { get }
-    var supportedFiltersKeys: [FilterKey] { get }
-    var contextFilters: Set<FilterKey> { get }
-    var filterKeyWithMapSubfilter: FilterKey? { get }
-    var searchFilterKey: FilterKey? { get }
-    var preferencesFilterKey: FilterKey? { get }
+    var preferenceFilterKeys: [String] { get }
+    var supportedFiltersKeys: [String] { get }
+    var contextFilters: Set<String> { get }
+    var filterKeyWithMapSubfilter: String? { get }
+    var searchFilterKey: String? { get }
+    var preferencesFilterKey: String? { get }
 
     func handlesVerticalId(_ vertical: String) -> Bool
     func rangeViewModel(forKey key: String) -> RangeFilterInfo?

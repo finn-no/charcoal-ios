@@ -10,7 +10,7 @@ public enum FilterMarketBap: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketBap: FilterConfiguration {
+extension FilterMarketBap: FINNFilterConfiguration {
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
     }

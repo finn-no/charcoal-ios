@@ -4,12 +4,12 @@
 
 import UIKit
 
-protocol CCRootFilterCellDelegate: AnyObject {
-    func rootFilterCell(_ cell: CCRootFilterCell, didRemoveItemAt index: Int)
+protocol RootFilterCellDelegate: AnyObject {
+    func rootFilterCell(_ cell: RootFilterCell, didRemoveItemAt index: Int)
 }
 
-class CCRootFilterCell: UITableViewCell {
-    weak var delegate: CCRootFilterCellDelegate?
+final class RootFilterCell: UITableViewCell {
+    weak var delegate: RootFilterCellDelegate?
 
     // MARK: - Private properties
 
@@ -87,7 +87,7 @@ class CCRootFilterCell: UITableViewCell {
 
 // MARK: - SelectionTagsContainerViewDelegate
 
-extension CCRootFilterCell: SelectionTagsContainerViewDelegate {
+extension RootFilterCell: SelectionTagsContainerViewDelegate {
     func selectionTagsContainerView(_ view: SelectionTagsContainerView, didRemoveTagAt index: Int) {
         delegate?.rootFilterCell(self, didRemoveItemAt: index)
     }

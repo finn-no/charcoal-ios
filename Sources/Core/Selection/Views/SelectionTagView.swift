@@ -11,7 +11,7 @@ protocol SelectionTagViewDelegate: AnyObject {
 final class SelectionTagView: UIView {
     weak var delegate: SelectionTagViewDelegate?
 
-    // MARK: - Private vars
+    // MARK: - Private properties
 
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(withAutoLayout: true)

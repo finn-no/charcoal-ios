@@ -11,6 +11,8 @@ protocol SelectionTagsContainerViewDelegate: AnyObject {
 final class SelectionTagsContainerView: UIView {
     weak var delegate: SelectionTagsContainerViewDelegate?
 
+    // MARK: - Private properties
+
     private lazy var collapsedView = SelectionTagView(withAutoLayout: true)
 
     private lazy var expandedView: UIStackView = {

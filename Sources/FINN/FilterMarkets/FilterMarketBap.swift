@@ -58,7 +58,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
         ]
     }
 
-    public var filterKeyWithMapSubfilter: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
     }
 

@@ -43,28 +43,28 @@ public enum FilterMarket {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarket: FINNFilterConfiguration {
-    public var preferenceFilterKeys: [FilterKey] {
+extension FilterMarket: FilterConfiguration {
+    public var preferenceFilterKeys: [String] {
         return currentFilterConfig.preferenceFilterKeys
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var supportedFiltersKeys: [String] {
         return currentFilterConfig.supportedFiltersKeys
     }
 
-    public var contextFilters: Set<FilterKey> {
+    public var contextFilters: Set<String> {
         return currentFilterConfig.contextFilters
     }
 
-    public var filterKeyWithMapSubfilter: FilterKey? {
-        return currentFilterConfig.filterKeyWithMapSubfilter
+    public var mapFilterParentFilterKey: String? {
+        return currentFilterConfig.mapFilterParentFilterKey
     }
 
-    public var searchFilterKey: FilterKey? {
+    public var searchFilterKey: String? {
         return currentFilterConfig.searchFilterKey
     }
 
-    public var preferencesFilterKey: FilterKey? {
+    public var preferencesFilterKey: String? {
         return currentFilterConfig.preferencesFilterKey
     }
 

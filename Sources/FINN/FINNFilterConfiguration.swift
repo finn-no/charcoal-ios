@@ -8,7 +8,7 @@ public protocol FINNFilterConfiguration: FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }
     var supportedFiltersKeys: [FilterKey] { get }
     var contextFilters: Set<FilterKey> { get }
-    var filterKeyWithMapSubfilter: FilterKey? { get }
+    var mapFilterParentFilterKey: FilterKey? { get }
     var searchFilterKey: FilterKey? { get }
     var preferencesFilterKey: FilterKey? { get }
 }
@@ -27,7 +27,7 @@ public extension FINNFilterConfiguration {
     }
 
     var mapFilterParentFilterKey: String? {
-        return filterKeyWithMapSubfilter?.rawValue
+        return mapFilterParentFilterKey?.rawValue
     }
 
     var searchFilterKey: String? {

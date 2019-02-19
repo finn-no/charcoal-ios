@@ -112,7 +112,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
         ]
     }
 
-    public var filterKeyWithMapSubfilter: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
     }
 

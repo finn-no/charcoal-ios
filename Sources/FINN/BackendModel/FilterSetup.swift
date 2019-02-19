@@ -54,13 +54,13 @@ public struct FilterSetup: Decodable {
 
         var rootSubfilters = [Filter]()
 
-        if let name = filterMarket.searchFilterKey?.rawValue {
-            rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: name))
+        if let key = filterMarket.searchFilterKey {
+            rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: key))
         }
 
-        if let name = filterMarket.preferencesFilterKey?.rawValue {
+        if let key = filterMarket.preferencesFilterKey {
             let preferenceSubfilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
-            let preferenceFilter = Filter(title: "", key: name)
+            let preferenceFilter = Filter(title: "", key: key)
             preferenceSubfilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
 
             rootSubfilters.append(preferenceFilter)
@@ -71,7 +71,7 @@ public struct FilterSetup: Decodable {
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let locationFilter = supportedFilters.first(where: { $0.key == filterMarket.filterKeyWithMapSubfilter?.rawValue }) {
+        if let locationFilter = supportedFilters.first(where: { $0.key == filterMarket.mapFilterParentFilterKey }) {
             let mapFilter = MapFilter(
                 title: "map_filter_title".localized(),
                 key: "map",
@@ -124,7 +124,7 @@ public struct FilterSetup: Decodable {
         return FilterSetup(market: market, hits: hits, filterTitle: filterTitle, rawFilterKeys: rawFilterKeys, filters: filters)
     }
 
-    func filterData(forKey key: FilterKey) -> FilterData? {
-        return filters.first(where: { $0.parameterName == key.rawValue })
+    func filterData(forKey key: String) -> FilterData? {
+        return filters.first(where: { $0.parameterName == key })
     }
 }

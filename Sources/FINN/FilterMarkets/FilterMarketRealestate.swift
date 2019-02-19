@@ -146,7 +146,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         return []
     }
 
-    public var filterKeyWithMapSubfilter: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
     }
 

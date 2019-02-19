@@ -94,7 +94,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         return []
     }
 
-    public var filterKeyWithMapSubfilter: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
     }
 

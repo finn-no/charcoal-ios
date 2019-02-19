@@ -44,7 +44,7 @@ extension FilterMarketJob: FINNFilterConfiguration {
         return []
     }
 
-    public var filterKeyWithMapSubfilter: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
     }
 

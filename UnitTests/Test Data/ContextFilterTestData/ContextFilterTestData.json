@@ -1,0 +1,23 @@
+{
+    "market": "bap-sale",
+    "hits": 63455,
+    "label": "Biler i Norge",
+    "type": "search",
+    "filters": [
+        "markets",
+        "q",
+        "category",
+        "shoe_size"
+    ],
+    "filter-data": {
+        "category": {
+            "title": "Kategori",
+            "name": "category"
+        },
+        "shoe_size": {
+            "title": "Skostørrelse",
+            "range": true,
+            "name": "shoe_size"
+        }
+    }
+}

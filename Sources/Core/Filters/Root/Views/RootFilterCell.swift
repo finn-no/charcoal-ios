@@ -13,6 +13,13 @@ final class RootFilterCell: UITableViewCell {
 
     // MARK: - Private properties
 
+    private lazy var contextMark: UIView = {
+        let view = UIView(withAutoLayout: true)
+        view.backgroundColor = .red
+        view.layer.cornerRadius = 5
+        return view
+    }()
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +40,8 @@ final class RootFilterCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    private lazy var titleToContextMarkConstraint = titleLabel.leadingAnchor.constraint(equalTo: contextMark.trailingAnchor, constant: .mediumSpacing)
 
     // MARK: - Init
 
@@ -57,20 +66,39 @@ final class RootFilterCell: UITableViewCell {
 
     // MARK: - Setup
 
-    func configure(withTitle title: String, selectionTitles: [String], isValid: Bool) {
+    func configure(withTitle title: String, selectionTitles: [String], isValid: Bool, kind: Filter.Kind = .normal) {
         titleLabel.text = title
         selectionTagsContainerView.configure(with: selectionTitles, isValid: isValid)
+
+        switch kind {
+        case .normal:
+            contextMark.isHidden = true
+            titleToContextMarkConstraint.isActive = false
+        case .context:
+            contextMark.isHidden = false
+            titleToContextMarkConstraint.isActive = true
+        }
     }
 
     private func setup() {
+        contentView.addSubview(contextMark)
         contentView.addSubview(titleLabel)
         contentView.addSubview(selectionTagsContainerView)
         contentView.addSubview(hairLine)
 
+        // Setting a low priority here means 'titleToMarkConstraint' will have higher priority
+        let titleToContentViewConstraint = titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing)
+        titleToContentViewConstraint.priority = .defaultLow
+
         NSLayoutConstraint.activate([
+            contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
+            contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            contextMark.widthAnchor.constraint(equalToConstant: 10),
+            contextMark.heightAnchor.constraint(equalToConstant: 10),
+
+            titleToContentViewConstraint,
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumLargeSpacing),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumLargeSpacing),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             selectionTagsContainerView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),

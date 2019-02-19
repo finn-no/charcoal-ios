@@ -26,8 +26,43 @@ extension FilterMarketBap: FilterConfiguration {
     public var supportedFiltersKeys: [FilterKey] {
         return [
             .category,
+            .bikesType,
+            .carPartsBrand,
+            .carTiresAndRimsType,
+            .clothingSize,
+            .childrenClothingSize,
+            .computerAccType,
+            .forRent,
+            .guitarType,
+            .hifiPartsType,
+            .horseHeight,
+            .laptopsBrand,
+            .mobileBrand,
+            .shoeSize,
+            .womenClothingBrand,
+            .lengthCm,
             .location,
             .price,
+        ]
+    }
+
+    public var contextFilters: Set<FilterKey> {
+        return [
+            .bikesType,
+            .carPartsBrand,
+            .carTiresAndRimsType,
+            .clothingSize,
+            .childrenClothingSize,
+            .computerAccType,
+            .forRent,
+            .guitarType,
+            .hifiPartsType,
+            .horseHeight,
+            .laptopsBrand,
+            .mobileBrand,
+            .shoeSize,
+            .womenClothingBrand,
+            .lengthCm,
         ]
     }
 

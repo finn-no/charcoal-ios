@@ -98,6 +98,10 @@ extension FilterMarketB2B: FilterConfiguration {
         }
     }
 
+    public var contextFilters: Set<FilterKey> {
+        return []
+    }
+
     public var mapFilterKey: FilterKey? {
         return .location
     }

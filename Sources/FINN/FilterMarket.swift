@@ -60,6 +60,10 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.supportedFiltersKeys
     }
 
+    public var contextFilters: Set<FilterKey> {
+        return currentFilterConfig.contextFilters
+    }
+
     public var mapFilterKey: FilterKey? {
         return currentFilterConfig.mapFilterKey
     }

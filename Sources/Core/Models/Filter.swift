@@ -5,20 +5,27 @@
 import Foundation
 
 class Filter {
+    enum Kind {
+        case normal
+        case context
+    }
+
     let title: String
     let name: String
     let value: String?
     let numberOfResults: Int
+    let kind: Kind
     private(set) var subfilters: [Filter] = []
     private(set) weak var parent: Filter?
 
     // MARK: - Init
 
-    init(title: String, name: String, value: String? = nil, numberOfResults: Int = 0) {
+    init(title: String, name: String, value: String? = nil, numberOfResults: Int = 0, kind: Kind = .normal) {
         self.title = title
         self.name = name
         self.value = value
         self.numberOfResults = numberOfResults
+        self.kind = kind
     }
 
     // MARK: - Public methods

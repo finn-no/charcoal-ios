@@ -13,6 +13,13 @@ class CCRootFilterCell: UITableViewCell {
 
     // MARK: - Private properties
 
+    private lazy var mark: UIView = {
+        let view = UIView(withAutoLayout: true)
+        view.backgroundColor = .red
+        view.layer.cornerRadius = 5
+        return view
+    }()
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +48,10 @@ class CCRootFilterCell: UITableViewCell {
         return view
     }()
 
+    private lazy var titleToMarkConstraint = titleLabel.leadingAnchor.constraint(equalTo: mark.trailingAnchor, constant: .mediumSpacing)
+
+    // MARK: - Init
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         accessoryType = .disclosureIndicator
@@ -66,10 +77,19 @@ class CCRootFilterCell: UITableViewCell {
 }
 
 extension CCRootFilterCell {
-    func configure(withTitle title: String, selectionTitles: [String]) {
+    func configure(withTitle title: String, selectionTitles: [String], kind: Filter.Kind = .normal) {
         titleLabel.text = title
         collectionSelectionView.add(titles: selectionTitles)
         collapsedSelectionView.add(titles: selectionTitles)
+
+        switch kind {
+        case .normal:
+            mark.isHidden = true
+            titleToMarkConstraint.isActive = false
+        case .context:
+            mark.isHidden = false
+            titleToMarkConstraint.isActive = true
+        }
     }
 }
 
@@ -81,15 +101,25 @@ extension CCRootFilterCell: CCFilterSelectionViewDelegate {
 
 private extension CCRootFilterCell {
     func setup() {
+        contentView.addSubview(mark)
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionSelectionView)
         contentView.addSubview(collapsedSelectionView)
         contentView.addSubview(hairLine)
 
+        // Setting a low priority here means 'titleToMarkConstraint' will have higher priority
+        let titleToContentViewConstraint = titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing)
+        titleToContentViewConstraint.priority = .defaultLow
+
         NSLayoutConstraint.activate([
+            mark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
+            mark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            mark.widthAnchor.constraint(equalToConstant: 10),
+            mark.heightAnchor.constraint(equalToConstant: 10),
+
+            titleToContentViewConstraint,
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumLargeSpacing),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumLargeSpacing),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
 
             collectionSelectionView.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: .mediumSpacing),
             collectionSelectionView.topAnchor.constraint(equalTo: contentView.topAnchor),

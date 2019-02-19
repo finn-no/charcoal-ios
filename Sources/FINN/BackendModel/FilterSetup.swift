@@ -58,7 +58,10 @@ public struct FilterSetup: Decodable {
         let preferenceFilter = Filter(title: "", name: "preferences")
         preferenceFilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
 
-        let filters = filterMarket.supportedFiltersKeys.compactMap { filterData(forKey: $0)?.asFilter() }
+        let filters = filterMarket.supportedFiltersKeys.compactMap { key -> Filter? in
+            let kind: Filter.Kind = filterMarket.contextFilters.contains(key) ? .context : .normal
+            return filterData(forKey: key)?.asFilter(of: kind)
+        }
 
         if let locationFilter = filters.first(where: { $0.name == FilterKey.location.rawValue }) {
             let mapFilter = MapFilter(title: "map_filter_title".localized(), name: MapFilter.filterKey)

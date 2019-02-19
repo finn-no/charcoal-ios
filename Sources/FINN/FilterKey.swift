@@ -7,16 +7,22 @@ import Foundation
 public enum FilterKey: String, CodingKey {
     case animalsAllowed = "animals_allowed"
     case area
+    case bikesType = "bikes_type"
     case boatClass = "class"
     case bodyType = "body_type"
     case caravanDealerSegment = "caravan_dealer_segment"
     case caravanSegment = "caravan_segment"
     case busSegment = "bus_segment"
     case carEquipment = "car_equipment"
+    case carTiresAndRimsType = "cartiresandrims_type"
+    case carPartsBrand = "carparts_brand"
     case category
+    case childrenClothingSize = "children_clothing_size"
+    case computerAccType = "computeracc_type"
     case condition
     case constructionSegment = "construction_segment"
     case constructionYear = "construction_year"
+    case clothingSize = "clothing_size"
     case dealerSegment = "dealer_segment"
     case energyLabel = "energy_label"
     case engineEffect = "engine_effect"
@@ -26,24 +32,31 @@ public enum FilterKey: String, CodingKey {
     case exteriorColour = "exterior_colour"
     case facilities
     case floorNavigator = "floor_navigator"
+    case forRent = "for_rent"
     case fuel
     case furnished
+    case guitarType = "guitar_type"
+    case hifiPartsType = "hifiparts_type"
+    case horseHeight = "horse_height"
     case industry
     case isNewProperty = "is_new_property"
     case isPrivateBroker = "is_private_broker"
     case isSold = "is_sold"
     case jobDuration = "job_duration"
     case jobSector = "job_sector"
+    case laptopsBrand = "laptops_brand"
     case leasepriceInit = "leaseprice_init"
     case leasepriceMonth = "leaseprice_month"
     case leisureSituation = "leisure_situation"
     case length
+    case lengthCm = "length_cm"
     case lengthFeet = "length_feet"
     case location
     case make
     case managerRole = "manager_role"
     case markets
     case mileage
+    case mobileBrand = "mobile_brand"
     case mobileHomeSegment = "mobile_home_segment"
     case motorAdLocation = "motor_ad_location"
     case motorIncluded = "motor_included"
@@ -70,6 +83,7 @@ public enum FilterKey: String, CodingKey {
     case salesForm = "sales_form"
     case searchType = "search_type"
     case segment
+    case shoeSize = "shoe_size"
     case transmission
     case truckSegment = "truck_segment"
     case type
@@ -79,5 +93,6 @@ public enum FilterKey: String, CodingKey {
     case width
     case wheelDrive = "wheel_drive"
     case wheelSets = "wheel_sets"
+    case womenClothingBrand = "women_clothing_brand"
     case year
 }

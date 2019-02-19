@@ -93,7 +93,7 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
 
             let titles = selectionStore.titles(for: currentFilter)
-            cell.configure(withTitle: currentFilter.title, selectionTitles: titles)
+            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, kind: currentFilter.kind)
             return cell
         }
     }

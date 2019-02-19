@@ -11,10 +11,10 @@ final class RangeFilter: Filter {
     let lowValueFilter: Filter
     let highValueFilter: Filter
 
-    init(title: String, name: String) {
+    init(title: String, name: String, kind: Kind = .normal) {
         lowValueFilter = Filter(title: "", name: name + "_from")
         highValueFilter = Filter(title: "", name: name + "_to")
-        super.init(title: title, name: name)
+        super.init(title: title, name: name, kind: kind)
         setup()
     }
 }

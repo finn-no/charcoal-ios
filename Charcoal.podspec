@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.platform         = :ios, '9.0'
   s.requires_arc     = true
   s.swift_version    = '4.2'
-  s.source_files     = 'Sources/**/*.swift'
+  s.source_files     = 'Sources/**/*.swift', 'Resources/*.swift'
   s.resources    = 'Resources/*.xcassets', 'Resources/*.lproj'
   s.resource_bundles = {
       'Charcoal' => ['Resources/*.xcassets', 'Resources/*.lproj']

@@ -15,7 +15,7 @@ struct CCListFilterCellViewModel {
 
 extension CCListFilterCellViewModel {
     static func regular(from filter: Filter, isSelected: Bool, hasSelectedSubfilters: Bool) -> CCListFilterCellViewModel {
-        let iconAsset: ImageAsset = isSelected ? .checkboxOn : hasSelectedSubfilters ? .checkboxPartial : .checkboxOff
+        let iconAsset: CharcoalImageAsset = isSelected ? .checkboxOn : hasSelectedSubfilters ? .checkboxPartial : .checkboxOff
 
         return CCListFilterCellViewModel(
             title: filter.title,
@@ -26,7 +26,7 @@ extension CCListFilterCellViewModel {
     }
 
     static func selectAll(from filter: Filter, isSelected: Bool) -> CCListFilterCellViewModel {
-        let iconAsset: ImageAsset = isSelected ? .checkboxOn : .checkboxOff
+        let iconAsset: CharcoalImageAsset = isSelected ? .checkboxOn : .checkboxOff
 
         return CCListFilterCellViewModel(
             title: "all_items_title".localized(),

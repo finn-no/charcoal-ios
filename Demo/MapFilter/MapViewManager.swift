@@ -21,8 +21,8 @@ class MapViewManager: NSObject, MapFilterViewManager {
         button.tintColor = .primaryBlue
         button.backgroundColor = UIColor(white: 1, alpha: 0.8)
         button.layer.cornerRadius = CGFloat(buttonWidth / 2)
-        button.setImage(UIImage(named: ImageAsset.locateUserOutlined), for: .normal)
-        button.setImage(UIImage(named: ImageAsset.locateUserFilled), for: .highlighted)
+        button.setImage(UIImage(named: CharcoalImageAsset.locateUserOutlined), for: .normal)
+        button.setImage(UIImage(named: CharcoalImageAsset.locateUserFilled), for: .highlighted)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
         NSLayoutConstraint.activate([

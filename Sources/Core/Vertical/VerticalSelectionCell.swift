@@ -5,11 +5,11 @@
 import UIKit
 
 class VerticalSelectionCell: UITableViewCell {
-    private var normalStateImageAsset: ImageAsset {
+    private var normalStateImageAsset: CharcoalImageAsset {
         return .radioButtonOff
     }
 
-    private var selectedStateImageAsset: ImageAsset {
+    private var selectedStateImageAsset: CharcoalImageAsset {
         return .radioButtonOn
     }
 

@@ -16,8 +16,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     // MARK: - Tests
 
     func testClear() {
-        let filterA = Filter(title: "Test A", name: "testA", value: "valueB")
-        let filterB = Filter(title: "Test B", name: "testB", value: "valueB")
+        let filterA = Filter(title: "Test A", key: "testA", value: "valueB")
+        let filterB = Filter(title: "Test B", key: "testB", value: "valueB")
 
         store.setValue(from: filterA)
         store.setValue(from: filterB)
@@ -32,14 +32,14 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testSetValueFromfilter() {
-        let filter = Filter(title: "Test", name: "test", value: "valueA")
+        let filter = Filter(title: "Test", key: "test", value: "valueA")
 
         store.setValue(from: filter)
         XCTAssertEqual(store.value(for: filter), "valueA")
     }
 
     func testSetValueForfilter() {
-        let filter = Filter(title: "Test", name: "test")
+        let filter = Filter(title: "Test", key: "test")
 
         store.setValue("valueB", for: filter)
         XCTAssertEqual(store.value(for: filter), "valueB")
@@ -49,7 +49,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testRemoveValuesForfilter() {
-        let filter = Filter(title: "Test", name: "test", value: "value")
+        let filter = Filter(title: "Test", key: "test", value: "value")
 
         store.setValue(from: filter)
         XCTAssertTrue(store.isSelected(filter))
@@ -59,9 +59,9 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testRemoveValuesForfilterWithSubfilters() {
-        let filter = Filter(title: "Test", name: "filter", value: "value")
-        let subfilterA = Filter(title: "subfilter A", name: "subfilterA", value: "valueB")
-        let subfilterB = Filter(title: "subfilter B", name: "subfilterB", value: "valueB")
+        let filter = Filter(title: "Test", key: "filter", value: "value")
+        let subfilterA = Filter(title: "subfilter A", key: "subfilterA", value: "valueB")
+        let subfilterB = Filter(title: "subfilter B", key: "subfilterB", value: "valueB")
 
         filter.add(subfilter: subfilterA)
         filter.add(subfilter: subfilterB)
@@ -77,7 +77,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testToggleValueForfilter() {
-        let filter = Filter(title: "Test", name: "test", value: "value")
+        let filter = Filter(title: "Test", key: "test", value: "value")
 
         store.toggleValue(for: filter)
         XCTAssertTrue(store.isSelected(filter))
@@ -87,9 +87,9 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testIsSelected() {
-        let filter = Filter(title: "Test", name: "filter", value: "value")
-        let subfilterA = Filter(title: "subfilter A", name: "subfilterA", value: "valueB")
-        let subfilterB = Filter(title: "subfilter B", name: "subfilterB", value: "valueB")
+        let filter = Filter(title: "Test", key: "filter", value: "value")
+        let subfilterA = Filter(title: "subfilter A", key: "subfilterA", value: "valueB")
+        let subfilterB = Filter(title: "subfilter B", key: "subfilterB", value: "valueB")
 
         filter.add(subfilter: subfilterA)
         filter.add(subfilter: subfilterB)
@@ -104,7 +104,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testQueryItems() {
-        let filter = Filter(title: "Test", name: "test", value: "value")
+        let filter = Filter(title: "Test", key: "test", value: "value")
         store.setValue(from: filter)
 
         let expected = [URLQueryItem(name: "test", value: "value")]
@@ -112,9 +112,9 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testQueryItemsWithSubfilters() {
-        let filter = Filter(title: "Test", name: "filter", value: "value")
-        let subfilterA = Filter(title: "subfilter A", name: "subfilterA", value: "valueA")
-        let subfilterB = Filter(title: "subfilter B", name: "subfilterB", value: "valueB")
+        let filter = Filter(title: "Test", key: "filter", value: "value")
+        let subfilterA = Filter(title: "subfilter A", key: "subfilterA", value: "valueA")
+        let subfilterB = Filter(title: "subfilter B", key: "subfilterB", value: "valueB")
 
         filter.add(subfilter: subfilterA)
         filter.add(subfilter: subfilterB)
@@ -131,16 +131,16 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testTitles() {
-        let filter = Filter(title: "Test", name: "test", value: "value")
+        let filter = Filter(title: "Test", key: "test", value: "value")
 
         store.setValue(from: filter)
         XCTAssertEqual(store.titles(for: filter), ["Test"])
     }
 
     func testTitlesWithSubfilters() {
-        let filter = Filter(title: "filter", name: "filter", value: "value")
-        let subfilterA = Filter(title: "subfilter A", name: "subfilterA", value: "valueA")
-        let subfilterB = Filter(title: "subfilter B", name: "subfilterB", value: "valueB")
+        let filter = Filter(title: "filter", key: "filter", value: "value")
+        let subfilterA = Filter(title: "subfilter A", key: "subfilterA", value: "valueA")
+        let subfilterB = Filter(title: "subfilter B", key: "subfilterB", value: "valueB")
 
         filter.add(subfilter: subfilterA)
         filter.add(subfilter: subfilterB)
@@ -154,14 +154,14 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testIsValid() {
-        let filter = Filter(title: "Test", name: "test", value: "value")
+        let filter = Filter(title: "Test", key: "test", value: "value")
 
         store.setValue(from: filter)
         XCTAssertTrue(store.isValid(filter))
     }
 
     func testIsValidWithRange() {
-        let filter = RangeFilter(title: "Range", name: "range")
+        let filter = RangeFilter(title: "Range", key: "range", lowValueKey: "range_from", highValueKey: "range_to")
 
         XCTAssertTrue(store.isValid(filter))
 
@@ -187,8 +187,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testHasSelectedSubfilters() {
-        let filter = Filter(title: "filter", name: "filter", value: "value")
-        let subfilter = Filter(title: "subfilter A", name: "subfilterA", value: "valueA")
+        let filter = Filter(title: "filter", key: "filter", value: "value")
+        let subfilter = Filter(title: "subfilter A", key: "subfilterA", value: "valueA")
         filter.add(subfilter: subfilter)
 
         store.setValue(from: subfilter)
@@ -196,8 +196,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testSelectedSubfilters() {
-        let filter = Filter(title: "filter", name: "filter", value: "value")
-        let subfilter = Filter(title: "subfilter A", name: "subfilterA", value: "valueA")
+        let filter = Filter(title: "filter", key: "filter", value: "value")
+        let subfilter = Filter(title: "subfilter A", key: "subfilterA", value: "valueA")
         filter.add(subfilter: subfilter)
 
         store.setValue(from: subfilter)

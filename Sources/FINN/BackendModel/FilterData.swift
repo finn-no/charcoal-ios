@@ -31,7 +31,7 @@ struct FilterData: Decodable {
         if isRange == true {
             let rangeFilter = RangeFilter(
                 title: title,
-                name: parameterName,
+                key: parameterName,
                 lowValueKey: parameterName + "_from",
                 highValueKey: parameterName + "_to",
                 kind: kind

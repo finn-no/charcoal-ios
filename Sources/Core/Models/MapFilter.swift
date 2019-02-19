@@ -10,7 +10,7 @@ final class MapFilter: Filter {
     let radiusFilter: Filter
     let locationNameFilter: Filter
 
-    // MARK: - Setup
+    // MARK: - Init
 
     init(title: String, key: String, latitudeKey: String,
          longitudeKey: String, radiusKey: String, locationKey: String) {
@@ -22,10 +22,10 @@ final class MapFilter: Filter {
         super.init(title: title, key: key, value: nil, numberOfResults: 0)
         setup()
     }
-}
 
-private extension MapFilter {
-    func setup() {
+    // MARK: - Setup
+
+    private func setup() {
         add(subfilter: latitudeFilter)
         add(subfilter: longitudeFilter)
         add(subfilter: radiusFilter)

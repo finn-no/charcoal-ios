@@ -109,6 +109,21 @@ extension FilterSelectionStore {
         }
     }
 
+    func isValid(_ filter: Filter) -> Bool {
+        if let rangeFilter = filter as? RangeFilter {
+            let lowValue: Int? = value(for: rangeFilter.lowValueFilter)
+            let highValue: Int? = value(for: rangeFilter.highValueFilter)
+
+            if let lowValue = lowValue, let highValue = highValue {
+                return lowValue <= highValue
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+    }
+
     func hasSelectedSubfilters(for filter: Filter) -> Bool {
         if isSelected(filter) {
             return true

@@ -21,16 +21,9 @@ class CCRootFilterCell: UITableViewCell {
         return label
     }()
 
-    private lazy var collectionSelectionView: CCCollectionSelectionView = {
-        let view = CCCollectionSelectionView(frame: .zero)
+    private lazy var selectionTagsContainerView: SelectionTagsContainerView = {
+        let view = SelectionTagsContainerView(withAutoLayout: true)
         view.delegate = self
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private lazy var collapsedSelectionView: CCCollapsedSelectionView = {
-        let view = CCCollapsedSelectionView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -40,6 +33,8 @@ class CCRootFilterCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,38 +47,24 @@ class CCRootFilterCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Overrides
+
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
+        selectionTagsContainerView.configure(with: [], isValid: true)
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let contentTooWide = collectionSelectionView.contentWidth > collectionSelectionView.frame.width
-        collectionSelectionView.isHidden = contentTooWide
-        collapsedSelectionView.isHidden = !contentTooWide
-    }
-}
+    // MARK: - Setup
 
-extension CCRootFilterCell {
-    func configure(withTitle title: String, selectionTitles: [String]) {
+    func configure(withTitle title: String, selectionTitles: [String], isValid: Bool) {
         titleLabel.text = title
-        collectionSelectionView.add(titles: selectionTitles)
-        collapsedSelectionView.add(titles: selectionTitles)
+        selectionTagsContainerView.configure(with: selectionTitles, isValid: isValid)
     }
-}
 
-extension CCRootFilterCell: CCFilterSelectionViewDelegate {
-    func selectionView(_ selectionView: CCFilterSelectionView, didRemoveItemAt index: Int) {
-        delegate?.rootFilterCell(self, didRemoveItemAt: index)
-    }
-}
-
-private extension CCRootFilterCell {
-    func setup() {
+    private func setup() {
         contentView.addSubview(titleLabel)
-        contentView.addSubview(collectionSelectionView)
-        contentView.addSubview(collapsedSelectionView)
+        contentView.addSubview(selectionTagsContainerView)
         contentView.addSubview(hairLine)
 
         NSLayoutConstraint.activate([
@@ -91,19 +72,23 @@ private extension CCRootFilterCell {
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumLargeSpacing),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
 
-            collectionSelectionView.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: .mediumSpacing),
-            collectionSelectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionSelectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionSelectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
-            collapsedSelectionView.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: .mediumSpacing),
-            collapsedSelectionView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            collapsedSelectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            selectionTagsContainerView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),
+            selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),
+            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
             hairLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             hairLine.bottomAnchor.constraint(equalTo: bottomAnchor),
             hairLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
             hairLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
+    }
+}
+
+// MARK: - SelectionTagsContainerViewDelegate
+
+extension CCRootFilterCell: SelectionTagsContainerViewDelegate {
+    func selectionTagsContainerView(_ view: SelectionTagsContainerView, didRemoveTagAt index: Int) {
+        delegate?.rootFilterCell(self, didRemoveItemAt: index)
     }
 }

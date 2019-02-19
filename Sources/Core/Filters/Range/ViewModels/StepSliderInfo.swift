@@ -83,17 +83,6 @@ public struct StepSliderInfo {
 
         return values.value(for: step)
     }
-
-    func isValidRangeValue(_ rangeValue: RangeValue) -> Bool {
-        let range = minimumValue ... maximumValue
-
-        switch rangeValue {
-        case let .closed(lowValue, highValue):
-            return lowValue <= highValue && range.contains(lowValue) && range.contains(highValue)
-        case .minimum, .maximum:
-            return true
-        }
-    }
 }
 
 public enum RangeValue {

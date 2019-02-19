@@ -153,6 +153,39 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertEqual(store.titles(for: filter), ["subfilter A"])
     }
 
+    func testIsValid() {
+        let filter = Filter(title: "Test", name: "test", value: "value")
+
+        store.setValue(from: filter)
+        XCTAssertTrue(store.isValid(filter))
+    }
+
+    func testIsValidWithRange() {
+        let filter = RangeFilter(title: "Range", name: "range")
+
+        XCTAssertTrue(store.isValid(filter))
+
+        store.setValue(100, for: filter.lowValueFilter)
+        store.removeValues(for: filter.highValueFilter)
+        XCTAssertTrue(store.isValid(filter))
+
+        store.removeValues(for: filter.lowValueFilter)
+        store.setValue(100, for: filter.highValueFilter)
+        XCTAssertTrue(store.isValid(filter))
+
+        store.setValue(100, for: filter.lowValueFilter)
+        store.setValue(100, for: filter.highValueFilter)
+        XCTAssertTrue(store.isValid(filter))
+
+        store.setValue(100, for: filter.lowValueFilter)
+        store.setValue(200, for: filter.highValueFilter)
+        XCTAssertTrue(store.isValid(filter))
+
+        store.setValue(300, for: filter.lowValueFilter)
+        store.setValue(200, for: filter.highValueFilter)
+        XCTAssertFalse(store.isValid(filter))
+    }
+
     func testHasSelectedSubfilters() {
         let filter = Filter(title: "filter", name: "filter", value: "value")
         let subfilter = Filter(title: "subfilter A", name: "subfilterA", value: "valueA")

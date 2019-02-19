@@ -26,7 +26,7 @@ final class RootFilterViewController: FilterViewController {
         tableView.dataSource = self
         tableView.register(SearchQueryCell.self)
         tableView.register(CCInlineFilterCell.self)
-        tableView.register(CCRootFilterCell.self)
+        tableView.register(RootFilterCell.self)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -89,11 +89,13 @@ extension RootFilterViewController: UITableViewDataSource {
             return cell
 
         default:
-            let cell = tableView.dequeue(CCRootFilterCell.self, for: indexPath)
-            cell.delegate = self
-
             let titles = selectionStore.titles(for: currentFilter)
-            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, kind: currentFilter.kind)
+            let isValid = selectionStore.isValid(currentFilter)
+            let cell = tableView.dequeue(RootFilterCell.self, for: indexPath)
+
+            cell.delegate = self
+            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid)
+
             return cell
         }
     }
@@ -113,8 +115,8 @@ extension RootFilterViewController: UITableViewDelegate {
     }
 }
 
-extension RootFilterViewController: CCRootFilterCellDelegate {
-    func rootFilterCell(_ cell: CCRootFilterCell, didRemoveItemAt index: Int) {
+extension RootFilterViewController: RootFilterCellDelegate {
+    func rootFilterCell(_ cell: RootFilterCell, didRemoveItemAt index: Int) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
@@ -123,6 +125,7 @@ extension RootFilterViewController: CCRootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 }
 

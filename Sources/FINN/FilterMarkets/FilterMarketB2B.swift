@@ -98,7 +98,7 @@ extension FilterMarketB2B: FilterConfiguration {
         return []
     }
 
-    public var mapFilterKey: FilterKey? {
+    public var filterKeyWithMapSubfilter: FilterKey? {
         return .location
     }
 

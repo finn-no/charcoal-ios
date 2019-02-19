@@ -64,8 +64,8 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.contextFilters
     }
 
-    public var mapFilterKey: FilterKey? {
-        return currentFilterConfig.mapFilterKey
+    public var filterKeyWithMapSubfilter: FilterKey? {
+        return currentFilterConfig.filterKeyWithMapSubfilter
     }
 }
 

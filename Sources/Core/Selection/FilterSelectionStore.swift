@@ -25,9 +25,9 @@ final class FilterSelectionStore {
 
     private func queryItem(for filter: Filter) -> URLQueryItem? {
         if let value = filter.value {
-            return queryItems.first(where: { $0.name == filter.name && $0.value == value })
+            return queryItems.first(where: { $0.name == filter.key && $0.value == value })
         } else if filter.subfilters.isEmpty {
-            return queryItems.first(where: { $0.name == filter.name })
+            return queryItems.first(where: { $0.name == filter.key })
         } else {
             return nil
         }
@@ -45,7 +45,7 @@ extension FilterSelectionStore {
         removeValues(for: filter)
 
         if let value = value {
-            let queryItem = URLQueryItem(name: filter.name, value: String(value))
+            let queryItem = URLQueryItem(name: filter.key, value: String(value))
             queryItems.insert(queryItem)
         }
     }

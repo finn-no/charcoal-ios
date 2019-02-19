@@ -45,7 +45,11 @@ public class CharcoalViewController: UINavigationController {
         self.filter = filter
         self.config = config
         selectionStore = FilterSelectionStore(queryItems: queryItems)
-        rootFilterViewController = RootFilterViewController(filter: filter.rootFilter, selectionStore: selectionStore)
+        rootFilterViewController = RootFilterViewController(
+            filter: filter.rootFilter,
+            config: config,
+            selectionStore: selectionStore
+        )
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self
@@ -98,7 +102,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
         switch filter {
         case let rangeFilter as RangeFilter:
-            guard let viewModel = config.viewModel(forKey: rangeFilter.name) else { return }
+            guard let viewModel = config.rangeViewModel(forKey: rangeFilter.key) else { return }
             switch viewModel.kind {
             case .slider:
                 nextViewController = RangeFilterViewController(

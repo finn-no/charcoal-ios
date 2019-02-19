@@ -5,22 +5,21 @@
 import Foundation
 
 final class RangeFilter: Filter {
-
-    // MARK: - Internal properties
-
     let lowValueFilter: Filter
     let highValueFilter: Filter
 
-    init(title: String, name: String, kind: Kind = .normal) {
-        lowValueFilter = Filter(title: "", name: name + "_from")
-        highValueFilter = Filter(title: "", name: name + "_to")
-        super.init(title: title, name: name, kind: kind)
+    // MARK: - Init
+
+    init(title: String, key: String, lowValueKey: String, highValueKey: String, kind: Kind = .normal) {
+        lowValueFilter = Filter(title: "", key: lowValueKey)
+        highValueFilter = Filter(title: "", key: highValueKey)
+        super.init(title: title, key: key, kind: kind)
         setup()
     }
-}
 
-extension RangeFilter {
-    func setup() {
+    // MARK: - Setup
+
+    private func setup() {
         add(subfilter: lowValueFilter)
         add(subfilter: highValueFilter)
     }

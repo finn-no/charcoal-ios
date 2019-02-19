@@ -29,7 +29,7 @@ struct FilterDataQuery: Decodable {
     }
 
     func asFilter(with name: String) -> Filter {
-        let filter = Filter(title: title, name: name, value: value, numberOfResults: totalResults)
+        let filter = Filter(title: title, key: name, value: value, numberOfResults: totalResults)
         if let filterData = self.filter {
             filterData.queries.forEach({ query in
                 filter.add(subfilter: query.asFilter(with: filterData.parameterName))

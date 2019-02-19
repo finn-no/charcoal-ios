@@ -71,6 +71,7 @@ public enum FilterKey: String, CodingKey {
     case ownershipType = "ownership_type"
     case plotArea = "plot_area"
     case plotOwned = "plot_owned"
+    case preferences
     case price
     case priceChanged = "price_changed"
     case priceCollective = "price_collective"

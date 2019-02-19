@@ -21,7 +21,7 @@ public enum FilterMarket {
         self = market
     }
 
-    private var currentFilterConfig: FilterConfiguration {
+    private var currentFilterConfig: FINNFilterConfiguration {
         switch self {
         case let .bap(bap):
             return bap
@@ -44,28 +44,36 @@ public enum FilterMarket {
 // MARK: - FilterConfiguration
 
 extension FilterMarket: FilterConfiguration {
-    public func viewModel(forKey key: String) -> RangeFilterInfo? {
-        return currentFilterConfig.viewModel(forKey: key)
+    public var preferenceFilterKeys: [String] {
+        return currentFilterConfig.preferenceFilterKeys
+    }
+
+    public var supportedFiltersKeys: [String] {
+        return currentFilterConfig.supportedFiltersKeys
+    }
+
+    public var contextFilters: Set<String> {
+        return currentFilterConfig.contextFilters
+    }
+
+    public var mapFilterParentFilterKey: String? {
+        return currentFilterConfig.mapFilterParentFilterKey
+    }
+
+    public var searchFilterKey: String? {
+        return currentFilterConfig.searchFilterKey
+    }
+
+    public var preferencesFilterKey: String? {
+        return currentFilterConfig.preferencesFilterKey
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }
 
-    public var preferenceFilterKeys: [FilterKey] {
-        return currentFilterConfig.preferenceFilterKeys
-    }
-
-    public var supportedFiltersKeys: [FilterKey] {
-        return currentFilterConfig.supportedFiltersKeys
-    }
-
-    public var contextFilters: Set<FilterKey> {
-        return currentFilterConfig.contextFilters
-    }
-
-    public var mapFilterKey: FilterKey? {
-        return currentFilterConfig.mapFilterKey
+    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+        return currentFilterConfig.rangeViewModel(forKey: key)
     }
 }
 

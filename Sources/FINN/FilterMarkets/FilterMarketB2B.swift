@@ -18,15 +18,7 @@ public enum FilterMarketB2B: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketB2B: FilterConfiguration {
-    public func viewModel(forKey key: String) -> RangeFilterInfo? {
-        return createFilterInfoFrom(key: key)
-    }
-
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical
-    }
-
+extension FilterMarketB2B: FINNFilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         return [.published, .dealerSegment]
     }
@@ -102,11 +94,23 @@ extension FilterMarketB2B: FilterConfiguration {
         return []
     }
 
-    public var mapFilterKey: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
     }
 
-    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
+    public var searchFilterKey: FilterKey? {
+        return .query
+    }
+
+    public var preferencesFilterKey: FilterKey? {
+        return .preferences
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical
+    }
+
+    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int
@@ -179,6 +183,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 highValue = 600
                 rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             }
+
             unit = "hk"
             increment = 10
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)

@@ -12,15 +12,7 @@ public enum FilterMarketJob: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketJob: FilterConfiguration {
-    public func viewModel(forKey key: String) -> RangeFilterInfo? {
-        return nil
-    }
-
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical
-    }
-
+extension FilterMarketJob: FINNFilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         return [.published]
     }
@@ -52,7 +44,23 @@ extension FilterMarketJob: FilterConfiguration {
         return []
     }
 
-    public var mapFilterKey: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
+    }
+
+    public var searchFilterKey: FilterKey? {
+        return .query
+    }
+
+    public var preferencesFilterKey: FilterKey? {
+        return .preferences
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical
+    }
+
+    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+        return nil
     }
 }

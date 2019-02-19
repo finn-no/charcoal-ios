@@ -13,15 +13,7 @@ public enum FilterMarketCar: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketCar: FilterConfiguration {
-    public func viewModel(forKey key: String) -> RangeFilterInfo? {
-        return createFilterInfoFrom(key: key)
-    }
-
-    public func handlesVerticalId(_ vertical: String) -> Bool {
-        return rawValue == vertical
-    }
-
+extension FilterMarketCar: FINNFilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .norway, .abroad:
@@ -120,11 +112,23 @@ extension FilterMarketCar: FilterConfiguration {
         ]
     }
 
-    public var mapFilterKey: FilterKey? {
+    public var mapFilterParentFilterKey: FilterKey? {
         return .location
     }
 
-    private func createFilterInfoFrom(key: String) -> RangeFilterInfo? {
+    public var searchFilterKey: FilterKey? {
+        return .query
+    }
+
+    public var preferencesFilterKey: FilterKey? {
+        return .preferences
+    }
+
+    public func handlesVerticalId(_ vertical: String) -> Bool {
+        return rawValue == vertical
+    }
+
+    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
         let increment: Int

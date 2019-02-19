@@ -5,32 +5,27 @@
 import Foundation
 
 final class MapFilter: Filter {
-
-    // MARK: - Public properies
-
-    static let filterKey = "map"
-
-    // MARK: - Internal properties
-
     let latitudeFilter: Filter
     let longitudeFilter: Filter
     let radiusFilter: Filter
     let locationNameFilter: Filter
 
-    // MARK: - Setup
+    // MARK: - Init
 
-    init(title: String, name: String) {
-        latitudeFilter = Filter(title: "", name: "lat")
-        longitudeFilter = Filter(title: "", name: "lon")
-        radiusFilter = Filter(title: "", name: "radius")
-        locationNameFilter = Filter(title: "", name: "geoLocationName")
-        super.init(title: title, name: name, value: nil, numberOfResults: 0)
+    init(title: String, key: String, latitudeKey: String,
+         longitudeKey: String, radiusKey: String, locationKey: String) {
+        latitudeFilter = Filter(title: "", key: latitudeKey)
+        longitudeFilter = Filter(title: "", key: longitudeKey)
+        radiusFilter = Filter(title: "", key: radiusKey)
+        locationNameFilter = Filter(title: "", key: locationKey)
+
+        super.init(title: title, key: key, value: nil, numberOfResults: 0)
         setup()
     }
-}
 
-private extension MapFilter {
-    func setup() {
+    // MARK: - Setup
+
+    private func setup() {
         add(subfilter: latitudeFilter)
         add(subfilter: longitudeFilter)
         add(subfilter: radiusFilter)

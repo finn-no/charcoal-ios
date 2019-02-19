@@ -52,24 +52,41 @@ public struct FilterSetup: Decodable {
             return nil
         }
 
-        let searchQueryFilter = Filter(title: "search_placeholder".localized(), name: "q")
+        var rootSubfilters = [Filter]()
 
-        let preferenceFilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
-        let preferenceFilter = Filter(title: "", name: "preferences")
-        preferenceFilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
+        if let key = filterMarket.searchFilterKey {
+            rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: key))
+        }
 
-        let filters = filterMarket.supportedFiltersKeys.compactMap { key -> Filter? in
+        if let key = filterMarket.preferencesFilterKey {
+            let preferenceSubfilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
+            let preferenceFilter = Filter(title: "", key: key)
+            preferenceSubfilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
+
+            rootSubfilters.append(preferenceFilter)
+        }
+
+        let supportedFilters = filterMarket.supportedFiltersKeys.compactMap { key -> Filter? in
             let kind: Filter.Kind = filterMarket.contextFilters.contains(key) ? .context : .normal
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let locationFilter = filters.first(where: { $0.name == FilterKey.location.rawValue }) {
-            let mapFilter = MapFilter(title: "map_filter_title".localized(), name: MapFilter.filterKey)
+        if let locationFilter = supportedFilters.first(where: { $0.key == filterMarket.mapFilterParentFilterKey }) {
+            let mapFilter = MapFilter(
+                title: "map_filter_title".localized(),
+                key: "map",
+                latitudeKey: "lat",
+                longitudeKey: "lon",
+                radiusKey: "radius",
+                locationKey: "geoLocationName"
+            )
             locationFilter.add(subfilter: mapFilter, at: 0)
         }
 
-        let root = Filter(title: filterTitle, name: market, numberOfResults: hits)
-        ([searchQueryFilter, preferenceFilter] + filters).forEach { root.add(subfilter: $0) }
+        rootSubfilters.append(contentsOf: supportedFilters)
+
+        let root = Filter(title: filterTitle, key: market, numberOfResults: hits)
+        rootSubfilters.forEach { root.add(subfilter: $0) }
 
         return FilterContainer(root: root)
     }
@@ -107,7 +124,7 @@ public struct FilterSetup: Decodable {
         return FilterSetup(market: market, hits: hits, filterTitle: filterTitle, rawFilterKeys: rawFilterKeys, filters: filters)
     }
 
-    func filterData(forKey key: FilterKey) -> FilterData? {
-        return filters.first(where: { $0.parameterName == key.rawValue })
+    func filterData(forKey key: String) -> FilterData? {
+        return filters.first(where: { $0.parameterName == key })
     }
 }

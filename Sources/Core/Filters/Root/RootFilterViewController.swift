@@ -125,6 +125,7 @@ extension RootFilterViewController: CCRootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 }
 

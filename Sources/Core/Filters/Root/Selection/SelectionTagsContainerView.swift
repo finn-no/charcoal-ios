@@ -91,16 +91,7 @@ extension SelectionTagsContainerView: SelectionTagViewDelegate {
             return
         }
 
-        view.isUserInteractionEnabled = false
-
-        UIView.animate(withDuration: 0.3, animations: {
-            view.alpha = 0
-        }, completion: { [weak self] _ in
-            view.removeFromSuperview()
-            if let self = self {
-                self.delegate?.selectionTagsContainerView(self, didRemoveTagAt: index)
-            }
-        })
+        delegate?.selectionTagsContainerView(self, didRemoveTagAt: index)
     }
 }
 

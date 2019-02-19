@@ -102,6 +102,14 @@ extension FilterMarketB2B: FilterConfiguration {
         return .location
     }
 
+    public var searchFilterKey: FilterKey? {
+        return .query
+    }
+
+    public var preferencesFilterKey: FilterKey? {
+        return .preferences
+    }
+
     public func viewModel(forKey key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int
@@ -175,6 +183,7 @@ extension FilterMarketB2B: FilterConfiguration {
                 highValue = 600
                 rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
             }
+
             unit = "hk"
             increment = 10
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)

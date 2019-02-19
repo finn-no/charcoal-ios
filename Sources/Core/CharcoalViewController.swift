@@ -45,7 +45,11 @@ public class CharcoalViewController: UINavigationController {
         self.filter = filter
         self.config = config
         selectionStore = FilterSelectionStore(queryItems: queryItems)
-        rootFilterViewController = RootFilterViewController(filter: filter.rootFilter, selectionStore: selectionStore)
+        rootFilterViewController = RootFilterViewController(
+            filter: filter.rootFilter,
+            config: config,
+            selectionStore: selectionStore
+        )
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self

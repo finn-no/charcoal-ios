@@ -120,6 +120,14 @@ extension FilterMarketCar: FilterConfiguration {
         return .location
     }
 
+    public var searchFilterKey: FilterKey? {
+        return .query
+    }
+
+    public var preferencesFilterKey: FilterKey? {
+        return .preferences
+    }
+
     public func viewModel(forKey key: String) -> RangeFilterInfo? {
         let lowValue: Int
         let highValue: Int

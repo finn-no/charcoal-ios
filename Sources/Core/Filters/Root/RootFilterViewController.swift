@@ -39,7 +39,20 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var searchFilter: Filter? {
-        return filter.subfilters.first { $0.name == "q" }
+        return filter.subfilters.first { $0.name == config.searchFilterKey?.rawValue }
+    }
+
+    private let config: FilterConfiguration
+
+    // MARK: - Init
+
+    init(filter: Filter, config: FilterConfiguration, selectionStore: FilterSelectionStore) {
+        self.config = config
+        super.init(filter: filter, selectionStore: selectionStore)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Setup
@@ -74,20 +87,18 @@ extension RootFilterViewController: UITableViewDataSource {
         let currentFilter = filter.subfilters[indexPath.row]
 
         switch currentFilter.name {
-        case "q":
+        case config.searchFilterKey?.rawValue:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
             cell.searchBar = searchQueryViewController.searchBar
             cell.searchBar?.placeholder = currentFilter.title
             return cell
-
-        case "preferences":
+        case config.preferencesFilterKey?.rawValue:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
             let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
             let vertical = verticals?.first(where: { $0.isCurrent })
             cell.configure(with: segmentTitles, vertical: vertical?.title)
             return cell
-
         default:
             let titles = selectionStore.titles(for: currentFilter)
             let isValid = selectionStore.isValid(currentFilter)
@@ -105,9 +116,7 @@ extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilter = filter.subfilters[indexPath.row]
         switch selectedFilter.name {
-        case "q":
-            return
-        case "preferences":
+        case config.searchFilterKey?.rawValue, config.preferencesFilterKey?.rawValue:
             return
         default:
             delegate?.filterViewController(self, didSelectFilter: selectedFilter)

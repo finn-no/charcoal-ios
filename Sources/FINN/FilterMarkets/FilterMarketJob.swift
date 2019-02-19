@@ -55,4 +55,12 @@ extension FilterMarketJob: FilterConfiguration {
     public var filterKeyWithMapSubfilter: FilterKey? {
         return .location
     }
+
+    public var searchFilterKey: FilterKey? {
+        return .query
+    }
+
+    public var preferencesFilterKey: FilterKey? {
+        return .preferences
+    }
 }

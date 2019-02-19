@@ -13,7 +13,7 @@ class CCRootFilterCell: UITableViewCell {
 
     // MARK: - Private properties
 
-    private lazy var mark: UIView = {
+    private lazy var contextMark: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .red
         view.layer.cornerRadius = 5
@@ -48,7 +48,7 @@ class CCRootFilterCell: UITableViewCell {
         return view
     }()
 
-    private lazy var titleToMarkConstraint = titleLabel.leadingAnchor.constraint(equalTo: mark.trailingAnchor, constant: .mediumSpacing)
+    private lazy var titleToContextMarkConstraint = titleLabel.leadingAnchor.constraint(equalTo: contextMark.trailingAnchor, constant: .mediumSpacing)
 
     // MARK: - Init
 
@@ -84,11 +84,11 @@ extension CCRootFilterCell {
 
         switch kind {
         case .normal:
-            mark.isHidden = true
-            titleToMarkConstraint.isActive = false
+            contextMark.isHidden = true
+            titleToContextMarkConstraint.isActive = false
         case .context:
-            mark.isHidden = false
-            titleToMarkConstraint.isActive = true
+            contextMark.isHidden = false
+            titleToContextMarkConstraint.isActive = true
         }
     }
 }
@@ -101,7 +101,7 @@ extension CCRootFilterCell: CCFilterSelectionViewDelegate {
 
 private extension CCRootFilterCell {
     func setup() {
-        contentView.addSubview(mark)
+        contentView.addSubview(contextMark)
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionSelectionView)
         contentView.addSubview(collapsedSelectionView)
@@ -112,10 +112,10 @@ private extension CCRootFilterCell {
         titleToContentViewConstraint.priority = .defaultLow
 
         NSLayoutConstraint.activate([
-            mark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
-            mark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            mark.widthAnchor.constraint(equalToConstant: 10),
-            mark.heightAnchor.constraint(equalToConstant: 10),
+            contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
+            contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            contextMark.widthAnchor.constraint(equalToConstant: 10),
+            contextMark.heightAnchor.constraint(equalToConstant: 10),
 
             titleToContentViewConstraint,
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumLargeSpacing),

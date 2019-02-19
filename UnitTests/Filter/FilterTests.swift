@@ -21,3 +21,14 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.subfilter(at: 1)?.name, "index-1")
     }
 }
+
+extension FilterTests: TestDataDecoder {
+    func testContextFilterSetup() {
+        let filterSetup = filterDataFromJSONFile(named: "ContextFilterTestData")
+        let filter = filterSetup?.asCCFilter()
+        let categoryFilter = filter?.rootFilter.subfilters.first(where: { $0.name == "category" })
+        let shoeSizeFilter = filter?.rootFilter.subfilters.first(where: { $0.name == "shoe_size" })
+        XCTAssertEqual(categoryFilter?.kind, .normal)
+        XCTAssertEqual(shoeSizeFilter?.kind, .context)
+    }
+}

@@ -39,6 +39,8 @@ extension FilterMarketCar: FilterConfiguration {
                 .salesForm,
                 .year,
                 .mileage,
+                .leasepriceInit,
+                .leasepriceMonth,
                 .price,
                 .location,
                 .bodyType,
@@ -112,7 +114,10 @@ extension FilterMarketCar: FilterConfiguration {
     }
 
     public var contextFilters: Set<FilterKey> {
-        return []
+        return [
+            .leasepriceInit,
+            .leasepriceMonth,
+        ]
     }
 
     public var mapFilterKey: FilterKey? {

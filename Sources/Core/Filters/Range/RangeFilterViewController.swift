@@ -8,7 +8,7 @@ final class RangeFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
-    private let rangeFilterNode: CCRangeFilterNode
+    private let rangeFilter: RangeFilter
     private let viewModel: RangeFilterInfo
 
     private lazy var rangeFilterView: RangeFilterView = {
@@ -20,10 +20,10 @@ final class RangeFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(rangeFilterNode: CCRangeFilterNode, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
-        self.rangeFilterNode = rangeFilterNode
+    init(rangeFilter: RangeFilter, viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
+        self.rangeFilter = rangeFilter
         self.viewModel = viewModel
-        super.init(filterNode: rangeFilterNode, selectionStore: selectionStore)
+        super.init(filter: rangeFilter, selectionStore: selectionStore)
         setup()
     }
 
@@ -43,16 +43,16 @@ final class RangeFilterViewController: FilterViewController {
 
 extension RangeFilterViewController: RangeFilterViewDelegate {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
-        setValue(lowValue, forChild: rangeFilterNode.lowValueNode)
+        setValue(lowValue, forSubfilter: rangeFilter.lowValueFilter)
     }
 
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?) {
-        setValue(highValue, forChild: rangeFilterNode.highValueNode)
+        setValue(highValue, forSubfilter: rangeFilter.highValueFilter)
     }
 
-    private func setValue(_ value: Int?, forChild node: CCFilterNode) {
-        selectionStore.setValue(value, for: node)
-        delegate?.filterViewController(self, didSelectFilter: node)
+    private func setValue(_ value: Int?, forSubfilter subfilter: Filter) {
+        selectionStore.setValue(value, for: subfilter)
+        delegate?.filterViewController(self, didSelectFilter: subfilter)
         showBottomButton(true, animated: true)
     }
 }
@@ -61,10 +61,10 @@ private extension RangeFilterViewController {
     func setup() {
         bottomButton.buttonTitle = "apply_button_title".localized()
 
-        let lowValue: Int? = selectionStore.value(for: rangeFilterNode.lowValueNode)
+        let lowValue: Int? = selectionStore.value(for: rangeFilter.lowValueFilter)
         rangeFilterView.setLowValue(lowValue, animated: false)
 
-        let highValue: Int? = selectionStore.value(for: rangeFilterNode.highValueNode)
+        let highValue: Int? = selectionStore.value(for: rangeFilter.highValueFilter)
         rangeFilterView.setHighValue(highValue, animated: false)
 
         view.addSubview(rangeFilterView)

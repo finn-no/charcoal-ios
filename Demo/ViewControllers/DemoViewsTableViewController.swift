@@ -46,7 +46,7 @@ class DemoViewsTableViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
 
-    private func ccFilter(for marketName: String) -> CCFilter? {
+    private func ccFilter(for marketName: String) -> FilterContainer? {
         let filterSetup = DemoFilter.filterDataFromJSONFile(named: marketName)
         demoFilter = DemoFilter(filter: filterSetup)
         guard let filter = filterSetup.asCCFilter() else { return nil }

@@ -18,9 +18,9 @@ final class StepperFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(filterNode: CCFilterNode, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
+    init(filter: Filter, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
         self.viewModel = viewModel
-        super.init(filterNode: filterNode, selectionStore: selectionStore)
+        super.init(filter: filter, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,9 +52,9 @@ private extension StepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
         switch sender.value {
         case viewModel.sliderInfo.minimumValue:
-            selectionStore.removeValues(for: filterNode)
+            selectionStore.removeValues(for: filter)
         default:
-            selectionStore.setValue(sender.value, for: filterNode)
+            selectionStore.setValue(sender.value, for: filter)
         }
         showBottomButton(true, animated: true)
     }

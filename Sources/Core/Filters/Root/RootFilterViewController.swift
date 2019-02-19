@@ -38,8 +38,8 @@ final class RootFilterViewController: FilterViewController {
         return searchQueryViewController
     }()
 
-    private var searchNode: CCFilterNode? {
-        return filterNode.children.first { $0.name == "q" }
+    private var searchFilter: Filter? {
+        return filter.subfilters.first { $0.name == "q" }
     }
 
     // MARK: - Setup
@@ -47,43 +47,43 @@ final class RootFilterViewController: FilterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showBottomButton(true, animated: false)
-        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filterNode.numberOfResults)
+        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
         setup()
     }
 
-    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filterNode: CCFilterNode) {
-        super.filterViewController(viewController, didSelectFilter: filterNode)
+    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
+        super.filterViewController(viewController, didSelectFilter: filter)
         tableView.reloadData()
     }
 
-    func set(filterNode: CCFilterNode, verticals: [Vertical]?) {
-        self.filterNode = filterNode
+    func set(filter: Filter, verticals: [Vertical]?) {
+        self.filter = filter
         self.verticals = verticals
-        navigationItem.title = filterNode.title
+        navigationItem.title = filter.title
         tableView.reloadData()
     }
 }
 
 extension RootFilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterNode.children.count
+        return filter.subfilters.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentFilterNode = filterNode.children[indexPath.row]
+        let currentFilter = filter.subfilters[indexPath.row]
 
-        switch currentFilterNode.name {
+        switch currentFilter.name {
         case "q":
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
             cell.searchBar = searchQueryViewController.searchBar
-            cell.searchBar?.placeholder = currentFilterNode.title
+            cell.searchBar?.placeholder = currentFilter.title
             return cell
 
         case "preferences":
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
-            let segmentTitles = currentFilterNode.children.map({ $0.children.map({ $0.title }) })
+            let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
             let vertical = verticals?.first(where: { $0.isCurrent })
             cell.configure(with: segmentTitles, vertical: vertical?.title)
             return cell
@@ -92,8 +92,8 @@ extension RootFilterViewController: UITableViewDataSource {
             let cell = tableView.dequeue(CCRootFilterCell.self, for: indexPath)
             cell.delegate = self
 
-            let titles = selectionStore.titles(for: currentFilterNode)
-            cell.configure(withTitle: currentFilterNode.title, selectionTitles: titles)
+            let titles = selectionStore.titles(for: currentFilter)
+            cell.configure(withTitle: currentFilter.title, selectionTitles: titles)
             return cell
         }
     }
@@ -101,14 +101,14 @@ extension RootFilterViewController: UITableViewDataSource {
 
 extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedFilterNode = filterNode.children[indexPath.row]
-        switch selectedFilterNode.name {
+        let selectedFilter = filter.subfilters[indexPath.row]
+        switch selectedFilter.name {
         case "q":
             return
         case "preferences":
             return
         default:
-            delegate?.filterViewController(self, didSelectFilter: selectedFilterNode)
+            delegate?.filterViewController(self, didSelectFilter: selectedFilter)
         }
     }
 }
@@ -119,22 +119,22 @@ extension RootFilterViewController: CCRootFilterCellDelegate {
             return
         }
 
-        let currentFilterNode = filterNode.children[indexPath.row]
-        let selectedChildren = selectionStore.selectedChildren(for: currentFilterNode)
+        let currentFilter = filter.subfilters[indexPath.row]
+        let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
-        selectionStore.removeValues(for: selectedChildren[index])
+        selectionStore.removeValues(for: selectedSubfilters[index])
     }
 }
 
 extension RootFilterViewController: CCInlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
-        guard let childNode = filterNode.child(at: index) else { return }
+        guard let subfilter = filter.subfilter(at: index) else { return }
 
-        selectionStore.removeValues(for: childNode)
+        selectionStore.removeValues(for: subfilter)
 
         for index in segment.selectedItems {
-            if let node = childNode.child(at: index) {
-                selectionStore.setValue(from: node)
+            if let subfilter = subfilter.subfilter(at: index) {
+                selectionStore.setValue(from: subfilter)
             }
         }
     }
@@ -162,20 +162,20 @@ extension RootFilterViewController: SearchViewControllerDelegate {
     }
 
     func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController) {
-        guard let searchNode = searchNode else {
+        guard let searchFilter = searchFilter else {
             return
         }
 
-        selectionStore.removeValues(for: searchNode)
+        selectionStore.removeValues(for: searchFilter)
         tableView.reloadData()
     }
 
     func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String) {
-        guard let searchNode = searchNode else {
+        guard let searchFilter = searchFilter else {
             return
         }
 
-        selectionStore.setValue(query, for: searchNode)
+        selectionStore.setValue(query, for: searchFilter)
         tableView.reloadData()
     }
 }

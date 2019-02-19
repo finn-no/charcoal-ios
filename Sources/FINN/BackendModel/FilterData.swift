@@ -27,18 +27,18 @@ struct FilterData: Decodable {
         queries = try container.decodeIfPresent([FilterDataQuery].self, forKey: CodingKeys.queries) ?? []
     }
 
-    func filterNode() -> CCFilterNode {
+    func asFilter() -> Filter {
         if isRange == true {
-            let rangeNode = CCRangeFilterNode(title: title, name: parameterName)
-            return rangeNode
+            let rangeFilter = RangeFilter(title: title, name: parameterName)
+            return rangeFilter
         }
 
-        let filterNode = CCFilterNode(title: title, name: parameterName)
+        let filter = Filter(title: title, name: parameterName)
         queries.forEach { query in
-            filterNode.add(child: query.filterNode(name: parameterName))
+            filter.add(subfilter: query.asFilter(with: parameterName))
         }
 
-        return filterNode
+        return filter
     }
 
     static func decode(from dict: [AnyHashable: Any]?) -> FilterData? {

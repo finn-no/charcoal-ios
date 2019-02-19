@@ -94,7 +94,7 @@ extension RootFilterViewController: UITableViewDataSource {
             let cell = tableView.dequeue(RootFilterCell.self, for: indexPath)
 
             cell.delegate = self
-            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid)
+            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, kind: currentFilter.kind)
 
             return cell
         }

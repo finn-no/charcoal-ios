@@ -24,8 +24,9 @@ final class FilterTests: XCTestCase {
 
 extension FilterTests: TestDataDecoder {
     func testContextFilterSetup() {
+        guard let config = FilterMarket(market: "bap-sale") else { return }
         let filterSetup = filterDataFromJSONFile(named: "ContextFilterTestData")
-        let filter = filterSetup?.asCCFilter()
+        let filter = filterSetup?.filterContainer(using: config)
         let categoryFilter = filter?.rootFilter.subfilters.first(where: { $0.key == "category" })
         let shoeSizeFilter = filter?.rootFilter.subfilters.first(where: { $0.key == "shoe_size" })
         XCTAssertEqual(categoryFilter?.kind, .normal)

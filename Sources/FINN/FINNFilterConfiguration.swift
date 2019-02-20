@@ -8,7 +8,7 @@ public protocol FINNFilterConfiguration: FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }
     var supportedFiltersKeys: [FilterKey] { get }
     var contextFilterKeys: Set<FilterKey> { get }
-    var mutuallyExclusiveFilterKeys: [[FilterKey]] { get }
+    var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
     var searchFilterKey: FilterKey? { get }
     var preferencesFilterKey: FilterKey? { get }
     var locationFilterKey: FilterKey? { get }
@@ -28,8 +28,8 @@ public extension FINNFilterConfiguration {
         return Set(contextFilterKeys.map({ $0.rawValue }))
     }
 
-    var mutuallyExclusiveFilters: [[String]] {
-        return mutuallyExclusiveFilterKeys.map({ $0.map({ $0.rawValue }) })
+    var mutuallyExclusiveFilters: Set<String> {
+        return Set(mutuallyExclusiveFilterKeys.map({ $0.rawValue }))
     }
 
     var searchFilter: String? {

@@ -42,6 +42,11 @@ final class RootFilterViewController: FilterViewController {
         return filter.subfilters.first { $0.key == config.searchFilter }
     }
 
+    private func predicateForMutuallyExclusiveFilters(excluding filter: Filter) -> ((Filter) -> Bool) {
+        let mutuallyExclusiveFilters = config.mutuallyExclusiveFilters
+        return { $0.key != filter.key && mutuallyExclusiveFilters.contains($0.key) }
+    }
+
     private let config: FilterConfiguration
 
     // MARK: - Init
@@ -109,6 +114,11 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
             cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, kind: currentFilter.kind)
 
+            let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
+            cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {
+                exclusiveFilters.contains($0.key)
+            })
+
             return cell
         }
     }
@@ -137,6 +147,13 @@ extension RootFilterViewController: RootFilterCellDelegate {
 
         selectionStore.removeValues(for: selectedSubfilters[index])
         tableView.reloadRows(at: [indexPath], with: .fade)
+
+        let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
+        let indexPathsToReload = filter.subfilters.enumerated().compactMap({ index, subfilter in
+            return exclusiveFilters.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
+        })
+
+        tableView.reloadRows(at: indexPathsToReload, with: .none)
     }
 }
 

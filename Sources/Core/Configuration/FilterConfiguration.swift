@@ -8,7 +8,7 @@ public protocol FilterConfiguration {
     var preferenceFilters: [String] { get }
     var supportedFilters: [String] { get }
     var contextFilters: Set<String> { get }
-    var mutuallyExclusiveFilters: [[String]] { get }
+    var mutuallyExclusiveFilters: Set<String> { get }
     var searchFilter: String? { get }
     var preferencesFilter: String? { get }
     var locationFilter: String? { get }
@@ -16,4 +16,16 @@ public protocol FilterConfiguration {
 
     func handlesVerticalId(_ vertical: String) -> Bool
     func rangeViewModel(forKey key: String) -> RangeFilterInfo?
+}
+
+// MARK: - Extensions
+
+public extension FilterConfiguration {
+    func mutuallyExclusiveFilters(for filter: String) -> Set<String> {
+        guard mutuallyExclusiveFilters.contains(filter) else {
+            return []
+        }
+
+        return mutuallyExclusiveFilters.filter({ $0 != filter })
+    }
 }

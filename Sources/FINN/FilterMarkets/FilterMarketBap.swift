@@ -58,8 +58,8 @@ extension FilterMarketBap: FINNFilterConfiguration {
         ]
     }
 
-    public var mutuallyExclusiveFilterKeys: [[FilterKey]] {
-        return [[.location, .map]]
+    public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
+        return [.location, .map]
     }
 
     public var searchFilterKey: FilterKey? {

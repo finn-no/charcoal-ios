@@ -134,19 +134,19 @@ extension FilterSelectionStore {
         }
     }
 
-    func hasSelectedSubfilters(for filter: Filter) -> Bool {
-        if isSelected(filter) {
+    func hasSelectedSubfilters(for filter: Filter, where predicate: ((Filter) -> Bool) = { _ in true }) -> Bool {
+        if isSelected(filter) && predicate(filter) {
             return true
         }
 
-        return filter.subfilters.reduce(false) { $0 || hasSelectedSubfilters(for: $1) }
+        return filter.subfilters.reduce(false) { $0 || hasSelectedSubfilters(for: $1, where: predicate) }
     }
 
-    func selectedSubfilters(for filter: Filter) -> [Filter] {
-        if isSelected(filter) {
+    func selectedSubfilters(for filter: Filter, where predicate: ((Filter) -> Bool) = { _ in true }) -> [Filter] {
+        if isSelected(filter) && predicate(filter) {
             return [filter]
         }
 
-        return filter.subfilters.reduce([]) { $0 + selectedSubfilters(for: $1) }
+        return filter.subfilters.reduce([]) { $0 + selectedSubfilters(for: $1, where: predicate) }
     }
 }

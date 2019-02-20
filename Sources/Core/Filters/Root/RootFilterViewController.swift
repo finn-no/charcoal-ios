@@ -39,7 +39,7 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var searchFilter: Filter? {
-        return filter.subfilters.first { $0.key == config.searchFilterKey }
+        return filter.subfilters.first { $0.key == config.searchFilter }
     }
 
     private let config: FilterConfiguration
@@ -89,12 +89,12 @@ extension RootFilterViewController: UITableViewDataSource {
         let currentFilter = filter.subfilters[indexPath.row]
 
         switch currentFilter.key {
-        case config.searchFilterKey:
+        case config.searchFilter:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
             cell.searchBar = searchQueryViewController.searchBar
             cell.searchBar?.placeholder = currentFilter.title
             return cell
-        case config.preferencesFilterKey:
+        case config.preferencesFilter:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
             let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
@@ -118,7 +118,7 @@ extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilter = filter.subfilters[indexPath.row]
         switch selectedFilter.key {
-        case config.searchFilterKey, config.preferencesFilterKey:
+        case config.searchFilter, config.preferencesFilter:
             return
         default:
             delegate?.filterViewController(self, didSelectFilter: selectedFilter)

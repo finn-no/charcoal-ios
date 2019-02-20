@@ -50,24 +50,24 @@ public struct FilterSetup: Decodable {
     public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
         var rootSubfilters = [Filter]()
 
-        if let key = config.searchFilterKey {
+        if let key = config.searchFilter {
             rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: key))
         }
 
-        if let key = config.preferencesFilterKey {
-            let preferenceSubfilters = config.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
+        if let key = config.preferencesFilter {
+            let preferenceSubfilters = config.preferenceFilters.compactMap { filterData(forKey: $0) }
             let preferenceFilter = Filter(title: "", key: key)
             preferenceSubfilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
 
             rootSubfilters.append(preferenceFilter)
         }
 
-        var supportedFilters = config.supportedFiltersKeys.compactMap { key -> Filter? in
+        var supportedFilters = config.supportedFilters.compactMap { key -> Filter? in
             let kind: Filter.Kind = config.contextFilters.contains(key) ? .context : .normal
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let key = config.mapFilterKey {
+        if let key = config.mapFilter {
             let mapFilter = MapFilter(
                 title: "map_filter_title".localized(),
                 key: key,
@@ -77,7 +77,7 @@ public struct FilterSetup: Decodable {
                 locationKey: FilterKey.geoLocationName.rawValue
             )
 
-            let index = supportedFilters.firstIndex(where: { $0.key == config.locationFilterKey }) ?? 0
+            let index = supportedFilters.firstIndex(where: { $0.key == config.locationFilter }) ?? 0
             supportedFilters.insert(mapFilter, at: index)
         }
 

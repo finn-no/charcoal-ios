@@ -15,11 +15,11 @@ public protocol FINNFilterConfiguration: FilterConfiguration {
 }
 
 public extension FINNFilterConfiguration {
-    var preferenceFilterKeys: [String] {
+    var preferenceFilters: [String] {
         return preferenceFilterKeys.map({ $0.rawValue })
     }
 
-    var supportedFiltersKeys: [String] {
+    var supportedFilters: [String] {
         return supportedFiltersKeys.map({ $0.rawValue })
     }
 
@@ -27,19 +27,19 @@ public extension FINNFilterConfiguration {
         return Set(contextFilters.map({ $0.rawValue }))
     }
 
-    var searchFilterKey: String? {
+    var searchFilter: String? {
         return searchFilterKey?.rawValue
     }
 
-    var preferencesFilterKey: String? {
+    var preferencesFilter: String? {
         return preferencesFilterKey?.rawValue
     }
 
-    var locationFilterKey: String? {
+    var locationFilter: String? {
         return locationFilterKey?.rawValue
     }
 
-    var mapFilterKey: String? {
+    var mapFilter: String? {
         return mapFilterKey?.rawValue
     }
 }

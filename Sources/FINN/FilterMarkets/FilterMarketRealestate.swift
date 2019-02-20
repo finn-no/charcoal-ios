@@ -142,8 +142,12 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         }
     }
 
-    public var contextFilters: Set<FilterKey> {
+    public var contextFilterKeys: Set<FilterKey> {
         return []
+    }
+
+    public var mutuallyExclusiveFilterKeys: [[FilterKey]] {
+        return [[.location, .map]]
     }
 
     public var searchFilterKey: FilterKey? {

@@ -8,7 +8,7 @@ public protocol FilterConfiguration {
     var preferenceFilters: [String] { get }
     var supportedFilters: [String] { get }
     var contextFilters: Set<String> { get }
-    // var mutuallyExclusiveFilters: [[String]] { get }
+    var mutuallyExclusiveFilters: [[String]] { get }
     var searchFilter: String? { get }
     var preferencesFilter: String? { get }
     var locationFilter: String? { get }

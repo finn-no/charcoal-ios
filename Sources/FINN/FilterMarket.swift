@@ -56,6 +56,10 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.contextFilters
     }
 
+    public var mutuallyExclusiveFilters: [[String]] {
+        return currentFilterConfig.mutuallyExclusiveFilters
+    }
+
     public var searchFilter: String? {
         return currentFilterConfig.searchFilter
     }

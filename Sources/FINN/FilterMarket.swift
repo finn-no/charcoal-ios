@@ -56,16 +56,20 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.contextFilters
     }
 
-    public var mapFilterParentFilterKey: String? {
-        return currentFilterConfig.mapFilterParentFilterKey
-    }
-
     public var searchFilterKey: String? {
         return currentFilterConfig.searchFilterKey
     }
 
     public var preferencesFilterKey: String? {
         return currentFilterConfig.preferencesFilterKey
+    }
+
+    public var locationFilterKey: String? {
+        return currentFilterConfig.locationFilterKey
+    }
+
+    public var mapFilterKey: String? {
+        return currentFilterConfig.mapFilterKey
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

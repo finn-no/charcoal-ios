@@ -62,21 +62,23 @@ public struct FilterSetup: Decodable {
             rootSubfilters.append(preferenceFilter)
         }
 
-        let supportedFilters = config.supportedFiltersKeys.compactMap { key -> Filter? in
+        var supportedFilters = config.supportedFiltersKeys.compactMap { key -> Filter? in
             let kind: Filter.Kind = config.contextFilters.contains(key) ? .context : .normal
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let locationFilter = supportedFilters.first(where: { $0.key == config.mapFilterParentFilterKey }) {
+        if let key = config.mapFilterKey {
             let mapFilter = MapFilter(
                 title: "map_filter_title".localized(),
-                key: "map",
-                latitudeKey: "lat",
-                longitudeKey: "lon",
-                radiusKey: "radius",
-                locationKey: "geoLocationName"
+                key: key,
+                latitudeKey: FilterKey.latitude.rawValue,
+                longitudeKey: FilterKey.longitude.rawValue,
+                radiusKey: FilterKey.radius.rawValue,
+                locationKey: FilterKey.geoLocationName.rawValue
             )
-            locationFilter.add(subfilter: mapFilter, at: 0)
+
+            let index = supportedFilters.firstIndex(where: { $0.key == config.locationFilterKey }) ?? 0
+            supportedFilters.insert(mapFilter, at: index)
         }
 
         rootSubfilters.append(contentsOf: supportedFilters)

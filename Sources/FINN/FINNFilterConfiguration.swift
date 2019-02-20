@@ -8,9 +8,10 @@ public protocol FINNFilterConfiguration: FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }
     var supportedFiltersKeys: [FilterKey] { get }
     var contextFilters: Set<FilterKey> { get }
-    var mapFilterParentFilterKey: FilterKey? { get }
     var searchFilterKey: FilterKey? { get }
     var preferencesFilterKey: FilterKey? { get }
+    var locationFilterKey: FilterKey? { get }
+    var mapFilterKey: FilterKey? { get }
 }
 
 public extension FINNFilterConfiguration {
@@ -26,15 +27,19 @@ public extension FINNFilterConfiguration {
         return Set(contextFilters.map({ $0.rawValue }))
     }
 
-    var mapFilterParentFilterKey: String? {
-        return mapFilterParentFilterKey?.rawValue
-    }
-
     var searchFilterKey: String? {
         return searchFilterKey?.rawValue
     }
 
     var preferencesFilterKey: String? {
         return preferencesFilterKey?.rawValue
+    }
+
+    var locationFilterKey: String? {
+        return locationFilterKey?.rawValue
+    }
+
+    var mapFilterKey: String? {
+        return mapFilterKey?.rawValue
     }
 }

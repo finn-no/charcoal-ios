@@ -99,16 +99,20 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         return []
     }
 
-    public var mapFilterParentFilterKey: FilterKey? {
-        return .location
-    }
-
     public var searchFilterKey: FilterKey? {
         return .query
     }
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
+    }
+
+    public var locationFilterKey: FilterKey? {
+        return .location
+    }
+
+    public var mapFilterKey: FilterKey? {
+        return .map
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

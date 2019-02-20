@@ -55,7 +55,7 @@ final class RootFilterViewController: FilterViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Setup
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,10 +65,12 @@ final class RootFilterViewController: FilterViewController {
         setup()
     }
 
-    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
-        super.filterViewController(viewController, didSelectFilter: filter)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.reloadData()
     }
+
+    // MARK: - Setup
 
     func set(filter: Filter, verticals: [Vertical]?) {
         self.filter = filter

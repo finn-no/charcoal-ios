@@ -93,7 +93,8 @@ extension FilterSelectionStore {
     }
 
     func titles(for filter: Filter) -> [String] {
-        if let rangeFilter = filter as? RangeFilter {
+        switch filter {
+        case let rangeFilter as RangeFilter:
             let lowValue: String? = value(for: rangeFilter.lowValueFilter)
             let highValue: String? = value(for: rangeFilter.highValueFilter)
 
@@ -102,10 +103,19 @@ extension FilterSelectionStore {
             } else {
                 return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        } else if isSelected(filter) {
-            return [filter.title]
-        } else {
-            return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
+        case let mapFilter as MapFilter:
+            if let radius: Int = value(for: mapFilter.radiusFilter) {
+                let formatter = MapDistanceValueFormatter()
+                return [formatter.title(for: radius)]
+            } else {
+                fallthrough
+            }
+        default:
+            if isSelected(filter) {
+                return [filter.title]
+            } else {
+                return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
+            }
         }
     }
 

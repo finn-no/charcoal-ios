@@ -10,10 +10,6 @@ import UIKit
 
 class DemoViewsTableViewController: UITableViewController {
 
-    // MARK: - Private properties
-
-    private var demoFilter: DemoFilter?
-
     // MARK: - Override properties
 
     override var prefersStatusBarHidden: Bool {
@@ -46,11 +42,11 @@ class DemoViewsTableViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
 
-    private func ccFilter(for marketName: String) -> FilterContainer? {
-        let filterSetup = DemoFilter.filterDataFromJSONFile(named: marketName)
-        demoFilter = DemoFilter(filter: filterSetup)
-        guard let filter = filterSetup.asCCFilter() else { return nil }
-        filter.verticals = demoFilter?.verticalSetup.subVerticals(for: filterSetup.market)
+    private func filterContainer(forMarket market: String, using config: FilterConfiguration) -> FilterContainer {
+        let filterSetup = DemoFilter.filterDataFromJSONFile(named: market)
+        let demoFilter = DemoFilter(filter: filterSetup)
+        let filter = filterSetup.filterContainer(using: config)
+        filter.verticals = demoFilter.verticalSetup.subVerticals(for: market)
         return filter
     }
 
@@ -62,8 +58,10 @@ class DemoViewsTableViewController: UITableViewController {
             let transitionStyle = Sections.transitionStyle(for: indexPath)
             presentViewControllerWithPossibleDismissGesture(viewController, transitionStyle: transitionStyle)
         case .fullscreen:
-            guard let market = Sections.marketName(for: indexPath), let filter = ccFilter(for: market), let filterConfig = FilterMarket(market: market) else { return }
-            let controller = CharcoalViewController(filter: filter, config: filterConfig)
+            guard let market = Sections.marketName(for: indexPath), let config = FilterMarket(market: market) else { return }
+
+            let filter = filterContainer(forMarket: market, using: config)
+            let controller = CharcoalViewController(filter: filter, config: config)
             controller.filterDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
@@ -123,12 +121,14 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
     func charcoalViewControllerDidChangeSelection(_ filterViewController: CharcoalViewController) {}
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
-        guard let vertical = vertical as? VerticalDemo else { return }
-        guard let filter = ccFilter(for: vertical.id) else { return }
+        guard let vertical = vertical as? VerticalDemo, let config = FilterMarket(market: vertical.id) else { return }
+
+        let filter = filterContainer(forMarket: vertical.id, using: config)
 
         viewController.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             viewController.filter = filter
+            viewController.config = config
         }
     }
 }

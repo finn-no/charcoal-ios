@@ -47,31 +47,27 @@ public struct FilterSetup: Decodable {
         }
     }
 
-    public func asCCFilter() -> FilterContainer? {
-        guard let filterMarket = FilterMarket(market: market) else {
-            return nil
-        }
-
+    public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
         var rootSubfilters = [Filter]()
 
-        if let key = filterMarket.searchFilterKey {
+        if let key = config.searchFilterKey {
             rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: key))
         }
 
-        if let key = filterMarket.preferencesFilterKey {
-            let preferenceSubfilters = filterMarket.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
+        if let key = config.preferencesFilterKey {
+            let preferenceSubfilters = config.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
             let preferenceFilter = Filter(title: "", key: key)
             preferenceSubfilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
 
             rootSubfilters.append(preferenceFilter)
         }
 
-        let supportedFilters = filterMarket.supportedFiltersKeys.compactMap { key -> Filter? in
-            let kind: Filter.Kind = filterMarket.contextFilters.contains(key) ? .context : .normal
+        let supportedFilters = config.supportedFiltersKeys.compactMap { key -> Filter? in
+            let kind: Filter.Kind = config.contextFilters.contains(key) ? .context : .normal
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let locationFilter = supportedFilters.first(where: { $0.key == filterMarket.mapFilterParentFilterKey }) {
+        if let locationFilter = supportedFilters.first(where: { $0.key == config.mapFilterParentFilterKey }) {
             let mapFilter = MapFilter(
                 title: "map_filter_title".localized(),
                 key: "map",

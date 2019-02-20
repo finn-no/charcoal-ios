@@ -87,13 +87,9 @@ extension ListFilterViewController: UITableViewDataSource {
             cell.configure(for: .selectAll(from: filter, isSelected: isSelected))
         case .subfilters:
             if let subfilter = filter.subfilter(at: indexPath.row) {
-                if subfilter is MapFilter {
-                    cell.configure(for: .map(from: subfilter))
-                } else {
-                    let isSelected = selectionStore.isSelected(subfilter)
-                    let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
-                    cell.configure(for: .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters))
-                }
+                let isSelected = selectionStore.isSelected(subfilter)
+                let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
+                cell.configure(for: .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters))
             }
         }
 

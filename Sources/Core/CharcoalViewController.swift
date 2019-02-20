@@ -131,7 +131,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             nextViewController.showBottomButton(showBottomButton, animated: false)
         }
 
-        nextViewController.delegate = viewController
+        nextViewController.delegate = self
         pushViewController(nextViewController, animated: true)
     }
 }

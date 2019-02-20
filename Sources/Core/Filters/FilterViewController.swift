@@ -9,27 +9,27 @@ protocol FilterViewControllerDelegate: class {
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
 }
 
-class FilterViewController: UIViewController, FilterViewControllerDelegate, FilterBottomButtonViewDelegate {
+class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
 
     // MARK: - Public properties
 
+    weak var delegate: FilterViewControllerDelegate?
     var filter: Filter
     let selectionStore: FilterSelectionStore
-    var isShowingBottomButton = false
-    weak var delegate: FilterViewControllerDelegate?
+    private(set) var isShowingBottomButton = false
 
     // MARK: - Private properties
 
     lazy var bottomButtonBottomConstraint = bottomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
-    lazy var bottomButton: FilterBottomButtonView = {
+    private(set) lazy var bottomButton: FilterBottomButtonView = {
         let view = FilterBottomButtonView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    // MARK: - Setup
+    // MARK: - Init
 
     init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
@@ -40,6 +40,8 @@ class FilterViewController: UIViewController, FilterViewControllerDelegate, Filt
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,39 +55,34 @@ class FilterViewController: UIViewController, FilterViewControllerDelegate, Filt
         view.bringSubviewToFront(bottomButton)
     }
 
-    func showBottomButton(_ show: Bool, animated: Bool) {
-        view.layoutIfNeeded()
-        isShowingBottomButton = show
-        bottomButtonBottomConstraint.isActive = show
-        let duration = animated ? 0.3 : 0
-        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
+    // MARK: - Setup
 
-    func filterViewControllerDidSelectApply(_ viewController: FilterViewController) {
-        delegate?.filterViewControllerDidSelectApply(viewController)
-    }
-
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
-        delegate?.filterViewController(viewController, didSelectFilter: filter)
-    }
-
-    // MARK: - FilterBottomButtonViewDelegate
-
-    func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.filterViewControllerDidSelectApply(self)
-    }
-}
-
-private extension FilterViewController {
-    func setup() {
+    private func setup() {
         view.addSubview(bottomButton)
+
         NSLayoutConstraint.activate([
             bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
             bottomButton.heightAnchor.constraint(equalToConstant: bottomButton.height),
         ])
+    }
+
+    func showBottomButton(_ show: Bool, animated: Bool) {
+        view.layoutIfNeeded()
+        isShowingBottomButton = show
+        bottomButtonBottomConstraint.isActive = show
+
+        let duration = animated ? 0.3 : 0
+
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    // MARK: - FilterBottomButtonViewDelegate
+
+    func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        delegate?.filterViewControllerDidSelectApply(self)
     }
 }

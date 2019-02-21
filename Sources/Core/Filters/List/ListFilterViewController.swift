@@ -33,22 +33,22 @@ final class ListFilterViewController: FilterViewController {
         setup()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     override func showBottomButton(_ show: Bool, animated: Bool) {
         super.showBottomButton(show, animated: animated)
         let bottomInset = show ? bottomButton.height : 0
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
     }
 
-    override func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
-        super.filterViewController(viewController, didSelectFilter: filter)
-        showBottomButton(true, animated: false)
-        tableView.reloadData()
-    }
-
     // MARK: - Setup
 
     func setup() {
         view.addSubview(tableView)
+
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),

@@ -4,7 +4,7 @@
 
 import Foundation
 
-class Filter {
+final class Filter {
     enum Style {
         case normal
         case context
@@ -31,7 +31,8 @@ class Filter {
 
     // MARK: - Init
 
-    private init(title: String, key: String, value: String? = nil, numberOfResults: Int = 0, kind: Kind = .regular, style: Style = .normal) {
+    private init(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
+                 kind: Kind = .regular, style: Style = .normal) {
         self.title = title
         self.key = key
         self.value = value
@@ -57,9 +58,20 @@ class Filter {
     }
 }
 
+// MARK: - Factory
+
 extension Filter {
-    static func regular(title: String, key: String, value: String? = nil, numberOfResults: Int = 0, style: Style = .normal, subfilters: [Filter] = []) -> Filter {
-        let filter = Filter(title: title, key: key, value: value, numberOfResults: numberOfResults, kind: .regular, style: style)
+    static func regular(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
+                        style: Style = .normal, subfilters: [Filter] = []) -> Filter {
+        let filter = Filter(
+            title: title,
+            key: key,
+            value: value,
+            numberOfResults:
+                numberOfResults,
+            kind: .regular,
+            style: style
+        )
 
         subfilters.forEach {
             filter.add(subfilter: $0)
@@ -82,12 +94,13 @@ extension Filter {
         return filter
     }
 
-    static func rangeFilter(title: String, key: String, lowValueKey: String, highValueKey: String, style: Style = .normal) -> Filter {
+    static func rangeFilter(title: String, key: String, lowValueKey: String,
+                            highValueKey: String, style: Style = .normal) -> Filter {
         let lowValueFilter = Filter(title: "", key: lowValueKey, kind: .regular)
         let highValueFilter = Filter(title: "", key: highValueKey, kind: .regular)
-
         let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter)
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: style)
+
         filter.add(subfilter: lowValueFilter)
         filter.add(subfilter: highValueFilter)
 
@@ -105,9 +118,15 @@ extension Filter {
         let radiusFilter = Filter(title: "", key: radiusKey, kind: .regular)
         let locationNameFilter = Filter(title: "", key: locationKey, kind: .regular)
 
-        let kind = Kind.map(latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter)
+        let kind = Kind.map(
+            latitudeFilter: latitudeFilter,
+            longitudeFilter: longitudeFilter,
+            radiusFilter: radiusFilter,
+            locationNameFilter: locationNameFilter
+        )
 
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: .normal)
+
         filter.add(subfilter: latitudeFilter)
         filter.add(subfilter: longitudeFilter)
         filter.add(subfilter: radiusFilter)

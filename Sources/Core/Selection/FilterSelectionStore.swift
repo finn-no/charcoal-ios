@@ -104,6 +104,8 @@ extension FilterSelectionStore {
             } else {
                 return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
+        case .stepper:
+            return value(for: filter).map({ [$0] }) ?? []
         case let .map(_, _, radiusFilter, _):
             if let radius: Int = value(for: radiusFilter) {
                 let formatter = MapDistanceValueFormatter()

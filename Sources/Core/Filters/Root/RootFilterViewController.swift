@@ -6,7 +6,6 @@ import UIKit
 
 protocol RootFilterViewControllerDelegate: class {
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
-    func rootFilterViewControllerDidChangeSelection(_ viewController: RootFilterViewController)
 }
 
 final class RootFilterViewController: FilterViewController {
@@ -142,7 +141,6 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
-        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
         tableView.reloadRows(at: [indexPath], with: .fade)
 
         let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
@@ -165,8 +163,6 @@ extension RootFilterViewController: CCInlineFilterViewDelegate {
                 selectionStore.setValue(from: subfilter)
             }
         }
-
-        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
     }
 
     func inlineFilterView(_ inlineFilterview: CCInlineFilterView, didTapExpandableSegment segment: Segment) {

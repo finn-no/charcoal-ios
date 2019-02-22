@@ -84,10 +84,6 @@ public class CharcoalViewController: UINavigationController {
 // MARK: - RootFilterViewControllerDelegate
 
 extension CharcoalViewController: RootFilterViewControllerDelegate {
-    func rootFilterViewControllerDidChangeSelection(_ viewController: RootFilterViewController) {
-        filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
-    }
-
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int) {
         guard let vertical = filter.verticals?[safe: index] else { return }
         filterDelegate?.charcoalViewController(self, didSelect: vertical)
@@ -143,7 +139,13 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
 extension CharcoalViewController: FilterSelectionStoreDelegate {
     func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {
-        selectionHasChanged = true
+        if topViewController === rootFilterViewController {
+            // Changes in inline filters or removes selected filters
+            filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
+            selectionHasChanged = false
+        } else {
+            selectionHasChanged = true
+        }
     }
 }
 
@@ -152,7 +154,7 @@ extension CharcoalViewController: FilterSelectionStoreDelegate {
 extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         guard viewController === rootFilterViewController else { return }
-
+        // Will return to root filters
         if selectionHasChanged {
             filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
             selectionHasChanged = false

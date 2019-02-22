@@ -11,6 +11,17 @@ protocol RootFilterCellDelegate: AnyObject {
 final class RootFilterCell: UITableViewCell {
     weak var delegate: RootFilterCellDelegate?
 
+    var isEnabled = true {
+        didSet {
+            isUserInteractionEnabled = isEnabled
+            accessoryType = isEnabled ? .disclosureIndicator : .none
+
+            [contextMark, titleLabel, selectionTagsContainerView].forEach {
+                $0.alpha = isEnabled ? 1 : 0.4
+            }
+        }
+    }
+
     // MARK: - Private properties
 
     private lazy var contextMark: UIView = {

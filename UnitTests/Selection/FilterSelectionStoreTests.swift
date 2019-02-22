@@ -153,6 +153,31 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertEqual(store.titles(for: filter), ["subfilter A"])
     }
 
+    func testTitlesWithRanges() {
+        let filter = RangeFilter(title: "Range", key: "range", lowValueKey: "from", highValueKey: "to")
+        XCTAssertTrue(store.titles(for: filter).isEmpty)
+
+        store.setValue(10, for: filter.lowValueFilter)
+        store.removeValues(for: filter.highValueFilter)
+        XCTAssertEqual(store.titles(for: filter), ["10 - ..."])
+
+        store.removeValues(for: filter.lowValueFilter)
+        store.setValue(100, for: filter.highValueFilter)
+        XCTAssertEqual(store.titles(for: filter), ["... - 100"])
+
+        store.setValue(10, for: filter.lowValueFilter)
+        store.setValue(100, for: filter.highValueFilter)
+        XCTAssertEqual(store.titles(for: filter), ["10 - 100"])
+    }
+
+    func testTitlesWithMap() {
+        let filter = MapFilter(title: "Map", key: "map", latitudeKey: "lat", longitudeKey: "lon", radiusKey: "r", locationKey: "loc")
+        XCTAssertTrue(store.titles(for: filter).isEmpty)
+
+        store.setValue(10, for: filter.radiusFilter)
+        XCTAssertEqual(store.titles(for: filter), ["10 m"])
+    }
+
     func testIsValid() {
         let filter = Filter(title: "Test", key: "test", value: "value")
 
@@ -195,6 +220,17 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertTrue(store.hasSelectedSubfilters(for: filter))
     }
 
+    func testHasSelectedSubfiltersWithPredicate() {
+        let filter = Filter(title: "filter", key: "filter", value: "value")
+        let subfilter = Filter(title: "subfilter A", key: "subfilterA", value: "valueA")
+        filter.add(subfilter: subfilter)
+
+        store.setValue(from: subfilter)
+
+        XCTAssertTrue(store.hasSelectedSubfilters(for: filter, where: { $0.key == "subfilterA" }))
+        XCTAssertFalse(store.hasSelectedSubfilters(for: filter, where: { $0.key == "subfilterB" }))
+    }
+
     func testSelectedSubfilters() {
         let filter = Filter(title: "filter", key: "filter", value: "value")
         let subfilter = Filter(title: "subfilter A", key: "subfilterA", value: "valueA")
@@ -202,5 +238,16 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(from: subfilter)
         XCTAssertEqual(store.selectedSubfilters(for: filter).count, 1)
+    }
+
+    func testSelectedSubfiltersWithPredicate() {
+        let filter = Filter(title: "filter", key: "filter", value: "value")
+        let subfilter = Filter(title: "subfilter A", key: "subfilterA", value: "valueA")
+        filter.add(subfilter: subfilter)
+
+        store.setValue(from: subfilter)
+
+        XCTAssertEqual(store.selectedSubfilters(for: filter, where: { $0.key == "subfilterA" }).count, 1)
+        XCTAssertTrue(store.selectedSubfilters(for: filter, where: { $0.key == "subfilterB" }).isEmpty)
     }
 }

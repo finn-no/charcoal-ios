@@ -17,10 +17,11 @@ extension FilterMarketJob: FINNFilterConfiguration {
         return [.published]
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .partTime:
             return [
+                .map,
                 .location,
                 .occupation,
                 .industry,
@@ -29,6 +30,7 @@ extension FilterMarketJob: FINNFilterConfiguration {
             ]
         case .fullTime, .management:
             return [
+                .map,
                 .location,
                 .occupation,
                 .industry,
@@ -40,12 +42,12 @@ extension FilterMarketJob: FINNFilterConfiguration {
         }
     }
 
-    public var contextFilters: Set<FilterKey> {
+    public var contextFilterKeys: Set<FilterKey> {
         return []
     }
 
-    public var mapFilterParentFilterKey: FilterKey? {
-        return .location
+    public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
+        return [.location, .map]
     }
 
     public var searchFilterKey: FilterKey? {

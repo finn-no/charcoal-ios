@@ -6,35 +6,35 @@ import Foundation
 
 public protocol FINNFilterConfiguration: FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }
-    var supportedFiltersKeys: [FilterKey] { get }
-    var contextFilters: Set<FilterKey> { get }
-    var mapFilterParentFilterKey: FilterKey? { get }
+    var rootLevelFilterKeys: [FilterKey] { get }
+    var contextFilterKeys: Set<FilterKey> { get }
+    var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
     var searchFilterKey: FilterKey? { get }
     var preferencesFilterKey: FilterKey? { get }
 }
 
 public extension FINNFilterConfiguration {
-    var preferenceFilterKeys: [String] {
+    var preferenceFilters: [String] {
         return preferenceFilterKeys.map({ $0.rawValue })
     }
 
-    var supportedFiltersKeys: [String] {
-        return supportedFiltersKeys.map({ $0.rawValue })
+    var rootLevelFilters: [String] {
+        return rootLevelFilterKeys.map({ $0.rawValue })
     }
 
     var contextFilters: Set<String> {
-        return Set(contextFilters.map({ $0.rawValue }))
+        return Set(contextFilterKeys.map({ $0.rawValue }))
     }
 
-    var mapFilterParentFilterKey: String? {
-        return mapFilterParentFilterKey?.rawValue
+    var mutuallyExclusiveFilters: Set<String> {
+        return Set(mutuallyExclusiveFilterKeys.map({ $0.rawValue }))
     }
 
-    var searchFilterKey: String? {
+    var searchFilter: String? {
         return searchFilterKey?.rawValue
     }
 
-    var preferencesFilterKey: String? {
+    var preferencesFilter: String? {
         return preferencesFilterKey?.rawValue
     }
 }

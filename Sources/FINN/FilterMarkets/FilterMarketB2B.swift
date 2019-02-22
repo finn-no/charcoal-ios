@@ -23,10 +23,11 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         return [.published, .dealerSegment]
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .truck, .truckAbroad:
             return [
+                .map,
                 .location,
                 .truckSegment,
                 .make,
@@ -37,6 +38,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .bus:
             return [
+                .map,
                 .location,
                 .busSegment,
                 .make,
@@ -46,6 +48,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .construction:
             return [
+                .map,
                 .location,
                 .constructionSegment,
                 .make,
@@ -55,6 +58,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
+                .map,
                 .location,
                 .make,
                 .price,
@@ -63,6 +67,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTools:
             return [
+                .map,
                 .location,
                 .category,
                 .price,
@@ -75,6 +80,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 .mileage,
                 .price,
                 .bodyType,
+                .map,
                 .location,
                 .engineFuel,
                 .exteriorColour,
@@ -90,12 +96,12 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         }
     }
 
-    public var contextFilters: Set<FilterKey> {
+    public var contextFilterKeys: Set<FilterKey> {
         return []
     }
 
-    public var mapFilterParentFilterKey: FilterKey? {
-        return .location
+    public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
+        return [.location, .map]
     }
 
     public var searchFilterKey: FilterKey? {

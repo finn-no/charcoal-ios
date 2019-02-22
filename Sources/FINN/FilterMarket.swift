@@ -44,28 +44,28 @@ public enum FilterMarket {
 // MARK: - FilterConfiguration
 
 extension FilterMarket: FilterConfiguration {
-    public var preferenceFilterKeys: [String] {
-        return currentFilterConfig.preferenceFilterKeys
+    public var preferenceFilters: [String] {
+        return currentFilterConfig.preferenceFilters
     }
 
-    public var supportedFiltersKeys: [String] {
-        return currentFilterConfig.supportedFiltersKeys
+    public var rootLevelFilters: [String] {
+        return currentFilterConfig.rootLevelFilters
     }
 
     public var contextFilters: Set<String> {
         return currentFilterConfig.contextFilters
     }
 
-    public var mapFilterParentFilterKey: String? {
-        return currentFilterConfig.mapFilterParentFilterKey
+    public var mutuallyExclusiveFilters: Set<String> {
+        return currentFilterConfig.mutuallyExclusiveFilters
     }
 
-    public var searchFilterKey: String? {
-        return currentFilterConfig.searchFilterKey
+    public var searchFilter: String? {
+        return currentFilterConfig.searchFilter
     }
 
-    public var preferencesFilterKey: String? {
-        return currentFilterConfig.preferencesFilterKey
+    public var preferencesFilter: String? {
+        return currentFilterConfig.preferencesFilter
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

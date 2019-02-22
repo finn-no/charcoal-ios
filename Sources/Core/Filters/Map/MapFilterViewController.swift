@@ -135,7 +135,7 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
 private extension MapFilterViewController {
     var radius: Int? {
         get {
-            return Int(selectionStore.value(for: mapFilter.radiusFilter))
+            return selectionStore.value(for: mapFilter.radiusFilter)
         }
         set {
             selectionStore.setValue(newValue, for: mapFilter.radiusFilter)
@@ -155,8 +155,8 @@ private extension MapFilterViewController {
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
         set {
-            selectionStore.setValue(newValue?.latitude, for: mapFilter)
-            selectionStore.setValue(newValue?.longitude, for: mapFilter)
+            selectionStore.setValue(newValue?.latitude, for: mapFilter.latitudeFilter)
+            selectionStore.setValue(newValue?.longitude, for: mapFilter.longitudeFilter)
         }
     }
 

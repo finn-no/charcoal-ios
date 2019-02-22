@@ -35,13 +35,4 @@ extension CCListFilterCellViewModel {
             icon: UIImage(named: iconAsset)
         )
     }
-
-    static func map(from filter: Filter) -> CCListFilterCellViewModel {
-        return CCListFilterCellViewModel(
-            title: filter.title,
-            detail: nil,
-            accessoryType: .disclosureIndicator,
-            icon: UIImage(named: .mapFilterIcon)
-        )
-    }
 }

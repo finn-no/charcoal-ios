@@ -39,7 +39,7 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var searchFilter: Filter? {
-        return filter.subfilters.first { $0.key == config.searchFilterKey }
+        return filter.subfilters.first { $0.key == config.searchFilter }
     }
 
     private let config: FilterConfiguration
@@ -89,12 +89,12 @@ extension RootFilterViewController: UITableViewDataSource {
         let currentFilter = filter.subfilters[indexPath.row]
 
         switch currentFilter.key {
-        case config.searchFilterKey:
+        case config.searchFilter:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
             cell.searchBar = searchQueryViewController.searchBar
             cell.searchBar?.placeholder = currentFilter.title
             return cell
-        case config.preferencesFilterKey:
+        case config.preferencesFilter:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
             let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
@@ -109,6 +109,11 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
             cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, kind: currentFilter.kind)
 
+            let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
+            cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {
+                exclusiveFilters.contains($0.key)
+            })
+
             return cell
         }
     }
@@ -118,7 +123,7 @@ extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilter = filter.subfilters[indexPath.row]
         switch selectedFilter.key {
-        case config.searchFilterKey, config.preferencesFilterKey:
+        case config.searchFilter, config.preferencesFilter:
             return
         default:
             delegate?.filterViewController(self, didSelectFilter: selectedFilter)
@@ -137,6 +142,13 @@ extension RootFilterViewController: RootFilterCellDelegate {
 
         selectionStore.removeValues(for: selectedSubfilters[index])
         tableView.reloadRows(at: [indexPath], with: .fade)
+
+        let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
+        let indexPathsToReload = filter.subfilters.enumerated().compactMap({ index, subfilter in
+            return exclusiveFilters.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
+        })
+
+        tableView.reloadRows(at: indexPathsToReload, with: .none)
     }
 }
 

@@ -35,6 +35,7 @@ public enum FilterKey: String, CodingKey {
     case forRent = "for_rent"
     case fuel
     case furnished
+    case geoLocationName
     case guitarType = "guitar_type"
     case hifiPartsType = "hifiparts_type"
     case horseHeight = "horse_height"
@@ -45,6 +46,7 @@ public enum FilterKey: String, CodingKey {
     case jobDuration = "job_duration"
     case jobSector = "job_sector"
     case laptopsBrand = "laptops_brand"
+    case latitude = "lat"
     case leasepriceInit = "leaseprice_init"
     case leasepriceMonth = "leaseprice_month"
     case leisureSituation = "leisure_situation"
@@ -52,8 +54,10 @@ public enum FilterKey: String, CodingKey {
     case lengthCm = "length_cm"
     case lengthFeet = "length_feet"
     case location
+    case longitude = "lon"
     case make
     case managerRole = "manager_role"
+    case map
     case markets
     case mileage
     case mobileBrand = "mobile_brand"
@@ -78,6 +82,7 @@ public enum FilterKey: String, CodingKey {
     case propertyType = "property_type"
     case published
     case query = "q"
+    case radius
     case registrationClass = "registration_class"
     case rent
     case rentFrom = "rent_from"

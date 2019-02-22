@@ -5,13 +5,25 @@
 import Foundation
 
 public protocol FilterConfiguration {
-    var preferenceFilterKeys: [String] { get }
-    var supportedFiltersKeys: [String] { get }
+    var preferenceFilters: [String] { get }
+    var rootLevelFilters: [String] { get }
     var contextFilters: Set<String> { get }
-    var mapFilterParentFilterKey: String? { get }
-    var searchFilterKey: String? { get }
-    var preferencesFilterKey: String? { get }
+    var mutuallyExclusiveFilters: Set<String> { get }
+    var searchFilter: String? { get }
+    var preferencesFilter: String? { get }
 
     func handlesVerticalId(_ vertical: String) -> Bool
     func rangeViewModel(forKey key: String) -> RangeFilterInfo?
+}
+
+// MARK: - Extensions
+
+public extension FilterConfiguration {
+    func mutuallyExclusiveFilters(for filter: String) -> Set<String> {
+        guard mutuallyExclusiveFilters.contains(filter) else {
+            return []
+        }
+
+        return mutuallyExclusiveFilters.filter({ $0 != filter })
+    }
 }

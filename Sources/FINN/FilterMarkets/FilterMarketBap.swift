@@ -15,7 +15,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
         return [.searchType, .segment, .condition, .published]
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         return [
             .category,
             .bikesType,
@@ -33,12 +33,13 @@ extension FilterMarketBap: FINNFilterConfiguration {
             .shoeSize,
             .womenClothingBrand,
             .lengthCm,
+            .map,
             .location,
             .price,
         ]
     }
 
-    public var contextFilters: Set<FilterKey> {
+    public var contextFilterKeys: Set<FilterKey> {
         return [
             .bikesType,
             .carPartsBrand,
@@ -58,8 +59,8 @@ extension FilterMarketBap: FINNFilterConfiguration {
         ]
     }
 
-    public var mapFilterParentFilterKey: FilterKey? {
-        return .location
+    public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
+        return [.location, .map]
     }
 
     public var searchFilterKey: FilterKey? {

@@ -93,7 +93,8 @@ extension FilterSelectionStore {
     }
 
     func titles(for filter: Filter) -> [String] {
-        if let rangeFilter = filter as? RangeFilter {
+        switch filter {
+        case let rangeFilter as RangeFilter:
             let lowValue: String? = value(for: rangeFilter.lowValueFilter)
             let highValue: String? = value(for: rangeFilter.highValueFilter)
 
@@ -102,10 +103,19 @@ extension FilterSelectionStore {
             } else {
                 return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        } else if isSelected(filter) {
-            return [filter.title]
-        } else {
-            return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
+        case let mapFilter as MapFilter:
+            if let radius: Int = value(for: mapFilter.radiusFilter) {
+                let formatter = MapDistanceValueFormatter()
+                return [formatter.title(for: radius)]
+            } else {
+                fallthrough
+            }
+        default:
+            if isSelected(filter) {
+                return [filter.title]
+            } else {
+                return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
+            }
         }
     }
 
@@ -124,19 +134,19 @@ extension FilterSelectionStore {
         }
     }
 
-    func hasSelectedSubfilters(for filter: Filter) -> Bool {
-        if isSelected(filter) {
+    func hasSelectedSubfilters(for filter: Filter, where predicate: ((Filter) -> Bool) = { _ in true }) -> Bool {
+        if isSelected(filter) && predicate(filter) {
             return true
         }
 
-        return filter.subfilters.reduce(false) { $0 || hasSelectedSubfilters(for: $1) }
+        return filter.subfilters.reduce(false) { $0 || hasSelectedSubfilters(for: $1, where: predicate) }
     }
 
-    func selectedSubfilters(for filter: Filter) -> [Filter] {
-        if isSelected(filter) {
+    func selectedSubfilters(for filter: Filter, where predicate: ((Filter) -> Bool) = { _ in true }) -> [Filter] {
+        if isSelected(filter) && predicate(filter) {
             return [filter]
         }
 
-        return filter.subfilters.reduce([]) { $0 + selectedSubfilters(for: $1) }
+        return filter.subfilters.reduce([]) { $0 + selectedSubfilters(for: $1, where: predicate) }
     }
 }

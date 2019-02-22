@@ -50,36 +50,35 @@ public struct FilterSetup: Decodable {
     public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
         var rootSubfilters = [Filter]()
 
-        if let key = config.searchFilterKey {
+        if let key = config.searchFilter {
             rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: key))
         }
 
-        if let key = config.preferencesFilterKey {
-            let preferenceSubfilters = config.preferenceFilterKeys.compactMap { filterData(forKey: $0) }
+        if let key = config.preferencesFilter {
+            let preferenceSubfilters = config.preferenceFilters.compactMap { filterData(forKey: $0) }
             let preferenceFilter = Filter(title: "", key: key)
             preferenceSubfilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
 
             rootSubfilters.append(preferenceFilter)
         }
 
-        let supportedFilters = config.supportedFiltersKeys.compactMap { key -> Filter? in
+        let rootLevelFilters = config.rootLevelFilters.compactMap { key -> Filter? in
+            if key == FilterKey.map.rawValue {
+                return MapFilter(
+                    title: "map_filter_title".localized(),
+                    key: key,
+                    latitudeKey: FilterKey.latitude.rawValue,
+                    longitudeKey: FilterKey.longitude.rawValue,
+                    radiusKey: FilterKey.radius.rawValue,
+                    locationKey: FilterKey.geoLocationName.rawValue
+                )
+            }
+
             let kind: Filter.Kind = config.contextFilters.contains(key) ? .context : .normal
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        if let locationFilter = supportedFilters.first(where: { $0.key == config.mapFilterParentFilterKey }) {
-            let mapFilter = MapFilter(
-                title: "map_filter_title".localized(),
-                key: "map",
-                latitudeKey: "lat",
-                longitudeKey: "lon",
-                radiusKey: "radius",
-                locationKey: "geoLocationName"
-            )
-            locationFilter.add(subfilter: mapFilter, at: 0)
-        }
-
-        rootSubfilters.append(contentsOf: supportedFilters)
+        rootSubfilters.append(contentsOf: rootLevelFilters)
 
         let root = Filter(title: filterTitle, key: market, numberOfResults: hits)
         rootSubfilters.forEach { root.add(subfilter: $0) }

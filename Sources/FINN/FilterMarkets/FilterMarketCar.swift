@@ -23,7 +23,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
         }
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .norway:
             return [
@@ -34,6 +34,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .leasepriceInit,
                 .leasepriceMonth,
                 .price,
+                .map,
                 .location,
                 .bodyType,
                 .engineFuel,
@@ -57,6 +58,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .leasepriceInit,
                 .leasepriceMonth,
                 .price,
+                .map,
                 .location,
                 .bodyType,
                 .engineFuel,
@@ -78,6 +80,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .year,
                 .mileage,
                 .price,
+                .map,
                 .location,
                 .noOfSleepers,
                 .numberOfSeats,
@@ -95,6 +98,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .year,
                 .mileage,
                 .price,
+                .map,
                 .location,
                 .noOfSleepers,
                 .caravanSegment,
@@ -105,15 +109,15 @@ extension FilterMarketCar: FINNFilterConfiguration {
         }
     }
 
-    public var contextFilters: Set<FilterKey> {
+    public var contextFilterKeys: Set<FilterKey> {
         return [
             .leasepriceInit,
             .leasepriceMonth,
         ]
     }
 
-    public var mapFilterParentFilterKey: FilterKey? {
-        return .location
+    public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
+        return [.location, .map]
     }
 
     public var searchFilterKey: FilterKey? {

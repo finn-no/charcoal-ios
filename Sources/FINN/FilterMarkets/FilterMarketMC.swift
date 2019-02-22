@@ -23,10 +23,11 @@ extension FilterMarketMC: FINNFilterConfiguration {
         }
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .mc:
             return [
+                .map,
                 .location,
                 .category,
                 .make,
@@ -38,6 +39,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
             ]
         case .mopedScooter:
             return [
+                .map,
                 .location,
                 .category,
                 .make,
@@ -49,6 +51,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
             ]
         case .snowmobile, .atv:
             return [
+                .map,
                 .location,
                 .make,
                 .price,
@@ -60,12 +63,12 @@ extension FilterMarketMC: FINNFilterConfiguration {
         }
     }
 
-    public var contextFilters: Set<FilterKey> {
+    public var contextFilterKeys: Set<FilterKey> {
         return []
     }
 
-    public var mapFilterParentFilterKey: FilterKey? {
-        return .location
+    public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
+        return [.location, .map]
     }
 
     public var searchFilterKey: FilterKey? {

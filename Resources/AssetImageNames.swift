@@ -26,7 +26,6 @@ enum CharcoalImageAsset: String {
     case homeAddressIcon
     case locateUserFilled
     case locateUserOutlined
-    case mapFilterIcon
     case minusButton
     case plusButton
     case popoverArrow
@@ -51,7 +50,6 @@ enum CharcoalImageAsset: String {
             .homeAddressIcon,
             .locateUserFilled,
             .locateUserOutlined,
-            .mapFilterIcon,
             .minusButton,
             .plusButton,
             .popoverArrow,

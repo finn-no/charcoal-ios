@@ -27,6 +27,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         switch self {
         case .truck, .truckAbroad:
             return [
+                .map,
                 .location,
                 .truckSegment,
                 .make,
@@ -37,6 +38,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .bus:
             return [
+                .map,
                 .location,
                 .busSegment,
                 .make,
@@ -46,6 +48,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .construction:
             return [
+                .map,
                 .location,
                 .constructionSegment,
                 .make,
@@ -55,6 +58,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
+                .map,
                 .location,
                 .make,
                 .price,
@@ -63,6 +67,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTools:
             return [
+                .map,
                 .location,
                 .category,
                 .price,
@@ -75,6 +80,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 .mileage,
                 .price,
                 .bodyType,
+                .map,
                 .location,
                 .engineFuel,
                 .exteriorColour,
@@ -104,14 +110,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
-    }
-
-    public var locationFilterKey: FilterKey? {
-        return .location
-    }
-
-    public var mapFilterKey: FilterKey? {
-        return .map
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

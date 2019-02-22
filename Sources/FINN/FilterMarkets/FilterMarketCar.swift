@@ -34,6 +34,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .leasepriceInit,
                 .leasepriceMonth,
                 .price,
+                .map,
                 .location,
                 .bodyType,
                 .engineFuel,
@@ -57,6 +58,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .leasepriceInit,
                 .leasepriceMonth,
                 .price,
+                .map,
                 .location,
                 .bodyType,
                 .engineFuel,
@@ -78,6 +80,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .year,
                 .mileage,
                 .price,
+                .map,
                 .location,
                 .noOfSleepers,
                 .numberOfSeats,
@@ -95,6 +98,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 .year,
                 .mileage,
                 .price,
+                .map,
                 .location,
                 .noOfSleepers,
                 .caravanSegment,
@@ -122,14 +126,6 @@ extension FilterMarketCar: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
-    }
-
-    public var locationFilterKey: FilterKey? {
-        return .location
-    }
-
-    public var mapFilterKey: FilterKey? {
-        return .map
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

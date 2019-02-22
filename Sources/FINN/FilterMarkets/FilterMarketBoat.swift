@@ -31,6 +31,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         switch self {
         case .boatSale:
             return [
+                .map,
                 .location,
                 .motorAdLocation,
                 .boatClass,
@@ -48,12 +49,14 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatUsedWanted:
             return [
+                .map,
                 .location,
                 .boatClass,
                 .price,
             ]
         case .boatRent:
             return [
+                .map,
                 .location,
                 .boatClass,
                 .price,
@@ -66,6 +69,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatMotor, .boatParts:
             return [
+                .map,
                 .location,
                 .type,
                 .price,
@@ -74,6 +78,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatPartsMotorWanted:
             return [
+                .map,
                 .location,
                 .type,
                 .price,
@@ -81,6 +86,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatDock:
             return [
+                .map,
                 .location,
                 .width,
                 .price,
@@ -88,6 +94,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatDockWanted:
             return [
+                .map,
                 .location,
                 .width,
                 .price,
@@ -109,14 +116,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
-    }
-
-    public var locationFilterKey: FilterKey? {
-        return .location
-    }
-
-    public var mapFilterKey: FilterKey? {
-        return .map
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

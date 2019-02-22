@@ -36,6 +36,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         switch self {
         case .homes:
             return [
+                .map,
                 .location,
                 .price,
                 .priceCollective,
@@ -53,6 +54,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .development:
             return [
+                .map,
                 .location,
                 .price,
                 .priceCollective,
@@ -65,12 +67,14 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .plot, .leisurePlot:
             return [
+                .map,
                 .location,
                 .price,
                 .plotArea,
             ]
         case .leisureSale:
             return [
+                .map,
                 .location,
                 .price,
                 .area,
@@ -83,6 +87,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .leisureSaleAbroad:
             return [
+                .map,
                 .location,
                 .price,
                 .area,
@@ -93,6 +98,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .letting:
             return [
+                .map,
                 .location,
                 .propertyType,
                 .price,
@@ -107,6 +113,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .lettingWanted:
             return [
+                .map,
                 .location,
                 .propertyType,
                 .price,
@@ -115,6 +122,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessSale:
             return [
+                .map,
                 .location,
                 .price,
                 .area,
@@ -122,18 +130,21 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessLetting:
             return [
+                .map,
                 .location,
                 .area,
                 .propertyType,
             ]
         case .businessPlot:
             return [
+                .map,
                 .location,
                 .price,
                 .plotArea,
             ]
         case .companyForSale:
             return [
+                .map,
                 .location,
                 .category,
             ]
@@ -156,14 +167,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
-    }
-
-    public var locationFilterKey: FilterKey? {
-        return .location
-    }
-
-    public var mapFilterKey: FilterKey? {
-        return .map
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

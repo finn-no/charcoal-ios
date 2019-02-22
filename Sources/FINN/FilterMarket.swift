@@ -68,14 +68,6 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.preferencesFilter
     }
 
-    public var locationFilter: String? {
-        return currentFilterConfig.locationFilter
-    }
-
-    public var mapFilter: String? {
-        return currentFilterConfig.mapFilter
-    }
-
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }

@@ -33,6 +33,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
             .shoeSize,
             .womenClothingBrand,
             .lengthCm,
+            .map,
             .location,
             .price,
         ]
@@ -68,14 +69,6 @@ extension FilterMarketBap: FINNFilterConfiguration {
 
     public var preferencesFilterKey: FilterKey? {
         return .preferences
-    }
-
-    public var locationFilterKey: FilterKey? {
-        return .location
-    }
-
-    public var mapFilterKey: FilterKey? {
-        return .map
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

@@ -11,8 +11,6 @@ public protocol FINNFilterConfiguration: FilterConfiguration {
     var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
     var searchFilterKey: FilterKey? { get }
     var preferencesFilterKey: FilterKey? { get }
-    var locationFilterKey: FilterKey? { get }
-    var mapFilterKey: FilterKey? { get }
 }
 
 public extension FINNFilterConfiguration {
@@ -38,13 +36,5 @@ public extension FINNFilterConfiguration {
 
     var preferencesFilter: String? {
         return preferencesFilterKey?.rawValue
-    }
-
-    var locationFilter: String? {
-        return locationFilterKey?.rawValue
-    }
-
-    var mapFilter: String? {
-        return mapFilterKey?.rawValue
     }
 }

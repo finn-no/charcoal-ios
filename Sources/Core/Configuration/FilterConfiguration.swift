@@ -6,7 +6,7 @@ import Foundation
 
 public protocol FilterConfiguration {
     var preferenceFilters: [String] { get }
-    var supportedFilters: [String] { get }
+    var rootLevelFilters: [String] { get }
     var contextFilters: Set<String> { get }
     var mutuallyExclusiveFilters: Set<String> { get }
     var searchFilter: String? { get }

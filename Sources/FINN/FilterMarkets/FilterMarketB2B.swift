@@ -23,7 +23,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         return [.published, .dealerSegment]
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .truck, .truckAbroad:
             return [

@@ -32,7 +32,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         }
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .homes:
             return [

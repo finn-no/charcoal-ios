@@ -6,7 +6,7 @@ import Foundation
 
 public protocol FINNFilterConfiguration: FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }
-    var supportedFiltersKeys: [FilterKey] { get }
+    var rootLevelFilterKeys: [FilterKey] { get }
     var contextFilterKeys: Set<FilterKey> { get }
     var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
     var searchFilterKey: FilterKey? { get }
@@ -18,8 +18,8 @@ public extension FINNFilterConfiguration {
         return preferenceFilterKeys.map({ $0.rawValue })
     }
 
-    var supportedFilters: [String] {
-        return supportedFiltersKeys.map({ $0.rawValue })
+    var rootLevelFilters: [String] {
+        return rootLevelFilterKeys.map({ $0.rawValue })
     }
 
     var contextFilters: Set<String> {

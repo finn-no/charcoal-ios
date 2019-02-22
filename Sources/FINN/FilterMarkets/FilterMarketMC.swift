@@ -23,7 +23,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
         }
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .mc:
             return [

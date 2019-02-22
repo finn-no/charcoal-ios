@@ -62,7 +62,7 @@ public struct FilterSetup: Decodable {
             rootSubfilters.append(preferenceFilter)
         }
 
-        let supportedFilters = config.supportedFilters.compactMap { key -> Filter? in
+        let rootLevelFilters = config.rootLevelFilters.compactMap { key -> Filter? in
             if key == FilterKey.map.rawValue {
                 return MapFilter(
                     title: "map_filter_title".localized(),
@@ -78,7 +78,7 @@ public struct FilterSetup: Decodable {
             return filterData(forKey: key)?.asFilter(of: kind)
         }
 
-        rootSubfilters.append(contentsOf: supportedFilters)
+        rootSubfilters.append(contentsOf: rootLevelFilters)
 
         let root = Filter(title: filterTitle, key: market, numberOfResults: hits)
         rootSubfilters.forEach { root.add(subfilter: $0) }

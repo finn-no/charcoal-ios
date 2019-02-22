@@ -23,7 +23,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
         }
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .norway:
             return [

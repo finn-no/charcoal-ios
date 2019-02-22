@@ -27,7 +27,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         }
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .boatSale:
             return [

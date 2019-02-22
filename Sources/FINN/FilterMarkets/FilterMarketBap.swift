@@ -15,7 +15,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
         return [.searchType, .segment, .condition, .published]
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         return [
             .category,
             .bikesType,

@@ -17,7 +17,7 @@ extension FilterMarketJob: FINNFilterConfiguration {
         return [.published]
     }
 
-    public var supportedFiltersKeys: [FilterKey] {
+    public var rootLevelFilterKeys: [FilterKey] {
         switch self {
         case .partTime:
             return [

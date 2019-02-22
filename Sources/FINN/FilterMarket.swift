@@ -48,8 +48,8 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.preferenceFilters
     }
 
-    public var supportedFilters: [String] {
-        return currentFilterConfig.supportedFilters
+    public var rootLevelFilters: [String] {
+        return currentFilterConfig.rootLevelFilters
     }
 
     public var contextFilters: Set<String> {

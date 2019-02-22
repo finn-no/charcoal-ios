@@ -118,7 +118,9 @@ extension DemoViewsTableViewController {
 // MARK: - CharcoalViewControllerDelegate
 
 extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
-    func charcoalViewControllerDidChangeSelection(_ filterViewController: CharcoalViewController) {}
+    func charcoalViewController(_ filterViewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem]) {
+        print("Selection did change")
+    }
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
         guard let vertical = vertical as? VerticalDemo, let config = FilterMarket(market: vertical.id) else { return }

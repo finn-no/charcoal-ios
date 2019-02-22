@@ -5,7 +5,6 @@
 import UIKit
 
 protocol FilterViewControllerDelegate: class {
-    func filterViewControllerDidSelectApply(_ viewController: FilterViewController)
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
 }
 
@@ -83,6 +82,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     // MARK: - FilterBottomButtonViewDelegate
 
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.filterViewControllerDidSelectApply(self)
+        navigationController?.popToRootViewController(animated: true)
     }
 }

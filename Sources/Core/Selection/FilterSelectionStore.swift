@@ -5,6 +5,13 @@
 import Foundation
 
 final class FilterSelectionStore {
+
+    // MARK: - Internal properties
+
+    internal var hasChanges = false
+
+    // MARK: - Private properties
+
     private var queryItems: Set<URLQueryItem>
 
     // MARK: - Init
@@ -39,6 +46,7 @@ final class FilterSelectionStore {
 extension FilterSelectionStore {
     func setValue(from filter: Filter) {
         setValue(filter.value, for: filter)
+        hasChanges = true
     }
 
     func setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
@@ -48,6 +56,8 @@ extension FilterSelectionStore {
             let queryItem = URLQueryItem(name: filter.key, value: String(value))
             queryItems.insert(queryItem)
         }
+
+        hasChanges = true
     }
 
     func removeValues(for filter: Filter) {
@@ -58,6 +68,8 @@ extension FilterSelectionStore {
         filter.subfilters.forEach {
             removeValues(for: $0)
         }
+
+        hasChanges = true
     }
 
     func toggleValue(for filter: Filter) {
@@ -66,6 +78,8 @@ extension FilterSelectionStore {
         } else {
             setValue(filter.value, for: filter)
         }
+
+        hasChanges = true
     }
 
     func isSelected(_ filter: Filter) -> Bool {

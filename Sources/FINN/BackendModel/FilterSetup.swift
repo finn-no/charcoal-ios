@@ -51,20 +51,18 @@ public struct FilterSetup: Decodable {
         var rootSubfilters = [Filter]()
 
         if let key = config.searchFilter {
-            rootSubfilters.append(Filter(title: "search_placeholder".localized(), key: key))
+            rootSubfilters.append(Filter.search(title: "search_placeholder".localized(), key: key))
         }
 
         if let key = config.preferencesFilter {
-            let preferenceSubfilters = config.preferenceFilters.compactMap { filterData(forKey: $0) }
-            let preferenceFilter = Filter(title: "", key: key)
-            preferenceSubfilters.forEach { preferenceFilter.add(subfilter: $0.asFilter()) }
-
+            let subfilters = config.preferenceFilters.compactMap { filterData(forKey: $0)?.asFilter(using: config) }
+            let preferenceFilter = Filter.inline(title: "", key: key, subfilters: subfilters)
             rootSubfilters.append(preferenceFilter)
         }
 
         let rootLevelFilters = config.rootLevelFilters.compactMap { key -> Filter? in
             if key == FilterKey.map.rawValue {
-                return MapFilter(
+                return Filter.mapFilter(
                     title: "map_filter_title".localized(),
                     key: key,
                     latitudeKey: FilterKey.latitude.rawValue,
@@ -74,14 +72,12 @@ public struct FilterSetup: Decodable {
                 )
             }
 
-            let kind: Filter.Kind = config.contextFilters.contains(key) ? .context : .normal
-            return filterData(forKey: key)?.asFilter(of: kind)
+            return filterData(forKey: key)?.asFilter(using: config)
         }
 
         rootSubfilters.append(contentsOf: rootLevelFilters)
 
-        let root = Filter(title: filterTitle, key: market, numberOfResults: hits)
-        rootSubfilters.forEach { root.add(subfilter: $0) }
+        let root = Filter.regular(title: filterTitle, key: market, numberOfResults: hits, subfilters: rootSubfilters)
 
         return FilterContainer(root: root)
     }

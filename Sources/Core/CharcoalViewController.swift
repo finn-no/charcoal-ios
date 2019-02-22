@@ -97,35 +97,43 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     }
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
-        guard !filter.subfilters.isEmpty else { return }
         let nextViewController: FilterViewController
 
-        switch filter {
-        case let rangeFilter as RangeFilter:
-            guard let viewModel = config.rangeViewModel(forKey: rangeFilter.key) else { return }
-            switch viewModel.kind {
-            case .slider:
-                nextViewController = RangeFilterViewController(
-                    rangeFilter: rangeFilter,
-                    viewModel: viewModel,
-                    selectionStore: selectionStore
-                )
-            case .stepper:
-                nextViewController = StepperFilterViewController(
-                    filter: rangeFilter,
-                    selectionStore: selectionStore,
-                    viewModel: viewModel
-                )
-            }
-        case let mapFilter as MapFilter:
-            guard let mapFilterViewManager = mapFilterViewManager else { return }
-            nextViewController = MapFilterViewController(
-                mapFilter: mapFilter,
-                selectionStore: selectionStore,
-                mapFilterViewManager: mapFilterViewManager,
-                searchLocationDataSource: searchLocationDataSource
+        switch filter.kind {
+        case let .range(lowValueFilter, highValueFilter):
+            guard let viewModel = config.rangeViewModel(forKey: filter.key) else { return }
+            nextViewController = RangeFilterViewController(
+                title: filter.title,
+                lowValueFilter: lowValueFilter,
+                highValueFilter: highValueFilter,
+                viewModel: viewModel,
+                selectionStore: selectionStore
             )
-        default:
+        case .stepper:
+            guard let viewModel = config.rangeViewModel(forKey: filter.key) else { return }
+            nextViewController = StepperFilterViewController(
+                filter: filter,
+                selectionStore: selectionStore,
+                viewModel: viewModel
+            )
+        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
+            guard let mapFilterViewManager = mapFilterViewManager else { return }
+            let mapViewController = MapFilterViewController(
+                mapFilter: filter,
+                latitudeFilter: latitudeFilter,
+                longitudeFilter: longitudeFilter,
+                radiusFilter: radiusFilter,
+                locationNameFilter: locationNameFilter,
+                selectionStore: selectionStore,
+                mapFilterViewManager: mapFilterViewManager
+            )
+            mapViewController.searchLocationDataSource = searchLocationDataSource
+            nextViewController = mapViewController
+        case .inline, .search:
+            return
+        case .regular:
+            guard !filter.subfilters.isEmpty else { return }
+
             nextViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
             nextViewController.showBottomButton(showBottomButton, animated: false)

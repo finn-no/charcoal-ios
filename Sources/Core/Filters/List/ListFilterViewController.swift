@@ -21,8 +21,19 @@ final class ListFilterViewController: FilterViewController {
         return tableView
     }()
 
+    private let filter: Filter
+
     private var showSelectAllCell: Bool {
         return filter.value != nil
+    }
+
+    init(filter: Filter, selectionStore: FilterSelectionStore) {
+        self.filter = filter
+        super.init(title: filter.title, selectionStore: selectionStore)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Overrides

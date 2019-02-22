@@ -7,8 +7,16 @@ import UIKit
 
 final class MapFilterViewController: FilterViewController {
     private let mapFilterViewManager: MapFilterViewManager
-    private let searchLocationDataSource: SearchLocationDataSource?
-    private let mapFilter: MapFilter
+    var searchLocationDataSource: SearchLocationDataSource? {
+        didSet {
+            searchLocationViewController.searchLocationDataSource = searchLocationDataSource
+        }
+    }
+
+    private let latitudeFilter: Filter
+    private let longitudeFilter: Filter
+    private let radiusFilter: Filter
+    private let locationNameFilter: Filter
 
     private lazy var mapFilterView: MapFilterView = {
         let mapFilterView = MapFilterView(
@@ -25,18 +33,20 @@ final class MapFilterViewController: FilterViewController {
     private lazy var searchLocationViewController: SearchLocationViewController = {
         let searchLocationViewController = SearchLocationViewController()
         searchLocationViewController.delegate = self
-        searchLocationViewController.searchLocationDataSource = searchLocationDataSource
         return searchLocationViewController
     }()
 
     // MARK: - Init
 
-    init(mapFilter: MapFilter, selectionStore: FilterSelectionStore,
-         mapFilterViewManager: MapFilterViewManager, searchLocationDataSource: SearchLocationDataSource?) {
-        self.mapFilter = mapFilter
+    init(mapFilter: Filter, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
+         locationNameFilter: Filter, selectionStore: FilterSelectionStore,
+         mapFilterViewManager: MapFilterViewManager) {
+        self.latitudeFilter = latitudeFilter
+        self.longitudeFilter = longitudeFilter
+        self.radiusFilter = radiusFilter
+        self.locationNameFilter = locationNameFilter
         self.mapFilterViewManager = mapFilterViewManager
-        self.searchLocationDataSource = searchLocationDataSource
-        super.init(filter: mapFilter, selectionStore: selectionStore)
+        super.init(title: mapFilter.title, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -135,37 +145,37 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
 private extension MapFilterViewController {
     var radius: Int? {
         get {
-            return selectionStore.value(for: mapFilter.radiusFilter)
+            return selectionStore.value(for: radiusFilter)
         }
         set {
-            selectionStore.setValue(newValue, for: mapFilter.radiusFilter)
+            selectionStore.setValue(newValue, for: radiusFilter)
         }
     }
 
     var coordinate: CLLocationCoordinate2D? {
         get {
-            guard let latitude: Double = selectionStore.value(for: mapFilter.latitudeFilter) else {
+            guard let latitude: Double = selectionStore.value(for: latitudeFilter) else {
                 return nil
             }
 
-            guard let longitude: Double = selectionStore.value(for: mapFilter.longitudeFilter) else {
+            guard let longitude: Double = selectionStore.value(for: longitudeFilter) else {
                 return nil
             }
 
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
         set {
-            selectionStore.setValue(newValue?.latitude, for: mapFilter.latitudeFilter)
-            selectionStore.setValue(newValue?.longitude, for: mapFilter.longitudeFilter)
+            selectionStore.setValue(newValue?.latitude, for: latitudeFilter)
+            selectionStore.setValue(newValue?.longitude, for: longitudeFilter)
         }
     }
 
     var locationName: String? {
         get {
-            return selectionStore.value(for: mapFilter.locationNameFilter)
+            return selectionStore.value(for: locationNameFilter)
         }
         set {
-            selectionStore.setValue(newValue, for: mapFilter.locationNameFilter)
+            selectionStore.setValue(newValue, for: locationNameFilter)
         }
     }
 }

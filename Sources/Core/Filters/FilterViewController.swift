@@ -14,7 +14,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     // MARK: - Public properties
 
     weak var delegate: FilterViewControllerDelegate?
-    var filter: Filter
     let selectionStore: FilterSelectionStore
     private(set) var isShowingBottomButton = false
 
@@ -31,10 +30,10 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore) {
-        self.filter = filter
+    init(title: String, selectionStore: FilterSelectionStore) {
         self.selectionStore = selectionStore
         super.init(nibName: nil, bundle: nil)
+        self.title = title
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -46,7 +45,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .milk
-        navigationItem.title = filter.title
+        navigationItem.title = title
         setup()
     }
 

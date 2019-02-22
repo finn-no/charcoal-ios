@@ -42,13 +42,15 @@ final class RootFilterViewController: FilterViewController {
         return filter.subfilters.first { $0.key == config.searchFilter }
     }
 
+    private var filter: Filter
     private let config: FilterConfiguration
 
     // MARK: - Init
 
     init(filter: Filter, config: FilterConfiguration, selectionStore: FilterSelectionStore) {
+        self.filter = filter
         self.config = config
-        super.init(filter: filter, selectionStore: selectionStore)
+        super.init(title: filter.title, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -107,7 +109,7 @@ extension RootFilterViewController: UITableViewDataSource {
             let cell = tableView.dequeue(RootFilterCell.self, for: indexPath)
 
             cell.delegate = self
-            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, kind: currentFilter.kind)
+            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, style: currentFilter.style)
 
             let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
             cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {

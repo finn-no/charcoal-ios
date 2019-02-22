@@ -47,31 +47,96 @@ public struct FilterSetup: Decodable {
         }
     }
 
+    // MARK: - Factory
+
     public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
         let rootLevelFilters = config.rootLevelFilters.compactMap { key -> Filter? in
             switch key {
             case FilterKey.query.rawValue:
                 return Filter.search(title: "search_placeholder".localized(), key: key)
             case FilterKey.preferences.rawValue:
-                let subfilters = config.preferenceFilters.compactMap { filterData(forKey: $0)?.asFilter(using: config) }
+                let subfilters = config.preferenceFilters.compactMap {
+                    filterData(forKey: $0).map({ makeListFilter(from: $0, withStyle: .normal) })
+                }
                 return Filter.inline(title: "", key: key, subfilters: subfilters)
             case FilterKey.map.rawValue:
-                return Filter.mapFilter(
-                    title: "map_filter_title".localized(),
-                    key: key,
-                    latitudeKey: FilterKey.latitude.rawValue,
-                    longitudeKey: FilterKey.longitude.rawValue,
-                    radiusKey: FilterKey.radius.rawValue,
-                    locationKey: FilterKey.geoLocationName.rawValue
-                )
+                return makeMapFilter(withKey: key)
             default:
-                return filterData(forKey: key)?.asFilter(using: config)
+                guard let data = filterData(forKey: key) else { return nil }
+
+                let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
+
+                if let viewModel = config.rangeViewModel(forKey: key), data.isRange == true {
+                    switch viewModel.kind {
+                    case .slider:
+                        return makeRangeFilter(from: data, withStyle: style)
+                    case .stepper:
+                        return makeStepperFilter(from: data, withStyle: style)
+                    }
+                } else {
+                    return makeListFilter(from: data, withStyle: style)
+                }
             }
         }
 
         let root = Filter.regular(title: filterTitle, key: market, numberOfResults: hits, subfilters: rootLevelFilters)
 
         return FilterContainer(root: root)
+    }
+
+    private func makeMapFilter(withKey key: String) -> Filter {
+        return Filter.mapFilter(
+            title: "map_filter_title".localized(),
+            key: key,
+            latitudeKey: FilterKey.latitude.rawValue,
+            longitudeKey: FilterKey.longitude.rawValue,
+            radiusKey: FilterKey.radius.rawValue,
+            locationKey: FilterKey.geoLocationName.rawValue
+        )
+    }
+
+    private func makeStepperFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
+        return Filter.stepperFilter(title: filterData.title, key: filterData.parameterName, style: style)
+    }
+
+    private func makeRangeFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
+        let key = filterData.parameterName
+
+        return Filter.rangeFilter(
+            title: filterData.title,
+            key: key,
+            lowValueKey: key + "_from",
+            highValueKey: key + "_to",
+            style: style
+        )
+    }
+
+    private func makeListFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
+        let subfilters = filterData.queries.compactMap({
+            makeListFilter(withKey: filterData.parameterName, from: $0)
+        })
+
+        return Filter.regular(
+            title: filterData.title,
+            key: filterData.parameterName,
+            style: style,
+            subfilters: subfilters
+        )
+    }
+
+    private func makeListFilter(withKey key: String, from query: FilterDataQuery) -> Filter {
+        let filter = query.filter
+        let subfilters = filter?.queries.compactMap({
+            makeListFilter(withKey: filter?.parameterName ?? "", from: $0)
+        })
+
+        return Filter.regular(
+            title: query.title,
+            key: key,
+            value: query.value,
+            numberOfResults: query.totalResults,
+            subfilters: subfilters ?? []
+        )
     }
 
     public static func decode(from dict: [AnyHashable: Any]?) -> FilterSetup? {
@@ -107,7 +172,7 @@ public struct FilterSetup: Decodable {
         return FilterSetup(market: market, hits: hits, filterTitle: filterTitle, rawFilterKeys: rawFilterKeys, filters: filters)
     }
 
-    func filterData(forKey key: String) -> FilterData? {
+    private func filterData(forKey key: String) -> FilterData? {
         return filters.first(where: { $0.parameterName == key })
     }
 }

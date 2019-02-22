@@ -28,11 +28,6 @@ struct FilterDataQuery: Decodable {
         return FilterDataQuery(title: title, value: value, totalResults: totalResults ?? 0, filter: filter)
     }
 
-    func asFilter(with name: String) -> Filter {
-        let subfilters = filter?.queries.compactMap({ $0.asFilter(with: self.filter?.parameterName ?? "") }) ?? []
-        return Filter.regular(title: title, key: name, value: value, numberOfResults: totalResults, subfilters: subfilters)
-    }
-
     static func decode(from array: [[AnyHashable: Any]]?) -> [FilterDataQuery]? {
         guard let array = array else {
             return nil

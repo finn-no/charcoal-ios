@@ -27,28 +27,6 @@ struct FilterData: Decodable {
         queries = try container.decodeIfPresent([FilterDataQuery].self, forKey: CodingKeys.queries) ?? []
     }
 
-    func asFilter(using config: FilterConfiguration) -> Filter {
-        let style: Filter.Style = config.contextFilters.contains(parameterName) ? .context : .normal
-
-        if let viewModel = config.rangeViewModel(forKey: parameterName), isRange == true {
-            switch viewModel.kind {
-            case .slider:
-                return Filter.rangeFilter(
-                    title: title,
-                    key: parameterName,
-                    lowValueKey: parameterName + "_from",
-                    highValueKey: parameterName + "_to",
-                    style: style
-                )
-            case .stepper:
-                return Filter.stepperFilter(title: title, key: parameterName, style: style)
-            }
-        }
-
-        let subfilters = queries.map { $0.asFilter(with: parameterName) }
-        return Filter.regular(title: title, key: parameterName, style: style, subfilters: subfilters)
-    }
-
     static func decode(from dict: [AnyHashable: Any]?) -> FilterData? {
         guard let dict = dict else {
             return nil

@@ -34,6 +34,7 @@ public class CharcoalViewController: UINavigationController {
 
     // MARK: - Private properties
 
+    private var selectionHasChanged = false
     private let selectionStore: FilterSelectionStore
     private var rootFilterViewController: RootFilterViewController
 
@@ -53,6 +54,7 @@ public class CharcoalViewController: UINavigationController {
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self
+        selectionStore.delegate = self
         setViewControllers([rootFilterViewController], animated: false)
     }
 
@@ -95,6 +97,10 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 // MARK: - FilterViewControllerDelegate
 
 extension CharcoalViewController: FilterViewControllerDelegate {
+    func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
+        popToRootViewController(animated: true)
+    }
+
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         guard !filter.subfilters.isEmpty else { return }
         let nextViewController: FilterViewController
@@ -135,15 +141,21 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     }
 }
 
+extension CharcoalViewController: FilterSelectionStoreDelegate {
+    func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {
+        selectionHasChanged = true
+    }
+}
+
 // MARK: - UIGestureRecognizerDelegate
 
 extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         guard viewController === rootFilterViewController else { return }
 
-        if selectionStore.hasChanges {
+        if selectionHasChanged {
             filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
-            selectionStore.hasChanges = false
+            selectionHasChanged = false
         }
     }
 

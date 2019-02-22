@@ -4,11 +4,15 @@
 
 import Foundation
 
+protocol FilterSelectionStoreDelegate: class {
+    func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore)
+}
+
 final class FilterSelectionStore {
 
     // MARK: - Internal properties
 
-    internal var hasChanges = false
+    weak var delegate: FilterSelectionStoreDelegate?
 
     // MARK: - Private properties
 
@@ -46,7 +50,7 @@ final class FilterSelectionStore {
 extension FilterSelectionStore {
     func setValue(from filter: Filter) {
         setValue(filter.value, for: filter)
-        hasChanges = true
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
@@ -57,7 +61,7 @@ extension FilterSelectionStore {
             queryItems.insert(queryItem)
         }
 
-        hasChanges = true
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func removeValues(for filter: Filter) {
@@ -69,7 +73,7 @@ extension FilterSelectionStore {
             removeValues(for: $0)
         }
 
-        hasChanges = true
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func toggleValue(for filter: Filter) {
@@ -79,7 +83,7 @@ extension FilterSelectionStore {
             setValue(filter.value, for: filter)
         }
 
-        hasChanges = true
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func isSelected(_ filter: Filter) -> Bool {

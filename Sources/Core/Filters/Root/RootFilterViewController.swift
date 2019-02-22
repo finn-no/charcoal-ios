@@ -42,11 +42,6 @@ final class RootFilterViewController: FilterViewController {
         return filter.subfilters.first { $0.key == config.searchFilter }
     }
 
-    private func predicateForMutuallyExclusiveFilters(excluding filter: Filter) -> ((Filter) -> Bool) {
-        let mutuallyExclusiveFilters = config.mutuallyExclusiveFilters
-        return { $0.key != filter.key && mutuallyExclusiveFilters.contains($0.key) }
-    }
-
     private let config: FilterConfiguration
 
     // MARK: - Init

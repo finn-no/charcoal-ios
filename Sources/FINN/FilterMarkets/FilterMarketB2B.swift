@@ -27,6 +27,8 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         switch self {
         case .truck, .truckAbroad:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .truckSegment,
@@ -38,6 +40,8 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .bus:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .busSegment,
@@ -48,6 +52,8 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .construction:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .constructionSegment,
@@ -58,6 +64,8 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .make,
@@ -67,6 +75,8 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTools:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .category,
@@ -75,6 +85,8 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .vanNorway, .vanAbroad:
             return [
+                .query,
+                .preferences,
                 .make,
                 .year,
                 .mileage,
@@ -102,14 +114,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
 
     public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
         return [.location, .map]
-    }
-
-    public var searchFilterKey: FilterKey? {
-        return .query
-    }
-
-    public var preferencesFilterKey: FilterKey? {
-        return .preferences
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

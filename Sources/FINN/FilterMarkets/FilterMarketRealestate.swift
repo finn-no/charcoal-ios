@@ -36,6 +36,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         switch self {
         case .homes:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .price,
@@ -54,6 +56,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .development:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .price,
@@ -67,6 +71,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .plot, .leisurePlot:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .price,
@@ -74,6 +80,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .leisureSale:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .price,
@@ -87,6 +95,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .leisureSaleAbroad:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .price,
@@ -98,6 +108,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .letting:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .propertyType,
@@ -113,6 +125,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .lettingWanted:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .propertyType,
@@ -122,6 +136,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessSale:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .price,
@@ -130,6 +146,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessLetting:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .area,
@@ -137,6 +155,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessPlot:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .price,
@@ -144,6 +164,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .companyForSale:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .category,
@@ -159,14 +181,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
 
     public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
         return [.location, .map]
-    }
-
-    public var searchFilterKey: FilterKey? {
-        return .query
-    }
-
-    public var preferencesFilterKey: FilterKey? {
-        return .preferences
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

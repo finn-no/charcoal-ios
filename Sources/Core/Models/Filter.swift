@@ -25,7 +25,6 @@ class Filter {
     let numberOfResults: Int
     let style: Style
     let kind: Kind
-    fileprivate(set) var isSelectedByChildren = false
 
     private(set) var subfilters: [Filter] = []
     private(set) weak var parent: Filter?
@@ -89,7 +88,6 @@ extension Filter {
 
         let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter)
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: style)
-        filter.isSelectedByChildren = true
         filter.add(subfilter: lowValueFilter)
         filter.add(subfilter: highValueFilter)
 
@@ -110,7 +108,6 @@ extension Filter {
         let kind = Kind.map(latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter)
 
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: .normal)
-        filter.isSelectedByChildren = true
         filter.add(subfilter: latitudeFilter)
         filter.add(subfilter: longitudeFilter)
         filter.add(subfilter: radiusFilter)

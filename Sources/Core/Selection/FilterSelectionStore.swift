@@ -71,9 +71,10 @@ extension FilterSelectionStore {
     func isSelected(_ filter: Filter) -> Bool {
         let selected: Bool
 
-        if filter.isSelectedByChildren {
+        switch filter.kind {
+        case .map, .range:
             selected = filter.subfilters.contains(where: { isSelected($0) })
-        } else {
+        default:
             selected = !filter.subfilters.isEmpty && filter.subfilters.allSatisfy { isSelected($0) }
         }
 

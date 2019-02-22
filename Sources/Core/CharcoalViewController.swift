@@ -119,7 +119,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
             guard let mapFilterViewManager = mapFilterViewManager else { return }
             let mapViewController = MapFilterViewController(
-                mapFilter: filter,
+                title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 radiusFilter: radiusFilter,
@@ -140,6 +140,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         }
 
         nextViewController.delegate = self
+
         pushViewController(nextViewController, animated: true)
     }
 }

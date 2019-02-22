@@ -9,8 +9,6 @@ public protocol FINNFilterConfiguration: FilterConfiguration {
     var rootLevelFilterKeys: [FilterKey] { get }
     var contextFilterKeys: Set<FilterKey> { get }
     var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
-    var searchFilterKey: FilterKey? { get }
-    var preferencesFilterKey: FilterKey? { get }
 }
 
 public extension FINNFilterConfiguration {
@@ -28,13 +26,5 @@ public extension FINNFilterConfiguration {
 
     var mutuallyExclusiveFilters: Set<String> {
         return Set(mutuallyExclusiveFilterKeys.map({ $0.rawValue }))
-    }
-
-    var searchFilter: String? {
-        return searchFilterKey?.rawValue
-    }
-
-    var preferencesFilter: String? {
-        return preferencesFilterKey?.rawValue
     }
 }

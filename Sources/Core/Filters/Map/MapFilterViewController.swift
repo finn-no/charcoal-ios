@@ -38,7 +38,7 @@ final class MapFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(mapFilter: Filter, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
+    init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
          locationNameFilter: Filter, selectionStore: FilterSelectionStore,
          mapFilterViewManager: MapFilterViewManager) {
         self.latitudeFilter = latitudeFilter
@@ -46,7 +46,7 @@ final class MapFilterViewController: FilterViewController {
         self.radiusFilter = radiusFilter
         self.locationNameFilter = locationNameFilter
         self.mapFilterViewManager = mapFilterViewManager
-        super.init(title: mapFilter.title, selectionStore: selectionStore)
+        super.init(title: title, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -45,7 +45,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .milk
-        navigationItem.title = title
         setup()
     }
 

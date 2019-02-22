@@ -31,6 +31,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         switch self {
         case .boatSale:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .motorAdLocation,
@@ -49,6 +51,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatUsedWanted:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .boatClass,
@@ -56,6 +60,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatRent:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .boatClass,
@@ -69,6 +75,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatMotor, .boatParts:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .type,
@@ -78,6 +86,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatPartsMotorWanted:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .type,
@@ -86,6 +96,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatDock:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .width,
@@ -94,6 +106,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatDockWanted:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .width,
@@ -108,14 +122,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
 
     public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
         return [.location, .map]
-    }
-
-    public var searchFilterKey: FilterKey? {
-        return .query
-    }
-
-    public var preferencesFilterKey: FilterKey? {
-        return .preferences
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

@@ -160,7 +160,7 @@ enum ComponentViews: String, CaseIterable {
             )
 
             let mapViewController = MapFilterViewController(
-                mapFilter: mapFilter,
+                title: mapFilter.title,
                 latitudeFilter: mapFilter.subfilters[0],
                 longitudeFilter: mapFilter.subfilters[1],
                 radiusFilter: mapFilter.subfilters[2],

@@ -88,7 +88,7 @@ extension FilterSelectionStore {
 
 private extension FilterSelectionStore {
     func _setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
-        removeValues(for: filter)
+        _removeValues(for: filter)
 
         if let value = value {
             let queryItem = URLQueryItem(name: filter.key, value: String(value))
@@ -102,7 +102,7 @@ private extension FilterSelectionStore {
         }
 
         filter.subfilters.forEach {
-            removeValues(for: $0)
+            _removeValues(for: $0)
         }
     }
 }

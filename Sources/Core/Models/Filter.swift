@@ -15,6 +15,7 @@ final class Filter {
         case search
         case inline
         case stepper
+        case external
         case range(lowValueFilter: Filter, highValueFilter: Filter)
         case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter)
     }
@@ -95,6 +96,11 @@ extension Filter {
 
     static func stepper(title: String, key: String, style: Style = .normal) -> Filter {
         return Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .stepper, style: style)
+    }
+
+    static func external(title: String, key: String, value: String?,
+                         numberOfResults: Int = 0, style: Style = .normal) -> Filter {
+        return Filter(title: title, key: key, value: value, numberOfResults: numberOfResults, kind: .external, style: style)
     }
 
     static func range(title: String, key: String, lowValueKey: String,

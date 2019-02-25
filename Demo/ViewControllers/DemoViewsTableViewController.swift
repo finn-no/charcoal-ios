@@ -133,6 +133,10 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
             viewController.config = config
         }
     }
+
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {
+        UIApplication.shared.openURL(URL(string: "https://finn.no")!)
+    }
 }
 
 extension DemoViewsTableViewController {

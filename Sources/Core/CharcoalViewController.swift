@@ -6,7 +6,7 @@ import UIKit
 
 public protocol CharcoalViewControllerDelegate: class {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
-    func charcoalViewControllerDidChangeSelection(_ viewController: CharcoalViewController)
+    func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem])
 }
 
 public class CharcoalViewController: UINavigationController {
@@ -34,6 +34,7 @@ public class CharcoalViewController: UINavigationController {
 
     // MARK: - Private properties
 
+    private var selectionHasChanged = false
     private let selectionStore: FilterSelectionStore
     private var rootFilterViewController: RootFilterViewController
 
@@ -53,6 +54,7 @@ public class CharcoalViewController: UINavigationController {
         rootFilterViewController.verticals = filter.verticals
         super.init(nibName: nil, bundle: nil)
         rootFilterViewController.rootDelegate = self
+        selectionStore.delegate = self
         setViewControllers([rootFilterViewController], animated: false)
     }
 
@@ -91,8 +93,7 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 // MARK: - FilterViewControllerDelegate
 
 extension CharcoalViewController: FilterViewControllerDelegate {
-    func filterViewControllerDidSelectApply(_ viewController: FilterViewController) {
-        filterDelegate?.charcoalViewControllerDidChangeSelection(self)
+    func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
         popToRootViewController(animated: true)
     }
 
@@ -136,9 +137,30 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     }
 }
 
+extension CharcoalViewController: FilterSelectionStoreDelegate {
+    func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {
+        if topViewController === rootFilterViewController {
+            // Changes in inline filters or removes selected filters
+            filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
+            selectionHasChanged = false
+        } else {
+            selectionHasChanged = true
+        }
+    }
+}
+
 // MARK: - UIGestureRecognizerDelegate
 
 extension CharcoalViewController: UINavigationControllerDelegate {
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        guard viewController === rootFilterViewController else { return }
+        // Will return to root filters
+        if selectionHasChanged {
+            filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
+            selectionHasChanged = false
+        }
+    }
+
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if viewController is RangeFilterViewController {
             interactivePopGestureRecognizer?.isEnabled = false

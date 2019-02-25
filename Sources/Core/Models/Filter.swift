@@ -67,8 +67,7 @@ extension Filter {
             title: title,
             key: key,
             value: value,
-            numberOfResults:
-                numberOfResults,
+            numberOfResults: numberOfResults,
             kind: .list,
             style: style
         )

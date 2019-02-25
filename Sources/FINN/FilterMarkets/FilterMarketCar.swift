@@ -27,6 +27,8 @@ extension FilterMarketCar: FINNFilterConfiguration {
         switch self {
         case .norway:
             return [
+                .query,
+                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -51,6 +53,8 @@ extension FilterMarketCar: FINNFilterConfiguration {
             ]
         case .abroad:
             return [
+                .query,
+                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -75,6 +79,8 @@ extension FilterMarketCar: FINNFilterConfiguration {
             ]
         case .mobileHome:
             return [
+                .query,
+                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -93,6 +99,8 @@ extension FilterMarketCar: FINNFilterConfiguration {
             ]
         case .caravan:
             return [
+                .query,
+                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -118,14 +126,6 @@ extension FilterMarketCar: FINNFilterConfiguration {
 
     public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
         return [.location, .map]
-    }
-
-    public var searchFilterKey: FilterKey? {
-        return .query
-    }
-
-    public var preferencesFilterKey: FilterKey? {
-        return .preferences
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

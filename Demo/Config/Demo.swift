@@ -129,9 +129,13 @@ enum ComponentViews: String, CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .listSelection:
-            let rootFilter = Filter(title: "Liste", key: "")
-            rootFilter.add(subfilter: Filter(title: "Akershus", key: "", numberOfResults: 1238))
-            rootFilter.add(subfilter: Filter(title: "Buskerud", key: "", numberOfResults: 3421))
+            let subfilters = [
+                Filter.list(title: "Akershus", key: "", numberOfResults: 1238),
+                Filter.list(title: "Buskerud", key: "", numberOfResults: 3421),
+            ]
+
+            let rootFilter = Filter.list(title: "Liste", key: "", subfilters: subfilters)
+
             return ListFilterViewController(
                 filter: rootFilter,
                 selectionStore: FilterSelectionStore()
@@ -146,7 +150,7 @@ enum ComponentViews: String, CaseIterable {
             let controller = InlineFilterDemoViewController()
             return controller
         case .mapFilter:
-            let mapFilter = MapFilter(
+            let mapFilter = Filter.map(
                 title: "Område i kart",
                 key: "map",
                 latitudeKey: "lat",
@@ -155,12 +159,19 @@ enum ComponentViews: String, CaseIterable {
                 locationKey: "geoLocationName"
             )
 
-            return MapFilterViewController(
-                mapFilter: mapFilter,
+            let mapViewController = MapFilterViewController(
+                title: mapFilter.title,
+                latitudeFilter: mapFilter.subfilters[0],
+                longitudeFilter: mapFilter.subfilters[1],
+                radiusFilter: mapFilter.subfilters[2],
+                locationNameFilter: mapFilter.subfilters[3],
                 selectionStore: FilterSelectionStore(),
-                mapFilterViewManager: MapViewManager(),
-                searchLocationDataSource: DemoSearchLocationDataSource()
+                mapFilterViewManager: MapViewManager()
             )
+
+            mapViewController.searchLocationDataSource = DemoSearchLocationDataSource()
+
+            return mapViewController
         }
     }
 }

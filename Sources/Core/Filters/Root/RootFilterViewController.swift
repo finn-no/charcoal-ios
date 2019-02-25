@@ -39,16 +39,24 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var searchFilter: Filter? {
-        return filter.subfilters.first { $0.key == config.searchFilter }
+        return filter.subfilters.first {
+            if case .search = $0.kind {
+                return true
+            } else {
+                return false
+            }
+        }
     }
 
+    private var filter: Filter
     private let config: FilterConfiguration
 
     // MARK: - Init
 
     init(filter: Filter, config: FilterConfiguration, selectionStore: FilterSelectionStore) {
+        self.filter = filter
         self.config = config
-        super.init(filter: filter, selectionStore: selectionStore)
+        super.init(title: filter.title, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -88,13 +96,13 @@ extension RootFilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentFilter = filter.subfilters[indexPath.row]
 
-        switch currentFilter.key {
-        case config.searchFilter:
+        switch currentFilter.kind {
+        case .search:
             let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
             cell.searchBar = searchQueryViewController.searchBar
             cell.searchBar?.placeholder = currentFilter.title
             return cell
-        case config.preferencesFilter:
+        case .inline:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
             let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
@@ -107,7 +115,7 @@ extension RootFilterViewController: UITableViewDataSource {
             let cell = tableView.dequeue(RootFilterCell.self, for: indexPath)
 
             cell.delegate = self
-            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, kind: currentFilter.kind)
+            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, style: currentFilter.style)
 
             let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
             cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {
@@ -122,8 +130,8 @@ extension RootFilterViewController: UITableViewDataSource {
 extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilter = filter.subfilters[indexPath.row]
-        switch selectedFilter.key {
-        case config.searchFilter, config.preferencesFilter:
+        switch selectedFilter.kind {
+        case .search, .inline:
             return
         default:
             delegate?.filterViewController(self, didSelectFilter: selectedFilter)

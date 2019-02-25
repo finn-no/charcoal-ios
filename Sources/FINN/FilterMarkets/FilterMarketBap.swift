@@ -17,6 +17,8 @@ extension FilterMarketBap: FINNFilterConfiguration {
 
     public var rootLevelFilterKeys: [FilterKey] {
         return [
+            .query,
+            .preferences,
             .category,
             .bikesType,
             .carPartsBrand,
@@ -61,14 +63,6 @@ extension FilterMarketBap: FINNFilterConfiguration {
 
     public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
         return [.location, .map]
-    }
-
-    public var searchFilterKey: FilterKey? {
-        return .query
-    }
-
-    public var preferencesFilterKey: FilterKey? {
-        return .preferences
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

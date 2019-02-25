@@ -27,25 +27,6 @@ struct FilterData: Decodable {
         queries = try container.decodeIfPresent([FilterDataQuery].self, forKey: CodingKeys.queries) ?? []
     }
 
-    func asFilter(of kind: Filter.Kind = .normal) -> Filter {
-        if isRange == true {
-            return RangeFilter(
-                title: title,
-                key: parameterName,
-                lowValueKey: parameterName + "_from",
-                highValueKey: parameterName + "_to",
-                kind: kind
-            )
-        }
-
-        let filter = Filter(title: title, key: parameterName, kind: kind)
-        queries.forEach { query in
-            filter.add(subfilter: query.asFilter(with: parameterName))
-        }
-
-        return filter
-    }
-
     static func decode(from dict: [AnyHashable: Any]?) -> FilterData? {
         guard let dict = dict else {
             return nil

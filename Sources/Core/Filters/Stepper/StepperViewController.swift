@@ -6,11 +6,16 @@ import FinniversKit
 import UIKit
 
 final class StepperFilterViewController: FilterViewController {
+    private let filter: Filter
     private let viewModel: RangeFilterInfo
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(lessThanOrEqualTo: view.topAnchor)
 
     private lazy var stepperFilterView: StepperFilterView = {
-        let view = StepperFilterView(filterInfo: viewModel)
+        let view = StepperFilterView(
+            minimumValue: viewModel.sliderInfo.minimumValue,
+            maximumValue: viewModel.sliderInfo.maximumValue,
+            unit: viewModel.unit
+        )
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -19,8 +24,9 @@ final class StepperFilterViewController: FilterViewController {
     // MARK: - Init
 
     init(filter: Filter, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
+        self.filter = filter
         self.viewModel = viewModel
-        super.init(filter: filter, selectionStore: selectionStore)
+        super.init(title: filter.title, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {

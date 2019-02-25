@@ -28,16 +28,6 @@ struct FilterDataQuery: Decodable {
         return FilterDataQuery(title: title, value: value, totalResults: totalResults ?? 0, filter: filter)
     }
 
-    func asFilter(with name: String) -> Filter {
-        let filter = Filter(title: title, key: name, value: value, numberOfResults: totalResults)
-        if let filterData = self.filter {
-            filterData.queries.forEach({ query in
-                filter.add(subfilter: query.asFilter(with: filterData.parameterName))
-            })
-        }
-        return filter
-    }
-
     static func decode(from array: [[AnyHashable: Any]]?) -> [FilterDataQuery]? {
         guard let array = array else {
             return nil

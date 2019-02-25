@@ -20,7 +20,11 @@ class StepperFilterDemoView: UIView {
     )
 
     private lazy var stepperFilterView: StepperFilterView = {
-        let view = StepperFilterView(filterInfo: filterInfo)
+        let view = StepperFilterView(
+            minimumValue: filterInfo.sliderInfo.minimumValue,
+            maximumValue: filterInfo.sliderInfo.maximumValue,
+            unit: filterInfo.unit
+        )
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

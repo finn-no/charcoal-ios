@@ -60,14 +60,6 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.mutuallyExclusiveFilters
     }
 
-    public var searchFilter: String? {
-        return currentFilterConfig.searchFilter
-    }
-
-    public var preferencesFilter: String? {
-        return currentFilterConfig.preferencesFilter
-    }
-
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }

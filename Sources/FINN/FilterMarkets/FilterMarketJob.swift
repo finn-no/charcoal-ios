@@ -21,6 +21,8 @@ extension FilterMarketJob: FINNFilterConfiguration {
         switch self {
         case .partTime:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .occupation,
@@ -30,6 +32,8 @@ extension FilterMarketJob: FINNFilterConfiguration {
             ]
         case .fullTime, .management:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .occupation,
@@ -48,14 +52,6 @@ extension FilterMarketJob: FINNFilterConfiguration {
 
     public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
         return [.location, .map]
-    }
-
-    public var searchFilterKey: FilterKey? {
-        return .query
-    }
-
-    public var preferencesFilterKey: FilterKey? {
-        return .preferences
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

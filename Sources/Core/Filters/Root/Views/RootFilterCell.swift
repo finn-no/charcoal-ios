@@ -77,11 +77,11 @@ final class RootFilterCell: UITableViewCell {
 
     // MARK: - Setup
 
-    func configure(withTitle title: String, selectionTitles: [String], isValid: Bool, kind: Filter.Kind = .normal) {
+    func configure(withTitle title: String, selectionTitles: [String], isValid: Bool, style: Filter.Style = .normal) {
         titleLabel.text = title
         selectionTagsContainerView.configure(with: selectionTitles, isValid: isValid)
 
-        switch kind {
+        switch style {
         case .normal:
             contextMark.isHidden = true
             titleToContextMarkConstraint.isActive = false

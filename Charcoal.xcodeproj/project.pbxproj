@@ -134,13 +134,9 @@
 		CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */; };
 		CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */; };
 		CF4C8710221B04E200DFAF2A /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870F221B04E200DFAF2A /* Filter.swift */; };
-		CF4C8712221B051000DFAF2A /* MapFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8711221B051000DFAF2A /* MapFilter.swift */; };
-		CF4C8716221B0DBF00DFAF2A /* RangeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8715221B0DBF00DFAF2A /* RangeFilter.swift */; };
 		CF81E106221BFFE600D00423 /* SelectionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E105221BFFE600D00423 /* SelectionTagView.swift */; };
 		CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */; };
 		CF81E10D221C515800D00423 /* FINNFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */; };
-		CF81E110221C54A800D00423 /* RangeFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E10F221C54A800D00423 /* RangeFilterTests.swift */; };
-		CF81E112221C555500D00423 /* MapFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E111221C555500D00423 /* MapFilterTests.swift */; };
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
@@ -344,13 +340,9 @@
 		CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870F221B04E200DFAF2A /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
-		CF4C8711221B051000DFAF2A /* MapFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapFilter.swift; sourceTree = "<group>"; };
-		CF4C8715221B0DBF00DFAF2A /* RangeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilter.swift; sourceTree = "<group>"; };
 		CF81E105221BFFE600D00423 /* SelectionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagView.swift; sourceTree = "<group>"; };
 		CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsContainerView.swift; sourceTree = "<group>"; };
 		CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNFilterConfiguration.swift; sourceTree = "<group>"; };
-		CF81E10F221C54A800D00423 /* RangeFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterTests.swift; sourceTree = "<group>"; };
-		CF81E111221C555500D00423 /* MapFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterTests.swift; sourceTree = "<group>"; };
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
@@ -963,8 +955,6 @@
 			children = (
 				CF4C870F221B04E200DFAF2A /* Filter.swift */,
 				CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */,
-				CF4C8711221B051000DFAF2A /* MapFilter.swift */,
-				CF4C8715221B0DBF00DFAF2A /* RangeFilter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1010,8 +1000,6 @@
 			isa = PBXGroup;
 			children = (
 				DA8D683B220D874400D31941 /* FilterTests.swift */,
-				CF81E10F221C54A800D00423 /* RangeFilterTests.swift */,
-				CF81E111221C555500D00423 /* MapFilterTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1318,7 +1306,6 @@
 				9B741D1C21B6B1CB00D18097 /* StepSlider.swift in Sources */,
 				08716B3721F76424003180D8 /* FilterKey.swift in Sources */,
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
-				CF4C8716221B0DBF00DFAF2A /* RangeFilter.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
 				DA39FA32220B17DB00608AC4 /* CCInlineFilterCell.swift in Sources */,
@@ -1348,7 +1335,6 @@
 				55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
 				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
-				CF4C8712221B051000DFAF2A /* MapFilter.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,
@@ -1418,9 +1404,7 @@
 			files = (
 				DA8D683C220D874400D31941 /* FilterTests.swift in Sources */,
 				CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */,
-				CF81E112221C555500D00423 /* MapFilterTests.swift in Sources */,
 				CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */,
-				CF81E110221C54A800D00423 /* RangeFilterTests.swift in Sources */,
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
 				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
 				DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */,

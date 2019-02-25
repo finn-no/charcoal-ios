@@ -76,9 +76,10 @@ extension FilterSelectionStore {
     func isSelected(_ filter: Filter) -> Bool {
         let selected: Bool
 
-        if filter is MapFilter || filter is RangeFilter {
+        switch filter.kind {
+        case .map, .range:
             selected = filter.subfilters.contains(where: { isSelected($0) })
-        } else {
+        default:
             selected = !filter.subfilters.isEmpty && filter.subfilters.allSatisfy { isSelected($0) }
         }
 
@@ -119,18 +120,20 @@ extension FilterSelectionStore {
     }
 
     func titles(for filter: Filter) -> [String] {
-        switch filter {
-        case let rangeFilter as RangeFilter:
-            let lowValue: String? = value(for: rangeFilter.lowValueFilter)
-            let highValue: String? = value(for: rangeFilter.highValueFilter)
+        switch filter.kind {
+        case let .range(lowValueFilter, highValueFilter):
+            let lowValue: String? = value(for: lowValueFilter)
+            let highValue: String? = value(for: highValueFilter)
 
             if lowValue == nil && highValue == nil {
                 return []
             } else {
                 return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        case let mapFilter as MapFilter:
-            if let radius: Int = value(for: mapFilter.radiusFilter) {
+        case .stepper:
+            return value(for: filter).map({ [$0] }) ?? []
+        case let .map(_, _, radiusFilter, _):
+            if let radius: Int = value(for: radiusFilter) {
                 let formatter = MapDistanceValueFormatter()
                 return [formatter.title(for: radius)]
             } else {
@@ -146,16 +149,17 @@ extension FilterSelectionStore {
     }
 
     func isValid(_ filter: Filter) -> Bool {
-        if let rangeFilter = filter as? RangeFilter {
-            let lowValue: Int? = value(for: rangeFilter.lowValueFilter)
-            let highValue: Int? = value(for: rangeFilter.highValueFilter)
+        switch filter.kind {
+        case let .range(lowValueFilter, highValueFilter):
+            let lowValue: Int? = value(for: lowValueFilter)
+            let highValue: Int? = value(for: highValueFilter)
 
             if let lowValue = lowValue, let highValue = highValue {
                 return lowValue <= highValue
             } else {
                 return true
             }
-        } else {
+        default:
             return true
         }
     }

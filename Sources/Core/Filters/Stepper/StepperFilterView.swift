@@ -10,7 +10,7 @@ extension StepperFilterView {
     }
 }
 
-class StepperFilterView: UIControl {
+final class StepperFilterView: UIControl {
 
     // MARK: - Public properties
 
@@ -20,11 +20,13 @@ class StepperFilterView: UIControl {
 
     // MARK: - Private properties
 
-    private let filterInfo: RangeFilterInfo
+    private let minimumValue: Int
+    private let maximumValue: Int
+    private let unit: String
 
     private lazy var textLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "\(value)+ \(filterInfo.unit)"
+        label.text = "\(value)+ \(unit)"
         label.font = .title2
         label.textColor = .licorice
         label.numberOfLines = 0
@@ -55,9 +57,11 @@ class StepperFilterView: UIControl {
 
     // MARK: - Setup
 
-    init(filterInfo: RangeFilterInfo) {
-        self.filterInfo = filterInfo
-        value = filterInfo.sliderInfo.minimumValue
+    init(minimumValue: Int, maximumValue: Int, unit: String) {
+        self.minimumValue = minimumValue
+        self.maximumValue = maximumValue
+        self.unit = unit
+        value = minimumValue
         super.init(frame: .zero)
         setup()
         updateUI(forValue: value)
@@ -80,10 +84,10 @@ private extension StepperFilterView {
     func handleButtonPressed(with type: ButtonType) {
         switch type {
         case .minus:
-            let newValue = max(filterInfo.sliderInfo.minimumValue, value - 1)
+            let newValue = max(minimumValue, value - 1)
             sendActionIfNeeded(forValue: newValue)
         case .plus:
-            let newValue = min(filterInfo.sliderInfo.maximumValue, value + 1)
+            let newValue = min(maximumValue, value + 1)
             sendActionIfNeeded(forValue: newValue)
         }
     }
@@ -101,14 +105,14 @@ private extension StepperFilterView {
     }
 
     func setText(withValue value: Int) {
-        if value > filterInfo.sliderInfo.minimumValue { textLabel.text = "\(value)+ \(filterInfo.unit)" }
+        if value > minimumValue { textLabel.text = "\(value)+ \(unit)" }
         else { textLabel.text = "Alle" }
     }
 
     func updateButtons(forValue value: Int) {
         switch value {
-        case filterInfo.sliderInfo.minimumValue: deactivateButton(minusButton)
-        case filterInfo.sliderInfo.maximumValue: deactivateButton(plusButton)
+        case minimumValue: deactivateButton(minusButton)
+        case maximumValue: deactivateButton(plusButton)
         default:
             activateButton(minusButton)
             activateButton(plusButton)

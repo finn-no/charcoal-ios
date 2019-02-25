@@ -27,6 +27,8 @@ extension FilterMarketMC: FINNFilterConfiguration {
         switch self {
         case .mc:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .category,
@@ -39,6 +41,8 @@ extension FilterMarketMC: FINNFilterConfiguration {
             ]
         case .mopedScooter:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .category,
@@ -51,6 +55,8 @@ extension FilterMarketMC: FINNFilterConfiguration {
             ]
         case .snowmobile, .atv:
             return [
+                .query,
+                .preferences,
                 .map,
                 .location,
                 .make,
@@ -69,14 +75,6 @@ extension FilterMarketMC: FINNFilterConfiguration {
 
     public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
         return [.location, .map]
-    }
-
-    public var searchFilterKey: FilterKey? {
-        return .query
-    }
-
-    public var preferencesFilterKey: FilterKey? {
-        return .preferences
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {

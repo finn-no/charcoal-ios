@@ -4,7 +4,18 @@
 
 import Foundation
 
+protocol FilterSelectionStoreDelegate: class {
+    func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore)
+}
+
 final class FilterSelectionStore {
+
+    // MARK: - Internal properties
+
+    weak var delegate: FilterSelectionStoreDelegate?
+
+    // MARK: - Private properties
+
     private var queryItems: Set<URLQueryItem>
 
     // MARK: - Init
@@ -38,34 +49,28 @@ final class FilterSelectionStore {
 
 extension FilterSelectionStore {
     func setValue(from filter: Filter) {
-        setValue(filter.value, for: filter)
+        _setValue(filter.value, for: filter)
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
-        removeValues(for: filter)
-
-        if let value = value {
-            let queryItem = URLQueryItem(name: filter.key, value: String(value))
-            queryItems.insert(queryItem)
-        }
+        _setValue(value, for: filter)
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func removeValues(for filter: Filter) {
-        if let queryItem = queryItem(for: filter) {
-            queryItems.remove(queryItem)
-        }
-
-        filter.subfilters.forEach {
-            removeValues(for: $0)
-        }
+        _removeValues(for: filter)
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func toggleValue(for filter: Filter) {
         if isSelected(filter) {
-            removeValues(for: filter)
+            _removeValues(for: filter)
         } else {
-            setValue(filter.value, for: filter)
+            _setValue(filter.value, for: filter)
         }
+
+        delegate?.filterSelectionStoreDidChange(self)
     }
 
     func isSelected(_ filter: Filter) -> Bool {
@@ -79,6 +84,27 @@ extension FilterSelectionStore {
         }
 
         return queryItem(for: filter) != nil || selected
+    }
+}
+
+private extension FilterSelectionStore {
+    func _setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
+        _removeValues(for: filter)
+
+        if let value = value {
+            let queryItem = URLQueryItem(name: filter.key, value: String(value))
+            queryItems.insert(queryItem)
+        }
+    }
+
+    func _removeValues(for filter: Filter) {
+        if let queryItem = queryItem(for: filter) {
+            queryItems.remove(queryItem)
+        }
+
+        filter.subfilters.forEach {
+            _removeValues(for: $0)
+        }
     }
 }
 

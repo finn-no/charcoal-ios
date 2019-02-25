@@ -79,13 +79,13 @@ public struct FilterSetup: Decodable {
             }
         }
 
-        let root = Filter.regular(title: filterTitle, key: market, numberOfResults: hits, subfilters: rootLevelFilters)
+        let root = Filter.list(title: filterTitle, key: market, numberOfResults: hits, subfilters: rootLevelFilters)
 
         return FilterContainer(root: root)
     }
 
     private func makeMapFilter(withKey key: String) -> Filter {
-        return Filter.mapFilter(
+        return Filter.map(
             title: "map_filter_title".localized(),
             key: key,
             latitudeKey: FilterKey.latitude.rawValue,
@@ -96,13 +96,13 @@ public struct FilterSetup: Decodable {
     }
 
     private func makeStepperFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
-        return Filter.stepperFilter(title: filterData.title, key: filterData.parameterName, style: style)
+        return Filter.stepper(title: filterData.title, key: filterData.parameterName, style: style)
     }
 
     private func makeRangeFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
         let key = filterData.parameterName
 
-        return Filter.rangeFilter(
+        return Filter.range(
             title: filterData.title,
             key: key,
             lowValueKey: key + "_from",
@@ -116,7 +116,7 @@ public struct FilterSetup: Decodable {
             makeListFilter(withKey: filterData.parameterName, from: $0)
         })
 
-        return Filter.regular(
+        return Filter.list(
             title: filterData.title,
             key: filterData.parameterName,
             style: style,
@@ -130,7 +130,7 @@ public struct FilterSetup: Decodable {
             makeListFilter(withKey: filter?.parameterName ?? "", from: $0)
         })
 
-        return Filter.regular(
+        return Filter.list(
             title: query.title,
             key: key,
             value: query.value,
@@ -172,7 +172,7 @@ public struct FilterSetup: Decodable {
         return FilterSetup(market: market, hits: hits, filterTitle: filterTitle, rawFilterKeys: rawFilterKeys, filters: filters)
     }
 
-    private func filterData(forKey key: String) -> FilterData? {
+    func filterData(forKey key: String) -> FilterData? {
         return filters.first(where: { $0.parameterName == key })
     }
 }

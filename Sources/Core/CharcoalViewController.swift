@@ -131,7 +131,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             nextViewController = mapViewController
         case .inline, .search:
             return
-        case .regular:
+        case .list:
             guard !filter.subfilters.isEmpty else { return }
 
             nextViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)

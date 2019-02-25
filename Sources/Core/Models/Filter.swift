@@ -11,7 +11,7 @@ final class Filter {
     }
 
     enum Kind {
-        case regular
+        case list
         case search
         case inline
         case stepper
@@ -32,7 +32,7 @@ final class Filter {
     // MARK: - Init
 
     private init(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
-                 kind: Kind = .regular, style: Style = .normal) {
+                 kind: Kind = .list, style: Style = .normal) {
         self.title = title
         self.key = key
         self.value = value
@@ -61,15 +61,15 @@ final class Filter {
 // MARK: - Factory
 
 extension Filter {
-    static func regular(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
-                        style: Style = .normal, subfilters: [Filter] = []) -> Filter {
+    static func list(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
+                     style: Style = .normal, subfilters: [Filter] = []) -> Filter {
         let filter = Filter(
             title: title,
             key: key,
             value: value,
             numberOfResults:
                 numberOfResults,
-            kind: .regular,
+            kind: .list,
             style: style
         )
 
@@ -94,10 +94,14 @@ extension Filter {
         return filter
     }
 
-    static func rangeFilter(title: String, key: String, lowValueKey: String,
-                            highValueKey: String, style: Style = .normal) -> Filter {
-        let lowValueFilter = Filter(title: "", key: lowValueKey, kind: .regular)
-        let highValueFilter = Filter(title: "", key: highValueKey, kind: .regular)
+    static func stepper(title: String, key: String, style: Style = .normal) -> Filter {
+        return Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .stepper, style: style)
+    }
+
+    static func range(title: String, key: String, lowValueKey: String,
+                      highValueKey: String, style: Style = .normal) -> Filter {
+        let lowValueFilter = Filter(title: "", key: lowValueKey, kind: .list)
+        let highValueFilter = Filter(title: "", key: highValueKey, kind: .list)
         let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter)
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: style)
 
@@ -107,16 +111,12 @@ extension Filter {
         return filter
     }
 
-    static func stepperFilter(title: String, key: String, style: Style = .normal) -> Filter {
-        return Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .stepper, style: style)
-    }
-
-    static func mapFilter(title: String, key: String, latitudeKey: String,
-                          longitudeKey: String, radiusKey: String, locationKey: String) -> Filter {
-        let latitudeFilter = Filter(title: "", key: latitudeKey, kind: .regular)
-        let longitudeFilter = Filter(title: "", key: longitudeKey, kind: .regular)
-        let radiusFilter = Filter(title: "", key: radiusKey, kind: .regular)
-        let locationNameFilter = Filter(title: "", key: locationKey, kind: .regular)
+    static func map(title: String, key: String, latitudeKey: String,
+                    longitudeKey: String, radiusKey: String, locationKey: String) -> Filter {
+        let latitudeFilter = Filter(title: "", key: latitudeKey, kind: .list)
+        let longitudeFilter = Filter(title: "", key: longitudeKey, kind: .list)
+        let radiusFilter = Filter(title: "", key: radiusKey, kind: .list)
+        let locationNameFilter = Filter(title: "", key: locationKey, kind: .list)
 
         let kind = Kind.map(
             latitudeFilter: latitudeFilter,

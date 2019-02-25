@@ -130,11 +130,11 @@ enum ComponentViews: String, CaseIterable {
         switch self {
         case .listSelection:
             let subfilters = [
-                Filter.regular(title: "Akershus", key: "", numberOfResults: 1238),
-                Filter.regular(title: "Buskerud", key: "", numberOfResults: 3421),
+                Filter.list(title: "Akershus", key: "", numberOfResults: 1238),
+                Filter.list(title: "Buskerud", key: "", numberOfResults: 3421),
             ]
 
-            let rootFilter = Filter.regular(title: "Liste", key: "", subfilters: subfilters)
+            let rootFilter = Filter.list(title: "Liste", key: "", subfilters: subfilters)
 
             return ListFilterViewController(
                 filter: rootFilter,
@@ -150,7 +150,7 @@ enum ComponentViews: String, CaseIterable {
             let controller = InlineFilterDemoViewController()
             return controller
         case .mapFilter:
-            let mapFilter = Filter.mapFilter(
+            let mapFilter = Filter.map(
                 title: "Område i kart",
                 key: "map",
                 latitudeKey: "lat",

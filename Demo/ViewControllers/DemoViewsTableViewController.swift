@@ -144,21 +144,21 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
 }
 
 extension DemoViewsTableViewController: FreeTextFilterDataSource, FreeTextFilterDelegate {
-    func freeTextFilterTableView(_ tableView: UITableView, didChangeText text: String?) {
-        if let text = text, !text.isEmpty {
-            freeTextSearchSuggestions = (1 ... 5).map { "\(text)\($0)" }
-            tableView.reloadData()
-        } else {
-            freeTextSearchSuggestions = []
-        }
-    }
-
-    func freeTextFilterTableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSuggestions(in freeTextFilterViewController: FreeTextFilterViewController) -> Int {
         return freeTextSearchSuggestions.count
     }
 
-    func freeTextFilterTableView(_ tableView: UITableView, titleForCellAt indexPath: IndexPath) -> String {
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, suggestionForCellAt indexPath: IndexPath) -> String {
         return freeTextSearchSuggestions[indexPath.row]
+    }
+
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, didChangeText text: String?) {
+        if let text = text, !text.isEmpty {
+            freeTextSearchSuggestions = (1 ... 5).map { "\(text)\($0)" }
+            freeTextFilterViewController.reloadData()
+        } else {
+            freeTextSearchSuggestions = []
+        }
     }
 }
 

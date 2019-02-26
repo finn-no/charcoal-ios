@@ -6,12 +6,12 @@ import FinniversKit
 import UIKit
 
 public protocol FreeTextFilterDataSource: class {
-    func freeTextFilterTableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    func freeTextFilterTableView(_ tableView: UITableView, titleForCellAt indexPath: IndexPath) -> String
+    func numberOfSuggestions(in freeTextFilterViewController: FreeTextFilterViewController) -> Int
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, suggestionForCellAt indexPath: IndexPath) -> String
 }
 
 public protocol FreeTextFilterDelegate: class {
-    func freeTextFilterTableView(_ tableView: UITableView, didChangeText text: String?)
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, didChangeText text: String?)
 }
 
 // Internal protocol to delegate back to root filter view controller
@@ -21,7 +21,7 @@ protocol FreeTextFilterViewControllerDelegate: class {
     func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelectValue value: String?, forFilter filter: Filter)
 }
 
-class FreeTextFilterViewController: UIViewController {
+public class FreeTextFilterViewController: UIViewController {
 
     // MARK: - Public Properties
 
@@ -60,18 +60,24 @@ class FreeTextFilterViewController: UIViewController {
         self.filter = filter
         searchBar.placeholder = filter.title
     }
+
+    // MARK: - Public methods
+
+    public func reloadData() {
+        tableView.reloadData()
+    }
 }
 
 // MARK: - TableView DataSource
 
 extension FreeTextFilterViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterDataSource?.freeTextFilterTableView(tableView, numberOfRowsInSection: section) ?? 0
+        return filterDataSource?.numberOfSuggestions(in: self) ?? 0
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
-        let title = filterDataSource?.freeTextFilterTableView(tableView, titleForCellAt: indexPath)
+        let title = filterDataSource?.freeTextFilterViewController(self, suggestionForCellAt: indexPath)
         cell.titleLabel.font = .regularBody
         cell.configure(with: FreeTextSuggestionCellViewModel(title: title ?? ""))
         cell.separatorInset = .leadingInset(48)
@@ -83,7 +89,7 @@ extension FreeTextFilterViewController: UITableViewDataSource {
 
 extension FreeTextFilterViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let filter = filter, let value = filterDataSource?.freeTextFilterTableView(tableView, titleForCellAt: indexPath) else { return }
+        guard let filter = filter, let value = filterDataSource?.freeTextFilterViewController(self, suggestionForCellAt: indexPath) else { return }
         searchBar.text = value
         tableView.deselectRow(at: indexPath, animated: true)
         delegate?.freeTextFilterViewController(self, didSelectValue: value, forFilter: filter)
@@ -128,12 +134,12 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
         if let currentQuery = currentQuery {
             // return to previous search
             searchBar.text = currentQuery
-            filterDelegate?.freeTextFilterTableView(tableView, didChangeText: currentQuery)
+            filterDelegate?.freeTextFilterViewController(self, didChangeText: currentQuery)
         } else {
             delegate?.freeTextFilterViewController(self, didSelectValue: nil, forFilter: filter)
             searchBar.text = nil
             searchBar.setShowsCancelButton(false, animated: false)
-            filterDelegate?.freeTextFilterTableView(tableView, didChangeText: nil)
+            filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
         }
 
         returnToSuperView()
@@ -146,7 +152,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
             didClearText = true
             delegate?.freeTextFilterViewController(self, didSelectValue: nil, forFilter: filter)
             currentQuery = nil
-            filterDelegate?.freeTextFilterTableView(tableView, didChangeText: nil)
+            filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
             return
         }
         // If the user clears the search field and then hits cancel, the search is cancelled
@@ -154,7 +160,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
             currentQuery = nil
         }
 
-        filterDelegate?.freeTextFilterTableView(tableView, didChangeText: searchText)
+        filterDelegate?.freeTextFilterViewController(self, didChangeText: searchText)
     }
 }
 

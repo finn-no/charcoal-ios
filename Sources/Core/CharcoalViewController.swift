@@ -31,8 +31,8 @@ public class CharcoalViewController: UINavigationController {
     }
 
     public var freeTextFilterDataSource: FreeTextFilterDataSource? {
-        get { return rootFilterViewController.freeTextFilterViewController.dataSource }
-        set { rootFilterViewController.freeTextFilterViewController.dataSource = newValue }
+        get { return rootFilterViewController.freeTextFilterViewController.filterDataSource }
+        set { rootFilterViewController.freeTextFilterViewController.filterDataSource = newValue }
     }
 
     // MARK: -

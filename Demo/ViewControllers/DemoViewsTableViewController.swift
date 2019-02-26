@@ -10,6 +10,10 @@ import UIKit
 
 class DemoViewsTableViewController: UITableViewController {
 
+    // MARK: - Private properties
+
+    private var freeTextSearchSuggestions: [String] = []
+
     // MARK: - Override properties
 
     override var prefersStatusBarHidden: Bool {
@@ -22,7 +26,9 @@ class DemoViewsTableViewController: UITableViewController {
         super.init(style: .grouped)
     }
 
-    required init?(coder aDecoder: NSCoder) { fatalError("") }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +71,8 @@ class DemoViewsTableViewController: UITableViewController {
             controller.filterDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
+            controller.freeTextFilterDelegate = self
+            controller.freeTextFilterDataSource = self
 
             let bottomSheet = BottomSheet(rootViewController: controller)
             present(bottomSheet, animated: true)
@@ -132,6 +140,25 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
             viewController.filter = filter
             viewController.config = config
         }
+    }
+}
+
+extension DemoViewsTableViewController: FreeTextFilterDataSource, FreeTextFilterDelegate {
+    func freeTextFilterTableView(_ tableView: UITableView, didChangeText text: String?) {
+        if let text = text, !text.isEmpty {
+            freeTextSearchSuggestions = (1 ... 5).map { "\(text)\($0)" }
+            tableView.reloadData()
+        } else {
+            freeTextSearchSuggestions = []
+        }
+    }
+
+    func freeTextFilterTableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return freeTextSearchSuggestions.count
+    }
+
+    func freeTextFilterTableView(_ tableView: UITableView, titleForCellAt indexPath: IndexPath) -> String {
+        return freeTextSearchSuggestions[indexPath.row]
     }
 }
 

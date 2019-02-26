@@ -119,7 +119,7 @@
 		9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */; };
 		9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0512091CF270000632B /* DemoFilterRootViewControllerHelper.swift */; };
-		9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0532091D2130000632B /* SearchQueryCell.swift */; };
+		9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0532091D2130000632B /* FreeTextFilterCell.swift */; };
 		9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */; };
 		9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0D54021A4509F00F0B63B /* car-abroad.json */; };
 		9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */; };
@@ -144,6 +144,7 @@
 		CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
+		DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */; };
 		DA2C64B2221C205000EAEEF5 /* ContextFilterTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = DA2C64B1221C205000EAEEF5 /* ContextFilterTestData.json */; };
 		DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* FilterViewController.swift */; };
 		DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */; };
@@ -165,7 +166,7 @@
 		DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */; };
 		DA8D683C220D874400D31941 /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683B220D874400D31941 /* FilterTests.swift */; };
 		DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */; };
-		DAEB179721A6986500D9AAD6 /* SearchQueryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */; };
+		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
 		DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD7A1021AE974B00A468B2 /* InlineSegmentCell.swift */; };
@@ -325,7 +326,7 @@
 		9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnaFontExtensions.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		9BE0A0512091CF270000632B /* DemoFilterRootViewControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoFilterRootViewControllerHelper.swift; sourceTree = "<group>"; };
-		9BE0A0532091D2130000632B /* SearchQueryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryCell.swift; sourceTree = "<group>"; };
+		9BE0A0532091D2130000632B /* FreeTextFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterCell.swift; sourceTree = "<group>"; };
 		9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomButtonView.swift; sourceTree = "<group>"; };
 		9BE0D54021A4509F00F0B63B /* car-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-abroad.json"; sourceTree = "<group>"; };
 		9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketTests.swift; sourceTree = "<group>"; };
@@ -350,6 +351,7 @@
 		CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfoTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
+		DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextSuggestionCellViewModel.swift; sourceTree = "<group>"; };
 		DA2C64B1221C205000EAEEF5 /* ContextFilterTestData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
 		DA39FA19220B17DB00608AC4 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
@@ -366,7 +368,7 @@
 		DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentButton.swift; sourceTree = "<group>"; };
 		DA8D683B220D874400D31941 /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
 		DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionStoreTests.swift; sourceTree = "<group>"; };
-		DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryViewController.swift; sourceTree = "<group>"; };
+		DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
 		DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterDemoView.swift; sourceTree = "<group>"; };
 		DAFD7A1021AE974B00A468B2 /* InlineSegmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineSegmentCell.swift; sourceTree = "<group>"; };
@@ -866,8 +868,8 @@
 		CF4C8706221AE5AD00DFAF2A /* FreeText */ = {
 			isa = PBXGroup;
 			children = (
-				9BE0A0532091D2130000632B /* SearchQueryCell.swift */,
-				DAEB179621A6986500D9AAD6 /* SearchQueryViewController.swift */,
+				DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */,
+				DA1C346F222534C700FB22A5 /* ViewModels */,
 			);
 			path = FreeText;
 			sourceTree = "<group>";
@@ -942,6 +944,14 @@
 			path = StepSlider;
 			sourceTree = "<group>";
 		};
+		DA1C346F222534C700FB22A5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		DA2C64B4221C209C00EAEEF5 /* ContextFilterTestData */ = {
 			isa = PBXGroup;
 			children = (
@@ -981,6 +991,7 @@
 			isa = PBXGroup;
 			children = (
 				DA39FA21220B17DB00608AC4 /* CCInlineFilterCell.swift */,
+				9BE0A0532091D2130000632B /* FreeTextFilterCell.swift */,
 				DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 			);
@@ -1328,7 +1339,7 @@
 				CF81E10D221C515800D00423 /* FINNFilterConfiguration.swift in Sources */,
 				DA51041B21BE6AFE004048BD /* Font.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
-				9BE0A05A2091E7E90000632B /* SearchQueryCell.swift in Sources */,
+				9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
@@ -1343,7 +1354,7 @@
 				08716B2B21F73B7A003180D8 /* FilterMarketCar.swift in Sources */,
 				CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */,
 				CF81E106221BFFE600D00423 /* SelectionTagView.swift in Sources */,
-				DAEB179721A6986500D9AAD6 /* SearchQueryViewController.swift in Sources */,
+				DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */,
 				08716B2F21F73C87003180D8 /* FilterMarketJob.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
@@ -1356,6 +1367,7 @@
 				465F616F219B7B8B00CF568B /* FilterDataQuery.swift in Sources */,
 				559C6CB420B6CB6D009B734D /* StringExtensions.swift in Sources */,
 				08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */,
+				DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */,
 				08716B2921F73B0B003180D8 /* FilterMarketMC.swift in Sources */,
 				559C61F820DA4D860083A574 /* FilterSetup.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,

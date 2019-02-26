@@ -20,17 +20,31 @@ public class CharcoalViewController: UINavigationController {
         }
     }
 
-    public var isLoading: Bool = false {
-        didSet {
-            updateLoading()
-        }
-    }
-
     public var config: FilterConfiguration
     public weak var filterDelegate: CharcoalViewControllerDelegate?
 
+    // MARK: -
+
+    public var freeTextFilterDelegate: FreeTextFilterDelegate? {
+        get { return rootFilterViewController.freeTextFilterViewController.filterDelegate }
+        set { rootFilterViewController.freeTextFilterViewController.filterDelegate = newValue }
+    }
+
+    public var freeTextFilterDataSource: FreeTextFilterDataSource? {
+        get { return rootFilterViewController.freeTextFilterViewController.dataSource }
+        set { rootFilterViewController.freeTextFilterViewController.dataSource = newValue }
+    }
+
+    // MARK: -
+
     public var mapFilterViewManager: MapFilterViewManager?
     public var searchLocationDataSource: SearchLocationDataSource?
+
+    // MARK: -
+
+    public var isLoading: Bool = false {
+        didSet { updateLoading() }
+    }
 
     // MARK: - Private properties
 
@@ -145,6 +159,8 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         pushViewController(nextViewController, animated: true)
     }
 }
+
+// MARK: - FilterSelectionStoreDelegate
 
 extension CharcoalViewController: FilterSelectionStoreDelegate {
     func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {

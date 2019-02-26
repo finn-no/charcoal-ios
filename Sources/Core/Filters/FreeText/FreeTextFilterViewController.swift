@@ -5,26 +5,35 @@
 import FinniversKit
 import UIKit
 
-public protocol SearchQuerySuggestionsDataSource: AnyObject {
-    func searchQueryViewController(_ searchQueryViewController: SearchQueryViewController, didRequestSuggestionsFor searchQuery: String, completion: @escaping ((_ text: String, _ suggestions: [String]) -> Void))
+public protocol FreeTextFilterDataSource: class {
+    func freeTextFilterTableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func freeTextFilterTableView(_ tableView: UITableView, titleForCellAt indexPath: IndexPath) -> String
 }
 
-public protocol SearchViewControllerDelegate: class {
-    func presentSearchViewController(_ searchViewController: SearchQueryViewController)
-    func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController)
-    func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String)
+public protocol FreeTextFilterDelegate: class {
+    func freeTextFilterTableView(_ tableView: UITableView, didChangeText text: String?)
 }
 
-public class SearchQueryViewController: UIViewController {
+// Internal protocol to delegate back to root filter view controller
+protocol FreeTextFilterViewControllerDelegate: class {
+    func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController)
+    func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController)
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelectValue value: String?, forFilter filter: Filter)
+}
+
+class FreeTextFilterViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    public weak var delegate: SearchViewControllerDelegate?
-    public var searchQuerySuggestionDataSource: SearchQuerySuggestionsDataSource?
+    weak var filterDelegate: FreeTextFilterDelegate?
+    weak var filterDataSource: FreeTextFilterDataSource?
+
+    weak var delegate: FreeTextFilterViewControllerDelegate?
+
+    var filter: Filter?
 
     // MARK: - Private Properties
 
-    private var suggestions: [String] = []
     private var currentQuery: String?
     private var didClearText = false
 
@@ -46,20 +55,25 @@ public class SearchQueryViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+
+    func setup(with filter: Filter) {
+        self.filter = filter
+        searchBar.placeholder = filter.title
+    }
 }
 
 // MARK: - TableView DataSource
 
-extension SearchQueryViewController: UITableViewDataSource {
+extension FreeTextFilterViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return suggestions.count
+        return filterDataSource?.freeTextFilterTableView(tableView, numberOfRowsInSection: section) ?? 0
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
-        let suggestion = suggestions[safe: indexPath.row]
+        let title = filterDataSource?.freeTextFilterTableView(tableView, titleForCellAt: indexPath)
         cell.titleLabel.font = .regularBody
-        cell.configure(with: SearchQueryItemCellModel(title: suggestion ?? ""))
+        cell.configure(with: FreeTextSuggestionCellViewModel(title: title ?? ""))
         cell.separatorInset = .leadingInset(48)
         return cell
     }
@@ -67,20 +81,20 @@ extension SearchQueryViewController: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 
-extension SearchQueryViewController: UITableViewDelegate {
+extension FreeTextFilterViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let query = suggestions[safe: indexPath.row] else { return }
-        searchBar.text = query
+        guard let filter = filter, let value = filterDataSource?.freeTextFilterTableView(tableView, titleForCellAt: indexPath) else { return }
+        searchBar.text = value
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.searchViewController(self, didSelectQuery: query)
-        currentQuery = query
+        delegate?.freeTextFilterViewController(self, didSelectValue: value, forFilter: filter)
+        currentQuery = value
         returnToSuperView()
     }
 }
 
 // MARK: - SearchBar Delegate
 
-extension SearchQueryViewController: UISearchBarDelegate {
+extension FreeTextFilterViewController: UISearchBarDelegate {
     public func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         // User clicked the x-button and cleared the text -> should not begin editing
         guard !didClearText else {
@@ -90,8 +104,10 @@ extension SearchQueryViewController: UISearchBarDelegate {
         // Present if needed
         if searchBar.superview != view {
             setup()
-            delegate?.presentSearchViewController(self)
+            tableView.reloadData()
+            delegate?.freeTextFilterViewControllerWillBeginEditing(self)
         }
+
         return true
     }
 
@@ -100,69 +116,55 @@ extension SearchQueryViewController: UISearchBarDelegate {
     }
 
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text else { return }
-        delegate?.searchViewController(self, didSelectQuery: text)
+        guard let filter = filter, let text = searchBar.text else { return }
+        delegate?.freeTextFilterViewController(self, didSelectValue: text, forFilter: filter)
         currentQuery = searchBar.text
         returnToSuperView()
     }
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        guard let filter = filter else { return }
+
         if let currentQuery = currentQuery {
             // return to previous search
-            delegate?.searchViewController(self, didSelectQuery: currentQuery)
             searchBar.text = currentQuery
-            suggestions(forSearchText: currentQuery)
+            filterDelegate?.freeTextFilterTableView(tableView, didChangeText: currentQuery)
         } else {
-            delegate?.searchViewControllerDidCancelSearch(self)
-            currentQuery = nil
+            delegate?.freeTextFilterViewController(self, didSelectValue: nil, forFilter: filter)
             searchBar.text = nil
             searchBar.setShowsCancelButton(false, animated: false)
-            suggestions(forSearchText: nil)
+            filterDelegate?.freeTextFilterTableView(tableView, didChangeText: nil)
         }
+
         returnToSuperView()
     }
 
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let filter = filter else { return }
         // If not active, the user clicked the x-button while not editing and the search should be cancelled
         if !searchBar.isDescendant(of: view), searchText.isEmpty {
             didClearText = true
-            delegate?.searchViewControllerDidCancelSearch(self)
+            delegate?.freeTextFilterViewController(self, didSelectValue: nil, forFilter: filter)
             currentQuery = nil
-            suggestions(forSearchText: nil)
+            filterDelegate?.freeTextFilterTableView(tableView, didChangeText: nil)
             return
         }
         // If the user clears the search field and then hits cancel, the search is cancelled
         if let _ = currentQuery, searchText.isEmpty {
             currentQuery = nil
         }
-        suggestions(forSearchText: searchText)
+
+        filterDelegate?.freeTextFilterTableView(tableView, didChangeText: searchText)
     }
 }
 
 // MARK: - Private methods
 
-private extension SearchQueryViewController {
+private extension FreeTextFilterViewController {
     func returnToSuperView() {
         searchBar.endEditing(false)
         searchBar.setShowsCancelButton(false, animated: false)
-        willMove(toParent: nil)
-        view.removeFromSuperview()
-        removeFromParent()
-    }
-
-    func suggestions(forSearchText searchText: String?) {
-        suggestions.removeAll()
-        tableView.reloadData()
-        guard let searchText = searchText, !searchText.isEmpty else { return }
-        searchQuerySuggestionDataSource?.searchQueryViewController(self, didRequestSuggestionsFor: searchText, completion: { [weak self] text, suggestions in
-            DispatchQueue.main.async {
-                guard let query = self?.searchBar.text else { return }
-                if query == text {
-                    self?.suggestions = suggestions
-                    self?.tableView.reloadData()
-                }
-            }
-        })
+        delegate?.freeTextFilterViewControllerWillEndEditing(self)
     }
 
     func setup() {
@@ -180,30 +182,6 @@ private extension SearchQueryViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-    }
-}
-
-// MARK: - Private class
-
-private struct SearchQueryItemCellModel: IconTitleTableViewCellViewModel {
-    let detailText: String? = nil
-
-    var title: String
-
-    var icon: UIImage? {
-        return UIImage(named: .searchSmall)
-    }
-
-    var iconTintColor: UIColor? {
-        return nil
-    }
-
-    var subtitle: String? {
-        return nil
-    }
-
-    var hasChevron: Bool {
-        return false
     }
 }
 

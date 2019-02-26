@@ -24,7 +24,7 @@ final class RootFilterViewController: FilterViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SearchQueryCell.self)
+        tableView.register(FreeTextFilterCell.self)
         tableView.register(CCInlineFilterCell.self)
         tableView.register(RootFilterCell.self)
         tableView.separatorStyle = .none
@@ -32,21 +32,11 @@ final class RootFilterViewController: FilterViewController {
         return tableView
     }()
 
-    private lazy var searchQueryViewController: SearchQueryViewController = {
-        let searchQueryViewController = SearchQueryViewController()
-        searchQueryViewController.delegate = self
-        return searchQueryViewController
+    private(set) lazy var freeTextFilterViewController: FreeTextFilterViewController = {
+        let viewController = FreeTextFilterViewController()
+        viewController.delegate = self
+        return viewController
     }()
-
-    private var searchFilter: Filter? {
-        return filter.subfilters.first {
-            if case .search = $0.kind {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
 
     private var filter: Filter
     private let config: FilterConfiguration
@@ -98,9 +88,9 @@ extension RootFilterViewController: UITableViewDataSource {
 
         switch currentFilter.kind {
         case .search:
-            let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            cell.searchBar = searchQueryViewController.searchBar
-            cell.searchBar?.placeholder = currentFilter.title
+            let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
+            cell.configure(with: freeTextFilterViewController.searchBar)
+            freeTextFilterViewController.setup(with: currentFilter)
             return cell
         case .inline:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
@@ -190,27 +180,22 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
     }
 }
 
-extension RootFilterViewController: SearchViewControllerDelegate {
-    func presentSearchViewController(_ searchViewController: SearchQueryViewController) {
-        add(searchViewController)
+extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
+    func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
+        add(viewController)
     }
 
-    func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController) {
-        guard let searchFilter = searchFilter else {
-            return
-        }
-
-        selectionStore.removeValues(for: searchFilter)
+    func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
+        viewController.remove()
         tableView.reloadData()
     }
 
-    func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String) {
-        guard let searchFilter = searchFilter else {
-            return
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelectValue value: String?, forFilter filter: Filter) {
+        if let value = value {
+            selectionStore.setValue(value, for: filter)
+        } else {
+            selectionStore.removeValues(for: filter)
         }
-
-        selectionStore.setValue(query, for: searchFilter)
-        tableView.reloadData()
     }
 }
 

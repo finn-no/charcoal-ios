@@ -7,6 +7,7 @@ import UIKit
 public protocol CharcoalViewControllerDelegate: class {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem])
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?)
 }
 
 public class CharcoalViewController: UINavigationController {
@@ -20,17 +21,31 @@ public class CharcoalViewController: UINavigationController {
         }
     }
 
-    public var isLoading: Bool = false {
-        didSet {
-            updateLoading()
-        }
-    }
-
     public var config: FilterConfiguration
     public weak var filterDelegate: CharcoalViewControllerDelegate?
 
+    // MARK: -
+
+    public var freeTextFilterDelegate: FreeTextFilterDelegate? {
+        get { return rootFilterViewController.freeTextFilterDelegate }
+        set { rootFilterViewController.freeTextFilterDelegate = newValue }
+    }
+
+    public var freeTextFilterDataSource: FreeTextFilterDataSource? {
+        get { return rootFilterViewController.freeTextFilterDataSource }
+        set { rootFilterViewController.freeTextFilterDataSource = newValue }
+    }
+
+    // MARK: -
+
     public var mapFilterViewManager: MapFilterViewManager?
     public var searchLocationDataSource: SearchLocationDataSource?
+
+    // MARK: -
+
+    public var isLoading: Bool = false {
+        didSet { updateLoading() }
+    }
 
     // MARK: - Private properties
 
@@ -98,27 +113,28 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     }
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
-        let nextViewController: FilterViewController
-
         switch filter.kind {
         case let .range(lowValueFilter, highValueFilter):
-            guard let viewModel = config.rangeViewModel(forKey: filter.key) else { return }
-            nextViewController = RangeFilterViewController(
+            guard let viewModel = config.rangeViewModel(forKey: filter.key) else { break }
+            let rangeViewController = RangeFilterViewController(
                 title: filter.title,
                 lowValueFilter: lowValueFilter,
                 highValueFilter: highValueFilter,
                 viewModel: viewModel,
                 selectionStore: selectionStore
             )
+            pushViewController(rangeViewController)
         case .stepper:
-            guard let viewModel = config.rangeViewModel(forKey: filter.key) else { return }
-            nextViewController = StepperFilterViewController(
+            guard let viewModel = config.rangeViewModel(forKey: filter.key) else { break }
+            let stepperViewController = StepperFilterViewController(
                 filter: filter,
                 selectionStore: selectionStore,
                 viewModel: viewModel
             )
+            pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
-            guard let mapFilterViewManager = mapFilterViewManager else { return }
+            guard let mapFilterViewManager = mapFilterViewManager else { break }
+
             let mapViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
@@ -129,22 +145,30 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 mapFilterViewManager: mapFilterViewManager
             )
             mapViewController.searchLocationDataSource = searchLocationDataSource
-            nextViewController = mapViewController
+
+            pushViewController(mapViewController)
         case .inline, .search:
-            return
+            break
+        case .external:
+            filterDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         case .list:
-            guard !filter.subfilters.isEmpty else { return }
+            guard !filter.subfilters.isEmpty else { break }
 
-            nextViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)
+            let listViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
-            nextViewController.showBottomButton(showBottomButton, animated: false)
+
+            listViewController.showBottomButton(showBottomButton, animated: false)
+            pushViewController(listViewController)
         }
+    }
 
-        nextViewController.delegate = self
-
-        pushViewController(nextViewController, animated: true)
+    private func pushViewController(_ viewController: FilterViewController) {
+        viewController.delegate = self
+        pushViewController(viewController, animated: true)
     }
 }
+
+// MARK: - FilterSelectionStoreDelegate
 
 extension CharcoalViewController: FilterSelectionStoreDelegate {
     func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {

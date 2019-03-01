@@ -18,24 +18,21 @@ final class RootFilterViewController: FilterViewController {
         didSet { delegate = rootDelegate }
     }
 
+    weak var freeTextFilterDelegate: FreeTextFilterDelegate?
+    weak var freeTextFilterDataSource: FreeTextFilterDataSource?
+
     // MARK: - Private properties
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SearchQueryCell.self)
+        tableView.register(FreeTextFilterCell.self)
         tableView.register(CCInlineFilterCell.self)
         tableView.register(RootFilterCell.self)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
-    }()
-
-    private lazy var searchQueryViewController: SearchQueryViewController = {
-        let searchQueryViewController = SearchQueryViewController()
-        searchQueryViewController.delegate = self
-        return searchQueryViewController
     }()
 
     private lazy var resetButton: UIBarButtonItem = {
@@ -45,15 +42,7 @@ final class RootFilterViewController: FilterViewController {
         return button
     }()
 
-    private var searchFilter: Filter? {
-        return filter.subfilters.first {
-            if case .search = $0.kind {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
+    private var freeTextFilterViewController: FreeTextFilterViewController?
 
     private var filter: Filter
     private let config: FilterConfiguration
@@ -94,6 +83,7 @@ final class RootFilterViewController: FilterViewController {
         self.filter = filter
         self.verticals = verticals
         navigationItem.title = filter.title
+        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
         tableView.reloadData()
     }
 
@@ -115,10 +105,18 @@ extension RootFilterViewController: UITableViewDataSource {
 
         switch currentFilter.kind {
         case .search:
-            let cell = tableView.dequeue(SearchQueryCell.self, for: indexPath)
-            cell.searchBar = searchQueryViewController.searchBar
-            cell.searchBar?.placeholder = currentFilter.title
+            freeTextFilterViewController =
+                freeTextFilterViewController ??
+                FreeTextFilterViewController(filter: currentFilter, selectionStore: selectionStore)
+
+            freeTextFilterViewController?.delegate = self
+            freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate
+            freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource
+
+            let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
+            cell.configure(with: freeTextFilterViewController!.searchBar)
             return cell
+
         case .inline:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
@@ -126,6 +124,7 @@ extension RootFilterViewController: UITableViewDataSource {
             let vertical = verticals?.first(where: { $0.isCurrent })
             cell.configure(with: segmentTitles, vertical: vertical?.title)
             return cell
+
         default:
             let titles = selectionStore.titles(for: currentFilter)
             let isValid = selectionStore.isValid(currentFilter)
@@ -207,26 +206,13 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
     }
 }
 
-extension RootFilterViewController: SearchViewControllerDelegate {
-    func presentSearchViewController(_ searchViewController: SearchQueryViewController) {
-        add(searchViewController)
+extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
+    func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
+        add(viewController)
     }
 
-    func searchViewControllerDidCancelSearch(_ searchViewController: SearchQueryViewController) {
-        guard let searchFilter = searchFilter else {
-            return
-        }
-
-        selectionStore.removeValues(for: searchFilter)
-        tableView.reloadData()
-    }
-
-    func searchViewController(_ searchViewController: SearchQueryViewController, didSelectQuery query: String) {
-        guard let searchFilter = searchFilter else {
-            return
-        }
-
-        selectionStore.setValue(query, for: searchFilter)
+    func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
+        viewController.remove()
         tableView.reloadData()
     }
 }

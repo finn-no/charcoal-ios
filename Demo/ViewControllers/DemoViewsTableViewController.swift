@@ -148,7 +148,7 @@ extension DemoViewsTableViewController: FreeTextFilterDataSource, FreeTextFilter
         return freeTextSearchSuggestions.count
     }
 
-    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, suggestionForCellAt indexPath: IndexPath) -> String {
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, suggestionAt indexPath: IndexPath) -> String {
         return freeTextSearchSuggestions[indexPath.row]
     }
 

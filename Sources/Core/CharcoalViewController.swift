@@ -26,13 +26,13 @@ public class CharcoalViewController: UINavigationController {
     // MARK: -
 
     public var freeTextFilterDelegate: FreeTextFilterDelegate? {
-        get { return rootFilterViewController.freeTextFilterViewController.filterDelegate }
-        set { rootFilterViewController.freeTextFilterViewController.filterDelegate = newValue }
+        get { return rootFilterViewController.freeTextFilterDelegate }
+        set { rootFilterViewController.freeTextFilterDelegate = newValue }
     }
 
     public var freeTextFilterDataSource: FreeTextFilterDataSource? {
-        get { return rootFilterViewController.freeTextFilterViewController.filterDataSource }
-        set { rootFilterViewController.freeTextFilterViewController.filterDataSource = newValue }
+        get { return rootFilterViewController.freeTextFilterDataSource }
+        set { rootFilterViewController.freeTextFilterDataSource = newValue }
     }
 
     // MARK: -

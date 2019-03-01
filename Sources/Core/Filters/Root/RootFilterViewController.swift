@@ -18,6 +18,9 @@ final class RootFilterViewController: FilterViewController {
         didSet { delegate = rootDelegate }
     }
 
+    weak var freeTextFilterDelegate: FreeTextFilterDelegate?
+    weak var freeTextFilterDataSource: FreeTextFilterDataSource?
+
     // MARK: - Private properties
 
     private lazy var tableView: UITableView = {
@@ -32,11 +35,7 @@ final class RootFilterViewController: FilterViewController {
         return tableView
     }()
 
-    private(set) lazy var freeTextFilterViewController: FreeTextFilterViewController = {
-        let viewController = FreeTextFilterViewController()
-        viewController.delegate = self
-        return viewController
-    }()
+    private var freeTextFilterViewController: FreeTextFilterViewController?
 
     private var filter: Filter
     private let config: FilterConfiguration
@@ -74,6 +73,7 @@ final class RootFilterViewController: FilterViewController {
         self.filter = filter
         self.verticals = verticals
         navigationItem.title = filter.title
+        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
         tableView.reloadData()
     }
 }
@@ -88,10 +88,18 @@ extension RootFilterViewController: UITableViewDataSource {
 
         switch currentFilter.kind {
         case .search:
+            freeTextFilterViewController =
+                freeTextFilterViewController ??
+                FreeTextFilterViewController(filter: currentFilter, selectionStore: selectionStore)
+
+            freeTextFilterViewController?.delegate = self
+            freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate
+            freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource
+
             let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
-            cell.configure(with: freeTextFilterViewController.searchBar)
-            freeTextFilterViewController.setup(with: currentFilter)
+            cell.configure(with: freeTextFilterViewController!.searchBar)
             return cell
+
         case .inline:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
@@ -99,6 +107,7 @@ extension RootFilterViewController: UITableViewDataSource {
             let vertical = verticals?.first(where: { $0.isCurrent })
             cell.configure(with: segmentTitles, vertical: vertical?.title)
             return cell
+
         default:
             let titles = selectionStore.titles(for: currentFilter)
             let isValid = selectionStore.isValid(currentFilter)
@@ -188,14 +197,6 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
         viewController.remove()
         tableView.reloadData()
-    }
-
-    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelectValue value: String?, forFilter filter: Filter) {
-        if let value = value {
-            selectionStore.setValue(value, for: filter)
-        } else {
-            selectionStore.removeValues(for: filter)
-        }
     }
 }
 

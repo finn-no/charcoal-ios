@@ -32,7 +32,7 @@ struct ListFilterCellViewModel: SelectableTableViewCellViewModel {
     }
 }
 
-// MARK: - Kind
+// MARK: - Factory
 
 extension ListFilterCellViewModel {
     static func selectAll(from filter: Filter, isSelected: Bool) -> ListFilterCellViewModel {

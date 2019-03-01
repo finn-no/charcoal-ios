@@ -43,6 +43,7 @@ public class FreeTextFilterViewController: UIViewController {
         searchBar.delegate = self
         searchBar.backgroundColor = .milk
         searchBar.placeholder = filter.title
+        searchBar.text = selectionStore.value(for: filter)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()

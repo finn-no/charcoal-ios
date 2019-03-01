@@ -19,6 +19,8 @@ class CCInlineFilterCell: UITableViewCell {
         return inlineFilterView
     }()
 
+    // MARK: - Init
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -27,23 +29,16 @@ class CCInlineFilterCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
 
-extension CCInlineFilterCell {
+    // MARK: - Setup
+
     func configure(with segmentTitles: [[String]], vertical: String? = nil) {
         inlineFilterView.vertical = vertical
         inlineFilterView.segmentTitles = segmentTitles
     }
-}
 
-private extension CCInlineFilterCell {
-    func setup() {
+    private func setup() {
         contentView.addSubview(inlineFilterView)
-        NSLayoutConstraint.activate([
-            inlineFilterView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            inlineFilterView.topAnchor.constraint(equalTo: topAnchor),
-            inlineFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            inlineFilterView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        inlineFilterView.fillInSuperview()
     }
 }

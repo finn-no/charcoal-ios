@@ -139,6 +139,7 @@
 		CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */; };
 		CF81E10D221C515800D00423 /* FINNFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */; };
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
+		CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
@@ -346,6 +347,7 @@
 		CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsContainerView.swift; sourceTree = "<group>"; };
 		CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNFilterConfiguration.swift; sourceTree = "<group>"; };
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
+		CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
@@ -666,6 +668,7 @@
 				9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */,
 				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
 				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
+				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1316,6 +1319,7 @@
 				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,
 				CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
+				CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* CCInlineFilterView.swift in Sources */,
 				08716B3321F73D92003180D8 /* FilterMarketBap.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,

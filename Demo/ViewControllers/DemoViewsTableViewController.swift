@@ -10,6 +10,10 @@ import UIKit
 
 class DemoViewsTableViewController: UITableViewController {
 
+    // MARK: - Private properties
+
+    private var freeTextSearchSuggestions: [String] = []
+
     // MARK: - Override properties
 
     override var prefersStatusBarHidden: Bool {
@@ -22,7 +26,9 @@ class DemoViewsTableViewController: UITableViewController {
         super.init(style: .grouped)
     }
 
-    required init?(coder aDecoder: NSCoder) { fatalError("") }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +71,8 @@ class DemoViewsTableViewController: UITableViewController {
             controller.filterDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
+            controller.freeTextFilterDelegate = self
+            controller.freeTextFilterDataSource = self
 
             let bottomSheet = BottomSheet(rootViewController: controller)
             present(bottomSheet, animated: true)
@@ -131,6 +139,25 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             viewController.filter = filter
             viewController.config = config
+        }
+    }
+}
+
+extension DemoViewsTableViewController: FreeTextFilterDataSource, FreeTextFilterDelegate {
+    func numberOfSuggestions(in freeTextFilterViewController: FreeTextFilterViewController) -> Int {
+        return freeTextSearchSuggestions.count
+    }
+
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, suggestionAt indexPath: IndexPath) -> String {
+        return freeTextSearchSuggestions[indexPath.row]
+    }
+
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, didChangeText text: String?) {
+        if let text = text, !text.isEmpty {
+            freeTextSearchSuggestions = (1 ... 5).map { "\(text)\($0)" }
+            freeTextFilterViewController.reloadData()
+        } else {
+            freeTextSearchSuggestions = []
         }
     }
 }

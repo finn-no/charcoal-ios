@@ -4,12 +4,8 @@
 
 import UIKit
 
-class SearchQueryCell: UITableViewCell {
-    var searchBar: UISearchBar? {
-        didSet {
-            setupSearchBar(searchBar)
-        }
-    }
+class FreeTextFilterCell: UITableViewCell {
+    private var searchBar: UISearchBar?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,9 +16,14 @@ class SearchQueryCell: UITableViewCell {
         super.init(coder: aDecoder)
         setup()
     }
+
+    func configure(with searchBar: UISearchBar) {
+        self.searchBar = searchBar
+        setupSearchBar(searchBar)
+    }
 }
 
-private extension SearchQueryCell {
+private extension FreeTextFilterCell {
     func setupSearchBar(_ searchBar: UISearchBar?) {
         guard let searchBar = searchBar else { return }
         searchBar.translatesAutoresizingMaskIntoConstraints = false

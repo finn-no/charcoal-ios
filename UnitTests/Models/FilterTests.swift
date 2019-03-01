@@ -93,6 +93,30 @@ final class FilterTests: XCTestCase {
         }
     }
 
+    func testExternalFilter() {
+        let filter = Filter.external(
+            title: "External",
+            key: "external",
+            value: "test",
+            numberOfResults: 3,
+            style: .context
+        )
+
+        XCTAssertEqual(filter.title, "External")
+        XCTAssertEqual(filter.key, "external")
+        XCTAssertEqual(filter.value, "test")
+        XCTAssertEqual(filter.numberOfResults, 3)
+        XCTAssertEqual(filter.style, .context)
+        XCTAssertTrue(filter.subfilters.isEmpty)
+
+        switch filter.kind {
+        case .external:
+            break
+        default:
+            XCTFail("Incorrect filter kind")
+        }
+    }
+
     func testRangeFilter() {
         let filter = Filter.range(
             title: "Range",

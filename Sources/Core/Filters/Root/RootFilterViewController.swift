@@ -38,6 +38,13 @@ final class RootFilterViewController: FilterViewController {
         return searchQueryViewController
     }()
 
+    private lazy var resetButton: UIBarButtonItem = {
+        let action = #selector(handleResetButtonTap)
+        let button = UIBarButtonItem(title: "reset".localized(), style: .plain, target: self, action: action)
+        button.setTitleTextAttributes([.font: UIFont.title4])
+        return button
+    }()
+
     private var searchFilter: Filter? {
         return filter.subfilters.first {
             if case .search = $0.kind {
@@ -67,6 +74,9 @@ final class RootFilterViewController: FilterViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.rightBarButtonItem = resetButton
+
         showBottomButton(true, animated: false)
         bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
@@ -84,6 +94,13 @@ final class RootFilterViewController: FilterViewController {
         self.filter = filter
         self.verticals = verticals
         navigationItem.title = filter.title
+        tableView.reloadData()
+    }
+
+    // MARK: - Actions
+
+    @objc private func handleResetButtonTap() {
+        selectionStore.removeValues(for: filter)
         tableView.reloadData()
     }
 }

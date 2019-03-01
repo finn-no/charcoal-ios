@@ -10,7 +10,7 @@ protocol RootFilterViewControllerDelegate: class {
 
 final class RootFilterViewController: FilterViewController {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     var verticals: [Vertical]?
 
@@ -43,7 +43,6 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
-
     private var filter: Filter
     private let config: FilterConfiguration
 
@@ -87,6 +86,17 @@ final class RootFilterViewController: FilterViewController {
         tableView.reloadData()
     }
 
+    private func setup() {
+        view.addSubview(tableView)
+
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
@@ -116,7 +126,6 @@ extension RootFilterViewController: UITableViewDataSource {
             let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
             cell.configure(with: freeTextFilterViewController!.searchBar)
             return cell
-
         case .inline:
             let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
             cell.delegate = self
@@ -124,7 +133,6 @@ extension RootFilterViewController: UITableViewDataSource {
             let vertical = verticals?.first(where: { $0.isCurrent })
             cell.configure(with: segmentTitles, vertical: vertical?.title)
             return cell
-
         default:
             let titles = selectionStore.titles(for: currentFilter)
             let isValid = selectionStore.isValid(currentFilter)
@@ -143,6 +151,8 @@ extension RootFilterViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFilter = filter.subfilters[indexPath.row]
@@ -154,6 +164,8 @@ extension RootFilterViewController: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - RootFilterCellDelegate
 
 extension RootFilterViewController: RootFilterCellDelegate {
     func rootFilterCell(_ cell: RootFilterCell, didRemoveItemAt index: Int) {
@@ -175,6 +187,8 @@ extension RootFilterViewController: RootFilterCellDelegate {
         tableView.reloadRows(at: indexPathsToReload, with: .none)
     }
 }
+
+// MARK: - CCInlineFilterViewDelegate
 
 extension RootFilterViewController: CCInlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
@@ -199,12 +213,16 @@ extension RootFilterViewController: CCInlineFilterViewDelegate {
     }
 }
 
+// MARK: - VerticalListViewControllerDelegate
+
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
         verticalViewController.dismiss(animated: false)
         rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
     }
 }
+
+// MARK: - FreeTextFilterViewControllerDelegate
 
 extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
@@ -214,17 +232,5 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
         viewController.remove()
         tableView.reloadData()
-    }
-}
-
-private extension RootFilterViewController {
-    func setup() {
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
     }
 }

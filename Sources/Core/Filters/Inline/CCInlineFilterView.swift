@@ -72,6 +72,7 @@ private extension CCInlineFilterView {
     func setup() {
         addSubview(collectionView)
         collectionView.fillInSuperview()
+        collectionView.heightAnchor.constraint(equalToConstant: InlineSegmentCell.cellHeight).isActive = true
     }
 
     @objc func handleValueChanged(segment: Segment) {

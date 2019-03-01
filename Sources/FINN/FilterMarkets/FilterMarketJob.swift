@@ -23,8 +23,8 @@ extension FilterMarketJob: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .occupation,
                 .industry,
                 .jobDuration,
@@ -34,8 +34,8 @@ extension FilterMarketJob: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .occupation,
                 .industry,
                 .jobDuration,

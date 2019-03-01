@@ -570,6 +570,14 @@ SWIFT_CLASS("_TtC12FinniversKit13FrontPageView")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit19HappinessRatingView")
+@interface HappinessRatingView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)layoutSubviews;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit18HeartTableViewCell")
 @interface HeartTableViewCell : BasicTableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;

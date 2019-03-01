@@ -1,9 +1,15 @@
 //
-//  UIBarButtonItemExtensions.swift
-//  Charcoal
-//
-//  Created by Markov, Vadym on 01/03/2019.
-//  Copyright © 2019 FINN.no. All rights reserved.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UIBarButtonItem {
+    func setTitleTextAttributes(_ attributes: [NSAttributedString.Key: Any]?) {
+        let states: [UIControl.State] = [.normal, .highlighted, .focused, .disabled]
+
+        states.forEach {
+            setTitleTextAttributes(attributes, for: $0)
+        }
+    }
+}

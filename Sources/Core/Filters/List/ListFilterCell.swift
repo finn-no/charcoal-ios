@@ -5,7 +5,13 @@
 import FinniversKit
 
 final class ListFilterCell: CheckboxTableViewCell {
-    private lazy var chevronImageView = UIImageView(withAutoLayout: true)
+    private lazy var chevronImageView: UIImageView = {
+        let imageView = UIImageView(withAutoLayout: true)
+        imageView.backgroundColor = .milk
+        imageView.tintColor = .chevron
+        imageView.isHidden = true
+        return imageView
+    }()
 
     // MARK: - Init
 
@@ -25,7 +31,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         if viewModel.accessoryStyle == .external {
             chevronImageView.isHidden = false
-            chevronImageView.image = UIImage(named: .webview)
+            chevronImageView.image = UIImage(named: .webview).withRenderingMode(.alwaysTemplate)
             bringSubviewToFront(chevronImageView)
         } else {
             chevronImageView.isHidden = true
@@ -43,10 +49,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private func setup() {
         separatorInset = .leadingInset(24 + .largeSpacing)
-
         titleLabel.font = .regularBody
-        chevronImageView.backgroundColor = .milk
-        chevronImageView.isHidden = true
 
         addSubview(chevronImageView)
 

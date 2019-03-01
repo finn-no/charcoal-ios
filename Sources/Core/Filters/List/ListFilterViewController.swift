@@ -29,6 +29,8 @@ final class ListFilterViewController: FilterViewController {
         return filter.value != nil
     }
 
+    // MARK: - Init
+
     init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
         super.init(title: filter.title, selectionStore: selectionStore)
@@ -136,11 +138,12 @@ extension ListFilterViewController: UITableViewDelegate {
             tableView.reloadData()
             showBottomButton(true, animated: true)
         case .subfilters:
-            guard let subfilter = filter.subfilter(at: indexPath.row) else {
-                return
-            }
+            let subfilter = filter.subfilters[indexPath.row]
 
-            if subfilter.subfilters.isEmpty {
+            switch subfilter.kind {
+            case _ where !subfilter.subfilters.isEmpty, .external:
+                break
+            default:
                 if selectionStore.isSelected(filter) {
                     selectionStore.removeValues(for: filter)
                 }
@@ -149,13 +152,14 @@ extension ListFilterViewController: UITableViewDelegate {
 
                 let selectAllIndexPath = showSelectAllCell ? IndexPath(item: 0, section: Section.all.rawValue) : nil
                 let indexPaths = [indexPath, selectAllIndexPath].compactMap({ $0 })
-                tableView.reloadRows(at: indexPaths, with: .none)
 
+                tableView.reloadRows(at: indexPaths, with: .none)
                 showBottomButton(true, animated: true)
             }
 
-            lastSelectedIndexPath = nil
             delegate?.filterViewController(self, didSelectFilter: subfilter)
         }
+
+        lastSelectedIndexPath = nil
     }
 }

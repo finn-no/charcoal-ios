@@ -12,6 +12,10 @@ extension UIColor {
     class var spaceGray: UIColor {
         return UIColor(red: 128 / 255, green: 143 / 255, blue: 166 / 255, alpha: 1.0)
     }
+
+    class var chevron: UIColor {
+        return UIColor(red: 199 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1.0)
+    }
 }
 
 extension CGColor {

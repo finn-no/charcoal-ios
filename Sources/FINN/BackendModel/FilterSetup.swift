@@ -130,13 +130,17 @@ public struct FilterSetup: Decodable {
             makeListFilter(withKey: filter?.parameterName ?? "", from: $0)
         })
 
-        return Filter.list(
-            title: query.title,
-            key: key,
-            value: query.value,
-            numberOfResults: query.totalResults,
-            subfilters: subfilters ?? []
-        )
+        if ["2.69.3964.268", "1.69.3965"].contains(query.value) {
+            return Filter.external(title: query.title, key: key, value: query.value, numberOfResults: query.totalResults)
+        } else {
+            return Filter.list(
+                title: query.title,
+                key: key,
+                value: query.value,
+                numberOfResults: query.totalResults,
+                subfilters: subfilters ?? []
+            )
+        }
     }
 
     public static func decode(from dict: [AnyHashable: Any]?) -> FilterSetup? {

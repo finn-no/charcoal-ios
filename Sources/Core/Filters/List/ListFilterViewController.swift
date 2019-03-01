@@ -15,7 +15,7 @@ final class ListFilterViewController: FilterViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(CCListFilterCell.self)
+        tableView.register(ListFilterCell.self)
         tableView.tableFooterView = UIView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -90,17 +90,22 @@ extension ListFilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
 
-        let cell = tableView.dequeue(CCListFilterCell.self, for: indexPath)
+        let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
 
         switch section {
         case .all:
             let isSelected = selectionStore.isSelected(filter)
-            cell.configure(for: .selectAll(from: filter, isSelected: isSelected))
+            cell.configure(with: .selectAll(from: filter, isSelected: isSelected))
         case .subfilters:
-            if let subfilter = filter.subfilter(at: indexPath.row) {
+            let subfilter = filter.subfilters[indexPath.row]
+
+            switch subfilter.kind {
+            case .external:
+                cell.configure(with: .external(from: subfilter))
+            default:
                 let isSelected = selectionStore.isSelected(subfilter)
                 let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
-                cell.configure(for: .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters))
+                cell.configure(with: .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters))
             }
         }
 

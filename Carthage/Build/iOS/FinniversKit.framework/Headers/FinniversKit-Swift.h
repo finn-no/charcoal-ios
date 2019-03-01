@@ -315,6 +315,8 @@ SWIFT_CLASS("_TtC12FinniversKit11BottomSheet")
 
 
 
+
+
 SWIFT_CLASS("_TtC12FinniversKit9Broadcast")
 @interface Broadcast : UIStackView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -449,6 +451,13 @@ SWIFT_CLASS("_TtC12FinniversKit15DrumMachineView")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit13EarthHourView")
+@interface EarthHourView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit15EasterEggButton")
 @interface EasterEggButton : UIButton
 @property (nonatomic, getter=isHighlighted) BOOL highlighted;
@@ -524,6 +533,14 @@ SWIFT_CLASS("_TtC12FinniversKit21FavoritesListViewCell")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit12FeedbackView")
+@interface FeedbackView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)layoutSubviews;
+@end
+
+
 /// Class for referencing the framework bundle
 SWIFT_CLASS("_TtC12FinniversKit12FinniversKit")
 @interface FinniversKit : NSObject
@@ -587,6 +604,13 @@ SWIFT_CLASS("_TtC12FinniversKit22IconTitleTableViewCell")
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)prepareForReuse;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit11InfoboxView")
+@interface InfoboxView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
 
 
@@ -752,6 +776,19 @@ SWIFT_CLASS("_TtC12FinniversKit25NotificationsListViewCell")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit9PianoView")
+@interface PianoView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit9PopupView")
 @interface PopupView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -913,6 +950,13 @@ SWIFT_CLASS("_TtC12FinniversKit13SnowGlobeView")
 
 SWIFT_CLASS("_TtC12FinniversKit8SoldView")
 @interface SoldView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit18StatisticsItemView")
+@interface StatisticsItemView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
@@ -1103,7 +1147,22 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _No
 /// </ul>
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull caption;)
 + (UIFont * _Nonnull)caption SWIFT_WARN_UNUSED_RESULT;
-/// FINNTypeWebStrippet-Medium with a size of 12 scaled for UIFontTextStyle.caption1
+/// FINNTypeWebStrippet-Light with a size of 14 scaled for UIFontTextStyle.footnote
+/// <h2>Usage:</h2>
+/// <ul>
+///   <li>
+///     Used for short amount of text if neither the Body or Detail is appropriate.
+///   </li>
+///   <li>
+///     Bold version of Caption
+///   </li>
+///   <li>
+///     This is slightly smaller than body text. Weighted Medium.
+///   </li>
+/// </ul>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull captionHeavy;)
++ (UIFont * _Nonnull)captionHeavy SWIFT_WARN_UNUSED_RESULT;
+/// FINNTypeWebStrippet-Bold with a size of 12 scaled for UIFontTextStyle.caption1
 /// <h2>Usage:</h2>
 /// <ul>
 ///   <li>
@@ -1149,6 +1208,84 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _No
 
 
 
+
+
+SWIFT_CLASS("_TtC12FinniversKit40UserAdManagementButtonAndInformationCell")
+@interface UserAdManagementButtonAndInformationCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementStatisticsCell")
+@interface UserAdManagementStatisticsCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit21UserAdsListHeaderView")
+@interface UserAdsListHeaderView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
+@interface UserAdsListView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+
+
+@interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+
+
+@interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
+- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (BOOL)tableView:(UITableView * _Nonnull)tableView canEditRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)tableView:(UITableView * _Nonnull)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)tableView:(UITableView * _Nonnull)tableView didEndEditingRowAtIndexPath:(NSIndexPath * _Nullable)indexPath;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit19UserAdsListViewCell")
+@interface UserAdsListViewCell : UITableViewCell
+- (void)prepareForReuse;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit24UserAdsListViewNewAdCell")
+@interface UserAdsListViewNewAdCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit28UserAdsListViewSeeAllAdsCell")
+@interface UserAdsListViewSeeAllAdsCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

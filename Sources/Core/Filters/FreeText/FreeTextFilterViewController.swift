@@ -38,7 +38,7 @@ public class FreeTextFilterViewController: UIViewController {
     private let selectionStore: FilterSelectionStore
 
     private(set) lazy var searchBar: UISearchBar = {
-        let searchBar = SearchQuerySearchBar(frame: .zero)
+        let searchBar = FreeTextFilterSearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         searchBar.backgroundColor = .milk
@@ -194,7 +194,7 @@ private extension FreeTextFilterViewController {
     }
 }
 
-private class SearchQuerySearchBar: UISearchBar {
+private class FreeTextFilterSearchBar: UISearchBar {
     // Makes sure to setup appearance proxy one time and one time only
     private static let setupSearchQuerySearchBarAppereanceOnce: () = {
         let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableViewCell.self])
@@ -203,23 +203,23 @@ private class SearchQuerySearchBar: UISearchBar {
             NSAttributedString.Key.font: UIFont.regularBody,
         ]
 
-        let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [SearchQuerySearchBar.self])
+        let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
         textFieldAppearanceInSearch.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.licorice,
             NSAttributedString.Key.font: UIFont.regularBody,
         ]
 
-        let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [SearchQuerySearchBar.self])
+        let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
         barButtondAppearance.title = "cancel".localized()
     }()
 
     override init(frame: CGRect) {
-        _ = SearchQuerySearchBar.setupSearchQuerySearchBarAppereanceOnce
+        _ = FreeTextFilterSearchBar.setupSearchQuerySearchBarAppereanceOnce
         super.init(frame: frame)
     }
 
     required init?(coder aDecoder: NSCoder) {
-        _ = SearchQuerySearchBar.setupSearchQuerySearchBarAppereanceOnce
+        _ = FreeTextFilterSearchBar.setupSearchQuerySearchBarAppereanceOnce
         super.init(coder: aDecoder)
     }
 }

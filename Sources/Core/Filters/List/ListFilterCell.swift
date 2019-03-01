@@ -48,9 +48,7 @@ final class ListFilterCell: CheckboxTableViewCell {
     }
 
     private func setup() {
-        separatorInset = .leadingInset(24 + .largeSpacing)
         titleLabel.font = .regularBody
-
         addSubview(chevronImageView)
 
         NSLayoutConstraint.activate([

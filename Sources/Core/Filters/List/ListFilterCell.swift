@@ -20,10 +20,8 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     // MARK: - Setup
 
-    func configure(with viewModel: ListFilterCellViewModel) {
+    func configure(with viewModel: ListFilterCellViewModel, animated: Bool) {
         super.configure(with: viewModel)
-
-        separatorInset = .leadingInset(52)
 
         if viewModel.accessoryStyle == .external {
             chevronImageView.isHidden = false
@@ -35,11 +33,15 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         if viewModel.checkboxStyle == .partiallySelected {
             checkbox.image = UIImage(named: .checkboxPartial)
+        } else if animated {
+            checkbox.isHighlighted = false
+            animateSelection(isSelected: viewModel.isSelected)
         }
+
+        selectionStyle = .none
     }
 
     private func setup() {
-        // selectionStyle = .none
         separatorInset = .leadingInset(24 + .largeSpacing)
 
         titleLabel.font = .regularBody

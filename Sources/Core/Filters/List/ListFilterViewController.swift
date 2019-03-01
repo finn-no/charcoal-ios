@@ -18,10 +18,12 @@ final class ListFilterViewController: FilterViewController {
         tableView.register(ListFilterCell.self)
         tableView.tableFooterView = UIView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.estimatedRowHeight = 48
         return tableView
     }()
 
     private let filter: Filter
+    private var lastSelectedIndexPath: IndexPath?
 
     private var showSelectAllCell: Bool {
         return filter.value != nil
@@ -91,23 +93,26 @@ extension ListFilterViewController: UITableViewDataSource {
         guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
 
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
+        let viewModel: ListFilterCellViewModel
 
         switch section {
         case .all:
             let isSelected = selectionStore.isSelected(filter)
-            cell.configure(with: .selectAll(from: filter, isSelected: isSelected))
+            viewModel = .selectAll(from: filter, isSelected: isSelected)
         case .subfilters:
             let subfilter = filter.subfilters[indexPath.row]
 
             switch subfilter.kind {
             case .external:
-                cell.configure(with: .external(from: subfilter))
+                viewModel = .external(from: subfilter)
             default:
                 let isSelected = selectionStore.isSelected(subfilter)
                 let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
-                cell.configure(with: .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters))
+                viewModel = .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters)
             }
         }
+
+        cell.configure(with: viewModel, animated: indexPath == lastSelectedIndexPath)
 
         return cell
     }
@@ -118,6 +123,8 @@ extension ListFilterViewController: UITableViewDataSource {
 extension ListFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
+
+        lastSelectedIndexPath = indexPath
 
         switch section {
         case .all:
@@ -139,13 +146,15 @@ extension ListFilterViewController: UITableViewDelegate {
                 }
 
                 selectionStore.toggleValue(for: subfilter)
+
+                let selectAllIndexPath = showSelectAllCell ? IndexPath(item: 0, section: Section.all.rawValue) : nil
+                let indexPaths = [indexPath, selectAllIndexPath].compactMap({ $0 })
+                tableView.reloadRows(at: indexPaths, with: .none)
+
                 showBottomButton(true, animated: true)
             }
 
-            let selectAllIndexPath = showSelectAllCell ? IndexPath(item: 0, section: Section.all.rawValue) : nil
-            let indexPaths = [indexPath, selectAllIndexPath].compactMap({ $0 })
-            tableView.reloadRows(at: indexPaths, with: .fade)
-
+            lastSelectedIndexPath = nil
             delegate?.filterViewController(self, didSelectFilter: subfilter)
         }
     }

@@ -50,7 +50,7 @@ public class CharcoalViewController: UINavigationController {
     private var rootFilterViewController: RootFilterViewController?
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
-    // MARK: - Lifecycle
+    // MARK: - Init
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -60,6 +60,8 @@ public class CharcoalViewController: UINavigationController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()

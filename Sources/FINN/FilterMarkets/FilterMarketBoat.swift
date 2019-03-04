@@ -33,8 +33,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .motorAdLocation,
                 .boatClass,
                 .make,
@@ -53,8 +53,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .boatClass,
                 .price,
             ]
@@ -62,8 +62,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .boatClass,
                 .price,
                 .lengthFeet,
@@ -77,8 +77,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .type,
                 .price,
                 .engineEffect,
@@ -88,8 +88,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .type,
                 .price,
                 .engineEffect,
@@ -98,8 +98,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .width,
                 .price,
                 .dealerSegment,
@@ -108,8 +108,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .width,
                 .price,
             ]

@@ -38,8 +38,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .price,
                 .priceCollective,
                 .rent,
@@ -58,8 +58,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .price,
                 .priceCollective,
                 .area,
@@ -73,8 +73,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .price,
                 .plotArea,
             ]
@@ -82,8 +82,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .price,
                 .area,
                 .noOfBedrooms,
@@ -97,8 +97,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .price,
                 .area,
                 .noOfBedrooms,
@@ -110,8 +110,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .propertyType,
                 .price,
                 .area,
@@ -127,8 +127,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .propertyType,
                 .price,
                 .noOfOccupants,
@@ -138,8 +138,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .price,
                 .area,
                 .propertyType,
@@ -148,8 +148,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .area,
                 .propertyType,
             ]
@@ -157,8 +157,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .price,
                 .plotArea,
             ]
@@ -166,8 +166,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .category,
             ]
         case .travelFhh:

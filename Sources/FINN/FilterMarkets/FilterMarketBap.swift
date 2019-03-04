@@ -35,8 +35,8 @@ extension FilterMarketBap: FINNFilterConfiguration {
             .shoeSize,
             .womenClothingBrand,
             .lengthCm,
-            .map,
             .location,
+            .map,
             .price,
         ]
     }

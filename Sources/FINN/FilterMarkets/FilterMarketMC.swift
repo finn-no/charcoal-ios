@@ -29,8 +29,8 @@ extension FilterMarketMC: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .category,
                 .make,
                 .price,
@@ -43,8 +43,8 @@ extension FilterMarketMC: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .category,
                 .make,
                 .price,
@@ -57,8 +57,8 @@ extension FilterMarketMC: FINNFilterConfiguration {
             return [
                 .query,
                 .preferences,
-                .map,
                 .location,
+                .map,
                 .make,
                 .price,
                 .year,

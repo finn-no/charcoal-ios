@@ -5,7 +5,8 @@
 import UIKit
 
 protocol RootFilterCellDelegate: AnyObject {
-    func rootFilterCell(_ cell: RootFilterCell, didRemoveItemAt index: Int)
+    func rootFilterCell(_ cell: RootFilterCell, didRemoveTagAt index: Int)
+    func rootFilterCellDidRemoveAllTags(_ cell: RootFilterCell)
 }
 
 final class RootFilterCell: UITableViewCell {
@@ -128,6 +129,10 @@ final class RootFilterCell: UITableViewCell {
 
 extension RootFilterCell: SelectionTagsContainerViewDelegate {
     func selectionTagsContainerView(_ view: SelectionTagsContainerView, didRemoveTagAt index: Int) {
-        delegate?.rootFilterCell(self, didRemoveItemAt: index)
+        delegate?.rootFilterCell(self, didRemoveTagAt: index)
+    }
+
+    func selectionTagsContainerViewDidRemoveAllTags(_ view: SelectionTagsContainerView) {
+        delegate?.rootFilterCellDidRemoveAllTags(self)
     }
 }

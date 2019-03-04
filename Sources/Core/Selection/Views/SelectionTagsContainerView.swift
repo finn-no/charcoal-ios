@@ -6,6 +6,7 @@ import UIKit
 
 protocol SelectionTagsContainerViewDelegate: AnyObject {
     func selectionTagsContainerView(_ view: SelectionTagsContainerView, didRemoveTagAt index: Int)
+    func selectionTagsContainerViewDidRemoveAllTags(_ view: SelectionTagsContainerView)
 }
 
 final class SelectionTagsContainerView: UIView {
@@ -52,12 +53,12 @@ final class SelectionTagsContainerView: UIView {
     // MARK: - Setup
 
     func configure(with selectionTitles: [String], isValid: Bool) {
-        collapsedView.configure(withTitle: selectionTitles.joinedTitles, isValid: isValid, showRemoveButton: false)
+        collapsedView.configure(withTitle: selectionTitles.joinedTitles, isValid: isValid)
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         selectionTitles.forEach { title in
             let view = SelectionTagView()
-            view.configure(withTitle: title, isValid: isValid, showRemoveButton: true)
+            view.configure(withTitle: title, isValid: isValid)
             view.translatesAutoresizingMaskIntoConstraints = false
             view.delegate = self
             stackView.addArrangedSubview(view)
@@ -89,11 +90,11 @@ final class SelectionTagsContainerView: UIView {
 
 extension SelectionTagsContainerView: SelectionTagViewDelegate {
     func selectionTagViewDidSelectRemove(_ view: SelectionTagView) {
-        guard let index = stackView.arrangedSubviews.index(of: view) else {
-            return
+        if view === collapsedView {
+            delegate?.selectionTagsContainerViewDidRemoveAllTags(self)
+        } else if let index = stackView.arrangedSubviews.index(of: view) {
+            delegate?.selectionTagsContainerView(self, didRemoveTagAt: index)
         }
-
-        delegate?.selectionTagsContainerView(self, didRemoveTagAt: index)
     }
 }
 

@@ -40,7 +40,6 @@ final class SelectionTagView: UIView {
     }()
 
     private lazy var removeButtonImage = UIImage(named: .removeFilterValue)
-    private lazy var stackViewTrailingConstraint = stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
 
     // MARK: - Init
 
@@ -56,11 +55,9 @@ final class SelectionTagView: UIView {
 
     // MARK: - Setup
 
-    func configure(withTitle title: String?, isValid: Bool, showRemoveButton: Bool) {
+    func configure(withTitle title: String?, isValid: Bool) {
         titleLabel.text = title
         backgroundColor = isValid ? .primaryBlue : .cherry
-        removeButton.isHidden = !showRemoveButton
-        stackViewTrailingConstraint.constant = showRemoveButton ? 0 : -.mediumSpacing
     }
 
     private func setup() {
@@ -79,10 +76,10 @@ final class SelectionTagView: UIView {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            stackViewTrailingConstraint,
-        ])
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-        removeButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+            removeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+        ])
     }
 
     // MARK: - Actions

@@ -70,7 +70,6 @@ final class SelectionTagViewCell: UICollectionViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: leading),
             titleLabel.trailingAnchor.constraint(equalTo: removeButton.leadingAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 18),
 
             removeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             removeButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -89,6 +88,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
 
 extension SelectionTagViewCell {
     static let height: CGFloat = 30
+    static let minWidth: CGFloat = 56
 
     static func width(for title: String) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)

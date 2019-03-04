@@ -111,9 +111,10 @@ extension SelectionTagsContainerView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = SelectionTagViewCell.width(for: title(at: indexPath))
-        let itemWidth = min(collectionView.bounds.width, cellWidth)
-        return CGSize(width: itemWidth, height: SelectionTagViewCell.height)
+        var cellWidth = SelectionTagViewCell.width(for: title(at: indexPath))
+        cellWidth = min(collectionView.bounds.width, cellWidth)
+        cellWidth = max(cellWidth, SelectionTagViewCell.minWidth)
+        return CGSize(width: cellWidth, height: SelectionTagViewCell.height)
     }
 }
 

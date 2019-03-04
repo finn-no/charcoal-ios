@@ -42,6 +42,13 @@ final class SelectionTagViewCell: UICollectionViewCell {
         setup()
     }
 
+    // MARK: - Overrides
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        return hitView == removeButton ? hitView : nil
+    }
+
     // MARK: - Setup
 
     func configure(withTitle title: String?, isValid: Bool) {

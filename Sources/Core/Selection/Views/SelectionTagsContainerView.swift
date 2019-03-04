@@ -24,9 +24,9 @@ final class SelectionTagsContainerView: UIView {
     }()
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        let collectionView = CollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .milk
+        collectionView.backgroundColor = .clear
         collectionView.isScrollEnabled = false
         collectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
         collectionView.dataSource = self
@@ -71,10 +71,10 @@ final class SelectionTagsContainerView: UIView {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
 
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: SelectionTagViewCell.height),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
         ])
     }
 
@@ -138,6 +138,13 @@ extension SelectionTagsContainerView: SelectionTagViewCellDelegate {
         } else {
             delegate?.selectionTagsContainerView(self, didRemoveTagAt: indexPath.item)
         }
+    }
+}
+
+private final class CollectionView: UICollectionView {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        return hitView == self ? nil : hitView
     }
 }
 

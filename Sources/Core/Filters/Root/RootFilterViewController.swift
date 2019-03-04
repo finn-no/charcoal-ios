@@ -177,8 +177,6 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
-        tableView.reloadRows(at: [indexPath], with: .fade)
-
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 
@@ -188,9 +186,8 @@ extension RootFilterViewController: RootFilterCellDelegate {
         }
 
         let currentFilter = filter.subfilters[indexPath.row]
-        selectionStore.removeValues(for: currentFilter)
 
-        tableView.reloadRows(at: [indexPath], with: .fade)
+        selectionStore.removeValues(for: currentFilter)
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 

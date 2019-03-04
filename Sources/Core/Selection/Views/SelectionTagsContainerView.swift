@@ -11,30 +11,28 @@ protocol SelectionTagsContainerViewDelegate: AnyObject {
 
 final class SelectionTagsContainerView: UIView {
     weak var delegate: SelectionTagsContainerViewDelegate?
-    private var isValid = false
-    private var multiTags = false
+
     private var selectionTitles = [String]()
+    private var isValid = false
+    private var isCollapsed = false
 
-    // MARK: - Private properties
-
-    private lazy var collectionViewLayout: CollectionViewFlowLayout = {
-        let layout = CollectionViewFlowLayout()
+    private lazy var collectionViewLayout: UICollectionViewLayout = {
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = CGSize(width: 50, height: 30)
         layout.minimumLineSpacing = .mediumSpacing
         return layout
     }()
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.clipsToBounds = false
-        collectionView.isScrollEnabled = false
-        collectionView.backgroundColor = .milk
-        collectionView.register(SelectionTagViewCell.self)
-        collectionView.semanticContentAttribute = .forceRightToLeft
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .milk
+        collectionView.isScrollEnabled = false
+        collectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.allowsSelection = false
+        collectionView.register(SelectionTagViewCell.self)
         return collectionView
     }()
 
@@ -56,12 +54,12 @@ final class SelectionTagsContainerView: UIView {
         self.selectionTitles = selectionTitles
         self.isValid = isValid
 
-        multiTags = false
+        isCollapsed = false
         collectionView.reloadData()
         collectionView.layoutIfNeeded()
 
         if collectionView.contentSize.width > collectionView.frame.width {
-            multiTags = true
+            isCollapsed = true
             collectionView.reloadData()
             collectionViewLayout.invalidateLayout()
         }
@@ -70,18 +68,22 @@ final class SelectionTagsContainerView: UIView {
     private func setup() {
         addSubview(collectionView)
 
-        let tagViewHeight: CGFloat = 30
-
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
 
             collectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: tagViewHeight),
+            collectionView.heightAnchor.constraint(equalToConstant: SelectionTagViewCell.height),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
         ])
     }
+
+    private func title(at indexPath: IndexPath) -> String {
+        return isCollapsed ? selectionTitles.joinedTitles : selectionTitles[indexPath.item]
+    }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension SelectionTagsContainerView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,51 +91,53 @@ extension SelectionTagsContainerView: UICollectionViewDataSource {
             return 0
         }
 
-        return multiTags ? 1 : selectionTitles.count
+        return isCollapsed ? 1 : selectionTitles.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(SelectionTagViewCell.self, for: indexPath)
-        let title = multiTags ? selectionTitles.joinedTitles : selectionTitles[indexPath.item]
-        cell.selectionView.configure(withTitle: title, isValid: isValid)
+
+        cell.configure(withTitle: title(at: indexPath), isValid: isValid)
+        cell.contentView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        cell.delegate = self
+
         return cell
     }
 }
 
-extension SelectionTagsContainerView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectionTitles.remove(at: indexPath.item)
-        collectionView.deleteItems(at: [indexPath])
-        // setNeedsLayout()
-        // delegate?.selectionView(self, didRemoveItemAt: indexPath.item)
-    }
-}
+// MARK: - UICollectionViewDelegateFlowLayout
 
-// MARK: - Private types
-
-private class SelectionTagViewCell: UICollectionViewCell {
-    private(set) lazy var selectionView = SelectionTagView(withAutoLayout: true)
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.addSubview(selectionView)
-        selectionView.fillInSuperview()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+extension SelectionTagsContainerView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = SelectionTagViewCell.width(for: title(at: indexPath))
+        let itemWidth = min(collectionView.bounds.width, cellWidth)
+        return CGSize(width: itemWidth, height: SelectionTagViewCell.height)
     }
 }
 
 // MARK: - FilterTagViewDelegate
 
-extension SelectionTagsContainerView: SelectionTagViewDelegate {
-    func selectionTagViewDidSelectRemove(_ view: SelectionTagView) {
-//        if view === multiTagView {
-//            delegate?.selectionTagsContainerViewDidRemoveAllTags(self)
-//        } else if let index = tagsStackView.arrangedSubviews.index(of: view) {
-//            delegate?.selectionTagsContainerView(self, didRemoveTagAt: index)
-//        }
+extension SelectionTagsContainerView: SelectionTagViewCellDelegate {
+    func selectionTagViewCellDidSelectRemove(_ cell: SelectionTagViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
+        }
+
+        if isCollapsed {
+            selectionTitles.removeAll()
+        } else {
+            selectionTitles.remove(at: indexPath.item)
+        }
+
+        collectionView.deleteItems(at: [indexPath])
+
+        if isCollapsed {
+            delegate?.selectionTagsContainerViewDidRemoveAllTags(self)
+        } else {
+            delegate?.selectionTagsContainerView(self, didRemoveTagAt: indexPath.item)
+        }
     }
 }
 
@@ -143,36 +147,5 @@ private extension Array where Element == String {
     var joinedTitles: String {
         let string = joined(separator: ", ")
         return count > 1 ? "(\(count)) \(string)" : string
-    }
-}
-
-final class CollectionViewFlowLayout: UICollectionViewFlowLayout {
-    // Don't forget to use this class in your storyboard (or code, .xib etc)
-
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let attributes = super.layoutAttributesForItem(at: indexPath) else {
-            return nil
-        }
-
-        guard let collectionView = collectionView else {
-            return attributes
-        }
-
-        if attributes.bounds.size.width > collectionView.bounds.width {
-            attributes.bounds.size.width = collectionView.bounds.width
-            attributes.frame.origin.x = 0
-        }
-
-        return attributes
-    }
-
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let allAttributes = super.layoutAttributesForElements(in: rect)
-        return allAttributes?.compactMap { attributes in
-            switch attributes.representedElementCategory {
-            case .cell: return layoutAttributesForItem(at: attributes.indexPath)
-            default: return attributes
-            }
-        }
     }
 }

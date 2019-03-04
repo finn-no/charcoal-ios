@@ -73,7 +73,6 @@ final class RootFilterCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
-        selectionTagsContainerView.configure(with: [], isValid: true)
     }
 
     // MARK: - Setup
@@ -113,7 +112,6 @@ final class RootFilterCell: UITableViewCell {
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumLargeSpacing),
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            selectionTagsContainerView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),
             selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),
             selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: .smallSpacing),
 

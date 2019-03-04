@@ -192,11 +192,7 @@ SWIFT_CLASS("_TtC12FinniversKit14AdReporterView")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UITextView;
 
-@interface AdReporterView (SWIFT_EXTENSION(FinniversKit)) <UITextViewDelegate>
-- (void)textViewDidChange:(UITextView * _Nonnull)textView;
-@end
 
 
 SWIFT_CLASS("_TtC12FinniversKit11AdsGridView")
@@ -1005,6 +1001,7 @@ SWIFT_CLASS("_TtC12FinniversKit8TextView")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UITextView;
 
 @interface TextView (SWIFT_EXTENSION(FinniversKit)) <UITextViewDelegate>
 - (void)textViewDidBeginEditing:(UITextView * _Nonnull)textView;
@@ -1026,6 +1023,12 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
+
+
+@interface UIColor (SWIFT_EXTENSION(FinniversKit))
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
++ (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 
@@ -1234,8 +1237,8 @@ SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementStatisticsCell")
 
 SWIFT_CLASS("_TtC12FinniversKit21UserAdsListHeaderView")
 @interface UserAdsListHeaderView : UIView
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
 

@@ -115,7 +115,7 @@ final class RootFilterCell: UITableViewCell {
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             selectionTagsContainerView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),
             selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),
-            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: .smallSpacing),
 
             hairLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             hairLine.bottomAnchor.constraint(equalTo: bottomAnchor),

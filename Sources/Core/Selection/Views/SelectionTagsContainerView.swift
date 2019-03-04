@@ -14,9 +14,13 @@ final class SelectionTagsContainerView: UIView {
 
     // MARK: - Private properties
 
-    private lazy var collapsedView = SelectionTagView(withAutoLayout: true)
+    private lazy var multiTagView: SelectionTagView = {
+        let view = SelectionTagView(withAutoLayout: true)
+        view.delegate = self
+        return view
+    }()
 
-    private lazy var stackView: UIStackView = {
+    private lazy var tagsStackView: UIStackView = {
         let stackView = UIStackView(withAutoLayout: true)
         stackView.axis = .horizontal
         stackView.spacing = .smallSpacing
@@ -41,11 +45,11 @@ final class SelectionTagsContainerView: UIView {
     // MARK: - Overrides
 
     override func layoutSubviews() {
-        stackView.layoutIfNeeded()
+        tagsStackView.layoutIfNeeded()
 
-        let showCollapsedView = frame.width < stackView.frame.width
-        stackView.isHidden = showCollapsedView
-        collapsedView.isHidden = !showCollapsedView
+        let showCollapsedView = frame.width < tagsStackView.frame.width
+        tagsStackView.isHidden = showCollapsedView
+        multiTagView.isHidden = !showCollapsedView
 
         super.layoutSubviews()
     }
@@ -53,35 +57,35 @@ final class SelectionTagsContainerView: UIView {
     // MARK: - Setup
 
     func configure(with selectionTitles: [String], isValid: Bool) {
-        collapsedView.configure(withTitle: selectionTitles.joinedTitles, isValid: isValid)
-        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        multiTagView.configure(withTitle: selectionTitles.joinedTitles, isValid: isValid)
+        tagsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         selectionTitles.forEach { title in
             let view = SelectionTagView()
             view.configure(withTitle: title, isValid: isValid)
             view.translatesAutoresizingMaskIntoConstraints = false
             view.delegate = self
-            stackView.addArrangedSubview(view)
+            tagsStackView.addArrangedSubview(view)
         }
     }
 
     private func setup() {
-        addSubview(stackView)
-        addSubview(collapsedView)
+        addSubview(tagsStackView)
+        addSubview(multiTagView)
 
         let tagViewHeight: CGFloat = 30
 
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
 
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: tagViewHeight),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tagsStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            tagsStackView.heightAnchor.constraint(equalToConstant: tagViewHeight),
+            tagsStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            collapsedView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            collapsedView.heightAnchor.constraint(equalToConstant: tagViewHeight),
-            collapsedView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collapsedView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            multiTagView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            multiTagView.heightAnchor.constraint(equalToConstant: tagViewHeight),
+            multiTagView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            multiTagView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
         ])
     }
 }
@@ -90,9 +94,9 @@ final class SelectionTagsContainerView: UIView {
 
 extension SelectionTagsContainerView: SelectionTagViewDelegate {
     func selectionTagViewDidSelectRemove(_ view: SelectionTagView) {
-        if view === collapsedView {
+        if view === multiTagView {
             delegate?.selectionTagsContainerViewDidRemoveAllTags(self)
-        } else if let index = stackView.arrangedSubviews.index(of: view) {
+        } else if let index = tagsStackView.arrangedSubviews.index(of: view) {
             delegate?.selectionTagsContainerView(self, didRemoveTagAt: index)
         }
     }

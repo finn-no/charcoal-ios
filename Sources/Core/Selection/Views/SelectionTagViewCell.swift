@@ -49,6 +49,14 @@ final class SelectionTagViewCell: UICollectionViewCell {
         return hitView == removeButton ? hitView : nil
     }
 
+    override var backgroundColor: UIColor? {
+        didSet {
+            if let backgroundColor = backgroundColor, backgroundColor.cgColor.alpha == 0 {
+                self.backgroundColor = oldValue
+            }
+        }
+    }
+
     // MARK: - Setup
 
     func configure(withTitle title: String?, isValid: Bool) {

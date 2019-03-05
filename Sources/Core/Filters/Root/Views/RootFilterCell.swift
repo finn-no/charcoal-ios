@@ -27,7 +27,6 @@ final class RootFilterCell: BasicTableViewCell {
 
     private lazy var contextMark: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .red
         view.layer.cornerRadius = 5
         return view
     }()
@@ -69,6 +68,16 @@ final class RootFilterCell: BasicTableViewCell {
         titleLabel.text = nil
     }
 
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        updateContextMarkBackground()
+    }
+
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        updateContextMarkBackground()
+    }
+
     // MARK: - Setup
 
     func configure(withTitle title: String, selectionTitles: [String], isValid: Bool, style: Filter.Style = .normal) {
@@ -90,6 +99,8 @@ final class RootFilterCell: BasicTableViewCell {
     private func setup() {
         titleLabel.font = .regularBody
         titleLabel.textColor = .licorice
+
+        setContextMarkBackground()
 
         contentView.addSubview(contextMark)
         contentView.addSubview(selectionTagsContainerView)
@@ -114,6 +125,10 @@ final class RootFilterCell: BasicTableViewCell {
             hairLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
             hairLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
+    }
+
+    private func setContextMarkBackground() {
+        contextMark.backgroundColor = .red
     }
 }
 

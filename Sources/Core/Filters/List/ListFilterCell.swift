@@ -66,6 +66,11 @@ final class ListFilterCell: CheckboxTableViewCell {
         titleLabel.font = .regularBody
         addSubview(chevronImageView)
 
+        let verticalSpacing: CGFloat = 14
+
+        stackViewTopAnchorConstraint.constant = verticalSpacing
+        stackViewBottomAnchorConstraint.constant = -verticalSpacing
+
         NSLayoutConstraint.activate([
             chevronImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.smallSpacing * 3),
             chevronImageView.heightAnchor.constraint(equalToConstant: 14),

@@ -39,6 +39,6 @@ final class InlineFilterCell: UITableViewCell {
 
     private func setup() {
         contentView.addSubview(inlineFilterView)
-        inlineFilterView.fillInSuperview()
+        inlineFilterView.fillInSuperview(insets: UIEdgeInsets(top: 0, leading: 0, bottom: -.smallSpacing, trailing: 0))
     }
 }

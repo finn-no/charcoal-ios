@@ -70,12 +70,12 @@ final class RootFilterCell: BasicTableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        updateContextMarkBackground()
+        setContextMarkBackground()
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        updateContextMarkBackground()
+        setContextMarkBackground()
     }
 
     // MARK: - Setup

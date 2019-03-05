@@ -5,7 +5,8 @@
 import UIKit
 
 protocol RootFilterCellDelegate: AnyObject {
-    func rootFilterCell(_ cell: RootFilterCell, didRemoveItemAt index: Int)
+    func rootFilterCell(_ cell: RootFilterCell, didRemoveTagAt index: Int)
+    func rootFilterCellDidRemoveAllTags(_ cell: RootFilterCell)
 }
 
 final class RootFilterCell: UITableViewCell {
@@ -72,7 +73,6 @@ final class RootFilterCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
-        selectionTagsContainerView.configure(with: [], isValid: true)
     }
 
     // MARK: - Setup
@@ -112,9 +112,8 @@ final class RootFilterCell: UITableViewCell {
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumLargeSpacing),
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            selectionTagsContainerView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: .mediumSpacing),
             selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),
-            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: .smallSpacing),
 
             hairLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             hairLine.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -128,6 +127,10 @@ final class RootFilterCell: UITableViewCell {
 
 extension RootFilterCell: SelectionTagsContainerViewDelegate {
     func selectionTagsContainerView(_ view: SelectionTagsContainerView, didRemoveTagAt index: Int) {
-        delegate?.rootFilterCell(self, didRemoveItemAt: index)
+        delegate?.rootFilterCell(self, didRemoveTagAt: index)
+    }
+
+    func selectionTagsContainerViewDidRemoveAllTags(_ view: SelectionTagsContainerView) {
+        delegate?.rootFilterCellDidRemoveAllTags(self)
     }
 }

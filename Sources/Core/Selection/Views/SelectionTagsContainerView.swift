@@ -6,23 +6,34 @@ import UIKit
 
 protocol SelectionTagsContainerViewDelegate: AnyObject {
     func selectionTagsContainerView(_ view: SelectionTagsContainerView, didRemoveTagAt index: Int)
+    func selectionTagsContainerViewDidRemoveAllTags(_ view: SelectionTagsContainerView)
 }
 
 final class SelectionTagsContainerView: UIView {
     weak var delegate: SelectionTagsContainerViewDelegate?
 
-    // MARK: - Private properties
+    private var selectionTitles = [String]()
+    private var isValid = false
+    private var isCollapsed = false
 
-    private lazy var collapsedView = SelectionTagView(withAutoLayout: true)
+    private lazy var collectionViewLayout: UICollectionViewLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = .mediumSpacing
+        return layout
+    }()
 
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(withAutoLayout: true)
-        stackView.axis = .horizontal
-        stackView.spacing = .smallSpacing
-        stackView.backgroundColor = .clear
-        stackView.distribution = .fillProportionally
-        stackView.alignment = .fill
-        return stackView
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = CollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+        collectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.allowsSelection = false
+        collectionView.register(SelectionTagViewCell.self)
+        return collectionView
     }()
 
     // MARK: - Init
@@ -37,63 +48,104 @@ final class SelectionTagsContainerView: UIView {
         setup()
     }
 
-    // MARK: - Overrides
-
-    override func layoutSubviews() {
-        stackView.layoutIfNeeded()
-
-        let showCollapsedView = frame.width < stackView.frame.width
-        stackView.isHidden = showCollapsedView
-        collapsedView.isHidden = !showCollapsedView
-
-        super.layoutSubviews()
-    }
-
     // MARK: - Setup
 
     func configure(with selectionTitles: [String], isValid: Bool) {
-        collapsedView.configure(withTitle: selectionTitles.joinedTitles, isValid: isValid, showRemoveButton: false)
-        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        self.selectionTitles = selectionTitles
+        self.isValid = isValid
 
-        selectionTitles.forEach { title in
-            let view = SelectionTagView()
-            view.configure(withTitle: title, isValid: isValid, showRemoveButton: true)
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.delegate = self
-            stackView.addArrangedSubview(view)
+        isCollapsed = false
+        collectionView.reloadData()
+        collectionView.layoutIfNeeded()
+
+        if collectionView.contentSize.width > collectionView.frame.width {
+            isCollapsed = true
+            collectionView.reloadData()
+            collectionViewLayout.invalidateLayout()
         }
     }
 
     private func setup() {
-        addSubview(stackView)
-        addSubview(collapsedView)
-
-        let tagViewHeight: CGFloat = 30
+        addSubview(collectionView)
 
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 44),
 
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: tagViewHeight),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-
-            collapsedView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            collapsedView.heightAnchor.constraint(equalToConstant: tagViewHeight),
-            collapsedView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collapsedView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: SelectionTagViewCell.height),
         ])
+    }
+
+    private func title(at indexPath: IndexPath) -> String {
+        return isCollapsed ? selectionTitles.joinedTitles : selectionTitles[indexPath.item]
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension SelectionTagsContainerView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard !selectionTitles.isEmpty else {
+            return 0
+        }
+
+        return isCollapsed ? 1 : selectionTitles.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeue(SelectionTagViewCell.self, for: indexPath)
+
+        cell.configure(withTitle: title(at: indexPath), isValid: isValid)
+        cell.contentView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        cell.delegate = self
+
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension SelectionTagsContainerView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var cellWidth = SelectionTagViewCell.width(for: title(at: indexPath))
+        cellWidth = min(collectionView.bounds.width, cellWidth)
+        cellWidth = max(cellWidth, SelectionTagViewCell.minWidth)
+        return CGSize(width: cellWidth, height: SelectionTagViewCell.height)
     }
 }
 
 // MARK: - FilterTagViewDelegate
 
-extension SelectionTagsContainerView: SelectionTagViewDelegate {
-    func selectionTagViewDidSelectRemove(_ view: SelectionTagView) {
-        guard let index = stackView.arrangedSubviews.index(of: view) else {
+extension SelectionTagsContainerView: SelectionTagViewCellDelegate {
+    func selectionTagViewCellDidSelectRemove(_ cell: SelectionTagViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
             return
         }
 
-        delegate?.selectionTagsContainerView(self, didRemoveTagAt: index)
+        if isCollapsed {
+            selectionTitles.removeAll()
+        } else {
+            selectionTitles.remove(at: indexPath.item)
+        }
+
+        collectionView.deleteItems(at: [indexPath])
+
+        if isCollapsed {
+            delegate?.selectionTagsContainerViewDidRemoveAllTags(self)
+        } else {
+            delegate?.selectionTagsContainerView(self, didRemoveTagAt: indexPath.item)
+        }
+    }
+}
+
+private final class CollectionView: UICollectionView {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        return hitView == self ? nil : hitView
     }
 }
 

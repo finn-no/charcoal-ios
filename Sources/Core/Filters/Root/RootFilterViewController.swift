@@ -168,7 +168,7 @@ extension RootFilterViewController: UITableViewDelegate {
 // MARK: - RootFilterCellDelegate
 
 extension RootFilterViewController: RootFilterCellDelegate {
-    func rootFilterCell(_ cell: RootFilterCell, didRemoveItemAt index: Int) {
+    func rootFilterCell(_ cell: RootFilterCell, didRemoveTagAt index: Int) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
@@ -177,10 +177,24 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
-        tableView.reloadRows(at: [indexPath], with: .fade)
+        reloadCellsWithExclusiveFilters(for: currentFilter)
+    }
 
-        let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
-        let indexPathsToReload = filter.subfilters.enumerated().compactMap({ index, subfilter in
+    func rootFilterCellDidRemoveAllTags(_ cell: RootFilterCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+
+        let currentFilter = filter.subfilters[indexPath.row]
+
+        selectionStore.removeValues(for: currentFilter)
+        reloadCellsWithExclusiveFilters(for: currentFilter)
+    }
+
+    private func reloadCellsWithExclusiveFilters(for filter: Filter) {
+        let exclusiveFilters = config.mutuallyExclusiveFilters(for: filter.key)
+
+        let indexPathsToReload = self.filter.subfilters.enumerated().compactMap({ index, subfilter in
             return exclusiveFilters.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
         })
 

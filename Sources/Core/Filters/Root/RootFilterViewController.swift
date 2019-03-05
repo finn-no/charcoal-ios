@@ -204,8 +204,8 @@ extension RootFilterViewController: RootFilterCellDelegate {
 
 // MARK: - CCInlineFilterViewDelegate
 
-extension RootFilterViewController: CCInlineFilterViewDelegate {
-    func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
+extension RootFilterViewController: InlineFilterViewDelegate {
+    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChangeSegment segment: Segment, at index: Int) {
         guard let subfilter = filter.subfilter(at: index) else { return }
 
         selectionStore.removeValues(for: subfilter)
@@ -217,7 +217,7 @@ extension RootFilterViewController: CCInlineFilterViewDelegate {
         }
     }
 
-    func inlineFilterView(_ inlineFilterview: CCInlineFilterView, didTapExpandableSegment segment: Segment) {
+    func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
         guard let verticals = verticals else { return }
         let verticalViewController = VerticalListViewController(verticals: verticals)
         verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }

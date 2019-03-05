@@ -8,13 +8,13 @@ class CCInlineFilterCell: UITableViewCell {
 
     // MARK: - Public properties
 
-    var delegate: CCInlineFilterViewDelegate? {
+    var delegate: InlineFilterViewDelegate? {
         get { return inlineFilterView.delegate }
         set { inlineFilterView.delegate = newValue }
     }
 
-    private lazy var inlineFilterView: CCInlineFilterView = {
-        let inlineFilterView = CCInlineFilterView()
+    private lazy var inlineFilterView: InlineFilterView = {
+        let inlineFilterView = InlineFilterView()
         inlineFilterView.translatesAutoresizingMaskIntoConstraints = false
         return inlineFilterView
     }()

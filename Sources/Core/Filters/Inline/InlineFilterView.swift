@@ -4,12 +4,12 @@
 
 import UIKit
 
-protocol CCInlineFilterViewDelegate: class {
-    func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int)
-    func inlineFilterView(_ inlineFilterview: CCInlineFilterView, didTapExpandableSegment segment: Segment)
+protocol InlineFilterViewDelegate: class {
+    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChangeSegment segment: Segment, at index: Int)
+    func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment)
 }
 
-class CCInlineFilterView: UIView {
+final class InlineFilterView: UIView {
 
     // MARK: - Public Properties
 
@@ -21,7 +21,7 @@ class CCInlineFilterView: UIView {
         }
     }
 
-    weak var delegate: CCInlineFilterViewDelegate?
+    weak var delegate: InlineFilterViewDelegate?
 
     // MARK: - Private properties
 
@@ -54,7 +54,7 @@ class CCInlineFilterView: UIView {
 
 // MARK: - Collection view data source
 
-extension CCInlineFilterView: UICollectionViewDataSource {
+extension InlineFilterView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return segments.count
     }
@@ -68,7 +68,7 @@ extension CCInlineFilterView: UICollectionViewDataSource {
 
 // MARK: - Private methods
 
-private extension CCInlineFilterView {
+private extension InlineFilterView {
     func setup() {
         addSubview(collectionView)
         collectionView.fillInSuperview()

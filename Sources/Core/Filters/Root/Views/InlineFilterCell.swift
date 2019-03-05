@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CCInlineFilterCell: UITableViewCell {
+final class InlineFilterCell: UITableViewCell {
 
     // MARK: - Public properties
 

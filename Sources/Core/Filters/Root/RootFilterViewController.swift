@@ -28,7 +28,7 @@ final class RootFilterViewController: FilterViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(FreeTextFilterCell.self)
-        tableView.register(CCInlineFilterCell.self)
+        tableView.register(InlineFilterCell.self)
         tableView.register(RootFilterCell.self)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -127,7 +127,7 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.configure(with: freeTextFilterViewController!.searchBar)
             return cell
         case .inline:
-            let cell = tableView.dequeue(CCInlineFilterCell.self, for: indexPath)
+            let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
             cell.delegate = self
             let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
             let vertical = verticals?.first(where: { $0.isCurrent })

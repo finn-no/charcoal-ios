@@ -43,18 +43,15 @@ final class ListFilterCell: CheckboxTableViewCell {
     func configure(with viewModel: ListFilterCellViewModel, animated: Bool) {
         super.configure(with: viewModel)
 
+        selectionStyle = .default
+
         switch viewModel.accessoryStyle {
-        case .chevron:
-            selectionStyle = .default
+        case .chevron, .none:
             chevronImageView.isHidden = true
         case .external:
-            selectionStyle = .default
             chevronImageView.isHidden = false
             chevronImageView.image = UIImage(named: .webview).withRenderingMode(.alwaysTemplate)
             bringSubviewToFront(chevronImageView)
-        case .none:
-            selectionStyle = .none
-            chevronImageView.isHidden = true
         }
 
         if viewModel.checkboxStyle == .partiallySelected {

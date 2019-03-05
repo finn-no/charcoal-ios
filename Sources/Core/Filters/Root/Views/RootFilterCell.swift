@@ -2,14 +2,14 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import UIKit
+import FinniversKit
 
 protocol RootFilterCellDelegate: AnyObject {
     func rootFilterCell(_ cell: RootFilterCell, didRemoveTagAt index: Int)
     func rootFilterCellDidRemoveAllTags(_ cell: RootFilterCell)
 }
 
-final class RootFilterCell: UITableViewCell {
+final class RootFilterCell: BasicTableViewCell {
     weak var delegate: RootFilterCellDelegate?
 
     var isEnabled = true {
@@ -32,14 +32,6 @@ final class RootFilterCell: UITableViewCell {
         return view
     }()
 
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .regularBody
-        label.textColor = .licorice
-        return label
-    }()
-
     private lazy var selectionTagsContainerView: SelectionTagsContainerView = {
         let view = SelectionTagsContainerView(withAutoLayout: true)
         view.delegate = self
@@ -53,7 +45,10 @@ final class RootFilterCell: UITableViewCell {
         return view
     }()
 
-    private lazy var titleToContextMarkConstraint = titleLabel.leadingAnchor.constraint(equalTo: contextMark.trailingAnchor, constant: .mediumSpacing)
+    private lazy var stackViewToContextMarkConstraint = stackView.leadingAnchor.constraint(
+        equalTo: contextMark.trailingAnchor,
+        constant: .mediumSpacing
+    )
 
     // MARK: - Init
 
@@ -83,32 +78,32 @@ final class RootFilterCell: UITableViewCell {
         switch style {
         case .normal:
             contextMark.isHidden = true
-            titleToContextMarkConstraint.isActive = false
+            stackViewToContextMarkConstraint.isActive = false
+            stackViewLeadingAnchorConstraint.isActive = true
         case .context:
             contextMark.isHidden = false
-            titleToContextMarkConstraint.isActive = true
+            stackViewLeadingAnchorConstraint.isActive = false
+            stackViewToContextMarkConstraint.isActive = true
         }
     }
 
     private func setup() {
+        titleLabel.font = .regularBody
+        titleLabel.textColor = .licorice
+
         contentView.addSubview(contextMark)
-        contentView.addSubview(titleLabel)
         contentView.addSubview(selectionTagsContainerView)
         contentView.addSubview(hairLine)
 
-        // Setting a low priority here means 'titleToMarkConstraint' will have higher priority
-        let titleToContentViewConstraint = titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing)
-        titleToContentViewConstraint.priority = .defaultLow
+        stackViewLeadingAnchorConstraint.constant = .mediumLargeSpacing + .mediumSpacing
+        stackViewTopAnchorConstraint.constant = .mediumLargeSpacing
+        stackViewBottomAnchorConstraint.constant = -.mediumLargeSpacing
 
         NSLayoutConstraint.activate([
             contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
             contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             contextMark.widthAnchor.constraint(equalToConstant: 10),
             contextMark.heightAnchor.constraint(equalToConstant: 10),
-
-            titleToContentViewConstraint,
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumLargeSpacing),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumLargeSpacing),
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),

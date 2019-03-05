@@ -23,11 +23,11 @@ final class Filter {
     let title: String
     let key: String
     let value: String?
-    let numberOfResults: Int
+    var numberOfResults: Int
     let style: Style
     let kind: Kind
 
-    private(set) var subfilters: [Filter] = []
+    var subfilters: [Filter] = []
     private(set) weak var parent: Filter?
 
     // MARK: - Init
@@ -56,6 +56,15 @@ final class Filter {
     func subfilter(at index: Int) -> Filter? {
         guard index < subfilters.count else { return nil }
         return subfilters[index]
+    }
+}
+
+extension Filter: Equatable {
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
+        let equalKey = lhs.key == rhs.key
+        guard let lhsValue = lhs.value, let rhsValue = rhs.value else { return equalKey }
+        let equalValue = lhsValue == rhsValue
+        return equalKey && equalValue
     }
 }
 

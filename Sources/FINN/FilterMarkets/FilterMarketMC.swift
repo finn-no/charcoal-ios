@@ -81,14 +81,14 @@ extension FilterMarketMC: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
 
         switch filterKey {
         case .year:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 1950,
                 maximumValue: Calendar.current.component(.year, from: Date()),
                 valueKind: .incremented(1),
@@ -101,7 +101,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .engineEffect:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 200,
                 valueKind: .incremented(10),
@@ -114,7 +114,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .mileage:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 200_000,
                 valueKind: .incremented(1000),
@@ -127,7 +127,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .price:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 250_000,
                 valueKind: .incremented(1000),
@@ -140,7 +140,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
                 isCurrencyValueRange: true
             )
         case .engineVolume:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 50,
                 maximumValue: 1000,
                 valueKind: .incremented(25),
@@ -157,7 +157,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
         }
     }
 
-    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
         return nil
     }
 }

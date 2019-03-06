@@ -69,14 +69,14 @@ extension FilterMarketBap: FINNFilterConfiguration {
         return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
 
         switch filterKey {
         case .price:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 30000,
                 valueKind: .incremented(1000),
@@ -93,7 +93,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
         }
     }
 
-    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
         return nil
     }
 }

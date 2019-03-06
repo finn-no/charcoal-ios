@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-public struct RangeFilterInfo {
+public struct RangeFilterConfiguration: Equatable {
     public enum ValueKind {
         case incremented(Int)
         case steps([Int])
@@ -61,6 +61,8 @@ public struct RangeFilterInfo {
         self.displaysUnitInNumberInput = displaysUnitInNumberInput
         self.isCurrencyValueRange = isCurrencyValueRange
 
+        let stepValues: [Int]
+
         switch valueKind {
         case let .incremented(increment):
             var values = [Int]()
@@ -71,10 +73,12 @@ public struct RangeFilterInfo {
                 values.append(value)
             }
 
-            self.values = values
-        case let .steps(stepValues):
-            values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
+            stepValues = values
+        case let .steps(values):
+            stepValues = values
         }
+
+        values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
     }
 
     // MARK: - Helpers

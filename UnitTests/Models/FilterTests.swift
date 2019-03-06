@@ -76,7 +76,8 @@ final class FilterTests: XCTestCase {
     }
 
     func testStepperFilter() {
-        let filter = Filter.stepper(title: "Stepper", key: "stepper", style: .context)
+        let config = StepperFilterConfiguration(minimumValue: 0, maximumValue: 10, unit: "stk.")
+        let filter = Filter.stepper(title: "Stepper", key: "stepper", config: config, style: .context)
 
         XCTAssertEqual(filter.title, "Stepper")
         XCTAssertEqual(filter.key, "stepper")
@@ -86,8 +87,8 @@ final class FilterTests: XCTestCase {
         XCTAssertTrue(filter.subfilters.isEmpty)
 
         switch filter.kind {
-        case .stepper:
-            break
+        case let .stepper(stepperConfig):
+            XCTAssertEqual(config, stepperConfig)
         default:
             XCTFail("Incorrect filter kind")
         }
@@ -118,11 +119,14 @@ final class FilterTests: XCTestCase {
     }
 
     func testRangeFilter() {
+        let config = RangeFilterConfiguration.makeStub()
+
         let filter = Filter.range(
             title: "Range",
             key: "range",
             lowValueKey: "range_from",
             highValueKey: "range_to",
+            config: config,
             style: .context
         )
 
@@ -134,9 +138,10 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.subfilters.count, 2)
 
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter):
+        case let .range(lowValueFilter, highValueFilter, rangeConfig):
             XCTAssertEqual(lowValueFilter.key, "range_from")
             XCTAssertEqual(highValueFilter.key, "range_to")
+            XCTAssertEqual(rangeConfig, config)
         default:
             XCTFail("Incorrect filter kind")
         }

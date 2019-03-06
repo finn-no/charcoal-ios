@@ -64,12 +64,12 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.handlesVerticalId(vertical)
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
-        return currentFilterConfig.rangeViewModel(forKey: key)
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
+        return currentFilterConfig.rangeConfiguration(forKey: key)
     }
 
-    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
-        return currentFilterConfig.stepperViewModel(forKey: key)
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+        return currentFilterConfig.stepperConfiguration(forKey: key)
     }
 }
 

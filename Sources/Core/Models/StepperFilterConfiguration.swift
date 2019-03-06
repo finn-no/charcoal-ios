@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct StepperFilterInfo {
+public struct StepperFilterConfiguration: Equatable {
     public let minimumValue: Int
     public let maximumValue: Int
     public let unit: String

@@ -128,7 +128,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
@@ -153,7 +153,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 increment = 1000
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: maximumValue,
                 valueKind: .incremented(increment),
@@ -166,7 +166,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 isCurrencyValueRange: true
             )
         case .lengthFeet:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 60,
                 valueKind: .incremented(1),
@@ -179,7 +179,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .year:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 1985,
                 maximumValue: Calendar.current.component(.year, from: Date()),
                 valueKind: .incremented(1),
@@ -192,7 +192,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .motorSize:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 500,
                 valueKind: .incremented(10),
@@ -205,7 +205,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .noOfSeats:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 20,
                 valueKind: .incremented(1),
@@ -218,7 +218,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .noOfSleepers:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 10,
                 valueKind: .incremented(1),
@@ -231,7 +231,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .width:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 250,
                 maximumValue: 500,
                 valueKind: .incremented(10),
@@ -248,7 +248,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         }
     }
 
-    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
         return nil
     }
 }

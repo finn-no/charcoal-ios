@@ -187,7 +187,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
@@ -229,7 +229,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 increment = 50000
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: maximumValue,
                 valueKind: .incremented(increment),
@@ -242,7 +242,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 isCurrencyValueRange: true
             )
         case .rent:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 500,
                 maximumValue: 20000,
                 valueKind: .incremented(500),
@@ -270,7 +270,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 maximumValue = 400
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: maximumValue,
                 valueKind: .incremented(5),
@@ -283,7 +283,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .plotArea:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 300,
                 maximumValue: 6000,
                 valueKind: .incremented(50),
@@ -296,7 +296,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .constructionYear:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 1900,
                 maximumValue: Calendar.current.component(.year, from: Date()),
                 valueKind: .incremented(1),
@@ -313,14 +313,14 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         }
     }
 
-    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
 
         switch filterKey {
         case .noOfBedrooms:
-            return StepperFilterInfo(minimumValue: 0, maximumValue: 6, unit: "stk")
+            return StepperFilterConfiguration(minimumValue: 0, maximumValue: 6, unit: "stk")
         default:
             return nil
         }

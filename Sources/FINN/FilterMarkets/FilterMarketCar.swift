@@ -132,7 +132,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
@@ -148,7 +148,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 minimumValue = 1990
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: Calendar.current.component(.year, from: Date()),
                 valueKind: .incremented(1),
@@ -170,7 +170,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 maximumValue = 200_000
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: maximumValue,
                 valueKind: .incremented(1000),
@@ -192,7 +192,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 maximumValue = 1_000_000
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: maximumValue,
                 valueKind: .incremented(10000),
@@ -205,7 +205,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 isCurrencyValueRange: true
             )
         case .leasepriceInit:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 150_000,
                 valueKind: .incremented(10000),
@@ -218,7 +218,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 isCurrencyValueRange: true
             )
         case .leasepriceMonth:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 10000,
                 valueKind: .incremented(1000),
@@ -243,7 +243,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 maximumValue = 300
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: maximumValue,
                 valueKind: .incremented(10),
@@ -267,7 +267,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 return nil
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: maximumValue,
                 valueKind: .incremented(1),
@@ -280,7 +280,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .noOfSleepers:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 8,
                 valueKind: .incremented(1),
@@ -304,7 +304,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 return nil
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: 950,
                 valueKind: .incremented(50),
@@ -317,7 +317,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .width:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 200,
                 maximumValue: 350,
                 valueKind: .incremented(10),
@@ -344,7 +344,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
                 return nil
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: maximumValue,
                 valueKind: .incremented(100),
@@ -361,7 +361,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
         }
     }
 
-    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
         return nil
     }
 }

@@ -120,7 +120,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
@@ -145,7 +145,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 maximumValue = 1_000_000
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: maximumValue,
                 valueKind: .incremented(10000),
@@ -167,7 +167,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 minimumValue = 1985
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: Calendar.current.component(.year, from: Date()),
                 valueKind: .incremented(1),
@@ -198,7 +198,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 maximumValue = 600
             }
 
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: minimumValue,
                 maximumValue: maximumValue,
                 valueKind: .incremented(10),
@@ -211,7 +211,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .weight:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 1000,
                 maximumValue: 40000,
                 valueKind: .incremented(50),
@@ -224,7 +224,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .mileage:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 200_000,
                 valueKind: .incremented(1000),
@@ -237,7 +237,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 isCurrencyValueRange: false
             )
         case .numberOfSeats:
-            return RangeFilterInfo(
+            return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 10,
                 valueKind: .incremented(1),
@@ -254,7 +254,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         }
     }
 
-    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
         return nil
     }
 }

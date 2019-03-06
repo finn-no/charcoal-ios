@@ -66,10 +66,10 @@ public struct FilterSetup: Decodable {
 
                 let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
 
-                if let info = config.rangeViewModel(forKey: key), data.isRange == true {
-                    return makeRangeFilter(from: data, info: info, style: style)
-                } else if let info = config.stepperViewModel(forKey: key), data.isRange == true {
-                    return makeStepperFilter(from: data, info: info, style: style)
+                if let filterConfig = config.rangeConfiguration(forKey: key), data.isRange == true {
+                    return makeRangeFilter(from: data, config: filterConfig, style: style)
+                } else if let filterConfig = config.stepperConfiguration(forKey: key), data.isRange == true {
+                    return makeStepperFilter(from: data, config: filterConfig, style: style)
                 } else {
                     return makeListFilter(from: data, withStyle: style)
                 }
@@ -92,11 +92,11 @@ public struct FilterSetup: Decodable {
         )
     }
 
-    private func makeStepperFilter(from filterData: FilterData, info: StepperFilterInfo, style: Filter.Style) -> Filter {
-        return Filter.stepper(title: filterData.title, key: filterData.parameterName, info: info, style: style)
+    private func makeStepperFilter(from filterData: FilterData, config: StepperFilterConfiguration, style: Filter.Style) -> Filter {
+        return Filter.stepper(title: filterData.title, key: filterData.parameterName, config: config, style: style)
     }
 
-    private func makeRangeFilter(from filterData: FilterData, info: RangeFilterInfo, style: Filter.Style) -> Filter {
+    private func makeRangeFilter(from filterData: FilterData, config: RangeFilterConfiguration, style: Filter.Style) -> Filter {
         let key = filterData.parameterName
 
         return Filter.range(
@@ -104,7 +104,7 @@ public struct FilterSetup: Decodable {
             key: key,
             lowValueKey: key + "_from",
             highValueKey: key + "_to",
-            info: info,
+            config: config,
             style: style
         )
     }

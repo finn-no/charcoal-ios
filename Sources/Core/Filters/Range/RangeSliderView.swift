@@ -13,7 +13,7 @@ final class RangeSliderView: UIControl {
     weak var delegate: RangeSliderViewDelegate?
 
     private static var visibleThumbWidth: CGFloat = 28
-    private let filterInfo: RangeFilterInfo
+    private let filterConfig: RangeFilterConfiguration
     private let formatter: SliderValueFormatter
     private let activeRangeTrackViewLeadingAnchorIdentifier = "activeRangeTrackViewLeadingAnchorIdentifier"
     private let activeRangeTrackViewTrailingAnchorIdentifier = "activeRangeTrackViewTrailingAnchorIdentifier"
@@ -57,8 +57,8 @@ final class RangeSliderView: UIControl {
 
     // MARK: - Init
 
-    init(rangeFilterInfo: RangeFilterInfo, formatter: SliderValueFormatter) {
-        filterInfo = rangeFilterInfo
+    init(filterConfig: RangeFilterConfiguration, formatter: SliderValueFormatter) {
+        self.filterConfig = filterConfig
         self.formatter = formatter
         super.init(frame: .zero)
         setup()
@@ -94,9 +94,9 @@ final class RangeSliderView: UIControl {
 
     private func makeStepSlider() -> StepSlider {
         let slider = StepSlider(
-            numberOfSteps: filterInfo.values.count - 1,
-            hasLeftOffset: filterInfo.hasLowerBoundOffset,
-            hasRightOffset: filterInfo.hasUpperBoundOffset
+            numberOfSteps: filterConfig.values.count - 1,
+            hasLeftOffset: filterConfig.hasLowerBoundOffset,
+            hasRightOffset: filterConfig.hasUpperBoundOffset
         )
 
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +129,7 @@ extension RangeSliderView {
     func thumbRect(for value: Int) -> CGRect {
         let bounds = lowValueSlider.bounds
         let trackRect = lowValueSlider.trackRect(forBounds: bounds)
-        let closestStep = filterInfo.values.closestStep(for: value)
+        let closestStep = filterConfig.values.closestStep(for: value)
         let translatedValue = lowValueSlider.value(from: closestStep)
         let thumbRect = lowValueSlider.thumbRect(forBounds: bounds, trackRect: trackRect, value: Float(translatedValue))
         let thumbRadius = RangeSliderView.visibleThumbWidth / 2 - 2
@@ -240,7 +240,7 @@ extension RangeSliderView: StepSliderDelegate {
     }
 
     func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String {
-        if let value = filterInfo.value(for: step) {
+        if let value = filterConfig.value(for: step) {
             return formatter.accessibilityValue(for: value)
         }
 

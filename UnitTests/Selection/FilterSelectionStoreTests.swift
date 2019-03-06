@@ -146,7 +146,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testTitlesWithRanges() {
-        let filter = Filter.range(title: "Range", key: "range", lowValueKey: "from", highValueKey: "to")
+        let config = RangeFilterConfiguration.makeStub()
+        let filter = Filter.range(title: "Range", key: "range", lowValueKey: "from", highValueKey: "to", config: config)
         let lowValueFilter = filter.subfilters[0]
         let highValueFilter = filter.subfilters[1]
 
@@ -181,7 +182,8 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testIsValidWithRange() {
-        let filter = Filter.range(title: "Range", key: "range", lowValueKey: "range_from", highValueKey: "range_to")
+        let config = RangeFilterConfiguration.makeStub()
+        let filter = Filter.range(title: "Range", key: "range", lowValueKey: "range_from", highValueKey: "range_to", config: config)
         let lowValueFilter = filter.subfilters[0]
         let highValueFilter = filter.subfilters[1]
 

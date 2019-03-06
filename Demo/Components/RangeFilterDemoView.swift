@@ -5,7 +5,7 @@
 @testable import Charcoal
 
 public class RangeFilterDemoView: UIView {
-    let filterInfo = RangeFilterInfo(
+    let filterConfig = RangeFilterConfiguration(
         minimumValue: 0,
         maximumValue: 30000,
         valueKind: .incremented(1000),
@@ -19,10 +19,10 @@ public class RangeFilterDemoView: UIView {
     )
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(filterInfo: filterInfo)
+        let rangeFilterView = RangeFilterView(filterConfig: filterConfig)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
-        rangeFilterView.setLowValue(filterInfo.minimumValue, animated: false)
-        rangeFilterView.setHighValue(filterInfo.maximumValue, animated: false)
+        rangeFilterView.setLowValue(filterConfig.minimumValue, animated: false)
+        rangeFilterView.setHighValue(filterConfig.maximumValue, animated: false)
         return rangeFilterView
     }()
 

@@ -121,121 +121,137 @@ extension FilterMarketB2B: FINNFilterConfiguration {
     }
 
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
-        let lowValue: Int
-        let highValue: Int
-        let increment: Int
-        let unit: String
-        let rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets
-        let accessibilityValues: RangeFilterInfo.AccessibilityValues
-        let appearanceProperties: RangeFilterInfo.AppearenceProperties
-
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
 
         switch filterKey {
         case .price:
+            let minimumValue: Int
+            let maximumValue: Int
+
             switch self {
             case .bus:
-                lowValue = 0
-                highValue = 500_000
-                increment = 10000
-                rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+                minimumValue = 0
+                maximumValue = 500_000
             case .agricultureTractor:
-                lowValue = 0
-                highValue = 1_000_000
-                increment = 10000
-                rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+                minimumValue = 0
+                maximumValue = 1_000_000
             case .vanNorway, .vanAbroad:
-                lowValue = 10000
-                highValue = 700_000
-                increment = 10000
-                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+                minimumValue = 10000
+                maximumValue = 700_000
             default:
-                lowValue = 30000
-                highValue = 1_000_000
-                increment = 10000
-                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+                minimumValue = 30000
+                maximumValue = 1_000_000
             }
-            unit = "kr"
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+
+            return RangeFilterInfo(
+                minimumValue: minimumValue,
+                maximumValue: maximumValue,
+                valueKind: .incremented(10000),
+                hasLowerBoundOffset: minimumValue > 0,
+                hasUpperBoundOffset: true,
+                unit: "kr",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: true
+            )
         case .year:
+            let minimumValue: Int
+
             switch self {
             case .bus, .vanNorway, .vanAbroad:
-                lowValue = 1990
+                minimumValue = 1990
             default:
-                lowValue = 1985
+                minimumValue = 1985
             }
 
-            highValue = Calendar.current.component(.year, from: Date())
-            unit = "år"
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            increment = 1
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: minimumValue,
+                maximumValue: Calendar.current.component(.year, from: Date()),
+                valueKind: .incremented(1),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "år",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: false,
+                isCurrencyValueRange: false
+            )
         case .engineEffect:
+            let minimumValue: Int
+            let maximumValue: Int
+
             switch self {
             case .bus:
-                lowValue = 100
-                highValue = 500
-                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+                minimumValue = 100
+                maximumValue = 500
             case .agricultureTractor, .agricultureThresher:
-                lowValue = 0
-                highValue = 500
-                rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
+                minimumValue = 0
+                maximumValue = 500
             case .vanNorway, .vanAbroad:
-                lowValue = 50
-                highValue = 500
-                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+                minimumValue = 50
+                maximumValue = 500
             default:
-                lowValue = 100
-                highValue = 600
-                rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
+                minimumValue = 100
+                maximumValue = 600
             }
 
-            unit = "hk"
-            increment = 10
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: minimumValue,
+                maximumValue: maximumValue,
+                valueKind: .incremented(10),
+                hasLowerBoundOffset: minimumValue > 0,
+                hasUpperBoundOffset: true,
+                unit: "hk",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         case .weight:
-            lowValue = 1000
-            highValue = 40000
-            unit = "kg"
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            increment = 50
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: 1000,
+                maximumValue: 40000,
+                valueKind: .incremented(50),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "kg",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         case .mileage:
-            lowValue = 0
-            highValue = 200_000
-            unit = "km"
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
-            increment = 1000
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: 0,
+                maximumValue: 200_000,
+                valueKind: .incremented(1000),
+                hasLowerBoundOffset: false,
+                hasUpperBoundOffset: true,
+                unit: "km",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         case .numberOfSeats:
-            lowValue = 0
-            highValue = 10
-            unit = "seter"
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
-            increment = 1
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: 0,
+                maximumValue: 10,
+                valueKind: .incremented(1),
+                hasLowerBoundOffset: false,
+                hasUpperBoundOffset: true,
+                unit: "seter",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         default:
             return nil
         }
-
-        return RangeFilterInfo(
-            kind: .slider,
-            lowValue: lowValue,
-            highValue: highValue,
-            increment: increment,
-            rangeBoundsOffsets: rangeBoundsOffsets,
-            unit: unit,
-            accesibilityValues: accessibilityValues,
-            appearanceProperties: appearanceProperties
-        )
     }
 
     public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {

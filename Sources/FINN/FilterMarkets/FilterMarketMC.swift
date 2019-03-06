@@ -82,72 +82,79 @@ extension FilterMarketMC: FINNFilterConfiguration {
     }
 
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
-        let lowValue: Int
-        let highValue: Int
-        let increment: Int
-        let unit: String
-        let rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets
-        let accessibilityValues: RangeFilterInfo.AccessibilityValues
-        let appearanceProperties: RangeFilterInfo.AppearenceProperties
-
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
+
         switch filterKey {
         case .year:
-            lowValue = 1950
-            highValue = Calendar.current.component(.year, from: Date())
-            unit = "år"
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            increment = 1
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: 1950,
+                maximumValue: Calendar.current.component(.year, from: Date()),
+                valueKind: .incremented(1),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "år",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: false,
+                isCurrencyValueRange: false
+            )
         case .engineEffect:
-            lowValue = 0
-            highValue = 200
-            unit = "hk"
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
-            increment = 10
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: 0,
+                maximumValue: 200,
+                valueKind: .incremented(10),
+                hasLowerBoundOffset: false,
+                hasUpperBoundOffset: true,
+                unit: "hk",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         case .mileage:
-            lowValue = 0
-            highValue = 200_000
-            unit = "km"
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
-            increment = 1000
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: 0,
+                maximumValue: 200_000,
+                valueKind: .incremented(1000),
+                hasLowerBoundOffset: false,
+                hasUpperBoundOffset: true,
+                unit: "km",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         case .price:
-            lowValue = 0
-            highValue = 250_000
-            unit = "kr"
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
-            increment = 1000
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+            return RangeFilterInfo(
+                minimumValue: 0,
+                maximumValue: 250_000,
+                valueKind: .incremented(1000),
+                hasLowerBoundOffset: false,
+                hasUpperBoundOffset: true,
+                unit: "kr",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: true
+            )
         case .engineVolume:
-            lowValue = 50
-            highValue = 1000
-            unit = "ccm"
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
-            increment = 25
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterInfo(
+                minimumValue: 50,
+                maximumValue: 1000,
+                valueKind: .incremented(25),
+                hasLowerBoundOffset: false,
+                hasUpperBoundOffset: true,
+                unit: "ccm",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         default:
             return nil
         }
-
-        return RangeFilterInfo(
-            kind: .slider,
-            lowValue: lowValue,
-            highValue: highValue,
-            increment: increment,
-            rangeBoundsOffsets: rangeBoundsOffsets,
-            unit: unit,
-            accesibilityValues: accessibilityValues,
-            appearanceProperties: appearanceProperties
-        )
     }
 
     public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {

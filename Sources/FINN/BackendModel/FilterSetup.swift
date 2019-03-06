@@ -66,13 +66,10 @@ public struct FilterSetup: Decodable {
 
                 let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
 
-                if let viewModel = config.rangeViewModel(forKey: key), data.isRange == true {
-                    switch viewModel.kind {
-                    case .slider:
-                        return makeRangeFilter(from: data, withStyle: style)
-                    case .stepper:
-                        return makeStepperFilter(from: data, withStyle: style)
-                    }
+                if let info = config.rangeViewModel(forKey: key), data.isRange == true {
+                    return makeRangeFilter(from: data, info: info, style: style)
+                } else if let info = config.stepperViewModel(forKey: key), data.isRange == true {
+                    return makeStepperFilter(from: data, info: info, style: style)
                 } else {
                     return makeListFilter(from: data, withStyle: style)
                 }
@@ -95,11 +92,11 @@ public struct FilterSetup: Decodable {
         )
     }
 
-    private func makeStepperFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
-        return Filter.stepper(title: filterData.title, key: filterData.parameterName, style: style)
+    private func makeStepperFilter(from filterData: FilterData, info: StepperFilterInfo, style: Filter.Style) -> Filter {
+        return Filter.stepper(title: filterData.title, key: filterData.parameterName, info: info, style: style)
     }
 
-    private func makeRangeFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
+    private func makeRangeFilter(from filterData: FilterData, info: RangeFilterInfo, style: Filter.Style) -> Filter {
         let key = filterData.parameterName
 
         return Filter.range(
@@ -107,6 +104,7 @@ public struct FilterSetup: Decodable {
             key: key,
             lowValueKey: key + "_from",
             highValueKey: key + "_to",
+            info: info,
             style: style
         )
     }

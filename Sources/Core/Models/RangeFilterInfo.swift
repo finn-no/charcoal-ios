@@ -2,14 +2,22 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+public struct RangeFilterInfo {
+    public enum ValueKind {
+        case incremented(Int)
+        case steps([Int])
+    }
 
-public struct StepSliderInfo {
     public let minimumValue: Int
     public let maximumValue: Int
     public let hasLowerBoundOffset: Bool
     public let hasUpperBoundOffset: Bool
     public let values: [Int]
+    public let unit: String
+    public let accessibilityValueSuffix: String?
+    public let usesSmallNumberInputFont: Bool
+    public let displaysUnitInNumberInput: Bool
+    public let isCurrencyValueRange: Bool
 
     public var referenceValues: [Int] {
         var result = [Int]()
@@ -35,39 +43,38 @@ public struct StepSliderInfo {
 
     public init(minimumValue: Int,
                 maximumValue: Int,
-                stepValues: [Int],
+                valueKind: ValueKind,
                 hasLowerBoundOffset: Bool,
                 hasUpperBoundOffset: Bool,
-                accessibilityStepIncrement: Int? = nil) {
+                unit: String,
+                accessibilityValueSuffix: String?,
+                usesSmallNumberInputFont: Bool,
+                displaysUnitInNumberInput: Bool,
+                isCurrencyValueRange: Bool) {
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
         self.hasLowerBoundOffset = hasLowerBoundOffset
         self.hasUpperBoundOffset = hasUpperBoundOffset
-        values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
-    }
+        self.unit = unit
+        self.accessibilityValueSuffix = accessibilityValueSuffix
+        self.usesSmallNumberInputFont = usesSmallNumberInputFont
+        self.displaysUnitInNumberInput = displaysUnitInNumberInput
+        self.isCurrencyValueRange = isCurrencyValueRange
 
-    public init(minimumValue: Int,
-                maximumValue: Int,
-                incrementedBy increment: Int,
-                hasLowerBoundOffset: Bool,
-                hasUpperBoundOffset: Bool,
-                accessibilityStepIncrement: Int? = nil) {
-        var values = [Int]()
-        var value = minimumValue
+        switch valueKind {
+        case let .incremented(increment):
+            var values = [Int]()
+            var value = minimumValue
 
-        while value + increment < maximumValue {
-            value += increment
-            values.append(value)
+            while value + increment < maximumValue {
+                value += increment
+                values.append(value)
+            }
+
+            self.values = values
+        case let .steps(stepValues):
+            values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
         }
-
-        self.init(
-            minimumValue: minimumValue,
-            maximumValue: maximumValue,
-            stepValues: values,
-            hasLowerBoundOffset: hasLowerBoundOffset,
-            hasUpperBoundOffset: hasUpperBoundOffset,
-            accessibilityStepIncrement: accessibilityStepIncrement
-        )
     }
 
     // MARK: - Helpers

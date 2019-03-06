@@ -19,4 +19,10 @@ public class FilterContainer {
     init(root: Filter) {
         rootFilter = root
     }
+
+    // MARK: - Public methods
+
+    public func merge(with other: FilterContainer) {
+        rootFilter.merge(with: other.rootFilter)
+    }
 }

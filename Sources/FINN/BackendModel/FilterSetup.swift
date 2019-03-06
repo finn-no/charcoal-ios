@@ -81,46 +81,7 @@ public struct FilterSetup: Decodable {
 
         let root = Filter.list(title: filterTitle, key: market, numberOfResults: hits, subfilters: rootLevelFilters)
 
-        if let previous = previous {
-            return FilterContainer(root: mergeFilters(old: previous.rootFilter, new: root))
-        } else {
-            return FilterContainer(root: root)
-        }
-    }
-
-    /*
-     Look through old and search in new.
-     - If exists go to subfilters
-     - If not exists add to new and hits = 0
-     */
-    private func mergeFilters(old: Filter, new: Filter) -> Filter {
-        func zeroHits(for filter: Filter) {
-            filter.numberOfResults = 0
-            filter.subfilters.forEach { zeroHits(for: $0) }
-        }
-
-        func merge(old: inout [Filter], with new: inout [Filter]) {
-            for (index, filter) in old.enumerated() {
-                if let common = new.first(where: { $0 == filter }) {
-                    merge(old: &filter.subfilters, with: &common.subfilters)
-                } else {
-                    if index < new.count {
-                        new.insert(filter, at: index)
-                    } else {
-                        new.append(filter)
-                    }
-                    zeroHits(for: filter)
-                }
-            }
-        }
-
-        for filter in new.subfilters {
-            if let common = old.subfilters.first(where: { $0 == filter }) {
-                merge(old: &common.subfilters, with: &filter.subfilters)
-            }
-        }
-
-        return new
+        return FilterContainer(root: root)
     }
 
     private func makeMapFilter(withKey key: String) -> Filter {

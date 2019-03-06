@@ -27,7 +27,7 @@ final class Filter {
     let style: Style
     let kind: Kind
 
-    var subfilters: [Filter] = []
+    private(set) var subfilters: [Filter] = []
     private(set) weak var parent: Filter?
 
     // MARK: - Init
@@ -57,13 +57,26 @@ final class Filter {
         guard index < subfilters.count else { return nil }
         return subfilters[index]
     }
+
+    func merge(with other: Filter) {
+        for (index, filter) in other.subfilters.enumerated() {
+            if let common = subfilters.first(where: { $0 == filter }) {
+                common.merge(with: filter)
+            } else {
+                if index < subfilters.count {
+                    subfilters.insert(filter, at: index)
+                } else {
+                    subfilters.append(filter)
+                }
+            }
+        }
+    }
 }
 
 extension Filter: Equatable {
     static func == (lhs: Filter, rhs: Filter) -> Bool {
         let equalKey = lhs.key == rhs.key
-        guard let lhsValue = lhs.value, let rhsValue = rhs.value else { return equalKey }
-        let equalValue = lhsValue == rhsValue
+        let equalValue = lhs.value == rhs.value
         return equalKey && equalValue
     }
 }

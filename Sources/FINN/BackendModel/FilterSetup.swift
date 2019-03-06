@@ -66,10 +66,14 @@ public struct FilterSetup: Decodable {
 
                 let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
 
-                if let filterConfig = config.rangeConfiguration(forKey: key), data.isRange == true {
-                    return makeRangeFilter(from: data, config: filterConfig, style: style)
-                } else if let filterConfig = config.stepperConfiguration(forKey: key), data.isRange == true {
-                    return makeStepperFilter(from: data, config: filterConfig, style: style)
+                if data.isRange == true {
+                    if let filterConfig = config.rangeConfiguration(forKey: key) {
+                        return makeRangeFilter(from: data, config: filterConfig, style: style)
+                    } else if let filterConfig = config.stepperConfiguration(forKey: key) {
+                        return makeStepperFilter(from: data, config: filterConfig, style: style)
+                    } else {
+                        return nil
+                    }
                 } else {
                     return makeListFilter(from: data, withStyle: style)
                 }

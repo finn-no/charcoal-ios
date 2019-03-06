@@ -9,10 +9,7 @@ public class FilterContainer {
     // MARK: - Public properties
 
     public var verticals: [Vertical]?
-
-    // MARK: - Private properties
-
-    let rootFilter: Filter
+    public var rootFilter: Filter
 
     // MARK: - Setup
 

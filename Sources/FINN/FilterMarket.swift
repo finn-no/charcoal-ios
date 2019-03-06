@@ -67,6 +67,10 @@ extension FilterMarket: FilterConfiguration {
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
         return currentFilterConfig.rangeViewModel(forKey: key)
     }
+
+    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+        return currentFilterConfig.stepperViewModel(forKey: key)
+    }
 }
 
 // MARK: - CaseIterable

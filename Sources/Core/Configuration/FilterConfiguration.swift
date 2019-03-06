@@ -12,6 +12,7 @@ public protocol FilterConfiguration {
 
     func handlesVerticalId(_ vertical: String) -> Bool
     func rangeViewModel(forKey key: String) -> RangeFilterInfo?
+    func stepperViewModel(forKey key: String) -> StepperFilterInfo?
 }
 
 // MARK: - Extensions

@@ -290,4 +290,8 @@ extension FilterMarketCar: FINNFilterConfiguration {
             appearanceProperties: appearanceProperties
         )
     }
+
+    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+        return nil
+    }
 }

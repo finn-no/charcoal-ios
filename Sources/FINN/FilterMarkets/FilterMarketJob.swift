@@ -61,4 +61,8 @@ extension FilterMarketJob: FINNFilterConfiguration {
     public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
         return nil
     }
+
+    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+        return nil
+    }
 }

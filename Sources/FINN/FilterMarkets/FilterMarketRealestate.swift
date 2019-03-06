@@ -243,24 +243,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             increment = 500
             accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
             appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
-        case .noOfBedrooms:
-            lowValue = 0
-            highValue = 6
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: false)
-            unit = "stk"
-            increment = 1
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
-            return RangeFilterInfo(
-                kind: .stepper,
-                lowValue: lowValue,
-                highValue: highValue,
-                increment: increment,
-                rangeBoundsOffsets: rangeBoundsOffsets,
-                unit: unit,
-                accesibilityValues: accessibilityValues,
-                appearanceProperties: appearanceProperties
-            )
         case .area:
             switch self {
             case .leisureSaleAbroad:
@@ -308,5 +290,20 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             accesibilityValues: accessibilityValues,
             appearanceProperties: appearanceProperties
         )
+    }
+
+    public func stepperViewModel(forKey key: String) -> StepperFilterInfo? {
+        guard let filterKey = FilterKey(stringValue: key) else {
+            return nil
+        }
+
+        switch filterKey {
+        case .noOfBedrooms:
+            return StepperFilterInfo(minimumValue: 0, maximumValue: 6, unit: "stk")
+        // accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
+        // appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+        default:
+            return nil
+        }
     }
 }

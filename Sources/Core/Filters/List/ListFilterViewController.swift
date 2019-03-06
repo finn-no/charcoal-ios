@@ -114,7 +114,8 @@ extension ListFilterViewController: UITableViewDataSource {
             }
         }
 
-        cell.configure(with: viewModel, animated: indexPath == lastSelectedIndexPath)
+        cell.configure(with: viewModel)
+        cell.isEnabled = false
 
         return cell
     }

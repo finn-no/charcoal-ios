@@ -123,22 +123,20 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter):
-            guard let viewModel = config?.rangeViewModel(forKey: filter.key) else { break }
+        case let .range(lowValueFilter, highValueFilter, filterInfo):
             let rangeViewController = RangeFilterViewController(
                 title: filter.title,
                 lowValueFilter: lowValueFilter,
                 highValueFilter: highValueFilter,
-                viewModel: viewModel,
+                filterInfo: filterInfo,
                 selectionStore: selectionStore
             )
             pushViewController(rangeViewController)
-        case .stepper:
-            guard let viewModel = config?.rangeViewModel(forKey: filter.key) else { break }
+        case let .stepper(filterInfo):
             let stepperViewController = StepperFilterViewController(
                 filter: filter,
                 selectionStore: selectionStore,
-                viewModel: viewModel
+                filterInfo: filterInfo
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):

@@ -14,9 +14,9 @@ final class Filter {
         case list
         case search
         case inline
-        case stepper
+        case stepper(info: StepperFilterInfo)
         case external
-        case range(lowValueFilter: Filter, highValueFilter: Filter)
+        case range(lowValueFilter: Filter, highValueFilter: Filter, info: RangeFilterInfo)
         case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter)
     }
 
@@ -94,8 +94,8 @@ extension Filter {
         return filter
     }
 
-    static func stepper(title: String, key: String, style: Style = .normal) -> Filter {
-        return Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .stepper, style: style)
+    static func stepper(title: String, key: String, info: StepperFilterInfo, style: Style = .normal) -> Filter {
+        return Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .stepper(info: info), style: style)
     }
 
     static func external(title: String, key: String, value: String?,
@@ -103,11 +103,11 @@ extension Filter {
         return Filter(title: title, key: key, value: value, numberOfResults: numberOfResults, kind: .external, style: style)
     }
 
-    static func range(title: String, key: String, lowValueKey: String,
-                      highValueKey: String, style: Style = .normal) -> Filter {
+    static func range(title: String, key: String, lowValueKey: String, highValueKey: String,
+                      info: RangeFilterInfo, style: Style = .normal) -> Filter {
         let lowValueFilter = Filter(title: "", key: lowValueKey, kind: .list)
         let highValueFilter = Filter(title: "", key: highValueKey, kind: .list)
-        let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter)
+        let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter, info: info)
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: style)
 
         filter.add(subfilter: lowValueFilter)

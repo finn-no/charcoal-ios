@@ -130,7 +130,6 @@
 		CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */; };
 		CF0B19ED2211B8C500D8D9B7 /* FilterSelectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */; };
 		CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */; };
-		CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */; };
 		CF4C870A221AFC0900DFAF2A /* ListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */; };
 		CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */; };
 		CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */; };
@@ -339,7 +338,6 @@
 		CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterContainer.swift; sourceTree = "<group>"; };
 		CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionStore.swift; sourceTree = "<group>"; };
 		CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterCellViewModel.swift; sourceTree = "<group>"; };
-		CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfo.swift; sourceTree = "<group>"; };
 		CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterViewController.swift; sourceTree = "<group>"; };
@@ -970,6 +968,8 @@
 			children = (
 				CF4C870F221B04E200DFAF2A /* Filter.swift */,
 				CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */,
+				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
+				CF077552222FD1C6000A0A36 /* StepperFilterInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -998,8 +998,6 @@
 		DA454D6A22145829009514F4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
-				CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1017,7 +1015,6 @@
 			children = (
 				DA643FB6220C720A001ED360 /* StepperViewController.swift */,
 				DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */,
-				CF077552222FD1C6000A0A36 /* StepperFilterInfo.swift */,
 			);
 			path = Stepper;
 			sourceTree = "<group>";
@@ -1320,7 +1317,6 @@
 				DA39FA32220B17DB00608AC4 /* InlineFilterCell.swift in Sources */,
 				CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */,
 				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,
-				CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */,

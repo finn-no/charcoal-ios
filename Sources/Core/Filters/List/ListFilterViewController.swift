@@ -142,6 +142,7 @@ extension ListFilterViewController: UITableViewDelegate {
 
             switch subfilter.kind {
             case _ where !subfilter.subfilters.isEmpty, .external:
+                tableView.deselectRow(at: indexPath, animated: true)
                 break
             default:
                 if selectionStore.isSelected(filter) {

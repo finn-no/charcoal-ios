@@ -1255,12 +1255,14 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 
 
 
+
+@class UITableViewRowAction;
+
 @interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+- (NSArray<UITableViewRowAction *> * _Nullable)tableView:(UITableView * _Nonnull)tableView editActionsForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 @interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>

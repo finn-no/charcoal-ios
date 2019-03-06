@@ -24,17 +24,34 @@ final class ListFilterCell: CheckboxTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Overrides
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        let isCheckboxHighlighted = checkbox.isHighlighted
+        super.setSelected(selected, animated: animated)
+        checkbox.isHighlighted = isCheckboxHighlighted
+    }
+
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        let isCheckboxHighlighted = checkbox.isHighlighted
+        super.setHighlighted(highlighted, animated: animated)
+        checkbox.isHighlighted = isCheckboxHighlighted
+    }
+
     // MARK: - Setup
 
     func configure(with viewModel: ListFilterCellViewModel, animated: Bool) {
         super.configure(with: viewModel)
 
-        if viewModel.accessoryStyle == .external {
+        selectionStyle = .default
+
+        switch viewModel.accessoryStyle {
+        case .chevron, .none:
+            chevronImageView.isHidden = true
+        case .external:
             chevronImageView.isHidden = false
             chevronImageView.image = UIImage(named: .webview).withRenderingMode(.alwaysTemplate)
             bringSubviewToFront(chevronImageView)
-        } else {
-            chevronImageView.isHidden = true
         }
 
         if viewModel.checkboxStyle == .partiallySelected {
@@ -43,13 +60,16 @@ final class ListFilterCell: CheckboxTableViewCell {
             checkbox.isHighlighted = false
             animateSelection(isSelected: viewModel.isSelected)
         }
-
-        selectionStyle = .none
     }
 
     private func setup() {
         titleLabel.font = .regularBody
         addSubview(chevronImageView)
+
+        let verticalSpacing: CGFloat = 14
+
+        stackViewTopAnchorConstraint.constant = verticalSpacing
+        stackViewBottomAnchorConstraint.constant = -verticalSpacing
 
         NSLayoutConstraint.activate([
             chevronImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.smallSpacing * 3),

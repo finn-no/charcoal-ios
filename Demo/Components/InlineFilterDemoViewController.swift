@@ -5,8 +5,8 @@
 @testable import Charcoal
 
 final class InlineFilterDemoViewController: UIViewController {
-    lazy var inlineFilterView: CCInlineFilterView = {
-        let view = CCInlineFilterView()
+    lazy var inlineFilterView: InlineFilterView = {
+        let view = InlineFilterView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -31,12 +31,12 @@ final class InlineFilterDemoViewController: UIViewController {
     }
 }
 
-extension InlineFilterDemoViewController: CCInlineFilterViewDelegate {
-    func inlineFilterView(_ inlineFilterview: CCInlineFilterView, didTapExpandableSegment segment: Segment) {
+extension InlineFilterDemoViewController: InlineFilterViewDelegate {
+    func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
         return
     }
 
-    func inlineFilterView(_ inlineFilterView: CCInlineFilterView, didChangeSegment segment: Segment, at index: Int) {
+    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChangeSegment segment: Segment, at index: Int) {
         return
     }
 }

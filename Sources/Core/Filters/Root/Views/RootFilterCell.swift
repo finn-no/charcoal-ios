@@ -2,14 +2,14 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import UIKit
+import FinniversKit
 
 protocol RootFilterCellDelegate: AnyObject {
     func rootFilterCell(_ cell: RootFilterCell, didRemoveTagAt index: Int)
     func rootFilterCellDidRemoveAllTags(_ cell: RootFilterCell)
 }
 
-final class RootFilterCell: UITableViewCell {
+final class RootFilterCell: BasicTableViewCell {
     weak var delegate: RootFilterCellDelegate?
 
     var isEnabled = true {
@@ -27,17 +27,8 @@ final class RootFilterCell: UITableViewCell {
 
     private lazy var contextMark: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .red
         view.layer.cornerRadius = 5
         return view
-    }()
-
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .regularBody
-        label.textColor = .licorice
-        return label
     }()
 
     private lazy var selectionTagsContainerView: SelectionTagsContainerView = {
@@ -53,14 +44,16 @@ final class RootFilterCell: UITableViewCell {
         return view
     }()
 
-    private lazy var titleToContextMarkConstraint = titleLabel.leadingAnchor.constraint(equalTo: contextMark.trailingAnchor, constant: .mediumSpacing)
+    private lazy var stackViewToContextMarkConstraint = stackView.leadingAnchor.constraint(
+        equalTo: contextMark.trailingAnchor,
+        constant: .mediumSpacing
+    )
 
     // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         accessoryType = .disclosureIndicator
-        selectionStyle = .none
         setup()
     }
 
@@ -75,6 +68,16 @@ final class RootFilterCell: UITableViewCell {
         titleLabel.text = nil
     }
 
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        setContextMarkBackground()
+    }
+
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        setContextMarkBackground()
+    }
+
     // MARK: - Setup
 
     func configure(withTitle title: String, selectionTitles: [String], isValid: Bool, style: Filter.Style = .normal) {
@@ -84,32 +87,34 @@ final class RootFilterCell: UITableViewCell {
         switch style {
         case .normal:
             contextMark.isHidden = true
-            titleToContextMarkConstraint.isActive = false
+            stackViewToContextMarkConstraint.isActive = false
+            stackViewLeadingAnchorConstraint.isActive = true
         case .context:
             contextMark.isHidden = false
-            titleToContextMarkConstraint.isActive = true
+            stackViewLeadingAnchorConstraint.isActive = false
+            stackViewToContextMarkConstraint.isActive = true
         }
     }
 
     private func setup() {
+        titleLabel.font = .regularBody
+        titleLabel.textColor = .licorice
+
+        setContextMarkBackground()
+
         contentView.addSubview(contextMark)
-        contentView.addSubview(titleLabel)
         contentView.addSubview(selectionTagsContainerView)
         contentView.addSubview(hairLine)
 
-        // Setting a low priority here means 'titleToMarkConstraint' will have higher priority
-        let titleToContentViewConstraint = titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing)
-        titleToContentViewConstraint.priority = .defaultLow
+        stackViewLeadingAnchorConstraint.constant = .mediumLargeSpacing + .mediumSpacing
+        stackViewTopAnchorConstraint.constant = .mediumLargeSpacing
+        stackViewBottomAnchorConstraint.constant = -.mediumLargeSpacing
 
         NSLayoutConstraint.activate([
             contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
             contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             contextMark.widthAnchor.constraint(equalToConstant: 10),
             contextMark.heightAnchor.constraint(equalToConstant: 10),
-
-            titleToContentViewConstraint,
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumLargeSpacing),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mediumLargeSpacing),
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),
@@ -120,6 +125,10 @@ final class RootFilterCell: UITableViewCell {
             hairLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
             hairLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
+    }
+
+    private func setContextMarkBackground() {
+        contextMark.backgroundColor = .red
     }
 }
 

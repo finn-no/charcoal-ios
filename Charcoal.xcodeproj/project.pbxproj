@@ -151,8 +151,8 @@
 		DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* FilterViewController.swift */; };
 		DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */; };
 		DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */; };
-		DA39FA32220B17DB00608AC4 /* CCInlineFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA21220B17DB00608AC4 /* CCInlineFilterCell.swift */; };
-		DA39FA33220B17DB00608AC4 /* CCInlineFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA22220B17DB00608AC4 /* CCInlineFilterView.swift */; };
+		DA39FA32220B17DB00608AC4 /* InlineFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA21220B17DB00608AC4 /* InlineFilterCell.swift */; };
+		DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA22220B17DB00608AC4 /* InlineFilterView.swift */; };
 		DA39FA34220B17DB00608AC4 /* RootFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */; };
 		DA39FA40220B30E700608AC4 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA3F220B30E700608AC4 /* Int.swift */; };
 		DA51040B21BE5F19004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
@@ -359,8 +359,8 @@
 		DA39FA19220B17DB00608AC4 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharcoalViewController.swift; sourceTree = "<group>"; };
-		DA39FA21220B17DB00608AC4 /* CCInlineFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInlineFilterCell.swift; sourceTree = "<group>"; };
-		DA39FA22220B17DB00608AC4 /* CCInlineFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInlineFilterView.swift; sourceTree = "<group>"; };
+		DA39FA21220B17DB00608AC4 /* InlineFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineFilterCell.swift; sourceTree = "<group>"; };
+		DA39FA22220B17DB00608AC4 /* InlineFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineFilterView.swift; sourceTree = "<group>"; };
 		DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterCell.swift; sourceTree = "<group>"; };
 		DA39FA3F220B30E700608AC4 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
@@ -985,7 +985,7 @@
 		DA39FA20220B17DB00608AC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA21220B17DB00608AC4 /* CCInlineFilterCell.swift */,
+				DA39FA21220B17DB00608AC4 /* InlineFilterCell.swift */,
 				9BE0A0532091D2130000632B /* FreeTextFilterCell.swift */,
 				DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
@@ -1022,7 +1022,7 @@
 		DAFD7A0D21AE96CE00A468B2 /* Inline */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA22220B17DB00608AC4 /* CCInlineFilterView.swift */,
+				DA39FA22220B17DB00608AC4 /* InlineFilterView.swift */,
 				DAFD7A1021AE974B00A468B2 /* InlineSegmentCell.swift */,
 				DAFD7A1221AE976D00A468B2 /* Segment.swift */,
 				DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */,
@@ -1314,13 +1314,13 @@
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
-				DA39FA32220B17DB00608AC4 /* CCInlineFilterCell.swift in Sources */,
+				DA39FA32220B17DB00608AC4 /* InlineFilterCell.swift in Sources */,
 				CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */,
 				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,
 				CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */,
-				DA39FA33220B17DB00608AC4 /* CCInlineFilterView.swift in Sources */,
+				DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */,
 				08716B3321F73D92003180D8 /* FilterMarketBap.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,

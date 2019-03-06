@@ -4,17 +4,17 @@
 
 import UIKit
 
-class CCInlineFilterCell: UITableViewCell {
+final class InlineFilterCell: UITableViewCell {
 
     // MARK: - Public properties
 
-    var delegate: CCInlineFilterViewDelegate? {
+    var delegate: InlineFilterViewDelegate? {
         get { return inlineFilterView.delegate }
         set { inlineFilterView.delegate = newValue }
     }
 
-    private lazy var inlineFilterView: CCInlineFilterView = {
-        let inlineFilterView = CCInlineFilterView()
+    private lazy var inlineFilterView: InlineFilterView = {
+        let inlineFilterView = InlineFilterView()
         inlineFilterView.translatesAutoresizingMaskIntoConstraints = false
         return inlineFilterView
     }()
@@ -39,6 +39,6 @@ class CCInlineFilterCell: UITableViewCell {
 
     private func setup() {
         contentView.addSubview(inlineFilterView)
-        inlineFilterView.fillInSuperview()
+        inlineFilterView.fillInSuperview(insets: UIEdgeInsets(top: 0, leading: 0, bottom: -.smallSpacing, trailing: 0))
     }
 }

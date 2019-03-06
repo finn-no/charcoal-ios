@@ -27,8 +27,7 @@ public final class Filter {
     public let style: Style
     public let kind: Kind
 
-    private(set) var subfilters: [Filter] = []
-    private(set) weak var parent: Filter?
+    public var subfilters: [Filter] = []
 
     // MARK: - Init
 
@@ -50,7 +49,6 @@ public final class Filter {
         } else {
             subfilters.append(subfilter)
         }
-        subfilter.parent = self
     }
 
     public func subfilter(at index: Int) -> Filter? {

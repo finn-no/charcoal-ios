@@ -121,7 +121,7 @@ extension FilterSelectionStore {
 
     func titles(for filter: Filter) -> [String] {
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter):
+        case let .range(lowValueFilter, highValueFilter, _):
             let lowValue: String? = value(for: lowValueFilter)
             let highValue: String? = value(for: highValueFilter)
 
@@ -150,7 +150,7 @@ extension FilterSelectionStore {
 
     func isValid(_ filter: Filter) -> Bool {
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter):
+        case let .range(lowValueFilter, highValueFilter, _):
             let lowValue: Int? = value(for: lowValueFilter)
             let highValue: Int? = value(for: highValueFilter)
 

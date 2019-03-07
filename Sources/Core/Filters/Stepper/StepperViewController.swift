@@ -7,14 +7,14 @@ import UIKit
 
 final class StepperFilterViewController: FilterViewController {
     private let filter: Filter
-    private let viewModel: RangeFilterInfo
+    private let filterConfig: StepperFilterConfiguration
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(lessThanOrEqualTo: view.topAnchor)
 
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(
-            minimumValue: viewModel.sliderInfo.minimumValue,
-            maximumValue: viewModel.sliderInfo.maximumValue,
-            unit: viewModel.unit
+            minimumValue: filterConfig.minimumValue,
+            maximumValue: filterConfig.maximumValue,
+            unit: filterConfig.unit
         )
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -23,9 +23,9 @@ final class StepperFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore, viewModel: RangeFilterInfo) {
+    init(filter: Filter, selectionStore: FilterSelectionStore, filterConfig: StepperFilterConfiguration) {
         self.filter = filter
-        self.viewModel = viewModel
+        self.filterConfig = filterConfig
         super.init(title: filter.title, selectionStore: selectionStore)
     }
 
@@ -57,7 +57,7 @@ final class StepperFilterViewController: FilterViewController {
 private extension StepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
         switch sender.value {
-        case viewModel.sliderInfo.minimumValue:
+        case filterConfig.minimumValue:
             selectionStore.removeValues(for: filter)
         default:
             selectionStore.setValue(sender.value, for: filter)

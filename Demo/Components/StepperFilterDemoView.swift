@@ -7,23 +7,11 @@
 class StepperFilterDemoView: UIView {
     private var didSetConstant = false
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(equalTo: topAnchor)
-
-    let filterInfo = RangeFilterInfo(
-        kind: .stepper,
-        lowValue: 0,
-        highValue: 6,
-        increment: 1,
-        rangeBoundsOffsets: (hasLowerBoundOffset: false, hasUpperBoundOffset: true),
-        unit: "stk",
-        accesibilityValues: (stepIncrement: nil, valueSuffix: nil),
-        appearanceProperties: (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
-    )
-
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(
-            minimumValue: filterInfo.sliderInfo.minimumValue,
-            maximumValue: filterInfo.sliderInfo.maximumValue,
-            unit: filterInfo.unit
+            minimumValue: 0,
+            maximumValue: 6,
+            unit: "stk"
         )
         view.addTarget(self, action: #selector(handleValueChange(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false

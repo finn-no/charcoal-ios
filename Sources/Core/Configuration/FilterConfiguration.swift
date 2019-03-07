@@ -11,7 +11,8 @@ public protocol FilterConfiguration {
     var mutuallyExclusiveFilters: Set<String> { get }
 
     func handlesVerticalId(_ vertical: String) -> Bool
-    func rangeViewModel(forKey key: String) -> RangeFilterInfo?
+    func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration?
+    func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration?
 }
 
 // MARK: - Extensions

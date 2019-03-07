@@ -46,14 +46,6 @@ final class StepSlider: UISlider {
         setup()
     }
 
-    convenience init(sliderInfo: StepSliderInfo) {
-        self.init(
-            numberOfSteps: sliderInfo.values.count - 1,
-            hasLeftOffset: sliderInfo.hasLowerBoundOffset,
-            hasRightOffset: sliderInfo.hasUpperBoundOffset
-        )
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

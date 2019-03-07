@@ -10,10 +10,10 @@ final class RangeFilterViewController: FilterViewController {
 
     private let lowValueFilter: Filter
     private let highValueFilter: Filter
-    private let viewModel: RangeFilterInfo
+    private let filterConfig: RangeFilterConfiguration
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let view = RangeFilterView(filterInfo: viewModel)
+        let view = RangeFilterView(filterConfig: filterConfig)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
         return view
@@ -22,10 +22,10 @@ final class RangeFilterViewController: FilterViewController {
     // MARK: - Init
 
     init(title: String, lowValueFilter: Filter, highValueFilter: Filter,
-         viewModel: RangeFilterInfo, selectionStore: FilterSelectionStore) {
+         filterConfig: RangeFilterConfiguration, selectionStore: FilterSelectionStore) {
         self.lowValueFilter = lowValueFilter
         self.highValueFilter = highValueFilter
-        self.viewModel = viewModel
+        self.filterConfig = filterConfig
         super.init(title: title, selectionStore: selectionStore)
         setup()
     }

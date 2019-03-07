@@ -76,7 +76,8 @@ final class FilterTests: XCTestCase {
     }
 
     func testStepperFilter() {
-        let filter = Filter.stepper(title: "Stepper", key: "stepper", style: .context)
+        let config = StepperFilterConfiguration(minimumValue: 0, maximumValue: 10, unit: "stk.")
+        let filter = Filter.stepper(title: "Stepper", key: "stepper", config: config, style: .context)
 
         XCTAssertEqual(filter.title, "Stepper")
         XCTAssertEqual(filter.key, "stepper")
@@ -86,8 +87,8 @@ final class FilterTests: XCTestCase {
         XCTAssertTrue(filter.subfilters.isEmpty)
 
         switch filter.kind {
-        case .stepper:
-            break
+        case let .stepper(stepperConfig):
+            XCTAssertEqual(config, stepperConfig)
         default:
             XCTFail("Incorrect filter kind")
         }
@@ -118,11 +119,14 @@ final class FilterTests: XCTestCase {
     }
 
     func testRangeFilter() {
+        let config = RangeFilterConfiguration.makeStub()
+
         let filter = Filter.range(
             title: "Range",
             key: "range",
             lowValueKey: "range_from",
             highValueKey: "range_to",
+            config: config,
             style: .context
         )
 
@@ -134,9 +138,10 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.subfilters.count, 2)
 
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter):
+        case let .range(lowValueFilter, highValueFilter, rangeConfig):
             XCTAssertEqual(lowValueFilter.key, "range_from")
             XCTAssertEqual(highValueFilter.key, "range_to")
+            XCTAssertEqual(rangeConfig, config)
         default:
             XCTFail("Incorrect filter kind")
         }
@@ -168,6 +173,44 @@ final class FilterTests: XCTestCase {
         default:
             XCTFail("Incorrect filter kind")
         }
+    }
+
+    func testEquatable() {
+        var filter1 = Filter.list(title: "Title1", key: "key1")
+        var filter2 = Filter.list(title: "Title1", key: "key1")
+        XCTAssertEqual(filter1, filter2)
+
+        filter1 = Filter.list(title: "Title1", key: "key1")
+        filter2 = Filter.list(title: "Title1", key: "key1", value: "value1")
+        XCTAssertNotEqual(filter1, filter2)
+
+        filter1 = Filter.list(title: "Title1", key: "key1")
+        filter2 = Filter.list(title: "Title1", key: "key2")
+        XCTAssertNotEqual(filter1, filter2)
+
+        filter1 = Filter.list(title: "Title1", key: "key1", value: "value1")
+        filter2 = Filter.list(title: "Title1", key: "key1", value: "value2")
+        XCTAssertNotEqual(filter1, filter2)
+
+        filter1 = Filter.list(title: "Title1", key: "key1", value: "value1")
+        filter2 = Filter.list(title: "Title1", key: "key1", value: "value1")
+        XCTAssertEqual(filter1, filter2)
+    }
+
+    func testMergeFilters() {
+        let filter1 = Filter.list(title: "Title1", key: "key1", subfilters: [
+            Filter.list(title: "Subtitle1", key: "subkey1"),
+            Filter.list(title: "Subtitle3", key: "subkey3"),
+        ])
+
+        let filter2 = Filter.list(title: "Title1", key: "key1", subfilters: [
+            Filter.list(title: "Subtitle1", key: "subkey1"),
+            Filter.list(title: "Subtitle2", key: "subkey2"),
+        ])
+
+        filter1.merge(with: filter2)
+        XCTAssertEqual(filter1.subfilters.count, 3)
+        XCTAssertEqual(filter1.subfilter(at: 2)?.key, "subkey3")
     }
 }
 

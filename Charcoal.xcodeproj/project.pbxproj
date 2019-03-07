@@ -114,7 +114,7 @@
 		9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
-		9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */; };
+		9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */; };
 		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */; };
 		9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
@@ -126,14 +126,15 @@
 		9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */; };
 		9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */; };
 		9BF778CF21C1663D006C0416 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF778CE21C1663D006C0416 /* MapViewManager.swift */; };
+		CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF077552222FD1C6000A0A36 /* StepperFilterConfiguration.swift */; };
 		CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */; };
 		CF0B19ED2211B8C500D8D9B7 /* FilterSelectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */; };
 		CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */; };
-		CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */; };
 		CF4C870A221AFC0900DFAF2A /* ListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */; };
 		CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */; };
 		CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */; };
 		CF4C8710221B04E200DFAF2A /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870F221B04E200DFAF2A /* Filter.swift */; };
+		CF794C7722300096003425E2 /* RangerFilterConfiguration+Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF794C7622300096003425E2 /* RangerFilterConfiguration+Stubs.swift */; };
 		CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7C46102226F415001FB92C /* ListFilterCell.swift */; };
 		CF81E106221BFFE600D00423 /* SelectionTagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E105221BFFE600D00423 /* SelectionTagViewCell.swift */; };
 		CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */; };
@@ -143,7 +144,7 @@
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
-		CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */; };
+		CFFD9F8D21F09F7500997D14 /* RangeFilterConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
 		DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */; };
@@ -322,7 +323,7 @@
 		9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9BB82799216B57730014028C /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
-		9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterInfo.swift; sourceTree = "<group>"; };
+		9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfiguration.swift; sourceTree = "<group>"; };
 		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnaFontExtensions.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -334,14 +335,15 @@
 		9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchLocationDataSource.swift; sourceTree = "<group>"; };
 		9BF778CE21C1663D006C0416 /* MapViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
+		CF077552222FD1C6000A0A36 /* StepperFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterConfiguration.swift; sourceTree = "<group>"; };
 		CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterContainer.swift; sourceTree = "<group>"; };
 		CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionStore.swift; sourceTree = "<group>"; };
 		CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterCellViewModel.swift; sourceTree = "<group>"; };
-		CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfo.swift; sourceTree = "<group>"; };
 		CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870F221B04E200DFAF2A /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		CF794C7622300096003425E2 /* RangerFilterConfiguration+Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangerFilterConfiguration+Stubs.swift"; sourceTree = "<group>"; };
 		CF7C46102226F415001FB92C /* ListFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterCell.swift; sourceTree = "<group>"; };
 		CF81E105221BFFE600D00423 /* SelectionTagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagViewCell.swift; sourceTree = "<group>"; };
 		CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsContainerView.swift; sourceTree = "<group>"; };
@@ -351,7 +353,7 @@
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
-		CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSliderInfoTests.swift; sourceTree = "<group>"; };
+		CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfigurationTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextSuggestionCellViewModel.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 		44ECE682208F7FDE0017AC82 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				CF794C7522300083003425E2 /* Stubs */,
 				CF81E10E221C549200D00423 /* Selection */,
 				DA8D6840220D88C600D31941 /* Models */,
 				CFFD9F8B21F09F6200997D14 /* StepSlider */,
@@ -646,7 +649,6 @@
 				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
 				CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */,
 				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
-				DA454D6A22145829009514F4 /* ViewModels */,
 			);
 			path = Range;
 			sourceTree = "<group>";
@@ -894,6 +896,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		CF794C7522300083003425E2 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				CF794C7622300096003425E2 /* RangerFilterConfiguration+Stubs.swift */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
 		CF81E104221BFFBF00D00423 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -941,7 +951,6 @@
 			isa = PBXGroup;
 			children = (
 				CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */,
-				CFFD9F8C21F09F7500997D14 /* StepSliderInfoTests.swift */,
 				CFB13DAF21FF2B1800F8D126 /* StepTests.swift */,
 			);
 			path = StepSlider;
@@ -968,6 +977,8 @@
 			children = (
 				CF4C870F221B04E200DFAF2A /* Filter.swift */,
 				CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */,
+				9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */,
+				CF077552222FD1C6000A0A36 /* StepperFilterConfiguration.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -993,19 +1004,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		DA454D6A22145829009514F4 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				9BB827A5216C9CD40014028C /* RangeFilterInfo.swift */,
-				CF3E22DF21EF4DDB00A92290 /* StepSliderInfo.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		DA8D6840220D88C600D31941 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				DA8D683B220D874400D31941 /* FilterTests.swift */,
+				CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1317,7 +1320,6 @@
 				DA39FA32220B17DB00608AC4 /* InlineFilterCell.swift in Sources */,
 				CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */,
 				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,
-				CF3E22E021EF4DDB00A92290 /* StepSliderInfo.swift in Sources */,
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */,
@@ -1326,7 +1328,7 @@
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */,
 				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
-				9BB827A6216C9CD40014028C /* RangeFilterInfo.swift in Sources */,
+				9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */,
 				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,
 				CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
@@ -1342,6 +1344,7 @@
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				55BDA76F20DBC46800331FFC /* FilterMarket.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
+				CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */,
 				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,
@@ -1411,11 +1414,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA8D683C220D874400D31941 /* FilterTests.swift in Sources */,
-				CFFD9F8D21F09F7500997D14 /* StepSliderInfoTests.swift in Sources */,
+				CFFD9F8D21F09F7500997D14 /* RangeFilterConfigurationTests.swift in Sources */,
 				CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */,
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
 				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
 				DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */,
+				CF794C7722300096003425E2 /* RangerFilterConfiguration+Stubs.swift in Sources */,
 				559C61FC20DA87330083A574 /* FilterDecodingTests.swift in Sources */,
 				9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */,
 			);

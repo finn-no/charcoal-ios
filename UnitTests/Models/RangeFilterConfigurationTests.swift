@@ -104,6 +104,40 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertFalse(config.isCurrencyValueRange)
     }
 
+    func testInitWithIntervals() {
+        let config = RangeFilterConfiguration(
+            minimumValue: 0,
+            maximumValue: 4000,
+            valueKind: .intervals(
+                array: [
+                    (range: 0 ..< 200, increment: 50),
+                    (range: 200 ..< 500, increment: 100),
+                    (range: 500 ..< 2000, increment: 500),
+                ],
+                defaultIncrement: 1000
+            ),
+            hasLowerBoundOffset: false,
+            hasUpperBoundOffset: true,
+            unit: "kr",
+            accessibilityValueSuffix: "test",
+            usesSmallNumberInputFont: false,
+            displaysUnitInNumberInput: true,
+            isCurrencyValueRange: true
+        )
+
+        XCTAssertEqual(config.minimumValue, 0)
+        XCTAssertEqual(config.maximumValue, 4000)
+        XCTAssertFalse(config.hasLowerBoundOffset)
+        XCTAssertTrue(config.hasUpperBoundOffset)
+        XCTAssertEqual(config.values, [0, 50, 100, 150, 200, 300, 400, 500, 1000, 1500, 2000, 3000, 4000])
+        XCTAssertEqual(config.referenceValues, [0, 400, 4000])
+        XCTAssertEqual(config.unit, "kr")
+        XCTAssertEqual(config.accessibilityValueSuffix, "test")
+        XCTAssertFalse(config.usesSmallNumberInputFont)
+        XCTAssertTrue(config.displaysUnitInNumberInput)
+        XCTAssertTrue(config.isCurrencyValueRange)
+    }
+
     func testValueForStepWithoutOffsets() {
         let config = RangeFilterConfiguration(
             minimumValue: 0,

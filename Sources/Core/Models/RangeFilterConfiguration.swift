@@ -3,9 +3,12 @@
 //
 
 public struct RangeFilterConfiguration: Equatable {
+    public typealias StepInterval = (range: Range<Int>, increment: Int)
+
     public enum ValueKind {
         case incremented(Int)
         case steps([Int])
+        case intervals(array: [StepInterval], defaultIncrement: Int)
     }
 
     public let minimumValue: Int
@@ -61,24 +64,14 @@ public struct RangeFilterConfiguration: Equatable {
         self.displaysUnitInNumberInput = displaysUnitInNumberInput
         self.isCurrencyValueRange = isCurrencyValueRange
 
-        let stepValues: [Int]
-
         switch valueKind {
         case let .incremented(increment):
-            var values = [Int]()
-            var value = minimumValue
-
-            while value + increment < maximumValue {
-                value += increment
-                values.append(value)
-            }
-
-            stepValues = values
+            self.values = (minimumValue ... maximumValue).stepValues(with: [], defaultIncrement: increment)
         case let .steps(values):
-            stepValues = values
+            self.values = ([minimumValue] + values + [maximumValue]).compactMap({ $0 })
+        case let .intervals(array, defaultIncrement):
+            self.values = (minimumValue ... maximumValue).stepValues(with: array, defaultIncrement: defaultIncrement)
         }
-
-        values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
     }
 
     // MARK: - Helpers
@@ -93,5 +86,30 @@ public struct RangeFilterConfiguration: Equatable {
         }
 
         return values.value(for: step)
+    }
+}
+
+// MARK: - Private extensions
+
+private extension ClosedRange where Bound == Int {
+    func stepValues(with intervals: [RangeFilterConfiguration.StepInterval], defaultIncrement: Int) -> [Int] {
+        var i = lowerBound
+        var values = [i]
+
+        while i < upperBound {
+            if let interval = intervals.first(where: { $0.range.contains(i) }) {
+                i += interval.increment
+            } else {
+                i += defaultIncrement
+            }
+
+            if i > lowerBound && i < upperBound {
+                values.append(i)
+            }
+        }
+
+        values.append(upperBound)
+
+        return values
     }
 }

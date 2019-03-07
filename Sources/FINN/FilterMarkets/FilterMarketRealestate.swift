@@ -187,126 +187,142 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
-        let lowValue: Int
-        let highValue: Int
-        let increment: Int
-        let unit: String
-        let rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets
-        let accessibilityValues: RangeFilterInfo.AccessibilityValues
-        let appearanceProperties: RangeFilterInfo.AppearenceProperties
-
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
+
         switch filterKey {
         case .price, .priceCollective:
+            let minimumValue: Int
+            let maximumValue: Int
+            let increment: Int
+
             switch self {
             case .plot, .leisurePlot, .businessPlot:
-                lowValue = 200_000
-                highValue = 1_500_000
+                minimumValue = 200_000
+                maximumValue = 1_500_000
                 increment = 50000
             case .leisureSale:
-                lowValue = 200_000
-                highValue = 15_000_000
+                minimumValue = 200_000
+                maximumValue = 15_000_000
                 increment = 50000
             case .leisureSaleAbroad:
-                lowValue = 400_000
-                highValue = 10_000_000
+                minimumValue = 400_000
+                maximumValue = 10_000_000
                 increment = 100_000
             case .letting:
-                lowValue = 1000
-                highValue = 15000
+                minimumValue = 1000
+                maximumValue = 15000
                 increment = 100
             case .lettingWanted:
-                lowValue = 4000
-                highValue = 15000
+                minimumValue = 4000
+                maximumValue = 15000
                 increment = 500
             case .businessSale:
-                lowValue = 500_000
-                highValue = 7_000_000
+                minimumValue = 500_000
+                maximumValue = 7_000_000
                 increment = 100_000
             default:
-                lowValue = 1_000_000
-                highValue = 10_000_000
+                minimumValue = 1_000_000
+                maximumValue = 10_000_000
                 increment = 50000
             }
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            unit = "kr"
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+
+            return RangeFilterConfiguration(
+                minimumValue: minimumValue,
+                maximumValue: maximumValue,
+                valueKind: .incremented(increment),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "kr",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: true,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: true
+            )
         case .rent:
-            lowValue = 500
-            highValue = 20000
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            unit = "kr"
-            increment = 500
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
-        case .noOfBedrooms:
-            lowValue = 0
-            highValue = 6
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: false)
-            unit = "stk"
-            increment = 1
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
-            return RangeFilterInfo(
-                kind: .stepper,
-                lowValue: lowValue,
-                highValue: highValue,
-                increment: increment,
-                rangeBoundsOffsets: rangeBoundsOffsets,
-                unit: unit,
-                accesibilityValues: accessibilityValues,
-                appearanceProperties: appearanceProperties
+            return RangeFilterConfiguration(
+                minimumValue: 500,
+                maximumValue: 20000,
+                valueKind: .incremented(500),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "kr",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: true
             )
         case .area:
+            let minimumValue: Int
+            let maximumValue: Int
+
             switch self {
             case .leisureSaleAbroad:
-                lowValue = 50
-                highValue = 400
+                minimumValue = 50
+                maximumValue = 400
             case .businessSale, .businessLetting:
-                lowValue = 50
-                highValue = 1500
+                minimumValue = 50
+                maximumValue = 1500
             default:
-                lowValue = 30
-                highValue = 400
+                minimumValue = 30
+                maximumValue = 400
             }
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            unit = "m\u{00B2}"
-            increment = 5
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: true, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+
+            return RangeFilterConfiguration(
+                minimumValue: minimumValue,
+                maximumValue: maximumValue,
+                valueKind: .incremented(5),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "m\u{00B2}",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: true,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         case .plotArea:
-            lowValue = 300
-            highValue = 6000
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            unit = "m\u{00B2}"
-            increment = 50
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: false)
+            return RangeFilterConfiguration(
+                minimumValue: 300,
+                maximumValue: 6000,
+                valueKind: .incremented(50),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "m\u{00B2}",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: false
+            )
         case .constructionYear:
-            lowValue = 1900
-            highValue = Calendar.current.component(.year, from: Date())
-            rangeBoundsOffsets = (hasLowerBoundOffset: true, hasUpperBoundOffset: true)
-            unit = ""
-            increment = 1
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: false, isCurrencyValueRange: false)
+            return RangeFilterConfiguration(
+                minimumValue: 1900,
+                maximumValue: Calendar.current.component(.year, from: Date()),
+                valueKind: .incremented(1),
+                hasLowerBoundOffset: true,
+                hasUpperBoundOffset: true,
+                unit: "år",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: false,
+                isCurrencyValueRange: false
+            )
         default:
             return nil
         }
+    }
 
-        return RangeFilterInfo(
-            kind: .slider,
-            lowValue: lowValue,
-            highValue: highValue,
-            increment: increment,
-            rangeBoundsOffsets: rangeBoundsOffsets,
-            unit: unit,
-            accesibilityValues: accessibilityValues,
-            appearanceProperties: appearanceProperties
-        )
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+        guard let filterKey = FilterKey(stringValue: key) else {
+            return nil
+        }
+
+        switch filterKey {
+        case .noOfBedrooms:
+            return StepperFilterConfiguration(minimumValue: 0, maximumValue: 6, unit: "stk")
+        default:
+            return nil
+        }
     }
 }

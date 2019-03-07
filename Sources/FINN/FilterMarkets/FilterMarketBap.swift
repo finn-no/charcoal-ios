@@ -69,40 +69,31 @@ extension FilterMarketBap: FINNFilterConfiguration {
         return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
     }
 
-    public func rangeViewModel(forKey key: String) -> RangeFilterInfo? {
-        let lowValue: Int
-        let highValue: Int
-        let increment: Int
-        let unit: String
-        let rangeBoundsOffsets: RangeFilterInfo.RangeBoundsOffsets
-        let accessibilityValues: RangeFilterInfo.AccessibilityValues
-        let appearanceProperties: RangeFilterInfo.AppearenceProperties
-
+    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
         guard let filterKey = FilterKey(stringValue: key) else {
             return nil
         }
+
         switch filterKey {
         case .price:
-            lowValue = 0
-            highValue = 30000
-            unit = "kr"
-            rangeBoundsOffsets = (hasLowerBoundOffset: false, hasUpperBoundOffset: true)
-            increment = 1000
-            accessibilityValues = (stepIncrement: nil, valueSuffix: nil)
-            appearanceProperties = (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+            return RangeFilterConfiguration(
+                minimumValue: 0,
+                maximumValue: 30000,
+                valueKind: .incremented(1000),
+                hasLowerBoundOffset: false,
+                hasUpperBoundOffset: true,
+                unit: "kr",
+                accessibilityValueSuffix: nil,
+                usesSmallNumberInputFont: false,
+                displaysUnitInNumberInput: true,
+                isCurrencyValueRange: true
+            )
         default:
             return nil
         }
+    }
 
-        return RangeFilterInfo(
-            kind: .slider,
-            lowValue: lowValue,
-            highValue: highValue,
-            increment: increment,
-            rangeBoundsOffsets: rangeBoundsOffsets,
-            unit: unit,
-            accesibilityValues: accessibilityValues,
-            appearanceProperties: appearanceProperties
-        )
+    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+        return nil
     }
 }

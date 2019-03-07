@@ -44,13 +44,11 @@ final class RootFilterViewController: FilterViewController {
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
     private var filter: Filter
-    private let config: FilterConfiguration
 
     // MARK: - Init
 
-    init(filter: Filter, config: FilterConfiguration, selectionStore: FilterSelectionStore) {
+    init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
-        self.config = config
         super.init(title: filter.title, selectionStore: selectionStore)
     }
 
@@ -141,9 +139,8 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
             cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, style: currentFilter.style)
 
-            let exclusiveFilters = config.mutuallyExclusiveFilters(for: currentFilter.key)
             cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {
-                exclusiveFilters.contains($0.key)
+                currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
             })
 
             return cell
@@ -192,10 +189,10 @@ extension RootFilterViewController: RootFilterCellDelegate {
     }
 
     private func reloadCellsWithExclusiveFilters(for filter: Filter) {
-        let exclusiveFilters = config.mutuallyExclusiveFilters(for: filter.key)
+        let exclusiveFilterKeys = filter.mutuallyExclusiveFilterKeys
 
         let indexPathsToReload = self.filter.subfilters.enumerated().compactMap({ index, subfilter in
-            return exclusiveFilters.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
+            return exclusiveFilterKeys.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
         })
 
         tableView.reloadRows(at: indexPathsToReload, with: .none)

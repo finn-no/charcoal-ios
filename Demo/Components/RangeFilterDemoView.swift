@@ -5,22 +5,24 @@
 @testable import Charcoal
 
 public class RangeFilterDemoView: UIView {
-    let filterInfo = RangeFilterInfo(
-        kind: .slider,
-        lowValue: 0,
-        highValue: 30000,
-        increment: 1000,
-        rangeBoundsOffsets: (hasLowerBoundOffset: false, hasUpperBoundOffset: true),
+    let filterConfig = RangeFilterConfiguration(
+        minimumValue: 0,
+        maximumValue: 30000,
+        valueKind: .incremented(1000),
+        hasLowerBoundOffset: false,
+        hasUpperBoundOffset: true,
         unit: "kr",
-        accesibilityValues: (stepIncrement: nil, valueSuffix: nil),
-        appearanceProperties: (usesSmallNumberInputFont: false, displaysUnitInNumberInput: true, isCurrencyValueRange: true)
+        accessibilityValueSuffix: nil,
+        usesSmallNumberInputFont: false,
+        displaysUnitInNumberInput: true,
+        isCurrencyValueRange: true
     )
 
     private lazy var rangeFilterView: RangeFilterView = {
-        let rangeFilterView = RangeFilterView(filterInfo: filterInfo)
+        let rangeFilterView = RangeFilterView(filterConfig: filterConfig)
         rangeFilterView.translatesAutoresizingMaskIntoConstraints = false
-        rangeFilterView.setLowValue(filterInfo.sliderInfo.minimumValue, animated: false)
-        rangeFilterView.setHighValue(filterInfo.sliderInfo.maximumValue, animated: false)
+        rangeFilterView.setLowValue(filterConfig.minimumValue, animated: false)
+        rangeFilterView.setHighValue(filterConfig.maximumValue, animated: false)
         return rangeFilterView
     }()
 

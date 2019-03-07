@@ -68,7 +68,7 @@ class DemoViewsTableViewController: UITableViewController {
 
             let filter = filterContainer(forMarket: market, using: config)
             let controller = CharcoalViewController()
-            controller.configure(with: filter, config: config)
+            controller.configure(with: filter)
             controller.filterDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
@@ -138,7 +138,7 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
 
         viewController.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            viewController.configure(with: filter, config: config)
+            viewController.configure(with: filter)
             viewController.isLoading = false
         }
     }

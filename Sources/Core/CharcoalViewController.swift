@@ -42,7 +42,6 @@ public class CharcoalViewController: UINavigationController {
     // MARK: - Private properties
 
     private var filter: FilterContainer?
-    private var config: FilterConfiguration?
 
     private var selectionHasChanged = false
     private var selectionStore = FilterSelectionStore()
@@ -81,9 +80,8 @@ public class CharcoalViewController: UINavigationController {
 
     // MARK: - Public
 
-    public func configure(with filter: FilterContainer, config: FilterConfiguration, queryItems: Set<URLQueryItem>? = nil) {
+    public func configure(with filter: FilterContainer, queryItems: Set<URLQueryItem>? = nil) {
         self.filter = filter
-        self.config = config
 
         if let queryItems = queryItems {
             selectionStore = FilterSelectionStore(queryItems: queryItems)
@@ -95,7 +93,6 @@ public class CharcoalViewController: UINavigationController {
         } else {
             rootFilterViewController = RootFilterViewController(
                 filter: filter.rootFilter,
-                config: config,
                 selectionStore: selectionStore
             )
             rootFilterViewController?.verticals = filter.verticals
@@ -123,22 +120,20 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter):
-            guard let viewModel = config?.rangeViewModel(forKey: filter.key) else { break }
+        case let .range(lowValueFilter, highValueFilter, filterConfig):
             let rangeViewController = RangeFilterViewController(
                 title: filter.title,
                 lowValueFilter: lowValueFilter,
                 highValueFilter: highValueFilter,
-                viewModel: viewModel,
+                filterConfig: filterConfig,
                 selectionStore: selectionStore
             )
             pushViewController(rangeViewController)
-        case .stepper:
-            guard let viewModel = config?.rangeViewModel(forKey: filter.key) else { break }
+        case let .stepper(filterConfig):
             let stepperViewController = StepperFilterViewController(
                 filter: filter,
                 selectionStore: selectionStore,
-                viewModel: viewModel
+                filterConfig: filterConfig
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):

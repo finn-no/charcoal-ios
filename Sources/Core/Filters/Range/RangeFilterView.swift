@@ -16,7 +16,7 @@ final class RangeFilterView: UIView {
 
     public weak var delegate: RangeFilterViewDelegate?
 
-    private let filterInfo: RangeFilterInfo
+    private let filterConfig: RangeFilterConfiguration
     private let formatter: RangeFilterValueFormatter
     private var inputValues = [InputValue: Step]()
     private var referenceValueViews = [SliderReferenceValueView]()
@@ -27,19 +27,15 @@ final class RangeFilterView: UIView {
         }
     }
 
-    private var sliderInfo: StepSliderInfo {
-        return filterInfo.sliderInfo
-    }
-
     private lazy var numberInputView: RangeNumberInputView = {
-        let inputFontSize: RangeNumberInputView.InputFontSize = filterInfo.usesSmallNumberInputFont ? .small : .large
+        let inputFontSize: RangeNumberInputView.InputFontSize = filterConfig.usesSmallNumberInputFont ? .small : .large
         let rangeNumberInputView = RangeNumberInputView(
-            minimumValue: sliderInfo.minimumValue,
-            maximumValue: sliderInfo.maximumValue,
-            unit: filterInfo.unit,
+            minimumValue: filterConfig.minimumValue,
+            maximumValue: filterConfig.maximumValue,
+            unit: filterConfig.unit,
             formatter: formatter,
             inputFontSize: inputFontSize,
-            displaysUnitInNumberInput: filterInfo.displaysUnitInNumberInput
+            displaysUnitInNumberInput: filterConfig.displaysUnitInNumberInput
         )
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.delegate = self
@@ -48,7 +44,7 @@ final class RangeFilterView: UIView {
     }()
 
     private lazy var sliderInputView: RangeSliderView = {
-        let rangeSliderView = RangeSliderView(sliderInfo: sliderInfo, formatter: formatter)
+        let rangeSliderView = RangeSliderView(filterConfig: filterConfig, formatter: formatter)
         rangeSliderView.translatesAutoresizingMaskIntoConstraints = false
         rangeSliderView.delegate = self
         return rangeSliderView
@@ -63,15 +59,15 @@ final class RangeFilterView: UIView {
 
     // MARK: - Init
 
-    init(filterInfo: RangeFilterInfo) {
-        self.filterInfo = filterInfo
+    init(filterConfig: RangeFilterConfiguration) {
+        self.filterConfig = filterConfig
         formatter = RangeFilterValueFormatter(
-            isValueCurrency: filterInfo.isCurrencyValueRange,
-            unit: filterInfo.unit,
-            accessibilityUnit: filterInfo.accessibilityValueSuffix ?? ""
+            isValueCurrency: filterConfig.isCurrencyValueRange,
+            unit: filterConfig.unit,
+            accessibilityUnit: filterConfig.accessibilityValueSuffix ?? ""
         )
         super.init(frame: .zero)
-        numberInputView.accessibilityValueSuffix = filterInfo.accessibilityValueSuffix
+        numberInputView.accessibilityValueSuffix = filterConfig.accessibilityValueSuffix
         setup()
     }
 
@@ -121,7 +117,7 @@ final class RangeFilterView: UIView {
     // MARK: - Public
 
     func setLowValue(_ value: Int?, animated: Bool) {
-        let step = value.map({ sliderInfo.values.closestStep(for: $0) }) ?? .lowerBound
+        let step = value.map({ filterConfig.values.closestStep(for: $0) }) ?? .lowerBound
 
         if let value = value {
             updateNumberInput(for: .low, with: value, hintText: "")
@@ -133,7 +129,7 @@ final class RangeFilterView: UIView {
     }
 
     func setHighValue(_ value: Int?, animated: Bool) {
-        let step = value.map({ sliderInfo.values.closestStep(for: $0) }) ?? .upperBound
+        let step = value.map({ filterConfig.values.closestStep(for: $0) }) ?? .upperBound
 
         if let value = value {
             updateNumberInput(for: .high, with: value, hintText: "")
@@ -169,10 +165,10 @@ extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        referenceValueViews = sliderInfo.referenceValues.map({ referenceValue in
+        referenceValueViews = filterConfig.referenceValues.map({ referenceValue in
             return SliderReferenceValueView(
                 value: referenceValue,
-                displayText: formatter.string(from: referenceValue, isCurrency: filterInfo.isCurrencyValueRange) ?? ""
+                displayText: formatter.string(from: referenceValue, isCurrency: filterConfig.isCurrencyValueRange) ?? ""
             )
         })
 
@@ -203,7 +199,7 @@ extension RangeFilterView {
     }
 
     private func updateNumberInput(for inputValue: InputValue, with step: Step) {
-        let value = sliderInfo.value(for: step)
+        let value = filterConfig.value(for: step)
         let newValue: Int
         let hintText: String
 
@@ -212,10 +208,10 @@ extension RangeFilterView {
             hintText = ""
         } else {
             if step == .lowerBound {
-                newValue = sliderInfo.minimumValue
+                newValue = filterConfig.minimumValue
                 hintText = "range_below_lower_bound_title".localized()
             } else {
-                newValue = sliderInfo.maximumValue
+                newValue = filterConfig.maximumValue
                 hintText = "range_above_upper_bound_title".localized()
             }
         }
@@ -245,7 +241,7 @@ extension RangeFilterView {
 extension RangeFilterView: RangeNumberInputViewDelegate {
     func rangeNumberInputView(_ view: RangeNumberInputView, didChangeLowValue value: Int?) {
         if let lowValue = value {
-            let step = sliderInfo.values.closestStep(for: lowValue)
+            let step = filterConfig.values.closestStep(for: lowValue)
             updateSliderLowValue(with: step)
             numberInputView.setLowValueHint(text: "")
             delegate?.rangeFilterView(self, didSetLowValue: lowValue)
@@ -260,7 +256,7 @@ extension RangeFilterView: RangeNumberInputViewDelegate {
 
     func rangeNumberInputView(_ view: RangeNumberInputView, didChangeHighValue value: Int?) {
         if let highValue = value {
-            let step = sliderInfo.values.closestStep(for: highValue)
+            let step = filterConfig.values.closestStep(for: highValue)
             updateSliderHighValue(with: step)
             numberInputView.setHighValueHint(text: "")
             delegate?.rangeFilterView(self, didSetHighValue: highValue)
@@ -293,7 +289,7 @@ extension RangeFilterView: RangeSliderViewDelegate {
             inputValues[inputValue] = step
         }
 
-        let value = sliderInfo.value(for: step)
+        let value = filterConfig.value(for: step)
 
         if inputValue == .low {
             delegate?.rangeFilterView(self, didSetLowValue: value)

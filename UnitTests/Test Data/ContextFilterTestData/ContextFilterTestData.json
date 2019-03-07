@@ -16,7 +16,6 @@
         },
         "shoe_size": {
             "title": "Skostørrelse",
-            "range": true,
             "name": "shoe_size"
         }
     }

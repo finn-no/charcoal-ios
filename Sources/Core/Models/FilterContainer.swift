@@ -9,7 +9,10 @@ public class FilterContainer {
     // MARK: - Public properties
 
     public var verticals: [Vertical]?
-    public var rootFilter: Filter
+
+    // MARK: - Internal properties
+
+    var rootFilter: Filter
 
     // MARK: - Setup
 
@@ -21,5 +24,18 @@ public class FilterContainer {
 
     public func merge(with other: FilterContainer) {
         rootFilter.merge(with: other.rootFilter)
+    }
+
+    public func resetHits() {
+        resetHits(for: rootFilter)
+    }
+
+    // MARK: - Private methods
+
+    private func resetHits(for filter: Filter) {
+        filter.numberOfResults = 0
+        for subfilter in filter.subfilters {
+            resetHits(for: subfilter)
+        }
     }
 }

@@ -4,13 +4,13 @@
 
 import Foundation
 
-public final class Filter {
-    public enum Style {
+final class Filter {
+    enum Style {
         case normal
         case context
     }
 
-    public enum Kind {
+    enum Kind {
         case list
         case search
         case inline
@@ -20,14 +20,14 @@ public final class Filter {
         case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter)
     }
 
-    public let title: String
-    public let key: String
-    public let value: String?
-    public var numberOfResults: Int
-    public let style: Style
-    public let kind: Kind
+    let title: String
+    let key: String
+    let value: String?
+    var numberOfResults: Int
+    let style: Style
+    let kind: Kind
 
-    public var subfilters: [Filter] = []
+    private(set) var subfilters: [Filter] = []
 
     // MARK: - Init
 
@@ -43,7 +43,7 @@ public final class Filter {
 
     // MARK: - Public methods
 
-    public func add(subfilter: Filter, at index: Int? = nil) {
+    func add(subfilter: Filter, at index: Int? = nil) {
         if let index = index {
             subfilters.insert(subfilter, at: index)
         } else {
@@ -51,12 +51,12 @@ public final class Filter {
         }
     }
 
-    public func subfilter(at index: Int) -> Filter? {
+    func subfilter(at index: Int) -> Filter? {
         guard index < subfilters.count else { return nil }
         return subfilters[index]
     }
 
-    public func merge(with other: Filter) {
+    func merge(with other: Filter) {
         for (index, filter) in other.subfilters.enumerated() {
             if let common = subfilters.first(where: { $0 == filter }) {
                 common.merge(with: filter)
@@ -72,7 +72,7 @@ public final class Filter {
 }
 
 extension Filter: Equatable {
-    public static func == (lhs: Filter, rhs: Filter) -> Bool {
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
         let equalKey = lhs.key == rhs.key
         let equalValue = lhs.value == rhs.value
         return equalKey && equalValue
@@ -81,7 +81,7 @@ extension Filter: Equatable {
 
 // MARK: - Factory
 
-public extension Filter {
+extension Filter {
     static func list(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
                      style: Style = .normal, subfilters: [Filter] = []) -> Filter {
         let filter = Filter(

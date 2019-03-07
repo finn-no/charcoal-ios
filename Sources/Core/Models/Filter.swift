@@ -23,9 +23,10 @@ final class Filter {
     let title: String
     let key: String
     let value: String?
-    var numberOfResults: Int
     let style: Style
     let kind: Kind
+    var numberOfResults: Int
+    var mutuallyExclusiveFilterKeys = Set<String>()
 
     private(set) var subfilters: [Filter] = []
 

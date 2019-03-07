@@ -42,7 +42,6 @@ public class CharcoalViewController: UINavigationController {
     // MARK: - Private properties
 
     private var filter: FilterContainer?
-    private var config: FilterConfiguration?
 
     private var selectionHasChanged = false
     private var selectionStore = FilterSelectionStore()
@@ -81,9 +80,8 @@ public class CharcoalViewController: UINavigationController {
 
     // MARK: - Public
 
-    public func configure(with filter: FilterContainer, config: FilterConfiguration, queryItems: Set<URLQueryItem>? = nil) {
+    public func configure(with filter: FilterContainer, queryItems: Set<URLQueryItem>? = nil) {
         self.filter = filter
-        self.config = config
 
         if let queryItems = queryItems {
             selectionStore = FilterSelectionStore(queryItems: queryItems)
@@ -95,7 +93,6 @@ public class CharcoalViewController: UINavigationController {
         } else {
             rootFilterViewController = RootFilterViewController(
                 filter: filter.rootFilter,
-                config: config,
                 selectionStore: selectionStore
             )
             rootFilterViewController?.verticals = filter.verticals

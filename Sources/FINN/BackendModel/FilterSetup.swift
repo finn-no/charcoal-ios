@@ -51,38 +51,43 @@ public struct FilterSetup: Decodable {
 
     public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
         let rootLevelFilters = config.rootLevelFilters.compactMap { key -> Filter? in
-            switch key {
-            case FilterKey.query.rawValue:
-                return Filter.search(title: "search_placeholder".localized(), key: key)
-            case FilterKey.preferences.rawValue:
-                let subfilters = config.preferenceFilters.compactMap {
-                    filterData(forKey: $0).map({ makeListFilter(from: $0, withStyle: .normal) })
-                }
-                return Filter.inline(title: "", key: key, subfilters: subfilters)
-            case FilterKey.map.rawValue:
-                return makeMapFilter(withKey: key)
-            default:
-                guard let data = filterData(forKey: key) else { return nil }
-
-                let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
-
-                if data.isRange == true {
-                    if let filterConfig = config.rangeConfiguration(forKey: key) {
-                        return makeRangeFilter(from: data, config: filterConfig, style: style)
-                    } else if let filterConfig = config.stepperConfiguration(forKey: key) {
-                        return makeStepperFilter(from: data, config: filterConfig, style: style)
-                    } else {
-                        return nil
-                    }
-                } else {
-                    return makeListFilter(from: data, withStyle: style)
-                }
-            }
+            let filter = makeRootLevelFilter(withKey: key, using: config)
+            filter?.mutuallyExclusiveFilterKeys = config.mutuallyExclusiveFilters(for: key)
+            return filter
         }
 
         let root = Filter.list(title: filterTitle, key: market, numberOfResults: hits, subfilters: rootLevelFilters)
-
         return FilterContainer(root: root)
+    }
+
+    private func makeRootLevelFilter(withKey key: String, using config: FilterConfiguration) -> Filter? {
+        switch key {
+        case FilterKey.query.rawValue:
+            return Filter.search(title: "search_placeholder".localized(), key: key)
+        case FilterKey.preferences.rawValue:
+            let subfilters = config.preferenceFilters.compactMap {
+                filterData(forKey: $0).map({ makeListFilter(from: $0, withStyle: .normal) })
+            }
+            return Filter.inline(title: "", key: key, subfilters: subfilters)
+        case FilterKey.map.rawValue:
+            return makeMapFilter(withKey: key)
+        default:
+            guard let data = filterData(forKey: key) else { return nil }
+
+            let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
+
+            if data.isRange == true {
+                if let filterConfig = config.rangeConfiguration(forKey: key) {
+                    return makeRangeFilter(from: data, config: filterConfig, style: style)
+                } else if let filterConfig = config.stepperConfiguration(forKey: key) {
+                    return makeStepperFilter(from: data, config: filterConfig, style: style)
+                } else {
+                    return nil
+                }
+            } else {
+                return makeListFilter(from: data, withStyle: style)
+            }
+        }
     }
 
     private func makeMapFilter(withKey key: String) -> Filter {

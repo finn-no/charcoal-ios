@@ -3,12 +3,12 @@
 //
 
 public struct RangeFilterConfiguration: Equatable {
-    public typealias StepInterval = (range: Range<Int>, increment: Int)
+    public typealias StepInterval = (from: Int, increment: Int)
 
     public enum ValueKind {
         case incremented(Int)
         case steps([Int])
-        case intervals(array: [StepInterval], defaultIncrement: Int)
+        case intervals(array: [StepInterval])
     }
 
     public let minimumValue: Int
@@ -66,11 +66,11 @@ public struct RangeFilterConfiguration: Equatable {
 
         switch valueKind {
         case let .incremented(increment):
-            self.values = (minimumValue ... maximumValue).stepValues(with: [], defaultIncrement: increment)
+            self.values = (minimumValue ... maximumValue).stepValues(with: [(from: 0, increment: increment)])
         case let .steps(values):
             self.values = ([minimumValue] + values + [maximumValue]).compactMap({ $0 })
-        case let .intervals(array, defaultIncrement):
-            self.values = (minimumValue ... maximumValue).stepValues(with: array, defaultIncrement: defaultIncrement)
+        case let .intervals(array):
+            self.values = (minimumValue ... maximumValue).stepValues(with: array)
         }
     }
 
@@ -92,15 +92,16 @@ public struct RangeFilterConfiguration: Equatable {
 // MARK: - Private extensions
 
 private extension ClosedRange where Bound == Int {
-    func stepValues(with intervals: [RangeFilterConfiguration.StepInterval], defaultIncrement: Int) -> [Int] {
+    func stepValues(with intervals: [RangeFilterConfiguration.StepInterval]) -> [Int] {
+        let intervals = intervals.reversed()
         var i = lowerBound
         var values = [i]
 
         while i < upperBound {
-            if let interval = intervals.first(where: { $0.range.contains(i) }) {
+            if let interval = intervals.first(where: { i >= $0.from }) {
                 i += interval.increment
             } else {
-                i += defaultIncrement
+                i += 1
             }
 
             if i > lowerBound && i < upperBound {

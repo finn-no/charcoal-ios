@@ -110,11 +110,11 @@ final class RangeFilterConfigurationTests: XCTestCase {
             maximumValue: 4000,
             valueKind: .intervals(
                 array: [
-                    (range: 0 ..< 200, increment: 50),
-                    (range: 200 ..< 500, increment: 100),
-                    (range: 500 ..< 2000, increment: 500),
-                ],
-                defaultIncrement: 1000
+                    (from: 0, increment: 50),
+                    (from: 200, increment: 100),
+                    (from: 500, increment: 500),
+                    (from: 2000, increment: 1000),
+                ]
             ),
             hasLowerBoundOffset: false,
             hasUpperBoundOffset: true,

@@ -81,11 +81,11 @@ extension FilterMarketBap: FINNFilterConfiguration {
                 maximumValue: 30000,
                 valueKind: .intervals(
                     array: [
-                        (range: 0 ..< 500, increment: 50),
-                        (range: 500 ..< 1500, increment: 100),
-                        (range: 1500 ..< 6000, increment: 500),
-                    ],
-                    defaultIncrement: 1000
+                        (from: 0, increment: 50),
+                        (from: 500, increment: 100),
+                        (from: 1500, increment: 500),
+                        (from: 6000, increment: 1000),
+                    ]
                 ),
                 hasLowerBoundOffset: false,
                 hasUpperBoundOffset: true,

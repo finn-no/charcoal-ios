@@ -74,7 +74,7 @@ final class ListFilterCell: CheckboxTableViewCell {
         selectedBackgroundView.alpha = 0
 
         let animation = CABasicAnimation(keyPath: "opacity")
-        animation.duration = 0.1
+        animation.duration = 0.2
         animation.fromValue = 0
         animation.toValue = 1
         animation.autoreverses = true

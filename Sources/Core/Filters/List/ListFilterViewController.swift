@@ -126,6 +126,8 @@ extension ListFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
+        tableView.deselectRow(at: indexPath, animated: false)
+
         switch section {
         case .all:
             for subfilter in filter.subfilters {
@@ -156,7 +158,6 @@ extension ListFilterViewController: UITableViewDelegate {
 
     private func animateSelectionForRow(at indexPath: IndexPath, isSelected: Bool) {
         if let cell = tableView.cellForRow(at: indexPath) as? ListFilterCell {
-            // cell.checkbox.isHighlighted = false
             cell.animateSelection(isSelected: isSelected)
         }
     }

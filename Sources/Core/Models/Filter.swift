@@ -43,14 +43,6 @@ final class Filter {
 
     // MARK: - Public methods
 
-    func add(subfilter: Filter, at index: Int? = nil) {
-        if let index = index {
-            subfilters.insert(subfilter, at: index)
-        } else {
-            subfilters.append(subfilter)
-        }
-    }
-
     func subfilter(at index: Int) -> Filter? {
         guard index < subfilters.count else { return nil }
         return subfilters[index]
@@ -93,9 +85,7 @@ extension Filter {
             style: style
         )
 
-        subfilters.forEach {
-            filter.add(subfilter: $0)
-        }
+        filter.subfilters.append(contentsOf: subfilters)
 
         return filter
     }
@@ -106,11 +96,7 @@ extension Filter {
 
     static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .inline)
-
-        subfilters.forEach {
-            filter.add(subfilter: $0)
-        }
-
+        filter.subfilters.append(contentsOf: subfilters)
         return filter
     }
 
@@ -130,8 +116,7 @@ extension Filter {
         let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter)
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: style)
 
-        filter.add(subfilter: lowValueFilter)
-        filter.add(subfilter: highValueFilter)
+        filter.subfilters.append(contentsOf: [lowValueFilter, highValueFilter])
 
         return filter
     }
@@ -151,11 +136,7 @@ extension Filter {
         )
 
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: .normal)
-
-        filter.add(subfilter: latitudeFilter)
-        filter.add(subfilter: longitudeFilter)
-        filter.add(subfilter: radiusFilter)
-        filter.add(subfilter: locationNameFilter)
+        filter.subfilters.append(contentsOf: [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter])
 
         return filter
     }

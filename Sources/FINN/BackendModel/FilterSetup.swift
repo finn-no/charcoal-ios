@@ -49,7 +49,7 @@ public struct FilterSetup: Decodable {
 
     // MARK: - Factory
 
-    public func filterContainer(using config: FilterConfiguration, previous: FilterContainer? = nil) -> FilterContainer {
+    public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
         let rootLevelFilters = config.rootLevelFilters.compactMap { key -> Filter? in
             switch key {
             case FilterKey.query.rawValue:

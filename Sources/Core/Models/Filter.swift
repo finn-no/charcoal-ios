@@ -23,12 +23,11 @@ final class Filter {
     let title: String
     let key: String
     let value: String?
-    let numberOfResults: Int
+    var numberOfResults: Int
     let style: Style
     let kind: Kind
 
     private(set) var subfilters: [Filter] = []
-    private(set) weak var parent: Filter?
 
     // MARK: - Init
 
@@ -44,18 +43,31 @@ final class Filter {
 
     // MARK: - Public methods
 
-    private func add(subfilter: Filter, at index: Int? = nil) {
-        if let index = index {
-            subfilters.insert(subfilter, at: index)
-        } else {
-            subfilters.append(subfilter)
-        }
-        subfilter.parent = self
-    }
-
     func subfilter(at index: Int) -> Filter? {
         guard index < subfilters.count else { return nil }
         return subfilters[index]
+    }
+
+    func merge(with other: Filter) {
+        for (index, filter) in other.subfilters.enumerated() {
+            if let common = subfilters.first(where: { $0 == filter }) {
+                common.merge(with: filter)
+            } else {
+                if index < subfilters.count {
+                    subfilters.insert(filter, at: index)
+                } else {
+                    subfilters.append(filter)
+                }
+            }
+        }
+    }
+}
+
+extension Filter: Equatable {
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
+        let equalKey = lhs.key == rhs.key
+        let equalValue = lhs.value == rhs.value
+        return equalKey && equalValue
     }
 }
 
@@ -73,9 +85,7 @@ extension Filter {
             style: style
         )
 
-        subfilters.forEach {
-            filter.add(subfilter: $0)
-        }
+        filter.subfilters.append(contentsOf: subfilters)
 
         return filter
     }
@@ -86,11 +96,7 @@ extension Filter {
 
     static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .inline)
-
-        subfilters.forEach {
-            filter.add(subfilter: $0)
-        }
-
+        filter.subfilters.append(contentsOf: subfilters)
         return filter
     }
 
@@ -110,8 +116,7 @@ extension Filter {
         let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter)
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: style)
 
-        filter.add(subfilter: lowValueFilter)
-        filter.add(subfilter: highValueFilter)
+        filter.subfilters.append(contentsOf: [lowValueFilter, highValueFilter])
 
         return filter
     }
@@ -131,11 +136,7 @@ extension Filter {
         )
 
         let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: .normal)
-
-        filter.add(subfilter: latitudeFilter)
-        filter.add(subfilter: longitudeFilter)
-        filter.add(subfilter: radiusFilter)
-        filter.add(subfilter: locationNameFilter)
+        filter.subfilters.append(contentsOf: [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter])
 
         return filter
     }

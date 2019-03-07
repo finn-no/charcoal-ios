@@ -61,17 +61,42 @@ final class ListFilterCell: CheckboxTableViewCell {
         checkbox.isHighlighted = isCheckboxHighlighted
     }
 
+    override func animateSelection(isSelected: Bool) {
+        super.animateSelection(isSelected: isSelected)
+
+        guard let selectedBackgroundView = selectedBackgroundView else {
+            return
+        }
+
+        insertSubview(selectedBackgroundView, at: 0)
+
+        selectedBackgroundView.layer.removeAllAnimations()
+        selectedBackgroundView.alpha = 0
+
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.duration = 0.1
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.autoreverses = true
+        animation.repeatCount = 1
+        animation.delegate = self
+        selectedBackgroundView.layer.add(animation, forKey: nil)
+    }
+
     // MARK: - Setup
 
     func configure(with viewModel: ListFilterCellViewModel) {
         super.configure(with: viewModel)
 
-        selectionStyle = .default
-
         switch viewModel.accessoryStyle {
-        case .chevron, .none:
+        case .none:
+            selectionStyle = .none
+            chevronImageView.isHidden = true
+        case .chevron:
+            selectionStyle = .default
             chevronImageView.isHidden = true
         case .external:
+            selectionStyle = .default
             chevronImageView.isHidden = false
             chevronImageView.image = UIImage(named: .webview).withRenderingMode(.alwaysTemplate)
             bringSubviewToFront(chevronImageView)
@@ -112,5 +137,13 @@ final class ListFilterCell: CheckboxTableViewCell {
             overlayView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             overlayView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
+    }
+}
+
+// MARK: - CAAnimationDelegate
+
+extension ListFilterCell: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        selectedBackgroundView?.removeFromSuperview()
     }
 }

@@ -28,10 +28,6 @@ final class ListFilterViewController: FilterViewController {
         return filter.value != nil
     }
 
-    private var isAllSelected: Bool {
-        return canSelectAll && selectionStore.isSelected(filter)
-    }
-
     // MARK: - Init
 
     init(filter: Filter, selectionStore: FilterSelectionStore) {
@@ -99,7 +95,7 @@ extension ListFilterViewController: UITableViewDataSource {
 
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
         let viewModel: ListFilterCellViewModel
-        let isAllSelected = self.isAllSelected
+        let isAllSelected = canSelectAll && selectionStore.isSelected(filter)
 
         switch section {
         case .all:
@@ -129,8 +125,6 @@ extension ListFilterViewController: UITableViewDataSource {
 extension ListFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
-
-        tableView.deselectRow(at: indexPath, animated: false)
 
         switch section {
         case .all:
@@ -162,6 +156,7 @@ extension ListFilterViewController: UITableViewDelegate {
 
     private func animateSelectionForRow(at indexPath: IndexPath, isSelected: Bool) {
         if let cell = tableView.cellForRow(at: indexPath) as? ListFilterCell {
+            // cell.checkbox.isHighlighted = false
             cell.animateSelection(isSelected: isSelected)
         }
     }

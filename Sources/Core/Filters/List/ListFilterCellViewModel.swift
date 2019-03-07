@@ -47,10 +47,15 @@ extension ListFilterCellViewModel {
         )
     }
 
-    static func regular(from filter: Filter, isSelected: Bool, hasSelectedSubfilters: Bool) -> ListFilterCellViewModel {
-        let checkboxStyle: CheckboxStyle = isSelected
-            ? .selected : hasSelectedSubfilters ? .partiallySelected
-            : .deselected
+    static func regular(from filter: Filter, isSelected: Bool) -> ListFilterCellViewModel {
+        let checkboxStyle: CheckboxStyle
+
+        switch isSelected {
+        case true:
+            checkboxStyle = filter.subfilters.isEmpty ? .selected : .partiallySelected
+        case false:
+            checkboxStyle = .deselected
+        }
 
         return ListFilterCellViewModel(
             title: filter.title,

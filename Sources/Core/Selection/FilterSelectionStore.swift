@@ -63,14 +63,19 @@ extension FilterSelectionStore {
         delegate?.filterSelectionStoreDidChange(self)
     }
 
-    func toggleValue(for filter: Filter) {
-        if isSelected(filter) {
+    @discardableResult
+    func toggleValue(for filter: Filter) -> Bool {
+        let isSelected = self.isSelected(filter)
+
+        if isSelected {
             _removeValues(for: filter)
         } else {
             _setValue(filter.value, for: filter)
         }
 
         delegate?.filterSelectionStoreDidChange(self)
+
+        return !isSelected
     }
 
     func isSelected(_ filter: Filter) -> Bool {

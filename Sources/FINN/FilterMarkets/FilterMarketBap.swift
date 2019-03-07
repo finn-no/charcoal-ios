@@ -79,7 +79,14 @@ extension FilterMarketBap: FINNFilterConfiguration {
             return RangeFilterConfiguration(
                 minimumValue: 0,
                 maximumValue: 30000,
-                valueKind: .incremented(1000),
+                valueKind: .intervals(
+                    array: [
+                        (from: 0, increment: 50),
+                        (from: 500, increment: 100),
+                        (from: 1500, increment: 500),
+                        (from: 6000, increment: 1000),
+                    ]
+                ),
                 hasLowerBoundOffset: false,
                 hasUpperBoundOffset: true,
                 unit: "kr",

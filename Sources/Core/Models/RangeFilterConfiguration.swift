@@ -3,9 +3,12 @@
 //
 
 public struct RangeFilterConfiguration: Equatable {
+    public typealias StepInterval = (from: Int, increment: Int)
+
     public enum ValueKind {
         case incremented(Int)
         case steps([Int])
+        case intervals(array: [StepInterval])
     }
 
     public let minimumValue: Int
@@ -61,24 +64,14 @@ public struct RangeFilterConfiguration: Equatable {
         self.displaysUnitInNumberInput = displaysUnitInNumberInput
         self.isCurrencyValueRange = isCurrencyValueRange
 
-        let stepValues: [Int]
-
         switch valueKind {
         case let .incremented(increment):
-            var values = [Int]()
-            var value = minimumValue
-
-            while value + increment < maximumValue {
-                value += increment
-                values.append(value)
-            }
-
-            stepValues = values
+            self.values = (minimumValue ... maximumValue).stepValues(with: [(from: 0, increment: increment)])
         case let .steps(values):
-            stepValues = values
+            self.values = ([minimumValue] + values + [maximumValue]).compactMap({ $0 })
+        case let .intervals(array):
+            self.values = (minimumValue ... maximumValue).stepValues(with: array)
         }
-
-        values = ([minimumValue] + stepValues + [maximumValue]).compactMap({ $0 })
     }
 
     // MARK: - Helpers
@@ -93,5 +86,31 @@ public struct RangeFilterConfiguration: Equatable {
         }
 
         return values.value(for: step)
+    }
+}
+
+// MARK: - Private extensions
+
+private extension ClosedRange where Bound == Int {
+    func stepValues(with intervals: [RangeFilterConfiguration.StepInterval]) -> [Int] {
+        let intervals = intervals.reversed()
+        var i = lowerBound
+        var values = [i]
+
+        while i < upperBound {
+            if let interval = intervals.first(where: { i >= $0.from }) {
+                i += interval.increment
+            } else {
+                i += 1
+            }
+
+            if i > lowerBound && i < upperBound {
+                values.append(i)
+            }
+        }
+
+        values.append(upperBound)
+
+        return values
     }
 }

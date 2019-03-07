@@ -12,7 +12,7 @@ public class FilterContainer {
 
     // MARK: - Internal properties
 
-    var rootFilter: Filter
+    let rootFilter: Filter
 
     // MARK: - Setup
 

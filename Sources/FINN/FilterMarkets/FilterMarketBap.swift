@@ -84,7 +84,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
                         (range: 0 ..< 500, increment: 50),
                         (range: 500 ..< 1500, increment: 100),
                         (range: 1500 ..< 6000, increment: 500),
-                        ],
+                    ],
                     defaultIncrement: 1000
                 ),
                 hasLowerBoundOffset: false,

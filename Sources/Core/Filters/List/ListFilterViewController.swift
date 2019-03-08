@@ -23,9 +23,8 @@ final class ListFilterViewController: FilterViewController {
     }()
 
     private let filter: Filter
-    private var lastSelectedIndexPath: IndexPath?
 
-    private var showSelectAllCell: Bool {
+    private var canSelectAll: Bool {
         return filter.value != nil
     }
 
@@ -53,12 +52,6 @@ final class ListFilterViewController: FilterViewController {
         tableView.reloadData()
     }
 
-    override func showBottomButton(_ show: Bool, animated: Bool) {
-        super.showBottomButton(show, animated: animated)
-        let bottomInset = show ? bottomButton.height : 0
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
-    }
-
     // MARK: - Setup
 
     func setup() {
@@ -68,7 +61,7 @@ final class ListFilterViewController: FilterViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ])
     }
 }
@@ -85,7 +78,7 @@ extension ListFilterViewController: UITableViewDataSource {
 
         switch section {
         case .all:
-            return showSelectAllCell ? 1 : 0
+            return canSelectAll ? 1 : 0
         case .subfilters:
             return filter.subfilters.count
         }
@@ -96,11 +89,11 @@ extension ListFilterViewController: UITableViewDataSource {
 
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
         let viewModel: ListFilterCellViewModel
+        let isAllSelected = canSelectAll && selectionStore.isSelected(filter)
 
         switch section {
         case .all:
-            let isSelected = selectionStore.isSelected(filter)
-            viewModel = .selectAll(from: filter, isSelected: isSelected)
+            viewModel = .selectAll(from: filter, isSelected: isAllSelected)
         case .subfilters:
             let subfilter = filter.subfilters[indexPath.row]
 
@@ -110,11 +103,12 @@ extension ListFilterViewController: UITableViewDataSource {
             default:
                 let isSelected = selectionStore.isSelected(subfilter)
                 let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
-                viewModel = .regular(from: subfilter, isSelected: isSelected, hasSelectedSubfilters: hasSelectedSubfilters)
+                viewModel = .regular(from: subfilter, isSelected: isSelected || hasSelectedSubfilters || isAllSelected)
             }
         }
 
-        cell.configure(with: viewModel, animated: indexPath == lastSelectedIndexPath)
+        cell.configure(with: viewModel)
+        cell.isEnabled = !isAllSelected || section == .all
 
         return cell
     }
@@ -126,41 +120,36 @@ extension ListFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
-        lastSelectedIndexPath = indexPath
+        tableView.deselectRow(at: indexPath, animated: false)
 
         switch section {
         case .all:
-            for subfilter in filter.subfilters {
-                selectionStore.removeValues(for: subfilter)
-            }
+            let isSelected = selectionStore.toggleValue(for: filter)
 
-            selectionStore.toggleValue(for: filter)
-            tableView.reloadData()
+            animateSelectionForRow(at: indexPath, isSelected: isSelected)
+            tableView.reloadSections(IndexSet(integer: Section.subfilters.rawValue), with: .fade)
             showBottomButton(true, animated: true)
         case .subfilters:
             let subfilter = filter.subfilters[indexPath.row]
 
             switch subfilter.kind {
             case _ where !subfilter.subfilters.isEmpty, .external:
-                tableView.deselectRow(at: indexPath, animated: true)
                 break
             default:
-                if selectionStore.isSelected(filter) {
-                    selectionStore.removeValues(for: filter)
-                }
+                let isSelected = selectionStore.toggleValue(for: subfilter)
 
-                selectionStore.toggleValue(for: subfilter)
-
-                let selectAllIndexPath = showSelectAllCell ? IndexPath(item: 0, section: Section.all.rawValue) : nil
-                let indexPaths = [indexPath, selectAllIndexPath].compactMap({ $0 })
-
-                tableView.reloadRows(at: indexPaths, with: .none)
+                animateSelectionForRow(at: indexPath, isSelected: isSelected)
                 showBottomButton(true, animated: true)
+                tableView.scrollToRow(at: indexPath, at: .none, animated: true)
             }
 
             delegate?.filterViewController(self, didSelectFilter: subfilter)
         }
+    }
 
-        lastSelectedIndexPath = nil
+    private func animateSelectionForRow(at indexPath: IndexPath, isSelected: Bool) {
+        if let cell = tableView.cellForRow(at: indexPath) as? ListFilterCell {
+            cell.animateSelection(isSelected: isSelected)
+        }
     }
 }

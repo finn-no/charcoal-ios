@@ -17,9 +17,9 @@ enum CharcoalImageAsset: String {
     case arrowDown
     case arrowLeft
     case arrowRight
-    case checkboxOff
-    case checkboxOn
-    case checkboxPartial
+    case checkboxBordered
+    case checkboxBorderedDisabled
+    case checkboxFilledDisabled
     case currentLocationIcon
     case disclosureIndicator
     case externalLink
@@ -41,9 +41,9 @@ enum CharcoalImageAsset: String {
             .arrowDown,
             .arrowLeft,
             .arrowRight,
-            .checkboxOff,
-            .checkboxOn,
-            .checkboxPartial,
+            .checkboxBordered,
+            .checkboxBorderedDisabled,
+            .checkboxFilledDisabled,
             .currentLocationIcon,
             .disclosureIndicator,
             .externalLink,

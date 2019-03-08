@@ -144,6 +144,7 @@
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
+		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
 		CFFD9F8D21F09F7500997D14 /* RangeFilterConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
@@ -353,6 +354,7 @@
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
+		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
 		CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfigurationTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
@@ -937,6 +939,15 @@
 			path = Haptics;
 			sourceTree = "<group>";
 		};
+		CFEDCD8A223273DC008FCDB1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CF7C46102226F415001FB92C /* ListFilterCell.swift */,
+				CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CFFD9F8A21F07A7700997D14 /* StepSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -986,9 +997,9 @@
 		DA39FA1D220B17DB00608AC4 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */,
 				CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */,
-				CF7C46102226F415001FB92C /* ListFilterCell.swift */,
+				CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */,
+				CFEDCD8A223273DC008FCDB1 /* Views */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1333,6 +1344,7 @@
 				CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
+				CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
 				CF81E10D221C515800D00423 /* FINNFilterConfiguration.swift in Sources */,

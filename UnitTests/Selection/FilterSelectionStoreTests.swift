@@ -96,6 +96,39 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(from: subfilterB)
         XCTAssertTrue(store.isSelected(subfilterB))
+        XCTAssertFalse(store.isSelected(filter))
+    }
+
+    func testIsSelectedWithRanges() {
+        let config = RangeFilterConfiguration.makeStub()
+        let filter = Filter.range(title: "Range", key: "range", lowValueKey: "range_from", highValueKey: "range_to", config: config)
+        let lowValueFilter = filter.subfilters[0]
+        let highValueFilter = filter.subfilters[1]
+
+        store.setValue(10, for: lowValueFilter)
+        store.removeValues(for: highValueFilter)
+        XCTAssertTrue(store.isSelected(lowValueFilter))
+        XCTAssertFalse(store.isSelected(highValueFilter))
+        XCTAssertTrue(store.isSelected(filter))
+
+        store.removeValues(for: lowValueFilter)
+        store.setValue(20, for: highValueFilter)
+        XCTAssertFalse(store.isSelected(lowValueFilter))
+        XCTAssertTrue(store.isSelected(highValueFilter))
+        XCTAssertTrue(store.isSelected(filter))
+
+        store.setValue(10, for: lowValueFilter)
+        store.setValue(20, for: highValueFilter)
+        XCTAssertTrue(store.isSelected(lowValueFilter))
+        XCTAssertTrue(store.isSelected(highValueFilter))
+        XCTAssertTrue(store.isSelected(filter))
+    }
+
+    func testIsSelectedWithMap() {
+        let filter = Filter.map(title: "Map", key: "map", latitudeKey: "lat", longitudeKey: "lon", radiusKey: "r", locationKey: "loc")
+
+        store.setValue(10, for: filter.subfilters[2])
+        XCTAssertTrue(store.isSelected(filter.subfilters[2]))
         XCTAssertTrue(store.isSelected(filter))
     }
 
@@ -139,7 +172,7 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(from: subfilterA)
         store.setValue(from: subfilterB)
-        XCTAssertEqual(store.titles(for: filter), ["filter"])
+        XCTAssertEqual(store.titles(for: filter), ["subfilter A", "subfilter B"])
 
         store.removeValues(for: subfilterB)
         XCTAssertEqual(store.titles(for: filter), ["subfilter A"])

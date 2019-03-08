@@ -74,6 +74,12 @@ final class RootFilterViewController: FilterViewController {
         tableView.reloadData()
     }
 
+    // MARK: - Public
+
+    func reloadFilters() {
+        tableView.reloadData()
+    }
+
     // MARK: - Setup
 
     func set(filter: Filter, verticals: [Vertical]?) {

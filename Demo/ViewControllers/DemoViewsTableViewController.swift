@@ -68,7 +68,7 @@ class DemoViewsTableViewController: UITableViewController {
 
             let filter = filterContainer(forMarket: market, using: config)
             let controller = CharcoalViewController()
-            controller.configure(with: filter)
+            controller.filter = filter
             controller.filterDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
@@ -138,13 +138,17 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
 
         viewController.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            viewController.configure(with: filter)
+            viewController.filter = filter
             viewController.isLoading = false
         }
     }
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {
         UIApplication.shared.openURL(URL(string: "https://finn.no")!)
+    }
+
+    func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController) {
+        print("Did press show results")
     }
 }
 

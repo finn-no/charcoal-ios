@@ -24,6 +24,10 @@ final class FilterSelectionStore {
         self.queryItems = queryItems
     }
 
+    func set(selection: Set<URLQueryItem>) {
+        queryItems = selection
+    }
+
     // MARK: - Values
 
     func value<T: LosslessStringConvertible>(for filter: Filter) -> T? {

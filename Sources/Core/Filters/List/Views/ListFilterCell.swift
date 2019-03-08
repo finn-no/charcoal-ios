@@ -16,14 +16,6 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private lazy var checkboxImageView = ListFilterImageView(withAutoLayout: true)
 
-    private lazy var alternativeAccessoryView: UIImageView = {
-        let imageView = UIImageView(withAutoLayout: true)
-        imageView.backgroundColor = .milk
-        imageView.tintColor = .chevron
-        imageView.isHidden = true
-        return imageView
-    }()
-
     private lazy var overlayView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = UIColor(white: 1, alpha: 0.5)
@@ -43,6 +35,22 @@ final class ListFilterCell: CheckboxTableViewCell {
     }
 
     // MARK: - Overrides
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if let accessoryView = accessoryView {
+            let size: CGFloat = 14
+            let xPosition = bounds.width - size - .smallSpacing * 3
+            accessoryView.frame = CGRect(x: xPosition, y: (bounds.height - size) / 2, width: size, height: size)
+            contentView.frame.size.width = xPosition - .mediumSpacing
+        }
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        accessoryView = nil
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         let isCheckboxHighlighted = checkbox.isHighlighted
@@ -86,15 +94,14 @@ final class ListFilterCell: CheckboxTableViewCell {
         switch viewModel.accessoryStyle {
         case .none:
             selectionStyle = .none
-            alternativeAccessoryView.isHidden = true
         case .chevron:
             selectionStyle = .default
-            alternativeAccessoryView.isHidden = true
         case .external:
             selectionStyle = .default
-            alternativeAccessoryView.isHidden = false
-            alternativeAccessoryView.image = UIImage(named: .webview).withRenderingMode(.alwaysTemplate)
-            bringSubviewToFront(alternativeAccessoryView)
+
+            let accessoryView = UIImageView(image: UIImage(named: .webview).withRenderingMode(.alwaysTemplate))
+            accessoryView.tintColor = .chevron
+            self.accessoryView = accessoryView
         }
 
         switch viewModel.checkboxStyle {
@@ -112,7 +119,6 @@ final class ListFilterCell: CheckboxTableViewCell {
     private func setup() {
         titleLabel.font = .regularBody
 
-        addSubview(alternativeAccessoryView)
         addSubview(overlayView)
         checkbox.addSubview(checkboxImageView)
 
@@ -123,11 +129,6 @@ final class ListFilterCell: CheckboxTableViewCell {
         checkboxImageView.fillInSuperview()
 
         NSLayoutConstraint.activate([
-            alternativeAccessoryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.smallSpacing * 3),
-            alternativeAccessoryView.heightAnchor.constraint(equalToConstant: 14),
-            alternativeAccessoryView.widthAnchor.constraint(equalTo: alternativeAccessoryView.heightAnchor),
-            alternativeAccessoryView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-
             overlayView.topAnchor.constraint(equalTo: topAnchor),
             overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1),
             overlayView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),

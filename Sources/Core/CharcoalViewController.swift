@@ -8,11 +8,16 @@ public protocol CharcoalViewControllerDelegate: class {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem])
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?)
+    func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController)
 }
 
 public class CharcoalViewController: UINavigationController {
 
     // MARK: - Public properties
+
+    public var filter: FilterContainer? {
+        didSet { configure(with: filter) }
+    }
 
     public weak var filterDelegate: CharcoalViewControllerDelegate?
 
@@ -41,8 +46,6 @@ public class CharcoalViewController: UINavigationController {
 
     // MARK: - Private properties
 
-    private var filter: FilterContainer?
-
     private var selectionHasChanged = false
     private var selectionStore = FilterSelectionStore()
 
@@ -67,6 +70,13 @@ public class CharcoalViewController: UINavigationController {
         delegate = self
     }
 
+    // MARK: - Public
+
+    public func set(selection: Set<URLQueryItem>) {
+        selectionStore.set(selection: selection)
+        rootFilterViewController?.reloadFilters()
+    }
+
     // MARK: - Private
 
     private func updateLoading() {
@@ -78,15 +88,8 @@ public class CharcoalViewController: UINavigationController {
         }
     }
 
-    // MARK: - Public
-
-    public func configure(with filter: FilterContainer, queryItems: Set<URLQueryItem>? = nil) {
-        self.filter = filter
-
-        if let queryItems = queryItems {
-            selectionStore = FilterSelectionStore(queryItems: queryItems)
-            selectionStore.delegate = self
-        }
+    private func configure(with filter: FilterContainer?) {
+        guard let filter = filter else { return }
 
         if let rootFilterViewController = rootFilterViewController {
             rootFilterViewController.set(filter: filter.rootFilter, verticals: filter.verticals)
@@ -115,7 +118,11 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 
 extension CharcoalViewController: FilterViewControllerDelegate {
     func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
-        popToRootViewController(animated: true)
+        if viewController === rootFilterViewController {
+            filterDelegate?.charcoalViewControllerDidPressShowResults(self)
+        } else {
+            popToRootViewController(animated: true)
+        }
     }
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {

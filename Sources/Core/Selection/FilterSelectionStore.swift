@@ -24,6 +24,10 @@ final class FilterSelectionStore {
         self.queryItems = queryItems
     }
 
+    func set(selection: Set<URLQueryItem>) {
+        queryItems = selection
+    }
+
     // MARK: - Values
 
     func value<T: LosslessStringConvertible>(for filter: Filter) -> T? {
@@ -63,27 +67,28 @@ extension FilterSelectionStore {
         delegate?.filterSelectionStoreDidChange(self)
     }
 
-    func toggleValue(for filter: Filter) {
-        if isSelected(filter) {
-            _removeValues(for: filter)
-        } else {
+    @discardableResult
+    func toggleValue(for filter: Filter) -> Bool {
+        let isSelected = self.isSelected(filter)
+
+        _removeValues(for: filter)
+
+        if !isSelected {
             _setValue(filter.value, for: filter)
         }
 
         delegate?.filterSelectionStoreDidChange(self)
+
+        return !isSelected
     }
 
     func isSelected(_ filter: Filter) -> Bool {
-        let selected: Bool
-
         switch filter.kind {
         case .map, .range:
-            selected = filter.subfilters.contains(where: { isSelected($0) })
+            return filter.subfilters.contains(where: { isSelected($0) })
         default:
-            selected = !filter.subfilters.isEmpty && filter.subfilters.allSatisfy { isSelected($0) }
+            return queryItem(for: filter) != nil
         }
-
-        return queryItem(for: filter) != nil || selected
     }
 }
 

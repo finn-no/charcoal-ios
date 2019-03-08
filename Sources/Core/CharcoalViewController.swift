@@ -73,11 +73,8 @@ public class CharcoalViewController: UINavigationController {
     // MARK: - Public
 
     public func set(selection: Set<URLQueryItem>) {
-        selectionStore = FilterSelectionStore(queryItems: selection)
-
-        if let filter = filter {
-            rootFilterViewController?.set(filter: filter.rootFilter, verticals: filter.verticals)
-        }
+        selectionStore.set(selection: selection)
+        rootFilterViewController?.reloadFilters()
     }
 
     // MARK: - Private

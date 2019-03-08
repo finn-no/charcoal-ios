@@ -52,12 +52,6 @@ final class ListFilterViewController: FilterViewController {
         tableView.reloadData()
     }
 
-    override func showBottomButton(_ show: Bool, animated: Bool) {
-        super.showBottomButton(show, animated: animated)
-        let bottomInset = show ? bottomButton.height : 0
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
-    }
-
     // MARK: - Setup
 
     func setup() {
@@ -67,7 +61,7 @@ final class ListFilterViewController: FilterViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ])
     }
 }
@@ -146,6 +140,7 @@ extension ListFilterViewController: UITableViewDelegate {
 
                 animateSelectionForRow(at: indexPath, isSelected: isSelected)
                 showBottomButton(true, animated: true)
+                tableView.scrollToRow(at: indexPath, at: .none, animated: true)
             }
 
             delegate?.filterViewController(self, didSelectFilter: subfilter)

@@ -49,6 +49,7 @@ private extension Segment {
     func updateSelectedItems() {
         buttons.forEach { $0.isSelected = false }
         selectedItems.forEach { buttons[$0].isSelected = true }
+        updateSplitLines()
     }
 
     @objc func handleButton(sender: SegmentButton) {
@@ -64,6 +65,10 @@ private extension Segment {
         setSelected(sender.isSelected, atIndex: index)
         // Notfify target of event
         sendActions(for: .valueChanged)
+        updateSplitLines()
+    }
+
+    func updateSplitLines() {
         // Hide split lines based on whether the two surrounding buttons are selected or not
         buttons.enumerated().forEach { index, button in
             let isPreviousButtonSelected = buttons[safe: index - 1]?.isSelected ?? false

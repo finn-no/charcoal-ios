@@ -67,9 +67,9 @@ extension FilterSelectionStore {
     func toggleValue(for filter: Filter) -> Bool {
         let isSelected = self.isSelected(filter)
 
-        if isSelected {
-            _removeValues(for: filter)
-        } else {
+        _removeValues(for: filter)
+
+        if !isSelected {
             _setValue(filter.value, for: filter)
         }
 
@@ -79,16 +79,12 @@ extension FilterSelectionStore {
     }
 
     func isSelected(_ filter: Filter) -> Bool {
-        let selected: Bool
-
         switch filter.kind {
         case .map, .range:
-            selected = filter.subfilters.contains(where: { isSelected($0) })
+            return filter.subfilters.contains(where: { isSelected($0) })
         default:
-            selected = !filter.subfilters.isEmpty && filter.subfilters.allSatisfy { isSelected($0) }
+            return queryItem(for: filter) != nil
         }
-
-        return queryItem(for: filter) != nil || selected
     }
 }
 

@@ -43,6 +43,8 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
+    private var inlineFilterView: InlineFilterView?
+
     private var filter: Filter
 
     // MARK: - Init
@@ -126,11 +128,14 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.configure(with: freeTextFilterViewController!.searchBar)
             return cell
         case .inline:
-            let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
-            cell.delegate = self
-            let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
+            inlineFilterView = inlineFilterView ?? InlineFilterView(selectionStore: selectionStore)
+            inlineFilterView?.delegate = self
+
             let vertical = verticals?.first(where: { $0.isCurrent })
-            cell.configure(with: segmentTitles, vertical: vertical?.title)
+            inlineFilterView?.configure(with: currentFilter, vertical: vertical?.title)
+
+            let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
+            cell.configure(with: inlineFilterView!)
             return cell
         default:
             let titles = selectionStore.titles(for: currentFilter)
@@ -203,18 +208,6 @@ extension RootFilterViewController: RootFilterCellDelegate {
 // MARK: - CCInlineFilterViewDelegate
 
 extension RootFilterViewController: InlineFilterViewDelegate {
-    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChangeSegment segment: Segment, at index: Int) {
-        guard let subfilter = filter.subfilter(at: index) else { return }
-
-        selectionStore.removeValues(for: subfilter)
-
-        for index in segment.selectedItems {
-            if let subfilter = subfilter.subfilter(at: index) {
-                selectionStore.setValue(from: subfilter)
-            }
-        }
-    }
-
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
         guard let verticals = verticals else { return }
         let verticalViewController = VerticalListViewController(verticals: verticals)

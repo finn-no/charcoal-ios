@@ -8,6 +8,7 @@ public protocol CharcoalViewControllerDelegate: class {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem])
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?)
+    func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController)
 }
 
 public class CharcoalViewController: UINavigationController {
@@ -120,7 +121,11 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 
 extension CharcoalViewController: FilterViewControllerDelegate {
     func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
-        popToRootViewController(animated: true)
+        if viewController === rootFilterViewController {
+            filterDelegate?.charcoalViewControllerDidPressShowResults(self)
+        } else {
+            popToRootViewController(animated: true)
+        }
     }
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {

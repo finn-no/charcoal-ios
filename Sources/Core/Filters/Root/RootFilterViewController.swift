@@ -99,6 +99,7 @@ final class RootFilterViewController: FilterViewController {
 
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filter)
+        freeTextFilterViewController?.searchBar.text = nil
         tableView.reloadData()
     }
 }

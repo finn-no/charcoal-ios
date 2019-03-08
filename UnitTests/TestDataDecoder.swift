@@ -3,6 +3,7 @@
 //
 
 @testable import Charcoal
+@testable import FINNSetup
 import XCTest
 
 protocol TestDataDecoder {

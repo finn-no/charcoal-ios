@@ -3,6 +3,7 @@
 //
 
 @testable import Charcoal
+@testable import FINNSetup
 import XCTest
 
 final class FilterTests: XCTestCase {

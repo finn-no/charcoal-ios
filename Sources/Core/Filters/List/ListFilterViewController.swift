@@ -28,6 +28,10 @@ final class ListFilterViewController: FilterViewController {
         return filter.value != nil
     }
 
+    private var isAllSelected: Bool {
+        return canSelectAll && selectionStore.isSelected(filter)
+    }
+
     // MARK: - Init
 
     init(filter: Filter, selectionStore: FilterSelectionStore) {
@@ -49,6 +53,12 @@ final class ListFilterViewController: FilterViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        if isAllSelected {
+            deselectSubfilters()
+            selectionStore.setValue(from: filter)
+        }
+
         tableView.reloadData()
     }
 
@@ -69,6 +79,12 @@ final class ListFilterViewController: FilterViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+
+    private func deselectSubfilters() {
+        for subfilter in filter.subfilters {
+            selectionStore.removeValues(for: subfilter)
+        }
     }
 }
 
@@ -95,7 +111,7 @@ extension ListFilterViewController: UITableViewDataSource {
 
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
         let viewModel: ListFilterCellViewModel
-        let isAllSelected = canSelectAll && selectionStore.isSelected(filter)
+        let isAllSelected = self.isAllSelected
 
         switch section {
         case .all:
@@ -114,7 +130,7 @@ extension ListFilterViewController: UITableViewDataSource {
         }
 
         cell.configure(with: viewModel)
-        cell.isEnabled = !isAllSelected
+        cell.isEnabled = !isAllSelected || section == .all
 
         return cell
     }
@@ -130,9 +146,7 @@ extension ListFilterViewController: UITableViewDelegate {
 
         switch section {
         case .all:
-            for subfilter in filter.subfilters {
-                selectionStore.removeValues(for: subfilter)
-            }
+            deselectSubfilters()
 
             let isSelected = selectionStore.toggleValue(for: filter)
 

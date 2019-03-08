@@ -253,8 +253,8 @@ SWIFT_CLASS("_TtC12FinniversKit21AnimatedSelectionView")
 
 SWIFT_CLASS("_TtC12FinniversKit20AnimatedCheckboxView")
 @interface AnimatedCheckboxView : AnimatedSelectionView
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -536,6 +536,13 @@ SWIFT_CLASS("_TtC12FinniversKit12FeedbackView")
 - (void)layoutSubviews;
 @end
 
+typedef SWIFT_ENUM(NSInteger, State, closed) {
+  StateInitial = 0,
+  StateAccept = 1,
+  StateDecline = 2,
+  StateFinished = 3,
+};
+
 
 /// Class for referencing the framework bundle
 SWIFT_CLASS("_TtC12FinniversKit12FinniversKit")
@@ -565,6 +572,57 @@ SWIFT_CLASS("_TtC12FinniversKit13FrontPageView")
 
 
 
+@protocol UIViewControllerAnimatedTransitioning;
+
+SWIFT_CLASS("_TtC12FinniversKit40FullscreenGalleryTransitioningController")
+@interface FullscreenGalleryTransitioningController : NSObject <UIViewControllerTransitioningDelegate>
+- (id <UIViewControllerAnimatedTransitioning> _Nullable)animationControllerForPresentedController:(UIViewController * _Nonnull)presented presentingController:(UIViewController * _Nonnull)presenting sourceController:(UIViewController * _Nonnull)source SWIFT_WARN_UNUSED_RESULT;
+- (id <UIViewControllerAnimatedTransitioning> _Nullable)animationControllerForDismissedController:(UIViewController * _Nonnull)dismissed SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+@protocol UIViewControllerTransitionCoordinator;
+
+SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
+@interface FullscreenGalleryViewController : UIPageViewController
+@property (nonatomic, readonly) BOOL prefersStatusBarHidden;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithTransitionStyle:(UIPageViewControllerTransitionStyle)style navigationOrientation:(UIPageViewControllerNavigationOrientation)navigationOrientation options:(NSDictionary<UIPageViewControllerOptionsKey, id> * _Nullable)options OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
+- (void)viewDidLayoutSubviews;
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator> _Nonnull)coordinator;
+@end
+
+
+
+
+
+@class UIGestureRecognizer;
+
+@interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
+- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
+- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
+- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
+@end
+
+
+
+
+
+
+@interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDataSource>
+- (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
+- (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
 
 SWIFT_CLASS("_TtC12FinniversKit19HappinessRatingView")
 @interface HappinessRatingView : UIView
@@ -583,7 +641,6 @@ SWIFT_CLASS("_TtC12FinniversKit18HeartTableViewCell")
 
 @protocol HorizontalSlideTransitionDelegate;
 @class UIPresentationController;
-@protocol UIViewControllerAnimatedTransitioning;
 
 SWIFT_CLASS("_TtC12FinniversKit25HorizontalSlideTransition")
 @interface HorizontalSlideTransition : NSObject <UIViewControllerTransitioningDelegate>
@@ -1025,14 +1082,14 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
+
+
+
+
 @interface UIColor (SWIFT_EXTENSION(FinniversKit))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
-
-
 
 
 

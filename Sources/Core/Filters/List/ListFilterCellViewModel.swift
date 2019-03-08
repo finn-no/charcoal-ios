@@ -13,8 +13,8 @@ struct ListFilterCellViewModel: SelectableTableViewCellViewModel {
 
     enum CheckboxStyle {
         case deselected
-        case selected
-        case partiallySelected
+        case selectedFilled
+        case selectedBordered
     }
 
     let title: String
@@ -28,7 +28,7 @@ struct ListFilterCellViewModel: SelectableTableViewCellViewModel {
     }
 
     var isSelected: Bool {
-        return checkboxStyle == .selected
+        return checkboxStyle == .selectedFilled
     }
 }
 
@@ -36,7 +36,7 @@ struct ListFilterCellViewModel: SelectableTableViewCellViewModel {
 
 extension ListFilterCellViewModel {
     static func selectAll(from filter: Filter, isSelected: Bool) -> ListFilterCellViewModel {
-        let checkboxStyle: CheckboxStyle = isSelected ? .selected : .deselected
+        let checkboxStyle: CheckboxStyle = isSelected ? .selectedFilled : .deselected
 
         return ListFilterCellViewModel(
             title: "all_items_title".localized(),
@@ -52,7 +52,7 @@ extension ListFilterCellViewModel {
 
         switch isSelected {
         case true:
-            checkboxStyle = filter.subfilters.isEmpty ? .selected : .partiallySelected
+            checkboxStyle = filter.subfilters.isEmpty ? .selectedFilled : .selectedBordered
         case false:
             checkboxStyle = .deselected
         }

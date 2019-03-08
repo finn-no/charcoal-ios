@@ -98,10 +98,10 @@ final class ListFilterCell: CheckboxTableViewCell {
         }
 
         switch viewModel.checkboxStyle {
-        case .partiallySelected:
+        case .selectedBordered:
             checkboxImageView.setImage(UIImage(named: .checkboxBordered), for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxBorderedDisabled), for: .disabled)
-        case .selected:
+        case .selectedFilled:
             checkboxImageView.setImage(nil, for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxFilledDisabled), for: .disabled)
         case .deselected:

@@ -16,7 +16,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private lazy var checkboxImageView = ListFilterImageView(withAutoLayout: true)
 
-    private lazy var chevronImageView: UIImageView = {
+    private lazy var alternativeAccessoryView: UIImageView = {
         let imageView = UIImageView(withAutoLayout: true)
         imageView.backgroundColor = .milk
         imageView.tintColor = .chevron
@@ -86,15 +86,15 @@ final class ListFilterCell: CheckboxTableViewCell {
         switch viewModel.accessoryStyle {
         case .none:
             selectionStyle = .none
-            chevronImageView.isHidden = true
+            alternativeAccessoryView.isHidden = true
         case .chevron:
             selectionStyle = .default
-            chevronImageView.isHidden = true
+            alternativeAccessoryView.isHidden = true
         case .external:
             selectionStyle = .default
-            chevronImageView.isHidden = false
-            chevronImageView.image = UIImage(named: .webview).withRenderingMode(.alwaysTemplate)
-            bringSubviewToFront(chevronImageView)
+            alternativeAccessoryView.isHidden = false
+            alternativeAccessoryView.image = UIImage(named: .webview).withRenderingMode(.alwaysTemplate)
+            bringSubviewToFront(alternativeAccessoryView)
         }
 
         switch viewModel.checkboxStyle {
@@ -112,7 +112,7 @@ final class ListFilterCell: CheckboxTableViewCell {
     private func setup() {
         titleLabel.font = .regularBody
 
-        addSubview(chevronImageView)
+        addSubview(alternativeAccessoryView)
         addSubview(overlayView)
         checkbox.addSubview(checkboxImageView)
 
@@ -123,10 +123,10 @@ final class ListFilterCell: CheckboxTableViewCell {
         checkboxImageView.fillInSuperview()
 
         NSLayoutConstraint.activate([
-            chevronImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.smallSpacing * 3),
-            chevronImageView.heightAnchor.constraint(equalToConstant: 14),
-            chevronImageView.widthAnchor.constraint(equalTo: chevronImageView.heightAnchor),
-            chevronImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            alternativeAccessoryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.smallSpacing * 3),
+            alternativeAccessoryView.heightAnchor.constraint(equalToConstant: 14),
+            alternativeAccessoryView.widthAnchor.constraint(equalTo: alternativeAccessoryView.heightAnchor),
+            alternativeAccessoryView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             overlayView.topAnchor.constraint(equalTo: topAnchor),
             overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1),

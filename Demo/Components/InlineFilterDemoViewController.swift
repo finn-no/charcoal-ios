@@ -6,7 +6,7 @@
 
 final class InlineFilterDemoViewController: UIViewController {
     lazy var inlineFilterView: InlineFilterView = {
-        let view = InlineFilterView(selectionStore: FilterSelectionStore())
+        let view = InlineFilterView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -36,7 +36,7 @@ extension InlineFilterDemoViewController: InlineFilterViewDelegate {
         return
     }
 
-    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChangeSegment segment: Segment, at index: Int) {
+    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChange segment: Segment, at index: Int) {
         return
     }
 }

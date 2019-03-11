@@ -43,7 +43,6 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
-    private var inlineFilterView: InlineFilterView?
 
     private var filter: Filter
 
@@ -134,14 +133,19 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.configure(with: freeTextFilterViewController!.searchBar)
             return cell
         case .inline:
-            inlineFilterView = inlineFilterView ?? InlineFilterView(selectionStore: selectionStore)
-            inlineFilterView?.delegate = self
-
             let vertical = verticals?.first(where: { $0.isCurrent })
-            inlineFilterView?.configure(with: currentFilter, vertical: vertical?.title)
+            let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
+
+            let selectedItems = currentFilter.subfilters.compactMap({
+                $0.subfilters.enumerated().compactMap({ index, filter in
+                    self.selectionStore.isSelected(filter) == true ? index : nil
+                })
+            })
 
             let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
-            cell.configure(with: inlineFilterView!)
+            cell.delegate = self
+
+            cell.configure(withTitles: segmentTitles, vertical: vertical?.title, selectedItems: selectedItems)
             return cell
         default:
             let titles = selectionStore.titles(for: currentFilter)
@@ -214,6 +218,27 @@ extension RootFilterViewController: RootFilterCellDelegate {
 // MARK: - CCInlineFilterViewDelegate
 
 extension RootFilterViewController: InlineFilterViewDelegate {
+    func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int) {
+        guard let inlineFilter = filter.subfilters.first(where: { filter -> Bool in
+            if case .inline = filter.kind {
+                return true
+            } else {
+                return false
+            }
+        }) else { return }
+
+        guard let subfilter = inlineFilter.subfilter(at: index) else { return }
+        selectionStore.removeValues(for: subfilter)
+
+        for index in segment.selectedItems {
+            if let subfilter = subfilter.subfilter(at: index) {
+                selectionStore.setValue(from: subfilter)
+            }
+        }
+
+        rootDelegate?.filterViewController(self, didSelectFilter: inlineFilter)
+    }
+
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
         guard let verticals = verticals else { return }
         let verticalViewController = VerticalListViewController(verticals: verticals)
@@ -236,6 +261,10 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
 // MARK: - FreeTextFilterViewControllerDelegate
 
 extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelect value: String?, for filter: Filter) {
+        rootDelegate?.filterViewController(self, didSelectFilter: filter)
+    }
+
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
         add(viewController)
     }

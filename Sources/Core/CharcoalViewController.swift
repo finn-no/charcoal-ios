@@ -158,10 +158,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             mapViewController.searchLocationDataSource = searchLocationDataSource
 
             pushViewController(mapViewController)
-        case .inline, .search:
-            break
-        case .external:
-            filterDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         case .list:
             guard !filter.subfilters.isEmpty else { break }
 
@@ -170,6 +166,11 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
             listViewController.showBottomButton(showBottomButton, animated: false)
             pushViewController(listViewController)
+        case .external:
+            filterDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
+        case .inline, .search:
+            guard let rootFilter = self.filter?.rootFilter else { return }
+            filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: rootFilter))
         }
     }
 
@@ -183,12 +184,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
 extension CharcoalViewController: FilterSelectionStoreDelegate {
     func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {
-        if topViewController === rootFilterViewController {
-            // Changes in inline filters or removes selected filters
-            guard let filter = filter else { return }
-            filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
-            selectionHasChanged = false
-        } else {
+        if topViewController !== rootFilterViewController {
             selectionHasChanged = true
         }
     }

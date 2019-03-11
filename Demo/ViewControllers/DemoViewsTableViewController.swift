@@ -164,10 +164,11 @@ extension DemoViewsTableViewController: FreeTextFilterDataSource, FreeTextFilter
     func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, didChangeText text: String?) {
         if let text = text, !text.isEmpty {
             freeTextSearchSuggestions = (1 ... 5).map { "\(text)\($0)" }
-            freeTextFilterViewController.reloadData()
         } else {
             freeTextSearchSuggestions = []
         }
+
+        freeTextFilterViewController.reloadData()
     }
 }
 

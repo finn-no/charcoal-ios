@@ -5,6 +5,7 @@
 import UIKit
 
 protocol InlineFilterViewDelegate: class {
+    func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int)
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment)
 }
 
@@ -16,10 +17,8 @@ final class InlineFilterView: UIView {
 
     // MARK: - Private properties
 
-    private var filter: Filter?
     private var vertical: String?
-    private let selectionStore: FilterSelectionStore
-
+    private var segmentTitles: [[String]] = []
     private var segments: [Segment] = []
 
     private lazy var collectionView: UICollectionView = {
@@ -37,8 +36,7 @@ final class InlineFilterView: UIView {
         return collectionView
     }()
 
-    init(selectionStore: FilterSelectionStore) {
-        self.selectionStore = selectionStore
+    init() {
         super.init(frame: .zero)
         setup()
     }
@@ -49,10 +47,10 @@ final class InlineFilterView: UIView {
 
     // MARK: - Public
 
-    func configure(with filter: Filter, vertical: String? = nil) {
-        self.filter = filter
+    func configure(withTitles titles: [[String]], vertical: String? = nil, selectedItems: [[Int]]) {
+        segmentTitles = titles
         self.vertical = vertical
-        setupItems()
+        setupItems(withSelected: selectedItems)
     }
 }
 
@@ -80,17 +78,11 @@ private extension InlineFilterView {
     }
 
     @objc func handleValueChanged(segment: Segment) {
-        guard let index = segments.firstIndex(of: segment), let subfilter = filter?.subfilter(at: index) else {
+        guard let index = segments.firstIndex(of: segment) else {
             return
         }
 
-        selectionStore.removeValues(for: subfilter)
-
-        for index in segment.selectedItems {
-            if let subfilter = subfilter.subfilter(at: index) {
-                selectionStore.setValue(from: subfilter)
-            }
-        }
+        delegate?.inlineFilterView(self, didChange: segment, at: index)
     }
 
     @objc func handleExpandedSegment(segment: Segment) {
@@ -98,7 +90,7 @@ private extension InlineFilterView {
         delegate?.inlineFilterView(self, didTapExpandableSegment: segment)
     }
 
-    func setupItems() {
+    func setupItems(withSelected selectedItems: [[Int]]) {
         segments = []
 
         if let vertical = vertical {
@@ -107,25 +99,13 @@ private extension InlineFilterView {
             segments.append(segment)
         }
 
-        if let filter = filter {
-            let segmentTitles = filter.subfilters.map({ $0.subfilters.map({ $0.title }) })
-
-            for (index, titles) in segmentTitles.enumerated() {
-                let segment = Segment(titles: titles)
-
-                if let subFilter = filter.subfilter(at: index) {
-                    let selectedItems = subFilter.subfilters.enumerated().compactMap { (index, filter) -> Int? in
-                        self.selectionStore.isSelected(filter) == true ? index : nil
-                    }
-
-                    segment.selectedItems = selectedItems
-                }
-
-                segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
-                segments.append(segment)
-            }
-
-            collectionView.reloadData()
+        for (index, titles) in segmentTitles.enumerated() {
+            let segment = Segment(titles: titles)
+            segment.selectedItems = selectedItems[index]
+            segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
+            segments.append(segment)
         }
+
+        collectionView.reloadData()
     }
 }

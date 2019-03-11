@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec "FINN" do |ss|
-    ss.source_files = 'Sources/FINN/**/*.swift'
+    ss.source_files = 'Sources/FINNSetup/**/*.swift'
     ss.dependency "Charcoal/Core"
   end
 end

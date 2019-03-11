@@ -128,6 +128,8 @@
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
 		CFCB35F022366BE8004E6EB3 /* ContextFilterTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */; };
+		CFCB35F322367C3D004E6EB3 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
+		CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
 		CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
@@ -192,6 +194,13 @@
 			remoteGlobalIDString = 44ECE65E208F7FA20017AC82;
 			remoteInfo = FilterKit;
 		};
+		CFCB35F122367C38004E6EB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44ECE646208F7F7B0017AC82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44ECE65E208F7FA20017AC82;
+			remoteInfo = Charcoal;
+		};
 		CFEDCDFD2232B756008FCDB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 44ECE646208F7F7B0017AC82 /* Project object */;
@@ -221,6 +230,17 @@
 			dstSubfolderSpec = 7;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFCB35F522367C88004E6EB3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -424,6 +444,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFCB35F322367C3D004E6EB3 /* Charcoal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1146,10 +1167,12 @@
 				CFEDCDF42232B756008FCDB1 /* Sources */,
 				CFEDCDF52232B756008FCDB1 /* Frameworks */,
 				CFEDCDF62232B756008FCDB1 /* Resources */,
+				CFCB35F522367C88004E6EB3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CFCB35F222367C38004E6EB3 /* PBXTargetDependency */,
 			);
 			name = FINNSetup;
 			productName = FINNCharcoal;
@@ -1503,6 +1526,11 @@
 			isa = PBXTargetDependency;
 			target = 44ECE65E208F7FA20017AC82 /* Charcoal */;
 			targetProxy = 44ECE690208F7FF90017AC82 /* PBXContainerItemProxy */;
+		};
+		CFCB35F222367C38004E6EB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44ECE65E208F7FA20017AC82 /* Charcoal */;
+			targetProxy = CFCB35F122367C38004E6EB3 /* PBXContainerItemProxy */;
 		};
 		CFEDCDFE2232B756008FCDB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

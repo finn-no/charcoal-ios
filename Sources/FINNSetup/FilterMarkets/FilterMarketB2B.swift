@@ -145,40 +145,14 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 maximumValue = 1_000_000
             }
 
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: maximumValue,
-                valueKind: .incremented(10000),
-                hasLowerBoundOffset: minimumValue > 0,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
+            return .currencyConfiguration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 10000)
         case .year:
-            let minimumValue: Int
-
             switch self {
             case .bus, .vanNorway, .vanAbroad:
-                minimumValue = 1990
+                return .yearConfiguration(minimumValue: 1990)
             default:
-                minimumValue = 1985
+                return .yearConfiguration(minimumValue: 1985)
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: Calendar.current.component(.year, from: Date()),
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "år",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: false,
-                isCurrencyValueRange: false
-            )
         case .engineEffect:
             let minimumValue: Int
             let maximumValue: Int
@@ -198,57 +172,13 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 maximumValue = 600
             }
 
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: maximumValue,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: minimumValue > 0,
-                hasUpperBoundOffset: true,
-                unit: "hk",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .horsePowerConfiguration(minimumValue: minimumValue, maximumValue: maximumValue)
         case .weight:
-            return RangeFilterConfiguration(
-                minimumValue: 1000,
-                maximumValue: 40000,
-                valueKind: .incremented(50),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "kg",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .weightConfiguration(minimumValue: 1000, maximumValue: 40000, increment: 50)
         case .mileage:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 200_000,
-                valueKind: .incremented(1000),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "km",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .mileageConfiguration(maximumValue: 200_000)
         case .numberOfSeats:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 10,
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "seter",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .numberOfSeatsConfiguration(maximumValue: 10)
         default:
             return nil
         }

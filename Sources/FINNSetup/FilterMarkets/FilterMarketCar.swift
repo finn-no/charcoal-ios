@@ -139,223 +139,68 @@ extension FilterMarketCar: FINNFilterConfiguration {
 
         switch filterKey {
         case .year:
-            let minimumValue: Int
-
             switch self {
             case .norway, .abroad:
-                minimumValue = 1950
+                return .yearConfiguration(minimumValue: 1950)
             case .mobileHome, .caravan:
-                minimumValue = 1990
+                return .yearConfiguration(minimumValue: 1990)
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: Calendar.current.component(.year, from: Date()),
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "år",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: false,
-                isCurrencyValueRange: false
-            )
         case .mileage:
-            let maximumValue: Int
-
             switch self {
             case .caravan:
-                maximumValue = 20000
+                return .mileageConfiguration(maximumValue: 20000)
             default:
-                maximumValue = 200_000
+                return .mileageConfiguration(maximumValue: 200_000)
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: maximumValue,
-                valueKind: .incremented(1000),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "km",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
         case .price:
-            let maximumValue: Int
-
             switch self {
             case .norway, .abroad, .caravan:
-                maximumValue = 700_000
+                return .currencyConfiguration(minimumValue: 0, maximumValue: 700_000, increment: 10000)
             case .mobileHome:
-                maximumValue = 1_000_000
+                return .currencyConfiguration(minimumValue: 0, maximumValue: 1_000_000, increment: 10000)
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: maximumValue,
-                valueKind: .incremented(10000),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: true,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
         case .leasepriceInit:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 150_000,
-                valueKind: .incremented(10000),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
+            return .currencyConfiguration(minimumValue: 0, maximumValue: 150_000, increment: 10000)
         case .leasepriceMonth:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 10000,
-                valueKind: .incremented(1000),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
+            return .currencyConfiguration(minimumValue: 0, maximumValue: 10000, increment: 1000)
         case .engineEffect:
-            let minimumValue: Int
-            let maximumValue: Int
-
             switch self {
             case .norway, .abroad:
-                minimumValue = 0
-                maximumValue = 500
+                return .horsePowerConfiguration(minimumValue: 0, maximumValue: 500)
             default:
-                minimumValue = 0
-                maximumValue = 300
+                return .horsePowerConfiguration(minimumValue: 0, maximumValue: 300)
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: maximumValue,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "hk",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
         case .numberOfSeats:
-            let maximumValue: Int
-
             switch self {
             case .norway, .abroad:
-                maximumValue = 10
+                return .numberOfSeatsConfiguration(maximumValue: 10)
             case .mobileHome:
-                maximumValue = 8
+                return .numberOfSeatsConfiguration(maximumValue: 8)
             default:
                 return nil
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: maximumValue,
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "seter",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
         case .noOfSleepers:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 8,
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "stk.",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .numberOfItemsConfiguration(minimumValue: 0, maximumValue: 8)
         case .length:
-            let minimumValue: Int
-
             switch self {
             case .mobileHome:
-                minimumValue = 600
+                return .sizeConfiguration(minimumValue: 600, maximumValue: 950, increment: 50)
             case .caravan:
-                minimumValue = 500
+                return .sizeConfiguration(minimumValue: 500, maximumValue: 950, increment: 50)
             default:
                 return nil
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: 950,
-                valueKind: .incremented(50),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "cm",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
         case .width:
-            return RangeFilterConfiguration(
-                minimumValue: 200,
-                maximumValue: 350,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "cm",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .sizeConfiguration(minimumValue: 200, maximumValue: 350, increment: 10)
         case .weight:
-            let minimumValue: Int
-            let maximumValue: Int
-
             switch self {
             case .mobileHome:
-                minimumValue = 3500
-                maximumValue = 7500
+                return .weightConfiguration(minimumValue: 3500, maximumValue: 7500, increment: 100)
             case .caravan:
-                minimumValue = 1000
-                maximumValue = 3500
+                return .weightConfiguration(minimumValue: 1000, maximumValue: 3500, increment: 100)
             default:
                 return nil
             }
-
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: maximumValue,
-                valueKind: .incremented(100),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "kg",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
         default:
             return nil
         }

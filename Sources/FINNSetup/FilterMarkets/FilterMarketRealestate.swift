@@ -229,31 +229,9 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 increment = 50000
             }
 
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: maximumValue,
-                valueKind: .incremented(increment),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: true,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
+            return .currencyConfiguration(minimumValue: minimumValue, maximumValue: maximumValue, increment: increment)
         case .rent:
-            return RangeFilterConfiguration(
-                minimumValue: 500,
-                maximumValue: 20000,
-                valueKind: .incremented(500),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
+            return .currencyConfiguration(minimumValue: 500, maximumValue: 20000, increment: 500)
         case .area:
             let minimumValue: Int
             let maximumValue: Int
@@ -270,44 +248,11 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 maximumValue = 400
             }
 
-            return RangeFilterConfiguration(
-                minimumValue: minimumValue,
-                maximumValue: maximumValue,
-                valueKind: .incremented(5),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "m\u{00B2}",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: true,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .areaConfiguration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 5)
         case .plotArea:
-            return RangeFilterConfiguration(
-                minimumValue: 300,
-                maximumValue: 6000,
-                valueKind: .incremented(50),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "m\u{00B2}",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .areaConfiguration(minimumValue: 300, maximumValue: 6000, increment: 50)
         case .constructionYear:
-            return RangeFilterConfiguration(
-                minimumValue: 1900,
-                maximumValue: Calendar.current.component(.year, from: Date()),
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "år",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: false,
-                isCurrencyValueRange: false
-            )
+            return .yearConfiguration(minimumValue: 1900)
         default:
             return nil
         }

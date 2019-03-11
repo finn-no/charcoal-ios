@@ -130,6 +130,7 @@
 		CFCB35F022366BE8004E6EB3 /* ContextFilterTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */; };
 		CFCB35F322367C3D004E6EB3 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
 		CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
 		CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
@@ -380,6 +381,7 @@
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
+		CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeFilterConfiguration+FINNSetup.swift"; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
 		CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FINNSetup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -733,6 +735,7 @@
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */,
 				465F6167219B6ECF00CF568B /* BackendModel */,
+				CFCB35F722368D01004E6EB3 /* Extensions */,
 				08716B2721F73AD2003180D8 /* FilterMarkets */,
 			);
 			path = FINNSetup;
@@ -976,6 +979,14 @@
 				9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */,
 			);
 			path = FilterMarkets;
+			sourceTree = "<group>";
+		};
+		CFCB35F722368D01004E6EB3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CFEDCD8A223273DC008FCDB1 /* Views */ = {
@@ -1501,6 +1512,7 @@
 				CFEDCE0C2232B7A8008FCDB1 /* FilterMarketCar.swift in Sources */,
 				CFEDCE102232B7A8008FCDB1 /* FilterMarketBoat.swift in Sources */,
 				CFEDCE052232B7A8008FCDB1 /* FilterKey.swift in Sources */,
+				CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */,
 				CFEDCE072232B7A8008FCDB1 /* FINNFilterConfiguration.swift in Sources */,
 				CFEDCE0D2232B7A8008FCDB1 /* FilterMarketJob.swift in Sources */,
 				CFEDCE0B2232B7A8008FCDB1 /* FilterMarketMC.swift in Sources */,

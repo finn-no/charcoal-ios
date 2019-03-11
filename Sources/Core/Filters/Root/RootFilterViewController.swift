@@ -5,6 +5,7 @@
 import UIKit
 
 protocol RootFilterViewControllerDelegate: class {
+    func rootFilterViewControllerDidTapReset(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
 }
 
@@ -108,6 +109,7 @@ final class RootFilterViewController: FilterViewController {
 
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filter)
+        rootDelegate?.rootFilterViewControllerDidTapReset(self)
         freeTextFilterViewController?.searchBar.text = nil
         tableView.reloadData()
     }

@@ -32,9 +32,8 @@ final class InlineFilterCell: UITableViewCell {
 
     // MARK: - Setup
 
-    func configure(with segmentTitles: [[String]], vertical: String? = nil) {
-        inlineFilterView.vertical = vertical
-        inlineFilterView.segmentTitles = segmentTitles
+    func configure(withTitles titles: [[String]], vertical: String? = nil, selectedItems: [[Int]]) {
+        inlineFilterView.configure(withTitles: titles, vertical: vertical, selectedItems: selectedItems)
     }
 
     private func setup() {

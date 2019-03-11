@@ -27,8 +27,6 @@ Pod::Spec.new do |s|
     ss.frameworks = 'Foundation', 'UIKit', 'FinniversKit'
   end
 
-  pod 'Charcoal/FINN'
-
   s.subspec "FINN" do |ss|
     ss.source_files = 'Sources/FINN/**/*.swift'
     ss.dependency "Charcoal/Core"

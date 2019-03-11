@@ -221,13 +221,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
 
 extension RootFilterViewController: InlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int) {
-        guard let inlineFilter = filter.subfilters.first(where: { filter -> Bool in
-            if case .inline = filter.kind {
-                return true
-            } else {
-                return false
-            }
-        }) else { return }
+        guard let inlineFilter = filter.subfilters.first(where: { $0.kind == .inline }) else { return }
 
         if let subfilter = inlineFilter.subfilter(at: index) {
             selectionStore.removeValues(for: subfilter)

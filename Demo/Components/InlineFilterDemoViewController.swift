@@ -6,7 +6,7 @@
 
 final class InlineFilterDemoViewController: UIViewController {
     lazy var inlineFilterView: InlineFilterView = {
-        let view = InlineFilterView(frame: .zero)
+        let view = InlineFilterView(withAutoLayout: true)
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

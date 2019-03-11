@@ -17,8 +17,6 @@ final class InlineFilterView: UIView {
 
     // MARK: - Private properties
 
-    private var vertical: String?
-    private var segmentTitles: [[String]] = []
     private var segments: [Segment] = []
 
     private lazy var collectionView: UICollectionView = {
@@ -48,9 +46,22 @@ final class InlineFilterView: UIView {
     // MARK: - Public
 
     func configure(withTitles titles: [[String]], vertical: String? = nil, selectedItems: [[Int]]) {
-        segmentTitles = titles
-        self.vertical = vertical
-        setupItems(withSelected: selectedItems)
+        segments = []
+
+        if let vertical = vertical {
+            let segment = Segment(titles: [vertical], isExpandable: true)
+            segment.addTarget(self, action: #selector(handleExpandedSegment(segment:)), for: .touchUpInside)
+            segments.append(segment)
+        }
+
+        for (index, titles) in titles.enumerated() {
+            let segment = Segment(titles: titles)
+            segment.selectedItems = selectedItems[index]
+            segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
+            segments.append(segment)
+        }
+
+        collectionView.reloadData()
     }
 }
 
@@ -88,24 +99,5 @@ private extension InlineFilterView {
     @objc func handleExpandedSegment(segment: Segment) {
         guard segment.isExpandable else { return }
         delegate?.inlineFilterView(self, didTapExpandableSegment: segment)
-    }
-
-    func setupItems(withSelected selectedItems: [[Int]]) {
-        segments = []
-
-        if let vertical = vertical {
-            let segment = Segment(titles: [vertical], isExpandable: true)
-            segment.addTarget(self, action: #selector(handleExpandedSegment(segment:)), for: .touchUpInside)
-            segments.append(segment)
-        }
-
-        for (index, titles) in segmentTitles.enumerated() {
-            let segment = Segment(titles: titles)
-            segment.selectedItems = selectedItems[index]
-            segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
-            segments.append(segment)
-        }
-
-        collectionView.reloadData()
     }
 }

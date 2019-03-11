@@ -14,7 +14,7 @@ protocol TestDataDecoder {
 
 extension TestDataDecoder {
     func dataFromJSONFile(named name: String) -> Data? {
-        let bundle = Bundle(for: FilterDecodingTests.self)
+        let bundle = Bundle(for: FilterSetupTests.self)
 
         guard let path = bundle.path(forResource: name, ofType: "json") else {
             return nil

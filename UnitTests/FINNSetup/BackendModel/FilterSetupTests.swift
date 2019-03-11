@@ -6,7 +6,7 @@
 @testable import FINNSetup
 import XCTest
 
-class FilterDecodingTests: XCTestCase, TestDataDecoder {
+class FilterSetupTests: XCTestCase, TestDataDecoder {
     private lazy var filterSetupDecodedUsingDecodable: FilterSetup? = {
         return filterDataFromJSONFile(named: "DecodingTestFilter")
     }()
@@ -84,7 +84,7 @@ class FilterDecodingTests: XCTestCase, TestDataDecoder {
     }
 }
 
-private extension FilterDecodingTests {
+private extension FilterSetupTests {
     func testFilterPropertiesAreDecodedWithExpectedValues(filterSetup: FilterSetup?) {
         // When
         let expectedMarket = "car-norway"

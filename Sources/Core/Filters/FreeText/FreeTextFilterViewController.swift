@@ -150,7 +150,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
         } else {
             selectionStore.removeValues(for: filter)
             delegate?.freeTextFilterViewController(self, didSelect: nil, for: filter)
-            
+
             searchBar.text = nil
             searchBar.setShowsCancelButton(false, animated: false)
             filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)

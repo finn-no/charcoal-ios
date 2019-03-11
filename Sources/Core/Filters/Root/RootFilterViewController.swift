@@ -44,6 +44,8 @@ final class RootFilterViewController: FilterViewController {
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
 
+    // MARK: - Filter
+
     private var filter: Filter
 
     // MARK: - Init
@@ -136,7 +138,7 @@ extension RootFilterViewController: UITableViewDataSource {
             let vertical = verticals?.first(where: { $0.isCurrent })
             let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
 
-            let selectedItems = currentFilter.subfilters.compactMap({
+            let selectedItems = currentFilter.subfilters.map({
                 $0.subfilters.enumerated().compactMap({ index, filter in
                     self.selectionStore.isSelected(filter) == true ? index : nil
                 })
@@ -227,16 +229,17 @@ extension RootFilterViewController: InlineFilterViewDelegate {
             }
         }) else { return }
 
-        guard let subfilter = inlineFilter.subfilter(at: index) else { return }
-        selectionStore.removeValues(for: subfilter)
+        if let subfilter = inlineFilter.subfilter(at: index) {
+            selectionStore.removeValues(for: subfilter)
 
-        for index in segment.selectedItems {
-            if let subfilter = subfilter.subfilter(at: index) {
-                selectionStore.setValue(from: subfilter)
+            for index in segment.selectedItems {
+                if let subfilter = subfilter.subfilter(at: index) {
+                    selectionStore.setValue(from: subfilter)
+                }
             }
-        }
 
-        rootDelegate?.filterViewController(self, didSelectFilter: inlineFilter)
+            rootDelegate?.filterViewController(self, didSelectFilter: inlineFilter)
+        }
     }
 
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {

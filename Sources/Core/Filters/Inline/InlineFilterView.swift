@@ -36,8 +36,8 @@ final class InlineFilterView: UIView {
         return collectionView
     }()
 
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 

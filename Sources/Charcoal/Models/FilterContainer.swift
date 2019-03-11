@@ -16,7 +16,7 @@ public class FilterContainer {
 
     // MARK: - Setup
 
-    init(root: Filter) {
+    public init(root: Filter) {
         rootFilter = root
     }
 

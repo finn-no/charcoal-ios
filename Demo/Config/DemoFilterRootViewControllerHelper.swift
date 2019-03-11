@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-@testable import Charcoal
+import FINNSetup
 
 class DemoFilter {
     private struct MarketDemos {

@@ -63,7 +63,7 @@ public struct FilterSetup: Decodable {
     private func makeRootLevelFilter(withKey key: String, using config: FilterConfiguration) -> Filter? {
         switch key {
         case FilterKey.query.rawValue:
-            return Filter.search(title: "search_placeholder".localized(), key: key)
+            return Filter.search(key: key)
         case FilterKey.preferences.rawValue:
             let subfilters = config.preferenceFilters.compactMap {
                 filterData(forKey: $0).map({ makeListFilter(from: $0, withStyle: .normal) })
@@ -92,7 +92,6 @@ public struct FilterSetup: Decodable {
 
     private func makeMapFilter(withKey key: String) -> Filter {
         return Filter.map(
-            title: "map_filter_title".localized(),
             key: key,
             latitudeKey: FilterKey.latitude.rawValue,
             longitudeKey: FilterKey.longitude.rawValue,

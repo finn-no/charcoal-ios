@@ -155,14 +155,14 @@ extension FilterMarketCar: FINNFilterConfiguration {
         case .price:
             switch self {
             case .norway, .abroad, .caravan:
-                return .currencyConfiguration(minimumValue: 0, maximumValue: 700_000, increment: 10000)
+                return .configuration(minimumValue: 0, maximumValue: 700_000, increment: 10000, unit: .currency)
             case .mobileHome:
-                return .currencyConfiguration(minimumValue: 0, maximumValue: 1_000_000, increment: 10000)
+                return .configuration(minimumValue: 0, maximumValue: 1_000_000, increment: 10000, unit: .currency)
             }
         case .leasepriceInit:
-            return .currencyConfiguration(minimumValue: 0, maximumValue: 150_000, increment: 10000)
+            return .configuration(minimumValue: 0, maximumValue: 150_000, increment: 10000, unit: .currency)
         case .leasepriceMonth:
-            return .currencyConfiguration(minimumValue: 0, maximumValue: 10000, increment: 1000)
+            return .configuration(minimumValue: 0, maximumValue: 10000, increment: 1000, unit: .currency)
         case .engineEffect:
             switch self {
             case .norway, .abroad:
@@ -184,20 +184,20 @@ extension FilterMarketCar: FINNFilterConfiguration {
         case .length:
             switch self {
             case .mobileHome:
-                return .sizeConfiguration(minimumValue: 600, maximumValue: 950, increment: 50)
+                return .configuration(minimumValue: 600, maximumValue: 950, increment: 50, unit: .centimeters)
             case .caravan:
-                return .sizeConfiguration(minimumValue: 500, maximumValue: 950, increment: 50)
+                return .configuration(minimumValue: 500, maximumValue: 950, increment: 50, unit: .centimeters)
             default:
                 return nil
             }
         case .width:
-            return .sizeConfiguration(minimumValue: 200, maximumValue: 350, increment: 10)
+            return .configuration(minimumValue: 200, maximumValue: 350, increment: 10, unit: .centimeters)
         case .weight:
             switch self {
             case .mobileHome:
-                return .weightConfiguration(minimumValue: 3500, maximumValue: 7500, increment: 100)
+                return .configuration(minimumValue: 3500, maximumValue: 7500, increment: 100, unit: .kilograms)
             case .caravan:
-                return .weightConfiguration(minimumValue: 1000, maximumValue: 3500, increment: 100)
+                return .configuration(minimumValue: 1000, maximumValue: 3500, increment: 100, unit: .kilograms)
             default:
                 return nil
             }

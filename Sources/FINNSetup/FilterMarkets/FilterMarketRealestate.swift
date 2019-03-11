@@ -229,9 +229,14 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 increment = 50000
             }
 
-            return .currencyConfiguration(minimumValue: minimumValue, maximumValue: maximumValue, increment: increment)
+            return .configuration(
+                minimumValue: minimumValue,
+                maximumValue: maximumValue,
+                increment: increment,
+                unit: .currency
+            )
         case .rent:
-            return .currencyConfiguration(minimumValue: 500, maximumValue: 20000, increment: 500)
+            return .configuration(minimumValue: 500, maximumValue: 20000, increment: 500, unit: .currency)
         case .area:
             let minimumValue: Int
             let maximumValue: Int
@@ -248,9 +253,9 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
                 maximumValue = 400
             }
 
-            return .areaConfiguration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 5)
+            return .configuration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 5, unit: .squareMeters)
         case .plotArea:
-            return .areaConfiguration(minimumValue: 300, maximumValue: 6000, increment: 50)
+            return .configuration(minimumValue: 300, maximumValue: 6000, increment: 50, unit: .squareMeters)
         case .constructionYear:
             return .yearConfiguration(minimumValue: 1900)
         default:

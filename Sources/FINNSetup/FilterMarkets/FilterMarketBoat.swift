@@ -153,20 +153,9 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 increment = 1000
             }
 
-            return .currencyConfiguration(minimumValue: 0, maximumValue: maximumValue, increment: increment)
+            return .configuration(minimumValue: 0, maximumValue: maximumValue, increment: increment, unit: .currency)
         case .lengthFeet:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 60,
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "fot",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .configuration(minimumValue: 0, maximumValue: 60, increment: 1, unit: .feet)
         case .year:
             return .yearConfiguration(minimumValue: 1985)
         case .motorSize:
@@ -176,7 +165,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         case .noOfSleepers:
             return .numberOfItemsConfiguration(minimumValue: 0, maximumValue: 10)
         case .width:
-            return .sizeConfiguration(minimumValue: 250, maximumValue: 500, increment: 10)
+            return .configuration(minimumValue: 250, maximumValue: 500, increment: 10, unit: .centimeters)
         default:
             return nil
         }

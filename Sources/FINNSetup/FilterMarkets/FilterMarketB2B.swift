@@ -145,7 +145,12 @@ extension FilterMarketB2B: FINNFilterConfiguration {
                 maximumValue = 1_000_000
             }
 
-            return .currencyConfiguration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 10000)
+            return .configuration(
+                minimumValue: minimumValue,
+                maximumValue: maximumValue,
+                increment: 10000,
+                unit: .currency
+            )
         case .year:
             switch self {
             case .bus, .vanNorway, .vanAbroad:
@@ -174,7 +179,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
 
             return .horsePowerConfiguration(minimumValue: minimumValue, maximumValue: maximumValue)
         case .weight:
-            return .weightConfiguration(minimumValue: 1000, maximumValue: 40000, increment: 50)
+            return .configuration(minimumValue: 1000, maximumValue: 40000, increment: 50, unit: .kilograms)
         case .mileage:
             return .mileageConfiguration(maximumValue: 200_000)
         case .numberOfSeats:

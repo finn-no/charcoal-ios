@@ -5,138 +5,43 @@
 import Foundation
 
 extension RangeFilterConfiguration {
-    static func currencyConfiguration(minimumValue: Int, maximumValue: Int, increment: Int) -> RangeFilterConfiguration {
+    static func configuration(minimumValue: Int, maximumValue: Int, increment: Int, unit: Unit) -> RangeFilterConfiguration {
         return RangeFilterConfiguration(
             minimumValue: minimumValue,
             maximumValue: maximumValue,
             valueKind: .incremented(increment),
             hasLowerBoundOffset: minimumValue > 0,
             hasUpperBoundOffset: true,
-            unit: "kr",
+            unit: unit.rawValue,
             accessibilityValueSuffix: nil,
             usesSmallNumberInputFont: maximumValue > 1_000_000,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: true
+            displaysUnitInNumberInput: unit != .year,
+            isCurrencyValueRange: unit == .currency
         )
     }
 
     static func yearConfiguration(minimumValue: Int) -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
+        return .configuration(
             minimumValue: minimumValue,
             maximumValue: Calendar.current.component(.year, from: Date()),
-            valueKind: .incremented(1),
-            hasLowerBoundOffset: true,
-            hasUpperBoundOffset: true,
-            unit: "år",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: false,
-            isCurrencyValueRange: false
+            increment: 1,
+            unit: .year
         )
     }
 
     static func mileageConfiguration(maximumValue: Int) -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
-            minimumValue: 0,
-            maximumValue: maximumValue,
-            valueKind: .incremented(1000),
-            hasLowerBoundOffset: false,
-            hasUpperBoundOffset: true,
-            unit: "km",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
-        )
+        return .configuration(minimumValue: 0, maximumValue: maximumValue, increment: 1000, unit: .kilometers)
     }
 
     static func numberOfSeatsConfiguration(maximumValue: Int) -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
-            minimumValue: 0,
-            maximumValue: maximumValue,
-            valueKind: .incremented(1),
-            hasLowerBoundOffset: false,
-            hasUpperBoundOffset: true,
-            unit: "seter",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
-        )
-    }
-
-    static func weightConfiguration(minimumValue: Int, maximumValue: Int, increment: Int) -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
-            minimumValue: minimumValue,
-            maximumValue: maximumValue,
-            valueKind: .incremented(10),
-            hasLowerBoundOffset: minimumValue > 0,
-            hasUpperBoundOffset: true,
-            unit: "kg",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
-        )
+        return .configuration(minimumValue: 0, maximumValue: maximumValue, increment: 1, unit: .seats)
     }
 
     static func horsePowerConfiguration(minimumValue: Int, maximumValue: Int) -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
-            minimumValue: minimumValue,
-            maximumValue: maximumValue,
-            valueKind: .incremented(10),
-            hasLowerBoundOffset: minimumValue > 0,
-            hasUpperBoundOffset: true,
-            unit: "hk",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
-        )
-    }
-
-    static func sizeConfiguration(minimumValue: Int, maximumValue: Int, increment: Int, unit: String = "cm") -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
-            minimumValue: minimumValue,
-            maximumValue: maximumValue,
-            valueKind: .incremented(increment),
-            hasLowerBoundOffset: minimumValue > 0,
-            hasUpperBoundOffset: true,
-            unit: unit,
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
-        )
-    }
-
-    static func areaConfiguration(minimumValue: Int, maximumValue: Int, increment: Int) -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
-            minimumValue: minimumValue,
-            maximumValue: maximumValue,
-            valueKind: .incremented(increment),
-            hasLowerBoundOffset: true,
-            hasUpperBoundOffset: true,
-            unit: "m\u{00B2}",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
-        )
+        return .configuration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 10, unit: .horsePower)
     }
 
     static func numberOfItemsConfiguration(minimumValue: Int, maximumValue: Int) -> RangeFilterConfiguration {
-        return RangeFilterConfiguration(
-            minimumValue: minimumValue,
-            maximumValue: maximumValue,
-            valueKind: .incremented(1),
-            hasLowerBoundOffset: false,
-            hasUpperBoundOffset: true,
-            unit: "stk.",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
-        )
+        return .configuration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 1, unit: .items)
     }
 }

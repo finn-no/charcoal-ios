@@ -94,9 +94,9 @@ extension FilterMarketMC: FINNFilterConfiguration {
         case .mileage:
             return .mileageConfiguration(maximumValue: 200_000)
         case .price:
-            return .currencyConfiguration(minimumValue: 0, maximumValue: 250_000, increment: 1000)
+            return .configuration(minimumValue: 0, maximumValue: 250_000, increment: 1000, unit: .currency)
         case .engineVolume:
-            return .sizeConfiguration(minimumValue: 50, maximumValue: 1000, increment: 25, unit: "ccm")
+            return .configuration(minimumValue: 50, maximumValue: 1000, increment: 25, unit: .cubicCentimeters)
         default:
             return nil
         }

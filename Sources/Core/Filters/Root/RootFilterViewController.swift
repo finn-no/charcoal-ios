@@ -5,7 +5,7 @@
 import UIKit
 
 protocol RootFilterViewControllerDelegate: class {
-    func rootFilterViewControllerDidTapReset(_ viewController: RootFilterViewController)
+    func rootFilterViewControllerDidChangeSelection(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
 }
 
@@ -109,7 +109,7 @@ final class RootFilterViewController: FilterViewController {
 
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filter)
-        rootDelegate?.rootFilterViewControllerDidTapReset(self)
+        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
         freeTextFilterViewController?.searchBar.text = nil
         tableView.reloadData()
     }
@@ -194,6 +194,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
+        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 
@@ -205,6 +206,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let currentFilter = filter.subfilters[indexPath.row]
 
         selectionStore.removeValues(for: currentFilter)
+        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 

@@ -108,7 +108,7 @@ public class CharcoalViewController: UINavigationController {
 // MARK: - RootFilterViewControllerDelegate
 
 extension CharcoalViewController: RootFilterViewControllerDelegate {
-    func rootFilterViewControllerDidTapReset(_ viewController: RootFilterViewController) {
+    func rootFilterViewControllerDidChangeSelection(_ viewController: RootFilterViewController) {
         if let rootFilter = filter?.rootFilter {
             filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: rootFilter))
         }

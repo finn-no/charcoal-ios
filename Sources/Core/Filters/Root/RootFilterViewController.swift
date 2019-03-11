@@ -5,6 +5,7 @@
 import UIKit
 
 protocol RootFilterViewControllerDelegate: class {
+    func rootFilterViewControllerDidChangeSelection(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
 }
 
@@ -43,6 +44,9 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
+
+    // MARK: - Filter
+
     private var filter: Filter
 
     // MARK: - Init
@@ -105,6 +109,7 @@ final class RootFilterViewController: FilterViewController {
 
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filter)
+        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
         freeTextFilterViewController?.searchBar.text = nil
         tableView.reloadData()
     }
@@ -132,11 +137,19 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.configure(with: freeTextFilterViewController!.searchBar)
             return cell
         case .inline:
+            let vertical = verticals?.first(where: { $0.isCurrent })
+            let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
+
+            let selectedItems = currentFilter.subfilters.map({
+                $0.subfilters.enumerated().compactMap({ index, filter in
+                    self.selectionStore.isSelected(filter) == true ? index : nil
+                })
+            })
+
             let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
             cell.delegate = self
-            let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
-            let vertical = verticals?.first(where: { $0.isCurrent })
-            cell.configure(with: segmentTitles, vertical: vertical?.title)
+
+            cell.configure(withTitles: segmentTitles, vertical: vertical?.title, selectedItems: selectedItems)
             return cell
         default:
             let titles = selectionStore.titles(for: currentFilter)
@@ -181,6 +194,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
 
         selectionStore.removeValues(for: selectedSubfilters[index])
+        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 
@@ -192,6 +206,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let currentFilter = filter.subfilters[indexPath.row]
 
         selectionStore.removeValues(for: currentFilter)
+        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 
@@ -209,15 +224,19 @@ extension RootFilterViewController: RootFilterCellDelegate {
 // MARK: - CCInlineFilterViewDelegate
 
 extension RootFilterViewController: InlineFilterViewDelegate {
-    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChangeSegment segment: Segment, at index: Int) {
-        guard let subfilter = filter.subfilter(at: index) else { return }
+    func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int) {
+        guard let inlineFilter = filter.subfilters.first(where: { $0.kind == .inline }) else { return }
 
-        selectionStore.removeValues(for: subfilter)
+        if let subfilter = inlineFilter.subfilter(at: index) {
+            selectionStore.removeValues(for: subfilter)
 
-        for index in segment.selectedItems {
-            if let subfilter = subfilter.subfilter(at: index) {
-                selectionStore.setValue(from: subfilter)
+            for index in segment.selectedItems {
+                if let subfilter = subfilter.subfilter(at: index) {
+                    selectionStore.setValue(from: subfilter)
+                }
             }
+
+            rootDelegate?.filterViewController(self, didSelectFilter: inlineFilter)
         }
     }
 
@@ -243,6 +262,10 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
 // MARK: - FreeTextFilterViewControllerDelegate
 
 extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelect value: String?, for filter: Filter) {
+        rootDelegate?.filterViewController(self, didSelectFilter: filter)
+    }
+
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
         add(viewController)
     }

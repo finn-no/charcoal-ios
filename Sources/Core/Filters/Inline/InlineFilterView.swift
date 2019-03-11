@@ -5,21 +5,13 @@
 import UIKit
 
 protocol InlineFilterViewDelegate: class {
-    func inlineFilterView(_ inlineFilterView: InlineFilterView, didChangeSegment segment: Segment, at index: Int)
+    func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int)
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment)
 }
 
 final class InlineFilterView: UIView {
 
     // MARK: - Public Properties
-
-    var vertical: String?
-
-    var segmentTitles: [[String]] = [] {
-        didSet {
-            setupItems()
-        }
-    }
 
     weak var delegate: InlineFilterViewDelegate?
 
@@ -43,12 +35,33 @@ final class InlineFilterView: UIView {
     }()
 
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
         setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Public
+
+    func configure(withTitles titles: [[String]], vertical: String? = nil, selectedItems: [[Int]]) {
+        segments = []
+
+        if let vertical = vertical {
+            let segment = Segment(titles: [vertical], isExpandable: true)
+            segment.addTarget(self, action: #selector(handleExpandedSegment(segment:)), for: .touchUpInside)
+            segments.append(segment)
+        }
+
+        for (index, titles) in titles.enumerated() {
+            let segment = Segment(titles: titles)
+            segment.selectedItems = selectedItems[index]
+            segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
+            segments.append(segment)
+        }
+
+        collectionView.reloadData()
     }
 }
 
@@ -80,28 +93,11 @@ private extension InlineFilterView {
             return
         }
 
-        delegate?.inlineFilterView(self, didChangeSegment: segment, at: index)
+        delegate?.inlineFilterView(self, didChange: segment, at: index)
     }
 
     @objc func handleExpandedSegment(segment: Segment) {
         guard segment.isExpandable else { return }
         delegate?.inlineFilterView(self, didTapExpandableSegment: segment)
-    }
-
-    func setupItems() {
-        segments = []
-
-        if let vertical = vertical {
-            let segment = Segment(titles: [vertical], isExpandable: true)
-            segment.addTarget(self, action: #selector(handleExpandedSegment(segment:)), for: .touchUpInside)
-            segments.append(segment)
-        }
-
-        for titles in segmentTitles {
-            let segment = Segment(titles: titles)
-            segment.addTarget(self, action: #selector(handleValueChanged(segment:)), for: .valueChanged)
-            segments.append(segment)
-        }
-        collectionView.reloadData()
     }
 }

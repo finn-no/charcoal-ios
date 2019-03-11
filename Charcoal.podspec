@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
     ss.resource_bundles = {
         'Charcoal' => ['Sources/Charcoal/Resources/*.xcassets', 'Sources/Charcoal/Resources/*.lproj']
     }
-    ss.dependency = 'FinniversKit'
+    ss.dependency 'FinniversKit'
     ss.frameworks = 'Foundation', 'UIKit', 'FinniversKit'
   end
 

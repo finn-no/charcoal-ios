@@ -10,7 +10,7 @@ public final class Filter {
         case context
     }
 
-    enum Kind: Equatable {
+    public enum Kind: Equatable {
         case list
         case search
         case inline

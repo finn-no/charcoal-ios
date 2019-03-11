@@ -770,12 +770,12 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		9BB82798216B57630014028C /* Logger */ = {
+		9BB82798216B57630014028C /* Logging */ = {
 			isa = PBXGroup;
 			children = (
 				9BB82799216B57730014028C /* DebugLog.swift */,
 			);
-			path = Logger;
+			path = Logging;
 			sourceTree = "<group>";
 		};
 		9BE0A0402091BE750000632B /* Root */ = {
@@ -840,7 +840,7 @@
 				CF4C8703221AE0F000DFAF2A /* Filters */,
 				CF88577B21F61D710056CC81 /* Haptics */,
 				CF4C8704221AE34B00DFAF2A /* Loading */,
-				9BB82798216B57630014028C /* Logger */,
+				9BB82798216B57630014028C /* Logging */,
 				DA39FA10220B17DB00608AC4 /* Models */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				CF4C8705221AE49F00DFAF2A /* Selection */,

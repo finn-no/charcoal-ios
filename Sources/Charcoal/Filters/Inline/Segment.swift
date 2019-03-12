@@ -32,8 +32,23 @@ class Segment: UIControl {
         setup(isExpandable: isExpandable)
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Overrides
+
+    override var intrinsicContentSize: CGSize {
+        return buttons.reduce(.zero) { (result, button) -> CGSize in
+            var height = result.height
+
+            if button.intrinsicContentSize.height > height {
+                height = button.intrinsicContentSize.height
+            }
+
+            return CGSize(width: result.width + button.intrinsicContentSize.width,
+                          height: height)
+        }
     }
 }
 

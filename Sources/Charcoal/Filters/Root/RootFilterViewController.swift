@@ -142,14 +142,14 @@ extension RootFilterViewController: UITableViewDataSource {
 
             let selectedItems = currentFilter.subfilters.map({
                 $0.subfilters.enumerated().compactMap({ index, filter in
-                    self.selectionStore.isSelected(filter) == true ? index : nil
+                    self.selectionStore.isSelected(filter) ? index : nil
                 })
             })
 
             let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
             cell.delegate = self
 
-            cell.configure(withTitles: segmentTitles, vertical: vertical?.title, selectedItems: selectedItems)
+            cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
             return cell
         default:
             let titles = selectionStore.titles(for: currentFilter)

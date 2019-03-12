@@ -31,7 +31,6 @@ private extension InlineSegmentCell {
             view.topAnchor.constraint(equalTo: contentView.topAnchor),
             view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: InlineSegmentCell.cellHeight),
         ])
     }
 }

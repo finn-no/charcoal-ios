@@ -12,7 +12,7 @@ extension SegmentButton {
 
 class SegmentButton: UIButton {
     static let borderColor: UIColor = .silver
-    static let borderWidth = 1.5 as CGFloat
+    static let borderWidth: CGFloat = 1.5
 
     var borderStyle: BorderStyle = .middle
 

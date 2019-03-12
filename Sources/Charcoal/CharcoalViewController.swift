@@ -21,8 +21,6 @@ public class CharcoalViewController: UINavigationController {
 
     public weak var filterDelegate: CharcoalViewControllerDelegate?
 
-    // MARK: -
-
     public var freeTextFilterDelegate: FreeTextFilterDelegate? {
         get { return rootFilterViewController?.freeTextFilterDelegate }
         set { rootFilterViewController?.freeTextFilterDelegate = newValue }
@@ -33,12 +31,9 @@ public class CharcoalViewController: UINavigationController {
         set { rootFilterViewController?.freeTextFilterDataSource = newValue }
     }
 
-    // MARK: -
-
     public var mapFilterViewManager: MapFilterViewManager?
     public var searchLocationDataSource: SearchLocationDataSource?
-
-    // MARK: -
+    public var eventLogger: EventLogging?
 
     public var isLoading: Bool = false {
         didSet { updateLoading() }

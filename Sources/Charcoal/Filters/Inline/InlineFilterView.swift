@@ -73,11 +73,11 @@ final class InlineFilterView: UIView {
 // MARK: - Collection view data source
 
 extension InlineFilterView: UICollectionViewDataSource {
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
     }
 
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let section = Section(rawValue: section) else { return 0 }
 
         switch section {
@@ -88,7 +88,7 @@ extension InlineFilterView: UICollectionViewDataSource {
         }
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let section = Section(rawValue: indexPath.section) else { fatalError("InlineFilter not configured correctly") }
         let cell = collectionView.dequeue(InlineSegmentCell.self, for: indexPath)
 

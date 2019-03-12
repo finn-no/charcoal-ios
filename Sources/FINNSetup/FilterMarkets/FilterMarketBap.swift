@@ -76,31 +76,9 @@ extension FilterMarketBap: FINNFilterConfiguration {
 
         switch filterKey {
         case .horseHeight:
-            return RangeFilterConfiguration(
-                minimumValue: 120,
-                maximumValue: 200,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "cm",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .configuration(minimumValue: 120, maximumValue: 200, increment: 10, unit: .centimeters)
         case .lengthCm:
-            return RangeFilterConfiguration(
-                minimumValue: 50,
-                maximumValue: 220,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "cm",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .configuration(minimumValue: 50, maximumValue: 220, increment: 10, unit: .centimeters)
         case .price:
             return RangeFilterConfiguration(
                 minimumValue: 0,
@@ -115,7 +93,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
                 ),
                 hasLowerBoundOffset: false,
                 hasUpperBoundOffset: true,
-                unit: "kr",
+                unit: Unit.currency.rawValue,
                 accessibilityValueSuffix: nil,
                 usesSmallNumberInputFont: false,
                 displaysUnitInNumberInput: true,

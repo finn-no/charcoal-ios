@@ -153,96 +153,19 @@ extension FilterMarketBoat: FINNFilterConfiguration {
                 increment = 1000
             }
 
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: maximumValue,
-                valueKind: .incremented(increment),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
+            return .configuration(minimumValue: 0, maximumValue: maximumValue, increment: increment, unit: .currency)
         case .lengthFeet:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 60,
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "fot",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .configuration(minimumValue: 0, maximumValue: 60, increment: 1, unit: .feet)
         case .year:
-            return RangeFilterConfiguration(
-                minimumValue: 1985,
-                maximumValue: Calendar.current.component(.year, from: Date()),
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "år",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: false,
-                isCurrencyValueRange: false
-            )
+            return .yearConfiguration(minimumValue: 1985)
         case .motorSize:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 500,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "hk",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .horsePowerConfiguration(minimumValue: 0, maximumValue: 500)
         case .noOfSeats:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 20,
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "stk.",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .numberOfItemsConfiguration(minimumValue: 0, maximumValue: 20)
         case .noOfSleepers:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 10,
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "stk.",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .numberOfItemsConfiguration(minimumValue: 0, maximumValue: 10)
         case .width:
-            return RangeFilterConfiguration(
-                minimumValue: 250,
-                maximumValue: 500,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "cm",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .configuration(minimumValue: 250, maximumValue: 500, increment: 10, unit: .centimeters)
         default:
             return nil
         }

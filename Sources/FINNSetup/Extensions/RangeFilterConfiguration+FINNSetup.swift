@@ -1,0 +1,47 @@
+//
+//  Copyright © FINN.no AS, Inc. All rights reserved.
+//
+
+import Foundation
+
+extension RangeFilterConfiguration {
+    static func configuration(minimumValue: Int, maximumValue: Int, increment: Int, unit: Unit) -> RangeFilterConfiguration {
+        return RangeFilterConfiguration(
+            minimumValue: minimumValue,
+            maximumValue: maximumValue,
+            valueKind: .incremented(increment),
+            hasLowerBoundOffset: minimumValue > 0,
+            hasUpperBoundOffset: true,
+            unit: unit.rawValue,
+            accessibilityValueSuffix: nil,
+            usesSmallNumberInputFont: maximumValue > 1_000_000,
+            displaysUnitInNumberInput: unit != .year,
+            isCurrencyValueRange: unit == .currency
+        )
+    }
+
+    static func yearConfiguration(minimumValue: Int) -> RangeFilterConfiguration {
+        return .configuration(
+            minimumValue: minimumValue,
+            maximumValue: Calendar.current.component(.year, from: Date()),
+            increment: 1,
+            unit: .year
+        )
+    }
+
+    static func mileageConfiguration(maximumValue: Int) -> RangeFilterConfiguration {
+        return .configuration(minimumValue: 0, maximumValue: maximumValue, increment: 1000, unit: .kilometers)
+    }
+
+    static func numberOfSeatsConfiguration(maximumValue: Int) -> RangeFilterConfiguration {
+        return .configuration(minimumValue: 0, maximumValue: maximumValue, increment: 1, unit: .seats)
+    }
+
+    static func horsePowerConfiguration(minimumValue: Int, maximumValue: Int) -> RangeFilterConfiguration {
+        return .configuration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 10, unit: .horsePower)
+    }
+
+    static func numberOfItemsConfiguration(minimumValue: Int, maximumValue: Int) -> RangeFilterConfiguration {
+        return .configuration(minimumValue: minimumValue, maximumValue: maximumValue, increment: 1, unit: .items)
+    }
+}

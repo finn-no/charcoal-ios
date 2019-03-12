@@ -88,70 +88,15 @@ extension FilterMarketMC: FINNFilterConfiguration {
 
         switch filterKey {
         case .year:
-            return RangeFilterConfiguration(
-                minimumValue: 1950,
-                maximumValue: Calendar.current.component(.year, from: Date()),
-                valueKind: .incremented(1),
-                hasLowerBoundOffset: true,
-                hasUpperBoundOffset: true,
-                unit: "år",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: false,
-                isCurrencyValueRange: false
-            )
+            return .yearConfiguration(minimumValue: 1950)
         case .engineEffect:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 200,
-                valueKind: .incremented(10),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "hk",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .horsePowerConfiguration(minimumValue: 0, maximumValue: 200)
         case .mileage:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 200_000,
-                valueKind: .incremented(1000),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "km",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .mileageConfiguration(maximumValue: 200_000)
         case .price:
-            return RangeFilterConfiguration(
-                minimumValue: 0,
-                maximumValue: 250_000,
-                valueKind: .incremented(1000),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "kr",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
-            )
+            return .configuration(minimumValue: 0, maximumValue: 250_000, increment: 1000, unit: .currency)
         case .engineVolume:
-            return RangeFilterConfiguration(
-                minimumValue: 50,
-                maximumValue: 1000,
-                valueKind: .incremented(25),
-                hasLowerBoundOffset: false,
-                hasUpperBoundOffset: true,
-                unit: "ccm",
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                isCurrencyValueRange: false
-            )
+            return .configuration(minimumValue: 50, maximumValue: 1000, increment: 25, unit: .cubicCentimeters)
         default:
             return nil
         }

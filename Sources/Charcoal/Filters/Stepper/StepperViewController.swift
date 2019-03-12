@@ -38,6 +38,11 @@ final class StepperFilterViewController: FilterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "apply_button_title".localized()
+
+        if let value: Int = selectionStore.value(for: filter) {
+            stepperFilterView.value = value
+        }
+
         view.addSubview(stepperFilterView)
         NSLayoutConstraint.activate([
             topConstraint,

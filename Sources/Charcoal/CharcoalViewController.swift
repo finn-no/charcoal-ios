@@ -33,7 +33,12 @@ public class CharcoalViewController: UINavigationController {
 
     public var mapFilterViewManager: MapFilterViewManager?
     public var searchLocationDataSource: SearchLocationDataSource?
-    public var eventLogger: EventLogging?
+
+    public var eventLogger: EventLogging? {
+        didSet {
+            rootFilterViewController?.eventLogger = eventLogger
+        }
+    }
 
     public var isLoading: Bool = false {
         didSet { updateLoading() }
@@ -96,6 +101,7 @@ public class CharcoalViewController: UINavigationController {
             )
             rootFilterViewController?.verticals = filter.verticals
             rootFilterViewController?.rootDelegate = self
+            rootFilterViewController?.eventLogger = eventLogger
             setViewControllers([rootFilterViewController!], animated: false)
         }
     }
@@ -138,6 +144,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 filterConfig: filterConfig,
                 selectionStore: selectionStore
             )
+            rangeViewController.eventLogger = eventLogger
             pushViewController(rangeViewController)
         case let .stepper(filterConfig):
             let stepperViewController = StepperFilterViewController(

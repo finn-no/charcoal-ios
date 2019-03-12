@@ -10,19 +10,19 @@ extension SegmentButton {
     }
 }
 
-public class SegmentButton: UIButton {
-    public static let borderColor: UIColor = .silver
-    public static let borderWidth = 1.5 as CGFloat
+class SegmentButton: UIButton {
+    static let borderColor: UIColor = .silver
+    static let borderWidth = 1.5 as CGFloat
 
-    public var borderStyle: BorderStyle = .middle
+    var borderStyle: BorderStyle = .middle
 
-    public var isExpandable = false {
+    var isExpandable = false {
         didSet {
             setupExpandable()
         }
     }
 
-    public override var isSelected: Bool {
+    override var isSelected: Bool {
         didSet {
             updateSelected(isSelected)
         }
@@ -32,16 +32,16 @@ public class SegmentButton: UIButton {
     private var maskLayer = CAShapeLayer()
     private var selectedBackgroundColor: UIColor = .primaryBlue
 
-    public init(title: String) {
+    init(title: String) {
         super.init(frame: .zero)
         setup(with: title)
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         drawBorder()
     }

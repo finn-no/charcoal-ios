@@ -27,7 +27,6 @@ final class InlineFilterView: UIView {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = CGSize(width: 300, height: InlineSegmentCell.cellHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .milk
         collectionView.showsHorizontalScrollIndicator = false
@@ -51,6 +50,7 @@ final class InlineFilterView: UIView {
     // MARK: - Public
 
     func configure(withTitles titles: [[String]], verticalTitle: String? = nil, selectedItems: [[Int]]) {
+        vertical = nil
         segments = []
 
         if let verticalTitle = verticalTitle {
@@ -104,6 +104,21 @@ extension InlineFilterView: UICollectionViewDataSource {
 }
 
 extension InlineFilterView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let section = Section(rawValue: indexPath.section) else { return .zero }
+
+        let segmentSize: CGSize
+
+        switch section {
+        case .vertical:
+            segmentSize = vertical?.intrinsicContentSize ?? .zero
+        case .filters:
+            segmentSize = segments[indexPath.item].intrinsicContentSize
+        }
+
+        return CGSize(width: segmentSize.width, height: InlineSegmentCell.cellHeight)
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         guard let section = Section(rawValue: section) else { return .zero }
 

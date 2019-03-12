@@ -14,6 +14,7 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Internal properties
 
     var verticals: [Vertical]?
+    var eventLogger: EventLogging?
 
     weak var rootDelegate: (RootFilterViewControllerDelegate & FilterViewControllerDelegate)? {
         didSet { delegate = rootDelegate }
@@ -192,9 +193,12 @@ extension RootFilterViewController: RootFilterCellDelegate {
 
         let currentFilter = filter.subfilters[indexPath.row]
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
+        let filterToRemove = selectedSubfilters[index]
 
-        selectionStore.removeValues(for: selectedSubfilters[index])
+        selectionStore.removeValues(for: filterToRemove)
+        eventLogger?.log(event: .selectionTagRemovedFromRoot(filter: filterToRemove))
         rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
+
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 
@@ -206,7 +210,9 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let currentFilter = filter.subfilters[indexPath.row]
 
         selectionStore.removeValues(for: currentFilter)
+        eventLogger?.log(event: .selectionTagRemovedFromRoot(filter: currentFilter))
         rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
+
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 

@@ -42,6 +42,7 @@ public class CharcoalViewController: UINavigationController {
     // MARK: - Private properties
 
     private var selectionHasChanged = false
+    private var bottomBottonClicked = false
     private var selectionStore = FilterSelectionStore()
 
     private var rootFilterViewController: RootFilterViewController?
@@ -122,6 +123,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         if viewController === rootFilterViewController {
             filterDelegate?.charcoalViewControllerDidPressShowResults(self)
         } else {
+            bottomBottonClicked = true
             popToRootViewController(animated: true)
         }
     }
@@ -195,11 +197,22 @@ extension CharcoalViewController: FilterSelectionStoreDelegate {
 
 extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        defer {
+            bottomBottonClicked = false
+        }
+
         guard viewController === rootFilterViewController else { return }
+
         // Will return to root filters
         if selectionHasChanged, let filter = filter {
             filterDelegate?.charcoalViewController(self, didChangeSelection: selectionStore.queryItems(for: filter.rootFilter))
             selectionHasChanged = false
+
+            if bottomBottonClicked {
+                eventLogger?.log(event: .selectionChangedByBottomButton)
+            } else {
+                eventLogger?.log(event: .selectionChangedByNavigation)
+            }
         }
     }
 

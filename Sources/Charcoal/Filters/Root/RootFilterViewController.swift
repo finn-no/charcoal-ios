@@ -142,7 +142,7 @@ extension RootFilterViewController: UITableViewDataSource {
 
             let selectedItems = currentFilter.subfilters.map({
                 $0.subfilters.enumerated().compactMap({ index, filter in
-                    self.selectionStore.isSelected(filter) == true ? index : nil
+                    self.selectionStore.isSelected(filter) ? index : nil
                 })
             })
 

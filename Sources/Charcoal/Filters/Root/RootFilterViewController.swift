@@ -196,7 +196,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let filterToRemove = selectedSubfilters[index]
 
         selectionStore.removeValues(for: filterToRemove)
-        eventLogger?.log(event: .selectionTagRemovedFromRoot(filter: filterToRemove))
+        eventLogger?.log(event: .selectionTagRemovedFromRoot)
         rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
 
         reloadCellsWithExclusiveFilters(for: currentFilter)
@@ -210,7 +210,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let currentFilter = filter.subfilters[indexPath.row]
 
         selectionStore.removeValues(for: currentFilter)
-        eventLogger?.log(event: .selectionTagRemovedFromRoot(filter: currentFilter))
+        eventLogger?.log(event: .selectionTagRemovedFromRoot)
         rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
 
         reloadCellsWithExclusiveFilters(for: currentFilter)

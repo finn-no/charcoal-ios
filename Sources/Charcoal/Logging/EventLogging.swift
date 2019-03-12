@@ -13,8 +13,7 @@ public protocol EventLogging {
 public enum Event {
     case selectionChangedByBottomButton
     case selectionChangedByNavigation
-    case selectionTagRemovedFromRoot(filter: Filter)
-
+    case selectionTagRemovedFromRoot
     case rangeKeyboardUsed
     case rangeSliderUsed
 }

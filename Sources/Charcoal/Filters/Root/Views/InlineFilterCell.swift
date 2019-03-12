@@ -32,8 +32,8 @@ final class InlineFilterCell: UITableViewCell {
 
     // MARK: - Setup
 
-    func configure(withTitles titles: [[String]], vertical: String? = nil, selectedItems: [[Int]]) {
-        inlineFilterView.configure(withTitles: titles, vertical: vertical, selectedItems: selectedItems)
+    func configure(withTitles titles: [[String]], verticalTitle: String? = nil, selectedItems: [[Int]]) {
+        inlineFilterView.configure(withTitles: titles, verticalTitle: verticalTitle, selectedItems: selectedItems)
     }
 
     private func setup() {

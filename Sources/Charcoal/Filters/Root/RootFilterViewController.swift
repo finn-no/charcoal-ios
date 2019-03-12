@@ -149,7 +149,7 @@ extension RootFilterViewController: UITableViewDataSource {
             let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
             cell.delegate = self
 
-            cell.configure(withTitles: segmentTitles, vertical: vertical?.title, selectedItems: selectedItems)
+            cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
             return cell
         default:
             let titles = selectionStore.titles(for: currentFilter)

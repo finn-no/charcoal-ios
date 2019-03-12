@@ -10,6 +10,10 @@ protocol InlineFilterViewDelegate: class {
 }
 
 final class InlineFilterView: UIView {
+    private enum Section: Int, CaseIterable {
+        case vertical
+        case filters
+    }
 
     // MARK: - Public Properties
 
@@ -17,18 +21,19 @@ final class InlineFilterView: UIView {
 
     // MARK: - Private properties
 
+    private var vertical: Segment?
     private var segments: [Segment] = []
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = .mediumLargeSpacing
         layout.estimatedItemSize = CGSize(width: 300, height: InlineSegmentCell.cellHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .milk
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: 0)
+        collectionView.delegate = self
+        collectionView.contentInset = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
         collectionView.register(InlineSegmentCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -45,13 +50,13 @@ final class InlineFilterView: UIView {
 
     // MARK: - Public
 
-    func configure(withTitles titles: [[String]], vertical: String? = nil, selectedItems: [[Int]]) {
+    func configure(withTitles titles: [[String]], verticalTitle: String? = nil, selectedItems: [[Int]]) {
         segments = []
 
-        if let vertical = vertical {
-            let segment = Segment(titles: [vertical], isExpandable: true)
+        if let verticalTitle = verticalTitle {
+            let segment = Segment(titles: [verticalTitle], isExpandable: true)
             segment.addTarget(self, action: #selector(handleExpandedSegment(segment:)), for: .touchUpInside)
-            segments.append(segment)
+            vertical = segment
         }
 
         for (index, titles) in titles.enumerated() {
@@ -68,14 +73,55 @@ final class InlineFilterView: UIView {
 // MARK: - Collection view data source
 
 extension InlineFilterView: UICollectionViewDataSource {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return Section.allCases.count
+    }
+
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return segments.count
+        guard let section = Section(rawValue: section) else { return 0 }
+
+        switch section {
+        case .vertical:
+            return vertical != nil ? 1 : 0
+        case .filters:
+            return segments.count
+        }
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let section = Section(rawValue: indexPath.section) else { fatalError("InlineFilter not configured correctly") }
         let cell = collectionView.dequeue(InlineSegmentCell.self, for: indexPath)
-        cell.segment = segments[indexPath.item]
+
+        switch section {
+        case .vertical:
+            cell.segment = vertical
+        case .filters:
+            cell.segment = segments[indexPath.item]
+        }
+
         return cell
+    }
+}
+
+extension InlineFilterView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        guard let section = Section(rawValue: section) else { return .zero }
+
+        switch section {
+        case .vertical:
+            return .zero
+        case .filters:
+            let spacing: CGFloat = vertical == nil ? 0 : .mediumSpacing
+            return UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: 0)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return .mediumSpacing
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return .mediumSpacing
     }
 }
 

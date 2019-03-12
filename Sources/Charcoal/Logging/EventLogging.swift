@@ -10,11 +10,16 @@ public protocol EventLogging {
 
 // MARK: - Events
 
-public enum Event {
-    case filterApplied
-    case rangeKeyboardOpened
-    case rangeSliderUsed
-    case bottomButtonClicked
-    case backButtonClicked
-    case rootSelectionTagRemoved
+public struct Event {
+    public enum Kind {
+        case filterApplied
+        case rangeKeyboardOpened
+        case rangeSliderUsed
+        case bottomButtonClicked
+        case backButtonClicked
+        case rootSelectionTagRemoved
+    }
+
+    public let filter: Filter
+    public let kind: Kind
 }

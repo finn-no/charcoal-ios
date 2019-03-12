@@ -15,6 +15,6 @@ public enum Event {
     case selectionChangedByNavigation
     case selectionTagRemovedFromRoot(filter: Filter)
 
-    case rangeKeyboardOpened
+    case rangeKeyboardUsed
     case rangeSliderUsed
 }

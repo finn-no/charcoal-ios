@@ -5,12 +5,19 @@
 import UIKit
 
 final class RangeFilterViewController: FilterViewController {
+    private enum InputMethod {
+        case slider
+        case keyboard
+    }
+
+    var eventLogger: EventLogging?
 
     // MARK: - Private properties
 
     private let lowValueFilter: Filter
     private let highValueFilter: Filter
     private let filterConfig: RangeFilterConfiguration
+    private var lastInputMethod: InputMethod?
 
     private lazy var rangeFilterView: RangeFilterView = {
         let view = RangeFilterView(filterConfig: filterConfig)
@@ -40,17 +47,32 @@ final class RangeFilterViewController: FilterViewController {
         super.viewDidLoad()
         setup()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let lastInputMethod = lastInputMethod {
+            switch lastInputMethod {
+            case .slider:
+                eventLogger?.log(event: .rangeSliderUsed)
+            case .keyboard:
+                eventLogger?.log(event: .rangeKeyboardUsed)
+            }
+        }
+    }
 }
 
 // MARK: - RangeFilterViewDelegate
 
 extension RangeFilterViewController: RangeFilterViewDelegate {
-    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?) {
+    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?, fromSlider: Bool) {
         setValue(lowValue, forSubfilter: lowValueFilter)
+        lastInputMethod = fromSlider ? .slider : .keyboard
     }
 
-    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?) {
+    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?, fromSlider: Bool) {
         setValue(highValue, forSubfilter: highValueFilter)
+        lastInputMethod = fromSlider ? .slider : .keyboard
     }
 
     private func setValue(_ value: Int?, forSubfilter subfilter: Filter) {

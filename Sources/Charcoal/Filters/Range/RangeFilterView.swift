@@ -5,8 +5,8 @@
 import UIKit
 
 protocol RangeFilterViewDelegate: AnyObject {
-    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?)
-    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?)
+    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?, fromSlider: Bool)
+    func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetHighValue highValue: Int?, fromSlider: Bool)
 }
 
 final class RangeFilterView: UIView {
@@ -244,9 +244,9 @@ extension RangeFilterView: RangeNumberInputViewDelegate {
             let step = filterConfig.values.closestStep(for: lowValue)
             updateSliderLowValue(with: step)
             numberInputView.setLowValueHint(text: "")
-            delegate?.rangeFilterView(self, didSetLowValue: lowValue)
+            delegate?.rangeFilterView(self, didSetLowValue: lowValue, fromSlider: false)
         } else {
-            delegate?.rangeFilterView(self, didSetLowValue: nil)
+            delegate?.rangeFilterView(self, didSetLowValue: nil, fromSlider: false)
         }
 
         if let highStep = inputValues[.high] {
@@ -259,9 +259,9 @@ extension RangeFilterView: RangeNumberInputViewDelegate {
             let step = filterConfig.values.closestStep(for: highValue)
             updateSliderHighValue(with: step)
             numberInputView.setHighValueHint(text: "")
-            delegate?.rangeFilterView(self, didSetHighValue: highValue)
+            delegate?.rangeFilterView(self, didSetHighValue: highValue, fromSlider: false)
         } else {
-            delegate?.rangeFilterView(self, didSetHighValue: nil)
+            delegate?.rangeFilterView(self, didSetHighValue: nil, fromSlider: false)
         }
 
         if let lowStep = inputValues[.low] {
@@ -292,9 +292,9 @@ extension RangeFilterView: RangeSliderViewDelegate {
         let value = filterConfig.value(for: step)
 
         if inputValue == .low {
-            delegate?.rangeFilterView(self, didSetLowValue: value)
+            delegate?.rangeFilterView(self, didSetLowValue: value, fromSlider: true)
         } else {
-            delegate?.rangeFilterView(self, didSetHighValue: value)
+            delegate?.rangeFilterView(self, didSetHighValue: value, fromSlider: true)
         }
     }
 }

@@ -199,7 +199,7 @@ extension DemoViewsTableViewController {
     }
 }
 
-private class EventLogger: EventLogging {
+private final class EventLogger: EventLogging {
     func log(event: Event) {
         print("Event occured: \(event)")
     }

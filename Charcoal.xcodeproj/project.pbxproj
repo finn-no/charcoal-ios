@@ -132,7 +132,7 @@
 		CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */; };
 		CFCB35FB2236A299004E6EB3 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* Unit.swift */; };
-		CFCB35FD2237AB4F004E6EB3 /* EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FC2237AB4F004E6EB3 /* EventLogging.swift */; };
+		CFCB35FF2237D695004E6EB3 /* FilterOriginKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FE2237D695004E6EB3 /* FilterOriginKind.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
 		CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
@@ -385,7 +385,7 @@
 		CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
 		CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeFilterConfiguration+FINNSetup.swift"; sourceTree = "<group>"; };
 		CFCB35FA2236A299004E6EB3 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
-		CFCB35FC2237AB4F004E6EB3 /* EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogging.swift; sourceTree = "<group>"; };
+		CFCB35FE2237D695004E6EB3 /* FilterOriginKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOriginKind.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
 		CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FINNSetup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -782,7 +782,6 @@
 			isa = PBXGroup;
 			children = (
 				9BB82799216B57730014028C /* DebugLog.swift */,
-				CFCB35FC2237AB4F004E6EB3 /* EventLogging.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -1036,6 +1035,7 @@
 			children = (
 				CF4C870F221B04E200DFAF2A /* Filter.swift */,
 				CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */,
+				CFCB35FE2237D695004E6EB3 /* FilterOriginKind.swift */,
 				9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */,
 				CF077552222FD1C6000A0A36 /* StepperFilterConfiguration.swift */,
 			);
@@ -1435,7 +1435,6 @@
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
-				CFCB35FD2237AB4F004E6EB3 /* EventLogging.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
@@ -1447,6 +1446,7 @@
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */,
 				CF81E106221BFFE600D00423 /* SelectionTagViewCell.swift in Sources */,
+				CFCB35FF2237D695004E6EB3 /* FilterOriginKind.swift in Sources */,
 				DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,

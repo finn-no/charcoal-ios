@@ -74,7 +74,6 @@ class DemoViewsTableViewController: UITableViewController {
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
             controller.freeTextFilterDelegate = self
             controller.freeTextFilterDataSource = self
-            controller.eventLogger = EventLogger()
 
             let bottomSheet = BottomSheet(rootViewController: controller)
             present(bottomSheet, animated: true)
@@ -196,11 +195,5 @@ extension DemoViewsTableViewController {
 
     @objc func closeCurrentlyPresentedViewController() {
         dismiss(animated: true)
-    }
-}
-
-private final class EventLogger: EventLogging {
-    func log(event: Event) {
-        print("Event occured: \(event)")
     }
 }

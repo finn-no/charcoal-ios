@@ -127,8 +127,10 @@ extension DemoViewsTableViewController {
 // MARK: - CharcoalViewControllerDelegate
 
 extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
-    func charcoalViewController(_ filterViewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem]) {
-        print("Selection did change")
+    func charcoalViewController(_ viewController: CharcoalViewController,
+                                didChangeSelection selection: [URLQueryItem],
+                                origin: SelectionChangeOrigin) {
+        print("Selection did change by: \(origin)")
     }
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {

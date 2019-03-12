@@ -5,7 +5,8 @@
 import UIKit
 
 protocol RootFilterViewControllerDelegate: class {
-    func rootFilterViewControllerDidChangeSelection(_ viewController: RootFilterViewController)
+    func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
 }
 
@@ -109,7 +110,7 @@ final class RootFilterViewController: FilterViewController {
 
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filter)
-        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
+        rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
         freeTextFilterViewController?.searchBar.text = nil
         tableView.reloadData()
     }
@@ -192,9 +193,10 @@ extension RootFilterViewController: RootFilterCellDelegate {
 
         let currentFilter = filter.subfilters[indexPath.row]
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
+        let filterToRemove = selectedSubfilters[index]
 
-        selectionStore.removeValues(for: selectedSubfilters[index])
-        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
+        selectionStore.removeValues(for: filterToRemove)
+        rootDelegate?.rootFilterViewController(self, didRemoveFilter: filterToRemove)
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 
@@ -206,7 +208,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let currentFilter = filter.subfilters[indexPath.row]
 
         selectionStore.removeValues(for: currentFilter)
-        rootDelegate?.rootFilterViewControllerDidChangeSelection(self)
+        rootDelegate?.rootFilterViewController(self, didRemoveFilter: currentFilter)
         reloadCellsWithExclusiveFilters(for: currentFilter)
     }
 

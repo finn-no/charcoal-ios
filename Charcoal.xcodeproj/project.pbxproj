@@ -132,6 +132,7 @@
 		CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */; };
 		CFCB35FB2236A299004E6EB3 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* Unit.swift */; };
+		CFCB35FD2237AB4F004E6EB3 /* EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FC2237AB4F004E6EB3 /* EventLogging.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
 		CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
@@ -384,6 +385,7 @@
 		CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
 		CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeFilterConfiguration+FINNSetup.swift"; sourceTree = "<group>"; };
 		CFCB35FA2236A299004E6EB3 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
+		CFCB35FC2237AB4F004E6EB3 /* EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogging.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
 		CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FINNSetup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -780,6 +782,7 @@
 			isa = PBXGroup;
 			children = (
 				9BB82799216B57730014028C /* DebugLog.swift */,
+				CFCB35FC2237AB4F004E6EB3 /* EventLogging.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -1432,6 +1435,7 @@
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
+				CFCB35FD2237AB4F004E6EB3 /* EventLogging.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,

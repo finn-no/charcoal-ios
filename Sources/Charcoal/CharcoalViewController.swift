@@ -8,6 +8,8 @@ public protocol CharcoalViewControllerDelegate: class {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?)
     func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController)
+    func charcoalViewControllerWillBeginTextEditing(_ viewController: CharcoalViewController)
+    func charcoalViewControllerWillEndTextEditing(_ viewController: CharcoalViewController)
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin)
@@ -129,6 +131,14 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 // MARK: - FilterViewControllerDelegate
 
 extension CharcoalViewController: FilterViewControllerDelegate {
+    func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController) {
+        filterDelegate?.charcoalViewControllerWillBeginTextEditing(self)
+    }
+
+    func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController) {
+        filterDelegate?.charcoalViewControllerWillEndTextEditing(self)
+    }
+
     func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
         if viewController === rootFilterViewController {
             filterDelegate?.charcoalViewControllerDidPressShowResults(self)

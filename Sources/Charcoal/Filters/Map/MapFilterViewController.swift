@@ -6,17 +6,23 @@ import MapKit
 import UIKit
 
 final class MapFilterViewController: FilterViewController {
-    private let mapFilterViewManager: MapFilterViewManager
+
+    // MARK: - Internal properties
+
     var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             searchLocationViewController.searchLocationDataSource = searchLocationDataSource
         }
     }
 
+    // MARK: - Private properties
+
     private let latitudeFilter: Filter
     private let longitudeFilter: Filter
     private let radiusFilter: Filter
     private let locationNameFilter: Filter
+
+    private let mapFilterViewManager: MapFilterViewManager
 
     private lazy var mapFilterView: MapFilterView = {
         let mapFilterView = MapFilterView(
@@ -125,14 +131,18 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
         searchLocationViewController.view.fillInSuperview()
         view.layoutIfNeeded()
         searchLocationViewController.didMove(toParent: self)
+
+        delegate?.filterViewControllerWillBeginTextEditing(self)
     }
 
     public func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
+        delegate?.filterViewControllerWillEndTextEditing(self)
     }
 
     public func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didSelectLocation location: LocationInfo?) {
         returnToMapFromLocationSearch()
+        delegate?.filterViewControllerWillEndTextEditing(self)
 
         if let location = location {
             mapFilterViewManager.goToLocation(location)

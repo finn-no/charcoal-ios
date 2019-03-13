@@ -24,8 +24,8 @@ public protocol SearchLocationDataSource: AnyObject {
     func showCurrentLocation(in searchLocationViewController: SearchLocationViewController) -> Bool
 }
 
-public protocol SearchLocationViewControllerDelegate: class {
-    func searchLocationViewControllerShouldBePresented(_ searchLocationViewController: SearchLocationViewController)
+public protocol SearchLocationViewControllerDelegate: AnyObject {
+    func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController)
     func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController)
     func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didSelectLocation location: LocationInfo?)
     func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController)
@@ -140,6 +140,10 @@ extension SearchLocationViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 
 extension SearchLocationViewController: UITableViewDelegate {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(false)
+    }
+
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else {
             return
@@ -181,11 +185,13 @@ extension SearchLocationViewController: UISearchBarDelegate {
         // Present if needed
         if searchBar.superview != view {
             setup()
-            delegate?.searchLocationViewControllerShouldBePresented(self)
             if let searchText = searchBar.text {
                 loadLocations(forSearchText: searchText)
             }
         }
+
+        delegate?.searchLocationViewControllerWillBeginEditing(self)
+
         return true
     }
 

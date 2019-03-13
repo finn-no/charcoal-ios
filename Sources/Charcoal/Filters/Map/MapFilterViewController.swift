@@ -94,9 +94,7 @@ final class MapFilterViewController: FilterViewController {
         mapFilterView.searchBar = searchLocationViewController.searchBar
         mapFilterView.setNeedsLayout()
 
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        searchLocationViewController.remove()
     }
 }
 
@@ -121,17 +119,13 @@ extension MapFilterViewController: MapFilterViewDelegate {
 extension MapFilterViewController: SearchLocationViewControllerDelegate {
     public func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
+        delegate?.filterViewControllerWillEndTextEditing(self)
         mapFilterViewManager.centerOnUserLocation()
     }
 
-    public func searchLocationViewControllerShouldBePresented(_ searchLocationViewController: SearchLocationViewController) {
+    public func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController) {
         // Add view controller as child view controller
-        addChild(searchLocationViewController)
-        view.addSubview(searchLocationViewController.view)
-        searchLocationViewController.view.fillInSuperview()
-        view.layoutIfNeeded()
-        searchLocationViewController.didMove(toParent: self)
-
+        add(searchLocationViewController)
         delegate?.filterViewControllerWillBeginTextEditing(self)
     }
 

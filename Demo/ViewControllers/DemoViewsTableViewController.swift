@@ -72,7 +72,8 @@ class DemoViewsTableViewController: UITableViewController {
             let filter = filterContainer(forMarket: market, using: config)
             let controller = CharcoalViewController()
             controller.filter = filter
-            controller.filterDelegate = self
+            controller.textEditingDelegate = self
+            controller.selectionDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
             controller.freeTextFilterDelegate = self
@@ -127,9 +128,9 @@ extension DemoViewsTableViewController {
     }
 }
 
-// MARK: - CharcoalViewControllerDelegate
+// MARK: - CharcoalViewControllerTextEditingDelegate
 
-extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
+extension DemoViewsTableViewController: CharcoalViewControllerTextEditingDelegate {
     func charcoalViewControllerWillBeginTextEditing(_ viewController: CharcoalViewController) {
         guard let bottomSheet = bottomSheet else { return }
 
@@ -147,7 +148,11 @@ extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
             bottomSheet.state = .compact
         }
     }
+}
 
+// MARK: - CharcoalViewControllerSelectionDelegate
+
+extension DemoViewsTableViewController: CharcoalViewControllerSelectionDelegate {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin) {

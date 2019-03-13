@@ -4,7 +4,12 @@
 
 import UIKit
 
-public protocol CharcoalViewControllerDelegate: class {
+public protocol CharcoalViewControllerTextEditingDelegate: AnyObject {
+    func charcoalViewControllerWillBeginTextEditing(_ viewController: CharcoalViewController)
+    func charcoalViewControllerWillEndTextEditing(_ viewController: CharcoalViewController)
+}
+
+public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical)
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?)
     func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController)
@@ -21,7 +26,8 @@ public class CharcoalViewController: UINavigationController {
         didSet { configure(with: filter) }
     }
 
-    public weak var filterDelegate: CharcoalViewControllerDelegate?
+    public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
+    public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
 
     public var freeTextFilterDelegate: FreeTextFilterDelegate? {
         get { return rootFilterViewController?.freeTextFilterDelegate }
@@ -115,13 +121,13 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int) {
         guard let vertical = filter?.verticals?[safe: index] else { return }
-        filterDelegate?.charcoalViewController(self, didSelect: vertical)
+        selectionDelegate?.charcoalViewController(self, didSelect: vertical)
     }
 
     private func handleFilterSelectionChange(from origin: SelectionChangeOrigin) {
         if let rootFilter = filter?.rootFilter {
             let queryItems = selectionStore.queryItems(for: rootFilter)
-            filterDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
+            selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
         }
     }
 }
@@ -129,9 +135,17 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 // MARK: - FilterViewControllerDelegate
 
 extension CharcoalViewController: FilterViewControllerDelegate {
+    func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController) {
+        textEditingDelegate?.charcoalViewControllerWillBeginTextEditing(self)
+    }
+
+    func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController) {
+        textEditingDelegate?.charcoalViewControllerWillEndTextEditing(self)
+    }
+
     func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
         if viewController === rootFilterViewController {
-            filterDelegate?.charcoalViewControllerDidPressShowResults(self)
+            selectionDelegate?.charcoalViewControllerDidPressShowResults(self)
         } else {
             bottomBottonClicked = true
             popToRootViewController(animated: true)
@@ -180,12 +194,12 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             listViewController.showBottomButton(showBottomButton, animated: false)
             pushViewController(listViewController)
         case .external:
-            filterDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
+            selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         case .inline, .search:
             guard let rootFilter = self.filter?.rootFilter else { return }
             let queryItems = selectionStore.queryItems(for: rootFilter)
             let origin: SelectionChangeOrigin = filter.kind == .inline ? .inlineFilter : .freeTextInput
-            filterDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
+            selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
         }
     }
 
@@ -219,7 +233,7 @@ extension CharcoalViewController: UINavigationControllerDelegate {
         if selectionHasChanged, let filter = filter {
             let queryItems = selectionStore.queryItems(for: filter.rootFilter)
             let origin: SelectionChangeOrigin = bottomBottonClicked ? .bottomButton : .navigation
-            filterDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
+            selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
             selectionHasChanged = false
         }
     }

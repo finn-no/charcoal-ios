@@ -6,17 +6,23 @@ import MapKit
 import UIKit
 
 final class MapFilterViewController: FilterViewController {
-    private let mapFilterViewManager: MapFilterViewManager
+
+    // MARK: - Internal properties
+
     var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             searchLocationViewController.searchLocationDataSource = searchLocationDataSource
         }
     }
 
+    // MARK: - Private properties
+
     private let latitudeFilter: Filter
     private let longitudeFilter: Filter
     private let radiusFilter: Filter
     private let locationNameFilter: Filter
+
+    private let mapFilterViewManager: MapFilterViewManager
 
     private lazy var mapFilterView: MapFilterView = {
         let mapFilterView = MapFilterView(
@@ -88,9 +94,7 @@ final class MapFilterViewController: FilterViewController {
         mapFilterView.searchBar = searchLocationViewController.searchBar
         mapFilterView.setNeedsLayout()
 
-        searchLocationViewController.willMove(toParent: nil)
-        searchLocationViewController.view.removeFromSuperview()
-        searchLocationViewController.removeFromParent()
+        searchLocationViewController.remove()
     }
 }
 
@@ -115,24 +119,24 @@ extension MapFilterViewController: MapFilterViewDelegate {
 extension MapFilterViewController: SearchLocationViewControllerDelegate {
     public func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
+        delegate?.filterViewControllerWillEndTextEditing(self)
         mapFilterViewManager.centerOnUserLocation()
     }
 
-    public func searchLocationViewControllerShouldBePresented(_ searchLocationViewController: SearchLocationViewController) {
+    public func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController) {
         // Add view controller as child view controller
-        addChild(searchLocationViewController)
-        view.addSubview(searchLocationViewController.view)
-        searchLocationViewController.view.fillInSuperview()
-        view.layoutIfNeeded()
-        searchLocationViewController.didMove(toParent: self)
+        add(searchLocationViewController)
+        delegate?.filterViewControllerWillBeginTextEditing(self)
     }
 
     public func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
+        delegate?.filterViewControllerWillEndTextEditing(self)
     }
 
     public func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didSelectLocation location: LocationInfo?) {
         returnToMapFromLocationSearch()
+        delegate?.filterViewControllerWillEndTextEditing(self)
 
         if let location = location {
             mapFilterViewManager.goToLocation(location)

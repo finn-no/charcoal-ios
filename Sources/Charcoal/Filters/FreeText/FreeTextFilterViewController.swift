@@ -122,8 +122,9 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
         if searchBar.superview != view {
             setup()
             tableView.reloadData()
-            delegate?.freeTextFilterViewControllerWillBeginEditing(self)
         }
+
+        delegate?.freeTextFilterViewControllerWillBeginEditing(self)
 
         return true
     }

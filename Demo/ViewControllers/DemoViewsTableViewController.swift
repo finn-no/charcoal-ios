@@ -12,6 +12,9 @@ class DemoViewsTableViewController: UITableViewController {
 
     // MARK: - Private properties
 
+    private var bottomSheet: BottomSheet?
+    private var bottomSheetPreviousState: BottomSheet.State = .compact
+
     private var freeTextSearchSuggestions: [String] = []
 
     // MARK: - Override properties
@@ -69,14 +72,15 @@ class DemoViewsTableViewController: UITableViewController {
             let filter = filterContainer(forMarket: market, using: config)
             let controller = CharcoalViewController()
             controller.filter = filter
-            controller.filterDelegate = self
+            controller.textEditingDelegate = self
+            controller.selectionDelegate = self
             controller.mapFilterViewManager = MapViewManager()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
             controller.freeTextFilterDelegate = self
             controller.freeTextFilterDataSource = self
 
-            let bottomSheet = BottomSheet(rootViewController: controller)
-            present(bottomSheet, animated: true)
+            bottomSheet = BottomSheet(rootViewController: controller)
+            present(bottomSheet!, animated: true)
         }
     }
 }
@@ -124,9 +128,31 @@ extension DemoViewsTableViewController {
     }
 }
 
-// MARK: - CharcoalViewControllerDelegate
+// MARK: - CharcoalViewControllerTextEditingDelegate
 
-extension DemoViewsTableViewController: CharcoalViewControllerDelegate {
+extension DemoViewsTableViewController: CharcoalViewControllerTextEditingDelegate {
+    func charcoalViewControllerWillBeginTextEditing(_ viewController: CharcoalViewController) {
+        guard let bottomSheet = bottomSheet else { return }
+
+        bottomSheetPreviousState = bottomSheet.state
+
+        if bottomSheet.state == .compact {
+            bottomSheet.state = .expanded
+        }
+    }
+
+    func charcoalViewControllerWillEndTextEditing(_ viewController: CharcoalViewController) {
+        guard let bottomSheet = bottomSheet else { return }
+
+        if bottomSheetPreviousState == .compact {
+            bottomSheet.state = .compact
+        }
+    }
+}
+
+// MARK: - CharcoalViewControllerSelectionDelegate
+
+extension DemoViewsTableViewController: CharcoalViewControllerSelectionDelegate {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin) {

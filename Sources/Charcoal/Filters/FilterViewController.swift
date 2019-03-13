@@ -4,9 +4,11 @@
 
 import UIKit
 
-protocol FilterViewControllerDelegate: class {
+protocol FilterViewControllerDelegate: AnyObject {
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
     func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController)
+    func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController)
+    func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController)
 }
 
 class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {

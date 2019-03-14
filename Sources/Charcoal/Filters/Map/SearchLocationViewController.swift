@@ -118,10 +118,12 @@ extension SearchLocationViewController: UITableViewDataSource {
         case .homeAddress:
             let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
             cell.configure(with: HomeAddressCellViewModel())
+            cell.iconImageView.tintColor = .watermelon
             return cell
         case .currentLocation:
             let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
             cell.configure(with: CurrentLocationCellViewModel())
+            cell.iconImageView.tintColor = .watermelon
             return cell
         case .recentLocations:
             let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
@@ -323,7 +325,7 @@ private struct HomeAddressCellViewModel: IconTitleTableViewCellViewModel {
     let detailText: String? = nil
 
     var icon: UIImage? {
-        return UIImage(named: .homeAddressIcon)
+        return UIImage(named: .homeAddressIcon).withRenderingMode(.alwaysTemplate)
     }
 
     var iconTintColor: UIColor? {
@@ -347,7 +349,7 @@ private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
     let detailText: String? = nil
 
     var icon: UIImage? {
-        return UIImage(named: .currentLocationIcon)
+        return UIImage(named: .currentLocationIcon).withRenderingMode(.alwaysTemplate)
     }
 
     var iconTintColor: UIColor? {

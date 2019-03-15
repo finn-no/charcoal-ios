@@ -103,7 +103,13 @@ final class MapFilterView: UIView {
         searchBar.backgroundColor = .milk
         setupSearchBar(UISearchBar(frame: .zero))
         distanceSlider.setCurrentValue(currentRadius)
+
         mapFilterViewManager.selectionRadiusChangedTo(currentRadius)
+
+        if let centerPoint = centerPoint {
+            mapFilterViewManager.goToLocation(centerPoint)
+        }
+
         showSelectionView()
 
         self.mapFilterViewManager.mapFilterViewManagerDelegate = self

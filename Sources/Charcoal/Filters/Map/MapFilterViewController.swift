@@ -34,12 +34,16 @@ final class MapFilterViewController: FilterViewController {
     private let locationManager = CLLocationManager()
     private var hasReceivedGoodEnoughUserLocation = false
     private var nextRegionChangeIsFromUserInteraction = false
+    private var hasChanges = false
+    private var isMapLoaded = false
+    private let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
 
     private lazy var mapFilterView: MapFilterView = {
-        let mapFilterView = MapFilterView(radius: radius, centerCoordinate: coordinate)
-        mapFilterView.searchBar = searchLocationViewController.searchBar
-        mapFilterView.delegate = self
+        let mapFilterView = MapFilterView(radius: radius)
         mapFilterView.translatesAutoresizingMaskIntoConstraints = false
+        mapFilterView.searchBar = searchLocationViewController.searchBar
+        mapFilterView.locationName = locationName
+        mapFilterView.delegate = self
         return mapFilterView
     }()
 
@@ -124,12 +128,14 @@ final class MapFilterViewController: FilterViewController {
     private func attemptToActivateUserLocationSupport() {
         if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
-        } else { // Not authorized
-            // mapFilterDelegate?.mapFilterViewControllerFailedToActivateUserLocation(self)
-//            let alertController = FINAlertViewPresenter.createAlert(withTitle: "headline_location_alert".localized(),
-//                                                                    message: "locationNotAuthorizedError".localized(),
-//                                                                    cancelButtonTitle: nil)
-//            present(alertController, animated: true)
+        } else {
+            // Not authorized
+            let title = "location_error_title".localized()
+            let message = "location_error_message".localized()
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "cancel".localized(), style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -155,6 +161,19 @@ extension MapFilterViewController: MapFilterViewDelegate {
 // MARK: - MKMapViewDelegate
 
 extension MapFilterViewController: MKMapViewDelegate {
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        guard !isMapLoaded else {
+            return
+        }
+
+        isMapLoaded = true
+
+        let userCoordinate = mapView.userLocation.location?.coordinate
+        let centerCoordinate = coordinate ?? userCoordinate ?? defaultCenterCoordinate
+
+        mapFilterView.centerOnCoordinate(centerCoordinate, animated: false)
+    }
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let tileOverlay = overlay as? MKTileOverlay else {
             return MKOverlayRenderer(overlay: overlay)
@@ -180,16 +199,20 @@ extension MapFilterViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         mapFilterView.updateRadiusView()
 
-        if nextRegionChangeIsFromUserInteraction {
-            let coordinate = mapView.centerCoordinate
-            let zoomLevel = mapView.calcZoomLevel()
+        let coordinate = mapView.centerCoordinate
 
-            self.coordinate = coordinate
+        if nextRegionChangeIsFromUserInteraction {
+            hasChanges = true
+            let zoomLevel = mapView.calcZoomLevel()
             locationName = nil
 
             mapDataSource?.loadLocationName(for: coordinate, zoomLevel: zoomLevel, completion: { [weak self] name in
                 self?.locationName = name
             })
+        }
+
+        if hasChanges {
+            self.coordinate = coordinate
         }
 
         nextRegionChangeIsFromUserInteraction = false
@@ -269,7 +292,11 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
         delegate?.filterViewControllerWillEndTextEditing(self)
 
         if let location = location {
-            coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            self.coordinate = coordinate
+            locationName = location.name
+
+            mapFilterView.centerOnCoordinate(coordinate, animated: true)
         }
     }
 }
@@ -301,10 +328,7 @@ private extension MapFilterViewController {
         set {
             selectionStore.setValue(newValue?.latitude, for: latitudeFilter)
             selectionStore.setValue(newValue?.longitude, for: longitudeFilter)
-
-            if let coordinate = newValue {
-                mapFilterView.centerOnCoordinate(coordinate, animated: true)
-            }
+            radius = mapFilterView.radius
         }
     }
 
@@ -314,7 +338,8 @@ private extension MapFilterViewController {
         }
         set {
             selectionStore.setValue(newValue, for: locationNameFilter)
-            mapFilterView.searchBar?.text = nil
+            mapFilterView.locationName = newValue
+            hasChanges = true
         }
     }
 }

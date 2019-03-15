@@ -12,7 +12,6 @@ protocol MapFilterViewDelegate: MKMapViewDelegate {
 
 final class MapFilterView: UIView {
     static let defaultRadius = 40000
-    static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
 
     weak var delegate: MapFilterViewDelegate? {
@@ -29,7 +28,12 @@ final class MapFilterView: UIView {
     }
 
     var locationName: String? {
-        return searchBar?.text
+        get {
+            return searchBar?.text
+        }
+        set {
+            searchBar?.text = newValue
+        }
     }
 
     var centerCoordinate: CLLocationCoordinate2D {
@@ -96,17 +100,10 @@ final class MapFilterView: UIView {
 
     // MARK: - Init
 
-    init(radius: Int?, centerCoordinate: CLLocationCoordinate2D?) {
+    init(radius: Int?) {
         self.radius = radius ?? MapFilterView.defaultRadius
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
-
         setup()
-
-        let userCoordinate = mapView.userLocation.location?.coordinate
-        let centerCoordinate = centerCoordinate ?? userCoordinate ?? MapFilterView.defaultCenterCoordinate
-
-        centerOnCoordinate(centerCoordinate, animated: false)
-        updateRegion()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -137,6 +134,7 @@ final class MapFilterView: UIView {
 
     func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, animated: Bool) {
         mapView.setCenter(coordinate, animated: animated)
+        updateRegion(animated: animated)
     }
 
     func centerOnUserLocation() {
@@ -167,10 +165,10 @@ final class MapFilterView: UIView {
         radiusView.radius = mapView.convert(region, toRectTo: mapView).width
     }
 
-    private func updateRegion() {
+    private func updateRegion(animated: Bool = true) {
         let region = mapView.centeredRegion(for: Double(radius) * 2.2)
 
-        mapView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: animated)
         updateRadiusView()
     }
 

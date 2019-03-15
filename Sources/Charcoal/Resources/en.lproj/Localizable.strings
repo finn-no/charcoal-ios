@@ -28,3 +28,5 @@
 "map_filter_title" = "Område i kart";
 "my_home_address" = "Min hjemmeadresse";
 "my_current_location" = "Min nåværende posisjon";
+"location_error_title" = "Informasjon";
+"location_error_message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";

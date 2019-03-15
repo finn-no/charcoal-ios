@@ -152,6 +152,7 @@
 		CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */; };
 		CFEDCE152232BA5A008FCDB1 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
 		CFEDCE1F2232CA89008FCDB1 /* FINNSetup.h in Headers */ = {isa = PBXBuildFile; fileRef = CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CFF4F45A223BD3B600A137DA /* MapRadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF4F459223BD3B600A137DA /* MapRadiusView.swift */; };
 		CFFD9F8D21F09F7500997D14 /* RangeFilterConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
@@ -392,6 +393,7 @@
 		CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FINNSetup.h; sourceTree = "<group>"; };
 		CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		CFEDCE172232BDF2008FCDB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFF4F459223BD3B600A137DA /* MapRadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRadiusView.swift; sourceTree = "<group>"; };
 		CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfigurationTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
@@ -769,11 +771,9 @@
 			isa = PBXGroup;
 			children = (
 				DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */,
-				46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */,
-				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
 				9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */,
-				9B741D1921B6990800D18097 /* ValueSliderView.swift */,
-				9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */,
+				CFF4F458223BD38000A137DA /* MapView */,
+				CFF4F45B223BDFF100A137DA /* SliderView */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1002,6 +1002,25 @@
 				CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CFF4F458223BD38000A137DA /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				CFF4F459223BD3B600A137DA /* MapRadiusView.swift */,
+				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		CFF4F45B223BDFF100A137DA /* SliderView */ = {
+			isa = PBXGroup;
+			children = (
+				46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */,
+				9B741D1921B6990800D18097 /* ValueSliderView.swift */,
+				9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */,
+			);
+			path = SliderView;
 			sourceTree = "<group>";
 		};
 		CFFD9F8A21F07A7700997D14 /* StepSlider */ = {
@@ -1419,6 +1438,7 @@
 				55C9CC242097A7DD00F0C9C8 /* CustomPopoverPresentationController.swift in Sources */,
 				CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */,
+				CFF4F45A223BD3B600A137DA /* MapRadiusView.swift in Sources */,
 				559C61F420DA4C8D0083A574 /* (null) in Sources */,
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */,

@@ -56,7 +56,7 @@ final class MapRadiusView: UIView {
             centerPointView.centerXAnchor.constraint(equalTo: centerXAnchor),
             centerPointView.centerYAnchor.constraint(equalTo: centerYAnchor),
             centerPointView.widthAnchor.constraint(equalToConstant: 6),
-            centerPointView.heightAnchor.constraint(equalTo: centerPointView.widthAnchor)
+            centerPointView.heightAnchor.constraint(equalTo: centerPointView.widthAnchor),
         ])
     }
 }

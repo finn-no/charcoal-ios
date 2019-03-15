@@ -13,8 +13,13 @@ protocol MapFilterViewDelegate: MKMapViewDelegate {
 final class MapFilterView: UIView {
     static let defaultRadius = 40000
     static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
+    private static let userLocationButtonWidth: CGFloat = 46
 
-    weak var delegate: MapFilterViewDelegate?
+    weak var delegate: MapFilterViewDelegate? {
+        didSet {
+            mapView.delegate = delegate
+        }
+    }
 
     var searchBar: UISearchBar? {
         didSet {
@@ -68,6 +73,7 @@ final class MapFilterView: UIView {
         let button = UIButton(withAutoLayout: true)
         button.backgroundColor = UIColor(white: 1, alpha: 0.8)
         button.tintColor = .primaryBlue
+        button.layer.cornerRadius = MapFilterView.userLocationButtonWidth / 2
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
@@ -97,7 +103,7 @@ final class MapFilterView: UIView {
         setup()
 
         let userCoordinate = mapView.userLocation.location?.coordinate
-        let centerCoordinate = centerCoordinate ?? userCoordinate  ?? MapFilterView.defaultCenterCoordinate
+        let centerCoordinate = centerCoordinate ?? userCoordinate ?? MapFilterView.defaultCenterCoordinate
 
         centerOnCoordinate(centerCoordinate, animated: false)
         updateRegion()
@@ -112,8 +118,6 @@ final class MapFilterView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        userLocationButton.layer.cornerRadius = userLocationButton.frame.height / 2
-
         // Update radius so it fits for new view sizes
         let updateViewWorkItem = DispatchWorkItem { [weak self] in
             self?.updateRegion()
@@ -125,7 +129,11 @@ final class MapFilterView: UIView {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
     }
 
-    // MARK: - Actions
+    // MARK: - API
+
+    func setMapTileOverlay(_ overlay: MKTileOverlay) {
+        mapView.addOverlay(overlay, level: .aboveLabels)
+    }
 
     func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, animated: Bool) {
         mapView.setCenter(coordinate, animated: animated)
@@ -155,13 +163,18 @@ final class MapFilterView: UIView {
     }
 
     func updateRadiusView() {
-        radiusView.radius = mapView.centeredRadius(for: radius)
+        let region = mapView.centeredRegion(for: Double(radius))
+        radiusView.radius = mapView.convert(region, toRectTo: mapView).width
     }
 
     private func updateRegion() {
-        mapView.setRegion(withRadius: radius)
+        let region = mapView.centeredRegion(for: Double(radius) * 2.2)
+
+        mapView.setRegion(region, animated: true)
         updateRadiusView()
     }
+
+    // MARK: - Actions
 
     @objc private func didTapLocateUserButton() {
         delegate?.mapFilterViewDidSelectLocationButton(self)
@@ -197,7 +210,7 @@ final class MapFilterView: UIView {
             userLocationButton.topAnchor.constraint(equalTo: mapView.compatibleTopAnchor, constant: .mediumSpacing),
             userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.mediumSpacing),
             userLocationButton.widthAnchor.constraint(equalToConstant: 46),
-            userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor)
+            userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),
         ])
     }
 
@@ -214,7 +227,7 @@ final class MapFilterView: UIView {
             searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: mapContainerView.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing)
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
         ])
     }
 }
@@ -232,18 +245,6 @@ extension MapFilterView: ValueSliderWithLabelViewDelegate {
 // MARK: - Private extensions
 
 private extension MKMapView {
-    func setRegion(withRadius radiusInMeters: Int) {
-        let radius = Double(radiusInMeters) * 2.2
-        let region = centeredRegion(for: radius)
-
-        setRegion(region, animated: true)
-    }
-
-    func centeredRadius(for radiusInMeters: Int) -> CGFloat {
-        let region = centeredRegion(for: Double(radiusInMeters))
-        return convert(region, toRectTo: self).width
-    }
-
     func centeredRegion(for radius: CLLocationDistance) -> MKCoordinateRegion {
         return MKCoordinateRegion(
             center: centerCoordinate,

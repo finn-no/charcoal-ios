@@ -26,5 +26,5 @@
 "map.homeAddress" = "Min hjemmeadresse";
 "map.currentLocation" = "Min nåværende posisjon";
 "map.valueSliderAccessibilityLabel" = "Slider for verdi";
-"location_error_title" = "Informasjon";
-"location_error_message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
+"map.locationError.title" = "Informasjon";
+"map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";

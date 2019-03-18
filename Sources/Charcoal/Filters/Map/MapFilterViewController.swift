@@ -129,8 +129,8 @@ final class MapFilterViewController: FilterViewController {
             locationManager.requestWhenInUseAuthorization()
         } else {
             // Not authorized
-            let title = "location_error_title".localized()
-            let message = "location_error_message".localized()
+            let title = "map.locationError.title".localized()
+            let message = "map.locationError.message".localized()
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "cancel".localized(), style: .default, handler: nil))

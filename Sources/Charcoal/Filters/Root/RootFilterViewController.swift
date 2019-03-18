@@ -69,7 +69,7 @@ final class RootFilterViewController: FilterViewController {
         navigationItem.rightBarButtonItem = resetButton
 
         showBottomButton(true, animated: false)
-        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
+        bottomButton.buttonTitle = String(format: "showResultsButton".localized(), filter.numberOfResults)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
         setup()
     }
@@ -91,7 +91,7 @@ final class RootFilterViewController: FilterViewController {
         self.filter = filter
         self.verticals = verticals
         navigationItem.title = filter.title
-        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
+        bottomButton.buttonTitle = String(format: "showResultsButton".localized(), filter.numberOfResults)
         tableView.reloadData()
     }
 

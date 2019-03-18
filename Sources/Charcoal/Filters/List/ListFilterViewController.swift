@@ -43,7 +43,7 @@ final class ListFilterViewController: FilterViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomButton.buttonTitle = "apply_button_title".localized()
+        bottomButton.buttonTitle = "applyButton".localized()
         setup()
     }
 

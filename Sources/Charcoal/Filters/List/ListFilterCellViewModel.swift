@@ -39,7 +39,7 @@ extension ListFilterCellViewModel {
         let checkboxStyle: CheckboxStyle = isSelected ? .selectedFilled : .deselected
 
         return ListFilterCellViewModel(
-            title: "all_items_title".localized(),
+            title: "all".localized(),
             subtitle: nil,
             detailText: String(filter.numberOfResults),
             accessoryStyle: .none,
@@ -69,7 +69,7 @@ extension ListFilterCellViewModel {
     static func external(from filter: Filter) -> ListFilterCellViewModel {
         return ListFilterCellViewModel(
             title: filter.title,
-            subtitle: "opens_in_browser".localized(),
+            subtitle: "browserText".localized(),
             detailText: String(filter.numberOfResults),
             accessoryStyle: .external,
             checkboxStyle: .deselected

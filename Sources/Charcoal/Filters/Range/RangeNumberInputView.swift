@@ -44,7 +44,7 @@ final class RangeNumberInputView: UIView {
         textField.font = Style.normalFont(size: inputFontSize)
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
-        textField.accessibilityLabel = "range_number_input_view_low_value_textfield_accessibility_label".localized()
+        textField.accessibilityLabel = "range.numberInput.lowValueAccessibilityLabel".localized()
         return textField
     }()
 
@@ -61,7 +61,7 @@ final class RangeNumberInputView: UIView {
     private lazy var underLowerBoundHintLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "range_below_lower_bound_title".localized()
+        label.text = "range.lowerBoundTitle".localized()
         label.font = Style.hintNormalFont
         label.textColor = Style.textColor
         return label
@@ -85,7 +85,7 @@ final class RangeNumberInputView: UIView {
         textField.font = Style.normalFont(size: inputFontSize)
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
-        textField.accessibilityLabel = "range_number_input_view_high_value_textfield_accessibility_label".localized()
+        textField.accessibilityLabel = "range.numberInput.highValueAccessibilityLabel".localized()
         return textField
     }()
 
@@ -102,7 +102,7 @@ final class RangeNumberInputView: UIView {
     private lazy var overUpperBoundHintLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "range_above_upper_bound_title".localized()
+        label.text = "range.upperBoundTitle".localized()
         label.font = Style.hintNormalFont
         label.textColor = Style.textColor
         return label

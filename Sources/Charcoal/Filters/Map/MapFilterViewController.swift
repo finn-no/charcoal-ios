@@ -7,7 +7,7 @@ import UIKit
 
 public protocol MapFilterDataSource: AnyObject {
     var mapTileOverlay: MKTileOverlay? { get }
-    func loadLocationName(for coordinate: CLLocationCoordinate2D, zoomLevel: Int, completion: (String?) -> Void)
+    func loadLocationName(for coordinate: CLLocationCoordinate2D, zoomLevel: Int, completion: @escaping (String?) -> Void)
 }
 
 final class MapFilterViewController: FilterViewController {
@@ -205,8 +205,11 @@ extension MapFilterViewController: MKMapViewDelegate {
 
             let zoomLevel = mapView.calcZoomLevel()
 
-            mapDataSource?.loadLocationName(for: coordinate, zoomLevel: zoomLevel, completion: { [weak self] name in
-                self?.locationName = name
+            mapDataSource?.loadLocationName(for: coordinate, zoomLevel: zoomLevel, completion: { [weak self, weak mapView] name in
+                // Set location name only if it's the latest search
+                if let centerCoordinate = mapView?.centerCoordinate, coordinate == centerCoordinate {
+                    self?.locationName = name
+                }
             })
         }
 

@@ -134,7 +134,6 @@ final class MapFilterView: UIView {
 
     func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, animated: Bool) {
         mapView.setCenter(coordinate, animated: animated)
-        updateRegion(animated: animated)
     }
 
     func centerOnUserLocation() {

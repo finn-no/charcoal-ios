@@ -35,7 +35,8 @@ final class MapRadiusView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = bounds.size.width / 2.0
+        layer.cornerRadius = bounds.size.width / 2
+        centerPointView.layer.cornerRadius = centerPointView.bounds.size.width / 2
     }
 
     // MARK: - Setup

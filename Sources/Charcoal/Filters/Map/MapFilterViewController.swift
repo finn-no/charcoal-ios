@@ -154,6 +154,7 @@ extension MapFilterViewController: MapFilterViewDelegate {
     }
 
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
+        hasChanges = true
         self.radius = radius
     }
 }
@@ -218,28 +219,6 @@ extension MapFilterViewController: MKMapViewDelegate {
         nextRegionChangeIsFromUserInteraction = false
     }
 
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if hasReceivedGoodEnoughUserLocation {
-            mapFilterView.stopAnimatingLocationButton()
-            return
-        }
-
-        guard let location = mapView.userLocation.location else {
-            return
-        }
-
-        if !CLLocationCoordinate2DIsValid(location.coordinate) || location.horizontalAccuracy >= kCLLocationAccuracyThreeKilometers {
-            return
-        }
-
-        if location.horizontalAccuracy <= kCLLocationAccuracyHundredMeters {
-            hasReceivedGoodEnoughUserLocation = true
-        }
-
-        mapFilterView.stopAnimatingLocationButton()
-        coordinate = location.coordinate
-    }
-
     func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
         mapFilterView.startAnimatingLocationButton()
     }
@@ -293,6 +272,8 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
 
         if let location = location {
             let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+
+            hasChanges = true
             self.coordinate = coordinate
             locationName = location.name
 
@@ -339,7 +320,6 @@ private extension MapFilterViewController {
         set {
             selectionStore.setValue(newValue, for: locationNameFilter)
             mapFilterView.locationName = newValue
-            hasChanges = true
         }
     }
 }

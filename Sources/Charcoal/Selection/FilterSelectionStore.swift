@@ -96,8 +96,8 @@ private extension FilterSelectionStore {
     func _setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
         _removeValues(for: filter)
 
-        if let value = value {
-            let queryItem = URLQueryItem(name: filter.key, value: String(value))
+        if let value = value.map(String.init), value != "" {
+            let queryItem = URLQueryItem(name: filter.key, value: value)
             queryItems.insert(queryItem)
         }
     }

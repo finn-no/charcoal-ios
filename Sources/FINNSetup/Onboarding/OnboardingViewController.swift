@@ -9,10 +9,10 @@ class OnboardingViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private lazy var viewControllers: [UIViewController] = [
-        OnboardingPage(imageName: "group", attributedString: highlightedText(forKey: "onboarding.pages.0")),
-        OnboardingPage(imageName: "group", attributedString: highlightedText(forKey: "onboarding.pages.1")),
-        OnboardingPage(imageName: "group", attributedString: highlightedText(forKey: "onboarding.pages.2")),
+    private lazy var content = [
+        OnboardingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.pages.0")),
+        OnboardingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.pages.1")),
+        OnboardingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.pages.2")),
     ]
 
     private lazy var previousButton: UIButton = {
@@ -31,13 +31,18 @@ class OnboardingViewController: UIViewController {
         return button
     }()
 
-    private lazy var pageViewController: UIPageViewController = {
-        let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        pageViewController.delegate = self
-        pageViewController.dataSource = self
-        pageViewController.setViewControllers([viewControllers.first!], direction: .forward, animated: false)
-        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        return pageViewController
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(OnboardingCell.self)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
 
     private var currentIndex = 0
@@ -47,6 +52,9 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+
+        previousButton.alpha = 0
+        previousButton.isEnabled = false
     }
 
     // MARK: - Actions
@@ -54,61 +62,45 @@ class OnboardingViewController: UIViewController {
     @objc private func previousButtonPressed(sender: UIButton) {
         guard currentIndex > 0 else { return }
         currentIndex -= 1
-        pageViewController.setViewControllers([viewControllers[currentIndex]], direction: .reverse, animated: true)
+
+        let indexPath = IndexPath(item: currentIndex, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 
     @objc private func nextButtonPressed(sender: UIButton) {
-        guard currentIndex < viewControllers.count - 1 else { return }
+        guard currentIndex < content.count - 1 else { return }
         currentIndex += 1
-        pageViewController.setViewControllers([viewControllers[currentIndex]], direction: .forward, animated: true)
+
+        let indexPath = IndexPath(item: currentIndex, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }
 
-extension OnboardingViewController: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        guard let viewController = pendingViewControllers.first else { return }
-        guard let index = viewControllers.firstIndex(of: viewController) else { return }
-
-        switch index {
-        case viewControllers.startIndex:
-            previousButton.isHidden = true
-        case viewControllers.endIndex - 1:
-            nextButton.isHidden = true
-        default:
-            previousButton.isHidden = false
-            nextButton.isHidden = false
-        }
+extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let previousButtonAlphaValue = scrollView.contentOffset.x / scrollView.frame.width
+        previousButton.alpha = previousButtonAlphaValue
+        previousButton.isEnabled = previousButtonAlphaValue > 0
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        guard completed else { return }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        currentIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
+    }
 
-        guard let viewController = pageViewController.viewControllers?.first else { return }
-        guard let index = viewControllers.firstIndex(of: viewController) else { return }
-
-        currentIndex = index
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.bounds.size
     }
 }
 
-extension OnboardingViewController: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let indexBefore = currentIndex - 1
-        guard currentIndex > 0 else { return nil }
-        return viewControllers[indexBefore]
+extension OnboardingViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return content.count
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let indexAfter = currentIndex + 1
-        guard currentIndex < viewControllers.count - 1 else { return nil }
-        return viewControllers[indexAfter]
-    }
-
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return viewControllers.count
-    }
-
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return currentIndex
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeue(OnboardingCell.self, for: indexPath)
+        cell.configure(with: content[indexPath.item])
+        return cell
     }
 }
 
@@ -152,22 +144,15 @@ private extension OnboardingViewController {
     }
 
     func setup() {
-        let pageController = UIPageControl.appearance()
-        pageController.pageIndicatorTintColor = .sardine
-        pageController.currentPageIndicatorTintColor = .primaryBlue
-
-        addChild(pageViewController)
-        view.addSubview(pageViewController.view)
-        pageViewController.didMove(toParent: self)
-
+        view.addSubview(collectionView)
         view.addSubview(previousButton)
         view.addSubview(nextButton)
 
         NSLayoutConstraint.activate([
-            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumLargeSpacing),
-            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: .mediumLargeSpacing),
-            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumLargeSpacing),
-            pageViewController.view.bottomAnchor.constraint(equalTo: previousButton.topAnchor, constant: -.mediumLargeSpacing),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: previousButton.topAnchor, constant: -.mediumLargeSpacing),
 
             previousButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
             previousButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -.mediumSpacing),

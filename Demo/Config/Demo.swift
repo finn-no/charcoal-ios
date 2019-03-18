@@ -3,6 +3,7 @@
 //
 
 @testable import Charcoal
+@testable import FINNSetup
 
 enum Sections: String, CaseIterable {
     case components
@@ -82,6 +83,8 @@ enum Sections: String, CaseIterable {
                 return .none
             case .mapFilter:
                 return .bottomSheet
+            case .onboarding:
+                return .bottomSheet
             }
         case .fullscreen:
             let selectedView = FullscreenViews.allCases[indexPath.row]
@@ -125,6 +128,7 @@ enum ComponentViews: String, CaseIterable {
     case stepperFilter
     case inlineFilter
     case mapFilter
+    case onboarding
 
     var viewController: UIViewController {
         switch self {
@@ -172,6 +176,8 @@ enum ComponentViews: String, CaseIterable {
             mapViewController.searchLocationDataSource = DemoSearchLocationDataSource()
 
             return mapViewController
+        case .onboarding:
+            return OnboardingViewController()
         }
     }
 }

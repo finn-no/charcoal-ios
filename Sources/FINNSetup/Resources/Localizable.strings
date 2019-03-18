@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  Charcoal
+
+  Copyright © 2019 FINN.no. All rights reserved.
+*/
+
+"onboarding.button.previous.title" = "Tilbake";
+"onboarding.button.next.title" = "Neste";
+
+"onboarding.pages.0.text" = "Vi har laget nytt filter!\nDet nye filteret er det samme gamle,\nvi har bare gitt det en liten kattevask";
+"onboarding.pages.0.highlights.0" = "Vi har laget nytt filter!";
+"onboarding.pages.0.highlights.1" = "samme gamle";
+
+"onboarding.pages.1.text" = "Like praktisk som før, bare bedre\nVi gir deg like mange muligheter,\ndet er nå bare enklere å finne frem";
+"onboarding.pages.1.highlights.0" = "Like praktisk som før, bare bedre";
+"onboarding.pages.1.highlights.1" = "enklere å finne frem";
+
+"onboarding.pages.2.text" = "Full kontroll over dine valg\nVi gir deg bedre oversikt ved å\ntydeliggjøre filtervalgene du har sett";
+"onboarding.pages.2.highlights.0" = "Full kontroll over dine valg";
+"onboarding.pages.2.highlights.1" = "bedre oversikt";

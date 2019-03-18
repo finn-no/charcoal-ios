@@ -91,6 +91,8 @@ final class MapFilterViewController: FilterViewController {
         showBottomButton(true, animated: false)
         setup()
 
+        locationManager.delegate = self
+
         if canUpdateLocation {
             mapFilterView.isUserLocatonButtonEnabled = true
         }

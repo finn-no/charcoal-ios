@@ -165,10 +165,10 @@ enum ComponentViews: String, CaseIterable {
                 longitudeFilter: mapFilter.subfilters[1],
                 radiusFilter: mapFilter.subfilters[2],
                 locationNameFilter: mapFilter.subfilters[3],
-                selectionStore: FilterSelectionStore(),
-                mapFilterViewManager: MapViewManager()
+                selectionStore: FilterSelectionStore()
             )
 
+            mapViewController.mapDataSource = MapDataSource()
             mapViewController.searchLocationDataSource = DemoSearchLocationDataSource()
 
             return mapViewController

@@ -39,7 +39,7 @@ public class CharcoalViewController: UINavigationController {
         set { rootFilterViewController?.freeTextFilterDataSource = newValue }
     }
 
-    public var mapFilterViewManager: MapFilterViewManager?
+    public var mapDataSource: MapFilterDataSource?
     public var searchLocationDataSource: SearchLocationDataSource?
 
     public var isLoading: Bool = false {
@@ -171,17 +171,16 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
-            guard let mapFilterViewManager = mapFilterViewManager else { break }
-
             let mapViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 radiusFilter: radiusFilter,
                 locationNameFilter: locationNameFilter,
-                selectionStore: selectionStore,
-                mapFilterViewManager: mapFilterViewManager
+                selectionStore: selectionStore
             )
+
+            mapViewController.mapDataSource = mapDataSource
             mapViewController.searchLocationDataSource = searchLocationDataSource
 
             pushViewController(mapViewController)

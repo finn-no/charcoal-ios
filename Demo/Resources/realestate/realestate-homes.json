@@ -1,6 +1,7 @@
 {
     "market": "realestate-homes",
     "hits": 23636,
+    "objectCount": 35231,
     "label": "Bolig til salgs",
     "type": "search",
     "filters": [

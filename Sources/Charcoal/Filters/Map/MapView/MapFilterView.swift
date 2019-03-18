@@ -11,7 +11,8 @@ protocol MapFilterViewDelegate: MKMapViewDelegate {
 }
 
 final class MapFilterView: UIView {
-    static let defaultRadius = 40000
+    private static let defaultRadius = 40000
+    private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
 
     weak var delegate: MapFilterViewDelegate? {
@@ -48,15 +49,16 @@ final class MapFilterView: UIView {
     }
 
     private(set) var radius: Int
+    private let initialCenterCoordinate: CLLocationCoordinate2D?
     private let pulseAnimationKey = "LocateUserPulseAnimation"
-
-    // MARK: - Subviews
 
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
         didSet {
             oldValue?.cancel()
         }
     }
+
+    // MARK: - Subviews
 
     private lazy var mapContainerView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
@@ -100,10 +102,14 @@ final class MapFilterView: UIView {
 
     // MARK: - Init
 
-    init(radius: Int?) {
+    init(radius: Int?, centerCoordinate: CLLocationCoordinate2D?) {
         self.radius = radius ?? MapFilterView.defaultRadius
+        initialCenterCoordinate = centerCoordinate
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
+
         setup()
+        updateRegion(animated: false)
+        centerOnInitialCoordinate()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -130,6 +136,13 @@ final class MapFilterView: UIView {
 
     func setMapTileOverlay(_ overlay: MKTileOverlay) {
         mapView.addOverlay(overlay, level: .aboveLabels)
+    }
+
+    func centerOnInitialCoordinate() {
+        let userCoordinate = mapView.userLocation.location?.coordinate
+        let centerCoordinate = initialCenterCoordinate ?? userCoordinate ?? MapFilterView.defaultCenterCoordinate
+
+        centerOnCoordinate(centerCoordinate, animated: false)
     }
 
     func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, animated: Bool) {

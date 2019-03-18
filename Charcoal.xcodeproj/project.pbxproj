@@ -1007,8 +1007,8 @@
 		CFF4F458223BD38000A137DA /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				CFF4F459223BD3B600A137DA /* MapRadiusView.swift */,
 				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
+				CFF4F459223BD3B600A137DA /* MapRadiusView.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";

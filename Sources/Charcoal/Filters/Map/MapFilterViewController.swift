@@ -32,14 +32,12 @@ final class MapFilterViewController: FilterViewController {
     private let radiusFilter: Filter
     private let locationNameFilter: Filter
     private let locationManager = CLLocationManager()
-    private var hasReceivedGoodEnoughUserLocation = false
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
-    private let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
 
     private lazy var mapFilterView: MapFilterView = {
-        let mapFilterView = MapFilterView(radius: radius)
+        let mapFilterView = MapFilterView(radius: radius, centerCoordinate: coordinate)
         mapFilterView.translatesAutoresizingMaskIntoConstraints = false
         mapFilterView.searchBar = searchLocationViewController.searchBar
         mapFilterView.locationName = locationName
@@ -59,6 +57,7 @@ final class MapFilterViewController: FilterViewController {
         }
 
         let status = CLLocationManager.authorizationStatus()
+
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
             return true
@@ -86,6 +85,7 @@ final class MapFilterViewController: FilterViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
         bottomButton.buttonTitle = "apply_button_title".localized()
         view.backgroundColor = .milk
 
@@ -93,7 +93,7 @@ final class MapFilterViewController: FilterViewController {
         setup()
 
         if canUpdateLocation {
-            mapFilterView.isUserLocatonButtonEnabled = CLLocationManager.authorizationStatus() != .restricted
+            mapFilterView.isUserLocatonButtonEnabled = true
         }
     }
 
@@ -168,11 +168,7 @@ extension MapFilterViewController: MKMapViewDelegate {
         }
 
         isMapLoaded = true
-
-        let userCoordinate = mapView.userLocation.location?.coordinate
-        let centerCoordinate = coordinate ?? userCoordinate ?? defaultCenterCoordinate
-
-        mapFilterView.centerOnCoordinate(centerCoordinate, animated: false)
+        mapFilterView.centerOnInitialCoordinate()
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -204,8 +200,9 @@ extension MapFilterViewController: MKMapViewDelegate {
 
         if nextRegionChangeIsFromUserInteraction {
             hasChanges = true
-            let zoomLevel = mapView.calcZoomLevel()
             locationName = nil
+
+            let zoomLevel = mapView.calcZoomLevel()
 
             mapDataSource?.loadLocationName(for: coordinate, zoomLevel: zoomLevel, completion: { [weak self] name in
                 self?.locationName = name
@@ -274,8 +271,8 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
             let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
 
             hasChanges = true
-            self.coordinate = coordinate
             locationName = location.name
+            self.coordinate = coordinate
 
             mapFilterView.centerOnCoordinate(coordinate, animated: true)
         }

@@ -209,10 +209,10 @@ extension RangeFilterView {
         } else {
             if step == .lowerBound {
                 newValue = filterConfig.minimumValue
-                hintText = "range_below_lower_bound_title".localized()
+                hintText = "range.lowerBoundTitle".localized()
             } else {
                 newValue = filterConfig.maximumValue
-                hintText = "range_above_upper_bound_title".localized()
+                hintText = "range.upperBoundTitle".localized()
             }
         }
 

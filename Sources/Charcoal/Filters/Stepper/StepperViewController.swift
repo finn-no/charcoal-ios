@@ -37,7 +37,7 @@ final class StepperFilterViewController: FilterViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomButton.buttonTitle = "apply_button_title".localized()
+        bottomButton.buttonTitle = "applyButton".localized()
 
         if let value: Int = selectionStore.value(for: filter) {
             stepperFilterView.value = value

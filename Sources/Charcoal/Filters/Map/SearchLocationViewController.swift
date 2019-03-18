@@ -340,7 +340,7 @@ private struct HomeAddressCellViewModel: IconTitleTableViewCellViewModel {
     }
 
     var title: String {
-        return "my_home_address".localized()
+        return "map.homeAddress".localized()
     }
 
     var subtitle: String? {
@@ -364,7 +364,7 @@ private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
     }
 
     var title: String {
-        return "my_current_location".localized()
+        return "map.currentLocation".localized()
     }
 
     var subtitle: String? {

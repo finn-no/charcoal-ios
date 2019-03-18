@@ -1,32 +1,30 @@
-/* 
+/*
   Localizable.strings
   FilterKit
 
   Copyright © FINN.no. All rights reserved.
 */
 
-"range_slider_view_low_value_slider_accessibility_label" = "Slider for lav verdi";
-"range_slider_view_high_value_slider_accessibility_label" = "Slider for høy verdi";
-"range_number_input_view_low_value_textfield_accessibility_label" = "Tekstfelt for lav verdi";
-"range_number_input_view_high_value_textfield_accessibility_label" = "Tekstfelt for høy verdi";
-"range_above_upper_bound_title" = "Over";
-"range_below_lower_bound_title" = "Under";
-"apply_button_title" = "Bruk";
-"opens_in_browser" = "Åpnes i nettleseren";
-"all_items_title" = "Alle";
-"show_hits_button_title" = "Vis treff";
-"show_x_hits_button_title" = "Vis %i treff";
-"unkown_error" = "En ukjent feil har oppstått";
-"unable_to_load_filter_data_error" = "Beklager, nå er det rusk i maskineriet. Prøv igjen om litt eller få mer informasjon hos Hjelpesenteret";
-"try_again_button_title" = "Prøv igjen";
-"ok_button_title" = "OK";
+"all" = "Alle";
 "cancel" = "Avbryt";
 "done" = "Ferdig";
 "reset" = "Nullstill";
-"value_slider_control_value_slider_accessibility_label" = "Slider for verdi";
-"search_placeholder" = "Ord i annonsen";
-"map_filter_title" = "Område i kart";
-"my_home_address" = "Min hjemmeadresse";
-"my_current_location" = "Min nåværende posisjon";
-"location_error_title" = "Informasjon";
-"location_error_message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
+"rootTitle" = "Filtrer søket";
+"applyButton" = "Bruk";
+"showResultsButton" = "Vis %i treff";
+"searchPlaceholder" = "Ord i annonsen";
+"browserText" = "Åpnes i nettleseren";
+
+"range.upperBoundTitle" = "Over";
+"range.lowerBoundTitle" = "Under";
+"range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
+"range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";
+"range.numberInput.lowValueAccessibilityLabel" = "Tekstfelt for lav verdi";
+"range.numberInput.highValueAccessibilityLabel" = "Tekstfelt for høy verdi";
+
+"map.title" = "Område i kart";
+"map.homeAddress" = "Min hjemmeadresse";
+"map.currentLocation" = "Min nåværende posisjon";
+"map.valueSliderAccessibilityLabel" = "Slider for verdi";
+"map.locationError.title" = "Informasjon";
+"map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";

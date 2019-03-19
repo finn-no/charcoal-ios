@@ -156,6 +156,8 @@ final class MapFilterView: UIView {
     }
 
     func startAnimatingLocationButton() {
+        stopAnimatingLocationButton()
+
         let pulseAnimation = CABasicAnimation(keyPath: "opacity")
         pulseAnimation.fromValue = 0.6
         pulseAnimation.toValue = 1.0

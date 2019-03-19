@@ -33,6 +33,7 @@ final class MapFilterViewController: FilterViewController {
     private let locationNameFilter: Filter
     private let locationManager = CLLocationManager()
     private var nextRegionChangeIsFromUserInteraction = false
+    private var isLookingForUserLocation = false
     private var hasChanges = false
     private var isMapLoaded = false
 
@@ -126,6 +127,15 @@ final class MapFilterViewController: FilterViewController {
         searchLocationViewController.remove()
     }
 
+    private func startLocatingUser() {
+        mapFilterView.isUserLocatonButtonEnabled = true
+        nextRegionChangeIsFromUserInteraction = true
+        isLookingForUserLocation = true
+
+        mapFilterView.startAnimatingLocationButton()
+        mapFilterView.centerOnUserLocation()
+    }
+
     private func attemptToActivateUserLocationSupport() {
         if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
@@ -150,8 +160,7 @@ extension MapFilterViewController: MapFilterViewDelegate {
             return
         }
 
-        nextRegionChangeIsFromUserInteraction = true
-        mapFilterView.centerOnUserLocation()
+        startLocatingUser()
     }
 
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
@@ -220,16 +229,34 @@ extension MapFilterViewController: MKMapViewDelegate {
         nextRegionChangeIsFromUserInteraction = false
     }
 
-    func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
-        mapFilterView.startAnimatingLocationButton()
-    }
-
     func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
         mapFilterView.stopAnimatingLocationButton()
     }
 
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
         mapFilterView.stopAnimatingLocationButton()
+    }
+
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        defer {
+            if !isLookingForUserLocation {
+                mapFilterView.stopAnimatingLocationButton()
+            }
+        }
+
+        guard let location = mapView.userLocation.location, isLookingForUserLocation else {
+            return
+        }
+
+        if !CLLocationCoordinate2DIsValid(location.coordinate) || location.horizontalAccuracy >= kCLLocationAccuracyThreeKilometers {
+            return
+        }
+
+        if location.horizontalAccuracy <= kCLLocationAccuracyHundredMeters {
+            isLookingForUserLocation = false
+        }
+
+        mapFilterView.centerOnUserLocation()
     }
 }
 
@@ -239,7 +266,7 @@ extension MapFilterViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            mapFilterView.centerOnUserLocation()
+            startLocatingUser()
         case .denied, .notDetermined, .restricted:
             break
         }

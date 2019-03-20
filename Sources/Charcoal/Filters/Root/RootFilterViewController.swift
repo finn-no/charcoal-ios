@@ -256,6 +256,7 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
+        freeTextFilterViewController?.searchBar.text = nil
         verticalViewController.dismiss(animated: false)
         rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
     }

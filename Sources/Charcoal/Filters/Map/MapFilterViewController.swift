@@ -33,6 +33,7 @@ final class MapFilterViewController: FilterViewController {
     private let locationNameFilter: Filter
     private let locationManager = CLLocationManager()
     private var nextRegionChangeIsFromUserInteraction = false
+    private var hasRequestedLocationAuthorization = false
     private var hasChanges = false
     private var isMapLoaded = false
 
@@ -128,12 +129,12 @@ final class MapFilterViewController: FilterViewController {
             return
         }
 
-        nextRegionChangeIsFromUserInteraction = true
         mapFilterView.centerOnUserLocation()
     }
 
     private func attemptToActivateUserLocationSupport() {
         if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .notDetermined {
+            hasRequestedLocationAuthorization = true
             locationManager.requestWhenInUseAuthorization()
         } else {
             // Not authorized
@@ -151,6 +152,7 @@ final class MapFilterViewController: FilterViewController {
 
 extension MapFilterViewController: MapFilterViewDelegate {
     func mapFilterViewDidSelectLocationButton(_ mapFilterView: MapFilterView) {
+        nextRegionChangeIsFromUserInteraction = true
         centerOnUserLocation()
     }
 
@@ -198,28 +200,25 @@ extension MapFilterViewController: MKMapViewDelegate {
         let coordinate = mapView.centerCoordinate
         let zoomLevel = mapView.calcZoomLevel()
 
-        if nextRegionChangeIsFromUserInteraction {
-            hasChanges = true
-        }
-
         mapFilterView.updateRadiusView()
         mapFilterView.isUserLocatonButtonHighlighted = coordinate == mapView.userLocation.coordinate
-        nextRegionChangeIsFromUserInteraction = false
 
-        mapDataSource?.loadLocationName(for: coordinate, zoomLevel: zoomLevel, completion: { [weak self, weak mapView] name in
-            // Set location name only if it's the latest search
-            if let centerCoordinate = mapView?.centerCoordinate, coordinate == centerCoordinate {
-                if self?.hasChanges == true {
+        if nextRegionChangeIsFromUserInteraction {
+            hasChanges = true
+
+            mapDataSource?.loadLocationName(for: coordinate, zoomLevel: zoomLevel, completion: { [weak self, weak mapView] name in
+                // Set location name only if it's the latest search
+                if let centerCoordinate = mapView?.centerCoordinate, coordinate == centerCoordinate {
                     self?.locationName = name
-                } else {
-                    self?.mapFilterView.locationName = name
                 }
-            }
-        })
+            })
+        }
 
         if hasChanges {
             self.coordinate = coordinate
         }
+
+        nextRegionChangeIsFromUserInteraction = false
     }
 }
 
@@ -229,7 +228,10 @@ extension MapFilterViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            centerOnUserLocation()
+            if hasRequestedLocationAuthorization {
+                hasRequestedLocationAuthorization = false
+                centerOnUserLocation()
+            }
         case .denied, .notDetermined, .restricted:
             break
         }

@@ -137,10 +137,9 @@ extension FilterSelectionStore {
             }
         case .stepper:
             return value(for: filter).map({ [$0] }) ?? []
-        case let .map(_, _, radiusFilter, _):
-            if let radius: Int = value(for: radiusFilter) {
-                let formatter = MapDistanceValueFormatter()
-                return [formatter.title(for: radius)]
+        case let .map(_, _, _, locationNameFilter):
+            if let locationName: String = value(for: locationNameFilter) {
+                return [locationName]
             } else {
                 fallthrough
             }

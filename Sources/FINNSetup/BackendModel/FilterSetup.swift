@@ -114,7 +114,7 @@ public struct FilterSetup: Decodable {
     }
 
     private func makeStepperFilter(from filterData: FilterData, config: StepperFilterConfiguration, style: Filter.Style) -> Filter {
-        return Filter.stepper(title: filterData.title, key: filterData.parameterName, config: config, style: style)
+        return Filter.stepper(title: filterData.title, key: filterData.parameterName + "_from", config: config, style: style)
     }
 
     private func makeRangeFilter(from filterData: FilterData, config: RangeFilterConfiguration, style: Filter.Style) -> Filter {

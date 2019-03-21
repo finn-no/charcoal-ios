@@ -41,16 +41,14 @@ final class MapFilterView: UIView {
         return mapView.centerCoordinate
     }
 
-    var isUserLocatonButtonEnabled = false {
+    var isUserLocationButtonHighlighted = false {
         didSet {
-            userLocationButton.isHidden = !isUserLocatonButtonEnabled
-            mapView.showsUserLocation = isUserLocatonButtonEnabled
+            userLocationButton.isHighlighted = isUserLocationButtonHighlighted
         }
     }
 
     private(set) var radius: Int
     private let initialCenterCoordinate: CLLocationCoordinate2D?
-    private let pulseAnimationKey = "LocateUserPulseAnimation"
 
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
         didSet {
@@ -69,6 +67,7 @@ final class MapFilterView: UIView {
 
     private lazy var mapView: MKMapView = {
         let view = MKMapView(frame: .zero)
+        view.showsUserLocation = true
         view.isRotateEnabled = false
         view.isPitchEnabled = false
         view.isZoomEnabled = false
@@ -77,12 +76,19 @@ final class MapFilterView: UIView {
 
     private lazy var userLocationButton: UIButton = {
         let button = UIButton(withAutoLayout: true)
-        button.backgroundColor = UIColor(white: 1, alpha: 0.8)
+        button.backgroundColor = .milk
         button.tintColor = .primaryBlue
+
         button.layer.cornerRadius = MapFilterView.userLocationButtonWidth / 2
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 1)
+        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 0.5
+
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
+
         return button
     }()
 
@@ -153,23 +159,6 @@ final class MapFilterView: UIView {
         if let location = mapView.userLocation.location {
             centerOnCoordinate(location.coordinate, animated: true)
         }
-    }
-
-    func startAnimatingLocationButton() {
-        let pulseAnimation = CABasicAnimation(keyPath: "opacity")
-        pulseAnimation.fromValue = 0.6
-        pulseAnimation.toValue = 1.0
-        pulseAnimation.repeatCount = Float.greatestFiniteMagnitude
-        pulseAnimation.autoreverses = true
-        pulseAnimation.duration = 0.8
-
-        userLocationButton.isHighlighted = true
-        userLocationButton.layer.add(pulseAnimation, forKey: pulseAnimationKey)
-    }
-
-    func stopAnimatingLocationButton() {
-        userLocationButton.isHighlighted = false
-        userLocationButton.layer.removeAnimation(forKey: pulseAnimationKey)
     }
 
     func updateRadiusView() {

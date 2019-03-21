@@ -201,7 +201,7 @@ extension MapFilterViewController: MKMapViewDelegate {
         let zoomLevel = mapView.calcZoomLevel()
 
         mapFilterView.updateRadiusView()
-        mapFilterView.isUserLocatonButtonHighlighted = coordinate == mapView.userLocation.coordinate
+        mapFilterView.isUserLocationButtonHighlighted = coordinate == mapView.userLocation.coordinate
 
         if nextRegionChangeIsFromUserInteraction {
             hasChanges = true

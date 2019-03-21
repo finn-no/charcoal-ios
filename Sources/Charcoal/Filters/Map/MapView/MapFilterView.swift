@@ -41,9 +41,9 @@ final class MapFilterView: UIView {
         return mapView.centerCoordinate
     }
 
-    var isUserLocatonButtonHighlighted = false {
+    var isUserLocationButtonHighlighted = false {
         didSet {
-            userLocationButton.isHighlighted = isUserLocatonButtonHighlighted
+            userLocationButton.isHighlighted = isUserLocationButtonHighlighted
         }
     }
 

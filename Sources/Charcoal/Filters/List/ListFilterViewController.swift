@@ -124,6 +124,12 @@ extension ListFilterViewController: UITableViewDataSource {
             cell.configure(with: viewModel)
         }
 
+        if section == .subfilters && indexPath.row == filter.subfilters.count - 1 {
+            cell.separatorInset.left = cell.bounds.size.width
+        } else {
+            cell.separatorInset = .leadingInset(56)
+        }
+
         return cell
     }
 }

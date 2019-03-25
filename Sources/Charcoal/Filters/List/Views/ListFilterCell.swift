@@ -5,15 +5,6 @@
 import FinniversKit
 
 final class ListFilterCell: CheckboxTableViewCell {
-    var isEnabled = true {
-        didSet {
-            isUserInteractionEnabled = isEnabled
-            checkboxImageView.isEnabled = isEnabled
-            overlayView.isHidden = isEnabled
-            bringSubviewToFront(overlayView)
-        }
-    }
-
     private lazy var checkboxImageView = ListFilterImageView(withAutoLayout: true)
 
     private lazy var overlayView: UIView = {
@@ -114,6 +105,11 @@ final class ListFilterCell: CheckboxTableViewCell {
         case .deselected:
             checkboxImageView.setImage(nil, for: .normal, .disabled)
         }
+
+        isUserInteractionEnabled = viewModel.isEnabled
+        checkboxImageView.isEnabled = viewModel.isEnabled
+        overlayView.isHidden = viewModel.isEnabled
+        bringSubviewToFront(overlayView)
     }
 
     private func setup() {

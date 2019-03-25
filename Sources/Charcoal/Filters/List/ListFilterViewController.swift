@@ -23,6 +23,7 @@ final class ListFilterViewController: FilterViewController {
     }()
 
     private let filter: Filter
+    private let viewModels = [Section: [ListFilterCellViewModel]]()
 
     private var canSelectAll: Bool {
         return filter.value != nil
@@ -52,9 +53,14 @@ final class ListFilterViewController: FilterViewController {
         tableView.reloadData()
     }
 
+    // MARK: - Data
+
+    private func reloadViewModels() {
+    }
+
     // MARK: - Setup
 
-    func setup() {
+    private func setup() {
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
@@ -90,25 +96,25 @@ extension ListFilterViewController: UITableViewDataSource {
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
         let viewModel: ListFilterCellViewModel
         let isAllSelected = canSelectAll && selectionStore.isSelected(filter)
+        let isEnabled = !isAllSelected || section == .all
 
         switch section {
         case .all:
-            viewModel = .selectAll(from: filter, isSelected: isAllSelected)
+            viewModel = .selectAll(from: filter, isSelected: isAllSelected, isEnabled: isEnabled)
         case .subfilters:
             let subfilter = filter.subfilters[indexPath.row]
 
             switch subfilter.kind {
             case .external:
-                viewModel = .external(from: subfilter)
+                viewModel = .external(from: subfilter, isEnabled: isEnabled)
             default:
-                let isSelected = selectionStore.isSelected(subfilter)
                 let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
-                viewModel = .regular(from: subfilter, isSelected: isSelected || hasSelectedSubfilters || isAllSelected)
+                let isSelected = selectionStore.isSelected(subfilter) || hasSelectedSubfilters || isAllSelected
+                viewModel = .regular(from: subfilter, isSelected: isSelected, isEnabled: isEnabled)
             }
         }
 
         cell.configure(with: viewModel)
-        cell.isEnabled = !isAllSelected || section == .all
 
         return cell
     }

@@ -164,6 +164,8 @@ extension RootFilterViewController: UITableViewDataSource {
                 currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
             })
 
+            cell.isSeparatorHidded = indexPath.row == filter.subfilters.count - 1
+
             return cell
         }
     }

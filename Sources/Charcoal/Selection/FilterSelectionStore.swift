@@ -198,7 +198,7 @@ extension FilterSelectionStore {
      Cleans up selected values based on filter hierarchy (e.g. deselect filters with selected subfilters).
      - Parameter filter: The root filter.
      - Returns: Keys of all processed filters.
-    **/
+     **/
     private func syncSelection(with filter: Filter) -> Set<String> {
         var isSelected = self.isSelected(filter)
         var keys = Set([filter.key])

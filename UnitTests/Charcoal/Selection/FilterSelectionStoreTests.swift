@@ -276,4 +276,44 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertEqual(store.selectedSubfilters(for: filter, where: { $0.key == "subfilterA" }).count, 1)
         XCTAssertTrue(store.selectedSubfilters(for: filter, where: { $0.key == "subfilterB" }).isEmpty)
     }
+
+    func testSyncSelectionWithSelectedFilterAndSubfilter() {
+        let filter = Filter.list(
+            title: "filter",
+            key: "filter",
+            value: "value",
+            subfilters: [
+                Filter.list(title: "subfilter A", key: "subfilterA", value: "valueA"),
+                Filter.list(title: "subfilter B", key: "subfilterB", value: "valueB"),
+            ]
+        )
+
+        let queryItems = Set([
+            URLQueryItem(name: "filter", value: "value"),
+            URLQueryItem(name: "subfilterB", value: "valueB"),
+        ])
+
+        store.set(selection: queryItems)
+        store.syncSelection(with: FilterContainer(root: filter))
+
+        XCTAssertFalse(store.isSelected(filter))
+        XCTAssertFalse(store.isSelected(filter.subfilters[0]))
+        XCTAssertTrue(store.isSelected(filter.subfilters[1]))
+    }
+
+    func testSyncSelectionWithOldQueryItems() {
+        let filterA = Filter.list(title: "filter A", key: "filterA", value: "valueA")
+        let filterB = Filter.list(title: "filter B", key: "filterB", value: "valueB")
+
+        store.setValue(from: filterA)
+        XCTAssertTrue(store.isSelected(filterA))
+
+        let queryItems = Set([URLQueryItem(name: "filterB", value: "valueB")])
+
+        store.set(selection: queryItems)
+        store.syncSelection(with: FilterContainer(root: filterB))
+
+        XCTAssertFalse(store.isSelected(filterA))
+        XCTAssertTrue(store.isSelected(filterB))
+    }
 }

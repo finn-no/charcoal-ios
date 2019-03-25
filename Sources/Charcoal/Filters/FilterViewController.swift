@@ -6,7 +6,7 @@ import UIKit
 
 protocol FilterViewControllerDelegate: AnyObject {
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
-    func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController)
+    func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController)
     func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController)
     func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController)
 }
@@ -83,6 +83,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     // MARK: - FilterBottomButtonViewDelegate
 
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.filterViewControllerDidPressButtomButton(self)
+        delegate?.filterViewControllerDidPressBottomButton(self)
     }
 }

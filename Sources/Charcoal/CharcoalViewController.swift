@@ -145,7 +145,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         textEditingDelegate?.charcoalViewControllerWillEndTextEditing(self)
     }
 
-    func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
+    func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController) {
         if viewController === rootFilterViewController {
             selectionDelegate?.charcoalViewControllerDidPressShowResults(self)
         } else {

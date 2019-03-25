@@ -36,7 +36,7 @@ struct ListFilterCellViewModel: SelectableTableViewCellViewModel, Equatable {
 // MARK: - Factory
 
 extension ListFilterCellViewModel {
-    static func selectAll(from filter: Filter, isSelected: Bool, isEnabled: Bool) -> ListFilterCellViewModel {
+    static func selectAll(from filter: Filter, isSelected: Bool) -> ListFilterCellViewModel {
         let checkboxStyle: CheckboxStyle = isSelected ? .selectedFilled : .deselected
 
         return ListFilterCellViewModel(
@@ -45,7 +45,7 @@ extension ListFilterCellViewModel {
             detailText: String(filter.numberOfResults),
             accessoryStyle: .none,
             checkboxStyle: checkboxStyle,
-            isEnabled: isEnabled
+            isEnabled: true
         )
     }
 

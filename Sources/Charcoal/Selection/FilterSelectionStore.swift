@@ -84,7 +84,7 @@ extension FilterSelectionStore {
 
     func isSelected(_ filter: Filter) -> Bool {
         switch filter.kind {
-        case .map(_, _, let radiusFilter, _):
+        case let .map(_, _, radiusFilter, _):
             return isSelected(radiusFilter)
         case .range:
             return filter.subfilters.contains(where: { isSelected($0) })

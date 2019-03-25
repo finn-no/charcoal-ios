@@ -94,6 +94,8 @@ public class CharcoalViewController: UINavigationController {
     private func configure(with filter: FilterContainer?) {
         guard let filter = filter else { return }
 
+        selectionStore.syncSelection(with: filter)
+
         if let rootFilterViewController = rootFilterViewController {
             rootFilterViewController.set(filter: filter.rootFilter, verticals: filter.verticals)
         } else {

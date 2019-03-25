@@ -102,13 +102,15 @@ private extension FilterSelectionStore {
         }
     }
 
-    func _removeValues(for filter: Filter) {
+    func _removeValues(for filter: Filter, withSubfilters: Bool = true) {
         if let queryItem = queryItem(for: filter) {
             queryItems.remove(queryItem)
         }
 
-        filter.subfilters.forEach {
-            _removeValues(for: $0)
+        if withSubfilters {
+            filter.subfilters.forEach {
+                _removeValues(for: $0)
+            }
         }
     }
 }
@@ -185,5 +187,32 @@ extension FilterSelectionStore {
         }
 
         return filter.subfilters.reduce([]) { $0 + selectedSubfilters(for: $1, where: predicate) }
+    }
+
+    func syncSelection(with filterContainer: FilterContainer) {
+        let keys = syncSelection(with: filterContainer.rootFilter)
+        queryItems = queryItems.filter({ keys.contains($0.name) })
+    }
+
+    /**
+     Cleans up selected values based on filter hierarchy (e.g. deselect filters with selected subfilters).
+     - Parameter filter: The root filter.
+     - Returns: Keys of all processed filters.
+     **/
+    private func syncSelection(with filter: Filter) -> Set<String> {
+        var isSelected = self.isSelected(filter)
+        var keys = Set([filter.key])
+
+        for subfilter in filter.subfilters {
+            if isSelected && hasSelectedSubfilters(for: subfilter) {
+                _removeValues(for: filter, withSubfilters: false)
+                isSelected = false
+            }
+
+            let subfilterKeys = syncSelection(with: subfilter)
+            keys = keys.union(subfilterKeys)
+        }
+
+        return keys
     }
 }

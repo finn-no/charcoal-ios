@@ -84,7 +84,9 @@ extension FilterSelectionStore {
 
     func isSelected(_ filter: Filter) -> Bool {
         switch filter.kind {
-        case .map, .range:
+        case .map(_, _, let radiusFilter, _):
+            return isSelected(radiusFilter)
+        case .range:
             return filter.subfilters.contains(where: { isSelected($0) })
         default:
             return queryItem(for: filter) != nil
@@ -146,7 +148,7 @@ extension FilterSelectionStore {
             if let title = locationName ?? radius.map({ MapDistanceValueFormatter().title(for: $0) }) {
                 return [title]
             } else {
-                fallthrough
+                return []
             }
         default:
             if isSelected(filter) {

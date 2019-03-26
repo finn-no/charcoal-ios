@@ -97,8 +97,8 @@ final class StepSlider: UISlider {
     }
 
     private func step(from value: Float) -> Step {
-        let valueWithoutOffset = roundf(value - leftOffset)
-        let index = Int(valueWithoutOffset)
+        let valueWithoutOffset = value - leftOffset
+        let index = Int(roundf(value - leftOffset))
 
         if valueWithoutOffset < minimumValue {
             return .lowerBound

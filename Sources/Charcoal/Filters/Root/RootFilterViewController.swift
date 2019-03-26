@@ -83,6 +83,7 @@ final class RootFilterViewController: FilterViewController {
 
     func scrollToTop(animated: Bool) {
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: animated)
+        tableView.layoutIfNeeded()
     }
 
     func reloadFilters() {

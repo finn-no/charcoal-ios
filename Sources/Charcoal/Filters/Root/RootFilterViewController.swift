@@ -165,6 +165,7 @@ extension RootFilterViewController: UITableViewDataSource {
             })
 
             cell.isSeparatorHidded = indexPath.row == filter.subfilters.count - 1
+            cell.accessibilityIdentifier = currentFilter.title
 
             return cell
         }

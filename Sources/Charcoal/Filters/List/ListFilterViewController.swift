@@ -23,7 +23,6 @@ final class ListFilterViewController: FilterViewController {
     }()
 
     private let filter: Filter
-    private var viewModels = [Section: [ListFilterCellViewModel]]()
 
     private var canSelectAll: Bool {
         return filter.value != nil
@@ -50,36 +49,7 @@ final class ListFilterViewController: FilterViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reloadViewModels()
         tableView.reloadData()
-    }
-
-    // MARK: - Data
-
-    private func reloadViewModels() {
-        let isAllSelected = canSelectAll && selectionStore.isSelected(filter)
-
-        let viewModels: [Section: [ListFilterCellViewModel]] = [
-            .all: [.selectAll(from: filter, isSelected: isAllSelected)],
-            .subfilters: filter.subfilters.map({ subfilter -> ListFilterCellViewModel in
-                let isEnabled = !isAllSelected
-
-                switch subfilter.kind {
-                case .external:
-                    return .external(from: subfilter, isEnabled: isEnabled)
-                default:
-                    let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
-                    let isSelected = selectionStore.isSelected(subfilter) || hasSelectedSubfilters || isAllSelected
-                    return .regular(from: subfilter, isSelected: isSelected, isEnabled: isEnabled)
-                }
-            }),
-        ]
-
-        if !self.viewModels.isEmpty && self.viewModels != viewModels {
-            showBottomButton(true, animated: false)
-        }
-
-        self.viewModels = viewModels
     }
 
     // MARK: - Setup
@@ -118,17 +88,27 @@ extension ListFilterViewController: UITableViewDataSource {
         guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
 
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
+        let viewModel: ListFilterCellViewModel
+        let isAllSelected = canSelectAll && selectionStore.isSelected(filter)
+        let isEnabled = !isAllSelected || section == .all
 
-        if let sectionViewModels = viewModels[section], sectionViewModels.count > indexPath.row {
-            let viewModel = sectionViewModels[indexPath.row]
-            cell.configure(with: viewModel)
+        switch section {
+        case .all:
+            viewModel = .selectAll(from: filter, isSelected: isAllSelected)
+        case .subfilters:
+            let subfilter = filter.subfilters[indexPath.row]
+
+            switch subfilter.kind {
+            case .external:
+                viewModel = .external(from: subfilter, isEnabled: isEnabled)
+            default:
+                let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
+                let isSelected = selectionStore.isSelected(subfilter) || hasSelectedSubfilters || isAllSelected
+                viewModel = .regular(from: subfilter, isSelected: isSelected, isEnabled: isEnabled)
+            }
         }
 
-        if section == .subfilters && indexPath.row == filter.subfilters.count - 1 {
-            cell.separatorInset.left = cell.bounds.size.width
-        } else {
-            cell.separatorInset = .leadingInset(56)
-        }
+        cell.configure(with: viewModel)
 
         return cell
     }
@@ -147,8 +127,8 @@ extension ListFilterViewController: UITableViewDelegate {
             let isSelected = selectionStore.toggleValue(for: filter)
 
             animateSelectionForRow(at: indexPath, isSelected: isSelected)
-            reloadViewModels()
             tableView.reloadSections(IndexSet(integer: Section.subfilters.rawValue), with: .fade)
+            showBottomButton(true, animated: true)
         case .subfilters:
             let subfilter = filter.subfilters[indexPath.row]
 

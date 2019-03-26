@@ -4,7 +4,7 @@
 
 import FinniversKit
 
-struct ListFilterCellViewModel: SelectableTableViewCellViewModel, Equatable {
+struct ListFilterCellViewModel: SelectableTableViewCellViewModel {
     enum AccessoryStyle {
         case none
         case chevron

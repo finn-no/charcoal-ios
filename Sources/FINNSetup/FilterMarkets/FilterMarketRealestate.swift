@@ -270,7 +270,7 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
 
         switch filterKey {
         case .noOfBedrooms:
-            return StepperFilterConfiguration(minimumValue: 0, maximumValue: 6, unit: "stk")
+            return StepperFilterConfiguration(minimumValue: 0, maximumValue: 6, unit: "stk", alternativeUnit: "soverom")
         default:
             return nil
         }

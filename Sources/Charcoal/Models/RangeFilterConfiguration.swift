@@ -25,17 +25,9 @@ public struct RangeFilterConfiguration: Equatable {
     public var referenceValues: [Int] {
         var result = [Int]()
 
-        if let first = values.first {
+        if let first = values.first, let last = values.last {
             result.append(first)
-        }
-
-        let centerIndex = Int(values.count / 2)
-
-        if centerIndex > 0, centerIndex < values.count - 1 {
-            result.append(values[centerIndex])
-        }
-
-        if let last = values.last {
+            result.append(first + (last - first) / 2)
             result.append(last)
         }
 
@@ -66,7 +58,7 @@ public struct RangeFilterConfiguration: Equatable {
 
         switch valueKind {
         case let .incremented(increment):
-            self.values = (minimumValue ... maximumValue).stepValues(with: [(from: 0, increment: increment)])
+            self.values = (minimumValue ... maximumValue).stepValues(with: [(from: minimumValue, increment: increment)])
         case let .steps(values):
             self.values = ([minimumValue] + values + [maximumValue]).compactMap({ $0 })
         case let .intervals(array):

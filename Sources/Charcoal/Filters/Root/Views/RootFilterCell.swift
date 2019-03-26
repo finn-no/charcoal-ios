@@ -23,7 +23,7 @@ final class RootFilterCell: BasicTableViewCell {
         }
     }
 
-    var isSeparatorHidded: Bool {
+    var isSeparatorHidden: Bool {
         get {
             return hairLine.isHidden
         }

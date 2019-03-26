@@ -117,7 +117,7 @@
 		CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */; };
 		CF33D9CA224A499C00A24DF0 /* FilterSelectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */; };
 		CF33D9D3224A4B9D00A24DF0 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */; };
-		CF33D9D5224A4D2200A24DF0 /* XCUIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D4224A4D2200A24DF0 /* XCUIApplication+Extensions.swift */; };
+		CF33D9D5224A4D2200A24DF0 /* XCUIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */; };
 		CF33D9D7224A6B0600A24DF0 /* CommandLineExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */; };
 		CF4C870A221AFC0900DFAF2A /* ListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */; };
 		CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */; };
@@ -385,7 +385,7 @@
 		CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionUITests.swift; sourceTree = "<group>"; };
 		CF33D9CB224A499C00A24DF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
-		CF33D9D4224A4D2200A24DF0 /* XCUIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIApplicationExtensions.swift; sourceTree = "<group>"; };
 		CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineExtensions.swift; sourceTree = "<group>"; };
 		CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
@@ -876,7 +876,7 @@
 			isa = PBXGroup;
 			children = (
 				CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */,
-				CF33D9D4224A4D2200A24DF0 /* XCUIApplication+Extensions.swift */,
+				CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1614,7 +1614,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF33D9CA224A499C00A24DF0 /* FilterSelectionUITests.swift in Sources */,
-				CF33D9D5224A4D2200A24DF0 /* XCUIApplication+Extensions.swift in Sources */,
+				CF33D9D5224A4D2200A24DF0 /* XCUIApplicationExtensions.swift in Sources */,
 				CF33D9D3224A4B9D00A24DF0 /* UITestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

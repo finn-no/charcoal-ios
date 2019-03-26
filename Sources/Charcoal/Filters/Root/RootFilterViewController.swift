@@ -81,6 +81,10 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Public
 
+    func scrollToTop(animated: Bool) {
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: animated)
+    }
+
     func reloadFilters() {
         tableView.reloadData()
     }
@@ -113,6 +117,7 @@ final class RootFilterViewController: FilterViewController {
         rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
         freeTextFilterViewController?.searchBar.text = nil
         tableView.reloadData()
+        scrollToTop(animated: true)
     }
 }
 

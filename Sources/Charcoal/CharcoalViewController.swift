@@ -80,6 +80,11 @@ public class CharcoalViewController: UINavigationController {
         rootFilterViewController?.reloadFilters()
     }
 
+    public func returnToRoot(animated: Bool) {
+        popToRootViewController(animated: animated)
+        rootFilterViewController?.scrollToTop(animated: animated)
+    }
+
     // MARK: - Private
 
     private func updateLoading() {

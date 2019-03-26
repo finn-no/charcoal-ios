@@ -54,7 +54,7 @@ final class ListFilterViewController: FilterViewController {
 
     // MARK: - Setup
 
-    func setup() {
+    private func setup() {
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
@@ -90,6 +90,7 @@ extension ListFilterViewController: UITableViewDataSource {
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
         let viewModel: ListFilterCellViewModel
         let isAllSelected = canSelectAll && selectionStore.isSelected(filter)
+        let isEnabled = !isAllSelected || section == .all
 
         switch section {
         case .all:
@@ -99,16 +100,15 @@ extension ListFilterViewController: UITableViewDataSource {
 
             switch subfilter.kind {
             case .external:
-                viewModel = .external(from: subfilter)
+                viewModel = .external(from: subfilter, isEnabled: isEnabled)
             default:
-                let isSelected = selectionStore.isSelected(subfilter)
                 let hasSelectedSubfilters = selectionStore.hasSelectedSubfilters(for: subfilter)
-                viewModel = .regular(from: subfilter, isSelected: isSelected || hasSelectedSubfilters || isAllSelected)
+                let isSelected = selectionStore.isSelected(subfilter) || hasSelectedSubfilters || isAllSelected
+                viewModel = .regular(from: subfilter, isSelected: isSelected, isEnabled: isEnabled)
             }
         }
 
         cell.configure(with: viewModel)
-        cell.isEnabled = !isAllSelected || section == .all
 
         return cell
     }

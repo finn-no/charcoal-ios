@@ -170,6 +170,9 @@ extension RootFilterViewController: UITableViewDataSource {
                 currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
             })
 
+            cell.isSeparatorHidden = indexPath.row == filter.subfilters.count - 1
+            cell.accessibilityIdentifier = currentFilter.title
+
             return cell
         }
     }

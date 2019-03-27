@@ -17,7 +17,7 @@ extension RangeFilterConfiguration {
             accessibilityValueSuffix: nil,
             usesSmallNumberInputFont: false,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: true
+            formatWithSeparator: true
         )
     }
 }

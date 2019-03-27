@@ -120,6 +120,7 @@
 		CF33D9D5224A4D2200A24DF0 /* XCUIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */; };
 		CF33D9D7224A6B0600A24DF0 /* CommandLineExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */; };
 		CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D8224BACBC00A24DF0 /* NumberFormatterExtensions.swift */; };
+		CF33D9DC224BB5B400A24DF0 /* NumberFormatterExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9DB224BB5B400A24DF0 /* NumberFormatterExtensionsTests.swift */; };
 		CF4C870A221AFC0900DFAF2A /* ListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */; };
 		CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */; };
 		CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */; };
@@ -389,6 +390,7 @@
 		CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIApplicationExtensions.swift; sourceTree = "<group>"; };
 		CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineExtensions.swift; sourceTree = "<group>"; };
 		CF33D9D8224BACBC00A24DF0 /* NumberFormatterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtensions.swift; sourceTree = "<group>"; };
+		CF33D9DB224BB5B400A24DF0 /* NumberFormatterExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtensionsTests.swift; sourceTree = "<group>"; };
 		CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterViewController.swift; sourceTree = "<group>"; };
@@ -884,6 +886,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		CF33D9DA224BB59E00A24DF0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CF33D9DB224BB5B400A24DF0 /* NumberFormatterExtensionsTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		CF4C8702221ADF2700DFAF2A /* Charcoal */ = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +1013,7 @@
 		CFCB35E92236697A004E6EB3 /* Charcoal */ = {
 			isa = PBXGroup;
 			children = (
+				CF33D9DA224BB59E00A24DF0 /* Extensions */,
 				CFCB35EA223669A5004E6EB3 /* Filters */,
 				DA8D6840220D88C600D31941 /* Models */,
 				CF81E10E221C549200D00423 /* Selection */,
@@ -1134,9 +1145,9 @@
 		DA8D6840220D88C600D31941 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CF794C7622300096003425E2 /* RangerFilterConfiguration+Stubs.swift */,
 				DA8D683B220D874400D31941 /* FilterTests.swift */,
 				CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */,
+				CF794C7622300096003425E2 /* RangerFilterConfiguration+Stubs.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1604,6 +1615,7 @@
 				DA8D683C220D874400D31941 /* FilterTests.swift in Sources */,
 				CFFD9F8D21F09F7500997D14 /* RangeFilterConfigurationTests.swift in Sources */,
 				CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */,
+				CF33D9DC224BB5B400A24DF0 /* NumberFormatterExtensionsTests.swift in Sources */,
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
 				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
 				DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */,

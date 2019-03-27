@@ -17,7 +17,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             accessibilityValueSuffix: "test",
             usesSmallNumberInputFont: true,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            formatWithSeparator: false
         )
 
         XCTAssertEqual(config.minimumValue, 100)
@@ -30,7 +30,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertEqual(config.accessibilityValueSuffix, "test")
         XCTAssertTrue(config.usesSmallNumberInputFont)
         XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertFalse(config.isCurrencyValueRange)
+        XCTAssertFalse(config.formatWithSeparator)
     }
 
     func testInitWithStepValuesAndOffsets() {
@@ -44,7 +44,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             accessibilityValueSuffix: "test",
             usesSmallNumberInputFont: true,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            formatWithSeparator: false
         )
 
         XCTAssertEqual(config.minimumValue, 100)
@@ -57,7 +57,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertEqual(config.accessibilityValueSuffix, "test")
         XCTAssertTrue(config.usesSmallNumberInputFont)
         XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertFalse(config.isCurrencyValueRange)
+        XCTAssertFalse(config.formatWithSeparator)
     }
 
     func testReferenceValuesWithTwoElements() {
@@ -71,7 +71,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             accessibilityValueSuffix: "test",
             usesSmallNumberInputFont: true,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            formatWithSeparator: false
         )
 
         XCTAssertEqual(config.referenceValues, [0, 1])
@@ -88,7 +88,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             accessibilityValueSuffix: "test",
             usesSmallNumberInputFont: true,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            formatWithSeparator: false
         )
 
         XCTAssertEqual(config.minimumValue, 100)
@@ -101,7 +101,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertEqual(config.accessibilityValueSuffix, "test")
         XCTAssertTrue(config.usesSmallNumberInputFont)
         XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertFalse(config.isCurrencyValueRange)
+        XCTAssertFalse(config.formatWithSeparator)
     }
 
     func testInitWithIntervals() {
@@ -122,7 +122,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             accessibilityValueSuffix: "test",
             usesSmallNumberInputFont: false,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: true
+            formatWithSeparator: true
         )
 
         XCTAssertEqual(config.minimumValue, 0)
@@ -135,7 +135,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertEqual(config.accessibilityValueSuffix, "test")
         XCTAssertFalse(config.usesSmallNumberInputFont)
         XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertTrue(config.isCurrencyValueRange)
+        XCTAssertTrue(config.formatWithSeparator)
     }
 
     func testValueForStepWithoutOffsets() {
@@ -149,7 +149,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             accessibilityValueSuffix: "test",
             usesSmallNumberInputFont: true,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            formatWithSeparator: false
         )
 
         XCTAssertNil(config.value(for: .lowerBound))
@@ -170,7 +170,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             accessibilityValueSuffix: "test",
             usesSmallNumberInputFont: true,
             displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            formatWithSeparator: false
         )
 
         XCTAssertEqual(config.value(for: .lowerBound), 0)

@@ -139,8 +139,8 @@ extension FilterSelectionStore {
             } else {
                 let formattedLowValue = lowValue.flatMap({ config.formatter.string(from: $0) })
                 let formattedHighValue = highValue.flatMap({ config.formatter.string(from: $0) })
-
-                return ["\(formattedLowValue ?? "...") - \(formattedHighValue ?? "...")"]
+                let suffix = config.displaysUnitInNumberInput ? " \(config.unit)" : ""
+                return ["\(formattedLowValue ?? "...") - \(formattedHighValue ?? "...")\(suffix)"]
             }
         case .stepper:
             if let lowValue: Int = value(for: filter) {

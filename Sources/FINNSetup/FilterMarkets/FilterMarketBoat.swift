@@ -161,7 +161,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         case .motorSize:
             return .horsePowerConfiguration(minimumValue: 0, maximumValue: 500)
         case .noOfSeats:
-            return .numberOfItemsConfiguration(minimumValue: 0, maximumValue: 20)
+            return .numberOfSeatsConfiguration(maximumValue: 20)
         case .noOfSleepers:
             return .numberOfItemsConfiguration(minimumValue: 0, maximumValue: 10)
         case .width:

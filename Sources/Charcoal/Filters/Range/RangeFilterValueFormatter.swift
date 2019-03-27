@@ -7,9 +7,6 @@ final class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
     private let unit: String
     private let accessibilityUnit: String
 
-    private static let numberFormatter = NumberFormatter(isValueCurrency: false)
-    private static let currencyFormatter = NumberFormatter(isValueCurrency: true)
-
     init(isValueCurrency: Bool, unit: String, accessibilityUnit: String) {
         self.isValueCurrency = isValueCurrency
         self.unit = unit
@@ -18,7 +15,7 @@ final class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
 
     func string(from value: Int) -> String? {
         let value = NSNumber(value: value)
-        let formatter = isValueCurrency ? RangeFilterValueFormatter.currencyFormatter : RangeFilterValueFormatter.numberFormatter
+        let formatter: NumberFormatter = isValueCurrency ? .currencyFormatter : .standardFormatter
         return formatter.string(from: value)
     }
 
@@ -33,8 +30,11 @@ final class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
 
 // MARK: - Private extensions
 
-private extension NumberFormatter {
-    convenience init(isValueCurrency: Bool) {
+extension NumberFormatter {
+    static let standardFormatter = NumberFormatter(isValueCurrency: true)
+    static let currencyFormatter = NumberFormatter(isValueCurrency: true)
+
+    private convenience init(isValueCurrency: Bool) {
         self.init()
         numberStyle = isValueCurrency ? .currency : .none
         currencySymbol = ""

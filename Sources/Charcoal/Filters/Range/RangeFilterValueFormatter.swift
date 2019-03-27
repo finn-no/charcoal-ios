@@ -14,9 +14,12 @@ final class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
     }
 
     func string(from value: Int) -> String? {
-        let value = NSNumber(value: value)
-        let formatter: NumberFormatter = isValueCurrency ? .currencyFormatter : .standardFormatter
-        return formatter.string(from: value)
+        if isValueCurrency {
+            let value = NSNumber(value: value)
+            return NumberFormatter.currencyFormatter.string(from: value)
+        } else {
+            return "\(value)"
+        }
     }
 
     func accessibilityValue<ValueKind>(for value: ValueKind) -> String {
@@ -31,14 +34,12 @@ final class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
 // MARK: - Private extensions
 
 extension NumberFormatter {
-    static let standardFormatter = NumberFormatter(isValueCurrency: true)
-    static let currencyFormatter = NumberFormatter(isValueCurrency: true)
-
-    private convenience init(isValueCurrency: Bool) {
-        self.init()
-        numberStyle = isValueCurrency ? .currency : .none
-        currencySymbol = ""
-        locale = Locale(identifier: "nb_NO")
-        maximumFractionDigits = 0
-    }
+    static let currencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = ""
+        formatter.locale = Locale(identifier: "nb_NO")
+        formatter.maximumFractionDigits = 0
+        return formatter
+    }()
 }

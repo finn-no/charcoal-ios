@@ -19,7 +19,7 @@ final class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
 
     func string(from value: Int) -> String? {
         if formatWithSeparator {
-            return NumberFormatter.formatterWithSeparator.string(from: value)
+            return NumberFormatter.decimalFormatter.string(from: value)
         } else {
             return "\(value)"
         }

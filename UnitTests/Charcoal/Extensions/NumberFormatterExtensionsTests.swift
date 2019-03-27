@@ -6,8 +6,8 @@
 import XCTest
 
 final class NumberFormatterExtensionsTests: XCTestCase {
-    func testFormatterWithSeparator() {
-        let formatter = NumberFormatter.formatterWithSeparator
+    func testDecimalFormatter() {
+        let formatter = NumberFormatter.decimalFormatter
         XCTAssertEqual(formatter.string(from: 10), "10")
         XCTAssertEqual(formatter.string(from: 100), "100")
         XCTAssertEqual(formatter.string(from: 1000), "1 000")

@@ -5,10 +5,9 @@
 import Foundation
 
 extension NumberFormatter {
-    static let formatterWithSeparator: NumberFormatter = {
+    static let decimalFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencySymbol = ""
+        formatter.numberStyle = .decimal
         formatter.locale = Locale(identifier: "nb_NO")
         formatter.maximumFractionDigits = 0
         return formatter

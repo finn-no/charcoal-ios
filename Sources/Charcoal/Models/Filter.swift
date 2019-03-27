@@ -157,6 +157,6 @@ extension Filter {
 
 extension Filter {
     var formattedNumberOfResults: String {
-        return NumberFormatter.formatterWithSeparator.string(from: numberOfResults) ?? ""
+        return NumberFormatter.decimalFormatter.string(from: numberOfResults) ?? ""
     }
 }

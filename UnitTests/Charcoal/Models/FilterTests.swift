@@ -77,7 +77,7 @@ final class FilterTests: XCTestCase {
     }
 
     func testStepperFilter() {
-        let config = StepperFilterConfiguration(minimumValue: 0, maximumValue: 10, unit: "stk.", alternativeUnit: "stk.")
+        let config = StepperFilterConfiguration(minimumValue: 0, maximumValue: 10, unit: "stk.")
         let filter = Filter.stepper(title: "Stepper", key: "stepper", config: config, style: .context)
 
         XCTAssertEqual(filter.title, "Stepper")

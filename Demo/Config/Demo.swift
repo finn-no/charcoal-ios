@@ -97,11 +97,14 @@ enum Sections: String, CaseIterable {
 
     static var lastSelectedIndexPath: IndexPath? {
         get {
+            guard !CommandLine.isUITesting else { return nil }
             guard let row = UserDefaults.standard.object(forKey: lastSelectedRowKey) as? Int else { return nil }
             guard let section = UserDefaults.standard.object(forKey: lastSelectedSectionKey) as? Int else { return nil }
             return IndexPath(row: row, section: section)
         }
         set {
+            guard !CommandLine.isUITesting else { return }
+
             if let row = newValue?.row {
                 UserDefaults.standard.set(row, forKey: lastSelectedRowKey)
             } else {

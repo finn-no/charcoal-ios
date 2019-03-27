@@ -23,6 +23,15 @@ final class RootFilterCell: BasicTableViewCell {
         }
     }
 
+    var isSeparatorHidden: Bool {
+        get {
+            return hairLine.isHidden
+        }
+        set {
+            hairLine.isHidden = newValue
+        }
+    }
+
     // MARK: - Private properties
 
     private lazy var contextMark: UIView = {

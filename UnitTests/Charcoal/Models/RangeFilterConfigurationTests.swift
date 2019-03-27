@@ -96,7 +96,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertTrue(config.hasLowerBoundOffset)
         XCTAssertTrue(config.hasUpperBoundOffset)
         XCTAssertEqual(config.values, [100, 1100, 2100, 3100, 4100, 5000])
-        XCTAssertEqual(config.referenceValues, [100, 3100, 5000])
+        XCTAssertEqual(config.referenceValues, [100, 2550, 5000])
         XCTAssertEqual(config.unit, "stk")
         XCTAssertEqual(config.accessibilityValueSuffix, "test")
         XCTAssertTrue(config.usesSmallNumberInputFont)

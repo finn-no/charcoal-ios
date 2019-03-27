@@ -150,7 +150,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         textEditingDelegate?.charcoalViewControllerWillEndTextEditing(self)
     }
 
-    func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
+    func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController) {
         if viewController === rootFilterViewController {
             selectionDelegate?.charcoalViewControllerDidPressShowResults(self)
         } else {
@@ -233,7 +233,10 @@ extension CharcoalViewController: UINavigationControllerDelegate {
             bottomBottonClicked = false
         }
 
-        guard viewController === rootFilterViewController else { return }
+        guard viewController === rootFilterViewController else {
+            showBottomButtonIfNeeded()
+            return
+        }
 
         // Will return to root filters
         if selectionHasChanged, let filter = filter {
@@ -249,6 +252,12 @@ extension CharcoalViewController: UINavigationControllerDelegate {
             interactivePopGestureRecognizer?.isEnabled = false
         } else {
             interactivePopGestureRecognizer?.isEnabled = true
+        }
+    }
+
+    private func showBottomButtonIfNeeded() {
+        for viewController in viewControllers where viewController !== rootFilterViewController {
+            (viewController as? ListFilterViewController)?.showBottomButton(selectionHasChanged, animated: false)
         }
     }
 }

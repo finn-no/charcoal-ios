@@ -83,6 +83,7 @@ final class RootFilterViewController: FilterViewController {
 
     func scrollToTop(animated: Bool) {
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: animated)
+        tableView.layoutIfNeeded()
     }
 
     func reloadFilters() {
@@ -168,6 +169,9 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {
                 currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
             })
+
+            cell.isSeparatorHidden = indexPath.row == filter.subfilters.count - 1
+            cell.accessibilityIdentifier = currentFilter.title
 
             return cell
         }

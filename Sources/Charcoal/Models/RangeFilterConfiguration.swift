@@ -22,24 +22,28 @@ public struct RangeFilterConfiguration: Equatable {
     public let displaysUnitInNumberInput: Bool
     public let isCurrencyValueRange: Bool
 
+    private let isIncremented: Bool
+
     public var referenceValues: [Int] {
-        var result = [Int]()
-
-        if let first = values.first {
-            result.append(first)
+        guard let first = values.first, let last = values.last else {
+            return []
         }
 
-        let centerIndex = Int(values.count / 2)
+        var result = Set<Int>()
 
-        if centerIndex > 0, centerIndex < values.count - 1 {
-            result.append(values[centerIndex])
+        if isIncremented {
+            result = [first, first + (last - first) / 2, last]
+        } else {
+            result = [first, last]
+
+            let centerIndex = Int(values.count / 2)
+
+            if centerIndex > 0, centerIndex < values.count - 1 {
+                result.insert(values[centerIndex])
+            }
         }
 
-        if let last = values.last {
-            result.append(last)
-        }
-
-        return result
+        return Array(result).sorted(by: <)
     }
 
     // MARK: - Init
@@ -66,11 +70,14 @@ public struct RangeFilterConfiguration: Equatable {
 
         switch valueKind {
         case let .incremented(increment):
-            self.values = (minimumValue ... maximumValue).stepValues(with: [(from: 0, increment: increment)])
+            self.values = (minimumValue ... maximumValue).stepValues(with: [(from: minimumValue, increment: increment)])
+            isIncremented = true
         case let .steps(values):
             self.values = ([minimumValue] + values + [maximumValue]).compactMap({ $0 })
+            isIncremented = false
         case let .intervals(array):
             self.values = (minimumValue ... maximumValue).stepValues(with: array)
+            isIncremented = false
         }
     }
 

@@ -97,7 +97,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
                 accessibilityValueSuffix: nil,
                 usesSmallNumberInputFont: false,
                 displaysUnitInNumberInput: true,
-                isCurrencyValueRange: true
+                formatWithSeparator: true
             )
         default:
             return nil

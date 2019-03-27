@@ -119,6 +119,7 @@
 		CF33D9D3224A4B9D00A24DF0 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */; };
 		CF33D9D5224A4D2200A24DF0 /* XCUIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */; };
 		CF33D9D7224A6B0600A24DF0 /* CommandLineExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */; };
+		CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D8224BACBC00A24DF0 /* NumberFormatterExtensions.swift */; };
 		CF4C870A221AFC0900DFAF2A /* ListFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */; };
 		CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */; };
 		CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */; };
@@ -387,6 +388,7 @@
 		CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
 		CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIApplicationExtensions.swift; sourceTree = "<group>"; };
 		CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineExtensions.swift; sourceTree = "<group>"; };
+		CF33D9D8224BACBC00A24DF0 /* NumberFormatterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtensions.swift; sourceTree = "<group>"; };
 		CF4C8709221AFC0900DFAF2A /* ListFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterViewController.swift; sourceTree = "<group>"; };
 		CF4C870D221AFCC900DFAF2A /* RootFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterViewController.swift; sourceTree = "<group>"; };
@@ -824,11 +826,12 @@
 		9BE0A04D2091C12A0000632B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */,
 				9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */,
 				9BD6377D21244C0B00AB9DFE /* Color.swift */,
 				DA51041A21BE6AFE004048BD /* Font.swift */,
 				DA39FA3F220B30E700608AC4 /* Int.swift */,
+				CF33D9D8224BACBC00A24DF0 /* NumberFormatterExtensions.swift */,
+				CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */,
 				5589322F209C3CDA00512FF8 /* UIKit */,
 			);
 			path = Extensions;
@@ -1562,6 +1565,7 @@
 				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
 				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
+				CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */,
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
 				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 				559C61F320DA4C8D0083A574 /* (null) in Sources */,

@@ -45,6 +45,7 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
+    private var indexPathsToReset: [IndexPath: Bool] = [:]
 
     // MARK: - Filter
 
@@ -81,11 +82,6 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Public
 
-    func scrollToTop(animated: Bool) {
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: animated)
-        tableView.layoutIfNeeded()
-    }
-
     func reloadFilters() {
         tableView.reloadData()
     }
@@ -117,8 +113,15 @@ final class RootFilterViewController: FilterViewController {
         selectionStore.removeValues(for: filter)
         rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
         freeTextFilterViewController?.searchBar.text = nil
+
+        for (index, subfilter) in filter.subfilters.enumerated() where subfilter.kind == .inline {
+            let indexPath = IndexPath(row: index, section: 0)
+            indexPathsToReset[indexPath] = true
+        }
+
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        tableView.layoutIfNeeded()
         tableView.reloadData()
-        scrollToTop(animated: true)
     }
 }
 
@@ -157,6 +160,12 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
 
             cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
+
+            if indexPathsToReset[indexPath] == true {
+                indexPathsToReset.removeValue(forKey: indexPath)
+                cell.resetContentOffset()
+            }
+
             return cell
         default:
             let titles = selectionStore.titles(for: currentFilter)

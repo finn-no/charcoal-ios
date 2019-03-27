@@ -139,12 +139,9 @@ extension FilterSelectionStore {
             } else {
                 return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
             }
-        case let .stepper(config):
-            if let lowValue: Int = value(for: filter) {
-                return ["\(lowValue)+ \(config.alternativeUnit)"]
-            } else {
-                return []
-            }
+        case .stepper:
+            guard let lowValue: Int = value(for: filter) else { return [] }
+            return ["\(lowValue)+"]
         case let .map(_, _, radiusFilter, locationNameFilter):
             let locationName: String? = value(for: locationNameFilter)
             let radius: Int? = value(for: radiusFilter)

@@ -7,7 +7,6 @@ import UIKit
 
 public protocol MapFilterDataSource: AnyObject {
     var mapTileOverlay: MKTileOverlay? { get }
-    func loadLocationName(for coordinate: CLLocationCoordinate2D, zoomLevel: Int, completion: @escaping (String?) -> Void)
 }
 
 final class MapFilterViewController: FilterViewController {
@@ -198,20 +197,12 @@ extension MapFilterViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let coordinate = mapView.centerCoordinate
-        let zoomLevel = mapView.calcZoomLevel()
 
         mapFilterView.updateRadiusView()
         mapFilterView.isUserLocationButtonHighlighted = coordinate == mapView.userLocation.coordinate
 
         if nextRegionChangeIsFromUserInteraction {
             hasChanges = true
-
-            mapDataSource?.loadLocationName(for: coordinate, zoomLevel: zoomLevel, completion: { [weak self, weak mapView] name in
-                // Set location name only if it's the latest search
-                if let centerCoordinate = mapView?.centerCoordinate, coordinate == centerCoordinate {
-                    self?.locationName = name
-                }
-            })
         }
 
         if hasChanges {
@@ -319,20 +310,6 @@ private extension MapFilterViewController {
 
 // MARK: - Private extensions
 
-private extension MKMapView {
-    /// Calculates current zoom level of the map
-    func calcZoomLevel() -> Int {
-        return Int(log2(360 * (Double(frame.size.width / 256) / region.span.longitudeDelta)) + 1)
-    }
-}
-
 private func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
     return (fabs(lhs.latitude - rhs.latitude) <= 1e-5) && (fabs(lhs.longitude - rhs.longitude) <= 1e-5)
-}
-
-private extension Double {
-    func rounded(toPlaces places: Int) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
-    }
 }

@@ -257,7 +257,7 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 
     private func showBottomButtonIfNeeded() {
         for viewController in viewControllers where viewController !== rootFilterViewController {
-            (viewController as? FilterViewController)?.showBottomButton(selectionHasChanged, animated: false)
+            (viewController as? ListFilterViewController)?.showBottomButton(selectionHasChanged, animated: false)
         }
     }
 }

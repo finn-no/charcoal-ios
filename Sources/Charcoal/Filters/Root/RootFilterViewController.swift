@@ -54,7 +54,7 @@ final class RootFilterViewController: FilterViewController {
 
     init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
-        super.init(title: "rootTitle".localized(), selectionStore: selectionStore)
+        super.init(title: filter.title, selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {

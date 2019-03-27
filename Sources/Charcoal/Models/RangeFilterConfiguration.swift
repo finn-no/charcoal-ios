@@ -22,6 +22,7 @@ public struct RangeFilterConfiguration: Equatable {
     public let displaysUnitInNumberInput: Bool
     public let isCurrencyValueRange: Bool
 
+    let formatter: RangeFilterValueFormatter
     private let isIncremented: Bool
 
     public var referenceValues: [Int] {
@@ -79,6 +80,12 @@ public struct RangeFilterConfiguration: Equatable {
             self.values = (minimumValue ... maximumValue).stepValues(with: array)
             isIncremented = false
         }
+
+        formatter = RangeFilterValueFormatter(
+            isValueCurrency: isCurrencyValueRange,
+            unit: unit,
+            accessibilityUnit: accessibilityValueSuffix ?? ""
+        )
     }
 
     // MARK: - Helpers

@@ -61,11 +61,7 @@ final class RangeFilterView: UIView {
 
     init(filterConfig: RangeFilterConfiguration) {
         self.filterConfig = filterConfig
-        formatter = RangeFilterValueFormatter(
-            isValueCurrency: filterConfig.isCurrencyValueRange,
-            unit: filterConfig.unit,
-            accessibilityUnit: filterConfig.accessibilityValueSuffix ?? ""
-        )
+        formatter = filterConfig.formatter
         super.init(frame: .zero)
         numberInputView.accessibilityValueSuffix = filterConfig.accessibilityValueSuffix
         setup()
@@ -168,7 +164,7 @@ extension RangeFilterView {
         referenceValueViews = filterConfig.referenceValues.map({ referenceValue in
             return SliderReferenceValueView(
                 value: referenceValue,
-                displayText: formatter.string(from: referenceValue, isCurrency: filterConfig.isCurrencyValueRange) ?? ""
+                displayText: formatter.string(from: referenceValue) ?? ""
             )
         })
 

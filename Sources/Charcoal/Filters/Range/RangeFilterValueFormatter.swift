@@ -2,20 +2,13 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
+final class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
     private let isValueCurrency: Bool
     private let unit: String
     private let accessibilityUnit: String
 
-    private lazy var formatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = isValueCurrency ? .currency : .none
-        formatter.currencySymbol = ""
-        formatter.locale = Locale(identifier: "nb_NO")
-        formatter.maximumFractionDigits = 0
-
-        return formatter
-    }()
+    private static let numberFormatter = NumberFormatter(isValueCurrency: false)
+    private static let currencyFormatter = NumberFormatter(isValueCurrency: true)
 
     init(isValueCurrency: Bool, unit: String, accessibilityUnit: String) {
         self.isValueCurrency = isValueCurrency
@@ -23,8 +16,9 @@ class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
         self.accessibilityUnit = accessibilityUnit
     }
 
-    func string(from value: Int, isCurrency: Bool = false) -> String? {
+    func string(from value: Int) -> String? {
         let value = NSNumber(value: value)
+        let formatter = isValueCurrency ? RangeFilterValueFormatter.currencyFormatter : RangeFilterValueFormatter.numberFormatter
         return formatter.string(from: value)
     }
 
@@ -34,5 +28,17 @@ class RangeFilterValueFormatter: NSObject, SliderValueFormatter {
 
     func title<ValueKind>(for value: ValueKind) -> String {
         return "\(value) \(unit)"
+    }
+}
+
+// MARK: - Private extensions
+
+private extension NumberFormatter {
+    convenience init(isValueCurrency: Bool) {
+        self.init()
+        numberStyle = isValueCurrency ? .currency : .none
+        currencySymbol = ""
+        locale = Locale(identifier: "nb_NO")
+        maximumFractionDigits = 0
     }
 }

@@ -44,7 +44,20 @@ final class RootFilterViewController: FilterViewController {
         return button
     }()
 
-    private var freeTextFilterViewController: FreeTextFilterViewController?
+    private lazy var freeTextFilterCell: FreeTextFilterCell = {
+        guard let freeTextFilter = filter.subfilters.first(where: { $0.kind == .search }) else { fatalError("Missing free text filter") }
+        let freeTextViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
+        freeTextViewController.delegate = self
+        let cell = FreeTextFilterCell(viewController: freeTextViewController)
+        return cell
+    }()
+
+    private lazy var inlineFilterCell: InlineFilterCell = {
+        let inlineFilterView = InlineFilterView(frame: .zero)
+        inlineFilterView.delegate = self
+        let cell = InlineFilterCell(view: inlineFilterView)
+        return cell
+    }()
 
     // MARK: - Filter
 
@@ -81,11 +94,6 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Public
 
-    func scrollToTop(animated: Bool) {
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: animated)
-        tableView.layoutIfNeeded()
-    }
-
     func reloadFilters() {
         tableView.reloadData()
     }
@@ -116,9 +124,13 @@ final class RootFilterViewController: FilterViewController {
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filter)
         rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
-        freeTextFilterViewController?.searchBar.text = nil
+        freeTextFilterCell.viewController.searchBar.text = nil
+
+        inlineFilterCell.view.resetContentOffset()
+
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        tableView.layoutIfNeeded()
         tableView.reloadData()
-        scrollToTop(animated: true)
     }
 }
 
@@ -132,17 +144,10 @@ extension RootFilterViewController: UITableViewDataSource {
 
         switch currentFilter.kind {
         case .search:
-            freeTextFilterViewController =
-                freeTextFilterViewController ??
-                FreeTextFilterViewController(filter: currentFilter, selectionStore: selectionStore)
-
-            freeTextFilterViewController?.delegate = self
-            freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate
-            freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource
-
-            let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
-            cell.configure(with: freeTextFilterViewController!.searchBar)
-            return cell
+            freeTextFilterCell.viewController.filterDelegate = freeTextFilterDelegate
+            freeTextFilterCell.viewController.filterDataSource = freeTextFilterDataSource
+            freeTextFilterCell.configure(with: freeTextFilterCell.viewController.searchBar)
+            return freeTextFilterCell
         case .inline:
             let vertical = verticals?.first(where: { $0.isCurrent })
             let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
@@ -153,11 +158,8 @@ extension RootFilterViewController: UITableViewDataSource {
                 })
             })
 
-            let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
-            cell.delegate = self
-
-            cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
-            return cell
+            inlineFilterCell.view.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
+            return inlineFilterCell
         default:
             let titles = selectionStore.titles(for: currentFilter)
             let isValid = selectionStore.isValid(currentFilter)
@@ -265,7 +267,7 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        freeTextFilterViewController?.searchBar.text = nil
+        freeTextFilterCell.viewController.searchBar.text = nil
         verticalViewController.dismiss(animated: false)
         rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
     }

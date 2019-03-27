@@ -8,21 +8,13 @@ final class InlineFilterCell: UITableViewCell {
 
     // MARK: - Public properties
 
-    var delegate: InlineFilterViewDelegate? {
-        get { return inlineFilterView.delegate }
-        set { inlineFilterView.delegate = newValue }
-    }
-
-    private lazy var inlineFilterView: InlineFilterView = {
-        let inlineFilterView = InlineFilterView()
-        inlineFilterView.translatesAutoresizingMaskIntoConstraints = false
-        return inlineFilterView
-    }()
+    let view: InlineFilterView
 
     // MARK: - Init
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    init(view: InlineFilterView) {
+        self.view = view
+        super.init(style: .default, reuseIdentifier: nil)
         setup()
     }
 
@@ -32,12 +24,8 @@ final class InlineFilterCell: UITableViewCell {
 
     // MARK: - Setup
 
-    func configure(withTitles titles: [[String]], verticalTitle: String? = nil, selectedItems: [[Int]]) {
-        inlineFilterView.configure(withTitles: titles, verticalTitle: verticalTitle, selectedItems: selectedItems)
-    }
-
     private func setup() {
-        contentView.addSubview(inlineFilterView)
-        inlineFilterView.fillInSuperview(insets: UIEdgeInsets(top: 0, leading: 0, bottom: -.smallSpacing, trailing: 0))
+        contentView.addSubview(view)
+        view.fillInSuperview(insets: UIEdgeInsets(top: 0, leading: 0, bottom: -.smallSpacing, trailing: 0))
     }
 }

@@ -15,7 +15,7 @@ public class RangeFilterDemoView: UIView {
         accessibilityValueSuffix: nil,
         usesSmallNumberInputFont: false,
         displaysUnitInNumberInput: true,
-        isCurrencyValueRange: true
+        formatWithSeparator: true
     )
 
     private lazy var rangeFilterView: RangeFilterView = {

@@ -20,8 +20,9 @@ public struct RangeFilterConfiguration: Equatable {
     public let accessibilityValueSuffix: String?
     public let usesSmallNumberInputFont: Bool
     public let displaysUnitInNumberInput: Bool
-    public let isCurrencyValueRange: Bool
+    public let formatWithSeparator: Bool
 
+    let formatter: RangeFilterValueFormatter
     private let isIncremented: Bool
 
     public var referenceValues: [Int] {
@@ -57,7 +58,7 @@ public struct RangeFilterConfiguration: Equatable {
                 accessibilityValueSuffix: String?,
                 usesSmallNumberInputFont: Bool,
                 displaysUnitInNumberInput: Bool,
-                isCurrencyValueRange: Bool) {
+                formatWithSeparator: Bool) {
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
         self.hasLowerBoundOffset = hasLowerBoundOffset
@@ -66,7 +67,7 @@ public struct RangeFilterConfiguration: Equatable {
         self.accessibilityValueSuffix = accessibilityValueSuffix
         self.usesSmallNumberInputFont = usesSmallNumberInputFont
         self.displaysUnitInNumberInput = displaysUnitInNumberInput
-        self.isCurrencyValueRange = isCurrencyValueRange
+        self.formatWithSeparator = formatWithSeparator
 
         switch valueKind {
         case let .incremented(increment):
@@ -79,6 +80,12 @@ public struct RangeFilterConfiguration: Equatable {
             self.values = (minimumValue ... maximumValue).stepValues(with: array)
             isIncremented = false
         }
+
+        formatter = RangeFilterValueFormatter(
+            formatWithSeparator: formatWithSeparator,
+            unit: unit,
+            accessibilityUnit: accessibilityValueSuffix ?? ""
+        )
     }
 
     // MARK: - Helpers

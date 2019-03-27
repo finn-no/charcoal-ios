@@ -213,6 +213,11 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter1.subfilters.count, 3)
         XCTAssertEqual(filter1.subfilter(at: 2)?.key, "subkey3")
     }
+
+    func testFormattedNumberOfResults() {
+        let filter = Filter.list(title: "List", key: "list", numberOfResults: 10_000_000)
+        XCTAssertEqual(filter.formattedNumberOfResults, "10 000 000")
+    }
 }
 
 // MARK: - TestDataDecoder

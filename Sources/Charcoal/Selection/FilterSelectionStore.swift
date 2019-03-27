@@ -130,14 +130,17 @@ extension FilterSelectionStore {
 
     func titles(for filter: Filter) -> [String] {
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter, _):
-            let lowValue: String? = value(for: lowValueFilter)
-            let highValue: String? = value(for: highValueFilter)
+        case let .range(lowValueFilter, highValueFilter, config):
+            let lowValue: Int? = value(for: lowValueFilter)
+            let highValue: Int? = value(for: highValueFilter)
 
             if lowValue == nil && highValue == nil {
                 return []
             } else {
-                return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
+                let formattedLowValue = lowValue.flatMap({ config.formatter.string(from: $0) })
+                let formattedHighValue = highValue.flatMap({ config.formatter.string(from: $0) })
+
+                return ["\(formattedLowValue ?? "...") - \(formattedHighValue ?? "...")"]
             }
         case .stepper:
             if let lowValue: Int = value(for: filter) {

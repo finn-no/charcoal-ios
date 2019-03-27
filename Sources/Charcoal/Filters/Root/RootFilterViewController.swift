@@ -69,7 +69,7 @@ final class RootFilterViewController: FilterViewController {
         navigationItem.rightBarButtonItem = resetButton
 
         showBottomButton(true, animated: false)
-        bottomButton.buttonTitle = String(format: "showResultsButton".localized(), filter.numberOfResults)
+        updateBottomButtonTitle()
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
         setup()
     }
@@ -96,7 +96,7 @@ final class RootFilterViewController: FilterViewController {
         self.filter = filter
         self.verticals = verticals
         navigationItem.title = filter.title
-        bottomButton.buttonTitle = String(format: "showResultsButton".localized(), filter.numberOfResults)
+        updateBottomButtonTitle()
         tableView.reloadData()
     }
 
@@ -109,6 +109,12 @@ final class RootFilterViewController: FilterViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+
+    private func updateBottomButtonTitle() {
+        let localizedString = String(format: "showResultsButton".localized(), filter.numberOfResults)
+        let title = localizedString.replacingOccurrences(of: "\(filter.numberOfResults)", with: filter.formattedNumberOfResults)
+        bottomButton.buttonTitle = title
     }
 
     // MARK: - Actions

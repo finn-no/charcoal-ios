@@ -16,7 +16,7 @@ extension RangeFilterConfiguration {
             accessibilityValueSuffix: nil,
             usesSmallNumberInputFont: maximumValue > 1_000_000,
             displaysUnitInNumberInput: unit != .year,
-            isCurrencyValueRange: unit == .currency
+            formatWithSeparator: unit != .year
         )
     }
 

@@ -67,8 +67,10 @@ public struct FilterSetup: Decodable {
             return filter
         }
 
+        // TODO: move to Localizable.strings when we create this file for priming
+        let title = "Filtrer søket"
         let numberOfResults = objectCount ?? hits
-        let root = Filter.list(title: filterTitle, key: market, numberOfResults: numberOfResults, subfilters: rootLevelFilters)
+        let root = Filter.list(title: title, key: market, numberOfResults: numberOfResults, subfilters: rootLevelFilters)
 
         return FilterContainer(root: root)
     }

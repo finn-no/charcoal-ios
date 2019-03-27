@@ -152,3 +152,11 @@ extension Filter {
         return filter
     }
 }
+
+// MARK: - Helpers
+
+extension Filter {
+    var formattedNumberOfResults: String {
+        return NumberFormatter.formatterWithSeparator.string(from: numberOfResults) ?? ""
+    }
+}

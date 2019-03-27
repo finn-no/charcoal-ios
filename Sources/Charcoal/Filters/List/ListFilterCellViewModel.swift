@@ -42,7 +42,7 @@ extension ListFilterCellViewModel {
         return ListFilterCellViewModel(
             title: "all".localized(),
             subtitle: nil,
-            detailText: String(filter.numberOfResults),
+            detailText: filter.formattedNumberOfResults,
             accessoryStyle: .none,
             checkboxStyle: checkboxStyle,
             isEnabled: true
@@ -62,7 +62,7 @@ extension ListFilterCellViewModel {
         return ListFilterCellViewModel(
             title: filter.title,
             subtitle: nil,
-            detailText: String(filter.numberOfResults),
+            detailText: filter.formattedNumberOfResults,
             accessoryStyle: filter.subfilters.isEmpty ? .none : .chevron,
             checkboxStyle: checkboxStyle,
             isEnabled: isEnabled
@@ -73,7 +73,7 @@ extension ListFilterCellViewModel {
         return ListFilterCellViewModel(
             title: filter.title,
             subtitle: "browserText".localized(),
-            detailText: String(filter.numberOfResults),
+            detailText: filter.formattedNumberOfResults,
             accessoryStyle: .external,
             checkboxStyle: .deselected,
             isEnabled: isEnabled

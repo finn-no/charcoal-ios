@@ -16,6 +16,6 @@ extension NumberFormatter {
 
     func string(from value: Int) -> String? {
         let number = NSNumber(value: value)
-        return string(from: number)
+        return string(from: number)?.trimmingCharacters(in: .whitespaces)
     }
 }

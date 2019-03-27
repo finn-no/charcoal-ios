@@ -268,19 +268,8 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
         freeTextFilterCell.viewController.searchBar.text = nil
-
-        func dismissVerticalViewController(animated: Bool) {
-            DispatchQueue.main.async {
-                verticalViewController.dismiss(animated: animated)
-            }
-        }
-
-        if verticals?.firstIndex(where: { $0.isCurrent }) != index {
-            dismissVerticalViewController(animated: false)
-            rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
-        } else {
-            dismissVerticalViewController(animated: true)
-        }
+        verticalViewController.dismiss(animated: false)
+        rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
     }
 }
 

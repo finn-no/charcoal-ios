@@ -202,7 +202,6 @@ extension MapFilterViewController: MKMapViewDelegate {
         mapFilterView.isUserLocationButtonHighlighted = coordinate == mapView.userLocation.coordinate
 
         if nextRegionChangeIsFromUserInteraction {
-            locationName = nil
             hasChanges = true
         }
 

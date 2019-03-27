@@ -27,8 +27,6 @@ public class VerticalListViewController: UIViewController {
 
     private let verticals: [Vertical]
 
-    // MARK: - Init
-
     public required init(verticals: [Vertical]) {
         self.verticals = verticals
         super.init(nibName: nil, bundle: nil)
@@ -40,28 +38,23 @@ public class VerticalListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Lifecycle
-
     public override func viewDidLoad() {
         super.viewDidLoad()
+
         setup()
     }
 
-    // MARK: - Setup
-
-    private func setup(withSourceView source: UIView, inContainerView view: UIView) {
+    func setup(withSourceView source: UIView, inContainerView view: UIView) {
         let sourceViewBottom = view.convert(CGPoint(x: 0, y: source.bounds.maxY), from: source).y
         let maxHeightForPopover = view.bounds.height - sourceViewBottom - 20
         let numberOfRowsFitting = maxHeightForPopover / VerticalListViewController.rowHeight
 
         let popoverHeight: CGFloat
-
         if numberOfRowsFitting < CGFloat(verticals.count) {
             popoverHeight = (floor(numberOfRowsFitting) - 0.5) * VerticalListViewController.rowHeight
         } else {
             popoverHeight = CGFloat(verticals.count) * VerticalListViewController.rowHeight
         }
-
         preferredContentSize = CGSize(width: view.frame.size.width, height: popoverHeight)
     }
 
@@ -85,8 +78,6 @@ public class VerticalListViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
-
 extension VerticalListViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return verticals.count
@@ -100,8 +91,6 @@ extension VerticalListViewController: UITableViewDataSource {
         return cell
     }
 }
-
-// MARK: - UITableViewDelegate
 
 extension VerticalListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

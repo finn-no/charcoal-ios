@@ -5,22 +5,20 @@
 import UIKit
 
 class FreeTextFilterCell: UITableViewCell {
+    private var searchBar: UISearchBar?
 
-    // MARK: - Public properties
-
-    let viewController: FreeTextFilterViewController
-
-    init(viewController: FreeTextFilterViewController) {
-        self.viewController = viewController
-        super.init(style: .default, reuseIdentifier: nil)
-        selectionStyle = .none
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        setup()
     }
 
     func configure(with searchBar: UISearchBar) {
+        self.searchBar = searchBar
         setupSearchBar(searchBar)
     }
 }
@@ -37,5 +35,9 @@ private extension FreeTextFilterCell {
             searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumSpacing),
             searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -.mediumSpacing),
         ])
+    }
+
+    func setup() {
+        selectionStyle = .none
     }
 }

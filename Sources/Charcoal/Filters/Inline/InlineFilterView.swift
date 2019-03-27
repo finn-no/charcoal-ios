@@ -68,12 +68,6 @@ final class InlineFilterView: UIView {
 
         collectionView.reloadData()
     }
-
-    func resetContentOffset() {
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
-        collectionView.layoutIfNeeded()
-        collectionView.reloadData()
-    }
 }
 
 // MARK: - Collection view data source

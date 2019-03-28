@@ -90,8 +90,6 @@ final class MapFilterViewController: FilterViewController {
 
         showBottomButton(true, animated: false)
         setup()
-
-        locationManager.delegate = self
     }
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
@@ -212,20 +210,11 @@ extension MapFilterViewController: MKMapViewDelegate {
 
         nextRegionChangeIsFromUserInteraction = false
     }
-}
 
-// MARK: - CLLocationManagerDelegate
-
-extension MapFilterViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
-            if hasRequestedLocationAuthorization {
-                hasRequestedLocationAuthorization = false
-                centerOnUserLocation()
-            }
-        case .denied, .notDetermined, .restricted:
-            break
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        if hasRequestedLocationAuthorization {
+            centerOnUserLocation()
+            hasRequestedLocationAuthorization = false
         }
     }
 }

@@ -36,6 +36,10 @@ final class InlineFilterCell: UITableViewCell {
         inlineFilterView.configure(withTitles: titles, verticalTitle: verticalTitle, selectedItems: selectedItems)
     }
 
+    func resetContentOffset() {
+        inlineFilterView.resetContentOffset()
+    }
+
     private func setup() {
         contentView.addSubview(inlineFilterView)
         inlineFilterView.fillInSuperview(insets: UIEdgeInsets(top: 0, leading: 0, bottom: -.smallSpacing, trailing: 0))

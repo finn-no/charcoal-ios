@@ -20,9 +20,7 @@ public enum FilterUnit: Equatable {
         value: String,
         accessibilityValue: String,
         shouldFormatWithSeparator: Bool,
-        shouldDisplayInNumberInput: Bool,
-        lowerBoundTitle: String,
-        upperBoundTitle: String
+        shouldDisplayInNumberInput: Bool
     )
 
     public var value: String {
@@ -49,14 +47,14 @@ public enum FilterUnit: Equatable {
             return "unit.squareMeters".localized()
         case .year:
             return "unit.year".localized()
-        case let .custom(value, _, _, _, _, _):
+        case let .custom(value, _, _, _):
             return value
         }
     }
 
     public var accessibilityValue: String {
         switch self {
-        case let .custom(_, accessibilityValue, _, _, _, _):
+        case let .custom(_, accessibilityValue, _, _):
             return accessibilityValue
         default:
             return ""
@@ -67,7 +65,7 @@ public enum FilterUnit: Equatable {
         switch self {
         case .year:
             return false
-        case let .custom(_, _, shouldFormatWithSeparator, _, _, _):
+        case let .custom(_, _, shouldFormatWithSeparator, _):
             return shouldFormatWithSeparator
         default:
             return true
@@ -78,32 +76,46 @@ public enum FilterUnit: Equatable {
         switch self {
         case .year:
             return false
-        case let .custom(_, _, _, shouldDisplayInNumberInput, _, _):
+        case let .custom(_, _, _, shouldDisplayInNumberInput):
             return shouldDisplayInNumberInput
         default:
             return true
         }
     }
 
-    public var lowerBoundTitle: String {
+    public var lowerBoundText: String {
         switch self {
         case .year:
             return "before".localized()
-        case let .custom(_, _, _, _, lowerBoundTitle, _):
-            return lowerBoundTitle
         default:
             return "under".localized()
         }
     }
 
-    public var upperBoundTitle: String {
+    public var upperBoundText: String {
         switch self {
         case .year:
             return "after".localized()
-        case let .custom(_, _, _, _, _, upperBoundTitle):
-            return upperBoundTitle
         default:
             return "over".localized()
+        }
+    }
+
+    public var fromValueText: String {
+        switch self {
+        case .year:
+            return "after".localized()
+        default:
+            return "from".localized()
+        }
+    }
+
+    public var tilValueText: String {
+        switch self {
+        case .year:
+            return "before".localized()
+        default:
+            return "til".localized()
         }
     }
 }

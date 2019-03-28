@@ -203,10 +203,10 @@ extension RangeFilterView {
         } else {
             if step == .lowerBound {
                 newValue = filterConfig.minimumValue
-                hintText = filterConfig.unit.lowerBoundTitle
+                hintText = filterConfig.unit.lowerBoundText
             } else {
                 newValue = filterConfig.maximumValue
-                hintText = filterConfig.unit.upperBoundTitle
+                hintText = filterConfig.unit.upperBoundText
             }
         }
 

@@ -21,14 +21,12 @@ final class RangeNumberInputView: UIView {
 
     weak var delegate: RangeNumberInputViewDelegate?
     var generatesHapticFeedbackOnValueChange = true
-    var accessibilityValueSuffix: String?
 
     private let minimumValue: Int
     private let maximumValue: Int
-    private let unit: String
+    private let unit: FilterUnit
     private let formatter: RangeFilterValueFormatter
     private var inputFontSize: CGFloat
-    private let displaysUnitInNumberInput: Bool
     private let lowValueInputDecorationViewConstraintIdentifier = "lowValueInputDecorationViewConstraintIdentifier"
     private let highValueInputDecorationViewConstraintIdentifier = "highValueInputDecorationViewConstraintIdentifier"
     private var inputValues = [InputGroup: Int]()
@@ -137,14 +135,12 @@ final class RangeNumberInputView: UIView {
 
     // MARK: - Init
 
-    init(minimumValue: Int, maximumValue: Int, unit: String, formatter: RangeFilterValueFormatter,
-         inputFontSize: InputFontSize = .large, displaysUnitInNumberInput: Bool = true) {
+    init(minimumValue: Int, maximumValue: Int, unit: FilterUnit, inputFontSize: InputFontSize = .large) {
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
         self.unit = unit
-        self.formatter = formatter
+        formatter = RangeFilterValueFormatter(unit: unit)
         self.inputFontSize = inputFontSize.rawValue
-        self.displaysUnitInNumberInput = displaysUnitInNumberInput
         super.init(frame: .zero)
         setup()
     }
@@ -200,7 +196,7 @@ extension RangeNumberInputView {
     func setLowValue(_ value: Int, animated: Bool) {
         let valueText = text(from: value)
         lowValueInputTextField.text = valueText
-        lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
+        lowValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
         inputValues[.lowValue] = value == minimumValue ? nil : value
         validateInputs(activeInputGroup: .lowValue)
     }
@@ -208,7 +204,7 @@ extension RangeNumberInputView {
     func setHighValue(_ value: Int, animated: Bool) {
         let valueText = text(from: value)
         highValueInputTextField.text = valueText
-        highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
+        highValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
         inputValues[.highValue] = value == maximumValue ? nil : value
         validateInputs(activeInputGroup: .highValue)
     }
@@ -314,7 +310,7 @@ extension RangeNumberInputView: UITextFieldDelegate {
         }
 
         textField.text = self.text(from: newValue)
-        textField.accessibilityValue = "\(newValue) \(accessibilityValueSuffix ?? "")"
+        textField.accessibilityValue = "\(newValue) \(unit.accessibilityValue)"
 
         inputValues[inputGroup] = newValue
         updateValidationStatus(for: inputGroup, isValid: isValidValue(for: inputGroup), generateHapticFeedback: true)
@@ -338,15 +334,21 @@ extension RangeNumberInputView {
 
         lowValueInputTextField.text = valueText
         lowValueInputTextField.inputAccessoryView = UIToolbar(target: self, nextTextField: highValueInputTextField)
-        lowValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
+        lowValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
 
         highValueInputTextField.text = valueText
         highValueInputTextField.inputAccessoryView = UIToolbar(target: self, previousTextField: lowValueInputTextField)
-        highValueInputTextField.accessibilityValue = "\(valueText) \(accessibilityValueSuffix ?? "")"
+        highValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
 
-        if displaysUnitInNumberInput {
-            lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
-            highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
+        if unit.shouldDisplayInNumberInput {
+            lowValueInputUnitLabel.attributedText = attributedUnitText(
+                withFont: Style.normalFont(size: inputFontSize),
+                from: unit
+            )
+            highValueInputUnitLabel.attributedText = attributedUnitText(
+                withFont: Style.normalFont(size: inputFontSize),
+                from: unit
+            )
         }
 
         addSubview(underLowerBoundHintLabel)
@@ -418,7 +420,7 @@ extension RangeNumberInputView {
         return formatter.string(from: value) ?? ""
     }
 
-    private func attributedUnitText(withFont font: UIFont?, from string: String) -> NSAttributedString {
+    private func attributedUnitText(withFont font: UIFont?, from unit: FilterUnit) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
         style.firstLineHeadIndent = .mediumSpacing
@@ -431,7 +433,7 @@ extension RangeNumberInputView {
             NSAttributedString.Key.paragraphStyle: style,
         ]
 
-        return NSAttributedString(string: string, attributes: attributes)
+        return NSAttributedString(string: unit.value, attributes: attributes)
     }
 
     private func setHintText(_ text: String, for inputGroup: InputGroup) {
@@ -463,8 +465,11 @@ extension RangeNumberInputView {
         case .lowValue:
             lowValueInputTextField.font = font
 
-            if displaysUnitInNumberInput {
-                lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: lowValueInputTextField.font, from: unit)
+            if unit.shouldDisplayInNumberInput {
+                lowValueInputUnitLabel.attributedText = attributedUnitText(
+                    withFont: lowValueInputTextField.font,
+                    from: unit
+                )
             }
 
             underLowerBoundHintLabel.font = outOfRangeBoundsFont
@@ -480,7 +485,7 @@ extension RangeNumberInputView {
         case .highValue:
             highValueInputTextField.font = font
 
-            if displaysUnitInNumberInput {
+            if unit.shouldDisplayInNumberInput {
                 highValueInputUnitLabel.attributedText = attributedUnitText(withFont: highValueInputTextField.font, from: unit)
             }
 

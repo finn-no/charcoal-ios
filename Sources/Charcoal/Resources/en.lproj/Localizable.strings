@@ -21,6 +21,18 @@
 "range.numberInput.lowValueAccessibilityLabel" = "Tekstfelt for lav verdi";
 "range.numberInput.highValueAccessibilityLabel" = "Tekstfelt for høy verdi";
 
+"unit.centimeters" = "cm";
+"unit.cubicCentimeters" = "ccm";
+"unit.currency" = "kr";
+"unit.feet" = "fot";
+"unit.horsePower" = "hk";
+"unit.items" = "stk.";
+"unit.kilograms" = "kg";
+"unit.kilometers" = "km";
+"unit.seats" = "seter";
+"unit.squareMeters" = "m\u{00B2}";
+"unit.year" = "år";
+
 "map.title" = "Område i kart";
 "map.homeAddress" = "Min hjemmeadresse";
 "map.currentLocation" = "Min nåværende posisjon";

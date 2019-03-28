@@ -5,8 +5,8 @@
 import UIKit
 
 protocol SliderValueFormatter: AnyObject {
-    func title<ValueKind>(for value: ValueKind) -> String
-    func accessibilityValue<ValueKind>(for value: ValueKind) -> String
+    func title(for value: Int) -> String
+    func accessibilityValue(for value: Int) -> String
 }
 
 protocol ValueSliderWithLabelViewDelegate: AnyObject {

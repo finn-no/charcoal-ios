@@ -33,10 +33,9 @@ final class RangeFilterView: UIView {
             minimumValue: filterConfig.minimumValue,
             maximumValue: filterConfig.maximumValue,
             unit: filterConfig.unit,
-            formatter: formatter,
-            inputFontSize: inputFontSize,
-            displaysUnitInNumberInput: filterConfig.displaysUnitInNumberInput
+            inputFontSize: inputFontSize
         )
+
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.delegate = self
 
@@ -61,9 +60,8 @@ final class RangeFilterView: UIView {
 
     init(filterConfig: RangeFilterConfiguration) {
         self.filterConfig = filterConfig
-        formatter = filterConfig.formatter
+        formatter = RangeFilterValueFormatter(unit: filterConfig.unit)
         super.init(frame: .zero)
-        numberInputView.accessibilityValueSuffix = filterConfig.accessibilityValueSuffix
         setup()
     }
 

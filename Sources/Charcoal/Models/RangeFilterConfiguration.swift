@@ -16,13 +16,9 @@ public struct RangeFilterConfiguration: Equatable {
     public let hasLowerBoundOffset: Bool
     public let hasUpperBoundOffset: Bool
     public let values: [Int]
-    public let unit: String
-    public let accessibilityValueSuffix: String?
+    public let unit: FilterUnit
     public let usesSmallNumberInputFont: Bool
-    public let displaysUnitInNumberInput: Bool
-    public let formatWithSeparator: Bool
 
-    let formatter: RangeFilterValueFormatter
     private let isIncremented: Bool
 
     public var referenceValues: [Int] {
@@ -54,20 +50,14 @@ public struct RangeFilterConfiguration: Equatable {
                 valueKind: ValueKind,
                 hasLowerBoundOffset: Bool,
                 hasUpperBoundOffset: Bool,
-                unit: String,
-                accessibilityValueSuffix: String?,
-                usesSmallNumberInputFont: Bool,
-                displaysUnitInNumberInput: Bool,
-                formatWithSeparator: Bool) {
+                unit: FilterUnit,
+                usesSmallNumberInputFont: Bool) {
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
         self.hasLowerBoundOffset = hasLowerBoundOffset
         self.hasUpperBoundOffset = hasUpperBoundOffset
         self.unit = unit
-        self.accessibilityValueSuffix = accessibilityValueSuffix
         self.usesSmallNumberInputFont = usesSmallNumberInputFont
-        self.displaysUnitInNumberInput = displaysUnitInNumberInput
-        self.formatWithSeparator = formatWithSeparator
 
         switch valueKind {
         case let .incremented(increment):
@@ -80,12 +70,6 @@ public struct RangeFilterConfiguration: Equatable {
             self.values = (minimumValue ... maximumValue).stepValues(with: array)
             isIncremented = false
         }
-
-        formatter = RangeFilterValueFormatter(
-            formatWithSeparator: formatWithSeparator,
-            unit: unit,
-            accessibilityUnit: accessibilityValueSuffix ?? ""
-        )
     }
 
     // MARK: - Helpers

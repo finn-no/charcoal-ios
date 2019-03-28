@@ -3,15 +3,13 @@
 //
 
 class MapDistanceValueFormatter: SliderValueFormatter {
-    func accessibilityValue<ValueKind>(for value: ValueKind) -> String {
+    func accessibilityValue(for value: Int) -> String {
         return title(for: value)
     }
 
-    func title<ValueKind>(for value: ValueKind) -> String {
-        guard let value = supportedValueToInt(value) else {
-            return ""
-        }
+    func title(for value: Int) -> String {
         let useKm = value > 1500
+
         if useKm {
             let km = value / 1000
             return "\(km) km"

@@ -137,9 +137,10 @@ extension FilterSelectionStore {
             if lowValue == nil && highValue == nil {
                 return []
             } else {
-                let formattedLowValue = lowValue.flatMap({ config.formatter.string(from: $0) })
-                let formattedHighValue = highValue.flatMap({ config.formatter.string(from: $0) })
-                let suffix = config.displaysUnitInNumberInput ? " \(config.unit)" : ""
+                let formatter = RangeFilterValueFormatter(unit: config.unit)
+                let formattedLowValue = lowValue.flatMap({ formatter.string(from: $0) })
+                let formattedHighValue = highValue.flatMap({ formatter.string(from: $0) })
+                let suffix = config.unit.shouldDisplayInNumberInput ? " \(config.unit)" : ""
                 return ["\(formattedLowValue ?? "...") - \(formattedHighValue ?? "...")\(suffix)"]
             }
         case .stepper:

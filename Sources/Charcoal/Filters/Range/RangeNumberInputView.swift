@@ -340,16 +340,8 @@ extension RangeNumberInputView {
         highValueInputTextField.inputAccessoryView = UIToolbar(target: self, previousTextField: lowValueInputTextField)
         highValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
 
-        if unit.shouldDisplayInNumberInput {
-            lowValueInputUnitLabel.attributedText = attributedUnitText(
-                withFont: Style.normalFont(size: inputFontSize),
-                from: unit
-            )
-            highValueInputUnitLabel.attributedText = attributedUnitText(
-                withFont: Style.normalFont(size: inputFontSize),
-                from: unit
-            )
-        }
+        lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
+        highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
 
         addSubview(underLowerBoundHintLabel)
         addSubview(lowValueInputTextField)
@@ -464,14 +456,7 @@ extension RangeNumberInputView {
         switch inputGroup {
         case .lowValue:
             lowValueInputTextField.font = font
-
-            if unit.shouldDisplayInNumberInput {
-                lowValueInputUnitLabel.attributedText = attributedUnitText(
-                    withFont: lowValueInputTextField.font,
-                    from: unit
-                )
-            }
-
+            lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: lowValueInputTextField.font, from: unit)
             underLowerBoundHintLabel.font = outOfRangeBoundsFont
 
             let constraint = lowValueInputDecorationView.constraint(withIdentifier: lowValueInputDecorationViewConstraintIdentifier)
@@ -484,11 +469,7 @@ extension RangeNumberInputView {
             }
         case .highValue:
             highValueInputTextField.font = font
-
-            if unit.shouldDisplayInNumberInput {
-                highValueInputUnitLabel.attributedText = attributedUnitText(withFont: highValueInputTextField.font, from: unit)
-            }
-
+            highValueInputUnitLabel.attributedText = attributedUnitText(withFont: highValueInputTextField.font, from: unit)
             overUpperBoundHintLabel.font = outOfRangeBoundsFont
 
             let constraint = highValueInputDecorationView.constraint(withIdentifier: highValueInputDecorationViewConstraintIdentifier)

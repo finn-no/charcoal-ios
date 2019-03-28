@@ -9,8 +9,7 @@ final class FilterUnitTests: XCTestCase {
     private let customUnit = FilterUnit.custom(
         value: "value",
         accessibilityValue: "accessibility",
-        shouldFormatWithSeparator: false,
-        shouldDisplayInNumberInput: false
+        shouldFormatWithSeparator: false
     )
 
     func testValue() {
@@ -24,7 +23,7 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertEqual(FilterUnit.kilometers.value, "unit.kilometers".localized())
         XCTAssertEqual(FilterUnit.seats.value, "unit.seats".localized())
         XCTAssertEqual(FilterUnit.squareMeters.value, "unit.squareMeters".localized())
-        XCTAssertEqual(FilterUnit.year.value, "unit.year".localized())
+        XCTAssertTrue(FilterUnit.year.value.isEmpty)
         XCTAssertEqual(customUnit.value, "value")
     }
 
@@ -56,21 +55,6 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertTrue(FilterUnit.squareMeters.shouldFormatWithSeparator)
         XCTAssertFalse(FilterUnit.year.shouldFormatWithSeparator)
         XCTAssertFalse(customUnit.shouldFormatWithSeparator)
-    }
-
-    func testShouldDisplayInNumberInput() {
-        XCTAssertTrue(FilterUnit.centimeters.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.cubicCentimeters.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.currency.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.feet.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.horsePower.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.items.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.kilograms.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.kilometers.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.seats.shouldDisplayInNumberInput)
-        XCTAssertTrue(FilterUnit.squareMeters.shouldDisplayInNumberInput)
-        XCTAssertFalse(FilterUnit.year.shouldDisplayInNumberInput)
-        XCTAssertFalse(customUnit.shouldDisplayInNumberInput)
     }
 
     func testLowerBoundText() {

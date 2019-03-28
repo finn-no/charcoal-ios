@@ -19,8 +19,7 @@ public enum FilterUnit: Equatable {
     case custom(
         value: String,
         accessibilityValue: String,
-        shouldFormatWithSeparator: Bool,
-        shouldDisplayInNumberInput: Bool
+        shouldFormatWithSeparator: Bool
     )
 
     public var value: String {
@@ -46,15 +45,15 @@ public enum FilterUnit: Equatable {
         case .squareMeters:
             return "unit.squareMeters".localized()
         case .year:
-            return "unit.year".localized()
-        case let .custom(value, _, _, _):
+            return ""
+        case let .custom(value, _, _):
             return value
         }
     }
 
     public var accessibilityValue: String {
         switch self {
-        case let .custom(_, accessibilityValue, _, _):
+        case let .custom(_, accessibilityValue, _):
             return accessibilityValue
         default:
             return ""
@@ -65,19 +64,8 @@ public enum FilterUnit: Equatable {
         switch self {
         case .year:
             return false
-        case let .custom(_, _, shouldFormatWithSeparator, _):
+        case let .custom(_, _, shouldFormatWithSeparator):
             return shouldFormatWithSeparator
-        default:
-            return true
-        }
-    }
-
-    public var shouldDisplayInNumberInput: Bool {
-        switch self {
-        case .year:
-            return false
-        case let .custom(_, _, _, shouldDisplayInNumberInput):
-            return shouldDisplayInNumberInput
         default:
             return true
         }

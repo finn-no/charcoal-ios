@@ -132,7 +132,7 @@ extension FilterSelectionStore {
         switch filter.kind {
         case let .range(lowValueFilter, highValueFilter, config):
             let formatter = RangeFilterValueFormatter(unit: config.unit)
-            let suffix = config.unit.shouldDisplayInNumberInput ? " \(config.unit.value)" : ""
+            let suffix = config.unit.value.isEmpty ? "" : " \(config.unit.value)"
 
             func formattedValue(for filter: Filter) -> String? {
                 return (value(for: filter) as Int?).flatMap({ formatter.string(from: $0) })

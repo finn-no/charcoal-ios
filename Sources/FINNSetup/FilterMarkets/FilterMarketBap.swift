@@ -93,11 +93,8 @@ extension FilterMarketBap: FINNFilterConfiguration {
                 ),
                 hasLowerBoundOffset: false,
                 hasUpperBoundOffset: true,
-                unit: Unit.currency.rawValue,
-                accessibilityValueSuffix: nil,
-                usesSmallNumberInputFont: false,
-                displaysUnitInNumberInput: true,
-                formatWithSeparator: true
+                unit: .currency,
+                usesSmallNumberInputFont: false
             )
         default:
             return nil

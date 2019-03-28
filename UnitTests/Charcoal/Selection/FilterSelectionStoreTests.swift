@@ -188,11 +188,11 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["10 - ... kr"])
+        XCTAssertEqual(store.titles(for: filter), ["fra 10 kr"])
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["... - 100 kr"])
+        XCTAssertEqual(store.titles(for: filter), ["til 100 kr"])
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)

@@ -11,11 +11,8 @@ public class RangeFilterDemoView: UIView {
         valueKind: .incremented(1000),
         hasLowerBoundOffset: false,
         hasUpperBoundOffset: true,
-        unit: "kr",
-        accessibilityValueSuffix: nil,
-        usesSmallNumberInputFont: false,
-        displaysUnitInNumberInput: true,
-        formatWithSeparator: true
+        unit: .currency,
+        usesSmallNumberInputFont: false
     )
 
     private lazy var rangeFilterView: RangeFilterView = {

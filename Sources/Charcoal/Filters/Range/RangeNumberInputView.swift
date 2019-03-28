@@ -59,7 +59,7 @@ final class RangeNumberInputView: UIView {
     private lazy var underLowerBoundHintLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "range.lowerBoundTitle".localized()
+        label.text = unit.lowerBoundTitle
         label.font = Style.hintNormalFont
         label.textColor = Style.textColor
         return label
@@ -100,7 +100,7 @@ final class RangeNumberInputView: UIView {
     private lazy var overUpperBoundHintLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "range.upperBoundTitle".localized()
+        label.text = unit.upperBoundTitle
         label.font = Style.hintNormalFont
         label.textColor = Style.textColor
         return label

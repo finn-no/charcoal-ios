@@ -246,9 +246,9 @@ extension RangeSliderView: StepSliderDelegate {
 
         switch step {
         case .lowerBound:
-            return "range.lowerBoundTitle".localized()
+            return filterConfig.unit.lowerBoundTitle
         case .upperBound:
-            return "range.upperBoundTitle".localized()
+            return filterConfig.unit.upperBoundTitle
         default:
             return ""
         }

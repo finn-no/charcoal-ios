@@ -13,9 +13,11 @@
 "showResultsButton" = "Vis %i treff";
 "searchPlaceholder" = "Ord i annonsen";
 "browserText" = "Åpnes i nettleseren";
+"over" = "Over";
+"under" = "Under";
+"before" = "Før";
+"after" = "Etter";
 
-"range.upperBoundTitle" = "Over";
-"range.lowerBoundTitle" = "Under";
 "range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
 "range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";
 "range.numberInput.lowValueAccessibilityLabel" = "Tekstfelt for lav verdi";

@@ -188,15 +188,23 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["10 - ..."])
+        XCTAssertEqual(store.titles(for: filter), ["10 - ... kr"])
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["... - 100"])
+        XCTAssertEqual(store.titles(for: filter), ["... - 100 kr"])
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["10 - 100"])
+        XCTAssertEqual(store.titles(for: filter), ["10 - 100 kr"])
+    }
+
+    func testTitlesWithSteppers() {
+        let config = StepperFilterConfiguration(minimumValue: 0, maximumValue: 10, unit: "stk.")
+        let filter = Filter.stepper(title: "Stepper", key: "stepper", config: config)
+
+        store.setValue(10, for: filter)
+        XCTAssertEqual(store.titles(for: filter), ["10+"])
     }
 
     func testTitlesWithMap() {

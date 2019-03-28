@@ -17,8 +17,8 @@
 "under" = "Under";
 "before" = "Før";
 "after" = "Etter";
-"from" = "Fra";
-"til" = "Til";
+"from" = "fra";
+"til" = "til";
 
 "range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
 "range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";

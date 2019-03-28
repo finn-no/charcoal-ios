@@ -36,7 +36,7 @@ public enum FilterUnit: Equatable {
         case .horsePower:
             return "unit.horsePower".localized()
         case .items:
-            return "unit.items.".localized()
+            return "unit.items".localized()
         case .kilograms:
             return "unit.kilograms".localized()
         case .kilometers:

@@ -10,10 +10,15 @@ extension SegmentButton {
     }
 }
 
+protocol SegmentButtonDelegate: AnyObject {
+    func segmentButtonDidFocusOnAccessibilityElement(_ segment: SegmentButton)
+}
+
 class SegmentButton: UIButton {
     static let borderColor: UIColor = .silver
     static let borderWidth: CGFloat = 1.5
 
+    weak var delegate: SegmentButtonDelegate?
     var borderStyle: BorderStyle = .middle
 
     var isExpandable = false {
@@ -45,6 +50,11 @@ class SegmentButton: UIButton {
         super.layoutSubviews()
         drawBorder()
     }
+
+    override func accessibilityElementDidBecomeFocused() {
+        super.accessibilityElementDidBecomeFocused()
+        delegate?.segmentButtonDidFocusOnAccessibilityElement(self)
+    }
 }
 
 private extension SegmentButton {
@@ -65,6 +75,7 @@ private extension SegmentButton {
 
     func updateSelected(_ selected: Bool) {
         backgroundColor = selected ? selectedBackgroundColor : .milk
+
         if selected {
             borderLayer.removeFromSuperlayer()
         } else {

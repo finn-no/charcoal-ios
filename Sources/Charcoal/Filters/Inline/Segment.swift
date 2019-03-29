@@ -4,7 +4,12 @@
 
 import Foundation
 
-class Segment: UIControl {
+protocol SegmentDelegate: AnyObject {
+    func segmentDidFocusOnAccessibilityElement(_ segment: Segment)
+}
+
+final class Segment: UIControl {
+    weak var delegate: SegmentDelegate?
 
     // MARK: - Public properties
 
@@ -111,6 +116,7 @@ private extension Segment {
     func addButtons(isExpandable: Bool) {
         for title in titles {
             let button = SegmentButton(title: title)
+            button.delegate = self
 
             if let accessibilityPrefix = accessibilityPrefix, isExpandable {
                 button.accessibilityLabel = accessibilityPrefix + ", " + title
@@ -166,5 +172,11 @@ private extension Segment {
             return
         }
         last.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+    }
+}
+
+extension Segment: SegmentButtonDelegate {
+    func segmentButtonDidFocusOnAccessibilityElement(_ segment: SegmentButton) {
+        delegate?.segmentDidFocusOnAccessibilityElement(self)
     }
 }

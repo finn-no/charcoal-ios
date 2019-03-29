@@ -4,11 +4,12 @@
 
 import Foundation
 
-class InlineSegmentCell: UICollectionViewCell {
+final class InlineSegmentCell: UICollectionViewCell {
     static let cellHeight: CGFloat = 38
 
     var segment: Segment? {
         didSet {
+            segment?.delegate = self
             setupSubview(segment)
         }
     }
@@ -32,5 +33,19 @@ private extension InlineSegmentCell {
             view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
+    }
+}
+
+// MARK: - SegmentDelegate
+
+extension InlineSegmentCell: SegmentDelegate {
+    func segmentDidFocusOnAccessibilityElement(_ segment: Segment) {
+        guard let collectionView = superview as? UICollectionView,
+            let indexPath = collectionView.indexPath(for: self) else {
+            return
+        }
+
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        UIAccessibility.post(notification: .layoutChanged, argument: nil)
     }
 }

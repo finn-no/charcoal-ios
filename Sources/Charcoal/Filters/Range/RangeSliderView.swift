@@ -240,17 +240,13 @@ extension RangeSliderView: StepSliderDelegate {
     }
 
     func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String {
-        if let value = filterConfig.value(for: step) {
-            return formatter.accessibilityValue(for: value)
-        }
-
         switch step {
+        case .value:
+            return filterConfig.value(for: step).map({ formatter.accessibilityValue(for: $0) }) ?? ""
         case .lowerBound:
-            return filterConfig.unit.lowerBoundText
+            return filterConfig.unit.lowerBoundText + " \(filterConfig.minimumValue)"
         case .upperBound:
-            return filterConfig.unit.upperBoundText
-        default:
-            return ""
+            return filterConfig.unit.upperBoundText + " \(filterConfig.maximumValue)"
         }
     }
 

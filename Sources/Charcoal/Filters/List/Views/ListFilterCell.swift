@@ -99,11 +99,9 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         switch viewModel.checkboxStyle {
         case .selectedBordered:
-            accessibilityHint = "accessibility.selected".localized()
             checkboxImageView.setImage(UIImage(named: .checkboxBordered), for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxBorderedDisabled), for: .disabled)
         case .selectedFilled:
-            accessibilityHint = "accessibility.selected".localized()
             checkboxImageView.setImage(nil, for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxFilledDisabled), for: .disabled)
         case .deselected:
@@ -140,10 +138,10 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private func updateAccessibilityLabel(isSelected: Bool) {
         let accessibilityLabels = [
+            isSelected ? "selected".localized() : nil,
             titleLabel.text,
             subtitleLabel.text,
-            detailLabel.text.map({ $0 + " " + "accessibility.numberOfResults".localized() }),
-            isSelected ? "accessibility.selected".localized() : nil,
+            detailLabel.text.map({ $0 + " " + "numberOfResults".localized() }),
         ]
 
         accessibilityLabel = accessibilityLabels.compactMap({ $0 }).joined(separator: ", ")

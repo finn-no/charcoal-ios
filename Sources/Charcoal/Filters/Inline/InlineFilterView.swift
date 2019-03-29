@@ -54,7 +54,7 @@ final class InlineFilterView: UIView {
         segments = []
 
         if let verticalTitle = verticalTitle {
-            let segment = Segment(titles: [verticalTitle], isExpandable: true)
+            let segment = Segment(titles: [verticalTitle], isExpandable: true, accessibilityPrefix: "vertical".localized())
             segment.addTarget(self, action: #selector(handleExpandedSegment(segment:)), for: .touchUpInside)
             vertical = segment
         }

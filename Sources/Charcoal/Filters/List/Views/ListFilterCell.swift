@@ -75,6 +75,8 @@ final class ListFilterCell: CheckboxTableViewCell {
         animation.repeatCount = 1
         animation.delegate = self
         selectedBackgroundView.layer.add(animation, forKey: nil)
+
+        updateAccessibilityLabel(isSelected: isSelected)
     }
 
     // MARK: - Setup
@@ -97,9 +99,11 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         switch viewModel.checkboxStyle {
         case .selectedBordered:
+            accessibilityHint = "accessibility.selected".localized()
             checkboxImageView.setImage(UIImage(named: .checkboxBordered), for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxBorderedDisabled), for: .disabled)
         case .selectedFilled:
+            accessibilityHint = "accessibility.selected".localized()
             checkboxImageView.setImage(nil, for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxFilledDisabled), for: .disabled)
         case .deselected:
@@ -110,6 +114,8 @@ final class ListFilterCell: CheckboxTableViewCell {
         checkboxImageView.isEnabled = viewModel.isEnabled
         overlayView.isHidden = viewModel.isEnabled
         bringSubviewToFront(overlayView)
+
+        updateAccessibilityLabel(isSelected: viewModel.checkboxStyle != .deselected)
     }
 
     private func setup() {
@@ -130,6 +136,17 @@ final class ListFilterCell: CheckboxTableViewCell {
             overlayView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             overlayView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
+    }
+
+    private func updateAccessibilityLabel(isSelected: Bool) {
+        let accessibilityLabels = [
+            titleLabel.text,
+            subtitleLabel.text,
+            detailLabel.text.map({ $0 + " " + "accessibility.numberOfResults".localized() }),
+            isSelected ? "accessibility.selected".localized() : nil,
+        ]
+
+        accessibilityLabel = accessibilityLabels.compactMap({ $0 }).joined(separator: ", ")
     }
 }
 

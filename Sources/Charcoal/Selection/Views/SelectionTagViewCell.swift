@@ -23,6 +23,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
 
     private lazy var removeButton: UIButton = {
         let button = RemoveButton(withAutoLayout: true)
+        button.accessibilityLabel = "accessibility.removeFilter".lowercased()
         button.adjustsImageWhenHighlighted = false
         button.imageEdgeInsets = SelectionTagViewCell.removeButtonEdgeInsets
         button.setImage(UIImage(named: .removeFilterValue), for: .normal)

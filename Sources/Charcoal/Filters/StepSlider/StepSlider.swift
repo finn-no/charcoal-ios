@@ -53,13 +53,13 @@ final class StepSlider: UISlider {
     // MARK: - Accessibility
 
     override func accessibilityDecrement() {
-        let decrement = value == maximumValue ? leftOffset : 1
+        let decrement = value == maximumValue && leftOffset > 0 ? leftOffset : 1
         setValueForSlider(value - decrement, animated: false)
         sendActions(for: .valueChanged)
     }
 
     override func accessibilityIncrement() {
-        let increment = value == minimumValue ? leftOffset : 1
+        let increment = value == minimumValue && leftOffset > 0 ? leftOffset : 1
         setValueForSlider(value + increment, animated: false)
         sendActions(for: .valueChanged)
     }

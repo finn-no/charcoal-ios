@@ -19,6 +19,7 @@
 "after" = "Etter";
 "from" = "fra";
 "til" = "til";
+"remove" = "Fjern";
 
 "range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
 "range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";
@@ -55,6 +56,5 @@
 "map.locationError.title" = "Informasjon";
 "map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
 
-"accessibility.removeFilter" = "Fjern filter";
 "accessibility.numberOfResults" = "treff";
 "accessibility.selected" = "Valgt";

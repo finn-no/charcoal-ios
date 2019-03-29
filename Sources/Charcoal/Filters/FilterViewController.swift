@@ -27,6 +27,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         let view = FilterBottomButtonView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
         return view
     }()
 
@@ -75,8 +76,14 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
 
         let duration = animated ? 0.3 : 0
 
+        if show {
+            bottomButton.isHidden = false
+        }
+
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
+        }, completion: { [weak self] _ in
+            self?.bottomButton.isHidden = !show
         })
     }
 

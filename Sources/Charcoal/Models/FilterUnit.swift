@@ -25,25 +25,25 @@ public enum FilterUnit: Equatable {
     public var value: String {
         switch self {
         case .centimeters:
-            return "unit.centimeters".localized()
+            return "unit.centimeters.value".localized()
         case .cubicCentimeters:
-            return "unit.cubicCentimeters".localized()
+            return "unit.cubicCentimeters.value".localized()
         case .currency:
-            return "unit.currency".localized()
+            return "unit.currency.value".localized()
         case .feet:
-            return "unit.feet".localized()
+            return "unit.feet.value".localized()
         case .horsePower:
-            return "unit.horsePower".localized()
+            return "unit.horsePower.value".localized()
         case .items:
-            return "unit.items".localized()
+            return "unit.items.value".localized()
         case .kilograms:
-            return "unit.kilograms".localized()
+            return "unit.kilograms.value".localized()
         case .kilometers:
-            return "unit.kilometers".localized()
+            return "unit.kilometers.value".localized()
         case .seats:
-            return "unit.seats".localized()
+            return "unit.seats.value".localized()
         case .squareMeters:
-            return "unit.squareMeters".localized()
+            return "unit.squareMeters.value".localized()
         case .year:
             return ""
         case let .custom(value, _, _):
@@ -53,10 +53,30 @@ public enum FilterUnit: Equatable {
 
     public var accessibilityValue: String {
         switch self {
+        case .centimeters:
+            return "unit.centimeters.accessibilityValue".localized()
+        case .cubicCentimeters:
+            return "unit.cubicCentimeters.accessibilityValue".localized()
+        case .currency:
+            return "unit.currency.accessibilityValue".localized()
+        case .feet:
+            return "unit.feet.accessibilityValue".localized()
+        case .horsePower:
+            return "unit.horsePower.accessibilityValue".localized()
+        case .items:
+            return "unit.items.accessibilityValue".localized()
+        case .kilograms:
+            return "unit.kilograms.accessibilityValue".localized()
+        case .kilometers:
+            return "unit.kilometers.accessibilityValue".localized()
+        case .seats:
+            return "unit.seats.accessibilityValue".localized()
+        case .squareMeters:
+            return "unit.squareMeters.accessibilityValue".localized()
+        case .year:
+            return "unit.years.accessibilityValue".localized()
         case let .custom(_, accessibilityValue, _):
             return accessibilityValue
-        default:
-            return ""
         }
     }
 

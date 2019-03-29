@@ -62,6 +62,7 @@ final class RangeNumberInputView: UIView {
         label.text = unit.lowerBoundText
         label.font = Style.hintNormalFont
         label.textColor = Style.textColor
+        label.isAccessibilityElement = false
         return label
     }()
 
@@ -71,7 +72,7 @@ final class RangeNumberInputView: UIView {
         label.text = "-"
         label.textColor = Style.textColor
         label.font = Style.normalFont(size: inputFontSize)
-
+        label.isAccessibilityElement = false
         return label
     }()
 
@@ -103,6 +104,7 @@ final class RangeNumberInputView: UIView {
         label.text = unit.upperBoundText
         label.font = Style.hintNormalFont
         label.textColor = Style.textColor
+        label.isAccessibilityElement = false
         return label
     }()
 
@@ -194,17 +196,15 @@ extension RangeNumberInputView {
     }
 
     func setLowValue(_ value: Int, animated: Bool) {
-        let valueText = text(from: value)
-        lowValueInputTextField.text = valueText
-        lowValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
+        lowValueInputTextField.text = formatter.string(from: value)
+        lowValueInputTextField.accessibilityValue = formatter.accessibilityValue(for: value)
         inputValues[.lowValue] = value == minimumValue ? nil : value
         validateInputs(activeInputGroup: .lowValue)
     }
 
     func setHighValue(_ value: Int, animated: Bool) {
-        let valueText = text(from: value)
-        highValueInputTextField.text = valueText
-        highValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
+        highValueInputTextField.text = formatter.string(from: value)
+        highValueInputTextField.accessibilityValue = formatter.accessibilityValue(for: value)
         inputValues[.highValue] = value == maximumValue ? nil : value
         validateInputs(activeInputGroup: .highValue)
     }
@@ -309,8 +309,8 @@ extension RangeNumberInputView: UITextFieldDelegate {
             return false
         }
 
-        textField.text = self.text(from: newValue)
-        textField.accessibilityValue = "\(newValue) \(unit.accessibilityValue)"
+        textField.text = formatter.string(from: newValue)
+        textField.accessibilityValue = formatter.accessibilityValue(for: newValue)
 
         inputValues[inputGroup] = newValue
         updateValidationStatus(for: inputGroup, isValid: isValidValue(for: inputGroup), generateHapticFeedback: true)
@@ -330,15 +330,15 @@ extension RangeNumberInputView: UITextFieldDelegate {
 
 extension RangeNumberInputView {
     private func setup() {
-        let valueText = text(from: minimumValue)
+        let valueText = formatter.string(from: minimumValue)
 
         lowValueInputTextField.text = valueText
         lowValueInputTextField.inputAccessoryView = UIToolbar(target: self, nextTextField: highValueInputTextField)
-        lowValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
+        lowValueInputTextField.accessibilityValue = formatter.accessibilityValue(for: minimumValue)
 
         highValueInputTextField.text = valueText
         highValueInputTextField.inputAccessoryView = UIToolbar(target: self, previousTextField: lowValueInputTextField)
-        highValueInputTextField.accessibilityValue = "\(valueText) \(unit.accessibilityValue)"
+        highValueInputTextField.accessibilityValue = formatter.accessibilityValue(for: minimumValue)
 
         lowValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
         highValueInputUnitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: inputFontSize), from: unit)
@@ -406,10 +406,6 @@ extension RangeNumberInputView {
         highValueInputUnitLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         inputSeparatorView.setContentCompressionResistancePriority(.required, for: .horizontal)
-    }
-
-    private func text(from value: Int) -> String {
-        return formatter.string(from: value) ?? ""
     }
 
     private func attributedUnitText(withFont font: UIFont?, from unit: FilterUnit) -> NSAttributedString {

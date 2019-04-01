@@ -78,6 +78,7 @@ extension VerticalSelectionCell {
         }
 
         let accessibilityPrefix = vertical.isCurrent ? "selected".localized() + ", " : ""
-        accessibilityLabel = accessibilityPrefix + vertical.title
+        let accessibilitySuffix = detailTextLabel?.text.map({ ", \($0) " }) ?? ""
+        accessibilityLabel = accessibilityPrefix + vertical.title + accessibilitySuffix
     }
 }

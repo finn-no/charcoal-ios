@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-struct FilterData: Decodable {
+public struct FilterData: Decodable {
     let title: String
     let parameterName: String
     let queries: [FilterDataQuery]
@@ -19,7 +19,7 @@ struct FilterData: Decodable {
         self.queries = queries ?? []
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decode(String.self, forKey: CodingKeys.title)
         parameterName = try container.decode(String.self, forKey: CodingKeys.parameterName)

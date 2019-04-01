@@ -10,7 +10,6 @@ public struct FilterSetup: Decodable {
     public let hits: Int
     public let objectCount: Int?
 
-    let rawFilterKeys: [String]
     let filters: [FilterData]
 
     enum CodingKeys: String, CodingKey, CaseIterable {
@@ -18,18 +17,16 @@ public struct FilterSetup: Decodable {
         case hits
         case objectCount
         case filterTitle = "label"
-        case rawFilterKeys = "filters"
         case filterData = "filter-data"
     }
 
     // MARK: - Init
 
-    private init(market: String, hits: Int, objectCount: Int?, filterTitle: String, rawFilterKeys: [String], filters: [FilterData]) {
+    public init(market: String, hits: Int, objectCount: Int?, filterTitle: String, filters: [FilterData]) {
         self.market = market
         self.hits = hits
         self.objectCount = objectCount
         self.filterTitle = filterTitle
-        self.rawFilterKeys = rawFilterKeys
         self.filters = filters
     }
 
@@ -44,12 +41,10 @@ public struct FilterSetup: Decodable {
         hits = try container.decode(Int.self, forKey: .hits)
         objectCount = try container.decodeIfPresent(Int.self, forKey: .objectCount)
         filterTitle = try container.decode(String.self, forKey: .filterTitle)
-        rawFilterKeys = try container.decode([String].self, forKey: .rawFilterKeys)
 
         let filterDataContainer = try container.nestedContainer(keyedBy: FilterKey.self, forKey: .filterData)
-        let elementKeys = rawFilterKeys.compactMap({ FilterKey(stringValue: $0) })
 
-        filters = try elementKeys.compactMap { elementKey -> FilterData? in
+        filters = try filterDataContainer.allKeys.compactMap { elementKey -> FilterData? in
             guard let filterData = try filterDataContainer.decodeIfPresent(FilterData.self, forKey: elementKey) else {
                 return nil
             }
@@ -181,17 +176,15 @@ public struct FilterSetup: Decodable {
             return nil
         }
 
-        guard let rawFilterKeys = dict[CodingKeys.rawFilterKeys.rawValue] as? [String] else {
-            return nil
-        }
-
         guard let filterDataDict = dict[CodingKeys.filterData.rawValue] as? [AnyHashable: Any] else {
             return nil
         }
 
-        let elementKeys = rawFilterKeys.compactMap({ FilterKey(stringValue: $0) })
-        let filters = elementKeys.compactMap { elementKey -> FilterData? in
-            guard let filterData = FilterData.decode(from: filterDataDict[elementKey.stringValue] as? [AnyHashable: Any]) else {
+        let filters = filterDataDict.compactMap { (key, value) -> FilterData? in
+            guard let key = key as? String, let elementKey = FilterKey(stringValue: key) else {
+                return nil
+            }
+            guard let filterData = FilterData.decode(from: value as? [AnyHashable: Any]) else {
                 return nil
             }
             if elementKey.rawValue != filterData.parameterName {
@@ -207,7 +200,6 @@ public struct FilterSetup: Decodable {
             hits: hits,
             objectCount: objectCount,
             filterTitle: filterTitle,
-            rawFilterKeys: rawFilterKeys,
             filters: filters
         )
     }

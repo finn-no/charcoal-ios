@@ -43,9 +43,9 @@
 "unit.centimeters.accessibilityValue" = "centimeter";
 "unit.cubicCentimeters.accessibilityValue" = "kubikkcentimeter";
 "unit.currency.accessibilityValue" = "kroner";
-"unit.feet.value.accessibilityValue" = "fot";
+"unit.feet.accessibilityValue" = "fot";
 "unit.horsePower.accessibilityValue" = "hestekrefter";
-"unit.items.accessibilityValue" = "stykker";
+"unit.items.accessibilityValue" = "stykk";
 "unit.kilograms.accessibilityValue" = "kilo";
 "unit.kilometers.accessibilityValue" = "kilometer";
 "unit.seats.accessibilityValue" = "seter";

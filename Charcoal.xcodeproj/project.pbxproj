@@ -137,9 +137,10 @@
 		CFCB35F322367C3D004E6EB3 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
 		CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */; };
-		CFCB35FB2236A299004E6EB3 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* Unit.swift */; };
 		CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
+		CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */; };
+		CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
 		CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
 		CFEDCE002232B756008FCDB1 /* FINNSetup.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -406,9 +407,10 @@
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
 		CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeFilterConfiguration+FINNSetup.swift"; sourceTree = "<group>"; };
-		CFCB35FA2236A299004E6EB3 /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
+		CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnit.swift; sourceTree = "<group>"; };
 		CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionChangeOrigin.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
+		CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitTests.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
 		CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FINNSetup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FINNSetup.h; sourceTree = "<group>"; };
@@ -770,7 +772,6 @@
 				08716B3621F76424003180D8 /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */,
-				CFCB35FA2236A299004E6EB3 /* Unit.swift */,
 				465F6167219B6ECF00CF568B /* BackendModel */,
 				CFCB35F722368D01004E6EB3 /* Extensions */,
 				08716B2721F73AD2003180D8 /* FilterMarkets */,
@@ -1113,6 +1114,7 @@
 		DA39FA10220B17DB00608AC4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */,
 				CF4C870F221B04E200DFAF2A /* Filter.swift */,
 				CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */,
 				9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */,
@@ -1148,6 +1150,7 @@
 				DA8D683B220D874400D31941 /* FilterTests.swift */,
 				CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */,
 				CF794C7622300096003425E2 /* RangerFilterConfiguration+Stubs.swift */,
+				CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1556,6 +1559,7 @@
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */,
 				CF81E106221BFFE600D00423 /* SelectionTagViewCell.swift in Sources */,
+				CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */,
 				DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
@@ -1618,6 +1622,7 @@
 				CF33D9DC224BB5B400A24DF0 /* NumberFormatterExtensionsTests.swift in Sources */,
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
 				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
+				CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */,
 				DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */,
 				CF794C7722300096003425E2 /* RangerFilterConfiguration+Stubs.swift in Sources */,
 				559C61FC20DA87330083A574 /* FilterSetupTests.swift in Sources */,
@@ -1639,7 +1644,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFCB35FB2236A299004E6EB3 /* Unit.swift in Sources */,
 				CFEDCE0C2232B7A8008FCDB1 /* FilterMarketCar.swift in Sources */,
 				CFEDCE102232B7A8008FCDB1 /* FilterMarketBoat.swift in Sources */,
 				CFEDCE052232B7A8008FCDB1 /* FilterKey.swift in Sources */,

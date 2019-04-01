@@ -131,16 +131,22 @@ extension FilterSelectionStore {
     func titles(for filter: Filter) -> [String] {
         switch filter.kind {
         case let .range(lowValueFilter, highValueFilter, config):
-            let lowValue: Int? = value(for: lowValueFilter)
-            let highValue: Int? = value(for: highValueFilter)
+            let formatter = RangeFilterValueFormatter(unit: config.unit)
+            let suffix = config.unit.value.isEmpty ? "" : " \(config.unit.value)"
 
-            if lowValue == nil && highValue == nil {
+            func formattedValue(for filter: Filter) -> String? {
+                return (value(for: filter) as Int?).flatMap({ formatter.string(from: $0) })
+            }
+
+            switch (formattedValue(for: lowValueFilter), formattedValue(for: highValueFilter)) {
+            case (.none, .none):
                 return []
-            } else {
-                let formattedLowValue = lowValue.flatMap({ config.formatter.string(from: $0) })
-                let formattedHighValue = highValue.flatMap({ config.formatter.string(from: $0) })
-                let suffix = config.displaysUnitInNumberInput ? " \(config.unit)" : ""
-                return ["\(formattedLowValue ?? "...") - \(formattedHighValue ?? "...")\(suffix)"]
+            case let (.some(lowValue), .none):
+                return ["\(config.unit.fromValueText) \(lowValue)\(suffix)"]
+            case let (.none, .some(highValue)):
+                return ["\(config.unit.tilValueText) \(highValue)\(suffix)"]
+            case let (.some(lowValue), .some(highValue)):
+                return ["\(lowValue) - \(highValue)\(suffix)"]
             }
         case .stepper:
             if let lowValue: Int = value(for: filter) {

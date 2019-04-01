@@ -13,13 +13,28 @@
 "showResultsButton" = "Vis %i treff";
 "searchPlaceholder" = "Ord i annonsen";
 "browserText" = "Åpnes i nettleseren";
+"over" = "Over";
+"under" = "Under";
+"before" = "Før";
+"after" = "Etter";
+"from" = "fra";
+"to" = "til";
 
-"range.upperBoundTitle" = "Over";
-"range.lowerBoundTitle" = "Under";
 "range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
 "range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";
 "range.numberInput.lowValueAccessibilityLabel" = "Tekstfelt for lav verdi";
 "range.numberInput.highValueAccessibilityLabel" = "Tekstfelt for høy verdi";
+
+"unit.centimeters" = "cm";
+"unit.cubicCentimeters" = "ccm";
+"unit.currency" = "kr";
+"unit.feet" = "fot";
+"unit.horsePower" = "hk";
+"unit.items" = "stk.";
+"unit.kilograms" = "kg";
+"unit.kilometers" = "km";
+"unit.seats" = "seter";
+"unit.squareMeters" = "m²";
 
 "map.title" = "Område i kart";
 "map.homeAddress" = "Min hjemmeadresse";

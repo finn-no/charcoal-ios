@@ -38,9 +38,9 @@ public struct FilterSetup: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         market = try container.decode(String.self, forKey: .market)
-        hits = try container.decode(Int.self, forKey: .hits)
+        hits = try container.decodeIfPresent(Int.self, forKey: .hits) ?? 0
         objectCount = try container.decodeIfPresent(Int.self, forKey: .objectCount)
-        filterTitle = try container.decode(String.self, forKey: .filterTitle)
+        filterTitle = try container.decodeIfPresent(String.self, forKey: .filterTitle) ?? ""
 
         let filterDataContainer = try container.nestedContainer(keyedBy: FilterKey.self, forKey: .filterData)
 
@@ -168,14 +168,6 @@ public struct FilterSetup: Decodable {
             return nil
         }
 
-        guard let hits = dict[CodingKeys.hits.rawValue] as? Int else {
-            return nil
-        }
-
-        guard let filterTitle = dict[CodingKeys.filterTitle.rawValue] as? String else {
-            return nil
-        }
-
         guard let filterDataDict = dict[CodingKeys.filterData.rawValue] as? [AnyHashable: Any] else {
             return nil
         }
@@ -193,6 +185,8 @@ public struct FilterSetup: Decodable {
             return filterData
         }
 
+        let hits = (dict[CodingKeys.hits.rawValue] as? Int) ?? 0
+        let filterTitle = (dict[CodingKeys.filterTitle.rawValue] as? String) ?? ""
         let objectCount = dict[CodingKeys.objectCount.rawValue] as? Int
 
         return FilterSetup(

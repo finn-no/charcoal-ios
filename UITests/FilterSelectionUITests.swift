@@ -17,13 +17,13 @@ final class FilterSelectionUITests: UITestCase {
         app.tables.element(boundBy: 1).cells.element(boundBy: 2).tap()
         sleep(1)
         XCTAssertTrue(app.hasNavigationTitle("Område"))
-        XCTAssertFalse(app.bottomButton.isHittable)
+        XCTAssertFalse(app.bottomButton.exists)
 
         // 3. Open subfilter
         app.tables.element(boundBy: 1).cells.element(boundBy: 0).tap()
         sleep(1)
         XCTAssertTrue(app.hasNavigationTitle("Akershus"))
-        XCTAssertFalse(app.bottomButton.isHittable)
+        XCTAssertFalse(app.bottomButton.exists)
 
         // 4. Select filter
         app.tables.element(boundBy: 1).cells.element(boundBy: 1).tap()

@@ -161,7 +161,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         let filter = Filter.list(title: "Test", key: "test", value: "value")
 
         store.setValue(from: filter)
-        XCTAssertEqual(store.titles(for: filter), ["Test"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "Test")])
     }
 
     func testTitlesWithSubfilters() {
@@ -172,10 +172,10 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(from: subfilterA)
         store.setValue(from: subfilterB)
-        XCTAssertEqual(store.titles(for: filter), ["subfilter A", "subfilter B"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "subfilter A"), SelectionTitle(value: "subfilter B")])
 
         store.removeValues(for: subfilterB)
-        XCTAssertEqual(store.titles(for: filter), ["subfilter A"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "subfilter A")])
     }
 
     func testTitlesWithRanges() {
@@ -188,15 +188,21 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["fra 10 kr"])
+        XCTAssertEqual(store.titles(for: filter), [
+            SelectionTitle(value: "fra 10 kr", accessibilityLabel: "fra 10 kroner"),
+        ])
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["til 100 kr"])
+        XCTAssertEqual(store.titles(for: filter), [
+            SelectionTitle(value: "til 100 kr", accessibilityLabel: "til 100 kroner"),
+        ])
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["10 - 100 kr"])
+        XCTAssertEqual(store.titles(for: filter), [
+            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "fra 10 til 100 kroner"),
+        ])
     }
 
     func testTitlesWithSteppers() {
@@ -204,7 +210,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         let filter = Filter.stepper(title: "Stepper", key: "stepper", config: config)
 
         store.setValue(10, for: filter)
-        XCTAssertEqual(store.titles(for: filter), ["10+"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "10+")])
     }
 
     func testTitlesWithMap() {
@@ -212,7 +218,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertTrue(store.titles(for: filter).isEmpty)
 
         store.setValue(10, for: filter.subfilters[2])
-        XCTAssertEqual(store.titles(for: filter), ["10 m"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "10 m")])
     }
 
     func testIsValid() {

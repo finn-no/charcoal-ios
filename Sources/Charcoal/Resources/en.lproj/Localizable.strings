@@ -19,22 +19,38 @@
 "after" = "Etter";
 "from" = "fra";
 "to" = "til";
+"remove" = "Fjern";
+"selected" = "Markert";
+"numberOfResults" = "Treff";
+"vertical" = "Marked";
 
 "range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
 "range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";
 "range.numberInput.lowValueAccessibilityLabel" = "Tekstfelt for lav verdi";
 "range.numberInput.highValueAccessibilityLabel" = "Tekstfelt for høy verdi";
 
-"unit.centimeters" = "cm";
-"unit.cubicCentimeters" = "ccm";
-"unit.currency" = "kr";
-"unit.feet" = "fot";
-"unit.horsePower" = "hk";
-"unit.items" = "stk.";
-"unit.kilograms" = "kg";
-"unit.kilometers" = "km";
-"unit.seats" = "seter";
-"unit.squareMeters" = "m²";
+"unit.centimeters.value" = "cm";
+"unit.cubicCentimeters.value" = "ccm";
+"unit.currency.value" = "kr";
+"unit.feet.value" = "fot";
+"unit.horsePower.value" = "hk";
+"unit.items.value" = "stk.";
+"unit.kilograms.value" = "kg";
+"unit.kilometers.value" = "km";
+"unit.seats.value" = "seter";
+"unit.squareMeters.value" = "m²";
+
+"unit.centimeters.accessibilityValue" = "centimeter";
+"unit.cubicCentimeters.accessibilityValue" = "kubikkcentimeter";
+"unit.currency.accessibilityValue" = "kroner";
+"unit.feet.accessibilityValue" = "fot";
+"unit.horsePower.accessibilityValue" = "hestekrefter";
+"unit.items.accessibilityValue" = "stykk";
+"unit.kilograms.accessibilityValue" = "kilo";
+"unit.kilometers.accessibilityValue" = "kilometer";
+"unit.seats.accessibilityValue" = "seter";
+"unit.squareMeters.accessibilityValue" = "kvadratmeter";
+"unit.years.accessibilityValue" = "år";
 
 "map.title" = "Område i kart";
 "map.homeAddress" = "Min hjemmeadresse";

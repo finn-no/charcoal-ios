@@ -4,7 +4,12 @@
 
 import Foundation
 
-class Segment: UIControl {
+protocol SegmentDelegate: AnyObject {
+    func segmentDidFocusOnAccessibilityElement(_ segment: Segment)
+}
+
+final class Segment: UIControl {
+    weak var delegate: SegmentDelegate?
 
     // MARK: - Public properties
 
@@ -16,6 +21,7 @@ class Segment: UIControl {
 
     var isMultiSelect = true
     let isExpandable: Bool
+    private let accessibilityPrefix: String?
 
     // MARK: - Private properties
 
@@ -25,9 +31,10 @@ class Segment: UIControl {
 
     // MARK: - Setup
 
-    init(titles: [String], isExpandable: Bool = false) {
+    init(titles: [String], isExpandable: Bool = false, accessibilityPrefix: String? = nil) {
         self.titles = titles
         self.isExpandable = isExpandable
+        self.accessibilityPrefix = accessibilityPrefix
         super.init(frame: .zero)
         setup(isExpandable: isExpandable)
     }
@@ -109,6 +116,12 @@ private extension Segment {
     func addButtons(isExpandable: Bool) {
         for title in titles {
             let button = SegmentButton(title: title)
+            button.delegate = self
+
+            if let accessibilityPrefix = accessibilityPrefix, isExpandable {
+                button.accessibilityLabel = accessibilityPrefix + ", " + title
+            }
+
             button.isExpandable = isExpandable
             button.addTarget(self, action: #selector(handleButton(sender:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
@@ -159,5 +172,13 @@ private extension Segment {
             return
         }
         last.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+    }
+}
+
+// MARK: - SegmentButtonDelegate
+
+extension Segment: SegmentButtonDelegate {
+    func segmentButtonDidFocusOnAccessibilityElement(_ segment: SegmentButton) {
+        delegate?.segmentDidFocusOnAccessibilityElement(self)
     }
 }

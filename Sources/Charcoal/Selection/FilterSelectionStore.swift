@@ -246,7 +246,7 @@ extension FilterSelectionStore {
 private extension String {
     var accessibilityLabelForRanges: String {
         if contains("-") {
-            let formattedAccessibilityLabel = replacingOccurrences(of: "-", with: "til".localized())
+            let formattedAccessibilityLabel = replacingOccurrences(of: "-", with: "to".localized())
             return "from".localized() + " " + formattedAccessibilityLabel
         } else {
             return self

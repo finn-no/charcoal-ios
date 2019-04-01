@@ -175,6 +175,8 @@ private extension Segment {
     }
 }
 
+// MARK: - SegmentButtonDelegate
+
 extension Segment: SegmentButtonDelegate {
     func segmentButtonDidFocusOnAccessibilityElement(_ segment: SegmentButton) {
         delegate?.segmentDidFocusOnAccessibilityElement(self)

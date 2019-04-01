@@ -14,7 +14,7 @@ protocol SegmentButtonDelegate: AnyObject {
     func segmentButtonDidFocusOnAccessibilityElement(_ segment: SegmentButton)
 }
 
-class SegmentButton: UIButton {
+final class SegmentButton: UIButton {
     static let borderColor: UIColor = .silver
     static let borderWidth: CGFloat = 1.5
 

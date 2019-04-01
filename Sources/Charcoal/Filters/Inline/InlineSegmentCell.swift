@@ -40,8 +40,7 @@ private extension InlineSegmentCell {
 
 extension InlineSegmentCell: SegmentDelegate {
     func segmentDidFocusOnAccessibilityElement(_ segment: Segment) {
-        guard let collectionView = superview as? UICollectionView,
-            let indexPath = collectionView.indexPath(for: self) else {
+        guard let collectionView = superview as? UICollectionView, let indexPath = collectionView.indexPath(for: self) else {
             return
         }
 

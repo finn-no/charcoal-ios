@@ -53,13 +53,14 @@ class OnboardingCell: UICollectionViewCell {
         contentView.addSubview(textLabel)
 
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: .mediumLargeSpacing),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -.mediumLargeSpacing),
-            imageView.bottomAnchor.constraint(equalTo: textLabel.topAnchor, constant: -.mediumLargeSpacing),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 52),
+            imageView.widthAnchor.constraint(equalToConstant: 320),
+            imageView.heightAnchor.constraint(equalToConstant: 200),
 
             textLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             textLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: .mediumLargeSpacing),
             textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.largeSpacing),
         ])
     }

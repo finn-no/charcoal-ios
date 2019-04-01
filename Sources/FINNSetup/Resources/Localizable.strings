@@ -10,14 +10,14 @@
 "onboarding.button.done" = "Ta meg til filteret";
 "onboarding.button.skip" = "Hopp over";
 
-"onboarding.content.0.text" = "Vi har laget nytt filter!\nDet nye filteret er det samme gamle,\nvi har bare gitt det en liten kattevask";
-"onboarding.content.0.highlights.0" = "Vi har laget nytt filter!";
-"onboarding.content.0.highlights.1" = "samme gamle";
+"onboarding.content.0.text" = "Vi har laget nytt filter!\nDet nye filteret er som det samme gamle,\nvi har bare gitt det en liten kattevask";
+"onboarding.content.0.title" = "Vi har laget nytt filter!";
+"onboarding.content.0.highlight" = "samme gamle";
 
 "onboarding.content.1.text" = "Like praktisk som før, bare bedre\nVi gir deg like mange muligheter,\ndet er nå bare enklere å finne frem";
-"onboarding.content.1.highlights.0" = "Like praktisk som før, bare bedre";
-"onboarding.content.1.highlights.1" = "enklere å finne frem";
+"onboarding.content.1.title" = "Like praktisk som før, bare bedre";
+"onboarding.content.1.highlight" = "enklere å finne frem";
 
 "onboarding.content.2.text" = "Full kontroll over dine valg\nVi gir deg bedre oversikt ved å\ntydeliggjøre filtervalgene du har sett";
-"onboarding.content.2.highlights.0" = "Full kontroll over dine valg";
-"onboarding.content.2.highlights.1" = "bedre oversikt";
+"onboarding.content.2.title" = "Full kontroll over dine valg";
+"onboarding.content.2.highlight" = "bedre oversikt";

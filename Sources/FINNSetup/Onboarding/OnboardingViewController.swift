@@ -24,11 +24,16 @@ public class OnboardingViewController: UIViewController {
     ]
 
     // Used to animate alpha and position
+    private let skipButtonKeyFrames: [CGFloat] = [1, 1, 0]
     private let nextButtonKeyFrames: [CGFloat] = [1, 1, 0]
     private let previousButtonKeyFrames: [CGFloat] = [0, 1, 0]
     private let doneButtonKeyFrames: [CGFloat] = [0, 0, 1]
 
     private lazy var doneButtonBottomConstraint = doneButton.topAnchor.constraint(equalTo: view.bottomAnchor)
+
+    private var doneButtonBottomInset: CGFloat {
+        return UIScreen.main.bounds.height >= 812 ? 36 : 0
+    }
 
     private lazy var previousButton: Button = {
         let button = Button(style: .flat)
@@ -94,20 +99,22 @@ public class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         setup()
         previousButton.alpha = 0
-        doneButtonBottomConstraint.constant = 36
+        doneButtonBottomConstraint.constant = doneButtonBottomInset
     }
+}
 
-    // MARK: - Actions
+// MARK: - Actions
 
-    @objc private func skipButtonPressed(sender: UIButton) {
+private extension OnboardingViewController {
+    @objc func skipButtonPressed(sender: UIButton) {
         delegate?.onboardingViewController(self, didFinishWithStatus: false)
     }
 
-    @objc private func doneButtonPressed(sender: UIButton) {
+    @objc func doneButtonPressed(sender: UIButton) {
         delegate?.onboardingViewController(self, didFinishWithStatus: true)
     }
 
-    @objc private func previousButtonPressed(sender: UIButton) {
+    @objc func previousButtonPressed(sender: UIButton) {
         guard currentIndex > 0 else { return }
         currentIndex -= 1
         pageControl.currentPage = currentIndex
@@ -116,7 +123,7 @@ public class OnboardingViewController: UIViewController {
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 
-    @objc private func nextButtonPressed(sender: UIButton) {
+    @objc func nextButtonPressed(sender: UIButton) {
         guard currentIndex < content.count - 1 else { return }
         currentIndex += 1
         pageControl.currentPage = currentIndex
@@ -125,6 +132,8 @@ public class OnboardingViewController: UIViewController {
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -139,6 +148,10 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let animationPosition = scrollView.contentOffset.x / scrollView.frame.width
+
+        let skipButtonValue = animationValue(forKeyFrames: skipButtonKeyFrames, atPosition: animationPosition)
+        skipButton.alpha = pow(skipButtonValue, 2)
+
         let previousButtonValue = animationValue(forKeyFrames: previousButtonKeyFrames, atPosition: animationPosition)
         previousButton.alpha = pow(previousButtonValue, 2)
 
@@ -147,13 +160,15 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
 
         let doneButtonValue = animationValue(forKeyFrames: doneButtonKeyFrames, atPosition: animationPosition)
         doneButton.alpha = pow(doneButtonValue, 2)
-        doneButtonBottomConstraint.constant = -(44 + 36) * doneButtonValue + 36
+        doneButtonBottomConstraint.constant = -(60 + doneButtonBottomInset) * doneButtonValue + doneButtonBottomInset
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.bounds.size
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension OnboardingViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -167,8 +182,11 @@ extension OnboardingViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - Private methods
+
 private extension OnboardingViewController {
     func enableButtons(_ enable: Bool) {
+        skipButton.isUserInteractionEnabled = enable
         nextButton.isUserInteractionEnabled = enable
         previousButton.isUserInteractionEnabled = enable
         doneButton.isUserInteractionEnabled = enable
@@ -201,32 +219,17 @@ private extension OnboardingViewController {
         let attrString = NSMutableAttributedString(string: text,
                                                    attributes: [.font: UIFont.regularBody, .foregroundColor: UIColor.licorice, .kern: 0.3, .paragraphStyle: style])
 
-        for highlighted in highlights(forKey: key) {
-            if let range = text.range(of: highlighted) {
-                attrString.addAttribute(.font, value: UIFont.boldBody, range: NSRange(range, in: text))
-            }
+        let title = (key + ".title").localized()
+        if let range = text.range(of: title) {
+            attrString.addAttribute(.font, value: UIFont.title3, range: NSRange(range, in: text))
+        }
+
+        let highlight = (key + ".highlight").localized()
+        if let range = text.range(of: highlight) {
+            attrString.addAttribute(.font, value: UIFont.boldBody, range: NSRange(range, in: text))
         }
 
         return attrString
-    }
-
-    func highlights(forKey key: String) -> [String] {
-        let value = "notFound"
-        var highlights = [String]()
-
-        var index = 0
-        while true {
-            let string = NSLocalizedString(key + ".highlights.\(index)", bundle: Bundle.finnSetup, value: value, comment: "")
-
-            if string != value {
-                highlights.append(string)
-                index += 1
-            } else {
-                break
-            }
-        }
-
-        return highlights
     }
 
     func setup() {
@@ -250,10 +253,10 @@ private extension OnboardingViewController {
             pageControl.centerYAnchor.constraint(equalTo: collectionView.bottomAnchor),
 
             previousButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
-            previousButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -.mediumSpacing),
+            previousButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -.mediumLargeSpacing),
 
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
-            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -.mediumSpacing),
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -.mediumLargeSpacing),
 
             doneButtonBottomConstraint,
             doneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumLargeSpacing),

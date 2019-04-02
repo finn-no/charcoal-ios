@@ -5,22 +5,27 @@
 import Charcoal
 import FinniversKit
 
-public protocol OnboardingViewControllerDelegate: AnyObject {
-    func onboardingViewController(_ viewController: OnboardingViewController, didFinishWithStatus complete: Bool)
+public protocol PrimingViewControllerDelegate: AnyObject {
+    func primingViewController(_ viewController: PrimingViewController, didFinishWith status: PrimingViewController.Status)
 }
 
-public class OnboardingViewController: UIViewController {
+public class PrimingViewController: UIViewController {
+    public enum Status {
+        case inProgress
+        case completed
+    }
 
     // MARK: - Public properties
 
-    public weak var delegate: OnboardingViewControllerDelegate?
+    public var status: Status = .inProgress
+    public weak var delegate: PrimingViewControllerDelegate?
 
     // MARK: - Private properties
 
     private lazy var content = [
-        OnboardingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.0")),
-        OnboardingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.1")),
-        OnboardingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.2")),
+        PrimingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.0")),
+        PrimingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.1")),
+        PrimingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.2")),
     ]
 
     // Used to animate alpha and position
@@ -86,12 +91,18 @@ public class OnboardingViewController: UIViewController {
         collectionView.isPagingEnabled = true
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(OnboardingCell.self)
+        collectionView.register(PrimingCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
 
-    private var currentIndex = 0
+    private var currentIndex = 0 {
+        didSet {
+            if currentIndex >= content.endIndex - 1 {
+                status = .completed
+            }
+        }
+    }
 
     // MARK: - Life cycle
 
@@ -101,17 +112,22 @@ public class OnboardingViewController: UIViewController {
         previousButton.alpha = 0
         doneButtonBottomConstraint.constant = doneButtonBottomInset
     }
+
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
 }
 
 // MARK: - Actions
 
-private extension OnboardingViewController {
+private extension PrimingViewController {
     @objc func skipButtonPressed(sender: UIButton) {
-        delegate?.onboardingViewController(self, didFinishWithStatus: false)
+        delegate?.primingViewController(self, didFinishWith: status)
     }
 
     @objc func doneButtonPressed(sender: UIButton) {
-        delegate?.onboardingViewController(self, didFinishWithStatus: true)
+        delegate?.primingViewController(self, didFinishWith: status)
     }
 
     @objc func previousButtonPressed(sender: UIButton) {
@@ -135,7 +151,7 @@ private extension OnboardingViewController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
+extension PrimingViewController: UICollectionViewDelegateFlowLayout {
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         currentIndex = Int(targetContentOffset.pointee.x / scrollView.frame.width)
         pageControl.currentPage = currentIndex
@@ -170,13 +186,13 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UICollectionViewDataSource
 
-extension OnboardingViewController: UICollectionViewDataSource {
+extension PrimingViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return content.count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeue(OnboardingCell.self, for: indexPath)
+        let cell = collectionView.dequeue(PrimingCell.self, for: indexPath)
         cell.configure(with: content[indexPath.item])
         return cell
     }
@@ -184,7 +200,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
 
 // MARK: - Private methods
 
-private extension OnboardingViewController {
+private extension PrimingViewController {
     func enableButtons(_ enable: Bool) {
         skipButton.isUserInteractionEnabled = enable
         nextButton.isUserInteractionEnabled = enable

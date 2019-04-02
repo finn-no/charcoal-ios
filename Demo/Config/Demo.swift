@@ -177,7 +177,7 @@ enum ComponentViews: String, CaseIterable {
 
             return mapViewController
         case .onboarding:
-            return OnboardingViewController()
+            return PrimingViewController()
         }
     }
 }

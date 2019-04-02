@@ -4,7 +4,7 @@
 
 import UIKit
 
-class OnboardingCell: UICollectionViewCell {
+class PrimingCell: UICollectionViewCell {
 
     // MARK: - Private properties
 
@@ -40,7 +40,7 @@ class OnboardingCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func configure(with model: OnboardingCellViewModel) {
+    func configure(with model: PrimingCellViewModel) {
         let image = UIImage(named: model.imageName, in: Bundle.finnSetup, compatibleWith: nil)
         imageView.image = image
         textLabel.attributedText = model.attributedString
@@ -60,8 +60,7 @@ class OnboardingCell: UICollectionViewCell {
 
             textLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             textLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: .mediumLargeSpacing),
-            textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.largeSpacing),
+            textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: .largeSpacing),
         ])
     }
 }

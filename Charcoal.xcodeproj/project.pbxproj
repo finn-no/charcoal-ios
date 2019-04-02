@@ -172,15 +172,15 @@
 		DA5A37BE223B9E1100706AB2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5A37BD223B9E1100706AB2 /* Localizable.strings */; };
 		DA5A37C0223B9F6000706AB2 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A37BF223B9F6000706AB2 /* StringExtensions.swift */; };
 		DA5A37C2223B9FEE00706AB2 /* FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */; };
+		DA633ECD22534E69007FF7E2 /* PrimingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */; };
+		DA633ECE22534E6D007FF7E2 /* PrimingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */; };
 		DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA643FB6220C720A001ED360 /* StepperViewController.swift */; };
-		DA6C26462240EABD000AED38 /* OnboardingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */; };
+		DA6C26462240EABD000AED38 /* PrimingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C26442240EA9E000AED38 /* PrimingCellViewModel.swift */; };
 		DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */; };
 		DA8D683C220D874400D31941 /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683B220D874400D31941 /* FilterTests.swift */; };
 		DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */; };
 		DAD45C10223A899600FE1EF5 /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD45BFD223A898C00FE1EF5 /* FinniversKit.framework */; };
 		DAD45C11223A8A0700FE1EF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAE56E83223A792700F9B9E3 /* Assets.xcassets */; };
-		DAE56E85223A883C00F9B9E3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE56E7E223A6BE400F9B9E3 /* OnboardingViewController.swift */; };
-		DAE56E86223A884100F9B9E3 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE56E80223A6CEE00F9B9E3 /* OnboardingCell.swift */; };
 		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
@@ -415,8 +415,10 @@
 		DA5A37BD223B9E1100706AB2 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		DA5A37BF223B9F6000706AB2 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNSetup.swift; sourceTree = "<group>"; };
+		DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimingViewController.swift; sourceTree = "<group>"; };
+		DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimingCell.swift; sourceTree = "<group>"; };
 		DA643FB6220C720A001ED360 /* StepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperViewController.swift; sourceTree = "<group>"; };
-		DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCellViewModel.swift; sourceTree = "<group>"; };
+		DA6C26442240EA9E000AED38 /* PrimingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimingCellViewModel.swift; sourceTree = "<group>"; };
 		DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentButton.swift; sourceTree = "<group>"; };
 		DA8D683B220D874400D31941 /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
 		DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionStoreTests.swift; sourceTree = "<group>"; };
@@ -459,8 +461,6 @@
 		DAD45C0D223A898C00FE1EF5 /* DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap"; sourceTree = "<group>"; };
 		DAD45C0E223A898C00FE1EF5 /* .HockeySDK-iOS.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".HockeySDK-iOS.version"; sourceTree = "<group>"; };
 		DAD45C0F223A898C00FE1EF5 /* .FinniversKit.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = .FinniversKit.version; sourceTree = "<group>"; };
-		DAE56E7E223A6BE400F9B9E3 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		DAE56E80223A6CEE00F9B9E3 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		DAE56E83223A792700F9B9E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
@@ -797,7 +797,7 @@
 				465F6167219B6ECF00CF568B /* BackendModel */,
 				CFCB35F722368D01004E6EB3 /* Extensions */,
 				08716B2721F73AD2003180D8 /* FilterMarkets */,
-				DAE56E7D223A6BCD00F9B9E3 /* Onboarding */,
+				DAE56E7D223A6BCD00F9B9E3 /* Priming */,
 				DAE56E82223A790D00F9B9E3 /* Resources */,
 			);
 			path = FINNSetup;
@@ -1186,14 +1186,14 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		DAE56E7D223A6BCD00F9B9E3 /* Onboarding */ = {
+		DAE56E7D223A6BCD00F9B9E3 /* Priming */ = {
 			isa = PBXGroup;
 			children = (
-				DAE56E7E223A6BE400F9B9E3 /* OnboardingViewController.swift */,
-				DAE56E80223A6CEE00F9B9E3 /* OnboardingCell.swift */,
-				DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */,
+				DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */,
+				DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */,
+				DA6C26442240EA9E000AED38 /* PrimingCellViewModel.swift */,
 			);
-			path = Onboarding;
+			path = Priming;
 			sourceTree = "<group>";
 		};
 		DAE56E82223A790D00F9B9E3 /* Resources */ = {
@@ -1648,7 +1648,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA633ECD22534E69007FF7E2 /* PrimingViewController.swift in Sources */,
 				CFCB35FB2236A299004E6EB3 /* Unit.swift in Sources */,
+				DA633ECE22534E6D007FF7E2 /* PrimingCell.swift in Sources */,
 				CFEDCE0C2232B7A8008FCDB1 /* FilterMarketCar.swift in Sources */,
 				DA5A37C2223B9FEE00706AB2 /* FINNSetup.swift in Sources */,
 				CFEDCE102232B7A8008FCDB1 /* FilterMarketBoat.swift in Sources */,
@@ -1659,11 +1661,9 @@
 				CFEDCE0B2232B7A8008FCDB1 /* FilterMarketMC.swift in Sources */,
 				CFEDCE0E2232B7A8008FCDB1 /* FilterMarketRealestate.swift in Sources */,
 				CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */,
-				DA6C26462240EABD000AED38 /* OnboardingCellViewModel.swift in Sources */,
-				DAE56E86223A884100F9B9E3 /* OnboardingCell.swift in Sources */,
+				DA6C26462240EABD000AED38 /* PrimingCellViewModel.swift in Sources */,
 				CFEDCE062232B7A8008FCDB1 /* FilterMarket.swift in Sources */,
 				DA5A37C0223B9F6000706AB2 /* StringExtensions.swift in Sources */,
-				DAE56E85223A883C00F9B9E3 /* OnboardingViewController.swift in Sources */,
 				CFEDCE0A2232B7A8008FCDB1 /* FilterSetup.swift in Sources */,
 				CFEDCE082232B7A8008FCDB1 /* FilterData.swift in Sources */,
 				CFEDCE0F2232B7A8008FCDB1 /* FilterMarketBap.swift in Sources */,

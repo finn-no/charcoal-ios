@@ -116,6 +116,7 @@
 		CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */; };
 		CF0B19ED2211B8C500D8D9B7 /* FilterSelectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */; };
 		CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */; };
+		CF14A0DA22539A9200F9AB71 /* RangeInputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF14A0D922539A9200F9AB71 /* RangeInputContainerView.swift */; };
 		CF33D9CA224A499C00A24DF0 /* FilterSelectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */; };
 		CF33D9D3224A4B9D00A24DF0 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */; };
 		CF33D9D5224A4D2200A24DF0 /* XCUIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */; };
@@ -386,6 +387,7 @@
 		CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterContainer.swift; sourceTree = "<group>"; };
 		CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionStore.swift; sourceTree = "<group>"; };
 		CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterCellViewModel.swift; sourceTree = "<group>"; };
+		CF14A0D922539A9200F9AB71 /* RangeInputContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeInputContainerView.swift; sourceTree = "<group>"; };
 		CF33D9C7224A499C00A24DF0 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionUITests.swift; sourceTree = "<group>"; };
 		CF33D9CB224A499C00A24DF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -717,10 +719,10 @@
 		5515EA4320BD5B5600AC98A3 /* Range */ = {
 			isa = PBXGroup;
 			children = (
+				CF14A0D822539A4200F9AB71 /* NumberInput */,
 				CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */,
 				9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */,
 				559C6CB920B83178009B734D /* RangeFilterView.swift */,
-				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
 				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
 				CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */,
 				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
@@ -868,6 +870,15 @@
 				55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */,
 			);
 			path = BackendModel;
+			sourceTree = "<group>";
+		};
+		CF14A0D822539A4200F9AB71 /* NumberInput */ = {
+			isa = PBXGroup;
+			children = (
+				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
+				CF14A0D922539A9200F9AB71 /* RangeInputContainerView.swift */,
+			);
+			path = NumberInput;
 			sourceTree = "<group>";
 		};
 		CF33D9C8224A499C00A24DF0 /* UITests */ = {
@@ -1548,6 +1559,7 @@
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
+				CF14A0DA22539A9200F9AB71 /* RangeInputContainerView.swift in Sources */,
 				DA39FA32220B17DB00608AC4 /* InlineFilterCell.swift in Sources */,
 				CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */,
 				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,

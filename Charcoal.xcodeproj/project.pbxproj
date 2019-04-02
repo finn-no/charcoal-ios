@@ -1264,8 +1264,8 @@
 		DAE56E7D223A6BCD00F9B9E3 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				DADF2DD12253761300567C78 /* OnboardingCell.swift */,
 				DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */,
+				DADF2DD12253761300567C78 /* OnboardingCell.swift */,
 				DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */,
 			);
 			path = Onboarding;

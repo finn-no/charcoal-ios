@@ -19,7 +19,6 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |ss|
     ss.source_files  = 'Sources/Charcoal/**/*.swift'
-    ss.resources    = 'Sources/Charcoal/Resources/*.{xcassets,lproj}'
     ss.resource_bundles = {
         'Charcoal' => ['Sources/Charcoal/Resources/*.xcassets', 'Sources/Charcoal/Resources/*.lproj']
     }
@@ -29,9 +28,8 @@ Pod::Spec.new do |s|
 
   s.subspec "FINN" do |ss|
     ss.source_files = 'Sources/FINNSetup/**/*.swift'
-    ss.resources    = 'Sources/FINNSetup/Resources/*.{xcassets,lproj}'
     ss.resource_bundles = {
-        'CharcoalFINN' => ['Sources/FINNSetup/Resources/*']
+        'CharcoalFINN' => ['Sources/FINNSetup/Resources/*.xcassets', 'Sources/FINNSetup/Resources/*.lproj']
     }
     ss.dependency "Charcoal/Core"
   end

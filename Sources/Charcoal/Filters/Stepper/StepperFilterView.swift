@@ -105,8 +105,11 @@ private extension StepperFilterView {
     }
 
     func setText(withValue value: Int) {
-        if value > minimumValue { textLabel.text = "\(value)+ \(unit)" }
-        else { textLabel.text = "Alle" }
+        if value > minimumValue {
+            textLabel.text = "\(value)+ \(unit)"
+        } else {
+            textLabel.text = "all".localized()
+        }
     }
 
     func updateButtons(forValue value: Int) {

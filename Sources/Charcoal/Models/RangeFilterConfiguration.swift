@@ -92,18 +92,18 @@ public struct RangeFilterConfiguration: Equatable {
 private extension ClosedRange where Bound == Int {
     func stepValues(with intervals: [RangeFilterConfiguration.StepInterval]) -> [Int] {
         let intervals = intervals.reversed()
-        var i = lowerBound
-        var values = [i]
+        var index = lowerBound
+        var values = [index]
 
-        while i < upperBound {
-            if let interval = intervals.first(where: { i >= $0.from }) {
-                i += interval.increment
+        while index < upperBound {
+            if let interval = intervals.first(where: { index >= $0.from }) {
+                index += interval.increment
             } else {
-                i += 1
+                index += 1
             }
 
-            if i > lowerBound && i < upperBound {
-                values.append(i)
+            if index > lowerBound && index < upperBound {
+                values.append(index)
             }
         }
 

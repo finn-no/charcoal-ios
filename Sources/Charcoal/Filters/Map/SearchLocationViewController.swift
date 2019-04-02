@@ -237,7 +237,7 @@ extension SearchLocationViewController: UISearchBarDelegate {
             return
         }
         // If the user clears the search field and then hits cancel, the search is cancelled
-        if let _ = selectedLocation, searchText.isEmpty {
+        if selectedLocation != nil, searchText.isEmpty {
             selectedLocation = nil
         }
         loadLocations(forSearchText: searchText)

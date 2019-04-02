@@ -173,7 +173,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
             return
         }
         // If the user clears the search field and then hits cancel, the search is cancelled
-        if let _ = currentQuery, searchText.isEmpty {
+        if currentQuery != nil, searchText.isEmpty {
             currentQuery = nil
             filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
             return

@@ -33,10 +33,9 @@ final class RangeFilterView: UIView {
             minimumValue: filterConfig.minimumValue,
             maximumValue: filterConfig.maximumValue,
             unit: filterConfig.unit,
-            formatter: formatter,
-            inputFontSize: inputFontSize,
-            displaysUnitInNumberInput: filterConfig.displaysUnitInNumberInput
+            inputFontSize: inputFontSize
         )
+
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
         rangeNumberInputView.delegate = self
 
@@ -61,13 +60,8 @@ final class RangeFilterView: UIView {
 
     init(filterConfig: RangeFilterConfiguration) {
         self.filterConfig = filterConfig
-        formatter = RangeFilterValueFormatter(
-            isValueCurrency: filterConfig.isCurrencyValueRange,
-            unit: filterConfig.unit,
-            accessibilityUnit: filterConfig.accessibilityValueSuffix ?? ""
-        )
+        formatter = RangeFilterValueFormatter(unit: filterConfig.unit)
         super.init(frame: .zero)
-        numberInputView.accessibilityValueSuffix = filterConfig.accessibilityValueSuffix
         setup()
     }
 
@@ -168,7 +162,7 @@ extension RangeFilterView {
         referenceValueViews = filterConfig.referenceValues.map({ referenceValue in
             return SliderReferenceValueView(
                 value: referenceValue,
-                displayText: formatter.string(from: referenceValue, isCurrency: filterConfig.isCurrencyValueRange) ?? ""
+                displayText: formatter.string(from: referenceValue) ?? ""
             )
         })
 
@@ -209,10 +203,10 @@ extension RangeFilterView {
         } else {
             if step == .lowerBound {
                 newValue = filterConfig.minimumValue
-                hintText = "range_below_lower_bound_title".localized()
+                hintText = filterConfig.unit.lowerBoundText
             } else {
                 newValue = filterConfig.maximumValue
-                hintText = "range_above_upper_bound_title".localized()
+                hintText = filterConfig.unit.upperBoundText
             }
         }
 

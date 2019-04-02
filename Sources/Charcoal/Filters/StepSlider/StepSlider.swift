@@ -53,12 +53,14 @@ final class StepSlider: UISlider {
     // MARK: - Accessibility
 
     override func accessibilityDecrement() {
-        setValueForSlider(value - 1, animated: false)
+        let decrement = value == maximumValue && leftOffset > 0 ? leftOffset : 1
+        setValueForSlider(value - decrement, animated: false)
         sendActions(for: .valueChanged)
     }
 
     override func accessibilityIncrement() {
-        setValueForSlider(value + 1, animated: false)
+        let increment = value == minimumValue && leftOffset > 0 ? leftOffset : 1
+        setValueForSlider(value + increment, animated: false)
         sendActions(for: .valueChanged)
     }
 
@@ -97,8 +99,8 @@ final class StepSlider: UISlider {
     }
 
     private func step(from value: Float) -> Step {
-        let valueWithoutOffset = roundf(value - leftOffset)
-        let index = Int(valueWithoutOffset)
+        let valueWithoutOffset = value - leftOffset
+        let index = Int(roundf(valueWithoutOffset))
 
         if valueWithoutOffset < minimumValue {
             return .lowerBound
@@ -110,7 +112,6 @@ final class StepSlider: UISlider {
     }
 
     private func setValueForSlider(_ value: Float, animated: Bool) {
-        previousValue = value
         setValue(value, animated: animated)
         updateAccessibilityValue()
     }

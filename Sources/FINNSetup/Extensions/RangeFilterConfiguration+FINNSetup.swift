@@ -5,18 +5,15 @@
 import Foundation
 
 extension RangeFilterConfiguration {
-    static func configuration(minimumValue: Int, maximumValue: Int, increment: Int, unit: Unit) -> RangeFilterConfiguration {
+    static func configuration(minimumValue: Int, maximumValue: Int, increment: Int, unit: FilterUnit) -> RangeFilterConfiguration {
         return RangeFilterConfiguration(
             minimumValue: minimumValue,
             maximumValue: maximumValue,
             valueKind: .incremented(increment),
             hasLowerBoundOffset: minimumValue > 0,
             hasUpperBoundOffset: true,
-            unit: unit.rawValue,
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: maximumValue > 1_000_000,
-            displaysUnitInNumberInput: unit != .year,
-            isCurrencyValueRange: unit == .currency
+            unit: unit,
+            usesSmallNumberInputFont: maximumValue > 1_000_000
         )
     }
 

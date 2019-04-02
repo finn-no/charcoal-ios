@@ -12,7 +12,7 @@ protocol SelectionTagsContainerViewDelegate: AnyObject {
 final class SelectionTagsContainerView: UIView {
     weak var delegate: SelectionTagsContainerViewDelegate?
 
-    private var selectionTitles = [String]()
+    private var selectionTitles = [SelectionTitle]()
     private var isValid = false
     private var isCollapsed = false
 
@@ -50,7 +50,7 @@ final class SelectionTagsContainerView: UIView {
 
     // MARK: - Setup
 
-    func configure(with selectionTitles: [String], isValid: Bool) {
+    func configure(with selectionTitles: [SelectionTitle], isValid: Bool) {
         self.selectionTitles = selectionTitles
         self.isValid = isValid
 
@@ -78,8 +78,8 @@ final class SelectionTagsContainerView: UIView {
         ])
     }
 
-    private func title(at indexPath: IndexPath) -> String {
-        return isCollapsed ? selectionTitles.joinedTitles : selectionTitles[indexPath.item]
+    private func title(at indexPath: IndexPath) -> SelectionTitle {
+        return isCollapsed ? selectionTitles.joinedTitle : selectionTitles[indexPath.item]
     }
 }
 
@@ -111,7 +111,7 @@ extension SelectionTagsContainerView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var cellWidth = SelectionTagViewCell.width(for: title(at: indexPath))
+        var cellWidth = SelectionTagViewCell.width(for: title(at: indexPath).value)
         cellWidth = min(collectionView.bounds.width, cellWidth)
         cellWidth = max(cellWidth, SelectionTagViewCell.minWidth)
         return CGSize(width: cellWidth, height: SelectionTagViewCell.height)
@@ -151,9 +151,13 @@ private final class CollectionView: UICollectionView {
 
 // MARK: - Private extensions
 
-private extension Array where Element == String {
-    var joinedTitles: String {
-        let string = joined(separator: ", ")
-        return count > 1 ? "(\(count)) \(string)" : string
+private extension Array where Element == SelectionTitle {
+    var joinedTitle: SelectionTitle {
+        let prefix = count > 1 ? "(\(count)) " : ""
+
+        return SelectionTitle(
+            value: prefix + map({ $0.value }).joined(separator: ", "),
+            accessibilityLabel: map({ $0.accessibilityLabel }).joined(separator: ", ")
+        )
     }
 }

@@ -27,7 +27,7 @@ final class SliderReferenceValueView: UIView {
         label.textColor = .licorice
         label.textAlignment = .center
         label.text = displayText
-
+        label.isAccessibilityElement = false
         return label
     }()
 

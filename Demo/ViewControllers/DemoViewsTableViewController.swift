@@ -74,7 +74,7 @@ class DemoViewsTableViewController: UITableViewController {
             controller.filter = filter
             controller.textEditingDelegate = self
             controller.selectionDelegate = self
-            controller.mapFilterViewManager = MapViewManager()
+            controller.mapDataSource = MapDataSource()
             controller.searchLocationDataSource = DemoSearchLocationDataSource()
             controller.freeTextFilterDelegate = self
             controller.freeTextFilterDataSource = self

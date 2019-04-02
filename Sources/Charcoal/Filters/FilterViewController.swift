@@ -6,7 +6,7 @@ import UIKit
 
 protocol FilterViewControllerDelegate: AnyObject {
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
-    func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController)
+    func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController)
     func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController)
     func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController)
 }
@@ -27,6 +27,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         let view = FilterBottomButtonView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
         return view
     }()
 
@@ -75,14 +76,20 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
 
         let duration = animated ? 0.3 : 0
 
+        if show {
+            bottomButton.isHidden = false
+        }
+
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
+        }, completion: { [weak self] _ in
+            self?.bottomButton.isHidden = !show
         })
     }
 
     // MARK: - FilterBottomButtonViewDelegate
 
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        delegate?.filterViewControllerDidPressButtomButton(self)
+        delegate?.filterViewControllerDidPressBottomButton(self)
     }
 }

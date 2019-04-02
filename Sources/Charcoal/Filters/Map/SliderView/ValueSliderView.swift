@@ -221,7 +221,7 @@ private extension ValueSliderView {
     }
 
     func updateAccesibilityValues() {
-        valueSlider.accessibilityLabel = "value_slider_control_value_slider_accessibility_label".localized()
+        valueSlider.accessibilityLabel = "map.valueSliderAccessibilityLabel".localized()
     }
 }
 

@@ -84,7 +84,9 @@ extension FilterSelectionStore {
 
     func isSelected(_ filter: Filter) -> Bool {
         switch filter.kind {
-        case .map, .range:
+        case let .map(_, _, radiusFilter, _):
+            return isSelected(radiusFilter)
+        case .range:
             return filter.subfilters.contains(where: { isSelected($0) })
         default:
             return queryItem(for: filter) != nil
@@ -96,19 +98,21 @@ private extension FilterSelectionStore {
     func _setValue<T: LosslessStringConvertible>(_ value: T?, for filter: Filter) {
         _removeValues(for: filter)
 
-        if let value = value {
-            let queryItem = URLQueryItem(name: filter.key, value: String(value))
+        if let value = value.map(String.init), value != "" {
+            let queryItem = URLQueryItem(name: filter.key, value: value)
             queryItems.insert(queryItem)
         }
     }
 
-    func _removeValues(for filter: Filter) {
+    func _removeValues(for filter: Filter, withSubfilters: Bool = true) {
         if let queryItem = queryItem(for: filter) {
             queryItems.remove(queryItem)
         }
 
-        filter.subfilters.forEach {
-            _removeValues(for: $0)
+        if withSubfilters {
+            filter.subfilters.forEach {
+                _removeValues(for: $0)
+            }
         }
     }
 }
@@ -124,29 +128,55 @@ extension FilterSelectionStore {
         return filter.subfilters.reduce([]) { $0 + queryItems(for: $1) }
     }
 
-    func titles(for filter: Filter) -> [String] {
+    func titles(for filter: Filter) -> [SelectionTitle] {
         switch filter.kind {
-        case let .range(lowValueFilter, highValueFilter, _):
-            let lowValue: String? = value(for: lowValueFilter)
-            let highValue: String? = value(for: highValueFilter)
+        case let .range(lowValueFilter, highValueFilter, config):
+            let formatter = RangeFilterValueFormatter(unit: config.unit)
+            let suffix = config.unit.value.isEmpty ? "" : " \(config.unit.value)"
+            let accessibilitySuffix = " " + config.unit.accessibilityValue
 
-            if lowValue == nil && highValue == nil {
-                return []
+            func formattedValue(for filter: Filter) -> String? {
+                return (self.value(for: filter) as Int?).flatMap({ formatter.string(from: $0) })
+            }
+
+            let value: String?
+
+            switch (formattedValue(for: lowValueFilter), formattedValue(for: highValueFilter)) {
+            case (.none, .none):
+                value = nil
+            case let (.some(lowValue), .none):
+                value = "\(config.unit.fromValueText) \(lowValue)"
+            case let (.none, .some(highValue)):
+                value = "\(config.unit.tilValueText) \(highValue)"
+            case let (.some(lowValue), .some(highValue)):
+                value = "\(lowValue) - \(highValue)"
+            }
+
+            if let value = value {
+                let title = SelectionTitle(
+                    value: "\(value)\(suffix)",
+                    accessibilityLabel: "\(value.accessibilityLabelForRanges)\(accessibilitySuffix)"
+                )
+                return [title]
             } else {
-                return ["\(lowValue ?? "...") - \(highValue ?? "...")"]
+                return []
             }
         case .stepper:
-            return value(for: filter).map({ [$0] }) ?? []
+            if let lowValue: Int = value(for: filter) {
+                return [SelectionTitle(value: "\(lowValue)+")]
+            } else {
+                return []
+            }
         case let .map(_, _, radiusFilter, _):
             if let radius: Int = value(for: radiusFilter) {
-                let formatter = MapDistanceValueFormatter()
-                return [formatter.title(for: radius)]
+                let value = MapDistanceValueFormatter().title(for: radius)
+                return [SelectionTitle(value: value)]
             } else {
-                fallthrough
+                return []
             }
         default:
             if isSelected(filter) {
-                return [filter.title]
+                return [SelectionTitle(value: filter.title)]
             } else {
                 return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
             }
@@ -183,5 +213,43 @@ extension FilterSelectionStore {
         }
 
         return filter.subfilters.reduce([]) { $0 + selectedSubfilters(for: $1, where: predicate) }
+    }
+
+    func syncSelection(with filterContainer: FilterContainer) {
+        let keys = syncSelection(with: filterContainer.rootFilter)
+        queryItems = queryItems.filter({ keys.contains($0.name) })
+    }
+
+    /**
+     Cleans up selected values based on filter hierarchy (e.g. deselect filters with selected subfilters).
+     - Parameter filter: The root filter.
+     - Returns: Keys of all processed filters.
+     **/
+    private func syncSelection(with filter: Filter) -> Set<String> {
+        var isSelected = self.isSelected(filter)
+        var keys = Set([filter.key])
+
+        for subfilter in filter.subfilters {
+            if isSelected && hasSelectedSubfilters(for: subfilter) {
+                _removeValues(for: filter, withSubfilters: false)
+                isSelected = false
+            }
+
+            let subfilterKeys = syncSelection(with: subfilter)
+            keys = keys.union(subfilterKeys)
+        }
+
+        return keys
+    }
+}
+
+private extension String {
+    var accessibilityLabelForRanges: String {
+        if contains("-") {
+            let formattedAccessibilityLabel = replacingOccurrences(of: "-", with: "to".localized())
+            return "from".localized() + " " + formattedAccessibilityLabel
+        } else {
+            return self
+        }
     }
 }

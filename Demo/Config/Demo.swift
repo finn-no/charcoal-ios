@@ -100,11 +100,14 @@ enum Sections: String, CaseIterable {
 
     static var lastSelectedIndexPath: IndexPath? {
         get {
+            guard !CommandLine.isUITesting else { return nil }
             guard let row = UserDefaults.standard.object(forKey: lastSelectedRowKey) as? Int else { return nil }
             guard let section = UserDefaults.standard.object(forKey: lastSelectedSectionKey) as? Int else { return nil }
             return IndexPath(row: row, section: section)
         }
         set {
+            guard !CommandLine.isUITesting else { return }
+
             if let row = newValue?.row {
                 UserDefaults.standard.set(row, forKey: lastSelectedRowKey)
             } else {
@@ -169,10 +172,10 @@ enum ComponentViews: String, CaseIterable {
                 longitudeFilter: mapFilter.subfilters[1],
                 radiusFilter: mapFilter.subfilters[2],
                 locationNameFilter: mapFilter.subfilters[3],
-                selectionStore: FilterSelectionStore(),
-                mapFilterViewManager: MapViewManager()
+                selectionStore: FilterSelectionStore()
             )
 
+            mapViewController.mapDataSource = MapDataSource()
             mapViewController.searchLocationDataSource = DemoSearchLocationDataSource()
 
             return mapViewController

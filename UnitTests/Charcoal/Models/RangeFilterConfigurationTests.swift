@@ -13,11 +13,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
             valueKind: .steps([150, 200, 500, 750, 1000, 2500, 5000, 7500]),
             hasLowerBoundOffset: false,
             hasUpperBoundOffset: false,
-            unit: "stk",
-            accessibilityValueSuffix: "test",
-            usesSmallNumberInputFont: true,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            unit: .items,
+            usesSmallNumberInputFont: true
         )
 
         XCTAssertEqual(config.minimumValue, 100)
@@ -26,11 +23,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertFalse(config.hasUpperBoundOffset)
         XCTAssertEqual(config.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
         XCTAssertEqual(config.referenceValues, [100, 1000, 10000])
-        XCTAssertEqual(config.unit, "stk")
-        XCTAssertEqual(config.accessibilityValueSuffix, "test")
+        XCTAssertEqual(config.unit, .items)
         XCTAssertTrue(config.usesSmallNumberInputFont)
-        XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertFalse(config.isCurrencyValueRange)
     }
 
     func testInitWithStepValuesAndOffsets() {
@@ -40,11 +34,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
             valueKind: .steps([150, 200, 500, 750, 1000, 2500, 5000, 7500]),
             hasLowerBoundOffset: true,
             hasUpperBoundOffset: true,
-            unit: "stk",
-            accessibilityValueSuffix: "test",
-            usesSmallNumberInputFont: true,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            unit: .items,
+            usesSmallNumberInputFont: true
         )
 
         XCTAssertEqual(config.minimumValue, 100)
@@ -53,11 +44,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertTrue(config.hasUpperBoundOffset)
         XCTAssertEqual(config.values, [100, 150, 200, 500, 750, 1000, 2500, 5000, 7500, 10000])
         XCTAssertEqual(config.referenceValues, [100, 1000, 10000])
-        XCTAssertEqual(config.unit, "stk")
-        XCTAssertEqual(config.accessibilityValueSuffix, "test")
+        XCTAssertEqual(config.unit, .items)
         XCTAssertTrue(config.usesSmallNumberInputFont)
-        XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertFalse(config.isCurrencyValueRange)
     }
 
     func testReferenceValuesWithTwoElements() {
@@ -67,11 +55,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
             valueKind: .incremented(1),
             hasLowerBoundOffset: false,
             hasUpperBoundOffset: false,
-            unit: "stk",
-            accessibilityValueSuffix: "test",
-            usesSmallNumberInputFont: true,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            unit: .items,
+            usesSmallNumberInputFont: true
         )
 
         XCTAssertEqual(config.referenceValues, [0, 1])
@@ -84,11 +69,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
             valueKind: .incremented(1000),
             hasLowerBoundOffset: true,
             hasUpperBoundOffset: true,
-            unit: "stk",
-            accessibilityValueSuffix: "test",
-            usesSmallNumberInputFont: true,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            unit: .items,
+            usesSmallNumberInputFont: true
         )
 
         XCTAssertEqual(config.minimumValue, 100)
@@ -96,12 +78,9 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertTrue(config.hasLowerBoundOffset)
         XCTAssertTrue(config.hasUpperBoundOffset)
         XCTAssertEqual(config.values, [100, 1100, 2100, 3100, 4100, 5000])
-        XCTAssertEqual(config.referenceValues, [100, 3100, 5000])
-        XCTAssertEqual(config.unit, "stk")
-        XCTAssertEqual(config.accessibilityValueSuffix, "test")
+        XCTAssertEqual(config.referenceValues, [100, 2550, 5000])
+        XCTAssertEqual(config.unit, .items)
         XCTAssertTrue(config.usesSmallNumberInputFont)
-        XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertFalse(config.isCurrencyValueRange)
     }
 
     func testInitWithIntervals() {
@@ -118,11 +97,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
             ),
             hasLowerBoundOffset: false,
             hasUpperBoundOffset: true,
-            unit: "kr",
-            accessibilityValueSuffix: "test",
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: true
+            unit: .currency,
+            usesSmallNumberInputFont: false
         )
 
         XCTAssertEqual(config.minimumValue, 0)
@@ -131,11 +107,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertTrue(config.hasUpperBoundOffset)
         XCTAssertEqual(config.values, [0, 50, 100, 150, 200, 300, 400, 500, 1000, 1500, 2000, 3000, 4000])
         XCTAssertEqual(config.referenceValues, [0, 400, 4000])
-        XCTAssertEqual(config.unit, "kr")
-        XCTAssertEqual(config.accessibilityValueSuffix, "test")
+        XCTAssertEqual(config.unit, .currency)
         XCTAssertFalse(config.usesSmallNumberInputFont)
-        XCTAssertTrue(config.displaysUnitInNumberInput)
-        XCTAssertTrue(config.isCurrencyValueRange)
     }
 
     func testValueForStepWithoutOffsets() {
@@ -145,11 +118,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
             valueKind: .incremented(1),
             hasLowerBoundOffset: true,
             hasUpperBoundOffset: true,
-            unit: "stk",
-            accessibilityValueSuffix: "test",
-            usesSmallNumberInputFont: true,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            unit: .items,
+            usesSmallNumberInputFont: true
         )
 
         XCTAssertNil(config.value(for: .lowerBound))
@@ -166,11 +136,8 @@ final class RangeFilterConfigurationTests: XCTestCase {
             valueKind: .incremented(1),
             hasLowerBoundOffset: false,
             hasUpperBoundOffset: false,
-            unit: "stk",
-            accessibilityValueSuffix: "test",
-            usesSmallNumberInputFont: true,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: false
+            unit: .items,
+            usesSmallNumberInputFont: true
         )
 
         XCTAssertEqual(config.value(for: .lowerBound), 0)

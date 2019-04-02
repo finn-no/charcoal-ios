@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import CoreLocation
 import FinniversKit
 import UIKit
 
@@ -9,6 +10,12 @@ public protocol LocationInfo {
     var name: String { get }
     var latitude: Double { get }
     var longitude: Double { get }
+}
+
+extension CLLocationCoordinate2D: LocationInfo {
+    public var name: String {
+        return ""
+    }
 }
 
 public enum SearchLocationDataSourceResult {
@@ -333,7 +340,7 @@ private struct HomeAddressCellViewModel: IconTitleTableViewCellViewModel {
     }
 
     var title: String {
-        return "my_home_address".localized()
+        return "map.homeAddress".localized()
     }
 
     var subtitle: String? {
@@ -357,7 +364,7 @@ private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
     }
 
     var title: String {
-        return "my_current_location".localized()
+        return "map.currentLocation".localized()
     }
 
     var subtitle: String? {

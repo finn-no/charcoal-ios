@@ -204,8 +204,8 @@ extension RangeSliderView {
     }
 
     private func updateAccesibilityValues() {
-        lowValueSlider.accessibilityLabel = "range_slider_view_low_value_slider_accessibility_label".localized()
-        highValueSlider.accessibilityLabel = "range_slider_view_high_value_slider_accessibility_label".localized()
+        lowValueSlider.accessibilityLabel = "range.slider.lowValueAccessibilityLabel".localized()
+        highValueSlider.accessibilityLabel = "range.slider.highValueAccessibilityLabel".localized()
     }
 }
 
@@ -240,17 +240,13 @@ extension RangeSliderView: StepSliderDelegate {
     }
 
     func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String {
-        if let value = filterConfig.value(for: step) {
-            return formatter.accessibilityValue(for: value)
-        }
-
         switch step {
+        case .value:
+            return filterConfig.value(for: step).map({ formatter.accessibilityValue(for: $0) }) ?? ""
         case .lowerBound:
-            return "range_below_lower_bound_title".localized()
+            return filterConfig.unit.lowerBoundText + " \(filterConfig.minimumValue)"
         case .upperBound:
-            return "range_above_upper_bound_title".localized()
-        default:
-            return ""
+            return filterConfig.unit.upperBoundText + " \(filterConfig.maximumValue)"
         }
     }
 

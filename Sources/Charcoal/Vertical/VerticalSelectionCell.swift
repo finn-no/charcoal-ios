@@ -68,12 +68,17 @@ extension VerticalSelectionCell {
     func configure(for vertical: Vertical) {
         textLabel?.text = vertical.title
         setSelectionIndicator(selected: vertical.isCurrent)
+
         if vertical.isExternal {
-            detailTextLabel?.text = "opens_in_browser".localized()
+            detailTextLabel?.text = "browserText".localized()
             accessoryView = UIImageView(image: UIImage(named: .externalLink))
         } else {
             accessoryView = nil
             detailTextLabel?.text = nil
         }
+
+        let accessibilityPrefix = vertical.isCurrent ? "selected".localized() + ", " : ""
+        let accessibilitySuffix = detailTextLabel?.text.map({ ", \($0) " }) ?? ""
+        accessibilityLabel = accessibilityPrefix + vertical.title + accessibilitySuffix
     }
 }

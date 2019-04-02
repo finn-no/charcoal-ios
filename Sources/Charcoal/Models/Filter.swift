@@ -92,7 +92,7 @@ extension Filter {
     }
 
     public static func search(title: String? = nil, key: String) -> Filter {
-        let title = title ?? "search_placeholder".localized()
+        let title = title ?? "searchPlaceholder".localized()
         return Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .search)
     }
 
@@ -133,7 +133,7 @@ extension Filter {
 
     public static func map(title: String? = nil, key: String, latitudeKey: String,
                            longitudeKey: String, radiusKey: String, locationKey: String) -> Filter {
-        let title = title ?? "map_filter_title".localized()
+        let title = title ?? "map.title".localized()
         let latitudeFilter = Filter(title: "", key: latitudeKey, kind: .list)
         let longitudeFilter = Filter(title: "", key: longitudeKey, kind: .list)
         let radiusFilter = Filter(title: "", key: radiusKey, kind: .list)
@@ -150,5 +150,13 @@ extension Filter {
         filter.subfilters.append(contentsOf: [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter])
 
         return filter
+    }
+}
+
+// MARK: - Helpers
+
+extension Filter {
+    var formattedNumberOfResults: String {
+        return NumberFormatter.decimalFormatter.string(from: numberOfResults) ?? ""
     }
 }

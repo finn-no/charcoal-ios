@@ -45,6 +45,7 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
+    private var indexPathsToReset: [IndexPath: Bool] = [:]
 
     // MARK: - Filter
 
@@ -69,7 +70,7 @@ final class RootFilterViewController: FilterViewController {
         navigationItem.rightBarButtonItem = resetButton
 
         showBottomButton(true, animated: false)
-        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
+        updateBottomButtonTitle()
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
         setup()
     }
@@ -91,7 +92,7 @@ final class RootFilterViewController: FilterViewController {
         self.filter = filter
         self.verticals = verticals
         navigationItem.title = filter.title
-        bottomButton.buttonTitle = String(format: "show_x_hits_button_title".localized(), filter.numberOfResults)
+        updateBottomButtonTitle()
         tableView.reloadData()
     }
 
@@ -106,12 +107,26 @@ final class RootFilterViewController: FilterViewController {
         ])
     }
 
+    private func updateBottomButtonTitle() {
+        let localizedString = String(format: "showResultsButton".localized(), filter.numberOfResults)
+        let title = localizedString.replacingOccurrences(of: "\(filter.numberOfResults)", with: filter.formattedNumberOfResults)
+        bottomButton.buttonTitle = title
+    }
+
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filter)
         rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
         freeTextFilterViewController?.searchBar.text = nil
+
+        for (index, subfilter) in filter.subfilters.enumerated() where subfilter.kind == .inline {
+            let indexPath = IndexPath(row: index, section: 0)
+            indexPathsToReset[indexPath] = true
+        }
+
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        tableView.layoutIfNeeded()
         tableView.reloadData()
     }
 }
@@ -151,6 +166,12 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
 
             cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
+
+            if indexPathsToReset[indexPath] == true {
+                indexPathsToReset.removeValue(forKey: indexPath)
+                cell.resetContentOffset()
+            }
+
             return cell
         default:
             let titles = selectionStore.titles(for: currentFilter)
@@ -163,6 +184,9 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {
                 currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
             })
+
+            cell.isSeparatorHidden = indexPath.row == filter.subfilters.count - 1
+            cell.accessibilityIdentifier = currentFilter.title
 
             return cell
         }
@@ -256,8 +280,20 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        verticalViewController.dismiss(animated: false)
-        rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
+        freeTextFilterViewController?.searchBar.text = nil
+
+        func dismissVerticalViewController(animated: Bool) {
+            DispatchQueue.main.async {
+                verticalViewController.dismiss(animated: animated)
+            }
+        }
+
+        if verticals?.firstIndex(where: { $0.isCurrent }) != index {
+            dismissVerticalViewController(animated: false)
+            rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
+        } else {
+            dismissVerticalViewController(animated: true)
+        }
     }
 }
 
@@ -269,10 +305,12 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
     }
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
+        resetButton.isEnabled = false
         add(viewController)
     }
 
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
+        resetButton.isEnabled = true
         viewController.remove()
         tableView.reloadData()
     }

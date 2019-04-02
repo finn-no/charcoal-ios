@@ -39,7 +39,7 @@ public class CharcoalViewController: UINavigationController {
         set { rootFilterViewController?.freeTextFilterDataSource = newValue }
     }
 
-    public var mapFilterViewManager: MapFilterViewManager?
+    public var mapDataSource: MapFilterDataSource?
     public var searchLocationDataSource: SearchLocationDataSource?
 
     public var isLoading: Bool = false {
@@ -94,6 +94,8 @@ public class CharcoalViewController: UINavigationController {
     private func configure(with filter: FilterContainer?) {
         guard let filter = filter else { return }
 
+        selectionStore.syncSelection(with: filter)
+
         if let rootFilterViewController = rootFilterViewController {
             rootFilterViewController.set(filter: filter.rootFilter, verticals: filter.verticals)
         } else {
@@ -143,7 +145,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         textEditingDelegate?.charcoalViewControllerWillEndTextEditing(self)
     }
 
-    func filterViewControllerDidPressButtomButton(_ viewController: FilterViewController) {
+    func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController) {
         if viewController === rootFilterViewController {
             selectionDelegate?.charcoalViewControllerDidPressShowResults(self)
         } else {
@@ -171,17 +173,16 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
-            guard let mapFilterViewManager = mapFilterViewManager else { break }
-
             let mapViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 radiusFilter: radiusFilter,
                 locationNameFilter: locationNameFilter,
-                selectionStore: selectionStore,
-                mapFilterViewManager: mapFilterViewManager
+                selectionStore: selectionStore
             )
+
+            mapViewController.mapDataSource = mapDataSource
             mapViewController.searchLocationDataSource = searchLocationDataSource
 
             pushViewController(mapViewController)
@@ -227,7 +228,10 @@ extension CharcoalViewController: UINavigationControllerDelegate {
             bottomBottonClicked = false
         }
 
-        guard viewController === rootFilterViewController else { return }
+        guard viewController === rootFilterViewController else {
+            showBottomButtonIfNeeded()
+            return
+        }
 
         // Will return to root filters
         if selectionHasChanged, let filter = filter {
@@ -243,6 +247,12 @@ extension CharcoalViewController: UINavigationControllerDelegate {
             interactivePopGestureRecognizer?.isEnabled = false
         } else {
             interactivePopGestureRecognizer?.isEnabled = true
+        }
+    }
+
+    private func showBottomButtonIfNeeded() {
+        for viewController in viewControllers where viewController !== rootFilterViewController {
+            (viewController as? ListFilterViewController)?.showBottomButton(selectionHasChanged, animated: false)
         }
     }
 }

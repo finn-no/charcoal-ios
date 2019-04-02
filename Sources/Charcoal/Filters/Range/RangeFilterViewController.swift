@@ -62,7 +62,7 @@ extension RangeFilterViewController: RangeFilterViewDelegate {
 
 private extension RangeFilterViewController {
     func setup() {
-        bottomButton.buttonTitle = "apply_button_title".localized()
+        bottomButton.buttonTitle = "applyButton".localized()
 
         let lowValue: Int? = selectionStore.value(for: lowValueFilter)
         rangeFilterView.setLowValue(lowValue, animated: false)

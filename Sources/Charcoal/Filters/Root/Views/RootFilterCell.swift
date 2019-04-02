@@ -23,6 +23,15 @@ final class RootFilterCell: BasicTableViewCell {
         }
     }
 
+    var isSeparatorHidden: Bool {
+        get {
+            return hairLine.isHidden
+        }
+        set {
+            hairLine.isHidden = newValue
+        }
+    }
+
     // MARK: - Private properties
 
     private lazy var contextMark: UIView = {
@@ -80,7 +89,7 @@ final class RootFilterCell: BasicTableViewCell {
 
     // MARK: - Setup
 
-    func configure(withTitle title: String, selectionTitles: [String], isValid: Bool, style: Filter.Style = .normal) {
+    func configure(withTitle title: String, selectionTitles: [SelectionTitle], isValid: Bool, style: Filter.Style = .normal) {
         titleLabel.text = title
         selectionTagsContainerView.configure(with: selectionTitles, isValid: isValid)
 

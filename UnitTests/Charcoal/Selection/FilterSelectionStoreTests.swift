@@ -161,7 +161,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         let filter = Filter.list(title: "Test", key: "test", value: "value")
 
         store.setValue(from: filter)
-        XCTAssertEqual(store.titles(for: filter), ["Test"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "Test")])
     }
 
     func testTitlesWithSubfilters() {
@@ -172,10 +172,10 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(from: subfilterA)
         store.setValue(from: subfilterB)
-        XCTAssertEqual(store.titles(for: filter), ["subfilter A", "subfilter B"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "subfilter A"), SelectionTitle(value: "subfilter B")])
 
         store.removeValues(for: subfilterB)
-        XCTAssertEqual(store.titles(for: filter), ["subfilter A"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "subfilter A")])
     }
 
     func testTitlesWithRanges() {
@@ -188,15 +188,29 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["10 - ..."])
+        XCTAssertEqual(store.titles(for: filter), [
+            SelectionTitle(value: "fra 10 kr", accessibilityLabel: "fra 10 kroner"),
+        ])
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["... - 100"])
+        XCTAssertEqual(store.titles(for: filter), [
+            SelectionTitle(value: "til 100 kr", accessibilityLabel: "til 100 kroner"),
+        ])
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), ["10 - 100"])
+        XCTAssertEqual(store.titles(for: filter), [
+            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "fra 10 til 100 kroner"),
+        ])
+    }
+
+    func testTitlesWithSteppers() {
+        let config = StepperFilterConfiguration(minimumValue: 0, maximumValue: 10, unit: "stk.")
+        let filter = Filter.stepper(title: "Stepper", key: "stepper", config: config)
+
+        store.setValue(10, for: filter)
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "10+")])
     }
 
     func testTitlesWithMap() {
@@ -204,7 +218,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertTrue(store.titles(for: filter).isEmpty)
 
         store.setValue(10, for: filter.subfilters[2])
-        XCTAssertEqual(store.titles(for: filter), ["10 m"])
+        XCTAssertEqual(store.titles(for: filter), [SelectionTitle(value: "10 m")])
     }
 
     func testIsValid() {
@@ -275,5 +289,45 @@ final class FilterSelectionStoreTests: XCTestCase {
         store.setValue(from: subfilter)
         XCTAssertEqual(store.selectedSubfilters(for: filter, where: { $0.key == "subfilterA" }).count, 1)
         XCTAssertTrue(store.selectedSubfilters(for: filter, where: { $0.key == "subfilterB" }).isEmpty)
+    }
+
+    func testSyncSelectionWithSelectedFilterAndSubfilter() {
+        let filter = Filter.list(
+            title: "filter",
+            key: "filter",
+            value: "value",
+            subfilters: [
+                Filter.list(title: "subfilter A", key: "subfilterA", value: "valueA"),
+                Filter.list(title: "subfilter B", key: "subfilterB", value: "valueB"),
+            ]
+        )
+
+        let queryItems = Set([
+            URLQueryItem(name: "filter", value: "value"),
+            URLQueryItem(name: "subfilterB", value: "valueB"),
+        ])
+
+        store.set(selection: queryItems)
+        store.syncSelection(with: FilterContainer(root: filter))
+
+        XCTAssertFalse(store.isSelected(filter))
+        XCTAssertFalse(store.isSelected(filter.subfilters[0]))
+        XCTAssertTrue(store.isSelected(filter.subfilters[1]))
+    }
+
+    func testSyncSelectionWithOldQueryItems() {
+        let filterA = Filter.list(title: "filter A", key: "filterA", value: "valueA")
+        let filterB = Filter.list(title: "filter B", key: "filterB", value: "valueB")
+
+        store.setValue(from: filterA)
+        XCTAssertTrue(store.isSelected(filterA))
+
+        let queryItems = Set([URLQueryItem(name: "filterB", value: "valueB")])
+
+        store.set(selection: queryItems)
+        store.syncSelection(with: FilterContainer(root: filterB))
+
+        XCTAssertFalse(store.isSelected(filterA))
+        XCTAssertTrue(store.isSelected(filterB))
     }
 }

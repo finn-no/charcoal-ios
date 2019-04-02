@@ -59,9 +59,14 @@ final class SelectionTagViewCell: UICollectionViewCell {
 
     // MARK: - Setup
 
-    func configure(withTitle title: String?, isValid: Bool) {
-        titleLabel.text = title
+    func configure(withTitle title: SelectionTitle?, isValid: Bool) {
         backgroundColor = isValid ? .primaryBlue : .cherry
+
+        titleLabel.text = title?.value
+        titleLabel.accessibilityLabel = title?.accessibilityLabel
+        removeButton.accessibilityLabel = (title?.accessibilityLabel).map({
+            "remove".localized() + " " + $0
+        })
     }
 
     private func setup() {

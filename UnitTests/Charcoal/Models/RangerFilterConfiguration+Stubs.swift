@@ -13,11 +13,8 @@ extension RangeFilterConfiguration {
             valueKind: .incremented(10),
             hasLowerBoundOffset: false,
             hasUpperBoundOffset: false,
-            unit: "kr",
-            accessibilityValueSuffix: nil,
-            usesSmallNumberInputFont: false,
-            displaysUnitInNumberInput: true,
-            isCurrencyValueRange: true
+            unit: .currency,
+            usesSmallNumberInputFont: false
         )
     }
 }

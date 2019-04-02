@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct PrimingCellViewModel {
-    var imageName: String
+struct OnboardingCellViewModel {
+    var imageAsset: CharcoalImageAsset
     var attributedString: NSAttributedString
 }

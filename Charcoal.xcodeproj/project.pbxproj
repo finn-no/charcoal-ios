@@ -178,18 +178,15 @@
 		DA51041B21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041C21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
-		DA5A37C2223B9FEE00706AB2 /* FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */; };
-		DA633ECD22534E69007FF7E2 /* PrimingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */; };
-		DA633ECE22534E6D007FF7E2 /* PrimingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */; };
 		DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA643FB6220C720A001ED360 /* StepperViewController.swift */; };
-		DA6C26462240EABD000AED38 /* PrimingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C26442240EA9E000AED38 /* PrimingCellViewModel.swift */; };
 		DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */; };
 		DA8D683C220D874400D31941 /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683B220D874400D31941 /* FilterTests.swift */; };
 		DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */; };
 		DAD45C10223A899600FE1EF5 /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD45BFD223A898C00FE1EF5 /* FinniversKit.framework */; };
-		DAD45C11223A8A0700FE1EF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAE56E83223A792700F9B9E3 /* Assets.xcassets */; };
-		DADF2DC822535C6E00567C78 /* FINNLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DADF2DCA22535C6E00567C78 /* FINNLocalizable.strings */; };
 		DADF2DCB22535CEE00567C78 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
+		DADF2DCE225373A100567C78 /* OnboardingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */; };
+		DADF2DD0225375CE00567C78 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */; };
+		DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF2DD12253761300567C78 /* OnboardingCell.swift */; };
 		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
@@ -439,11 +436,8 @@
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		DA51041A21BE6AFE004048BD /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNSetup.swift; sourceTree = "<group>"; };
-		DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimingViewController.swift; sourceTree = "<group>"; };
-		DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimingCell.swift; sourceTree = "<group>"; };
 		DA643FB6220C720A001ED360 /* StepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperViewController.swift; sourceTree = "<group>"; };
-		DA6C26442240EA9E000AED38 /* PrimingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimingCellViewModel.swift; sourceTree = "<group>"; };
+		DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCellViewModel.swift; sourceTree = "<group>"; };
 		DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentButton.swift; sourceTree = "<group>"; };
 		DA8D683B220D874400D31941 /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
 		DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionStoreTests.swift; sourceTree = "<group>"; };
@@ -486,8 +480,8 @@
 		DAD45C0D223A898C00FE1EF5 /* DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap"; sourceTree = "<group>"; };
 		DAD45C0E223A898C00FE1EF5 /* .HockeySDK-iOS.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".HockeySDK-iOS.version"; sourceTree = "<group>"; };
 		DAD45C0F223A898C00FE1EF5 /* .FinniversKit.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = .FinniversKit.version; sourceTree = "<group>"; };
-		DADF2DC922535C6E00567C78 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FINNLocalizable.strings; sourceTree = "<group>"; };
-		DAE56E83223A792700F9B9E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		DADF2DD12253761300567C78 /* OnboardingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
 		DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterDemoView.swift; sourceTree = "<group>"; };
@@ -823,7 +817,6 @@
 			isa = PBXGroup;
 			children = (
 				CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */,
-				DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */,
 				CFEDCE172232BDF2008FCDB1 /* Info.plist */,
 				08716B3621F76424003180D8 /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
@@ -831,8 +824,6 @@
 				465F6167219B6ECF00CF568B /* BackendModel */,
 				CFCB35F722368D01004E6EB3 /* Extensions */,
 				08716B2721F73AD2003180D8 /* FilterMarkets */,
-				DAE56E7D223A6BCD00F9B9E3 /* Priming */,
-				DAE56E82223A790D00F9B9E3 /* Resources */,
 			);
 			path = FINNSetup;
 			sourceTree = "<group>";
@@ -970,6 +961,7 @@
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				CF4C8705221AE49F00DFAF2A /* Selection */,
 				46905238217F5CB500F8E7FD /* Vertical */,
+				DAE56E7D223A6BCD00F9B9E3 /* Onboarding */,
 			);
 			path = Charcoal;
 			sourceTree = "<group>";
@@ -1269,23 +1261,14 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		DAE56E7D223A6BCD00F9B9E3 /* Priming */ = {
+		DAE56E7D223A6BCD00F9B9E3 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */,
-				DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */,
-				DA6C26442240EA9E000AED38 /* PrimingCellViewModel.swift */,
+				DADF2DD12253761300567C78 /* OnboardingCell.swift */,
+				DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */,
+				DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */,
 			);
-			path = Priming;
-			sourceTree = "<group>";
-		};
-		DAE56E82223A790D00F9B9E3 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				DAE56E83223A792700F9B9E3 /* Assets.xcassets */,
-				DADF2DCA22535C6E00567C78 /* FINNLocalizable.strings */,
-			);
-			path = Resources;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		DAF3CA6E218301B3007235B0 /* Stepper */ = {
@@ -1567,8 +1550,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAD45C11223A8A0700FE1EF5 /* Assets.xcassets in Resources */,
-				DADF2DC822535C6E00567C78 /* FINNLocalizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1675,6 +1656,7 @@
 				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,
 				CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
+				DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
 				CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
@@ -1694,6 +1676,7 @@
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */,
 				CF81E106221BFFE600D00423 /* SelectionTagViewCell.swift in Sources */,
+				DADF2DCE225373A100567C78 /* OnboardingCellViewModel.swift in Sources */,
 				CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */,
 				DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
@@ -1705,6 +1688,7 @@
 				08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */,
 				DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
+				DADF2DD0225375CE00567C78 /* OnboardingViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */,
 				4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */,
@@ -1778,10 +1762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA633ECD22534E69007FF7E2 /* PrimingViewController.swift in Sources */,
-				DA633ECE22534E6D007FF7E2 /* PrimingCell.swift in Sources */,
 				CFEDCE0C2232B7A8008FCDB1 /* FilterMarketCar.swift in Sources */,
-				DA5A37C2223B9FEE00706AB2 /* FINNSetup.swift in Sources */,
 				CFEDCE102232B7A8008FCDB1 /* FilterMarketBoat.swift in Sources */,
 				CFEDCE052232B7A8008FCDB1 /* FilterKey.swift in Sources */,
 				CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */,
@@ -1791,7 +1772,6 @@
 				CFEDCE0E2232B7A8008FCDB1 /* FilterMarketRealestate.swift in Sources */,
 				CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */,
 				DADF2DCB22535CEE00567C78 /* StringExtensions.swift in Sources */,
-				DA6C26462240EABD000AED38 /* PrimingCellViewModel.swift in Sources */,
 				CFEDCE062232B7A8008FCDB1 /* FilterMarket.swift in Sources */,
 				CFEDCE0A2232B7A8008FCDB1 /* FilterSetup.swift in Sources */,
 				CFEDCE082232B7A8008FCDB1 /* FilterData.swift in Sources */,
@@ -1846,14 +1826,6 @@
 				559C6CB120B6CA72009B734D /* en */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		DADF2DCA22535C6E00567C78 /* FINNLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DADF2DC922535C6E00567C78 /* en */,
-			);
-			name = FINNLocalizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -2,14 +2,13 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Charcoal
 import FinniversKit
 
-public protocol PrimingViewControllerDelegate: AnyObject {
-    func primingViewController(_ viewController: PrimingViewController, didFinishWith status: PrimingViewController.Status)
+public protocol OnboardingViewControllerDelegate: AnyObject {
+    func onboardingViewController(_ viewController: OnboardingViewController, didFinishWith status: OnboardingViewController.Status)
 }
 
-public class PrimingViewController: UIViewController {
+public class OnboardingViewController: UIViewController {
     public enum Status {
         case inProgress
         case completed
@@ -18,14 +17,14 @@ public class PrimingViewController: UIViewController {
     // MARK: - Public properties
 
     public var status: Status = .inProgress
-    public weak var delegate: PrimingViewControllerDelegate?
+    public weak var delegate: OnboardingViewControllerDelegate?
 
     // MARK: - Private properties
 
     private lazy var content = [
-        PrimingCellViewModel(imageName: "onboarding1", attributedString: highlightedText(forKey: "onboarding.content.0")),
-        PrimingCellViewModel(imageName: "onboarding2", attributedString: highlightedText(forKey: "onboarding.content.1")),
-        PrimingCellViewModel(imageName: "onboarding3", attributedString: highlightedText(forKey: "onboarding.content.2")),
+        OnboardingCellViewModel(imageAsset: .onboarding1, attributedString: highlightedText(forKey: "onboarding.content.0")),
+        OnboardingCellViewModel(imageAsset: .onboarding2, attributedString: highlightedText(forKey: "onboarding.content.1")),
+        OnboardingCellViewModel(imageAsset: .onboarding3, attributedString: highlightedText(forKey: "onboarding.content.2")),
     ]
 
     // Used to animate alpha and position
@@ -42,7 +41,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var previousButton: Button = {
         let button = Button(style: .flat)
-        button.setTitle("onboarding.button.previous".localized, for: .normal)
+        button.setTitle("back".localized(), for: .normal)
         button.addTarget(self, action: #selector(previousButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -50,7 +49,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var nextButton: Button = {
         let button = Button(style: .flat)
-        button.setTitle("onboarding.button.next".localized, for: .normal)
+        button.setTitle("next".localized(), for: .normal)
         button.addTarget(self, action: #selector(nextButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -58,7 +57,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var doneButton: Button = {
         let button = Button(style: .callToAction)
-        button.setTitle("onboarding.button.done".localized, for: .normal)
+        button.setTitle("onboarding.button.done".localized(), for: .normal)
         button.addTarget(self, action: #selector(doneButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -66,7 +65,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var skipButton: Button = {
         let button = Button(style: .flat)
-        button.setTitle("onboarding.button.skip".localized, for: .normal)
+        button.setTitle("skip".localized(), for: .normal)
         button.addTarget(self, action: #selector(skipButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -91,7 +90,7 @@ public class PrimingViewController: UIViewController {
         collectionView.isPagingEnabled = true
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(PrimingCell.self)
+        collectionView.register(OnboardingCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -121,13 +120,13 @@ public class PrimingViewController: UIViewController {
 
 // MARK: - Actions
 
-private extension PrimingViewController {
+private extension OnboardingViewController {
     @objc func skipButtonPressed(sender: UIButton) {
-        delegate?.primingViewController(self, didFinishWith: status)
+        delegate?.onboardingViewController(self, didFinishWith: status)
     }
 
     @objc func doneButtonPressed(sender: UIButton) {
-        delegate?.primingViewController(self, didFinishWith: status)
+        delegate?.onboardingViewController(self, didFinishWith: status)
     }
 
     @objc func previousButtonPressed(sender: UIButton) {
@@ -151,7 +150,7 @@ private extension PrimingViewController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension PrimingViewController: UICollectionViewDelegateFlowLayout {
+extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         currentIndex = Int(targetContentOffset.pointee.x / scrollView.frame.width)
         pageControl.currentPage = currentIndex
@@ -186,13 +185,13 @@ extension PrimingViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UICollectionViewDataSource
 
-extension PrimingViewController: UICollectionViewDataSource {
+extension OnboardingViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return content.count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeue(PrimingCell.self, for: indexPath)
+        let cell = collectionView.dequeue(OnboardingCell.self, for: indexPath)
         cell.configure(with: content[indexPath.item])
         return cell
     }
@@ -200,7 +199,7 @@ extension PrimingViewController: UICollectionViewDataSource {
 
 // MARK: - Private methods
 
-private extension PrimingViewController {
+private extension OnboardingViewController {
     func enableButtons(_ enable: Bool) {
         skipButton.isUserInteractionEnabled = enable
         nextButton.isUserInteractionEnabled = enable
@@ -226,7 +225,7 @@ private extension PrimingViewController {
     }
 
     func highlightedText(forKey key: String) -> NSAttributedString {
-        let text = (key + ".text").localized
+        let text = (key + ".text").localized()
 
         let style = NSMutableParagraphStyle()
         style.alignment = .center
@@ -235,12 +234,12 @@ private extension PrimingViewController {
         let attrString = NSMutableAttributedString(string: text,
                                                    attributes: [.font: UIFont.regularBody, .foregroundColor: UIColor.licorice, .kern: 0.3, .paragraphStyle: style])
 
-        let title = (key + ".title").localized
+        let title = (key + ".title").localized()
         if let range = text.range(of: title) {
             attrString.addAttribute(.font, value: UIFont.title3, range: NSRange(range, in: text))
         }
 
-        let highlight = (key + ".highlight").localized
+        let highlight = (key + ".highlight").localized()
         if let range = text.range(of: highlight) {
             attrString.addAttribute(.font, value: UIFont.boldBody, range: NSRange(range, in: text))
         }
@@ -278,11 +277,5 @@ private extension PrimingViewController {
             doneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumLargeSpacing),
             doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumLargeSpacing),
         ])
-    }
-}
-
-private extension String {
-    var localized: String {
-        return localized(table: "FINNLocalizable", bundle: .finnSetup)
     }
 }

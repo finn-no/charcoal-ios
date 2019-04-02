@@ -23,6 +23,9 @@
 "selected" = "Markert";
 "numberOfResults" = "Treff";
 "vertical" = "Marked";
+"back" = "Tilbake";
+"next" = "Neste";
+"skip" = "Hopp over";
 
 "range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
 "range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";
@@ -58,3 +61,17 @@
 "map.valueSliderAccessibilityLabel" = "Slider for verdi";
 "map.locationError.title" = "Informasjon";
 "map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
+
+"onboarding.button.done" = "Ta meg til filteret";
+
+"onboarding.content.0.text" = "Vi har laget nytt filter!\nDet nye filteret er som det samme gamle,\nvi har bare gitt det en liten kattevask";
+"onboarding.content.0.title" = "Vi har laget nytt filter!";
+"onboarding.content.0.highlight" = "samme gamle";
+
+"onboarding.content.1.text" = "Like praktisk som før, bare bedre\nVi gir deg like mange muligheter,\ndet er nå bare enklere å finne frem";
+"onboarding.content.1.title" = "Like praktisk som før, bare bedre";
+"onboarding.content.1.highlight" = "enklere å finne frem";
+
+"onboarding.content.2.text" = "Full kontroll over dine valg\nVi gir deg bedre oversikt ved å\ntydeliggjøre filtervalgene du har sett";
+"onboarding.content.2.title" = "Full kontroll over dine valg";
+"onboarding.content.2.highlight" = "bedre oversikt";

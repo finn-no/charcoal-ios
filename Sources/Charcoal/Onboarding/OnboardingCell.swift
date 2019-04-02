@@ -4,7 +4,7 @@
 
 import UIKit
 
-class PrimingCell: UICollectionViewCell {
+class OnboardingCell: UICollectionViewCell {
 
     // MARK: - Private properties
 
@@ -40,9 +40,8 @@ class PrimingCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func configure(with model: PrimingCellViewModel) {
-        let image = UIImage(named: model.imageName, in: Bundle.finnSetup, compatibleWith: nil)
-        imageView.image = image
+    func configure(with model: OnboardingCellViewModel) {
+        imageView.image = UIImage(named: model.imageAsset)
         textLabel.attributedText = model.attributedString
     }
 

@@ -5,14 +5,18 @@
 import FinniversKit
 
 public protocol OnboardingViewControllerDelegate: AnyObject {
-    func onboardingViewController(_ viewController: OnboardingViewController, didComplete complete: Bool)
+    func onboardingViewController(_ viewController: OnboardingViewController, didFinishWith status: OnboardingViewController.Status)
 }
 
 public class OnboardingViewController: UIViewController {
+    public enum Status {
+        case skip(Int)
+        case done
+    }
 
     // MARK: - Public properties
 
-    public var isCompleted = false
+    public var currentIndex = 0
     public weak var delegate: OnboardingViewControllerDelegate?
 
     // MARK: - Private properties
@@ -91,14 +95,6 @@ public class OnboardingViewController: UIViewController {
         return collectionView
     }()
 
-    private var currentIndex = 0 {
-        didSet {
-            if currentIndex >= content.endIndex - 1 {
-                isCompleted = true
-            }
-        }
-    }
-
     // MARK: - Life cycle
 
     public override func viewDidLoad() {
@@ -118,11 +114,11 @@ public class OnboardingViewController: UIViewController {
 
 private extension OnboardingViewController {
     @objc func skipButtonPressed(sender: UIButton) {
-        delegate?.onboardingViewController(self, didComplete: isCompleted)
+        delegate?.onboardingViewController(self, didFinishWith: .skip(currentIndex))
     }
 
     @objc func doneButtonPressed(sender: UIButton) {
-        delegate?.onboardingViewController(self, didComplete: isCompleted)
+        delegate?.onboardingViewController(self, didFinishWith: .done)
     }
 
     @objc func previousButtonPressed(sender: UIButton) {

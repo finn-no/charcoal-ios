@@ -178,7 +178,6 @@
 		DA51041B21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041C21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
-		DA5A37BE223B9E1100706AB2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5A37BD223B9E1100706AB2 /* Localizable.strings */; };
 		DA5A37C0223B9F6000706AB2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A37BF223B9F6000706AB2 /* String.swift */; };
 		DA5A37C2223B9FEE00706AB2 /* FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */; };
 		DA633ECD22534E69007FF7E2 /* PrimingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */; };
@@ -190,6 +189,7 @@
 		DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */; };
 		DAD45C10223A899600FE1EF5 /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD45BFD223A898C00FE1EF5 /* FinniversKit.framework */; };
 		DAD45C11223A8A0700FE1EF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAE56E83223A792700F9B9E3 /* Assets.xcassets */; };
+		DADF2DC822535C6E00567C78 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DADF2DCA22535C6E00567C78 /* Localizable.strings */; };
 		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
@@ -439,7 +439,6 @@
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		DA51041A21BE6AFE004048BD /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		DA5A37BD223B9E1100706AB2 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		DA5A37BF223B9F6000706AB2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNSetup.swift; sourceTree = "<group>"; };
 		DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimingViewController.swift; sourceTree = "<group>"; };
@@ -488,6 +487,7 @@
 		DAD45C0D223A898C00FE1EF5 /* DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap"; sourceTree = "<group>"; };
 		DAD45C0E223A898C00FE1EF5 /* .HockeySDK-iOS.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".HockeySDK-iOS.version"; sourceTree = "<group>"; };
 		DAD45C0F223A898C00FE1EF5 /* .FinniversKit.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = .FinniversKit.version; sourceTree = "<group>"; };
+		DADF2DC922535C6E00567C78 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAE56E83223A792700F9B9E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
@@ -1285,7 +1285,7 @@
 			isa = PBXGroup;
 			children = (
 				DAE56E83223A792700F9B9E3 /* Assets.xcassets */,
-				DA5A37BD223B9E1100706AB2 /* Localizable.strings */,
+				DADF2DCA22535C6E00567C78 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1570,7 +1570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD45C11223A8A0700FE1EF5 /* Assets.xcassets in Resources */,
-				DA5A37BE223B9E1100706AB2 /* Localizable.strings in Resources */,
+				DADF2DC822535C6E00567C78 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1846,6 +1846,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				559C6CB120B6CA72009B734D /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		DADF2DCA22535C6E00567C78 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DADF2DC922535C6E00567C78 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

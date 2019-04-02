@@ -1211,6 +1211,7 @@
 				55C9CC2C209AE8B500F0C9C8 /* CopyFiles */,
 				55C9CC2E209AE8C700F0C9C8 /* Run SwiftFormat */,
 				5589321E209B1A6300512FF8 /* Generate constants for assets names */,
+				CF14A0D222537C3E00F9AB71 /* Run SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -1491,6 +1492,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh\n";
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+		CF14A0D222537C3E00F9AB71 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or brew install swiftlint\"\nfi\n";
 		};
 		DA51041E21BE6D2F004048BD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

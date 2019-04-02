@@ -23,9 +23,9 @@ public class PrimingViewController: UIViewController {
     // MARK: - Private properties
 
     private lazy var content = [
-        PrimingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.0")),
-        PrimingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.1")),
-        PrimingCellViewModel(imageName: "group", attributedString: highlightedText(forKey: "onboarding.content.2")),
+        PrimingCellViewModel(imageName: "onboarding1", attributedString: highlightedText(forKey: "onboarding.content.0")),
+        PrimingCellViewModel(imageName: "onboarding2", attributedString: highlightedText(forKey: "onboarding.content.1")),
+        PrimingCellViewModel(imageName: "onboarding3", attributedString: highlightedText(forKey: "onboarding.content.2")),
     ]
 
     // Used to animate alpha and position
@@ -42,7 +42,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var previousButton: Button = {
         let button = Button(style: .flat)
-        button.setTitle("onboarding.button.previous".localized(bundle: .finnSetup), for: .normal)
+        button.setTitle("onboarding.button.previous".localized, for: .normal)
         button.addTarget(self, action: #selector(previousButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -50,7 +50,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var nextButton: Button = {
         let button = Button(style: .flat)
-        button.setTitle("onboarding.button.next".localized(bundle: .finnSetup), for: .normal)
+        button.setTitle("onboarding.button.next".localized, for: .normal)
         button.addTarget(self, action: #selector(nextButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -58,7 +58,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var doneButton: Button = {
         let button = Button(style: .callToAction)
-        button.setTitle("onboarding.button.done".localized(bundle: .finnSetup), for: .normal)
+        button.setTitle("onboarding.button.done".localized, for: .normal)
         button.addTarget(self, action: #selector(doneButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -66,7 +66,7 @@ public class PrimingViewController: UIViewController {
 
     private lazy var skipButton: Button = {
         let button = Button(style: .flat)
-        button.setTitle("onboarding.button.skip".localized(bundle: .finnSetup), for: .normal)
+        button.setTitle("onboarding.button.skip".localized, for: .normal)
         button.addTarget(self, action: #selector(skipButtonPressed(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -226,7 +226,7 @@ private extension PrimingViewController {
     }
 
     func highlightedText(forKey key: String) -> NSAttributedString {
-        let text = (key + ".text").localized(bundle: .finnSetup)
+        let text = (key + ".text").localized
 
         let style = NSMutableParagraphStyle()
         style.alignment = .center
@@ -235,12 +235,12 @@ private extension PrimingViewController {
         let attrString = NSMutableAttributedString(string: text,
                                                    attributes: [.font: UIFont.regularBody, .foregroundColor: UIColor.licorice, .kern: 0.3, .paragraphStyle: style])
 
-        let title = (key + ".title").localized(bundle: .finnSetup)
+        let title = (key + ".title").localized
         if let range = text.range(of: title) {
             attrString.addAttribute(.font, value: UIFont.title3, range: NSRange(range, in: text))
         }
 
-        let highlight = (key + ".highlight").localized(bundle: .finnSetup)
+        let highlight = (key + ".highlight").localized
         if let range = text.range(of: highlight) {
             attrString.addAttribute(.font, value: UIFont.boldBody, range: NSRange(range, in: text))
         }
@@ -278,5 +278,11 @@ private extension PrimingViewController {
             doneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumLargeSpacing),
             doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumLargeSpacing),
         ])
+    }
+}
+
+private extension String {
+    var localized: String {
+        return localized(table: "FINNLocalizable", bundle: .finnSetup)
     }
 }

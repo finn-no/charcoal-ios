@@ -13,7 +13,9 @@ identifier_name:
     - r
     - g
     - b
-cyclomatic_complexity: 10
+    - i
+cyclomatic_complexity:
+  ignores_case_statements: true
 conditional_returns_on_newline: warning
 
 disabled_rules:
@@ -22,13 +24,14 @@ disabled_rules:
   - function_body_length
   - weak_delegate
   - trailing_comma
-  - class_delegate_protocol
+  - file_length
 
 included:
   - Sources
   - Demo
-excluded:
   - UnitTests
+  - UITests
+
 analyzer_rules:
   - unused_import
   - unused_private_declaration

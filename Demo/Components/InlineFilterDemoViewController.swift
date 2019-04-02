@@ -12,7 +12,7 @@ final class InlineFilterDemoViewController: UIViewController {
         return view
     }()
 
-    lazy var popoverPresentationTransitioningDelegate = CustomPopoverPresentationTransitioningDelegate()
+    lazy var popoverPresentationTransitioningDelegate = CustomPopoverTransitioningDelegate()
 
     override func viewDidLoad() {
         super.viewDidLoad()

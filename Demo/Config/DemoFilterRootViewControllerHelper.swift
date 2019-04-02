@@ -50,6 +50,7 @@ class DemoFilter {
     static func dataFromJSONFile(named name: String) -> Data {
         let bundle = Bundle(for: DemoFilter.self)
         let path = bundle.path(forResource: name, ofType: "json")
+        // swiftlint:disable force_try
         return try! Data(contentsOf: URL(fileURLWithPath: path!))
     }
 

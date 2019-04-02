@@ -23,7 +23,7 @@ public class VerticalListViewController: UIViewController {
     }()
 
     public weak var delegate: VerticalListViewControllerDelegate?
-    public let popoverTransitionDelegate = CustomPopoverPresentationTransitioningDelegate()
+    public let popoverTransitionDelegate = CustomPopoverTransitioningDelegate()
 
     private let verticals: [Vertical]
 

@@ -23,7 +23,10 @@ extension CustomPopoverPresentationController {
 
         override var arrowDirection: UIPopoverArrowDirection {
             get { return .up }
-            set { fatalError("Setting arrowDirection is not available for \(type(of: self))") }
+            set {
+                _ = newValue
+                assertionFailure("Setting arrowDirection is not available for \(type(of: self))")
+            }
         }
 
         override class var wantsDefaultContentAppearance: Bool {

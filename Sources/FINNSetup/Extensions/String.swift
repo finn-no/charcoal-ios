@@ -9,6 +9,3 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.finnSetup, value: "", comment: comment)
     }
 }
-
-extension NSAttributedString {
-}

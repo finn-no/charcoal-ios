@@ -16,7 +16,21 @@
         },
         "shoe_size": {
             "title": "Skostørrelse",
-            "name": "shoe_size"
+            "name": "shoe_size",
+            "queries": [
+                {
+                    "title": "38",
+                    "name": "shoe_size_1",
+                    "value": "1.744.842",
+                    "total-results": 11
+                },
+                {
+                    "title": "40",
+                    "name": "shoe_size_2",
+                    "value": "1.744.841",
+                    "total-results": 10
+                }
+            ]
         }
     }
 }

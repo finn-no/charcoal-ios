@@ -80,7 +80,7 @@ public struct FilterSetup: Decodable {
             return Filter.search(key: key)
         case FilterKey.preferences.rawValue:
             let subfilters = config.preferenceFilters.compactMap {
-                filterData(forKey: $0).map({ makeListFilter(from: $0, withStyle: .normal) })
+                filterData(forKey: $0).flatMap({ makeListFilter(from: $0, withStyle: .normal) })
             }
             return Filter.inline(title: "", key: key, subfilters: subfilters)
         case FilterKey.map.rawValue:
@@ -131,17 +131,21 @@ public struct FilterSetup: Decodable {
         )
     }
 
-    private func makeListFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter {
+    private func makeListFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter? {
         let subfilters = filterData.queries.compactMap({
             makeListFilter(withKey: filterData.parameterName, from: $0)
         })
 
-        return Filter.list(
-            title: filterData.title,
-            key: filterData.parameterName,
-            style: style,
-            subfilters: subfilters
-        )
+        if style == .context && subfilters.count < 2 {
+            return nil
+        } else {
+            return Filter.list(
+                title: filterData.title,
+                key: filterData.parameterName,
+                style: style,
+                subfilters: subfilters
+            )
+        }
     }
 
     private func makeListFilter(withKey key: String, from query: FilterDataQuery) -> Filter {

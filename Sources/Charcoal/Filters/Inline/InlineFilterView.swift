@@ -70,7 +70,8 @@ final class InlineFilterView: UIView {
     }
 
     func resetContentOffset() {
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
+        let section = vertical == nil ? 1 : 0
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: section), at: .left, animated: false)
     }
 }
 

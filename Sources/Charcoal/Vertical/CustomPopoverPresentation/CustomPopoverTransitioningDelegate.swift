@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class CustomPopoverPresentationTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+public final class CustomPopoverTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     public var sourceView: UIView?
 
     public var shouldDismissPopoverHandler: ((_ popoverPresentationController: UIPopoverPresentationController) -> Bool)?
@@ -26,7 +26,7 @@ public final class CustomPopoverPresentationTransitioningDelegate: NSObject, UIV
     }
 }
 
-extension CustomPopoverPresentationTransitioningDelegate: CustomPopoverPresentationControllerDelegate {
+extension CustomPopoverTransitioningDelegate: CustomPopoverPresentationControllerDelegate {
     public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return shouldDismissPopoverHandler?(popoverPresentationController) ?? true
     }

@@ -21,7 +21,10 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
 
     public override var permittedArrowDirections: UIPopoverArrowDirection {
         get { return .up }
-        set { fatalError("Only UIPopoverArrowDirection.up is currently permitted for \(String(describing: type(of: self))).") }
+        set {
+            _ = newValue
+            assertionFailure("Only UIPopoverArrowDirection.up is currently permitted for \(String(describing: type(of: self))).")
+        }
     }
 
     private lazy var dimmingView: UIView = {

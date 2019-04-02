@@ -47,6 +47,13 @@ class DemoFilter {
         filterData = filterSetup
     }
 
+    static func dataFromJSONFile(named name: String) -> Data {
+        let bundle = Bundle(for: DemoFilter.self)
+        let path = bundle.path(forResource: name, ofType: "json")
+        // swiftlint:disable force_try
+        return try! Data(contentsOf: URL(fileURLWithPath: path!))
+    }
+
     static func filterDataFromJSONFile(named name: String) -> FilterSetup {
         let data = dataFromJSONFile(named: name)
 

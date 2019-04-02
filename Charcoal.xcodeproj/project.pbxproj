@@ -178,7 +178,6 @@
 		DA51041B21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041C21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
-		DA5A37C0223B9F6000706AB2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A37BF223B9F6000706AB2 /* String.swift */; };
 		DA5A37C2223B9FEE00706AB2 /* FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */; };
 		DA633ECD22534E69007FF7E2 /* PrimingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */; };
 		DA633ECE22534E6D007FF7E2 /* PrimingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */; };
@@ -190,6 +189,7 @@
 		DAD45C10223A899600FE1EF5 /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD45BFD223A898C00FE1EF5 /* FinniversKit.framework */; };
 		DAD45C11223A8A0700FE1EF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAE56E83223A792700F9B9E3 /* Assets.xcassets */; };
 		DADF2DC822535C6E00567C78 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DADF2DCA22535C6E00567C78 /* Localizable.strings */; };
+		DADF2DCB22535CEE00567C78 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
 		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */; };
@@ -439,7 +439,6 @@
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		DA51041A21BE6AFE004048BD /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		DA5A37BF223B9F6000706AB2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DA5A37C1223B9FEE00706AB2 /* FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNSetup.swift; sourceTree = "<group>"; };
 		DA633EC922534D9C007FF7E2 /* PrimingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimingViewController.swift; sourceTree = "<group>"; };
 		DA633ECB22534DE5007FF7E2 /* PrimingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimingCell.swift; sourceTree = "<group>"; };
@@ -1112,7 +1111,6 @@
 			isa = PBXGroup;
 			children = (
 				CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */,
-				DA5A37BF223B9F6000706AB2 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1792,9 +1790,9 @@
 				CFEDCE0B2232B7A8008FCDB1 /* FilterMarketMC.swift in Sources */,
 				CFEDCE0E2232B7A8008FCDB1 /* FilterMarketRealestate.swift in Sources */,
 				CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */,
+				DADF2DCB22535CEE00567C78 /* StringExtensions.swift in Sources */,
 				DA6C26462240EABD000AED38 /* PrimingCellViewModel.swift in Sources */,
 				CFEDCE062232B7A8008FCDB1 /* FilterMarket.swift in Sources */,
-				DA5A37C0223B9F6000706AB2 /* String.swift in Sources */,
 				CFEDCE0A2232B7A8008FCDB1 /* FilterSetup.swift in Sources */,
 				CFEDCE082232B7A8008FCDB1 /* FilterData.swift in Sources */,
 				CFEDCE0F2232B7A8008FCDB1 /* FilterMarketBap.swift in Sources */,

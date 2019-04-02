@@ -3,7 +3,7 @@
 //
 
 extension String {
-    func localized(withComment comment: String = "") -> String {
-        return NSLocalizedString(self, tableName: nil, bundle: Charcoal.bundle, value: "", comment: comment)
+    func localized(withComment comment: String = "", bundle: Bundle = .charcoal) -> String {
+        return NSLocalizedString(self, tableName: nil, bundle: bundle, value: "", comment: comment)
     }
 }

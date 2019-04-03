@@ -195,13 +195,13 @@ final class FilterSelectionStoreTests: XCTestCase {
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "til 100 kr", accessibilityLabel: "til 100 kroner"),
+            SelectionTitle(value: "opptil 100 kr", accessibilityLabel: "opptil 100 kroner"),
         ])
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "fra 10 til 100 kroner"),
+            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "fra 10 opptil 100 kroner"),
         ])
     }
 

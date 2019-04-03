@@ -18,7 +18,7 @@
 "before" = "Før";
 "after" = "Etter";
 "from" = "fra";
-"to" = "til";
+"upTo" = "opptil";
 "remove" = "Fjern";
 "selected" = "Markert";
 "numberOfResults" = "Treff";

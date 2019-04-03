@@ -118,12 +118,12 @@ public enum FilterUnit: Equatable {
         }
     }
 
-    public var tilValueText: String {
+    public var toValueText: String {
         switch self {
         case .year:
             return "before".localized().lowercased()
         default:
-            return "to".localized().lowercased()
+            return "upTo".localized().lowercased()
         }
     }
 }

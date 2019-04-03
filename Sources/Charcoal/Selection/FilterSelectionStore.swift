@@ -147,7 +147,7 @@ extension FilterSelectionStore {
             case let (.some(lowValue), .none):
                 value = "\(config.unit.fromValueText) \(lowValue)"
             case let (.none, .some(highValue)):
-                value = "\(config.unit.tilValueText) \(highValue)"
+                value = "\(config.unit.toValueText) \(highValue)"
             case let (.some(lowValue), .some(highValue)):
                 value = "\(lowValue) - \(highValue)"
             }
@@ -246,7 +246,7 @@ extension FilterSelectionStore {
 private extension String {
     var accessibilityLabelForRanges: String {
         if contains("-") {
-            let formattedAccessibilityLabel = replacingOccurrences(of: "-", with: "to".localized())
+            let formattedAccessibilityLabel = replacingOccurrences(of: "-", with: "upTo".localized())
             return "from".localized() + " " + formattedAccessibilityLabel
         } else {
             return self

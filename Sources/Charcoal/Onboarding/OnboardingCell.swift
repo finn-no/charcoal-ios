@@ -57,8 +57,8 @@ class OnboardingCell: UICollectionViewCell {
             imageView.widthAnchor.constraint(equalToConstant: 320),
             imageView.heightAnchor.constraint(equalToConstant: 200),
 
-            textLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            textLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            textLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: .mediumSpacing),
+            textLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -.mediumSpacing),
             textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: .largeSpacing),
         ])
     }

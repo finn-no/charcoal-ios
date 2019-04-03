@@ -16,8 +16,11 @@ public class OnboardingViewController: UIViewController {
 
     // MARK: - Public properties
 
-    private(set) var currentIndex = 0
     public weak var delegate: OnboardingViewControllerDelegate?
+
+    public var currentPage: Int {
+        return pageControl.currentPage
+    }
 
     // MARK: - Private properties
 
@@ -114,7 +117,7 @@ public class OnboardingViewController: UIViewController {
 
 private extension OnboardingViewController {
     @objc func skipButtonPressed(sender: UIButton) {
-        delegate?.onboardingViewController(self, didFinishWith: .skip(currentIndex))
+        delegate?.onboardingViewController(self, didFinishWith: .skip(pageControl.currentPage))
     }
 
     @objc func doneButtonPressed(sender: UIButton) {
@@ -122,20 +125,18 @@ private extension OnboardingViewController {
     }
 
     @objc func previousButtonPressed(sender: UIButton) {
-        guard currentIndex > 0 else { return }
-        currentIndex -= 1
-        pageControl.currentPage = currentIndex
+        guard pageControl.currentPage > 0 else { return }
+        pageControl.currentPage -= 1
 
-        let indexPath = IndexPath(item: currentIndex, section: 0)
+        let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 
     @objc func nextButtonPressed(sender: UIButton) {
-        guard currentIndex < content.count - 1 else { return }
-        currentIndex += 1
-        pageControl.currentPage = currentIndex
+        guard pageControl.currentPage < content.count - 1 else { return }
+        pageControl.currentPage += 1
 
-        let indexPath = IndexPath(item: currentIndex, section: 0)
+        let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }
@@ -144,8 +145,7 @@ private extension OnboardingViewController {
 
 extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        currentIndex = Int(targetContentOffset.pointee.x / scrollView.frame.width)
-        pageControl.currentPage = currentIndex
+        pageControl.currentPage = Int(targetContentOffset.pointee.x / scrollView.frame.width)
         enableButtons(true)
     }
 

@@ -5,7 +5,7 @@
 import FinniversKit
 import UIKit
 
-final class VerticalSelectionCell: UITableViewCell {
+final class VerticalCell: UITableViewCell {
     private lazy var radioButton: AnimatedRadioButtonView = {
         let radioButton = AnimatedRadioButtonView(frame: .zero)
         radioButton.translatesAutoresizingMaskIntoConstraints = false

@@ -102,18 +102,18 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertEqual(customUnit.fromValueText, "from".localized())
     }
 
-    func testTilValueText() {
-        XCTAssertEqual(FilterUnit.centimeters.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.cubicCentimeters.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.currency.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.feet.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.horsePower.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.items.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.kilograms.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.kilometers.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.seats.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.squareMeters.tilValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.year.tilValueText, "before".localized().lowercased())
-        XCTAssertEqual(customUnit.tilValueText, "upTo".localized())
+    func testToValueText() {
+        XCTAssertEqual(FilterUnit.centimeters.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.cubicCentimeters.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.currency.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.feet.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.horsePower.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.items.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.kilograms.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.kilometers.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.seats.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.squareMeters.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.year.toValueText, "before".localized().lowercased())
+        XCTAssertEqual(customUnit.toValueText, "upTo".localized())
     }
 }

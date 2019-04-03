@@ -147,7 +147,7 @@ extension FilterSelectionStore {
             case let (.some(lowValue), .none):
                 value = "\(config.unit.fromValueText) \(lowValue)"
             case let (.none, .some(highValue)):
-                value = "\(config.unit.tilValueText) \(highValue)"
+                value = "\(config.unit.toValueText) \(highValue)"
             case let (.some(lowValue), .some(highValue)):
                 value = "\(lowValue) - \(highValue)"
             }

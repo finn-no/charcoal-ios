@@ -16,7 +16,6 @@ public class VerticalListViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .none
         tableView.allowsSelection = true
         registerCells(for: tableView)
         return tableView

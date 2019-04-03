@@ -2,24 +2,17 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import UIKit
 
-class VerticalSelectionCell: UITableViewCell {
-    private var normalStateImageAsset: CharcoalImageAsset {
-        return .radioButtonOff
-    }
-
-    private var selectedStateImageAsset: CharcoalImageAsset {
-        return .radioButtonOn
-    }
-
-    private lazy var separatorLine: UIView = {
-        let separatorLine = UIView(frame: .zero)
-        separatorLine.backgroundColor = .sardine
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-
-        return separatorLine
+final class VerticalSelectionCell: UITableViewCell {
+    private lazy var radioButton: AnimatedRadioButtonView = {
+        let radioButton = AnimatedRadioButtonView(frame: .zero)
+        radioButton.translatesAutoresizingMaskIntoConstraints = false
+        return radioButton
     }()
+
+    // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
@@ -30,44 +23,11 @@ class VerticalSelectionCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
 
-    public override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(false, animated: false)
-    }
+    // MARK: - Setup
 
-    public func setSelectionMarker(visible: Bool) {
-        textLabel?.textColor = visible ? .primaryBlue : .licorice
-        setSelectionIndicator(selected: visible)
-    }
-}
-
-private extension VerticalSelectionCell {
-    func setup() {
-        selectionStyle = .none
-        textLabel?.font = .body
-        textLabel?.textColor = .licorice
-        detailTextLabel?.font = .detail
-        detailTextLabel?.textColor = .stone
-        imageView?.image = UIImage(named: normalStateImageAsset)
-
-        addSubview(separatorLine)
-
-        NSLayoutConstraint.activate([
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
-            separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separatorLine.leadingAnchor.constraint(equalTo: textLabel?.leadingAnchor ?? leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-        ])
-    }
-
-    func setSelectionIndicator(selected: Bool) {
-        imageView?.image = selected ? UIImage(named: selectedStateImageAsset) : UIImage(named: normalStateImageAsset)
-    }
-}
-
-extension VerticalSelectionCell {
     func configure(for vertical: Vertical) {
         textLabel?.text = vertical.title
-        setSelectionIndicator(selected: vertical.isCurrent)
+        radioButton.isHighlighted = vertical.isCurrent
 
         if vertical.isExternal {
             detailTextLabel?.text = "browserText".localized()
@@ -80,5 +40,21 @@ extension VerticalSelectionCell {
         let accessibilityPrefix = vertical.isCurrent ? "selected".localized() + ", " : ""
         let accessibilitySuffix = detailTextLabel?.text.map({ ", \($0) " }) ?? ""
         accessibilityLabel = accessibilityPrefix + vertical.title + accessibilitySuffix
+    }
+
+    private func setup() {
+        separatorInset = .leadingInset(.veryLargeSpacing)
+        selectionStyle = .none
+        textLabel?.font = .body
+        textLabel?.textColor = .licorice
+        detailTextLabel?.font = .detail
+        detailTextLabel?.textColor = .stone
+
+        addSubview(radioButton)
+
+        NSLayoutConstraint.activate([
+            radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
+            radioButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
     }
 }

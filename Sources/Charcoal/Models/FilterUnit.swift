@@ -123,7 +123,7 @@ public enum FilterUnit: Equatable {
         case .year:
             return "before".localized().lowercased()
         default:
-            return "to".localized().lowercased()
+            return "upTo".localized().lowercased()
         }
     }
 }

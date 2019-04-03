@@ -103,17 +103,17 @@ final class FilterUnitTests: XCTestCase {
     }
 
     func testTilValueText() {
-        XCTAssertEqual(FilterUnit.centimeters.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.cubicCentimeters.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.currency.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.feet.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.horsePower.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.items.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.kilograms.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.kilometers.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.seats.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.squareMeters.tilValueText, "to".localized())
+        XCTAssertEqual(FilterUnit.centimeters.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.cubicCentimeters.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.currency.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.feet.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.horsePower.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.items.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.kilograms.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.kilometers.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.seats.tilValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.squareMeters.tilValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.year.tilValueText, "before".localized().lowercased())
-        XCTAssertEqual(customUnit.tilValueText, "to".localized())
+        XCTAssertEqual(customUnit.tilValueText, "upTo".localized())
     }
 }

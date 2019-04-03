@@ -5,6 +5,6 @@
 import Foundation
 
 struct OnboardingCellViewModel {
-    var imageAsset: CharcoalImageAsset
-    var attributedString: NSAttributedString
+    let imageAsset: CharcoalImageAsset
+    let attributedString: NSAttributedString
 }

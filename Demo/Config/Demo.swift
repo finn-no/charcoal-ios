@@ -3,7 +3,7 @@
 //
 
 @testable import Charcoal
-@testable import FINNSetup
+import FINNSetup
 
 enum Sections: String, CaseIterable {
     case components

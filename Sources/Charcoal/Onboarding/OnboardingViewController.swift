@@ -16,7 +16,7 @@ public class OnboardingViewController: UIViewController {
 
     // MARK: - Public properties
 
-    public var currentIndex = 0
+    private(set) var currentIndex = 0
     public weak var delegate: OnboardingViewControllerDelegate?
 
     // MARK: - Private properties
@@ -254,7 +254,7 @@ private extension OnboardingViewController {
             collectionView.bottomAnchor.constraint(equalTo: previousButton.topAnchor, constant: -.largeSpacing),
 
             skipButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
-            skipButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            skipButton.topAnchor.constraint(equalTo: view.topAnchor, constant: -.mediumSpacing),
 
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageControl.centerYAnchor.constraint(equalTo: collectionView.bottomAnchor),

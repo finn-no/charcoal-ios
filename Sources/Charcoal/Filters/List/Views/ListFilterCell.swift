@@ -29,13 +29,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        if let accessoryView = accessoryView {
-            let size: CGFloat = 14
-            let xPosition = bounds.width - size - .smallSpacing * 3
-            accessoryView.frame = CGRect(x: xPosition, y: (bounds.height - size) / 2, width: size, height: size)
-            contentView.frame.size.width = xPosition - .mediumSpacing
-        }
+        layoutAccessoryView()
     }
 
     override func prepareForReuse() {

@@ -16,7 +16,6 @@ public class VerticalListViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .none
         tableView.allowsSelection = true
         registerCells(for: tableView)
         return tableView
@@ -77,10 +76,10 @@ public class VerticalListViewController: UIViewController {
     }
 
     private func registerCells(for tableView: UITableView) {
-        tableView.register(VerticalSelectionCell.self)
+        tableView.register(VerticalCell.self)
     }
 
-    private func configure(_ cell: VerticalSelectionCell, vertical: Vertical) {
+    private func configure(_ cell: VerticalCell, vertical: Vertical) {
         cell.configure(for: vertical)
     }
 }
@@ -93,7 +92,7 @@ extension VerticalListViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(VerticalSelectionCell.self, for: indexPath)
+        let cell = tableView.dequeue(VerticalCell.self, for: indexPath)
         if let vertical = verticals[safe: indexPath.row] {
             configure(cell, vertical: vertical)
         }

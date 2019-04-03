@@ -87,7 +87,6 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
-		9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */; };
 		9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1521B5592C00D18097 /* MapFilterView.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
 		9B741D1A21B6990800D18097 /* ValueSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1921B6990800D18097 /* ValueSliderView.swift */; };
@@ -129,6 +128,8 @@
 		CF81E106221BFFE600D00423 /* SelectionTagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E105221BFFE600D00423 /* SelectionTagViewCell.swift */; };
 		CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */; };
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
+		CF8FD7362254E2CF00926A7B /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */; };
+		CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7372254E5C300926A7B /* VerticalCell.swift */; };
 		CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
@@ -363,7 +364,6 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		9B5A66F521A2E122005C9118 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
-		9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectionCell.swift; sourceTree = "<group>"; };
 		9B741D1521B5592C00D18097 /* MapFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterView.swift; sourceTree = "<group>"; };
 		9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderWithLabelView.swift; sourceTree = "<group>"; };
 		9B741D1921B6990800D18097 /* ValueSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderView.swift; sourceTree = "<group>"; };
@@ -407,6 +407,8 @@
 		CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsContainerView.swift; sourceTree = "<group>"; };
 		CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNFilterConfiguration.swift; sourceTree = "<group>"; };
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
+		CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
+		CF8FD7372254E5C300926A7B /* VerticalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalCell.swift; sourceTree = "<group>"; };
 		CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
@@ -746,8 +748,8 @@
 			isa = PBXGroup;
 			children = (
 				46905239217F5CD000F8E7FD /* Vertical.swift */,
+				CF8FD7372254E5C300926A7B /* VerticalCell.swift */,
 				55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */,
-				9B5E87622180708D00793A1A /* VerticalSelectionCell.swift */,
 				55C9CC272099C21000F0C9C8 /* CustomPopoverPresentation */,
 			);
 			path = Vertical;
@@ -793,6 +795,7 @@
 				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
 				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
 				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
+				CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1655,11 +1658,13 @@
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverTransitioningDelegate.swift in Sources */,
 				9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */,
 				CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */,
+				CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */,
 				CF0B19ED2211B8C500D8D9B7 /* FilterSelectionStore.swift in Sources */,
 				CFEDCE152232BA5A008FCDB1 /* StringExtensions.swift in Sources */,
 				9B741D1C21B6B1CB00D18097 /* StepSlider.swift in Sources */,
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
+				CF8FD7362254E2CF00926A7B /* UITableViewCellExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
 				DA39FA32220B17DB00608AC4 /* InlineFilterCell.swift in Sources */,
 				CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */,
@@ -1688,7 +1693,6 @@
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
 				CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */,
-				9B5E87632180708D00793A1A /* VerticalSelectionCell.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,
 				55893226209B206000512FF8 /* AssetImageNames.swift in Sources */,

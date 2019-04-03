@@ -29,8 +29,6 @@ enum CharcoalImageAsset: String {
     case minusButton
     case plusButton
     case popoverArrow
-    case radioButtonOff
-    case radioButtonOn
     case removeFilterValue
     case searchSmall
     case sliderThumb
@@ -53,8 +51,6 @@ enum CharcoalImageAsset: String {
             .minusButton,
             .plusButton,
             .popoverArrow,
-            .radioButtonOff,
-            .radioButtonOn,
             .removeFilterValue,
             .searchSmall,
             .sliderThumb,

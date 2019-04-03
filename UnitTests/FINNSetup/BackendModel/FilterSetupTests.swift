@@ -90,15 +90,13 @@ private extension FilterSetupTests {
         let expectedMarket = "car-norway"
         let expectedHits = 63455
         let expetedFilterTitle = "Biler i Norge"
-        let expectedNumberOfRawFilterKeys = 23
-        let expectedNumberOfFilterDataElements = 21 // raw filter keys 'market' and 'q' should not be parsed into filter data
+        let expectedNumberOfFilterDataElements = 22
 
         // Then
         XCTAssertNotNil(filterSetup)
         XCTAssertEqual(filterSetup?.market, expectedMarket)
         XCTAssertEqual(filterSetup?.hits, expectedHits)
         XCTAssertEqual(filterSetup?.filterTitle, expetedFilterTitle)
-        XCTAssertEqual(filterSetup?.rawFilterKeys.count, expectedNumberOfRawFilterKeys)
         XCTAssertEqual(filterSetup?.filters.count, expectedNumberOfFilterDataElements)
     }
 

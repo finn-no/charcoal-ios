@@ -115,7 +115,7 @@ extension SelectionTagViewCell {
         return ceil(boundingBox.width) + titleLeading + removeButtonWidth
     }
 
-    private static let titleFont = UIFont.title5
+    private static let titleFont = UIFont.detailStrong
     private static let titleLeading: CGFloat = .mediumSpacing
     private static let removeButtonEdgeInsets = UIEdgeInsets(leading: .mediumSpacing, trailing: .mediumSpacing)
 

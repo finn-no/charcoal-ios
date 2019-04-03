@@ -15,7 +15,7 @@ class FilterBottomButtonView: UIView {
         let button = UIButton(frame: .zero)
         button.backgroundColor = .primaryBlue
         button.setTitleColor(.milk, for: .normal)
-        button.titleLabel?.font = .title4
+        button.titleLabel?.font = .bodyStrong
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         return button

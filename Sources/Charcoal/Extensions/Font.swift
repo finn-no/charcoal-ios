@@ -12,9 +12,14 @@ enum FontType: String {
 }
 
 extension UIFont {
-    static var regularBody: UIFont {
+    public static var regularBody: UIFont {
         registerCustomFonts()
         return UIFont(name: FontType.regular.rawValue, size: 16)!.scaledFont(forTextStyle: .callout)
+    }
+
+    public static var boldBody: UIFont {
+        registerCustomFonts()
+        return UIFont(name: FontType.bold.rawValue, size: 16)!.scaledFont(forTextStyle: .callout)
     }
 }
 

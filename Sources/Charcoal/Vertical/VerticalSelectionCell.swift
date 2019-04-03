@@ -23,6 +23,25 @@ final class VerticalSelectionCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
 
+    // MARK: - Overrides
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutAccessoryView()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        let isRadioButtonHighlighted = radioButton.isHighlighted
+        super.setSelected(selected, animated: animated)
+        radioButton.isHighlighted = isRadioButtonHighlighted
+    }
+
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        let isRadioButtonHighlighted = radioButton.isHighlighted
+        super.setHighlighted(highlighted, animated: animated)
+        radioButton.isHighlighted = isRadioButtonHighlighted
+    }
+
     // MARK: - Setup
 
     func configure(for vertical: Vertical) {
@@ -31,7 +50,10 @@ final class VerticalSelectionCell: UITableViewCell {
 
         if vertical.isExternal {
             detailTextLabel?.text = "browserText".localized()
-            accessoryView = UIImageView(image: UIImage(named: .externalLink))
+
+            let accessoryView = UIImageView(image: UIImage(named: .webview).withRenderingMode(.alwaysTemplate))
+            accessoryView.tintColor = .chevron
+            self.accessoryView = accessoryView
         } else {
             accessoryView = nil
             detailTextLabel?.text = nil
@@ -39,12 +61,16 @@ final class VerticalSelectionCell: UITableViewCell {
 
         let accessibilityPrefix = vertical.isCurrent ? "selected".localized() + ", " : ""
         let accessibilitySuffix = detailTextLabel?.text.map({ ", \($0) " }) ?? ""
+
         accessibilityLabel = accessibilityPrefix + vertical.title + accessibilitySuffix
     }
 
     private func setup() {
-        separatorInset = .leadingInset(.veryLargeSpacing)
-        selectionStyle = .none
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = .defaultCellSelectedBackgroundColor
+        self.selectedBackgroundView = selectedBackgroundView
+
+        separatorInset = .leadingInset(56)
         textLabel?.font = .body
         textLabel?.textColor = .licorice
         detailTextLabel?.font = .detail
@@ -53,7 +79,7 @@ final class VerticalSelectionCell: UITableViewCell {
         addSubview(radioButton)
 
         NSLayoutConstraint.activate([
-            radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
+            radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             radioButton.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }

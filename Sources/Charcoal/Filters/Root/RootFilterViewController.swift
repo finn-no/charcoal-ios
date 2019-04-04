@@ -268,6 +268,7 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
         guard let verticals = verticals else { return }
+
         let verticalViewController = VerticalListViewController(verticals: verticals)
         verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }
         verticalViewController.popoverTransitionDelegate.sourceView = segment
@@ -280,8 +281,6 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        freeTextFilterViewController?.searchBar.text = nil
-
         func dismissVerticalViewController(animated: Bool) {
             DispatchQueue.main.async {
                 verticalViewController.dismiss(animated: animated)
@@ -289,6 +288,7 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
         }
 
         if verticals?.firstIndex(where: { $0.isCurrent }) != index {
+            freeTextFilterViewController?.searchBar.text = nil
             dismissVerticalViewController(animated: false)
             rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
         } else {

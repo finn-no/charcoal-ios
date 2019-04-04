@@ -71,7 +71,6 @@ final class RootFilterViewController: FilterViewController {
 
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
         setup()
     }
 
@@ -103,7 +102,7 @@ final class RootFilterViewController: FilterViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ])
     }
 

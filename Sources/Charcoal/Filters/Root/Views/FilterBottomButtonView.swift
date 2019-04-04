@@ -18,10 +18,9 @@ class FilterBottomButtonView: UIView {
         return button
     }()
 
-    private let buttonHeight: CGFloat = 44
-
-    var height: CGFloat {
-        return buttonHeight + .mediumLargeSpacing * 2.0
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: button.intrinsicContentSize.width,
+                      height: button.intrinsicContentSize.height + .largeSpacing)
     }
 
     init() {

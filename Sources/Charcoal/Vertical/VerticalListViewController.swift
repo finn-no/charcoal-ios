@@ -17,6 +17,7 @@ public class VerticalListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = true
+        tableView.removeLastCellSeparator()
         registerCells(for: tableView)
         return tableView
     }()
@@ -93,9 +94,11 @@ extension VerticalListViewController: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(VerticalCell.self, for: indexPath)
+
         if let vertical = verticals[safe: indexPath.row] {
             configure(cell, vertical: vertical)
         }
+
         return cell
     }
 }

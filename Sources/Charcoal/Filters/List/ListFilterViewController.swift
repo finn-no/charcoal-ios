@@ -16,7 +16,7 @@ final class ListFilterViewController: FilterViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ListFilterCell.self)
-        tableView.tableFooterView = UIView()
+        tableView.removeLastCellSeparator()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = 48
         return tableView

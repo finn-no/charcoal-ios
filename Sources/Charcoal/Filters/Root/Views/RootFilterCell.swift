@@ -47,9 +47,8 @@ final class RootFilterCell: BasicTableViewCell {
     }()
 
     private lazy var hairLine: UIView = {
-        let view = UIView(frame: .zero)
+        let view = UIView(withAutoLayout: true)
         view.backgroundColor = .sardine
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 

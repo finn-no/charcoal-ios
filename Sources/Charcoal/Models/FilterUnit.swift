@@ -112,18 +112,18 @@ public enum FilterUnit: Equatable {
     public var fromValueText: String {
         switch self {
         case .year:
-            return "after".localized().lowercased()
+            return "after".localized()
         default:
-            return "from".localized().lowercased()
+            return "from".localized()
         }
     }
 
     public var toValueText: String {
         switch self {
         case .year:
-            return "before".localized().lowercased()
+            return "before".localized()
         default:
-            return "upTo".localized().lowercased()
+            return "upTo".localized()
         }
     }
 }

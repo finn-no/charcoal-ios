@@ -107,7 +107,7 @@ final class MapFilterViewController: FilterViewController {
 
         NSLayoutConstraint.activate([
             mapFilterView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapFilterView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomButton.height),
+            mapFilterView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
             mapFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])

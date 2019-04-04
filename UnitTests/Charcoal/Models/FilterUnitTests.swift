@@ -98,7 +98,7 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertEqual(FilterUnit.kilometers.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.seats.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.squareMeters.fromValueText, "from".localized())
-        XCTAssertEqual(FilterUnit.year.fromValueText, "after".localized().lowercased())
+        XCTAssertEqual(FilterUnit.year.fromValueText, "after".localized())
         XCTAssertEqual(customUnit.fromValueText, "from".localized())
     }
 
@@ -113,7 +113,7 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertEqual(FilterUnit.kilometers.toValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.seats.toValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.squareMeters.toValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.year.toValueText, "before".localized().lowercased())
+        XCTAssertEqual(FilterUnit.year.toValueText, "before".localized())
         XCTAssertEqual(customUnit.toValueText, "upTo".localized())
     }
 }

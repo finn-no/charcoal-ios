@@ -212,7 +212,7 @@ private extension FreeTextFilterViewController {
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            ])
+        ])
     }
 }
 

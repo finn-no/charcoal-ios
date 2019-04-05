@@ -15,7 +15,7 @@ final class NumberInputView: UIView {
 
     private let defaultValue: Int
     private let unit: FilterUnit
-    private var fontSize: RangeInputFontSize
+    private var fontSize: NumberInputFontSize
     private let formatter: RangeFilterValueFormatter
     private let lowValueInputDecorationViewConstraintIdentifier = "lowValueInputDecorationViewConstraintIdentifier"
 
@@ -68,7 +68,7 @@ final class NumberInputView: UIView {
 
     // MARK: - Init
 
-    init(defaultValue: Int, unit: FilterUnit, fontSize: RangeInputFontSize = .large) {
+    init(defaultValue: Int, unit: FilterUnit, fontSize: NumberInputFontSize = .large) {
         self.defaultValue = defaultValue
         self.unit = unit
         self.fontSize = fontSize
@@ -281,11 +281,11 @@ private struct Style {
     static let decorationViewActiveHeight: CGFloat = 3.0
     static let decorationViewActiveCornerRadius = decorationViewActiveHeight / 2
 
-    static func normalFont(size: RangeInputFontSize) -> UIFont? {
+    static func normalFont(size: NumberInputFontSize) -> UIFont? {
         return UIFont(name: FontType.light.rawValue, size: size.rawValue)
     }
 
-    static func activeFont(size: RangeInputFontSize) -> UIFont? {
+    static func activeFont(size: NumberInputFontSize) -> UIFont? {
         return UIFont(name: FontType.bold.rawValue, size: size.rawValue)
     }
 }

@@ -21,8 +21,7 @@ final class RangeInputView: UIView {
     private let minimumValue: Int
     private let maximumValue: Int
     private let unit: FilterUnit
-    private var fontSize: RangeInputFontSize
-    private let formatter: RangeFilterValueFormatter
+    private var fontSize: NumberInputFontSize
     private var inputValues = [InputGroup: Int]()
     private var inputValidationStatus = [InputGroup: Bool]()
 
@@ -60,7 +59,6 @@ final class RangeInputView: UIView {
         self.maximumValue = maximumValue
         self.unit = unit
         fontSize = usesSmallNumberInputFont ? .small : .large
-        formatter = RangeFilterValueFormatter(unit: unit)
         super.init(frame: .zero)
         setup()
     }

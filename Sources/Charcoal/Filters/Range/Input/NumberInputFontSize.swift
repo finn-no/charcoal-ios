@@ -4,7 +4,7 @@
 
 import UIKit
 
-enum RangeInputFontSize: CGFloat {
+enum NumberInputFontSize: CGFloat {
     case large = 30
     case small = 24
 }

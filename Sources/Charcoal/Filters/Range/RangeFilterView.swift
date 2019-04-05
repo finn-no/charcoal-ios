@@ -27,13 +27,12 @@ final class RangeFilterView: UIView {
         }
     }
 
-    private lazy var numberInputView: RangeNumberInputView = {
-        let inputFontSize: RangeNumberInputView.InputFontSize = filterConfig.usesSmallNumberInputFont ? .small : .large
-        let rangeNumberInputView = RangeNumberInputView(
+    private lazy var numberInputView: RangeInputView = {
+        let rangeNumberInputView = RangeInputView(
             minimumValue: filterConfig.minimumValue,
             maximumValue: filterConfig.maximumValue,
             unit: filterConfig.unit,
-            inputFontSize: inputFontSize
+            usesSmallNumberInputFont: filterConfig.usesSmallNumberInputFont
         )
 
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false
@@ -232,8 +231,8 @@ extension RangeFilterView {
 
 // MARK: - RangeNumberInputViewDelegate
 
-extension RangeFilterView: RangeNumberInputViewDelegate {
-    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeLowValue value: Int?) {
+extension RangeFilterView: RangeInputViewDelegate {
+    func rangeInputView(_ view: RangeInputView, didChangeLowValue value: Int?) {
         if let lowValue = value {
             let step = filterConfig.values.closestStep(for: lowValue)
             updateSliderLowValue(with: step)
@@ -248,7 +247,7 @@ extension RangeFilterView: RangeNumberInputViewDelegate {
         }
     }
 
-    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeHighValue value: Int?) {
+    func rangeInputView(_ view: RangeInputView, didChangeHighValue value: Int?) {
         if let highValue = value {
             let step = filterConfig.values.closestStep(for: highValue)
             updateSliderHighValue(with: step)

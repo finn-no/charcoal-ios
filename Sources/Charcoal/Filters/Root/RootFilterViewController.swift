@@ -40,7 +40,7 @@ final class RootFilterViewController: FilterViewController {
     private lazy var resetButton: UIBarButtonItem = {
         let action = #selector(handleResetButtonTap)
         let button = UIBarButtonItem(title: "reset".localized(), style: .plain, target: self, action: action)
-        button.setTitleTextAttributes([.font: UIFont.title4])
+        button.setTitleTextAttributes([.font: UIFont.bodyStrong])
         return button
     }()
 
@@ -71,7 +71,6 @@ final class RootFilterViewController: FilterViewController {
 
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomButton.height, right: 0)
         setup()
     }
 
@@ -103,7 +102,7 @@ final class RootFilterViewController: FilterViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ])
     }
 
@@ -268,6 +267,7 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
         guard let verticals = verticals else { return }
+
         let verticalViewController = VerticalListViewController(verticals: verticals)
         verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }
         verticalViewController.popoverTransitionDelegate.sourceView = segment
@@ -280,8 +280,6 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        freeTextFilterViewController?.searchBar.text = nil
-
         func dismissVerticalViewController(animated: Bool) {
             DispatchQueue.main.async {
                 verticalViewController.dismiss(animated: animated)
@@ -289,6 +287,7 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
         }
 
         if verticals?.firstIndex(where: { $0.isCurrent }) != index {
+            freeTextFilterViewController?.searchBar.text = nil
             dismissVerticalViewController(animated: false)
             rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
         } else {

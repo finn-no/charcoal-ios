@@ -189,19 +189,19 @@ final class FilterSelectionStoreTests: XCTestCase {
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
         XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "fra 10 kr", accessibilityLabel: "fra 10 kroner"),
+            SelectionTitle(value: "Fra 10 kr", accessibilityLabel: "Fra 10 kroner"),
         ])
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "til 100 kr", accessibilityLabel: "til 100 kroner"),
+            SelectionTitle(value: "Opptil 100 kr", accessibilityLabel: "Opptil 100 kroner"),
         ])
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "fra 10 til 100 kroner"),
+            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "Fra 10 Opptil 100 kroner"),
         ])
     }
 

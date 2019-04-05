@@ -53,7 +53,7 @@ final class StepperFilterViewController: FilterViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        topConstraint.constant = (view.frame.height - bottomButton.height) / 2
+        topConstraint.constant = (view.frame.height - bottomButton.intrinsicContentSize.height) / 2
     }
 }
 

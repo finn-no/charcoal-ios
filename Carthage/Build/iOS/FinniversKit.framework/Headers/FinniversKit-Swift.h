@@ -267,8 +267,8 @@ SWIFT_CLASS("_TtC12FinniversKit17AnimatedHeartView")
 
 SWIFT_CLASS("_TtC12FinniversKit23AnimatedRadioButtonView")
 @interface AnimatedRadioButtonView : AnimatedSelectionView
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -423,6 +423,17 @@ SWIFT_CLASS("_TtC12FinniversKit27ConsentTransparencyInfoView")
 
 
 
+
+
+/// note:
+///
+/// A view ment to be used as a Dialogue view
+/// Optional image, link and secondary button.
+SWIFT_CLASS("_TtC12FinniversKit12DialogueView")
+@interface DialogueView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
 
 
 SWIFT_CLASS("_TtC12FinniversKit15DrumMachineView")
@@ -596,8 +607,6 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
-
-
 @class UIGestureRecognizer;
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
@@ -606,20 +615,22 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 @end
 
 
+
+
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
 - (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
 - (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
 @end
 
 
-
-
-
-
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDataSource>
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+
+
 
 
 
@@ -716,13 +727,23 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL shouldUseOldIndicator;)
 /// Adds a layer on top of the top-most view and starts the animation of the loading indicator.
 /// \param message The message to be displayed (optional)
 ///
-+ (void)showWithMessage:(NSString * _Nullable)message;
+/// \param afterDelay The delay time (in seconds) before the loading view will be shown (optional, defaults to 0.5s)
+///
++ (void)showWithMessage:(NSString * _Nullable)message afterDelay:(double)delay;
 /// Adds a layer on top of the top-most view and starts the animation of the loading indicator.
 /// \param message The message to be displayed (optional)
 ///
-+ (void)showSuccessWithMessage:(NSString * _Nullable)message;
+/// \param afterDelay The delay time (in seconds) before the success view will be shown (optional, defaults to 0.5s)
+///
++ (void)showSuccessWithMessage:(NSString * _Nullable)message afterDelay:(double)delay;
 /// Stops the animation of the loading indicator and removes the loading view.
+/// note:
+/// Must be called from the main thread
 + (void)hide;
+/// After a delay, stops the animation of the loading indicator and removes the loading view.
+/// note:
+/// Can be called from a background thread.
++ (void)hideAfterDelay:(double)delay;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
@@ -896,8 +917,6 @@ SWIFT_CLASS("_TtC12FinniversKit10ReviewView")
 
 
 
-
-
 @interface ReviewView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (NSIndexPath * _Nullable)tableView:(UITableView * _Nonnull)tableView willSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
@@ -1023,6 +1042,15 @@ SWIFT_CLASS("_TtC12FinniversKit18StatisticsItemView")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit13StepIndicator")
+@interface StepIndicator : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit10SwitchView")
 @interface SwitchView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -1084,12 +1112,12 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
-
-
 @interface UIColor (SWIFT_EXTENSION(FinniversKit))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1138,6 +1166,10 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull pea;)
 + (UIColor * _Nonnull)pea SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+
+
 
 
 
@@ -1192,8 +1224,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _No
 ///     This have the same size as the body text, but is always bolded (Medium) to differenciate them.
 ///   </li>
 /// </ul>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull title4;)
-+ (UIFont * _Nonnull)title4 SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull bodyStrong;)
++ (UIFont * _Nonnull)bodyStrong SWIFT_WARN_UNUSED_RESULT;
 /// FINNTypeWebStrippet-Light with a size of 16 scaled for UIFontTextStyle.body
 /// <h2>Usage:</h2>
 /// <ul>
@@ -1228,8 +1260,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _No
 ///     This is slightly smaller than body text. Weighted Medium.
 ///   </li>
 /// </ul>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull captionHeavy;)
-+ (UIFont * _Nonnull)captionHeavy SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull captionStrong;)
++ (UIFont * _Nonnull)captionStrong SWIFT_WARN_UNUSED_RESULT;
 /// FINNTypeWebStrippet-Bold with a size of 12 scaled for UIFontTextStyle.caption1
 /// <h2>Usage:</h2>
 /// <ul>
@@ -1237,8 +1269,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _No
 ///     Used for small, bold headlines.
 ///   </li>
 /// </ul>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull title5;)
-+ (UIFont * _Nonnull)title5 SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _Nonnull detailStrong;)
++ (UIFont * _Nonnull)detailStrong SWIFT_WARN_UNUSED_RESULT;
 /// FINNTypeWebStrippet-Light with a size of 12 scaled for UIFontTextStyle.caption1
 /// <h2>Usage:</h2>
 /// <ul>
@@ -1292,6 +1324,13 @@ SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementStatisticsCell")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementUserActionCell")
+@interface UserAdManagementUserActionCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit21UserAdsListHeaderView")
 @interface UserAdsListHeaderView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -1304,6 +1343,8 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 
@@ -1331,8 +1372,6 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (BOOL)tableView:(UITableView * _Nonnull)tableView canEditRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (void)tableView:(UITableView * _Nonnull)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (void)tableView:(UITableView * _Nonnull)tableView didEndEditingRowAtIndexPath:(NSIndexPath * _Nullable)indexPath;
 @end
 
 

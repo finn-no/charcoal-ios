@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import UIKit
+import FinniversKit
 
 protocol FilterBottomButtonViewDelegate: AnyObject {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton)
@@ -11,20 +11,16 @@ protocol FilterBottomButtonViewDelegate: AnyObject {
 class FilterBottomButtonView: UIView {
     weak var delegate: FilterBottomButtonViewDelegate?
 
-    private lazy var button: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.backgroundColor = .primaryBlue
-        button.setTitleColor(.milk, for: .normal)
-        button.titleLabel?.font = .title4
-        button.layer.cornerRadius = 8
+    private lazy var button: Button = {
+        let button = Button(style: .callToAction)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
-    private let buttonHeight: CGFloat = 52
-
-    var height: CGFloat {
-        return buttonHeight + .mediumLargeSpacing * 2.0
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: button.intrinsicContentSize.width,
+                      height: button.intrinsicContentSize.height + .largeSpacing)
     }
 
     init() {
@@ -41,7 +37,6 @@ class FilterBottomButtonView: UIView {
 private extension FilterBottomButtonView {
     func setup() {
         backgroundColor = .milk
-        button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)
 
         let separatorLine = UIView(frame: .zero)
@@ -54,7 +49,6 @@ private extension FilterBottomButtonView {
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
             button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumLargeSpacing),
-            button.heightAnchor.constraint(equalToConstant: buttonHeight),
 
             separatorLine.topAnchor.constraint(equalTo: topAnchor),
             separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),

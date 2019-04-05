@@ -34,7 +34,7 @@ enum RangeToolbarItem {
         case let .done(target):
             let action = #selector(UIView.endEditing)
             let button = UIBarButtonItem(title: "done".localized(), style: .plain, target: target, action: action)
-            button.setTitleTextAttributes([.font: UIFont.title4])
+            button.setTitleTextAttributes([.font: UIFont.bodyStrong])
             return button
         }
     }

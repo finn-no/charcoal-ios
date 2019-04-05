@@ -98,22 +98,22 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertEqual(FilterUnit.kilometers.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.seats.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.squareMeters.fromValueText, "from".localized())
-        XCTAssertEqual(FilterUnit.year.fromValueText, "after".localized().lowercased())
+        XCTAssertEqual(FilterUnit.year.fromValueText, "after".localized())
         XCTAssertEqual(customUnit.fromValueText, "from".localized())
     }
 
-    func testTilValueText() {
-        XCTAssertEqual(FilterUnit.centimeters.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.cubicCentimeters.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.currency.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.feet.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.horsePower.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.items.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.kilograms.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.kilometers.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.seats.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.squareMeters.tilValueText, "to".localized())
-        XCTAssertEqual(FilterUnit.year.tilValueText, "before".localized().lowercased())
-        XCTAssertEqual(customUnit.tilValueText, "to".localized())
+    func testToValueText() {
+        XCTAssertEqual(FilterUnit.centimeters.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.cubicCentimeters.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.currency.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.feet.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.horsePower.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.items.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.kilograms.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.kilometers.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.seats.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.squareMeters.toValueText, "upTo".localized())
+        XCTAssertEqual(FilterUnit.year.toValueText, "before".localized())
+        XCTAssertEqual(customUnit.toValueText, "upTo".localized())
     }
 }

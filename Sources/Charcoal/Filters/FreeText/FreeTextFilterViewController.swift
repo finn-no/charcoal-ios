@@ -129,6 +129,10 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
         return true
     }
 
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        returnToSuperView()
+    }
+
     public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: false)
     }
@@ -187,9 +191,11 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
 
 private extension FreeTextFilterViewController {
     func returnToSuperView() {
-        searchBar.endEditing(false)
-        searchBar.setShowsCancelButton(false, animated: false)
-        delegate?.freeTextFilterViewControllerWillEndEditing(self)
+        if view.superview != nil {
+            searchBar.endEditing(false)
+            searchBar.setShowsCancelButton(false, animated: false)
+            delegate?.freeTextFilterViewControllerWillEndEditing(self)
+        }
     }
 
     func setup() {

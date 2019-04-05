@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = .milk
         UINavigationBar.appearance().tintColor = .primaryBlue
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.title4, .foregroundColor: UIColor.licorice]
+        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.bodyStrong, .foregroundColor: UIColor.licorice]
         UIBarButtonItem.appearance().setTitleTextAttributes([.font: UIFont.body], for: .normal)
 
         return true

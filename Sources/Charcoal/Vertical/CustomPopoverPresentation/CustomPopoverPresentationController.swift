@@ -35,6 +35,9 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
     }()
 
     private var _popoverLayouMargins: UIEdgeInsets?
+
+    // MARK: - Overrides
+
     public override var popoverLayoutMargins: UIEdgeInsets {
         get {
             return _popoverLayouMargins ?? .defaultPopoverLayoutMargins
@@ -61,7 +64,13 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
         snapshotView.frame = sourceView.convert(sourceView.bounds, to: containerView)
         snapshotView.alpha = 0.0
         containerView?.addSubview(snapshotView)
+
         self.snapshotView = snapshotView
+
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.addTarget(self, action: #selector(handleSnaphotViewGesture(_:)))
+        snapshotView.addGestureRecognizer(tapGestureRecognizer)
 
         dimmingView.alpha = 0.0
         containerView?.insertSubview(dimmingView, at: 0)
@@ -102,7 +111,15 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
 
         super.dismissalTransitionDidEnd(completed)
     }
+
+    // MARK: - Actions
+
+    @objc private func handleSnaphotViewGesture(_ gestureRecognizer: UITapGestureRecognizer) {
+        presentedViewController.dismiss(animated: true, completion: nil)
+    }
 }
+
+// MARK: - Private extensions
 
 private extension UIEdgeInsets {
     static let defaultPopoverLayoutMargins = UIEdgeInsets(top: .smallSpacing, left: 0, bottom: 0, right: 0)

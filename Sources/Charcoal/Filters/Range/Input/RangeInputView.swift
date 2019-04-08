@@ -160,8 +160,7 @@ final class RangeInputView: UIView {
             lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.mediumSpacing),
             lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.7),
 
-            inputSeparatorView.topAnchor.constraint(equalTo: lowValueInputView.topAnchor),
-            inputSeparatorView.bottomAnchor.constraint(equalTo: lowValueInputView.bottomAnchor),
+            inputSeparatorView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20),
         ])
     }
 

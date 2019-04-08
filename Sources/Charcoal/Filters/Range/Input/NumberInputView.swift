@@ -17,13 +17,6 @@ final class NumberInputView: UIView {
     private let unit: FilterUnit
     private let formatter: RangeFilterValueFormatter
 
-    var fontSize: NumberInputFontSize {
-        didSet {
-            textField.font = textField.isFirstResponder ? Style.activeFont(size: fontSize) : Style.normalFont(size: fontSize)
-            unitLabel.font = textField.font
-        }
-    }
-
     // MARK: - Views
 
     private lazy var textField: UITextField = {
@@ -66,6 +59,15 @@ final class NumberInputView: UIView {
     private lazy var decorationViewHeightConstraint = decorationView.heightAnchor.constraint(
         equalToConstant: Style.decorationViewHeight
     )
+
+    // MARK: - Internal properties
+
+    var fontSize: NumberInputFontSize {
+        didSet {
+            textField.font = textField.isFirstResponder ? Style.activeFont(size: fontSize) : Style.normalFont(size: fontSize)
+            unitLabel.font = textField.font
+        }
+    }
 
     var textFieldAccessibilityLabel: String? {
         get { return textField.accessibilityLabel }

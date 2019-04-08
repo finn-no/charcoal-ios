@@ -17,7 +17,6 @@ final class NumberInputView: UIView {
     private let unit: FilterUnit
     private var fontSize: NumberInputFontSize
     private let formatter: RangeFilterValueFormatter
-    private let lowValueInputDecorationViewConstraintIdentifier = "lowValueInputDecorationViewConstraintIdentifier"
 
     // MARK: - Views
 
@@ -33,6 +32,7 @@ final class NumberInputView: UIView {
 
     private lazy var unitLabel: UILabel = {
         let label = UILabel(withAutoLayout: true)
+        label.attributedText = attributedUnitText(withFont: Style.normalFont(size: fontSize), from: unit)
         label.textColor = Style.textColor
         label.font = Style.normalFont(size: fontSize)
         label.isUserInteractionEnabled = true
@@ -57,13 +57,13 @@ final class NumberInputView: UIView {
         return view
     }()
 
+    private lazy var decorationViewHeightConstraint = decorationView.heightAnchor.constraint(
+        equalToConstant: Style.decorationViewHeight
+    )
+
     var textFieldAccessibilityLabel: String? {
-        get {
-            return textField.accessibilityLabel
-        }
-        set {
-            textField.accessibilityLabel = newValue
-        }
+        get { return textField.accessibilityLabel }
+        set { textField.accessibilityLabel = newValue }
     }
 
     // MARK: - Init
@@ -120,9 +120,7 @@ final class NumberInputView: UIView {
         textField.font = font
         unitLabel.attributedText = attributedUnitText(withFont: textField.font, from: unit)
         hintLabel.font = outOfRangeBoundsFont
-
-        let constraint = decorationView.constraint(withIdentifier: lowValueInputDecorationViewConstraintIdentifier)
-        constraint?.constant = active ? Style.decorationViewActiveHeight : Style.decorationViewHeight
+        decorationViewHeightConstraint.constant = active ? Style.decorationViewActiveHeight : Style.decorationViewHeight
 
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.decorationView.backgroundColor = decorationViewColor
@@ -151,30 +149,15 @@ final class NumberInputView: UIView {
         )
     }
 
-    func setPreviousInputView(_ rangeInputView: NumberInputView?) {
-        if let rangeInputView = rangeInputView {
-            textField.inputAccessoryView = UIToolbar(target: self, previousTextField: rangeInputView.textField)
-        } else {
-            textField.inputAccessoryView = nil
-        }
-    }
-
     // MARK: - Setup
 
     private func setup() {
-        let valueText = formatter.string(from: defaultValue)
-
-        textField.text = valueText
-        textField.accessibilityValue = formatter.accessibilityValue(for: defaultValue)
-        unitLabel.attributedText = attributedUnitText(withFont: Style.normalFont(size: fontSize), from: unit)
+        setValue(defaultValue)
 
         addSubview(hintLabel)
         addSubview(textField)
         addSubview(unitLabel)
         addSubview(decorationView)
-
-        let lowValueInputDecorationViewConstraint = decorationView.heightAnchor.constraint(equalToConstant: Style.decorationViewHeight)
-        lowValueInputDecorationViewConstraint.identifier = lowValueInputDecorationViewConstraintIdentifier
 
         NSLayoutConstraint.activate([
             hintLabel.topAnchor.constraint(equalTo: topAnchor),
@@ -192,7 +175,7 @@ final class NumberInputView: UIView {
             decorationView.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
             decorationView.trailingAnchor.constraint(equalTo: unitLabel.trailingAnchor),
             decorationView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            lowValueInputDecorationViewConstraint,
+            decorationViewHeightConstraint,
         ])
 
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

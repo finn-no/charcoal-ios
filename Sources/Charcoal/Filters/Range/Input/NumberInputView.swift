@@ -177,11 +177,10 @@ final class NumberInputView: UIView {
         lowValueInputDecorationViewConstraint.identifier = lowValueInputDecorationViewConstraintIdentifier
 
         NSLayoutConstraint.activate([
-            hintLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+            hintLabel.topAnchor.constraint(equalTo: topAnchor),
             hintLabel.centerXAnchor.constraint(equalTo: decorationView.centerXAnchor),
-            hintLabel.bottomAnchor.constraint(equalTo: textField.topAnchor),
 
-            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             textField.leadingAnchor.constraint(equalTo: leadingAnchor),
             textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 

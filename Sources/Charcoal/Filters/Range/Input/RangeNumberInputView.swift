@@ -4,18 +4,18 @@
 
 import UIKit
 
-protocol RangeInputViewDelegate: AnyObject {
-    func rangeInputView(_ view: RangeInputView, didChangeLowValue value: Int?)
-    func rangeInputView(_ view: RangeInputView, didChangeHighValue value: Int?)
+protocol RangeNumberInputViewDelegate: AnyObject {
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeLowValue value: Int?)
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeHighValue value: Int?)
 }
 
-final class RangeInputView: UIView {
+final class RangeNumberInputView: UIView {
     private enum InputGroup {
         case lowValue
         case highValue
     }
 
-    weak var delegate: RangeInputViewDelegate?
+    weak var delegate: RangeNumberInputViewDelegate?
     var generatesHapticFeedbackOnValueChange = true
 
     private let minimumValue: Int
@@ -148,17 +148,17 @@ final class RangeInputView: UIView {
         addSubview(inputSeparatorView)
 
         NSLayoutConstraint.activate([
-            highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
-            highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
-            highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
-            highValueInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.7),
-
             lowValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
             lowValueInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
             lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.mediumSpacing),
             lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.7),
+
+            highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
+            highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
+            highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
+            highValueInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.7),
 
             inputSeparatorView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20),
         ])
@@ -220,7 +220,7 @@ final class RangeInputView: UIView {
 
 // MARK: - NumberInputViewDelegate
 
-extension RangeInputView: NumberInputViewDelegate {
+extension RangeNumberInputView: NumberInputViewDelegate {
     func numberInputViewDidBeginEditing(_ view: NumberInputView) {
         handleInteraction(with: inputGroup(for: view))
     }
@@ -237,9 +237,9 @@ extension RangeInputView: NumberInputViewDelegate {
 
         switch inputGroup {
         case .lowValue:
-            delegate?.rangeInputView(self, didChangeLowValue: value)
+            delegate?.rangeNumberInputView(self, didChangeLowValue: value)
         case .highValue:
-            delegate?.rangeInputView(self, didChangeHighValue: value)
+            delegate?.rangeNumberInputView(self, didChangeHighValue: value)
         }
     }
 }

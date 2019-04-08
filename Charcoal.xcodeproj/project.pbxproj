@@ -76,7 +76,6 @@
 		559C61FC20DA87330083A574 /* FilterSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C61FB20DA87330083A574 /* FilterSetupTests.swift */; };
 		559C620320DA88B90083A574 /* DecodingTestFilter.json in Resources */ = {isa = PBXBuildFile; fileRef = 559C620220DA88B90083A574 /* DecodingTestFilter.json */; };
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
-		559C6CB620B6D771009B734D /* RangeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB520B6D771009B734D /* RangeInputView.swift */; };
 		559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB920B83178009B734D /* RangeFilterView.swift */; };
 		559C6CBD20BBE709009B734D /* RangeFilterDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */; };
 		55ABF8B020CFD8A100E31229 /* bap-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 55ABF8AF20CFD8A100E31229 /* bap-sale.json */; };
@@ -142,6 +141,7 @@
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */; };
 		CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */; };
+		CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */; };
 		CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E122576AF8008D6789 /* NumberInputView.swift */; };
 		CFE987E422579706008D6789 /* NumberInputFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E322579706008D6789 /* NumberInputFontSize.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
@@ -354,7 +354,6 @@
 		559C61FB20DA87330083A574 /* FilterSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetupTests.swift; sourceTree = "<group>"; };
 		559C620220DA88B90083A574 /* DecodingTestFilter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DecodingTestFilter.json; sourceTree = "<group>"; };
 		559C6CB120B6CA72009B734D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		559C6CB520B6D771009B734D /* RangeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeInputView.swift; sourceTree = "<group>"; };
 		559C6CB920B83178009B734D /* RangeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterView.swift; sourceTree = "<group>"; };
 		559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoView.swift; sourceTree = "<group>"; };
 		55ABF8AF20CFD8A100E31229 /* bap-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bap-sale.json"; sourceTree = "<group>"; };
@@ -422,6 +421,7 @@
 		CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionChangeOrigin.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitTests.swift; sourceTree = "<group>"; };
+		CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
 		CFE987E122576AF8008D6789 /* NumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberInputView.swift; sourceTree = "<group>"; };
 		CFE987E322579706008D6789 /* NumberInputFontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberInputFontSize.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
@@ -930,7 +930,7 @@
 			children = (
 				CFE987E322579706008D6789 /* NumberInputFontSize.swift */,
 				CFE987E122576AF8008D6789 /* NumberInputView.swift */,
-				559C6CB520B6D771009B734D /* RangeInputView.swift */,
+				CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */,
 				CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */,
 			);
 			path = Input;
@@ -1701,7 +1701,6 @@
 				CFF4F45A223BD3B600A137DA /* MapRadiusView.swift in Sources */,
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */,
-				559C6CB620B6D771009B734D /* RangeInputView.swift in Sources */,
 				9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */,
 				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,
 				CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */,
@@ -1709,6 +1708,7 @@
 				DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
 				CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */,
+				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
 				DA51041B21BE6AFE004048BD /* Font.swift in Sources */,

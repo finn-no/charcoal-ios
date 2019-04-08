@@ -27,8 +27,8 @@ final class RangeFilterView: UIView {
         }
     }
 
-    private lazy var numberInputView: RangeInputView = {
-        let rangeNumberInputView = RangeInputView(
+    private lazy var numberInputView: RangeNumberInputView = {
+        let rangeNumberInputView = RangeNumberInputView(
             minimumValue: filterConfig.minimumValue,
             maximumValue: filterConfig.maximumValue,
             unit: filterConfig.unit,
@@ -231,8 +231,8 @@ extension RangeFilterView {
 
 // MARK: - RangeNumberInputViewDelegate
 
-extension RangeFilterView: RangeInputViewDelegate {
-    func rangeInputView(_ view: RangeInputView, didChangeLowValue value: Int?) {
+extension RangeFilterView: RangeNumberInputViewDelegate {
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeLowValue value: Int?) {
         if let lowValue = value {
             let step = filterConfig.values.closestStep(for: lowValue)
             updateSliderLowValue(with: step)
@@ -247,7 +247,7 @@ extension RangeFilterView: RangeInputViewDelegate {
         }
     }
 
-    func rangeInputView(_ view: RangeInputView, didChangeHighValue value: Int?) {
+    func rangeNumberInputView(_ view: RangeNumberInputView, didChangeHighValue value: Int?) {
         if let highValue = value {
             let step = filterConfig.values.closestStep(for: highValue)
             updateSliderHighValue(with: step)

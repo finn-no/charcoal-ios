@@ -142,6 +142,8 @@
 		CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */; };
 		CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */; };
 		CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */; };
+		CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D4225B91A000052077 /* GridFilterViewController.swift */; };
+		CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D6225B929B00052077 /* GridFilterCell.swift */; };
 		CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E122576AF8008D6789 /* NumberInputView.swift */; };
 		CFE987E422579706008D6789 /* NumberInputFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E322579706008D6789 /* NumberInputFontSize.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
@@ -422,6 +424,8 @@
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitTests.swift; sourceTree = "<group>"; };
 		CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
+		CFE255D4225B91A000052077 /* GridFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterViewController.swift; sourceTree = "<group>"; };
+		CFE255D6225B929B00052077 /* GridFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterCell.swift; sourceTree = "<group>"; };
 		CFE987E122576AF8008D6789 /* NumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberInputView.swift; sourceTree = "<group>"; };
 		CFE987E322579706008D6789 /* NumberInputFontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberInputFontSize.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
@@ -761,12 +765,14 @@
 			path = Vertical;
 			sourceTree = "<group>";
 		};
-		5510EDAA20BFCCFE006E4A0F /* CompactList */ = {
+		5510EDAA20BFCCFE006E4A0F /* Grid */ = {
 			isa = PBXGroup;
 			children = (
 				55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */,
+				CFE255D4225B91A000052077 /* GridFilterViewController.swift */,
+				CFE255D6225B929B00052077 /* GridFilterCell.swift */,
 			);
-			path = CompactList;
+			path = Grid;
 			sourceTree = "<group>";
 		};
 		5515EA4320BD5B5600AC98A3 /* Range */ = {
@@ -989,7 +995,7 @@
 			isa = PBXGroup;
 			children = (
 				DA39FA19220B17DB00608AC4 /* FilterViewController.swift */,
-				5510EDAA20BFCCFE006E4A0F /* CompactList */,
+				5510EDAA20BFCCFE006E4A0F /* Grid */,
 				CF4C8706221AE5AD00DFAF2A /* FreeText */,
 				DAFD7A0D21AE96CE00A468B2 /* Inline */,
 				DA39FA1D220B17DB00608AC4 /* List */,
@@ -1719,6 +1725,7 @@
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
+				CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */,
 				CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,
@@ -1751,6 +1758,7 @@
 				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
 				CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */,
 				CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */,
+				CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */,
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
 				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 			);

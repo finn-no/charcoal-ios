@@ -71,19 +71,9 @@ enum Sections: String, CaseIterable {
         case .components:
             let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
-            case .listSelection:
-                return .bottomSheet
-            case .compactListFilter:
-                return .bottomSheet
-            case .rangeFilter:
-                return .bottomSheet
-            case .stepperFilter:
-                return .bottomSheet
             case .inlineFilter:
                 return .none
-            case .mapFilter:
-                return .bottomSheet
-            case .onboarding:
+            default:
                 return .bottomSheet
             }
         case .fullscreen:
@@ -125,7 +115,8 @@ enum Sections: String, CaseIterable {
 }
 
 enum ComponentViews: String, CaseIterable {
-    case listSelection
+    case listFilter
+    case gridFilter
     case compactListFilter
     case rangeFilter
     case stepperFilter
@@ -135,7 +126,7 @@ enum ComponentViews: String, CaseIterable {
 
     var viewController: UIViewController {
         switch self {
-        case .listSelection:
+        case .listFilter:
             let subfilters = [
                 Filter.list(title: "Akershus", key: "", numberOfResults: 1238),
                 Filter.list(title: "Buskerud", key: "", numberOfResults: 3421),
@@ -144,6 +135,14 @@ enum ComponentViews: String, CaseIterable {
             let rootFilter = Filter.list(title: "Liste", key: "", subfilters: subfilters)
 
             return ListFilterViewController(
+                filter: rootFilter,
+                selectionStore: FilterSelectionStore()
+            )
+        case .gridFilter:
+            let subfilters = (35 ... 48).map { Filter.list(title: "\($0)", key: "", numberOfResults: 11) }
+            let rootFilter = Filter.list(title: "Grid", key: "", subfilters: subfilters)
+
+            return GridFilterViewController(
                 filter: rootFilter,
                 selectionStore: FilterSelectionStore()
             )

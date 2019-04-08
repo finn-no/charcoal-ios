@@ -139,6 +139,41 @@ final class RangeInputView: UIView {
 
     // MARK: - Setup
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        let separatorWidth = inputSeparatorView.bounds.width
+        var separatorX = (bounds.width - separatorWidth) / 2
+        var lowValueWidth = lowValueInputView.bounds.width
+        var highValueWidth = highValueInputView.bounds.width
+
+        if separatorWidth + lowValueWidth + highValueWidth > bounds.width {
+            lowValueWidth = (bounds.width - separatorWidth) / 2
+            highValueWidth = lowValueWidth
+        }
+
+        inputSeparatorView.frame = CGRect(
+            x: lowValueWidth,
+            y: .largeSpacing,
+            width: inputSeparatorView.bounds.width,
+            height: bounds.height - .largeSpacing - .mediumSpacing
+        )
+
+        lowValueInputView.frame = CGRect(
+            x: 0,
+            y: .largeSpacing,
+            width: 10,
+            height: 10
+        )
+
+        highValueInputView.frame = CGRect(
+            x: 0,
+            y: .largeSpacing,
+            width: 10,
+            height: 10
+        )
+    }
+
     private func setup() {
         lowValueInputView.setInputAccessoryView(nextView: highValueInputView)
         highValueInputView.setInputAccessoryView(previousView: lowValueInputView)
@@ -152,6 +187,7 @@ final class RangeInputView: UIView {
             lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
             lowValueInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
             lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.mediumSpacing),
+            lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.4),
 
             inputSeparatorView.topAnchor.constraint(equalTo: lowValueInputView.topAnchor),
             inputSeparatorView.bottomAnchor.constraint(equalTo: lowValueInputView.bottomAnchor),
@@ -160,11 +196,12 @@ final class RangeInputView: UIView {
             highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
             highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
             highValueInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.4),
         ])
 
-        lowValueInputView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        highValueInputView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        inputSeparatorView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        // lowValueInputView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        // highValueInputView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        // inputSeparatorView.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     private func setHintText(_ text: String, for inputGroup: InputGroup) {

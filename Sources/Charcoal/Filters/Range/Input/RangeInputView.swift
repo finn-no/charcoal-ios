@@ -131,10 +131,10 @@ final class RangeInputView: UIView {
     }
 
     func forceSmallInputFontSize() {
-        fontSize = .small
+        fontSize = .smallest
         inputSeparatorView.font = UIFont(name: FontType.light.rawValue, size: fontSize.rawValue)
-        lowValueInputView.forceSmallInputFontSize()
-        highValueInputView.forceSmallInputFontSize()
+        lowValueInputView.fontSize = fontSize
+        highValueInputView.fontSize = fontSize
     }
 
     // MARK: - Setup

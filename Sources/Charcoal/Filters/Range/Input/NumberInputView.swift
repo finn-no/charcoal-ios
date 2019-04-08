@@ -15,8 +15,14 @@ final class NumberInputView: UIView {
 
     private let defaultValue: Int
     private let unit: FilterUnit
-    private var fontSize: NumberInputFontSize
     private let formatter: RangeFilterValueFormatter
+
+    var fontSize: NumberInputFontSize {
+        didSet {
+            textField.font = textField.isFirstResponder ? Style.activeFont(size: fontSize) : Style.normalFont(size: fontSize)
+            unitLabel.font = textField.font
+        }
+    }
 
     // MARK: - Views
 
@@ -133,12 +139,6 @@ final class NumberInputView: UIView {
         } else {
             textField.resignFirstResponder()
         }
-    }
-
-    func forceSmallInputFontSize() {
-        fontSize = .small
-        textField.font = textField.isFirstResponder ? Style.activeFont(size: fontSize) : Style.normalFont(size: fontSize)
-        unitLabel.font = textField.font
     }
 
     func setInputAccessoryView(previousView: NumberInputView? = nil, nextView: NumberInputView? = nil) {

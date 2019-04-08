@@ -123,11 +123,11 @@ final class RangeInputView: UIView {
     }
 
     func setLowValueHint(text: String) {
-        setHintText(text, for: .lowValue)
+        lowValueInputView.setValueHint(text: text)
     }
 
     func setHighValueHint(text: String) {
-        setHintText(text, for: .highValue)
+        highValueInputView.setValueHint(text: text)
     }
 
     func forceSmallInputFontSize() {
@@ -139,41 +139,6 @@ final class RangeInputView: UIView {
 
     // MARK: - Setup
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        let separatorWidth = inputSeparatorView.bounds.width
-        var separatorX = (bounds.width - separatorWidth) / 2
-        var lowValueWidth = lowValueInputView.bounds.width
-        var highValueWidth = highValueInputView.bounds.width
-
-        if separatorWidth + lowValueWidth + highValueWidth > bounds.width {
-            lowValueWidth = (bounds.width - separatorWidth) / 2
-            highValueWidth = lowValueWidth
-        }
-
-        inputSeparatorView.frame = CGRect(
-            x: lowValueWidth,
-            y: .largeSpacing,
-            width: inputSeparatorView.bounds.width,
-            height: bounds.height - .largeSpacing - .mediumSpacing
-        )
-
-        lowValueInputView.frame = CGRect(
-            x: 0,
-            y: .largeSpacing,
-            width: 10,
-            height: 10
-        )
-
-        highValueInputView.frame = CGRect(
-            x: 0,
-            y: .largeSpacing,
-            width: 10,
-            height: 10
-        )
-    }
-
     private func setup() {
         lowValueInputView.setInputAccessoryView(nextView: highValueInputView)
         highValueInputView.setInputAccessoryView(previousView: lowValueInputView)
@@ -183,41 +148,21 @@ final class RangeInputView: UIView {
         addSubview(inputSeparatorView)
 
         NSLayoutConstraint.activate([
-            lowValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
-            lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
-            lowValueInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.mediumSpacing),
-            lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.4),
-
-            inputSeparatorView.topAnchor.constraint(equalTo: lowValueInputView.topAnchor),
-            inputSeparatorView.bottomAnchor.constraint(equalTo: lowValueInputView.bottomAnchor),
-
             highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
             highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
             highValueInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.4),
+            highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.7),
+
+            lowValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
+            lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
+            lowValueInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.mediumSpacing),
+            lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.7),
+
+            inputSeparatorView.topAnchor.constraint(equalTo: lowValueInputView.topAnchor),
+            inputSeparatorView.bottomAnchor.constraint(equalTo: lowValueInputView.bottomAnchor),
         ])
-
-        // lowValueInputView.setContentCompressionResistancePriority(.required, for: .horizontal)
-        // highValueInputView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        // inputSeparatorView.setContentCompressionResistancePriority(.required, for: .horizontal)
-    }
-
-    private func setHintText(_ text: String, for inputGroup: InputGroup) {
-        if inputGroup == .lowValue {
-            lowValueInputView.setValueHint(text: text)
-        } else {
-            highValueInputView.setValueHint(text: text)
-        }
-    }
-
-    private func setInputGroup(_ inputGroup: InputGroup, active: Bool) {
-        if inputGroup == .lowValue {
-            lowValueInputView.setActive(active)
-        } else {
-            highValueInputView.setActive(active)
-        }
     }
 
     // MARK: - Validation
@@ -230,12 +175,7 @@ final class RangeInputView: UIView {
     }
 
     private func updateValidationStatus(for inputGroup: InputGroup, isValid: Bool, generateHapticFeedback: Bool = false) {
-        switch inputGroup {
-        case .lowValue:
-            lowValueInputView.setValid(isValid)
-        case .highValue:
-            highValueInputView.setValid(isValid)
-        }
+        inputView(for: inputGroup).setValid(isValid)
 
         let isCurrentValueValid = inputValidationStatus[inputGroup] ?? true
         let useHaptics = generateHapticFeedback && generatesHapticFeedbackOnValueChange
@@ -264,13 +204,18 @@ final class RangeInputView: UIView {
 
     private func handleInteraction(with inputGroup: InputGroup) {
         let otherInputGroup: InputGroup = inputGroup == .lowValue ? .highValue : .lowValue
-        setInputGroup(otherInputGroup, active: false)
-        setInputGroup(inputGroup, active: true)
+
+        inputView(for: otherInputGroup).setActive(false)
+        inputView(for: inputGroup).setActive(true)
         validateInputs(activeInputGroup: lowValueInputView.isFirstResponder ? .lowValue : .highValue)
     }
 
     private func inputGroup(for view: NumberInputView) -> InputGroup {
         return view === lowValueInputView ? .lowValue : .highValue
+    }
+
+    private func inputView(for inputGroup: InputGroup) -> NumberInputView {
+        return inputGroup == .lowValue ? lowValueInputView : highValueInputView
     }
 }
 

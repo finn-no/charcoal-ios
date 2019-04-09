@@ -29,14 +29,12 @@ public class CharcoalViewController: UINavigationController {
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
     public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
 
-    public var freeTextFilterDelegate: FreeTextFilterDelegate? {
-        get { return rootFilterViewController?.freeTextFilterDelegate }
-        set { rootFilterViewController?.freeTextFilterDelegate = newValue }
+    public weak var freeTextFilterDataSource: FreeTextFilterDataSource? {
+        didSet { rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource }
     }
 
-    public var freeTextFilterDataSource: FreeTextFilterDataSource? {
-        get { return rootFilterViewController?.freeTextFilterDataSource }
-        set { rootFilterViewController?.freeTextFilterDataSource = newValue }
+    public weak var freeTextFilterDelegate: FreeTextFilterDelegate? {
+        didSet { rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate }
     }
 
     public var mapDataSource: MapFilterDataSource?
@@ -105,6 +103,8 @@ public class CharcoalViewController: UINavigationController {
             )
             rootFilterViewController?.verticals = filter.verticals
             rootFilterViewController?.rootDelegate = self
+            rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource
+            rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
             setViewControllers([rootFilterViewController!], animated: false)
         }
     }

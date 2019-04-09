@@ -117,7 +117,6 @@ enum Sections: String, CaseIterable {
 enum ComponentViews: String, CaseIterable {
     case listFilter
     case gridFilter
-    case compactListFilter
     case rangeFilter
     case stepperFilter
     case inlineFilter
@@ -146,8 +145,6 @@ enum ComponentViews: String, CaseIterable {
                 filter: rootFilter,
                 selectionStore: FilterSelectionStore()
             )
-        case .compactListFilter:
-            return ViewController<CompactListFilterViewDemoView>()
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
         case .stepperFilter:

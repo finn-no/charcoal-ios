@@ -17,6 +17,8 @@ final class GridFilterCell: UICollectionViewCell {
         }
     }
 
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -26,6 +28,8 @@ final class GridFilterCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Setup
 
     func configure(withTitle title: String, accessibilityPrefix: String) {
         titleLabel.text = title
@@ -43,28 +47,16 @@ final class GridFilterCell: UICollectionViewCell {
     }
 
     private func setupStyles() {
-        backgroundColor = isSelected ? .backgroundSelected : .background
-        layer.borderColor = isSelected ? .borderSelected : .border
-        titleLabel.font = isSelected ? .titleSelected : .title
-        titleLabel.textColor = isSelected ? .titleSelected : .title
+        if isSelected {
+            backgroundColor = .primaryBlue
+            layer.borderColor = UIColor.primaryBlue.cgColor
+            titleLabel.font = UIFont(name: FontType.bold.rawValue, size: 20)
+            titleLabel.textColor = .milk
+        } else {
+            backgroundColor = .milk
+            layer.borderColor = UIColor.sardine.cgColor
+            titleLabel.font = UIFont(name: FontType.medium.rawValue, size: 20)
+            titleLabel.textColor = .licorice
+        }
     }
-}
-
-// MARK: - Private extension
-
-private extension UIColor {
-    static let title = UIColor.licorice
-    static let titleSelected = UIColor.milk
-    static let background = UIColor.milk
-    static let backgroundSelected = UIColor.primaryBlue
-}
-
-private extension CGColor {
-    static let border = UIColor.sardine.cgColor
-    static let borderSelected = UIColor.primaryBlue.cgColor
-}
-
-private extension UIFont {
-    static let title = UIFont(name: FontType.medium.rawValue, size: 20)
-    static let titleSelected = UIFont(name: FontType.bold.rawValue, size: 20)
 }

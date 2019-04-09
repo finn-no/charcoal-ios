@@ -8,11 +8,11 @@ final class GridFilterViewController: FilterViewController {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .milk
-        collectionView.register(GridFilterCell.self)
+        collectionView.allowsMultipleSelection = true
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.register(GridFilterCell.self)
         return collectionView
     }()
 
@@ -89,10 +89,18 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let currentFilter = filter.subfilters[indexPath.row]
         selectionStore.setValue(from: currentFilter)
+        showBottomButtonIfNeeded()
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let currentFilter = filter.subfilters[indexPath.row]
         selectionStore.removeValues(for: currentFilter)
+        showBottomButtonIfNeeded()
+    }
+
+    private func showBottomButtonIfNeeded() {
+        if !isShowingBottomButton {
+            showBottomButton(true, animated: true)
+        }
     }
 }

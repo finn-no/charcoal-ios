@@ -152,14 +152,15 @@ final class RangeNumberInputView: UIView {
             lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
             lowValueInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
             lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.mediumSpacing),
+            lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.6),
 
             highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
             highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
             highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
             highValueInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.6),
 
             inputSeparatorView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20),
-            inputSeparatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 

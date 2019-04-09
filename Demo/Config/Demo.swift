@@ -131,7 +131,7 @@ enum ComponentViews: String, CaseIterable {
                 Filter.list(title: "Buskerud", key: "", numberOfResults: 3421),
             ]
 
-            let rootFilter = Filter(kind: .list, title: "Liste", key: "", subfilters: subfilters)
+            let rootFilter = Filter.list(title: "Liste", key: "", subfilters: subfilters)
 
             return ListFilterViewController(
                 filter: rootFilter,

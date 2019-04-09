@@ -61,6 +61,7 @@
 "map.valueSliderAccessibilityLabel" = "Slider for verdi";
 "map.locationError.title" = "Informasjon";
 "map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
+"map.search.placeholder" = "Søk etter sted eller adresse";
 
 "onboarding.button.done" = "Ta meg til filteret";
 

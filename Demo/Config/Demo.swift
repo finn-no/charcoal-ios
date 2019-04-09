@@ -127,19 +127,19 @@ enum ComponentViews: String, CaseIterable {
         switch self {
         case .listFilter:
             let subfilters = [
-                Filter.list(title: "Akershus", key: "", numberOfResults: 1238),
-                Filter.list(title: "Buskerud", key: "", numberOfResults: 3421),
+                Filter(kind: .list, title: "Akershus", key: "", numberOfResults: 1238),
+                Filter(kind: .list, title: "Buskerud", key: "", numberOfResults: 3421),
             ]
 
-            let rootFilter = Filter.list(title: "Liste", key: "", subfilters: subfilters)
+            let rootFilter = Filter(kind: .list, title: "Liste", key: "", subfilters: subfilters)
 
             return ListFilterViewController(
                 filter: rootFilter,
                 selectionStore: FilterSelectionStore()
             )
         case .gridFilter:
-            let subfilters = (35 ... 48).map { Filter.list(title: "\($0)", key: "", numberOfResults: 11) }
-            let rootFilter = Filter.list(title: "Grid", key: "", subfilters: subfilters)
+            let subfilters = (35 ... 48).map { Filter(kind: .list, title: "\($0)", key: "", numberOfResults: 11) }
+            let rootFilter = Filter(kind: .list, title: "Grid", key: "", subfilters: subfilters)
 
             return GridFilterViewController(
                 filter: rootFilter,

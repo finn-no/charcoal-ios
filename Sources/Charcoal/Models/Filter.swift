@@ -12,6 +12,7 @@ public final class Filter {
 
     public enum Kind: Equatable {
         case list
+        case grid
         case search
         case inline
         case stepper(config: StepperFilterConfiguration)
@@ -32,14 +33,15 @@ public final class Filter {
 
     // MARK: - Init
 
-    private init(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
-                 kind: Kind = .list, style: Style = .normal) {
+    public init(kind: Kind, title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
+                style: Style = .normal, subfilters: [Filter] = []) {
         self.title = title
         self.key = key
         self.value = value
         self.numberOfResults = numberOfResults
         self.kind = kind
         self.style = style
+        self.subfilters.append(contentsOf: subfilters)
     }
 
     // MARK: - Public methods
@@ -77,67 +79,60 @@ extension Filter: Equatable {
 extension Filter {
     public static func list(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
                             style: Style = .normal, subfilters: [Filter] = []) -> Filter {
-        let filter = Filter(
+        return Filter(
+            kind: .list,
             title: title,
             key: key,
             value: value,
             numberOfResults: numberOfResults,
-            kind: .list,
-            style: style
+            style: style,
+            subfilters: subfilters
         )
-
-        filter.subfilters.append(contentsOf: subfilters)
-
-        return filter
     }
 
     public static func search(title: String? = nil, key: String) -> Filter {
         let title = title ?? "searchPlaceholder".localized()
-        return Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .search)
+        return Filter(kind: .search, title: title, key: key, value: nil, numberOfResults: 0)
     }
 
     public static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {
-        let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: .inline)
-        filter.subfilters.append(contentsOf: subfilters)
-        return filter
+        return Filter(kind: .inline, title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
     }
 
     public static func stepper(title: String, key: String,
                                config: StepperFilterConfiguration, style: Style = .normal) -> Filter {
         return Filter(
+            kind: .stepper(config: config),
             title: title,
             key: key,
             value: nil,
             numberOfResults: 0,
-            kind: .stepper(config: config),
             style: style
         )
     }
 
     public static func external(title: String, key: String, value: String?,
                                 numberOfResults: Int = 0, style: Style = .normal) -> Filter {
-        return Filter(title: title, key: key, value: value, numberOfResults: numberOfResults, kind: .external, style: style)
+        return Filter(kind: .external, title: title, key: key, value: value, numberOfResults: numberOfResults, style: style)
     }
 
     public static func range(title: String, key: String, lowValueKey: String, highValueKey: String,
                              config: RangeFilterConfiguration, style: Style = .normal) -> Filter {
-        let lowValueFilter = Filter(title: "", key: lowValueKey, kind: .list)
-        let highValueFilter = Filter(title: "", key: highValueKey, kind: .list)
+        let lowValueFilter = Filter(kind: .list, title: "", key: lowValueKey)
+        let highValueFilter = Filter(kind: .list, title: "", key: highValueKey)
         let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter, config: config)
-        let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: style)
+        let subfilters = [lowValueFilter, highValueFilter]
 
-        filter.subfilters.append(contentsOf: [lowValueFilter, highValueFilter])
-
-        return filter
+        return Filter(kind: kind, title: title, key: key, value: nil, numberOfResults: 0, style: style, subfilters: subfilters)
     }
 
     public static func map(title: String? = nil, key: String, latitudeKey: String,
                            longitudeKey: String, radiusKey: String, locationKey: String) -> Filter {
         let title = title ?? "map.title".localized()
-        let latitudeFilter = Filter(title: "", key: latitudeKey, kind: .list)
-        let longitudeFilter = Filter(title: "", key: longitudeKey, kind: .list)
-        let radiusFilter = Filter(title: "", key: radiusKey, kind: .list)
-        let locationNameFilter = Filter(title: "", key: locationKey, kind: .list)
+        let latitudeFilter = Filter(kind: .list, title: "", key: latitudeKey)
+        let longitudeFilter = Filter(kind: .list, title: "", key: longitudeKey)
+        let radiusFilter = Filter(kind: .list, title: "", key: radiusKey)
+        let locationNameFilter = Filter(kind: .list, title: "", key: locationKey)
 
         let kind = Kind.map(
             latitudeFilter: latitudeFilter,
@@ -146,10 +141,9 @@ extension Filter {
             locationNameFilter: locationNameFilter
         )
 
-        let filter = Filter(title: title, key: key, value: nil, numberOfResults: 0, kind: kind, style: .normal)
-        filter.subfilters.append(contentsOf: [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter])
+        let subfilters = [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter]
 
-        return filter
+        return Filter(kind: kind, title: title, key: key, value: nil, numberOfResults: 0, style: .normal, subfilters: subfilters)
     }
 }
 

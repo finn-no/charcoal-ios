@@ -194,6 +194,13 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
             listViewController.showBottomButton(showBottomButton, animated: false)
             pushViewController(listViewController)
+        case .grid:
+            guard !filter.subfilters.isEmpty else { break }
+
+            let gridViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
+            gridViewController.showBottomButton(viewController.isShowingBottomButton, animated: false)
+
+            pushViewController(gridViewController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         case .inline, .search:

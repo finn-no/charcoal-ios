@@ -28,6 +28,8 @@ public class CharcoalViewController: UINavigationController {
 
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
     public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
+    public weak var mapDataSource: MapFilterDataSource?
+    public weak var searchLocationDataSource: SearchLocationDataSource?
 
     public weak var freeTextFilterDataSource: FreeTextFilterDataSource? {
         didSet { rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource }
@@ -36,9 +38,6 @@ public class CharcoalViewController: UINavigationController {
     public weak var freeTextFilterDelegate: FreeTextFilterDelegate? {
         didSet { rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate }
     }
-
-    public var mapDataSource: MapFilterDataSource?
-    public var searchLocationDataSource: SearchLocationDataSource?
 
     public var isLoading: Bool = false {
         didSet { updateLoading() }

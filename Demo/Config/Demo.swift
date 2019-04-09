@@ -71,19 +71,9 @@ enum Sections: String, CaseIterable {
         case .components:
             let selectedView = ComponentViews.allCases[indexPath.row]
             switch selectedView {
-            case .listSelection:
-                return .bottomSheet
-            case .compactListFilter:
-                return .bottomSheet
-            case .rangeFilter:
-                return .bottomSheet
-            case .stepperFilter:
-                return .bottomSheet
             case .inlineFilter:
                 return .none
-            case .mapFilter:
-                return .bottomSheet
-            case .onboarding:
+            default:
                 return .bottomSheet
             }
         case .fullscreen:
@@ -125,8 +115,8 @@ enum Sections: String, CaseIterable {
 }
 
 enum ComponentViews: String, CaseIterable {
-    case listSelection
-    case compactListFilter
+    case listFilter
+    case gridFilter
     case rangeFilter
     case stepperFilter
     case inlineFilter
@@ -135,7 +125,7 @@ enum ComponentViews: String, CaseIterable {
 
     var viewController: UIViewController {
         switch self {
-        case .listSelection:
+        case .listFilter:
             let subfilters = [
                 Filter.list(title: "Akershus", key: "", numberOfResults: 1238),
                 Filter.list(title: "Buskerud", key: "", numberOfResults: 3421),
@@ -147,8 +137,14 @@ enum ComponentViews: String, CaseIterable {
                 filter: rootFilter,
                 selectionStore: FilterSelectionStore()
             )
-        case .compactListFilter:
-            return ViewController<CompactListFilterViewDemoView>()
+        case .gridFilter:
+            let subfilters = (35 ... 48).map { Filter.list(title: "\($0)", key: "", numberOfResults: 11) }
+            let rootFilter = Filter.list(title: "Grid", key: "", subfilters: subfilters)
+
+            return GridFilterViewController(
+                filter: rootFilter,
+                selectionStore: FilterSelectionStore()
+            )
         case .rangeFilter:
             return ViewController<RangeFilterDemoView>()
         case .stepperFilter:

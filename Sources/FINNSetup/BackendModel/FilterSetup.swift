@@ -56,7 +56,7 @@ public struct FilterSetup: Decodable {
     // MARK: - Factory
 
     public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
-        let rootLevelFilters = config.rootLevelFilters.compactMap { key -> Filter? in
+        let subfilters = config.rootLevelFilters.compactMap { key -> Filter? in
             let filter = makeRootLevelFilter(withKey: key, using: config)
             filter?.mutuallyExclusiveFilterKeys = config.mutuallyExclusiveFilters(for: key)
             return filter
@@ -64,26 +64,29 @@ public struct FilterSetup: Decodable {
 
         let title = "Filtrer søket"
         let numberOfResults = objectCount ?? hits
-        let root = Filter.list(title: title, key: market, numberOfResults: numberOfResults, subfilters: rootLevelFilters)
+        let root = Filter.list(title: title, key: market, numberOfResults: numberOfResults, subfilters: subfilters)
 
         return FilterContainer(root: root)
     }
 
     private func makeRootLevelFilter(withKey key: String, using config: FilterConfiguration) -> Filter? {
+        let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
+
         switch key {
         case FilterKey.query.rawValue:
             return Filter.search(key: key)
         case FilterKey.preferences.rawValue:
             let subfilters = config.preferenceFilters.compactMap {
-                filterData(forKey: $0).flatMap({ makeListFilter(from: $0, withStyle: .normal) })
+                filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .list, style: .normal) })
             }
             return Filter.inline(title: "", key: key, subfilters: subfilters)
         case FilterKey.map.rawValue:
             return makeMapFilter(withKey: key)
+        case FilterKey.shoeSize.rawValue:
+            guard let data = filterData(forKey: key) else { return nil }
+            return makeFilter(from: data, withKind: .grid, style: style)
         default:
             guard let data = filterData(forKey: key) else { return nil }
-
-            let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
 
             if data.isRange == true {
                 if let filterConfig = config.rangeConfiguration(forKey: key) {
@@ -94,7 +97,7 @@ public struct FilterSetup: Decodable {
                     return nil
                 }
             } else {
-                return makeListFilter(from: data, withStyle: style)
+                return makeFilter(from: data, withKind: .list, style: style)
             }
         }
     }
@@ -126,7 +129,7 @@ public struct FilterSetup: Decodable {
         )
     }
 
-    private func makeListFilter(from filterData: FilterData, withStyle style: Filter.Style) -> Filter? {
+    private func makeFilter(from filterData: FilterData, withKind kind: Filter.Kind, style: Filter.Style) -> Filter? {
         let subfilters = filterData.queries.compactMap({
             makeListFilter(withKey: filterData.parameterName, from: $0)
         })
@@ -134,7 +137,8 @@ public struct FilterSetup: Decodable {
         if style == .context && subfilters.count < 2 {
             return nil
         } else {
-            return Filter.list(
+            return Filter(
+                kind: kind,
                 title: filterData.title,
                 key: filterData.parameterName,
                 style: style,

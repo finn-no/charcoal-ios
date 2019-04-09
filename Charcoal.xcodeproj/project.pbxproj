@@ -67,8 +67,6 @@
 		46905233217F0D6000F8E7FD /* VerticalSetupDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */; };
 		4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905239217F5CD000F8E7FD /* Vertical.swift */; };
 		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
-		55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */; };
-		55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */; };
@@ -142,6 +140,8 @@
 		CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */; };
 		CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */; };
 		CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */; };
+		CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D4225B91A000052077 /* GridFilterViewController.swift */; };
+		CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D6225B929B00052077 /* GridFilterCell.swift */; };
 		CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E122576AF8008D6789 /* NumberInputView.swift */; };
 		CFE987E422579706008D6789 /* NumberInputFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E322579706008D6789 /* NumberInputFontSize.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
@@ -344,8 +344,6 @@
 		46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDistanceValueFormatter.swift; sourceTree = "<group>"; };
 		46905232217F0D6000F8E7FD /* VerticalSetupDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSetupDemo.swift; sourceTree = "<group>"; };
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
-		55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactListFilterView.swift; sourceTree = "<group>"; };
-		55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactListFilterViewDemoView.swift; sourceTree = "<group>"; };
 		554D154F20C0782200FA3930 /* car-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-norway.json"; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
@@ -422,6 +420,8 @@
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitTests.swift; sourceTree = "<group>"; };
 		CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
+		CFE255D4225B91A000052077 /* GridFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterViewController.swift; sourceTree = "<group>"; };
+		CFE255D6225B929B00052077 /* GridFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterCell.swift; sourceTree = "<group>"; };
 		CFE987E122576AF8008D6789 /* NumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberInputView.swift; sourceTree = "<group>"; };
 		CFE987E322579706008D6789 /* NumberInputFontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberInputFontSize.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
@@ -761,12 +761,13 @@
 			path = Vertical;
 			sourceTree = "<group>";
 		};
-		5510EDAA20BFCCFE006E4A0F /* CompactList */ = {
+		5510EDAA20BFCCFE006E4A0F /* Grid */ = {
 			isa = PBXGroup;
 			children = (
-				55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */,
+				CFE255D4225B91A000052077 /* GridFilterViewController.swift */,
+				CFE255D6225B929B00052077 /* GridFilterCell.swift */,
 			);
-			path = CompactList;
+			path = Grid;
 			sourceTree = "<group>";
 		};
 		5515EA4320BD5B5600AC98A3 /* Range */ = {
@@ -787,7 +788,6 @@
 				55946B7D20970237008AB7CE /* InlineFilterDemoViewController.swift */,
 				559C6CBC20BBE709009B734D /* RangeFilterDemoView.swift */,
 				DAF3CA7321830F18007235B0 /* StepperFilterDemoView.swift */,
-				55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -989,7 +989,7 @@
 			isa = PBXGroup;
 			children = (
 				DA39FA19220B17DB00608AC4 /* FilterViewController.swift */,
-				5510EDAA20BFCCFE006E4A0F /* CompactList */,
+				5510EDAA20BFCCFE006E4A0F /* Grid */,
 				CF4C8706221AE5AD00DFAF2A /* FreeText */,
 				DAFD7A0D21AE96CE00A468B2 /* Inline */,
 				DA39FA1D220B17DB00608AC4 /* List */,
@@ -1719,6 +1719,7 @@
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
+				CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */,
 				CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,
@@ -1746,11 +1747,11 @@
 				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */,
 				CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */,
-				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
 				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
 				CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */,
 				CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */,
+				CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */,
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
 				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 			);
@@ -1768,7 +1769,6 @@
 				9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */,
 				46905233217F0D6000F8E7FD /* VerticalSetupDemo.swift in Sources */,
 				9BE0A0522091CF270000632B /* DemoFilterRootViewControllerHelper.swift in Sources */,
-				55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */,
 				9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */,
 				DA51041C21BE6AFE004048BD /* Font.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Demo.swift in Sources */,

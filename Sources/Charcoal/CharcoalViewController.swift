@@ -94,10 +94,10 @@ public class CharcoalViewController: UINavigationController {
         selectionStore.syncSelection(with: filter)
 
         if let rootFilterViewController = rootFilterViewController {
-            rootFilterViewController.set(filter: filter.rootFilter, verticals: filter.verticals)
+            rootFilterViewController.set(filterContainer: filter, verticals: filter.verticals)
         } else {
             rootFilterViewController = RootFilterViewController(
-                filter: filter.rootFilter,
+                filterContainer: filter,
                 selectionStore: selectionStore
             )
             rootFilterViewController?.verticals = filter.verticals

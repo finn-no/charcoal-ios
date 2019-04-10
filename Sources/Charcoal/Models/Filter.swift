@@ -29,7 +29,7 @@ public final class Filter {
     public var numberOfResults: Int
     public var mutuallyExclusiveFilterKeys = Set<String>()
 
-    private(set) var subfilters: [Filter] = []
+    fileprivate(set) var subfilters: [Filter] = []
 
     // MARK: - Init
 
@@ -51,18 +51,8 @@ public final class Filter {
         return subfilters[index]
     }
 
-    public func merge(with other: Filter) {
-        for (index, filter) in other.subfilters.enumerated() {
-            if let common = subfilters.first(where: { $0 == filter }) {
-                common.merge(with: filter)
-            } else {
-                if index < subfilters.count {
-                    subfilters.insert(filter, at: index)
-                } else {
-                    subfilters.append(filter)
-                }
-            }
-        }
+    public func mergeSubfilters(with other: Filter) {
+        subfilters.merge(with: other.subfilters)
     }
 }
 
@@ -152,5 +142,21 @@ extension Filter {
 extension Filter {
     var formattedNumberOfResults: String {
         return NumberFormatter.decimalFormatter.string(from: numberOfResults) ?? ""
+    }
+}
+
+extension Array where Element == Filter {
+    mutating func merge(with filters: [Filter]) {
+        for (index, filter) in filters.enumerated() {
+            if let common = first(where: { $0 == filter }) {
+                common.subfilters.merge(with: filter.subfilters)
+            } else {
+                if index < count {
+                    insert(filter, at: index)
+                } else {
+                    append(filter)
+                }
+            }
+        }
     }
 }

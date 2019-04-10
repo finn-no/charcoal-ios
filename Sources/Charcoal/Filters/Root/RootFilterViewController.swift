@@ -49,13 +49,13 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Filter
 
-    private var filter: Filter
+    private var filterContainer: FilterContainer
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore) {
-        self.filter = filter
-        super.init(title: filter.title, selectionStore: selectionStore)
+    init(filterContainer: FilterContainer, selectionStore: FilterSelectionStore) {
+        self.filterContainer = filterContainer
+        super.init(title: "Filtrer søket", selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -87,10 +87,9 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Setup
 
-    func set(filter: Filter, verticals: [Vertical]?) {
-        self.filter = filter
+    func set(filterContainer: FilterContainer, verticals: [Vertical]?) {
+        self.filterContainer = filterContainer
         self.verticals = verticals
-        navigationItem.title = filter.title
         updateBottomButtonTitle()
         tableView.reloadData()
     }
@@ -107,8 +106,12 @@ final class RootFilterViewController: FilterViewController {
     }
 
     private func updateBottomButtonTitle() {
-        let localizedString = String(format: "showResultsButton".localized(), filter.numberOfResults)
-        let title = localizedString.replacingOccurrences(of: "\(filter.numberOfResults)", with: filter.formattedNumberOfResults)
+        let localizedString = String(format: "showResultsButton".localized(), filterContainer.numberOfResults)
+        let title = localizedString.replacingOccurrences(
+            of: "\(filterContainer.numberOfResults)",
+            with: filterContainer.formattedNumberOfResults
+        )
+
         bottomButton.buttonTitle = title
     }
 

@@ -216,7 +216,9 @@ extension FilterSelectionStore {
     }
 
     func syncSelection(with filterContainer: FilterContainer) {
-        let keys = syncSelection(with: filterContainer.rootFilter)
+        let keys = filterContainer.allFilters.reduce(Set<String>()) { result, filter in
+            result.union(syncSelection(with: filter))
+        }
         queryItems = queryItems.filter({ keys.contains($0.name) })
     }
 

@@ -172,7 +172,7 @@ extension DemoViewsTableViewController: CharcoalViewControllerSelectionDelegate 
     }
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {
-        UIApplication.shared.openURL(URL(string: "https://finn.no")!)
+        UIApplication.shared.open(URL(string: "https://finn.no")!)
     }
 
     func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController) {

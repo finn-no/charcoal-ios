@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2C21F73C1E003180D8 /* FilterConfiguration.swift */; };
 		08716B3F21F89C7C003180D8 /* boat-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B3E21F89C7C003180D8 /* boat-sale.json */; };
 		08716B4121F89CD6003180D8 /* boat-used-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4021F89CD6003180D8 /* boat-used-wanted.json */; };
 		08716B4321F89CE0003180D8 /* boat-rent.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4221F89CE0003180D8 /* boat-rent.json */; };
@@ -273,7 +272,6 @@
 /* Begin PBXFileReference section */
 		08716B2821F73B0B003180D8 /* FilterMarketMC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketMC.swift; sourceTree = "<group>"; };
 		08716B2A21F73B7A003180D8 /* FilterMarketCar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketCar.swift; sourceTree = "<group>"; };
-		08716B2C21F73C1E003180D8 /* FilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterConfiguration.swift; sourceTree = "<group>"; };
 		08716B2E21F73C87003180D8 /* FilterMarketJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketJob.swift; sourceTree = "<group>"; };
 		08716B3021F73D2D003180D8 /* FilterMarketRealestate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketRealestate.swift; sourceTree = "<group>"; };
 		08716B3221F73D92003180D8 /* FilterMarketBap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBap.swift; sourceTree = "<group>"; };
@@ -967,7 +965,6 @@
 				44ECE662208F7FA20017AC82 /* Info.plist */,
 				44ECE698208F80320017AC82 /* Charcoal.swift */,
 				DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */,
-				CF81E109221C30B900D00423 /* Configuration */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				CF4C8703221AE0F000DFAF2A /* Filters */,
 				CF88577B21F61D710056CC81 /* Haptics */,
@@ -1052,14 +1049,6 @@
 				CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		CF81E109221C30B900D00423 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				08716B2C21F73C1E003180D8 /* FilterConfiguration.swift */,
-			);
-			path = Configuration;
 			sourceTree = "<group>";
 		};
 		CF81E10E221C549200D00423 /* Selection */ = {
@@ -1733,7 +1722,6 @@
 				CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */,
 				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
 				9B741D1A21B6990800D18097 /* ValueSliderView.swift in Sources */,
-				08716B2D21F73C1E003180D8 /* FilterConfiguration.swift in Sources */,
 				DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				DADF2DD0225375CE00567C78 /* OnboardingViewController.swift in Sources */,

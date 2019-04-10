@@ -21,7 +21,7 @@ public enum FilterMarket {
         self = market
     }
 
-    private var currentFilterConfig: FINNFilterConfiguration {
+    private var currentFilterConfig: FilterConfiguration {
         switch self {
         case let .bap(bap):
             return bap
@@ -44,31 +44,31 @@ public enum FilterMarket {
 // MARK: - FilterConfiguration
 
 extension FilterMarket: FilterConfiguration {
-    public var preferenceFilters: [String] {
-        return currentFilterConfig.preferenceFilters
+    public var preferenceFilterKeys: [FilterKey] {
+        return currentFilterConfig.preferenceFilterKeys
     }
 
-    public var rootLevelFilters: [String] {
-        return currentFilterConfig.rootLevelFilters
+    public var rootLevelFilterKeys: [FilterKey] {
+        return currentFilterConfig.rootLevelFilterKeys
     }
 
-    public var contextFilters: Set<String> {
-        return currentFilterConfig.contextFilters
+    public var contextFilterKeys: Set<FilterKey> {
+        return currentFilterConfig.contextFilterKeys
     }
 
-    public var mutuallyExclusiveFilters: Set<String> {
-        return currentFilterConfig.mutuallyExclusiveFilters
+    public var mutuallyExclusiveFilterKeys: Set<FilterKey> {
+        return currentFilterConfig.mutuallyExclusiveFilterKeys
     }
 
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
         return currentFilterConfig.rangeConfiguration(forKey: key)
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
         return currentFilterConfig.stepperConfiguration(forKey: key)
     }
 }

@@ -10,15 +10,13 @@ public enum FilterMarketBap: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketBap: FINNFilterConfiguration {
+extension FilterMarketBap: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         return [.searchType, .segment, .condition, .published]
     }
 
     public var rootLevelFilterKeys: [FilterKey] {
         return [
-            .query,
-            .preferences,
             .category,
             .bikesType,
             .carPartsBrand,
@@ -69,12 +67,8 @@ extension FilterMarketBap: FINNFilterConfiguration {
         return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
-        guard let filterKey = FilterKey(stringValue: key) else {
-            return nil
-        }
-
-        switch filterKey {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
+        switch key {
         case .horseHeight:
             return .configuration(minimumValue: 120, maximumValue: 200, increment: 10, unit: .centimeters)
         case .lengthCm:
@@ -101,7 +95,7 @@ extension FilterMarketBap: FINNFilterConfiguration {
         }
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
         return nil
     }
 }

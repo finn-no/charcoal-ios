@@ -7,7 +7,7 @@ import UIKit
 protocol RootFilterViewControllerDelegate: class {
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
-    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical)
 }
 
 final class RootFilterViewController: FilterViewController {
@@ -309,10 +309,10 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
             }
         }
 
-        if filterContainer.verticals?.firstIndex(where: { $0.isCurrent }) != index {
+        if let vertical = filterContainer.verticals?[safe: index], !vertical.isCurrent {
             freeTextFilterViewController?.searchBar.text = nil
             dismissVerticalViewController(animated: false)
-            rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
+            rootDelegate?.rootFilterViewController(self, didSelectVertical: vertical)
         } else {
             dismissVerticalViewController(animated: true)
         }

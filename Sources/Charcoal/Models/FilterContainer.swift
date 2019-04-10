@@ -17,10 +17,6 @@ public class FilterContainer {
     private(set) var searchFilter: Filter?
     private(set) var numberOfResults: Int
 
-    var formattedNumberOfResults: String {
-        return NumberFormatter.decimalFormatter.string(from: numberOfResults) ?? ""
-    }
-
     var allFilters: [Filter] {
         return [searchFilter, inlineFilter].compactMap({ $0 }) + rootFilters
     }

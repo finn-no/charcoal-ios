@@ -139,12 +139,6 @@ extension Filter {
 
 // MARK: - Helpers
 
-extension Filter {
-    var formattedNumberOfResults: String {
-        return NumberFormatter.decimalFormatter.string(from: numberOfResults) ?? ""
-    }
-}
-
 extension Array where Element == Filter {
     mutating func merge(with filters: [Filter]) {
         for (index, filter) in filters.enumerated() {

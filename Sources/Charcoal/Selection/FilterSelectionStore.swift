@@ -67,6 +67,13 @@ extension FilterSelectionStore {
         delegate?.filterSelectionStoreDidChange(self)
     }
 
+    func removeValues(for filters: [Filter]) {
+        for filter in filters {
+            _removeValues(for: filter)
+        }
+        delegate?.filterSelectionStoreDidChange(self)
+    }
+
     @discardableResult
     func toggleValue(for filter: Filter) -> Bool {
         let isSelected = self.isSelected(filter)
@@ -126,6 +133,10 @@ extension FilterSelectionStore {
         }
 
         return filter.subfilters.reduce([]) { $0 + queryItems(for: $1) }
+    }
+
+    func queryItems(for filters: [Filter]) -> [URLQueryItem] {
+        return filters.reduce([]) { $0 + queryItems(for: $1) }
     }
 
     func titles(for filter: Filter) -> [SelectionTitle] {

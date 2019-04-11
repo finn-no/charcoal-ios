@@ -18,7 +18,7 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
                                 origin: SelectionChangeOrigin)
 }
 
-public class CharcoalViewController: UINavigationController {
+public final class CharcoalViewController: UINavigationController {
 
     // MARK: - Public properties
 
@@ -56,6 +56,11 @@ public class CharcoalViewController: UINavigationController {
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
     // MARK: - Init
+
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        selectionStore.delegate = self
+    }
 
     public init() {
         super.init(nibName: nil, bundle: nil)

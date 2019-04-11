@@ -686,6 +686,8 @@ SWIFT_CLASS("_TtC12FinniversKit11InfoboxView")
 @end
 
 
+
+
 SWIFT_CLASS("_TtC12FinniversKit17InlineConsentView")
 @interface InlineConsentView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -791,6 +793,27 @@ SWIFT_CLASS("_TtC12FinniversKit19MarketsGridViewCell")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)prepareForReuse;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit16NativeAdvertView")
+@interface NativeAdvertView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+@end
+
+
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit23NativeContentAdvertView")
+@interface NativeContentAdvertView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -1035,6 +1058,13 @@ SWIFT_CLASS("_TtC12FinniversKit8SoldView")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit23StatisticsItemEmptyView")
+@interface StatisticsItemEmptyView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit18StatisticsItemView")
 @interface StatisticsItemView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -1116,6 +1146,8 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1319,6 +1351,13 @@ SWIFT_CLASS("_TtC12FinniversKit40UserAdManagementButtonAndInformationCell")
 
 SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementStatisticsCell")
 @interface UserAdManagementStatisticsCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit39UserAdManagementStatisticsEmptyViewCell")
+@interface UserAdManagementStatisticsEmptyViewCell : UITableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end

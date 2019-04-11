@@ -9,4 +9,8 @@ extension Int {
         guard let string = string else { return nil }
         self.init(string)
     }
+
+    var decimalFormatted: String {
+        return NumberFormatter.decimalFormatter.string(from: self) ?? ""
+    }
 }

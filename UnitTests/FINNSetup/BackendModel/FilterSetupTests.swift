@@ -102,7 +102,7 @@ private extension FilterSetupTests {
 
     func testFilterDataElementWithNestedQueriesWithFiltersIsDecodedWithExpectedValues(filterSetup: FilterSetup?) {
         // Given
-        let filterDataElement = filterSetup?.filterData(forKey: FilterKey.make.rawValue)
+        let filterDataElement = filterSetup?.filterData(forKey: FilterKey.make)
 
         // When
         let firstQueryElement = filterDataElement?.queries.first
@@ -133,7 +133,7 @@ private extension FilterSetupTests {
 
     func testFilterDataWithRangeIsDecodedWithExpectedValues(filterSetup: FilterSetup?) {
         // Given, When
-        let filterDataElement = filterSetup?.filterData(forKey: FilterKey.numberOfSeats.rawValue)
+        let filterDataElement = filterSetup?.filterData(forKey: FilterKey.numberOfSeats)
 
         // Then
         XCTAssertNotNil(filterDataElement)
@@ -147,7 +147,7 @@ private extension FilterSetupTests {
 
     func testFilterDataWithQueriesWithoutFilterIsDecodedWithExpectedValues(filterSetup: FilterSetup?) {
         // Given
-        let filterDataElement = filterSetup?.filterData(forKey: FilterKey.transmission.rawValue)
+        let filterDataElement = filterSetup?.filterData(forKey: FilterKey.transmission)
 
         // When
         let firstQueryElement = filterDataElement?.queries.first

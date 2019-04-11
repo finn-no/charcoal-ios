@@ -13,7 +13,7 @@ public enum FilterMarketCar: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketCar: FINNFilterConfiguration {
+extension FilterMarketCar: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .norway, .abroad:
@@ -27,8 +27,6 @@ extension FilterMarketCar: FINNFilterConfiguration {
         switch self {
         case .norway:
             return [
-                .query,
-                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -53,8 +51,6 @@ extension FilterMarketCar: FINNFilterConfiguration {
             ]
         case .abroad:
             return [
-                .query,
-                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -79,8 +75,6 @@ extension FilterMarketCar: FINNFilterConfiguration {
             ]
         case .mobileHome:
             return [
-                .query,
-                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -99,8 +93,6 @@ extension FilterMarketCar: FINNFilterConfiguration {
             ]
         case .caravan:
             return [
-                .query,
-                .preferences,
                 .make,
                 .salesForm,
                 .year,
@@ -132,12 +124,8 @@ extension FilterMarketCar: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
-        guard let filterKey = FilterKey(stringValue: key) else {
-            return nil
-        }
-
-        switch filterKey {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
+        switch key {
         case .year:
             switch self {
             case .norway, .abroad:
@@ -206,7 +194,7 @@ extension FilterMarketCar: FINNFilterConfiguration {
         }
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
         return nil
     }
 }

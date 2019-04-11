@@ -70,9 +70,8 @@ class DemoViewsTableViewController: UITableViewController {
         case .fullscreen:
             guard let market = Sections.marketName(for: indexPath), let config = FilterMarket(market: market) else { return }
 
-            let filter = filterContainer(forMarket: market, using: config)
             let controller = CharcoalViewController()
-            controller.filter = filter
+            controller.filterContainer = filterContainer(forMarket: market, using: config)
             controller.textEditingDelegate = self
             controller.selectionDelegate = self
             controller.searchLocationDataSource = searchLocationDataSource
@@ -162,11 +161,11 @@ extension DemoViewsTableViewController: CharcoalViewControllerSelectionDelegate 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
         guard let vertical = vertical as? VerticalDemo, let config = FilterMarket(market: vertical.id) else { return }
 
-        let filter = filterContainer(forMarket: vertical.id, using: config)
+        let filterContainer = self.filterContainer(forMarket: vertical.id, using: config)
 
         viewController.isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            viewController.filter = filter
+            viewController.filterContainer = filterContainer
             viewController.isLoading = false
         }
     }

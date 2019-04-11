@@ -20,7 +20,7 @@ struct DemoVertical: Vertical {
 }
 
 class Setup {
-    var filter: FilterContainer
+    var filterContainer: FilterContainer
 
     private var market: String
     private let submarkets: [Vertical]
@@ -28,11 +28,11 @@ class Setup {
     private init(market: String, submarkets: [Vertical]) {
         self.market = market
         self.submarkets = submarkets
-        filter = Setup.filter(name: market)
-        filter.verticals = submarkets
+        filterContainer = Setup.filterContainer(name: market)
+        filterContainer.verticals = submarkets
     }
 
-    static func filter(name: String) -> FilterContainer {
+    static func filterContainer(name: String) -> FilterContainer {
         let bundle = Bundle(for: Setup.self)
 
         guard let path = bundle.path(forResource: name, ofType: "json") else {

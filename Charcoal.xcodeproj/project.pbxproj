@@ -1767,7 +1767,6 @@
 				DA51041C21BE6AFE004048BD /* Font.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Setup.swift in Sources */,
 				DA2EFF3B225B51CC00F5B849 /* DemoViewController.swift in Sources */,
-				9BF778CF21C1663D006C0416 /* MapDataSource.swift in Sources */,
 				DA68145022574D3C003F3975 /* Row.swift in Sources */,
 				DAF3CA7421830F18007235B0 /* StepperFilterDemoViewController.swift in Sources */,
 				44ECE6AD208F816D0017AC82 /* DemoTableViewController.swift in Sources */,

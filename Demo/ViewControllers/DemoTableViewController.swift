@@ -36,7 +36,7 @@ extension DemoTableViewController: UITableViewDelegate {
         var viewController = row.type.init()
 
         if let charcoalViewController = viewController as? CharcoalViewController {
-            charcoalViewController.filter = row.setup?.filter
+            charcoalViewController.filterContainer = row.setup?.filterContainer
         }
 
         if row.usingBottomSheet {

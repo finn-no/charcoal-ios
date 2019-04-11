@@ -17,7 +17,7 @@ public enum FilterMarketBoat: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketBoat: FINNFilterConfiguration {
+extension FilterMarketBoat: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .boatSale:
@@ -31,8 +31,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         switch self {
         case .boatSale:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .motorAdLocation,
@@ -51,8 +49,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatUsedWanted:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .boatClass,
@@ -60,8 +56,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatRent:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .boatClass,
@@ -75,8 +69,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatMotor, .boatParts:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .type,
@@ -86,8 +78,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatPartsMotorWanted:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .type,
@@ -96,8 +86,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatDock:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .width,
@@ -106,8 +94,6 @@ extension FilterMarketBoat: FINNFilterConfiguration {
             ]
         case .boatDockWanted:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .width,
@@ -128,12 +114,8 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
-        guard let filterKey = FilterKey(stringValue: key) else {
-            return nil
-        }
-
-        switch filterKey {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
+        switch key {
         case .price:
             let maximumValue: Int
             let increment: Int
@@ -171,7 +153,7 @@ extension FilterMarketBoat: FINNFilterConfiguration {
         }
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
         return nil
     }
 }

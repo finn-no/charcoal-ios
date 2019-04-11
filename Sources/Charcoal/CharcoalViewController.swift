@@ -22,25 +22,22 @@ public final class CharcoalViewController: UINavigationController {
 
     // MARK: - Public properties
 
-    public var filter: FilterContainer? {
-        didSet { configure(with: filter) }
+    public var filterContainer: FilterContainer? {
+        didSet { configure(with: filterContainer) }
     }
 
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
     public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
+    public weak var mapDataSource: MapFilterDataSource?
+    public weak var searchLocationDataSource: SearchLocationDataSource?
 
-    public var freeTextFilterDelegate: FreeTextFilterDelegate? {
-        get { return rootFilterViewController?.freeTextFilterDelegate }
-        set { rootFilterViewController?.freeTextFilterDelegate = newValue }
+    public weak var freeTextFilterDataSource: FreeTextFilterDataSource? {
+        didSet { rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource }
     }
 
-    public var freeTextFilterDataSource: FreeTextFilterDataSource? {
-        get { return rootFilterViewController?.freeTextFilterDataSource }
-        set { rootFilterViewController?.freeTextFilterDataSource = newValue }
+    public weak var freeTextFilterDelegate: FreeTextFilterDelegate? {
+        didSet { rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate }
     }
-
-    public var mapDataSource: MapFilterDataSource?
-    public var searchLocationDataSource: SearchLocationDataSource?
 
     public var isLoading: Bool = false {
         didSet { updateLoading() }
@@ -85,20 +82,21 @@ public final class CharcoalViewController: UINavigationController {
         }
     }
 
-    private func configure(with filter: FilterContainer?) {
-        guard let filter = filter else { return }
+    private func configure(with filterContainer: FilterContainer?) {
+        guard let filterContainer = filterContainer else { return }
 
-        selectionStore.syncSelection(with: filter)
+        selectionStore.syncSelection(with: filterContainer)
 
         if let rootFilterViewController = rootFilterViewController {
-            rootFilterViewController.set(filter: filter.rootFilter, verticals: filter.verticals)
+            rootFilterViewController.set(filterContainer: filterContainer)
         } else {
             rootFilterViewController = RootFilterViewController(
-                filter: filter.rootFilter,
+                filterContainer: filterContainer,
                 selectionStore: selectionStore
             )
-            rootFilterViewController?.verticals = filter.verticals
             rootFilterViewController?.rootDelegate = self
+            rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource
+            rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
             setViewControllers([rootFilterViewController!], animated: false)
         }
     }
@@ -115,14 +113,21 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
         handleFilterSelectionChange(from: .removeFilterButton)
     }
 
-    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int) {
-        guard let vertical = filter?.verticals?[safe: index] else { return }
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter) {
+        handleFilterSelectionChange(from: .inlineFilter)
+    }
+
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectFreeTextFilter filter: Filter) {
+        handleFilterSelectionChange(from: .freeTextInput)
+    }
+
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical) {
         selectionDelegate?.charcoalViewController(self, didSelect: vertical)
     }
 
     private func handleFilterSelectionChange(from origin: SelectionChangeOrigin) {
-        if let rootFilter = filter?.rootFilter {
-            let queryItems = selectionStore.queryItems(for: rootFilter)
+        if let filterContainer = filterContainer {
+            let queryItems = selectionStore.queryItems(for: filterContainer)
             selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
         }
     }
@@ -197,11 +202,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             pushViewController(gridViewController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
-        case .inline, .search:
-            guard let rootFilter = self.filter?.rootFilter else { return }
-            let queryItems = selectionStore.queryItems(for: rootFilter)
-            let origin: SelectionChangeOrigin = filter.kind == .inline ? .inlineFilter : .freeTextInput
-            selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
         }
     }
 
@@ -235,8 +235,8 @@ extension CharcoalViewController: UINavigationControllerDelegate {
         }
 
         // Will return to root filters
-        if selectionHasChanged, let filter = filter {
-            let queryItems = selectionStore.queryItems(for: filter.rootFilter)
+        if selectionHasChanged, let filterContainer = filterContainer {
+            let queryItems = selectionStore.queryItems(for: filterContainer)
             let origin: SelectionChangeOrigin = bottomBottonClicked ? .bottomButton : .navigation
             selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
             selectionHasChanged = false

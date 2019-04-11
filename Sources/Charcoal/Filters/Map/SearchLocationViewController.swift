@@ -49,7 +49,7 @@ public class SearchLocationViewController: UIViewController {
     // MARK: - Public Properties
 
     public weak var delegate: SearchLocationViewControllerDelegate?
-    public var searchLocationDataSource: SearchLocationDataSource?
+    public weak var searchLocationDataSource: SearchLocationDataSource?
 
     // MARK: - Private Properties
 

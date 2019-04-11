@@ -27,17 +27,11 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 10)
         XCTAssertEqual(filter.style, .context)
         XCTAssertEqual(filter.subfilters.count, 2)
-
-        switch filter.kind {
-        case .list:
-            break
-        default:
-            XCTFail("Incorrect filter kind")
-        }
+        XCTAssertEqual(filter.kind, .list)
     }
 
-    func testSearchFilter() {
-        let filter = Filter.search(title: "Search", key: "q")
+    func testFreeTextFilter() {
+        let filter = Filter.freeText(title: "Search", key: "q")
 
         XCTAssertEqual(filter.title, "Search")
         XCTAssertEqual(filter.key, "q")
@@ -45,13 +39,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertTrue(filter.subfilters.isEmpty)
-
-        switch filter.kind {
-        case .search:
-            break
-        default:
-            XCTFail("Incorrect filter kind")
-        }
+        XCTAssertEqual(filter.kind, .list)
     }
 
     func testInlineFilter() {
@@ -67,13 +55,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertEqual(filter.subfilters.count, 2)
-
-        switch filter.kind {
-        case .inline:
-            break
-        default:
-            XCTFail("Incorrect filter kind")
-        }
+        XCTAssertEqual(filter.kind, .list)
     }
 
     func testStepperFilter() {
@@ -86,13 +68,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .context)
         XCTAssertTrue(filter.subfilters.isEmpty)
-
-        switch filter.kind {
-        case let .stepper(stepperConfig):
-            XCTAssertEqual(config, stepperConfig)
-        default:
-            XCTFail("Incorrect filter kind")
-        }
+        XCTAssertEqual(filter.kind, Filter.Kind.stepper(config: config))
     }
 
     func testExternalFilter() {
@@ -110,13 +86,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 3)
         XCTAssertEqual(filter.style, .context)
         XCTAssertTrue(filter.subfilters.isEmpty)
-
-        switch filter.kind {
-        case .external:
-            break
-        default:
-            XCTFail("Incorrect filter kind")
-        }
+        XCTAssertEqual(filter.kind, .external)
     }
 
     func testRangeFilter() {
@@ -209,14 +179,9 @@ final class FilterTests: XCTestCase {
             Filter.list(title: "Subtitle2", key: "subkey2"),
         ])
 
-        filter1.merge(with: filter2)
+        filter1.mergeSubfilters(with: filter2)
         XCTAssertEqual(filter1.subfilters.count, 3)
         XCTAssertEqual(filter1.subfilter(at: 2)?.key, "subkey3")
-    }
-
-    func testFormattedNumberOfResults() {
-        let filter = Filter.list(title: "List", key: "list", numberOfResults: 10_000_000)
-        XCTAssertEqual(filter.formattedNumberOfResults, "10 000 000")
     }
 }
 
@@ -227,8 +192,8 @@ extension FilterTests: TestDataDecoder {
         guard let config = FilterMarket(market: "bap-sale") else { return }
         let filterSetup = filterDataFromJSONFile(named: "ContextFilterTestData")
         let filter = filterSetup?.filterContainer(using: config)
-        let categoryFilter = filter?.rootFilter.subfilters.first(where: { $0.key == "category" })
-        let shoeSizeFilter = filter?.rootFilter.subfilters.first(where: { $0.key == "shoe_size" })
+        let categoryFilter = filter?.rootFilters.first(where: { $0.key == "category" })
+        let shoeSizeFilter = filter?.rootFilters.first(where: { $0.key == "shoe_size" })
         XCTAssertEqual(categoryFilter?.style, .normal)
         XCTAssertEqual(shoeSizeFilter?.style, .context)
     }

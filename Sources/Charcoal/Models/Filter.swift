@@ -13,8 +13,6 @@ public final class Filter {
     public enum Kind: Equatable {
         case list
         case grid
-        case search
-        case inline
         case stepper(config: StepperFilterConfiguration)
         case external
         case range(lowValueFilter: Filter, highValueFilter: Filter, config: RangeFilterConfiguration)
@@ -29,7 +27,7 @@ public final class Filter {
     public var numberOfResults: Int
     public var mutuallyExclusiveFilterKeys = Set<String>()
 
-    private(set) var subfilters: [Filter] = []
+    fileprivate(set) var subfilters: [Filter] = []
 
     // MARK: - Init
 
@@ -51,18 +49,8 @@ public final class Filter {
         return subfilters[index]
     }
 
-    public func merge(with other: Filter) {
-        for (index, filter) in other.subfilters.enumerated() {
-            if let common = subfilters.first(where: { $0 == filter }) {
-                common.merge(with: filter)
-            } else {
-                if index < subfilters.count {
-                    subfilters.insert(filter, at: index)
-                } else {
-                    subfilters.append(filter)
-                }
-            }
-        }
+    public func mergeSubfilters(with other: Filter) {
+        subfilters.merge(with: other.subfilters)
     }
 }
 
@@ -90,13 +78,13 @@ extension Filter {
         )
     }
 
-    public static func search(title: String? = nil, key: String) -> Filter {
+    public static func freeText(title: String? = nil, key: String) -> Filter {
         let title = title ?? "searchPlaceholder".localized()
-        return Filter(kind: .search, title: title, key: key, value: nil, numberOfResults: 0)
+        return Filter(kind: .list, title: title, key: key, value: nil, numberOfResults: 0)
     }
 
     public static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {
-        return Filter(kind: .inline, title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
+        return Filter(kind: .list, title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
     }
 
     public static func stepper(title: String, key: String,
@@ -149,8 +137,18 @@ extension Filter {
 
 // MARK: - Helpers
 
-extension Filter {
-    var formattedNumberOfResults: String {
-        return NumberFormatter.decimalFormatter.string(from: numberOfResults) ?? ""
+extension Array where Element == Filter {
+    mutating func merge(with filters: [Filter]) {
+        for (index, filter) in filters.enumerated() {
+            if let common = first(where: { $0 == filter }) {
+                common.subfilters.merge(with: filter.subfilters)
+            } else {
+                if index < count {
+                    insert(filter, at: index)
+                } else {
+                    append(filter)
+                }
+            }
+        }
     }
 }

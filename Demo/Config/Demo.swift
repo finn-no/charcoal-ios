@@ -162,7 +162,7 @@ enum ComponentViews: String, CaseIterable {
                 locationKey: "geoLocationName"
             )
 
-            let mapViewController = MapFilterViewController(
+            return MapFilterViewController(
                 title: mapFilter.title,
                 latitudeFilter: mapFilter.subfilters[0],
                 longitudeFilter: mapFilter.subfilters[1],
@@ -170,11 +170,6 @@ enum ComponentViews: String, CaseIterable {
                 locationNameFilter: mapFilter.subfilters[3],
                 selectionStore: FilterSelectionStore()
             )
-
-            mapViewController.mapDataSource = MapDataSource()
-            mapViewController.searchLocationDataSource = DemoSearchLocationDataSource()
-
-            return mapViewController
         case .onboarding:
             return OnboardingViewController()
         }

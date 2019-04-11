@@ -12,7 +12,7 @@ public enum FilterMarketJob: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketJob: FINNFilterConfiguration {
+extension FilterMarketJob: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         return [.published]
     }
@@ -21,8 +21,6 @@ extension FilterMarketJob: FINNFilterConfiguration {
         switch self {
         case .partTime:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .occupation,
@@ -32,8 +30,6 @@ extension FilterMarketJob: FINNFilterConfiguration {
             ]
         case .fullTime, .management:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .occupation,
@@ -58,11 +54,11 @@ extension FilterMarketJob: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
         return nil
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
         return nil
     }
 }

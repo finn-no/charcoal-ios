@@ -13,7 +13,7 @@ public enum FilterMarketMC: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketMC: FINNFilterConfiguration {
+extension FilterMarketMC: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .mc:
@@ -27,8 +27,6 @@ extension FilterMarketMC: FINNFilterConfiguration {
         switch self {
         case .mc:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .category,
@@ -41,8 +39,6 @@ extension FilterMarketMC: FINNFilterConfiguration {
             ]
         case .mopedScooter:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .category,
@@ -55,8 +51,6 @@ extension FilterMarketMC: FINNFilterConfiguration {
             ]
         case .snowmobile, .atv:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .make,
@@ -81,12 +75,8 @@ extension FilterMarketMC: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
-        guard let filterKey = FilterKey(stringValue: key) else {
-            return nil
-        }
-
-        switch filterKey {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
+        switch key {
         case .year:
             return .yearConfiguration(minimumValue: 1950)
         case .engineEffect:
@@ -102,7 +92,7 @@ extension FilterMarketMC: FINNFilterConfiguration {
         }
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
         return nil
     }
 }

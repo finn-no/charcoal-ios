@@ -4,27 +4,23 @@
 
 import Foundation
 
-public protocol FINNFilterConfiguration: FilterConfiguration {
+public protocol FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }
     var rootLevelFilterKeys: [FilterKey] { get }
     var contextFilterKeys: Set<FilterKey> { get }
     var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
+
+    func handlesVerticalId(_ vertical: String) -> Bool
+    func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration?
+    func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration?
 }
 
-public extension FINNFilterConfiguration {
-    var preferenceFilters: [String] {
-        return preferenceFilterKeys.map({ $0.rawValue })
-    }
+public extension FilterConfiguration {
+    func mutuallyExclusiveFilters(for key: FilterKey) -> Set<FilterKey> {
+        guard mutuallyExclusiveFilterKeys.contains(key) else {
+            return []
+        }
 
-    var rootLevelFilters: [String] {
-        return rootLevelFilterKeys.map({ $0.rawValue })
-    }
-
-    var contextFilters: Set<String> {
-        return Set(contextFilterKeys.map({ $0.rawValue }))
-    }
-
-    var mutuallyExclusiveFilters: Set<String> {
-        return Set(mutuallyExclusiveFilterKeys.map({ $0.rawValue }))
+        return mutuallyExclusiveFilterKeys.filter({ $0 != key })
     }
 }

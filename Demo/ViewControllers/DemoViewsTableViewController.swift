@@ -14,6 +14,7 @@ class DemoViewsTableViewController: UITableViewController {
 
     private var bottomSheet: BottomSheet?
     private var bottomSheetPreviousState: BottomSheet.State = .compact
+    private let searchLocationDataSource = DemoSearchLocationDataSource()
 
     private var freeTextSearchSuggestions: [String] = []
 
@@ -74,8 +75,7 @@ class DemoViewsTableViewController: UITableViewController {
             controller.filter = filter
             controller.textEditingDelegate = self
             controller.selectionDelegate = self
-            controller.mapDataSource = MapDataSource()
-            controller.searchLocationDataSource = DemoSearchLocationDataSource()
+            controller.searchLocationDataSource = searchLocationDataSource
             controller.freeTextFilterDelegate = self
             controller.freeTextFilterDataSource = self
 

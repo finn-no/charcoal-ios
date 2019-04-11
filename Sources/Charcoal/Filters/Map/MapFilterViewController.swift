@@ -10,7 +10,7 @@ public protocol MapFilterDataSource: AnyObject {
 }
 
 final class MapFilterViewController: FilterViewController {
-    var mapDataSource: MapFilterDataSource? {
+    weak var mapDataSource: MapFilterDataSource? {
         didSet {
             if let mapTileOverlay = mapDataSource?.mapTileOverlay {
                 mapFilterView.setMapTileOverlay(mapTileOverlay)
@@ -18,7 +18,7 @@ final class MapFilterViewController: FilterViewController {
         }
     }
 
-    var searchLocationDataSource: SearchLocationDataSource? {
+    weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             searchLocationViewController.searchLocationDataSource = searchLocationDataSource
         }

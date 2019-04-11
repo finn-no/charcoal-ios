@@ -32,10 +32,15 @@ class DemoTableViewController: UIViewController {
 
 extension DemoTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var viewController = dataSource.viewController(for: indexPath)
+        let row = dataSource.row(at: indexPath)
+        var viewController = row.type.init()
 
         if let charcoalViewController = viewController as? CharcoalViewController {
-            viewController = BottomSheet(rootViewController: charcoalViewController)
+            charcoalViewController.filter = row.setup?.filter
+        }
+
+        if row.usingBottomSheet {
+            viewController = BottomSheet(rootViewController: viewController)
         }
 
         present(viewController, animated: true)

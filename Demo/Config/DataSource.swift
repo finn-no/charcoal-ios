@@ -14,16 +14,17 @@ class DataSource: NSObject {
         Row(title: "Inline Filter", type: InlineFilterDemoViewController.self),
         Row(title: "Range Filter", type: RangeFilterDemoViewController.self),
         Row(title: "Stepper Filter", type: StepperFilterDemoViewController.self),
+        Row(title: "Onboarding", type: OnboardingViewController.self, usingBottomSheet: true),
     ]
 
     private let markets = [
-        Row(title: "Torget", setup: .bap),
-        Row(title: "Bil", setup: .car),
-        Row(title: "Eiendom", setup: .realestate),
-        Row(title: "Jobb", setup: .job),
-        Row(title: "Båt", setup: .boat),
-        Row(title: "MC", setup: .mc),
-        Row(title: "Nyttekjøretøy", setup: .b2b),
+        Row(title: "Torget", setup: .bap, usingBottomSheet: true),
+        Row(title: "Bil", setup: .car, usingBottomSheet: true),
+        Row(title: "Eiendom", setup: .realestate, usingBottomSheet: true),
+        Row(title: "Jobb", setup: .job, usingBottomSheet: true),
+        Row(title: "Båt", setup: .boat, usingBottomSheet: true),
+        Row(title: "MC", setup: .mc, usingBottomSheet: true),
+        Row(title: "Nyttekjøretøy", setup: .b2b, usingBottomSheet: true),
     ]
 
     private lazy var sections = [
@@ -33,15 +34,8 @@ class DataSource: NSObject {
 
     // MARK: - Methods
 
-    func viewController(for indexPath: IndexPath) -> UIViewController {
-        let row = sections[indexPath.section].data[indexPath.row]
-        let viewController = row.type.init(nibName: nil, bundle: nil)
-
-        if let charcoalViewController = viewController as? CharcoalViewController {
-            charcoalViewController.filter = row.setup?.filter
-        }
-
-        return viewController
+    func row(at indexPath: IndexPath) -> Row {
+        return sections[indexPath.section].data[indexPath.row]
     }
 }
 
@@ -53,14 +47,16 @@ extension DataSource: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].tableView(tableView, numberOfRowsInSection: section)
+        return sections[section].data.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return sections[indexPath.section].tableView(tableView, cellForRowAt: indexPath)
+        let cell = tableView.dequeue(DemoTableViewCell.self, for: indexPath)
+        cell.textLabel?.text = sections[indexPath.section].data[indexPath.item].title
+        return cell
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].tableView(tableView, titleForHeaderInSection: section)
+        return sections[section].title
     }
 }

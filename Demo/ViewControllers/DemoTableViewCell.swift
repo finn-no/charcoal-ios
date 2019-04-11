@@ -23,12 +23,6 @@ class DemoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Public methods
-
-    func configure(with model: Row) {
-        textLabel?.text = model.title
-    }
-
     // MARK: - Overrides
 
     override func prepareForReuse() {

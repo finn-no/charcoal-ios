@@ -50,26 +50,15 @@ public final class CharcoalViewController: UINavigationController {
 
     private var selectionHasChanged = false
     private var bottomBottonClicked = false
-    private var selectionStore = FilterSelectionStore()
+
+    private lazy var selectionStore: FilterSelectionStore = {
+        let store = FilterSelectionStore()
+        store.delegate = self
+        return store
+    }()
 
     private var rootFilterViewController: RootFilterViewController?
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
-
-    // MARK: - Init
-
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        selectionStore.delegate = self
-    }
-
-    public init() {
-        super.init(nibName: nil, bundle: nil)
-        selectionStore.delegate = self
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     // MARK: - Lifecycle
 

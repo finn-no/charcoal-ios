@@ -65,8 +65,6 @@
 		46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */; };
 		4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905239217F5CD000F8E7FD /* Vertical.swift */; };
 		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
-		55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */; };
-		55305BBE20BD947E005637C2 /* CompactListFilterViewDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */; };
@@ -74,7 +72,6 @@
 		559C61FC20DA87330083A574 /* FilterSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C61FB20DA87330083A574 /* FilterSetupTests.swift */; };
 		559C620320DA88B90083A574 /* DecodingTestFilter.json in Resources */ = {isa = PBXBuildFile; fileRef = 559C620220DA88B90083A574 /* DecodingTestFilter.json */; };
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
-		559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB520B6D771009B734D /* RangeNumberInputView.swift */; };
 		559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB920B83178009B734D /* RangeFilterView.swift */; };
 		559C6CBD20BBE709009B734D /* RangeFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */; };
 		55ABF8B020CFD8A100E31229 /* bap.json in Resources */ = {isa = PBXBuildFile; fileRef = 55ABF8AF20CFD8A100E31229 /* bap.json */; };
@@ -139,6 +136,11 @@
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */; };
 		CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */; };
+		CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */; };
+		CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D4225B91A000052077 /* GridFilterViewController.swift */; };
+		CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D6225B929B00052077 /* GridFilterCell.swift */; };
+		CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E122576AF8008D6789 /* NumberInputView.swift */; };
+		CFE987E422579706008D6789 /* NumberInputFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E322579706008D6789 /* NumberInputFontSize.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
 		CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
 		CFEDCE002232B756008FCDB1 /* FINNSetup.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -342,8 +344,6 @@
 		4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReferenceValueView.swift; sourceTree = "<group>"; };
 		46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDistanceValueFormatter.swift; sourceTree = "<group>"; };
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
-		55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactListFilterView.swift; sourceTree = "<group>"; };
-		55305BBD20BD947E005637C2 /* CompactListFilterViewDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactListFilterViewDemoView.swift; sourceTree = "<group>"; };
 		554D154F20C0782200FA3930 /* car-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-norway.json"; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
@@ -352,7 +352,6 @@
 		559C61FB20DA87330083A574 /* FilterSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetupTests.swift; sourceTree = "<group>"; };
 		559C620220DA88B90083A574 /* DecodingTestFilter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DecodingTestFilter.json; sourceTree = "<group>"; };
 		559C6CB120B6CA72009B734D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		559C6CB520B6D771009B734D /* RangeNumberInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
 		559C6CB920B83178009B734D /* RangeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterView.swift; sourceTree = "<group>"; };
 		559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoViewController.swift; sourceTree = "<group>"; };
 		55ABF8AF20CFD8A100E31229 /* bap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bap.json; sourceTree = "<group>"; };
@@ -419,6 +418,11 @@
 		CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionChangeOrigin.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitTests.swift; sourceTree = "<group>"; };
+		CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
+		CFE255D4225B91A000052077 /* GridFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterViewController.swift; sourceTree = "<group>"; };
+		CFE255D6225B929B00052077 /* GridFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterCell.swift; sourceTree = "<group>"; };
+		CFE987E122576AF8008D6789 /* NumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberInputView.swift; sourceTree = "<group>"; };
+		CFE987E322579706008D6789 /* NumberInputFontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberInputFontSize.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
 		CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FINNSetup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FINNSetup.h; sourceTree = "<group>"; };
@@ -761,24 +765,23 @@
 			path = Vertical;
 			sourceTree = "<group>";
 		};
-		5510EDAA20BFCCFE006E4A0F /* CompactList */ = {
+		5510EDAA20BFCCFE006E4A0F /* Grid */ = {
 			isa = PBXGroup;
 			children = (
-				55305BBB20BD8CDF005637C2 /* CompactListFilterView.swift */,
+				CFE255D4225B91A000052077 /* GridFilterViewController.swift */,
+				CFE255D6225B929B00052077 /* GridFilterCell.swift */,
 			);
-			path = CompactList;
+			path = Grid;
 			sourceTree = "<group>";
 		};
 		5515EA4320BD5B5600AC98A3 /* Range */ = {
 			isa = PBXGroup;
 			children = (
+				CFE987E52257A5EE008D6789 /* Slider */,
+				CF14A0D822539A4200F9AB71 /* Input */,
 				CF4C870B221AFC8500DFAF2A /* RangeFilterViewController.swift */,
 				9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */,
 				559C6CB920B83178009B734D /* RangeFilterView.swift */,
-				559C6CB520B6D771009B734D /* RangeNumberInputView.swift */,
-				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
-				CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */,
-				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
 			);
 			path = Range;
 			sourceTree = "<group>";
@@ -928,6 +931,17 @@
 			path = BackendModel;
 			sourceTree = "<group>";
 		};
+		CF14A0D822539A4200F9AB71 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				CFE987E322579706008D6789 /* NumberInputFontSize.swift */,
+				CFE987E122576AF8008D6789 /* NumberInputView.swift */,
+				CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */,
+				CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
 		CF33D9C8224A499C00A24DF0 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -981,7 +995,7 @@
 			isa = PBXGroup;
 			children = (
 				DA39FA19220B17DB00608AC4 /* FilterViewController.swift */,
-				5510EDAA20BFCCFE006E4A0F /* CompactList */,
+				5510EDAA20BFCCFE006E4A0F /* Grid */,
 				CF4C8706221AE5AD00DFAF2A /* FreeText */,
 				DAFD7A0D21AE96CE00A468B2 /* Inline */,
 				DA39FA1D220B17DB00608AC4 /* List */,
@@ -1117,6 +1131,15 @@
 				CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CFE987E52257A5EE008D6789 /* Slider */ = {
+			isa = PBXGroup;
+			children = (
+				55F97D1620B4432C002BABC9 /* RangeSliderView.swift */,
+				4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */,
+			);
+			path = Slider;
 			sourceTree = "<group>";
 		};
 		CFEDCD8A223273DC008FCDB1 /* Views */ = {
@@ -1685,7 +1708,6 @@
 				CFF4F45A223BD3B600A137DA /* MapRadiusView.swift in Sources */,
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */,
-				559C6CB620B6D771009B734D /* RangeNumberInputView.swift in Sources */,
 				9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */,
 				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,
 				CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */,
@@ -1693,15 +1715,18 @@
 				DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
 				CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */,
+				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
 				DA51041B21BE6AFE004048BD /* Font.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
+				CFE987E422579706008D6789 /* NumberInputFontSize.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
+				CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */,
 				CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,
@@ -1729,10 +1754,11 @@
 				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */,
 				CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */,
-				55305BBC20BD8CDF005637C2 /* CompactListFilterView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
 				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
 				CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */,
+				CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */,
+				CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */,
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
 				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 			);

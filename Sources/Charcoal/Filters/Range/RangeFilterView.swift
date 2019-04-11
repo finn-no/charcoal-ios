@@ -28,12 +28,11 @@ final class RangeFilterView: UIView {
     }
 
     private lazy var numberInputView: RangeNumberInputView = {
-        let inputFontSize: RangeNumberInputView.InputFontSize = filterConfig.usesSmallNumberInputFont ? .small : .large
         let rangeNumberInputView = RangeNumberInputView(
             minimumValue: filterConfig.minimumValue,
             maximumValue: filterConfig.maximumValue,
             unit: filterConfig.unit,
-            inputFontSize: inputFontSize
+            usesSmallNumberInputFont: filterConfig.usesSmallNumberInputFont
         )
 
         rangeNumberInputView.translatesAutoresizingMaskIntoConstraints = false

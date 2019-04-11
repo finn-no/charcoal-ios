@@ -62,6 +62,7 @@ public class SearchLocationViewController: UIViewController {
 
     private(set) lazy var searchBar: UISearchBar = {
         let searchBar = SearchLocationSearchBar(frame: .zero)
+        searchBar.placeholder = "map.search.placeholder".localized()
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         searchBar.backgroundColor = .milk

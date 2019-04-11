@@ -132,7 +132,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertTrue(store.isSelected(filter))
     }
 
-    func testQueryItems() {
+    func testQueryItemsForFilter() {
         let filter = Filter.list(title: "Test", key: "test", value: "value")
         store.setValue(from: filter)
 
@@ -140,7 +140,7 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertEqual(store.queryItems(for: filter), expected)
     }
 
-    func testQueryItemsWithSubfilters() {
+    func testQueryItemsForFiltersWithSubfilters() {
         let subfilterA = Filter.list(title: "subfilter A", key: "subfilterA", value: "valueA")
         let subfilterB = Filter.list(title: "subfilter B", key: "subfilterB", value: "valueB")
         let subfilters = [subfilterA, subfilterB]
@@ -155,6 +155,16 @@ final class FilterSelectionStoreTests: XCTestCase {
         ]
 
         XCTAssertEqual(store.queryItems(for: filter), expected)
+    }
+
+    func testQueryItemsForFilterContainer() {
+        let filter = Filter.list(title: "Test", key: "test", value: "value")
+        let container = FilterContainer(rootFilters: [filter], freeTextFilter: nil, inlineFilter: nil, numberOfResults: 0)
+
+        store.setValue(from: filter)
+
+        let expected = [URLQueryItem(name: "test", value: "value")]
+        XCTAssertEqual(store.queryItems(for: container), expected)
     }
 
     func testTitles() {

@@ -156,10 +156,8 @@ extension RootFilterViewController: UITableViewDataSource {
         case .freeText:
             let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
 
-            if let freeTextFilter = filterContainer.freeTextFilter {
-                freeTextFilterViewController =
-                    freeTextFilterViewController ??
-                    FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
+            if let freeTextFilter = filterContainer.freeTextFilter, freeTextFilterViewController == nil {
+                freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
             }
 
             freeTextFilterViewController?.delegate = self
@@ -223,8 +221,7 @@ extension RootFilterViewController: UITableViewDelegate {
 
         switch section {
         case .rootFilters:
-            let selectedFilter = filterContainer.rootFilters[indexPath.row]
-            delegate?.filterViewController(self, didSelectFilter: selectedFilter)
+            delegate?.filterViewController(self, didSelectFilter: filterContainer.rootFilters[indexPath.row])
         case .freeText, .inline:
             return
         }

@@ -119,13 +119,21 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
         handleFilterSelectionChange(from: .removeFilterButton)
     }
 
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter) {
+        handleFilterSelectionChange(from: .inlineFilter)
+    }
+
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectFreeTextFilter filter: Filter) {
+        handleFilterSelectionChange(from: .freeTextInput)
+    }
+
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical) {
         selectionDelegate?.charcoalViewController(self, didSelect: vertical)
     }
 
     private func handleFilterSelectionChange(from origin: SelectionChangeOrigin) {
         if let filterContainer = filterContainer {
-            let queryItems = selectionStore.queryItems(for: filterContainer.allFilters)
+            let queryItems = selectionStore.queryItems(for: filterContainer)
             selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
         }
     }
@@ -200,10 +208,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             pushViewController(gridViewController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
-        case .inline, .search:
-            let queryItems = selectionStore.queryItems(for: filterContainer?.allFilters ?? [])
-            let origin: SelectionChangeOrigin = filter.kind == .inline ? .inlineFilter : .freeTextInput
-            selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
         }
     }
 
@@ -238,7 +242,7 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 
         // Will return to root filters
         if selectionHasChanged, let filterContainer = filterContainer {
-            let queryItems = selectionStore.queryItems(for: filterContainer.allFilters)
+            let queryItems = selectionStore.queryItems(for: filterContainer)
             let origin: SelectionChangeOrigin = bottomBottonClicked ? .bottomButton : .navigation
             selectionDelegate?.charcoalViewController(self, didChangeSelection: queryItems, origin: origin)
             selectionHasChanged = false

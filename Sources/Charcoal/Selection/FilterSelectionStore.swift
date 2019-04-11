@@ -135,6 +135,10 @@ extension FilterSelectionStore {
         return filter.subfilters.reduce([]) { $0 + queryItems(for: $1) }
     }
 
+    func queryItems(for filterContainer: FilterContainer) -> [URLQueryItem] {
+        return queryItems(for: filterContainer.allFilters)
+    }
+
     func queryItems(for filters: [Filter]) -> [URLQueryItem] {
         return filters.reduce([]) { $0 + queryItems(for: $1) }
     }

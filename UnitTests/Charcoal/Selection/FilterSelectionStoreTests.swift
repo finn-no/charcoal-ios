@@ -291,43 +291,34 @@ final class FilterSelectionStoreTests: XCTestCase {
         XCTAssertTrue(store.selectedSubfilters(for: filter, where: { $0.key == "subfilterB" }).isEmpty)
     }
 
-    func testSyncSelectionWithSelectedFilterAndSubfilter() {
-        let filter = Filter.list(
-            title: "filter",
-            key: "filter",
-            value: "value",
+    func testSyncSelection() {
+        let rootFilters = [
+            Filter.list(title: "subfilter A", key: "subfilterA", value: "valueA"),
+            Filter.list(title: "subfilter B", key: "subfilterB", value: "valueB"),
+        ]
+        let inlineFilter = Filter.inline(
+            title: "Inline",
+            key: "inline",
             subfilters: [
-                Filter.list(title: "subfilter A", key: "subfilterA", value: "valueA"),
-                Filter.list(title: "subfilter B", key: "subfilterB", value: "valueB"),
-            ]
-        )
-
+                Filter.list(title: "subfilter C", key: "subfilterC", value: "valueC"),
+                Filter.list(title: "subfilter D", key: "subfilterD", value: "valueD"),
+        ])
         let queryItems = Set([
             URLQueryItem(name: "filter", value: "value"),
             URLQueryItem(name: "subfilterB", value: "valueB"),
+            URLQueryItem(name: "subfilterD", value: "valueD"),
         ])
 
-        store.set(selection: queryItems)
-        store.syncSelection(with: FilterContainer(root: filter))
-
-        XCTAssertFalse(store.isSelected(filter))
-        XCTAssertFalse(store.isSelected(filter.subfilters[0]))
-        XCTAssertTrue(store.isSelected(filter.subfilters[1]))
-    }
-
-    func testSyncSelectionWithOldQueryItems() {
-        let filterA = Filter.list(title: "filter A", key: "filterA", value: "valueA")
-        let filterB = Filter.list(title: "filter B", key: "filterB", value: "valueB")
-
-        store.setValue(from: filterA)
-        XCTAssertTrue(store.isSelected(filterA))
-
-        let queryItems = Set([URLQueryItem(name: "filterB", value: "valueB")])
+        let container = FilterContainer(rootFilters: rootFilters, freeTextFilter: nil, inlineFilter: inlineFilter, numberOfResults: 0)
 
         store.set(selection: queryItems)
-        store.syncSelection(with: FilterContainer(root: filterB))
+        store.syncSelection(with: container)
 
-        XCTAssertFalse(store.isSelected(filterA))
-        XCTAssertTrue(store.isSelected(filterB))
+        XCTAssertFalse(store.isSelected(rootFilters[0]))
+        XCTAssertTrue(store.isSelected(rootFilters[1]))
+        XCTAssertFalse(store.isSelected(inlineFilter))
+        XCTAssertFalse(store.isSelected(inlineFilter.subfilters[0]))
+        XCTAssertTrue(store.isSelected(inlineFilter.subfilters[1]))
+        XCTAssertEqual(store.queryItems(for: container).count, 2)
     }
 }

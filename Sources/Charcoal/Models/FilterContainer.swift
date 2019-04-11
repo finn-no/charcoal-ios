@@ -14,18 +14,18 @@ public class FilterContainer {
 
     private(set) var rootFilters: [Filter]
     private(set) var inlineFilter: Filter?
-    private(set) var searchFilter: Filter?
+    private(set) var freeTextFilter: Filter?
     private(set) var numberOfResults: Int
 
     var allFilters: [Filter] {
-        return [searchFilter, inlineFilter].compactMap({ $0 }) + rootFilters
+        return [freeTextFilter, inlineFilter].compactMap({ $0 }) + rootFilters
     }
 
     // MARK: - Setup
 
-    public init(rootFilters: [Filter], searchFilter: Filter?, inlineFilter: Filter?, numberOfResults: Int) {
+    public init(rootFilters: [Filter], freeTextFilter: Filter?, inlineFilter: Filter?, numberOfResults: Int) {
         self.rootFilters = rootFilters
-        self.searchFilter = searchFilter
+        self.freeTextFilter = freeTextFilter
         self.inlineFilter = inlineFilter
         self.numberOfResults = numberOfResults
     }
@@ -43,8 +43,8 @@ public class FilterContainer {
             }
         }
 
-        if let otherSearchFilter = other.searchFilter {
-            searchFilter = otherSearchFilter
+        if let otherFreeTextFilter = other.freeTextFilter {
+            freeTextFilter = otherFreeTextFilter
         }
     }
 

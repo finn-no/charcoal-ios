@@ -68,7 +68,7 @@ public struct FilterSetup: Decodable {
 
         return FilterContainer(
             rootFilters: rootFilters,
-            searchFilter: Filter.search(key: FilterKey.query.rawValue),
+            freeTextFilter: Filter.freeText(key: FilterKey.query.rawValue),
             inlineFilter: Filter.inline(title: "", key: FilterKey.preferences.rawValue, subfilters: preferenceFilters),
             numberOfResults: objectCount ?? hits
         )

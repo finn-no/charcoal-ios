@@ -13,8 +13,6 @@ public final class Filter {
     public enum Kind: Equatable {
         case list
         case grid
-        case search
-        case inline
         case stepper(config: StepperFilterConfiguration)
         case external
         case range(lowValueFilter: Filter, highValueFilter: Filter, config: RangeFilterConfiguration)
@@ -80,13 +78,13 @@ extension Filter {
         )
     }
 
-    public static func search(title: String? = nil, key: String) -> Filter {
+    public static func freeText(title: String? = nil, key: String) -> Filter {
         let title = title ?? "searchPlaceholder".localized()
-        return Filter(kind: .search, title: title, key: key, value: nil, numberOfResults: 0)
+        return Filter(kind: .list, title: title, key: key, value: nil, numberOfResults: 0)
     }
 
     public static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {
-        return Filter(kind: .inline, title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
+        return Filter(kind: .list, title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
     }
 
     public static func stepper(title: String, key: String,

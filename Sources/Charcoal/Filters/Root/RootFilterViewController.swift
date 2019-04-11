@@ -7,12 +7,14 @@ import UIKit
 protocol RootFilterViewControllerDelegate: class {
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectFreeTextFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical)
 }
 
 final class RootFilterViewController: FilterViewController {
     enum Section: Int, CaseIterable {
-        case search, inline, filters
+        case freeText, inline, rootFilters
     }
 
     // MARK: - Internal properties
@@ -138,11 +140,11 @@ extension RootFilterViewController: UITableViewDataSource {
         guard let section = Section(rawValue: section) else { return 0 }
 
         switch section {
-        case .search:
-            return filterContainer.searchFilter != nil ? 1 : 0
+        case .freeText:
+            return filterContainer.freeTextFilter != nil ? 1 : 0
         case .inline:
             return filterContainer.inlineFilter != nil ? 1 : 0
-        case .filters:
+        case .rootFilters:
             return filterContainer.rootFilters.count
         }
     }
@@ -151,13 +153,13 @@ extension RootFilterViewController: UITableViewDataSource {
         guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
 
         switch section {
-        case .search:
+        case .freeText:
             let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
 
-            if let searchFilter = filterContainer.searchFilter {
+            if let freeTextFilter = filterContainer.freeTextFilter {
                 freeTextFilterViewController =
                     freeTextFilterViewController ??
-                    FreeTextFilterViewController(filter: searchFilter, selectionStore: selectionStore)
+                    FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
             }
 
             freeTextFilterViewController?.delegate = self
@@ -188,7 +190,7 @@ extension RootFilterViewController: UITableViewDataSource {
             }
 
             return cell
-        case .filters:
+        case .rootFilters:
             let currentFilter = filterContainer.rootFilters[indexPath.row]
             let titles = selectionStore.titles(for: currentFilter)
             let isValid = selectionStore.isValid(currentFilter)
@@ -220,10 +222,10 @@ extension RootFilterViewController: UITableViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
         switch section {
-        case .filters:
+        case .rootFilters:
             let selectedFilter = filterContainer.rootFilters[indexPath.row]
             delegate?.filterViewController(self, didSelectFilter: selectedFilter)
-        case .search, .inline:
+        case .freeText, .inline:
             return
         }
     }
@@ -259,10 +261,10 @@ extension RootFilterViewController: RootFilterCellDelegate {
     }
 
     private func reloadCellsWithExclusiveFilters(for filter: Filter) {
-        let exclusiveFilterKeys = filter.mutuallyExclusiveFilterKeys
+        let keys = filter.mutuallyExclusiveFilterKeys
 
         let indexPathsToReload = filterContainer.rootFilters.enumerated().compactMap({ index, subfilter in
-            return exclusiveFilterKeys.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
+            return keys.contains(subfilter.key) ? IndexPath(row: index, section: Section.rootFilters.rawValue) : nil
         })
 
         tableView.reloadRows(at: indexPathsToReload, with: .none)
@@ -284,7 +286,7 @@ extension RootFilterViewController: InlineFilterViewDelegate {
                 }
             }
 
-            rootDelegate?.filterViewController(self, didSelectFilter: inlineFilter)
+            rootDelegate?.rootFilterViewController(self, didSelectInlineFilter: inlineFilter)
         }
     }
 
@@ -323,7 +325,7 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
 
 extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
     func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelect value: String?, for filter: Filter) {
-        rootDelegate?.filterViewController(self, didSelectFilter: filter)
+        rootDelegate?.rootFilterViewController(self, didSelectFreeTextFilter: filter)
     }
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {

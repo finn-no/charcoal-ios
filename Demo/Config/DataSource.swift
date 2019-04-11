@@ -37,8 +37,8 @@ class DataSource: NSObject {
         let row = sections[indexPath.section].data[indexPath.row]
         let viewController = row.type.init(nibName: nil, bundle: nil)
 
-        if let setup = row.setup, let charcoalViewController = viewController as? CharcoalViewController {
-            charcoalViewController.filter = setup.filter
+        if let charcoalViewController = viewController as? CharcoalViewController {
+            charcoalViewController.filter = row.setup?.filter
         }
 
         return viewController

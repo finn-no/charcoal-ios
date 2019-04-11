@@ -14,6 +14,7 @@ class DataSource: NSObject {
         Row(title: "Inline Filter", type: InlineFilterDemoViewController.self),
         Row(title: "Range Filter", type: RangeFilterDemoViewController.self),
         Row(title: "Stepper Filter", type: StepperFilterDemoViewController.self),
+        Row(title: "Område i kart", type: MapFilterDemoViewController.self),
         Row(title: "Onboarding", type: OnboardingViewController.self, usingBottomSheet: true),
     ]
 

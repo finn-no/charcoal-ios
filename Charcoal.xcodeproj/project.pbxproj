@@ -192,6 +192,7 @@
 		DADF2DCE225373A100567C78 /* OnboardingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */; };
 		DADF2DD0225375CE00567C78 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */; };
 		DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF2DD12253761300567C78 /* OnboardingCell.swift */; };
+		DAEA93D8225F7228003B215D /* MapFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */; };
 		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
 		DAF3CA7421830F18007235B0 /* StepperFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7321830F18007235B0 /* StepperFilterDemoViewController.swift */; };
@@ -492,6 +493,7 @@
 		DAD45C0F223A898C00FE1EF5 /* .FinniversKit.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = .FinniversKit.version; sourceTree = "<group>"; };
 		DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		DADF2DD12253761300567C78 /* OnboardingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
+		DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterDemoViewController.swift; sourceTree = "<group>"; };
 		DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
 		DAF3CA7321830F18007235B0 /* StepperFilterDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterDemoViewController.swift; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 				55946B7D20970237008AB7CE /* InlineFilterDemoViewController.swift */,
 				559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */,
 				DAF3CA7321830F18007235B0 /* StepperFilterDemoViewController.swift */,
+				DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1759,6 +1762,7 @@
 				55946B7E20970237008AB7CE /* InlineFilterDemoViewController.swift in Sources */,
 				DA68144E22574CD4003F3975 /* Section.swift in Sources */,
 				DA51041321BE680D004048BD /* Color.swift in Sources */,
+				DAEA93D8225F7228003B215D /* MapFilterDemoViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
 				DA68145422575275003F3975 /* DemoTableViewCell.swift in Sources */,
 				DA68145622576539003F3975 /* DataSource.swift in Sources */,

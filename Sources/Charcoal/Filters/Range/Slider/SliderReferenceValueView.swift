@@ -23,7 +23,7 @@ final class SliderReferenceValueView: UIView {
     private lazy var referenceLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: FontType.light.rawValue, size: 12)
+        label.font = UIFont.caption.withSize(12)
         label.textColor = .licorice
         label.textAlignment = .center
         label.text = displayText

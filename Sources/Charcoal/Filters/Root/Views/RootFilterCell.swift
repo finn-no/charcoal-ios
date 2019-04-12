@@ -105,7 +105,7 @@ final class RootFilterCell: BasicTableViewCell {
     }
 
     private func setup() {
-        titleLabel.font = .regularBody
+        titleLabel.font = .body
         titleLabel.textColor = .licorice
 
         setContextMarkBackground()

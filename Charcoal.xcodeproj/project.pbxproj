@@ -55,10 +55,6 @@
 		44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE698208F80320017AC82 /* Charcoal.swift */; };
 		44ECE6AC208F816D0017AC82 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A7208F816D0017AC82 /* Setup.swift */; };
 		44ECE6AD208F816D0017AC82 /* DemoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE6A8208F816D0017AC82 /* DemoTableViewController.swift */; };
-		44ECE6B5208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B1208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf */; };
-		44ECE6B6208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */; };
-		44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */; };
-		44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */; };
 		462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462EC166212D746900E6085C /* UIViewControllerExtensions.swift */; };
 		4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */; };
 		46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */; };
@@ -91,7 +87,6 @@
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
 		9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */; };
 		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
-		9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */; };
 		9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A0532091D2130000632B /* FreeTextFilterCell.swift */; };
 		9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */; };
@@ -175,8 +170,6 @@
 		DA51041121BE66A1004048BD /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51041021BE66A1004048BD /* HockeySDK.framework */; };
 		DA51041221BE680D004048BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
 		DA51041321BE680D004048BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
-		DA51041B21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
-		DA51041C21BE6AFE004048BD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA51041A21BE6AFE004048BD /* Font.swift */; };
 		DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA643FB6220C720A001ED360 /* StepperViewController.swift */; };
 		DA68144E22574CD4003F3975 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68144D22574CD4003F3975 /* Section.swift */; };
@@ -333,10 +326,6 @@
 		44ECE698208F80320017AC82 /* Charcoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charcoal.swift; sourceTree = "<group>"; };
 		44ECE6A7208F816D0017AC82 /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 		44ECE6A8208F816D0017AC82 /* DemoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoTableViewController.swift; sourceTree = "<group>"; };
-		44ECE6B1208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Light.ttf"; sourceTree = "<group>"; };
-		44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Medium.ttf"; sourceTree = "<group>"; };
-		44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Regular.ttf"; sourceTree = "<group>"; };
-		44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FINNTypeWebStrippet-Bold.ttf"; sourceTree = "<group>"; };
 		462EC166212D746900E6085C /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		465F616A219B7A1900CF568B /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
 		465F616E219B7B8B00CF568B /* FilterDataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataQuery.swift; sourceTree = "<group>"; };
@@ -372,7 +361,6 @@
 		9BB82799216B57730014028C /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfiguration.swift; sourceTree = "<group>"; };
 		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DnaFontExtensions.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		9BE0A0532091D2130000632B /* FreeTextFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterCell.swift; sourceTree = "<group>"; };
 		9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomButtonView.swift; sourceTree = "<group>"; };
@@ -441,7 +429,6 @@
 		DA39FA3F220B30E700608AC4 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
-		DA51041A21BE6AFE004048BD /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		DA643FB6220C720A001ED360 /* StepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperViewController.swift; sourceTree = "<group>"; };
 		DA68144D22574CD4003F3975 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		DA68144F22574D3C003F3975 /* Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
@@ -728,23 +715,11 @@
 		44ECE6AF208F83BD0017AC82 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				44ECE6B0208F83BD0017AC82 /* Fonts */,
 				55646DAF2091FE11006AA2DA /* Assets.xcassets */,
 				55893225209B206000512FF8 /* AssetImageNames.swift */,
 				559C6CB220B6CA72009B734D /* Localizable.strings */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		44ECE6B0208F83BD0017AC82 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				44ECE6B1208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf */,
-				44ECE6B2208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf */,
-				44ECE6B3208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf */,
-				44ECE6B4208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		465F6167219B6ECF00CF568B /* BackendModel */ = {
@@ -895,7 +870,6 @@
 			children = (
 				9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */,
 				9BD6377D21244C0B00AB9DFE /* Color.swift */,
-				DA51041A21BE6AFE004048BD /* Font.swift */,
 				DA39FA3F220B30E700608AC4 /* Int.swift */,
 				CF33D9D8224BACBC00A24DF0 /* NumberFormatterExtensions.swift */,
 				CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */,
@@ -1039,7 +1013,6 @@
 		CF4C8707221AEB6500DFAF2A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				9BD6379B212452AE00AB9DFE /* DnaFontExtensions.swift */,
 				CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */,
 			);
 			path = Extensions;
@@ -1497,11 +1470,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44ECE6B8208F83BD0017AC82 /* FINNTypeWebStrippet-Bold.ttf in Resources */,
 				559C6CB020B6CA72009B734D /* Localizable.strings in Resources */,
-				44ECE6B7208F83BD0017AC82 /* FINNTypeWebStrippet-Regular.ttf in Resources */,
-				44ECE6B6208F83BD0017AC82 /* FINNTypeWebStrippet-Medium.ttf in Resources */,
-				44ECE6B5208F83BD0017AC82 /* FINNTypeWebStrippet-Light.ttf in Resources */,
 				55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1708,7 +1677,6 @@
 				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
-				DA51041B21BE6AFE004048BD /* Font.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
@@ -1757,7 +1725,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BD6379C212452AE00AB9DFE /* DnaFontExtensions.swift in Sources */,
 				55946B7E20970237008AB7CE /* InlineFilterDemoViewController.swift in Sources */,
 				DA68144E22574CD4003F3975 /* Section.swift in Sources */,
 				DA51041321BE680D004048BD /* Color.swift in Sources */,
@@ -1768,7 +1735,6 @@
 				DA68145622576539003F3975 /* DataSource.swift in Sources */,
 				9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */,
 				9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */,
-				DA51041C21BE6AFE004048BD /* Font.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Setup.swift in Sources */,
 				DA2EFF3B225B51CC00F5B849 /* DemoViewController.swift in Sources */,
 				DA68145022574D3C003F3975 /* Row.swift in Sources */,

@@ -111,7 +111,7 @@ final class ListFilterCell: CheckboxTableViewCell {
     }
 
     private func setup() {
-        titleLabel.font = .regularBody
+        titleLabel.font = .body
 
         addSubview(overlayView)
         checkbox.addSubview(checkboxImageView)

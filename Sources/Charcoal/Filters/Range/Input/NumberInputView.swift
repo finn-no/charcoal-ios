@@ -257,8 +257,8 @@ extension NumberInputView: UITextFieldDelegate {
 private struct Style {
     static let textColor: UIColor = .licorice
     static let errorTextColor: UIColor = .cherry
-    static let hintNormalFont: UIFont? = UIFont(name: FontType.light.rawValue, size: 16)
-    static let hintActiveFont: UIFont? = UIFont(name: FontType.medium.rawValue, size: 16)
+    static let hintNormalFont: UIFont = .body
+    static let hintActiveFont: UIFont = .bodyStrong
     static let decorationViewColor: UIColor = .stone
     static let decorationViewActiveColor: UIColor = .primaryBlue
     static let decorationViewHeight: CGFloat = 1.0
@@ -266,11 +266,11 @@ private struct Style {
     static let decorationViewActiveCornerRadius = decorationViewActiveHeight / 2
 
     static func normalFont(size: NumberInputFontSize) -> UIFont? {
-        return UIFont(name: FontType.light.rawValue, size: size.rawValue)
+        return UIFont.body.withSize(size.rawValue)
     }
 
     static func activeFont(size: NumberInputFontSize) -> UIFont? {
-        return UIFont(name: FontType.bold.rawValue, size: size.rawValue)
+        return UIFont.bodyStrong.withSize(size.rawValue)
     }
 }
 

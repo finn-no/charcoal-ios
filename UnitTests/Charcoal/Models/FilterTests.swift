@@ -9,10 +9,10 @@ import XCTest
 final class FilterTests: XCTestCase {
     func testListFilter() {
         let subfilters = [
-            Filter.list(title: "Child A", key: "childA"),
-            Filter.list(title: "Child B", key: "childB"),
+            Filter(title: "Child A", key: "childA"),
+            Filter(title: "Child B", key: "childB"),
         ]
-        let filter = Filter.list(
+        let filter = Filter(
             title: "List",
             key: "list",
             value: "value",
@@ -27,7 +27,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 10)
         XCTAssertEqual(filter.style, .context)
         XCTAssertEqual(filter.subfilters.count, 2)
-        XCTAssertEqual(filter.kind, .list)
+        XCTAssertEqual(filter.kind, .standard)
     }
 
     func testFreeTextFilter() {
@@ -39,13 +39,13 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertTrue(filter.subfilters.isEmpty)
-        XCTAssertEqual(filter.kind, .list)
+        XCTAssertEqual(filter.kind, .standard)
     }
 
     func testInlineFilter() {
         let subfilters = [
-            Filter.list(title: "Child A", key: "childA"),
-            Filter.list(title: "Child B", key: "childB"),
+            Filter(title: "Child A", key: "childA"),
+            Filter(title: "Child B", key: "childB"),
         ]
         let filter = Filter.inline(title: "Inline", key: "inline", subfilters: subfilters)
 
@@ -55,7 +55,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertEqual(filter.subfilters.count, 2)
-        XCTAssertEqual(filter.kind, .list)
+        XCTAssertEqual(filter.kind, .standard)
     }
 
     func testStepperFilter() {
@@ -147,36 +147,36 @@ final class FilterTests: XCTestCase {
     }
 
     func testEquatable() {
-        var filter1 = Filter.list(title: "Title1", key: "key1")
-        var filter2 = Filter.list(title: "Title1", key: "key1")
+        var filter1 = Filter(title: "Title1", key: "key1")
+        var filter2 = Filter(title: "Title1", key: "key1")
         XCTAssertEqual(filter1, filter2)
 
-        filter1 = Filter.list(title: "Title1", key: "key1")
-        filter2 = Filter.list(title: "Title1", key: "key1", value: "value1")
+        filter1 = Filter(title: "Title1", key: "key1")
+        filter2 = Filter(title: "Title1", key: "key1", value: "value1")
         XCTAssertNotEqual(filter1, filter2)
 
-        filter1 = Filter.list(title: "Title1", key: "key1")
-        filter2 = Filter.list(title: "Title1", key: "key2")
+        filter1 = Filter(title: "Title1", key: "key1")
+        filter2 = Filter(title: "Title1", key: "key2")
         XCTAssertNotEqual(filter1, filter2)
 
-        filter1 = Filter.list(title: "Title1", key: "key1", value: "value1")
-        filter2 = Filter.list(title: "Title1", key: "key1", value: "value2")
+        filter1 = Filter(title: "Title1", key: "key1", value: "value1")
+        filter2 = Filter(title: "Title1", key: "key1", value: "value2")
         XCTAssertNotEqual(filter1, filter2)
 
-        filter1 = Filter.list(title: "Title1", key: "key1", value: "value1")
-        filter2 = Filter.list(title: "Title1", key: "key1", value: "value1")
+        filter1 = Filter(title: "Title1", key: "key1", value: "value1")
+        filter2 = Filter(title: "Title1", key: "key1", value: "value1")
         XCTAssertEqual(filter1, filter2)
     }
 
     func testMergeFilters() {
-        let filter1 = Filter.list(title: "Title1", key: "key1", subfilters: [
-            Filter.list(title: "Subtitle1", key: "subkey1"),
-            Filter.list(title: "Subtitle3", key: "subkey3"),
+        let filter1 = Filter(title: "Title1", key: "key1", subfilters: [
+            Filter(title: "Subtitle1", key: "subkey1"),
+            Filter(title: "Subtitle3", key: "subkey3"),
         ])
 
-        let filter2 = Filter.list(title: "Title1", key: "key1", subfilters: [
-            Filter.list(title: "Subtitle1", key: "subkey1"),
-            Filter.list(title: "Subtitle2", key: "subkey2"),
+        let filter2 = Filter(title: "Title1", key: "key1", subfilters: [
+            Filter(title: "Subtitle1", key: "subkey1"),
+            Filter(title: "Subtitle2", key: "subkey2"),
         ])
 
         filter1.mergeSubfilters(with: filter2)

@@ -11,7 +11,7 @@ public final class Filter {
     }
 
     public enum Kind: Equatable {
-        case list
+        case standard
         case grid
         case stepper(config: StepperFilterConfiguration)
         case external
@@ -31,7 +31,7 @@ public final class Filter {
 
     // MARK: - Init
 
-    public init(kind: Kind, title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
+    public init(kind: Kind = .standard, title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
                 style: Style = .normal, subfilters: [Filter] = []) {
         self.title = title
         self.key = key
@@ -65,26 +65,13 @@ extension Filter: Equatable {
 // MARK: - Factory
 
 extension Filter {
-    public static func list(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
-                            style: Style = .normal, subfilters: [Filter] = []) -> Filter {
-        return Filter(
-            kind: .list,
-            title: title,
-            key: key,
-            value: value,
-            numberOfResults: numberOfResults,
-            style: style,
-            subfilters: subfilters
-        )
-    }
-
     public static func freeText(title: String? = nil, key: String) -> Filter {
         let title = title ?? "searchPlaceholder".localized()
-        return Filter(kind: .list, title: title, key: key, value: nil, numberOfResults: 0)
+        return Filter(title: title, key: key, value: nil, numberOfResults: 0)
     }
 
     public static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {
-        return Filter(kind: .list, title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
+        return Filter(title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
     }
 
     public static func stepper(title: String, key: String,
@@ -106,8 +93,8 @@ extension Filter {
 
     public static func range(title: String, key: String, lowValueKey: String, highValueKey: String,
                              config: RangeFilterConfiguration, style: Style = .normal) -> Filter {
-        let lowValueFilter = Filter(kind: .list, title: "", key: lowValueKey)
-        let highValueFilter = Filter(kind: .list, title: "", key: highValueKey)
+        let lowValueFilter = Filter(title: "", key: lowValueKey)
+        let highValueFilter = Filter(title: "", key: highValueKey)
         let kind = Kind.range(lowValueFilter: lowValueFilter, highValueFilter: highValueFilter, config: config)
         let subfilters = [lowValueFilter, highValueFilter]
 
@@ -117,10 +104,10 @@ extension Filter {
     public static func map(title: String? = nil, key: String, latitudeKey: String,
                            longitudeKey: String, radiusKey: String, locationKey: String) -> Filter {
         let title = title ?? "map.title".localized()
-        let latitudeFilter = Filter(kind: .list, title: "", key: latitudeKey)
-        let longitudeFilter = Filter(kind: .list, title: "", key: longitudeKey)
-        let radiusFilter = Filter(kind: .list, title: "", key: radiusKey)
-        let locationNameFilter = Filter(kind: .list, title: "", key: locationKey)
+        let latitudeFilter = Filter(title: "", key: latitudeKey)
+        let longitudeFilter = Filter(title: "", key: longitudeKey)
+        let radiusFilter = Filter(title: "", key: radiusKey)
+        let locationNameFilter = Filter(title: "", key: locationKey)
 
         let kind = Kind.map(
             latitudeFilter: latitudeFilter,

@@ -155,6 +155,21 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
+        case .standard:
+            guard !filter.subfilters.isEmpty else { break }
+
+            let listViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)
+            let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
+
+            listViewController.showBottomButton(showBottomButton, animated: false)
+            pushViewController(listViewController)
+        case .grid:
+            guard !filter.subfilters.isEmpty else { break }
+
+            let gridViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
+            gridViewController.showBottomButton(viewController.isShowingBottomButton, animated: false)
+
+            pushViewController(gridViewController)
         case let .range(lowValueFilter, highValueFilter, filterConfig):
             let rangeViewController = RangeFilterViewController(
                 title: filter.title,
@@ -185,21 +200,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             mapViewController.searchLocationDataSource = searchLocationDataSource
 
             pushViewController(mapViewController)
-        case .list:
-            guard !filter.subfilters.isEmpty else { break }
-
-            let listViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)
-            let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
-
-            listViewController.showBottomButton(showBottomButton, animated: false)
-            pushViewController(listViewController)
-        case .grid:
-            guard !filter.subfilters.isEmpty else { break }
-
-            let gridViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
-            gridViewController.showBottomButton(viewController.isShowingBottomButton, animated: false)
-
-            pushViewController(gridViewController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }

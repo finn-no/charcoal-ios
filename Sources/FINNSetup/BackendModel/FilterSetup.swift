@@ -63,7 +63,7 @@ public struct FilterSetup: Decodable {
         }
 
         let preferenceFilters = config.preferenceFilterKeys.compactMap {
-            filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .list, style: .normal) })
+            filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .standard, style: .normal) })
         }
 
         return FilterContainer(
@@ -95,7 +95,7 @@ public struct FilterSetup: Decodable {
                     return nil
                 }
             } else {
-                return makeFilter(from: data, withKind: .list, style: style)
+                return makeFilter(from: data, withKind: .standard, style: style)
             }
         }
     }
@@ -154,7 +154,7 @@ public struct FilterSetup: Decodable {
         if ["2.69.3964.268", "1.69.3965"].contains(query.value) {
             return Filter.external(title: query.title, key: key, value: query.value, numberOfResults: query.totalResults)
         } else {
-            return Filter.list(
+            return Filter(
                 title: query.title,
                 key: key,
                 value: query.value,

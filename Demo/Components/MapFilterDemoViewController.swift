@@ -6,7 +6,11 @@
 import MapKit
 
 class MapFilterDemoViewController: DemoViewController {
+
+    // MARK: - Private properties
+
     private let officeLocation = CLLocationCoordinate2D(latitude: 59.913833, longitude: 10.743777)
+
     private lazy var mapView: MapFilterView = {
         let view = MapFilterView(radius: 40000, centerCoordinate: officeLocation)
         let searchBar = UISearchBar(frame: .zero)
@@ -17,6 +21,8 @@ class MapFilterDemoViewController: DemoViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()

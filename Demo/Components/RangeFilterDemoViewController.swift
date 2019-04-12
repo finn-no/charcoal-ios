@@ -5,7 +5,10 @@
 @testable import Charcoal
 
 final class RangeFilterDemoViewController: DemoViewController {
-    let filterConfig = RangeFilterConfiguration(
+
+    // MARK: - Private properties
+
+    private let filterConfig = RangeFilterConfiguration(
         minimumValue: 0,
         maximumValue: 30000,
         valueKind: .incremented(1000),
@@ -22,6 +25,8 @@ final class RangeFilterDemoViewController: DemoViewController {
         rangeFilterView.setHighValue(filterConfig.maximumValue, animated: false)
         return rangeFilterView
     }()
+
+    // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()

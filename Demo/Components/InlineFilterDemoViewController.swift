@@ -5,39 +5,25 @@
 @testable import Charcoal
 
 final class InlineFilterDemoViewController: DemoViewController {
-    private let filter = Filter.inline(title: "Inline Filter", key: "", subfilters: [
-        Filter.inline(title: "", key: "", subfilters: [
-            Filter.inline(title: "Til Salgs", key: "", subfilters: []),
-            Filter.inline(title: "Gis Bort", key: "", subfilters: []),
-            Filter.inline(title: "Ønsket Kjøpt", key: "", subfilters: []),
-        ]),
-        Filter.inline(title: "", key: "", subfilters: [
-            Filter.inline(title: "Brukt", key: "", subfilters: []),
-            Filter.inline(title: "Nytt", key: "", subfilters: []),
-        ]),
-        Filter.inline(title: "", key: "", subfilters: [
-            Filter.inline(title: "Forhandler", key: "", subfilters: []),
-            Filter.inline(title: "Private", key: "", subfilters: []),
-        ]),
-        Filter.inline(title: "", key: "", subfilters: [
-            Filter.inline(title: "Nye i dag", key: "", subfilters: []),
-        ]),
-    ])
+
+    // MARK: - Private properties
+
+    private let titles = [
+        ["Nye i dag"],
+        ["Til Salg", "Gis Bort", "Ønsket Kjøpt"],
+        ["Brukt", "Nytt"],
+        ["Forhandler", "Privat"],
+    ]
 
     private lazy var inlineFilterView: InlineFilterView = {
         let view = InlineFilterView(withAutoLayout: true)
-
-        let titles = filter.subfilters.map({
-            $0.subfilters.map({
-                $0.title
-            })
-        })
-
         view.configure(withTitles: titles, verticalTitle: "Vertical", selectedItems: [[], [], [], []])
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()

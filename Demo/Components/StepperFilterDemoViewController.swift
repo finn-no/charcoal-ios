@@ -5,6 +5,9 @@
 @testable import Charcoal
 
 final class StepperFilterDemoViewController: DemoViewController {
+
+    // MARK: - Private properties
+
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(
             minimumValue: 0,
@@ -16,6 +19,8 @@ final class StepperFilterDemoViewController: DemoViewController {
         return view
     }()
 
+    // MARK: - Life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(stepperFilterView)
@@ -25,10 +30,10 @@ final class StepperFilterDemoViewController: DemoViewController {
             stepperFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
-}
 
-private extension StepperFilterDemoViewController {
-    @objc func handleValueChange(sender: StepperFilterView) {
+    // MARK: - Actions
+
+    @objc private func handleValueChange(sender: StepperFilterView) {
         print("Value:", sender.value)
     }
 }

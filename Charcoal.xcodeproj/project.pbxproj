@@ -87,7 +87,6 @@
 		9B741D1C21B6B1CB00D18097 /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1B21B6B1CA00D18097 /* StepSlider.swift */; };
 		9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */; };
 		9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
-		9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
 		9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */; };
@@ -369,7 +368,6 @@
 		9B741D1921B6990800D18097 /* ValueSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderView.swift; sourceTree = "<group>"; };
 		9B741D1B21B6B1CA00D18097 /* StepSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSlider.swift; sourceTree = "<group>"; };
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
-		9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9BB82799216B57730014028C /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfiguration.swift; sourceTree = "<group>"; };
@@ -805,7 +803,6 @@
 		5589322F209C3CDA00512FF8 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				9B923323212A9F4200B02723 /* UIDeviceExtensions.swift */,
 				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
 				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
 				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
@@ -1682,7 +1679,6 @@
 				CF022960224E5ED300AA953D /* SelectionTitle.swift in Sources */,
 				55C9CC262099C12D00F0C9C8 /* CustomPopoverPresentationController+PopoverBackgroundView.swift in Sources */,
 				55C9CC292099C2A700F0C9C8 /* CustomPopoverTransitioningDelegate.swift in Sources */,
-				9B923324212A9F4200B02723 /* UIDeviceExtensions.swift in Sources */,
 				CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */,
 				CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */,
 				CF0B19ED2211B8C500D8D9B7 /* FilterSelectionStore.swift in Sources */,

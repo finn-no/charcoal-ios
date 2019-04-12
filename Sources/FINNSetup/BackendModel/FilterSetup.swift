@@ -63,7 +63,7 @@ public struct FilterSetup: Decodable {
         }
 
         let preferenceFilters = config.preferenceFilterKeys.compactMap {
-            filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .list, style: .normal) })
+            filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .standard, style: .normal) })
         }
 
         return FilterContainer(
@@ -95,7 +95,7 @@ public struct FilterSetup: Decodable {
                     return nil
                 }
             } else {
-                return makeFilter(from: data, withKind: .list, style: style)
+                return makeFilter(from: data, withKind: .standard, style: style)
             }
         }
     }

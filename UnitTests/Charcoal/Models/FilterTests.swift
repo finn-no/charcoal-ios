@@ -27,7 +27,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 10)
         XCTAssertEqual(filter.style, .context)
         XCTAssertEqual(filter.subfilters.count, 2)
-        XCTAssertEqual(filter.kind, .list)
+        XCTAssertEqual(filter.kind, .standard)
     }
 
     func testFreeTextFilter() {
@@ -39,7 +39,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertTrue(filter.subfilters.isEmpty)
-        XCTAssertEqual(filter.kind, .list)
+        XCTAssertEqual(filter.kind, .standard)
     }
 
     func testInlineFilter() {
@@ -55,7 +55,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertEqual(filter.subfilters.count, 2)
-        XCTAssertEqual(filter.kind, .list)
+        XCTAssertEqual(filter.kind, .standard)
     }
 
     func testStepperFilter() {

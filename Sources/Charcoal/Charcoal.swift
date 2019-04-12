@@ -20,10 +20,6 @@ public extension Bundle {
 }
 
 extension UIFont {
-    var isDynamicTypeEnabled: Bool {
-        return Charcoal.isDynamicTypeEnabled
-    }
-
     static var bundle: Bundle {
         return .charcoal
     }

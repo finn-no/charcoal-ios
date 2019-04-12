@@ -50,12 +50,12 @@ final class GridFilterCell: UICollectionViewCell {
         if isSelected {
             backgroundColor = .primaryBlue
             layer.borderColor = UIColor.primaryBlue.cgColor
-            titleLabel.font = UIFont(name: FontType.medium.rawValue, size: 20)
+            titleLabel.font = UIFont.bodyStrong.withSize(20)
             titleLabel.textColor = .milk
         } else {
             backgroundColor = .milk
             layer.borderColor = UIColor.sardine.cgColor
-            titleLabel.font = UIFont(name: FontType.regular.rawValue, size: 20)
+            titleLabel.font = UIFont.body.withSize(20)
             titleLabel.textColor = .licorice
         }
     }

@@ -28,7 +28,7 @@ struct Tag: CustomStringConvertible {
 
 final class TagManager {
     func loadCurrentTag() -> Tag? {
-        let regex = "^[0-9]*\\.[0-9]*\\.[0-9]"
+        let regex = "^[0-9]*\\.[0-9]*\\.[0-9]$"
         let gitTag = execute("git tag -l --sort=-v:refname | grep '\(regex)' | head -1 2> /dev/null") ?? ""
         let tag = gitTag.isEmpty ? "0.0.0" : gitTag
         let parts = tag.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: ".").compactMap({ Int($0) })

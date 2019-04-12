@@ -65,19 +65,6 @@ extension Filter: Equatable {
 // MARK: - Factory
 
 extension Filter {
-    public static func list(title: String, key: String, value: String? = nil, numberOfResults: Int = 0,
-                            style: Style = .normal, subfilters: [Filter] = []) -> Filter {
-        return Filter(
-            kind: .standard,
-            title: title,
-            key: key,
-            value: value,
-            numberOfResults: numberOfResults,
-            style: style,
-            subfilters: subfilters
-        )
-    }
-
     public static func freeText(title: String? = nil, key: String) -> Filter {
         let title = title ?? "searchPlaceholder".localized()
         return Filter(title: title, key: key, value: nil, numberOfResults: 0)

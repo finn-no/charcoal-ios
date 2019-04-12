@@ -154,7 +154,7 @@ public struct FilterSetup: Decodable {
         if ["2.69.3964.268", "1.69.3965"].contains(query.value) {
             return Filter.external(title: query.title, key: key, value: query.value, numberOfResults: query.totalResults)
         } else {
-            return Filter.list(
+            return Filter(
                 title: query.title,
                 key: key,
                 value: query.value,

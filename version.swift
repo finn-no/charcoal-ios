@@ -83,7 +83,7 @@ func showHelp() {
     Examples:
 
     Show current version:  version current
-    Create patch version:  version patch 'Backward compatible bug fixes'
+    Create patch version:  version patch -m 'Backward compatible bug fixes'
     Create minor version:  version minor --message 'Backward compatible new feature'
     Create major version:  version major -m 'Changes that break backward compatibility'
     Delete last version:   version delete

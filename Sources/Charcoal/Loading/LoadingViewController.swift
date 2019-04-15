@@ -2,14 +2,15 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import UIKit
+import FinniversKit
 
 final class LoadingViewController: UIViewController {
     private let backgroundColor: UIColor
     private var presentationDelay = 0.5
+    private let loadingIndicatorSize: CGFloat = 40
 
-    private lazy var loadingIndicatorView: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
+    private lazy var loadingIndicatorView: LoadingIndicatorView = {
+        let activityIndicator = LoadingIndicatorView()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
@@ -35,6 +36,8 @@ final class LoadingViewController: UIViewController {
         view.addSubview(loadingIndicatorView)
 
         NSLayoutConstraint.activate([
+            loadingIndicatorView.widthAnchor.constraint(equalToConstant: loadingIndicatorSize),
+            loadingIndicatorView.heightAnchor.constraint(equalToConstant: loadingIndicatorSize),
             loadingIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loadingIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -.mediumSpacing),
         ])

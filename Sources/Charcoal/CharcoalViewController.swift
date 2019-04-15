@@ -62,6 +62,11 @@ public final class CharcoalViewController: UINavigationController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
+
+        navigationBar.barTintColor = .milk
+        navigationBar.isTranslucent = false
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
     }
 
     // MARK: - Public

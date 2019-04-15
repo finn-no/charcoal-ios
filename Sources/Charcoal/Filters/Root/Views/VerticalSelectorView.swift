@@ -4,7 +4,13 @@
 
 import FinniversKit
 
+protocol VerticalSelectorViewDelegate: AnyObject {
+    func verticalSelectorViewDidSelectButton(_ view: VerticalSelectorView)
+}
+
 final class VerticalSelectorView: UIView {
+    weak var delegate: VerticalSelectorViewDelegate?
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = UIFont.captionStrong.withSize(12)
@@ -17,20 +23,27 @@ final class VerticalSelectorView: UIView {
         let button = UIButton()
         button.backgroundColor = .milk
         button.titleLabel?.font = .bodyStrong
+
         button.setTitleColor(.primaryBlue, for: .normal)
-        button.setTitleColor(.primaryBlue, for: .selected)
+        button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
+        button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)
         button.setImage(UIImage(named: .arrowDown), for: .normal)
 
-        // Layout the title and image
-        semanticContentAttribute = .forceRightToLeft
         let spacing = .smallSpacing / 2
+        button.semanticContentAttribute = .forceRightToLeft
         button.imageEdgeInsets = UIEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: -spacing)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing + spacing, bottom: 0, trailing: .mediumLargeSpacing + spacing)
+        button.contentEdgeInsets = UIEdgeInsets(
+            top: 0,
+            leading: .mediumLargeSpacing + spacing,
+            bottom: 0,
+            trailing: .mediumLargeSpacing + spacing
+        )
+
+        button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
 
         return button
     }()
-
 
     // MARK: - Init
 
@@ -60,5 +73,11 @@ final class VerticalSelectorView: UIView {
 
         addSubview(stackView)
         stackView.fillInSuperview()
+    }
+
+    // MARK: - Actions
+
+    @objc private func handleButtonTap() {
+        delegate?.verticalSelectorViewDidSelectButton(self)
     }
 }

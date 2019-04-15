@@ -28,6 +28,8 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
+    private lazy var verticalSelectorView = VerticalSelectorView()
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
@@ -71,6 +73,7 @@ final class RootFilterViewController: FilterViewController {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = resetButton
+        updateNavigationTitleView()
 
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()
@@ -92,6 +95,7 @@ final class RootFilterViewController: FilterViewController {
 
     func set(filterContainer: FilterContainer) {
         self.filterContainer = filterContainer
+        updateNavigationTitleView()
         updateBottomButtonTitle()
         tableView.reloadData()
     }
@@ -105,6 +109,17 @@ final class RootFilterViewController: FilterViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ])
+    }
+
+    private func updateNavigationTitleView() {
+        if let vertical = filterContainer.verticals?.first(where: { $0.isCurrent }) {
+            verticalSelectorView.delegate = self
+            verticalSelectorView.configure(withTitle: "rootTitle".localized(), buttonTitle: vertical.title)
+            navigationItem.titleView = verticalSelectorView
+        } else {
+            navigationItem.titleView = nil
+            navigationItem.title = "rootTitle".localized()
+        }
     }
 
     private func updateBottomButtonTitle() {
@@ -293,6 +308,18 @@ extension RootFilterViewController: InlineFilterViewDelegate {
         let verticalViewController = VerticalListViewController(verticals: verticals)
         verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }
         verticalViewController.popoverTransitionDelegate.sourceView = segment
+        verticalViewController.delegate = self
+        present(verticalViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - VerticalSelectorViewDelegate
+
+extension RootFilterViewController: VerticalSelectorViewDelegate {
+    func verticalSelectorViewDidSelectButton(_ view: VerticalSelectorView) {
+        guard let verticals = filterContainer.verticals else { return }
+
+        let verticalViewController = VerticalListViewController(verticals: verticals)
         verticalViewController.delegate = self
         present(verticalViewController, animated: true, completion: nil)
     }

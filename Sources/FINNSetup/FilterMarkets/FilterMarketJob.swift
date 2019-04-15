@@ -29,6 +29,7 @@ extension FilterMarketJob: FINNFilterConfiguration {
                 .industry,
                 .jobDuration,
                 .jobSector,
+                .applicationDeadline,
             ]
         case .fullTime, .management:
             return [
@@ -42,6 +43,7 @@ extension FilterMarketJob: FINNFilterConfiguration {
                 .extent,
                 .jobSector,
                 .managerRole,
+                .applicationDeadline,
             ]
         }
     }

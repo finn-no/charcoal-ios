@@ -81,6 +81,8 @@ public final class CharcoalViewController: UINavigationController {
     private func updateLoading() {
         if isLoading {
             add(loadingViewController)
+            loadingViewController.view.frame.origin.y = navigationBar.frame.height
+            loadingViewController.view.frame.size.height = view.frame.height - navigationBar.frame.height
             loadingViewController.viewWillAppear(false)
         } else {
             loadingViewController.remove()

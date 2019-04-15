@@ -5,6 +5,7 @@
 import Foundation
 
 public enum FilterKey: String, CodingKey {
+    case applicationDeadline = "applicationdeadline"
     case animalsAllowed = "animals_allowed"
     case area
     case bikesType = "bikes_type"

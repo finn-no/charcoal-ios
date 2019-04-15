@@ -140,7 +140,7 @@ extension FilterMarketBoat: FilterConfiguration {
             return .configuration(minimumValue: 0, maximumValue: 60, increment: 1, unit: .feet)
         case .year:
             return .yearConfiguration(minimumValue: 1985)
-        case .motorSize:
+        case .motorSize, .engineEffect:
             return .horsePowerConfiguration(minimumValue: 0, maximumValue: 500)
         case .noOfSeats:
             return .numberOfSeatsConfiguration(maximumValue: 20)

@@ -49,8 +49,15 @@ final class RootFilterViewController: FilterViewController {
         return button
     }()
 
+    private lazy var verticalViewController: VerticalListViewController = {
+        let viewController = VerticalListViewController()
+        viewController.delegate = self
+        return viewController
+    }()
+
     private var freeTextFilterViewController: FreeTextFilterViewController?
     private var shouldResetInlineFilterCell = false
+    private let verticalAnimationOffset: CGFloat = .mediumSpacing
 
     // MARK: - Filter
 
@@ -303,13 +310,6 @@ extension RootFilterViewController: InlineFilterViewDelegate {
     }
 
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
-        guard let verticals = filterContainer.verticals else { return }
-
-        let verticalViewController = VerticalListViewController(verticals: verticals)
-        verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }
-        verticalViewController.popoverTransitionDelegate.sourceView = segment
-        verticalViewController.delegate = self
-        present(verticalViewController, animated: true, completion: nil)
     }
 }
 
@@ -317,11 +317,48 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalSelectorViewDelegate {
     func verticalSelectorViewDidSelectButton(_ view: VerticalSelectorView) {
+        if view.isExpanded {
+            hideVerticalViewController()
+        } else {
+            showVerticalViewController()
+        }
+
+        view.isExpanded = !view.isExpanded
+    }
+
+    private func showVerticalViewController() {
         guard let verticals = filterContainer.verticals else { return }
 
-        let verticalViewController = VerticalListViewController(verticals: verticals)
-        verticalViewController.delegate = self
-        present(verticalViewController, animated: true, completion: nil)
+        let offset = verticalAnimationOffset
+
+        add(verticalViewController)
+        verticalViewController.verticals = verticals
+        verticalViewController.view.alpha = 0
+        verticalViewController.view.frame.origin.y = -offset
+
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: ({ [weak self] in
+            self?.verticalViewController.view.alpha = 1
+            self?.verticalViewController.view.frame.origin.y = offset
+        }), completion: ({ _ in
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                self?.verticalViewController.view.frame.origin.y = 0
+            })
+        }))
+    }
+
+    private func hideVerticalViewController() {
+        let offset = verticalAnimationOffset
+
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: ({ [weak self] in
+            self?.verticalViewController.view.frame.origin.y = offset
+        }), completion: ({ _ in
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: ({ [weak self] in
+                self?.verticalViewController.view.frame.origin.y = -offset
+                self?.verticalViewController.view.alpha = 0
+            }), completion: ({ [weak self] _ in
+                self?.verticalViewController.remove()
+            }))
+        }))
     }
 }
 
@@ -329,18 +366,12 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        func dismissVerticalViewController(animated: Bool) {
-            DispatchQueue.main.async {
-                verticalViewController.dismiss(animated: animated)
-            }
-        }
-
         if let vertical = filterContainer.verticals?[safe: index], !vertical.isCurrent {
             freeTextFilterViewController?.searchBar.text = nil
-            dismissVerticalViewController(animated: false)
+            hideVerticalViewController()
             rootDelegate?.rootFilterViewController(self, didSelectVertical: vertical)
         } else {
-            dismissVerticalViewController(animated: true)
+            hideVerticalViewController()
         }
     }
 }

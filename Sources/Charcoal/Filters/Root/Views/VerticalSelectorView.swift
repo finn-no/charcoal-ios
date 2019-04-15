@@ -11,6 +11,13 @@ protocol VerticalSelectorViewDelegate: AnyObject {
 final class VerticalSelectorView: UIView {
     weak var delegate: VerticalSelectorViewDelegate?
 
+    var isExpanded: Bool = false {
+        didSet {
+            let image = isExpanded ? UIImage(named: .arrowUp) : UIImage(named: .arrowDown)
+            button.setImage(image, for: .normal)
+        }
+    }
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = UIFont.captionStrong.withSize(12)
@@ -27,7 +34,6 @@ final class VerticalSelectorView: UIView {
         button.setTitleColor(.primaryBlue, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)
-        button.setImage(UIImage(named: .arrowDown), for: .normal)
 
         let spacing = .smallSpacing / 2
         button.semanticContentAttribute = .forceRightToLeft
@@ -64,6 +70,8 @@ final class VerticalSelectorView: UIView {
     }
 
     private func setup() {
+        isExpanded = false
+
         addSubview(titleLabel)
         addSubview(button)
 

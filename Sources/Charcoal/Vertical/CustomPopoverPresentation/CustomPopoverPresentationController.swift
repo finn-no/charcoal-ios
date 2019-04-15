@@ -27,13 +27,6 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
         }
     }
 
-    private lazy var dimmingView: UIView = {
-        let view = UIView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        return view
-    }()
-
     private var _popoverLayouMargins: UIEdgeInsets?
 
     // MARK: - Overrides
@@ -72,19 +65,13 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
         tapGestureRecognizer.addTarget(self, action: #selector(handleSnaphotViewGesture(_:)))
         snapshotView.addGestureRecognizer(tapGestureRecognizer)
 
-        dimmingView.alpha = 0.0
-        containerView?.insertSubview(dimmingView, at: 0)
-        dimmingView.fillInSuperview()
-
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
-            self?.dimmingView.alpha = 1.0
             snapshotView.alpha = 1.0
         })
     }
 
     public override func presentationTransitionDidEnd(_ completed: Bool) {
         if completed == false {
-            dimmingView.removeFromSuperview()
             snapshotView?.removeFromSuperview()
         }
 
@@ -98,14 +85,12 @@ final class CustomPopoverPresentationController: UIPopoverPresentationController
 
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             self?.snapshotView?.alpha = 0.0
-            self?.dimmingView.alpha = 0.0
             self?.presentedViewController.view.alpha = 0.0
         })
     }
 
     public override func dismissalTransitionDidEnd(_ completed: Bool) {
         if completed {
-            dimmingView.removeFromSuperview()
             snapshotView?.removeFromSuperview()
         }
 

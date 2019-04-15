@@ -189,7 +189,6 @@ extension RootFilterViewController: UITableViewDataSource {
 
             return cell
         case .inline:
-            let vertical = filterContainer.verticals?.first(where: { $0.isCurrent })
             let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
             cell.delegate = self
 
@@ -201,7 +200,7 @@ extension RootFilterViewController: UITableViewDataSource {
                     })
                 })
 
-                cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
+                cell.configure(withTitles: segmentTitles, selectedItems: selectedItems)
             }
 
             if shouldResetInlineFilterCell {
@@ -307,9 +306,6 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
             rootDelegate?.rootFilterViewController(self, didSelectInlineFilter: inlineFilter)
         }
-    }
-
-    func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
     }
 }
 

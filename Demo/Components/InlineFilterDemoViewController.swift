@@ -17,7 +17,7 @@ final class InlineFilterDemoViewController: DemoViewController {
 
     private lazy var inlineFilterView: InlineFilterView = {
         let view = InlineFilterView(withAutoLayout: true)
-        view.configure(withTitles: titles, verticalTitle: "Vertical", selectedItems: [[], [], [], []])
+        view.configure(withTitles: titles, selectedItems: [[], [], [], []])
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

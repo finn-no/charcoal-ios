@@ -21,12 +21,6 @@ final class SegmentButton: UIButton {
     weak var delegate: SegmentButtonDelegate?
     var borderStyle: BorderStyle = .middle
 
-    var isExpandable = false {
-        didSet {
-            setupExpandable()
-        }
-    }
-
     override var isSelected: Bool {
         didSet {
             updateSelected(isSelected)
@@ -81,22 +75,6 @@ private extension SegmentButton {
         } else {
             layer.addSublayer(borderLayer)
         }
-    }
-
-    func setupExpandable() {
-        guard isExpandable else {
-            return
-        }
-        selectedBackgroundColor = .milk
-        setTitleColor(.primaryBlue, for: .normal)
-        setTitleColor(.primaryBlue, for: .selected)
-        setImage(UIImage(named: .arrowDown), for: .normal)
-        // Layout the title and image
-        semanticContentAttribute = .forceRightToLeft
-        let spacing = .smallSpacing / 2
-        imageEdgeInsets = UIEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: -spacing)
-        titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
-        contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing + spacing, bottom: 0, trailing: .mediumLargeSpacing + spacing)
     }
 
     func drawBorder() {

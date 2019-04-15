@@ -32,8 +32,8 @@ final class InlineFilterCell: UITableViewCell {
 
     // MARK: - Setup
 
-    func configure(withTitles titles: [[String]], verticalTitle: String? = nil, selectedItems: [[Int]]) {
-        inlineFilterView.configure(withTitles: titles, verticalTitle: verticalTitle, selectedItems: selectedItems)
+    func configure(withTitles titles: [[String]], selectedItems: [[Int]]) {
+        inlineFilterView.configure(withTitles: titles, selectedItems: selectedItems)
     }
 
     func resetContentOffset() {

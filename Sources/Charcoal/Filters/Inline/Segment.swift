@@ -20,8 +20,6 @@ final class Segment: UIControl {
     }
 
     var isMultiSelect = true
-    let isExpandable: Bool
-    private let accessibilityPrefix: String?
 
     // MARK: - Private properties
 
@@ -31,12 +29,10 @@ final class Segment: UIControl {
 
     // MARK: - Setup
 
-    init(titles: [String], isExpandable: Bool = false, accessibilityPrefix: String? = nil) {
+    init(titles: [String]) {
         self.titles = titles
-        self.isExpandable = isExpandable
-        self.accessibilityPrefix = accessibilityPrefix
         super.init(frame: .zero)
-        setup(isExpandable: isExpandable)
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,8 +58,8 @@ final class Segment: UIControl {
 // MARK: - Private methods
 
 private extension Segment {
-    func setup(isExpandable: Bool) {
-        addButtons(isExpandable: isExpandable)
+    func setup() {
+        addButtons()
         addSplitLines()
         layoutButtonsAndLines()
     }
@@ -75,14 +71,10 @@ private extension Segment {
     }
 
     @objc func handleButton(sender: SegmentButton) {
-        if isExpandable {
-            sender.isSelected = !isSelected
-            sendActions(for: .touchUpInside)
-            return
-        }
         guard let index = buttons.firstIndex(of: sender) else {
             return
         }
+
         sender.isSelected = !sender.isSelected
         setSelected(sender.isSelected, atIndex: index)
         // Notfify target of event
@@ -113,16 +105,10 @@ private extension Segment {
         }
     }
 
-    func addButtons(isExpandable: Bool) {
+    func addButtons() {
         for title in titles {
             let button = SegmentButton(title: title)
             button.delegate = self
-
-            if let accessibilityPrefix = accessibilityPrefix, isExpandable {
-                button.accessibilityLabel = accessibilityPrefix + ", " + title
-            }
-
-            button.isExpandable = isExpandable
             button.addTarget(self, action: #selector(handleButton(sender:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             addSubview(button)

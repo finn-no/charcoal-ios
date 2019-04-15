@@ -17,15 +17,11 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
     private var localSearch: MKLocalSearch?
 
     private lazy var localSearchCompleter: NSObject? = {
-        if #available(iOS 9.3, *) {
-            let localSearchCompleter = MKLocalSearchCompleter()
-            localSearchCompleter.delegate = self
-            localSearchCompleter.filterType = .locationsOnly
-            localSearchCompleter.region = norwayMapRegion
-            return localSearchCompleter
-        } else {
-            return nil
-        }
+        let localSearchCompleter = MKLocalSearchCompleter()
+        localSearchCompleter.delegate = self
+        localSearchCompleter.filterType = .locationsOnly
+        localSearchCompleter.region = norwayMapRegion
+        return localSearchCompleter
     }()
 
     private var searchCompletionHandler: ((SearchLocationDataSourceResult) -> Void)? {
@@ -47,30 +43,14 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
     ]
 
     func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didRequestLocationsFor searchQuery: String, completion: @escaping ((SearchLocationDataSourceResult) -> Void)) {
-        if #available(iOS 9.3, *) {
-            guard let localSearchCompleter = self.localSearchCompleter as? MKLocalSearchCompleter else {
-                fatalError()
-            }
-            searchCompletionHandler?(.cancelled)
-            searchCompletionHandler = nil
-            localSearchCompleter.cancel()
-            searchCompletionHandler = completion
-            localSearchCompleter.queryFragment = searchQuery
-        } else {
-            localSearch?.cancel()
-            let request = MKLocalSearch.Request()
-            request.naturalLanguageQuery = searchQuery
-            request.region = norwayMapRegion
-            localSearch = MKLocalSearch(request: request)
-            localSearch?.start { response, error in
-                if let error = error {
-                    completion(.failed(error: error))
-                } else {
-                    let locations = response?.mapItems.map({ DemoLocation(name: $0.name ?? "", latitude: $0.placemark.coordinate.latitude, longitude: $0.placemark.coordinate.longitude) })
-                    completion(.finished(text: searchQuery, locations: locations ?? []))
-                }
-            }
+        guard let localSearchCompleter = self.localSearchCompleter as? MKLocalSearchCompleter else {
+            fatalError()
         }
+        searchCompletionHandler?(.cancelled)
+        searchCompletionHandler = nil
+        localSearchCompleter.cancel()
+        searchCompletionHandler = completion
+        localSearchCompleter.queryFragment = searchQuery
     }
 
     func recentLocation(in searchLocationViewController: SearchLocationViewController) -> [LocationInfo] {
@@ -86,7 +66,6 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
     }
 }
 
-@available(iOS 9.3, *)
 extension DemoSearchLocationDataSource: MKLocalSearchCompleterDelegate {
     public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         let locationsResult = LocationsResult()

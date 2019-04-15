@@ -99,6 +99,7 @@
 		CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */; };
 		CF0B19ED2211B8C500D8D9B7 /* FilterSelectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */; };
 		CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */; };
+		CF16687D2264A2B100652DB0 /* VerticalSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF16687C2264A2B100652DB0 /* VerticalSelectorView.swift */; };
 		CF33D9CA224A499C00A24DF0 /* FilterSelectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */; };
 		CF33D9D3224A4B9D00A24DF0 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */; };
 		CF33D9D5224A4D2200A24DF0 /* XCUIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */; };
@@ -373,6 +374,7 @@
 		CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterContainer.swift; sourceTree = "<group>"; };
 		CF0B19EC2211B8C500D8D9B7 /* FilterSelectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionStore.swift; sourceTree = "<group>"; };
 		CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterCellViewModel.swift; sourceTree = "<group>"; };
+		CF16687C2264A2B100652DB0 /* VerticalSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectorView.swift; sourceTree = "<group>"; };
 		CF33D9C7224A499C00A24DF0 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionUITests.swift; sourceTree = "<group>"; };
 		CF33D9CB224A499C00A24DF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1190,6 +1192,7 @@
 				9BE0A0532091D2130000632B /* FreeTextFilterCell.swift */,
 				DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
+				CF16687C2264A2B100652DB0 /* VerticalSelectorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1677,6 +1680,7 @@
 				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
+				CF16687D2264A2B100652DB0 /* VerticalSelectorView.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
 				9BE0A05A2091E7E90000632B /* FreeTextFilterCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,

@@ -318,8 +318,6 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         } else {
             showVerticalViewController()
         }
-
-        view.isExpanded = !view.isExpanded
     }
 
     private func showVerticalViewController() {
@@ -340,6 +338,8 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
                 self?.verticalViewController.view.frame.origin.y = 0
             })
         }))
+
+        verticalSelectorView.isExpanded = true
     }
 
     private func hideVerticalViewController() {
@@ -355,6 +355,8 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
                 self?.verticalViewController.remove()
             }))
         }))
+
+        verticalSelectorView.isExpanded = false
     }
 }
 

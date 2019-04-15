@@ -41,6 +41,7 @@ extension DemoTableViewController: UITableViewDelegate {
             charcoalViewController.textEditingDelegate = self
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
             charcoalViewController.filterContainer = row.setup?.filterContainer
+            charcoalViewController.selectionDelegate = self
         }
 
         if row.usingBottomSheet {
@@ -49,6 +50,29 @@ extension DemoTableViewController: UITableViewDelegate {
         }
 
         present(viewController, animated: true)
+    }
+}
+
+extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
+        viewController.isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            viewController.isLoading = false
+        }
+    }
+
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {
+        UIApplication.shared.open(URL(string: "https://finn.no")!, options: [:], completionHandler: nil)
+    }
+
+    func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController) {
+        print("Did press show results")
+    }
+
+    func charcoalViewController(_ viewController: CharcoalViewController,
+                                didChangeSelection selection: [URLQueryItem],
+                                origin: SelectionChangeOrigin) {
+        print("Selection did change by: \(origin)")
     }
 }
 

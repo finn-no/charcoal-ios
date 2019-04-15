@@ -16,7 +16,7 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
 
     private var localSearch: MKLocalSearch?
 
-    private lazy var localSearchCompleter: NSObject? = {
+    private lazy var localSearchCompleter: MKLocalSearchCompleter = {
         let localSearchCompleter = MKLocalSearchCompleter()
         localSearchCompleter.delegate = self
         localSearchCompleter.filterType = .locationsOnly

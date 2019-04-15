@@ -41,26 +41,20 @@ final class ListFilterCell: CheckboxTableViewCell {
         let isCheckboxHighlighted = checkbox.isHighlighted
         super.setSelected(selected, animated: animated)
         checkbox.isHighlighted = isCheckboxHighlighted
-
-        selectedBackgroundView?.layer.removeAllAnimations()
-        selectedBackgroundView?.alpha = selected ? 1 : 0
+        showSelectedBackground(selected)
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         let isCheckboxHighlighted = checkbox.isHighlighted
         super.setHighlighted(highlighted, animated: animated)
         checkbox.isHighlighted = isCheckboxHighlighted
-
-        selectedBackgroundView?.layer.removeAllAnimations()
-        selectedBackgroundView?.alpha = highlighted ? 1 : 0
+        showSelectedBackground(highlighted)
     }
 
     override func animateSelection(isSelected: Bool) {
         super.animateSelection(isSelected: isSelected)
         updateAccessibilityLabel(isSelected: isSelected)
-
-        selectedBackgroundView?.layer.removeAllAnimations()
-        selectedBackgroundView?.alpha = isSelected ? 0 : 1
+        showSelectedBackground(!isSelected)
 
         let animation = CABasicAnimation(keyPath: "opacity")
         animation.duration = 0.2
@@ -70,6 +64,11 @@ final class ListFilterCell: CheckboxTableViewCell {
         animation.repeatCount = 1
         animation.isRemovedOnCompletion = false
         selectedBackgroundView?.layer.add(animation, forKey: nil)
+    }
+
+    private func showSelectedBackground(_ show: Bool) {
+        selectedBackgroundView?.layer.removeAllAnimations()
+        selectedBackgroundView?.alpha = show ? 1 : 0
     }
 
     // MARK: - Setup

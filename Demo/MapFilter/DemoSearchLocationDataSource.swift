@@ -43,9 +43,6 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
     ]
 
     func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didRequestLocationsFor searchQuery: String, completion: @escaping ((SearchLocationDataSourceResult) -> Void)) {
-        guard let localSearchCompleter = self.localSearchCompleter as? MKLocalSearchCompleter else {
-            fatalError()
-        }
         searchCompletionHandler?(.cancelled)
         searchCompletionHandler = nil
         localSearchCompleter.cancel()

@@ -41,36 +41,34 @@ final class ListFilterCell: CheckboxTableViewCell {
         let isCheckboxHighlighted = checkbox.isHighlighted
         super.setSelected(selected, animated: animated)
         checkbox.isHighlighted = isCheckboxHighlighted
+        showSelectedBackground(selected)
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         let isCheckboxHighlighted = checkbox.isHighlighted
         super.setHighlighted(highlighted, animated: animated)
         checkbox.isHighlighted = isCheckboxHighlighted
+        showSelectedBackground(highlighted)
     }
 
     override func animateSelection(isSelected: Bool) {
         super.animateSelection(isSelected: isSelected)
-
-        guard let selectedBackgroundView = selectedBackgroundView else {
-            return
-        }
-
-        insertSubview(selectedBackgroundView, at: 0)
-
-        selectedBackgroundView.layer.removeAllAnimations()
-        selectedBackgroundView.alpha = 0
+        updateAccessibilityLabel(isSelected: isSelected)
+        showSelectedBackground(!isSelected)
 
         let animation = CABasicAnimation(keyPath: "opacity")
         animation.duration = 0.2
-        animation.fromValue = 0
-        animation.toValue = 1
-        animation.autoreverses = true
+        animation.fromValue = 1
+        animation.toValue = isSelected ? 1 : 0
+        animation.autoreverses = false
         animation.repeatCount = 1
-        animation.delegate = self
-        selectedBackgroundView.layer.add(animation, forKey: nil)
+        animation.isRemovedOnCompletion = false
+        selectedBackgroundView?.layer.add(animation, forKey: nil)
+    }
 
-        updateAccessibilityLabel(isSelected: isSelected)
+    private func showSelectedBackground(_ show: Bool) {
+        selectedBackgroundView?.layer.removeAllAnimations()
+        selectedBackgroundView?.alpha = show ? 1 : 0
     }
 
     // MARK: - Setup
@@ -78,14 +76,9 @@ final class ListFilterCell: CheckboxTableViewCell {
     func configure(with viewModel: ListFilterCellViewModel) {
         super.configure(with: viewModel)
 
-        switch viewModel.accessoryStyle {
-        case .none:
-            selectionStyle = .none
-        case .chevron:
-            selectionStyle = .default
-        case .external:
-            selectionStyle = .default
+        selectionStyle = .none
 
+        if viewModel.accessoryStyle == .external {
             let accessoryView = UIImageView(image: UIImage(named: .webview).withRenderingMode(.alwaysTemplate))
             accessoryView.tintColor = .chevron
             self.accessoryView = accessoryView
@@ -108,6 +101,11 @@ final class ListFilterCell: CheckboxTableViewCell {
         bringSubviewToFront(overlayView)
 
         updateAccessibilityLabel(isSelected: viewModel.checkboxStyle != .deselected)
+
+        if let selectedBackgroundView = selectedBackgroundView, selectedBackgroundView.superview == nil {
+            selectedBackgroundView.alpha = 0
+            insertSubview(selectedBackgroundView, at: 0)
+        }
     }
 
     private func setup() {
@@ -139,13 +137,5 @@ final class ListFilterCell: CheckboxTableViewCell {
         ]
 
         accessibilityLabel = accessibilityLabels.compactMap({ $0 }).joined(separator: ", ")
-    }
-}
-
-// MARK: - CAAnimationDelegate
-
-extension ListFilterCell: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        selectedBackgroundView?.removeFromSuperview()
     }
 }

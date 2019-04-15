@@ -7,14 +7,17 @@ import UIKit
 protocol RootFilterViewControllerDelegate: class {
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
-    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVerticalAt index: Int)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectFreeTextFilter filter: Filter)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical)
 }
 
 final class RootFilterViewController: FilterViewController {
+    enum Section: Int, CaseIterable {
+        case freeText, inline, rootFilters
+    }
 
     // MARK: - Internal properties
-
-    var verticals: [Vertical]?
 
     weak var rootDelegate: (RootFilterViewControllerDelegate & FilterViewControllerDelegate)? {
         didSet { delegate = rootDelegate }
@@ -45,17 +48,17 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private var freeTextFilterViewController: FreeTextFilterViewController?
-    private var indexPathsToReset: [IndexPath: Bool] = [:]
+    private var shouldResetInlineFilterCell = false
 
     // MARK: - Filter
 
-    private var filter: Filter
+    private var filterContainer: FilterContainer
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore) {
-        self.filter = filter
-        super.init(title: filter.title, selectionStore: selectionStore)
+    init(filterContainer: FilterContainer, selectionStore: FilterSelectionStore) {
+        self.filterContainer = filterContainer
+        super.init(title: "rootTitle".localized(), selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -87,10 +90,8 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Setup
 
-    func set(filter: Filter, verticals: [Vertical]?) {
-        self.filter = filter
-        self.verticals = verticals
-        navigationItem.title = filter.title
+    func set(filterContainer: FilterContainer) {
+        self.filterContainer = filterContainer
         updateBottomButtonTitle()
         tableView.reloadData()
     }
@@ -107,22 +108,22 @@ final class RootFilterViewController: FilterViewController {
     }
 
     private func updateBottomButtonTitle() {
-        let localizedString = String(format: "showResultsButton".localized(), filter.numberOfResults)
-        let title = localizedString.replacingOccurrences(of: "\(filter.numberOfResults)", with: filter.formattedNumberOfResults)
+        let localizedString = String(format: "showResultsButton".localized(), filterContainer.numberOfResults)
+        let title = localizedString.replacingOccurrences(
+            of: "\(filterContainer.numberOfResults)",
+            with: filterContainer.numberOfResults.decimalFormatted
+        )
+
         bottomButton.buttonTitle = title
     }
 
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
-        selectionStore.removeValues(for: filter)
+        selectionStore.removeValues(for: filterContainer.allFilters)
         rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
         freeTextFilterViewController?.searchBar.text = nil
-
-        for (index, subfilter) in filter.subfilters.enumerated() where subfilter.kind == .inline {
-            let indexPath = IndexPath(row: index, section: 0)
-            indexPathsToReset[indexPath] = true
-        }
+        shouldResetInlineFilterCell = true
 
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         tableView.layoutIfNeeded()
@@ -131,48 +132,64 @@ final class RootFilterViewController: FilterViewController {
 }
 
 extension RootFilterViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.allCases.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filter.subfilters.count
+        guard let section = Section(rawValue: section) else { return 0 }
+
+        switch section {
+        case .freeText:
+            return filterContainer.freeTextFilter != nil ? 1 : 0
+        case .inline:
+            return filterContainer.inlineFilter != nil ? 1 : 0
+        case .rootFilters:
+            return filterContainer.rootFilters.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentFilter = filter.subfilters[indexPath.row]
+        guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
 
-        switch currentFilter.kind {
-        case .search:
-            freeTextFilterViewController =
-                freeTextFilterViewController ??
-                FreeTextFilterViewController(filter: currentFilter, selectionStore: selectionStore)
+        switch section {
+        case .freeText:
+            let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
+
+            if let freeTextFilter = filterContainer.freeTextFilter, freeTextFilterViewController == nil {
+                freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
+            }
 
             freeTextFilterViewController?.delegate = self
             freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate
             freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource
-
-            let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
             cell.configure(with: freeTextFilterViewController!.searchBar)
+
             return cell
         case .inline:
-            let vertical = verticals?.first(where: { $0.isCurrent })
-            let segmentTitles = currentFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
-
-            let selectedItems = currentFilter.subfilters.map({
-                $0.subfilters.enumerated().compactMap({ index, filter in
-                    self.selectionStore.isSelected(filter) ? index : nil
-                })
-            })
-
+            let vertical = filterContainer.verticals?.first(where: { $0.isCurrent })
             let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
             cell.delegate = self
 
-            cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
+            if let inlineFilter = filterContainer.inlineFilter {
+                let segmentTitles = inlineFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
+                let selectedItems = inlineFilter.subfilters.map({
+                    $0.subfilters.enumerated().compactMap({ index, filter in
+                        self.selectionStore.isSelected(filter) ? index : nil
+                    })
+                })
 
-            if indexPathsToReset[indexPath] == true {
-                indexPathsToReset.removeValue(forKey: indexPath)
+                cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
+            }
+
+            if shouldResetInlineFilterCell {
+                shouldResetInlineFilterCell = false
                 cell.resetContentOffset()
             }
 
             return cell
-        default:
+        case .rootFilters:
+            let currentFilter = filterContainer.rootFilters[indexPath.row]
             let titles = selectionStore.titles(for: currentFilter)
             let isValid = selectionStore.isValid(currentFilter)
             let cell = tableView.dequeue(RootFilterCell.self, for: indexPath)
@@ -180,11 +197,15 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
             cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, style: currentFilter.style)
 
-            cell.isEnabled = !selectionStore.hasSelectedSubfilters(for: filter, where: {
+            let mutuallyExclusiveFilters = filterContainer.rootFilters.filter({
                 currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
             })
 
-            cell.isSeparatorHidden = indexPath.row == filter.subfilters.count - 1
+            cell.isEnabled = !mutuallyExclusiveFilters.reduce(false) {
+                $0 || selectionStore.hasSelectedSubfilters(for: $1)
+            }
+
+            cell.isSeparatorHidden = indexPath.row == filterContainer.rootFilters.count - 1
             cell.accessibilityIdentifier = currentFilter.title
 
             return cell
@@ -196,12 +217,13 @@ extension RootFilterViewController: UITableViewDataSource {
 
 extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedFilter = filter.subfilters[indexPath.row]
-        switch selectedFilter.kind {
-        case .search, .inline:
+        guard let section = Section(rawValue: indexPath.section) else { return }
+
+        switch section {
+        case .rootFilters:
+            delegate?.filterViewController(self, didSelectFilter: filterContainer.rootFilters[indexPath.row])
+        case .freeText, .inline:
             return
-        default:
-            delegate?.filterViewController(self, didSelectFilter: selectedFilter)
         }
     }
 }
@@ -214,7 +236,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
             return
         }
 
-        let currentFilter = filter.subfilters[indexPath.row]
+        let currentFilter = filterContainer.rootFilters[indexPath.row]
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
         let filterToRemove = selectedSubfilters[index]
 
@@ -228,7 +250,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
             return
         }
 
-        let currentFilter = filter.subfilters[indexPath.row]
+        let currentFilter = filterContainer.rootFilters[indexPath.row]
 
         selectionStore.removeValues(for: currentFilter)
         rootDelegate?.rootFilterViewController(self, didRemoveFilter: currentFilter)
@@ -236,10 +258,10 @@ extension RootFilterViewController: RootFilterCellDelegate {
     }
 
     private func reloadCellsWithExclusiveFilters(for filter: Filter) {
-        let exclusiveFilterKeys = filter.mutuallyExclusiveFilterKeys
+        let keys = filter.mutuallyExclusiveFilterKeys
 
-        let indexPathsToReload = self.filter.subfilters.enumerated().compactMap({ index, subfilter in
-            return exclusiveFilterKeys.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
+        let indexPathsToReload = filterContainer.rootFilters.enumerated().compactMap({ index, subfilter in
+            return keys.contains(subfilter.key) ? IndexPath(row: index, section: Section.rootFilters.rawValue) : nil
         })
 
         tableView.reloadRows(at: indexPathsToReload, with: .none)
@@ -250,7 +272,7 @@ extension RootFilterViewController: RootFilterCellDelegate {
 
 extension RootFilterViewController: InlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int) {
-        guard let inlineFilter = filter.subfilters.first(where: { $0.kind == .inline }) else { return }
+        guard let inlineFilter = filterContainer.inlineFilter else { return }
 
         if let subfilter = inlineFilter.subfilter(at: index) {
             selectionStore.removeValues(for: subfilter)
@@ -261,12 +283,12 @@ extension RootFilterViewController: InlineFilterViewDelegate {
                 }
             }
 
-            rootDelegate?.filterViewController(self, didSelectFilter: inlineFilter)
+            rootDelegate?.rootFilterViewController(self, didSelectInlineFilter: inlineFilter)
         }
     }
 
     func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
-        guard let verticals = verticals else { return }
+        guard let verticals = filterContainer.verticals else { return }
 
         let verticalViewController = VerticalListViewController(verticals: verticals)
         verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }
@@ -286,10 +308,10 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
             }
         }
 
-        if verticals?.firstIndex(where: { $0.isCurrent }) != index {
+        if let vertical = filterContainer.verticals?[safe: index], !vertical.isCurrent {
             freeTextFilterViewController?.searchBar.text = nil
             dismissVerticalViewController(animated: false)
-            rootDelegate?.rootFilterViewController(self, didSelectVerticalAt: index)
+            rootDelegate?.rootFilterViewController(self, didSelectVertical: vertical)
         } else {
             dismissVerticalViewController(animated: true)
         }
@@ -300,7 +322,7 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
 
 extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
     func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelect value: String?, for filter: Filter) {
-        rootDelegate?.filterViewController(self, didSelectFilter: filter)
+        rootDelegate?.rootFilterViewController(self, didSelectFreeTextFilter: filter)
     }
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {

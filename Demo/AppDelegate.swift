@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BITHockeyManager.shared().authenticator.authenticateInstallation()
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = DemoViewsTableViewController()
+        let viewController = DemoTableViewController()
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
 

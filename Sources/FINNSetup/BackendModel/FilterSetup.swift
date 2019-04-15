@@ -56,33 +56,31 @@ public struct FilterSetup: Decodable {
     // MARK: - Factory
 
     public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
-        let subfilters = config.rootLevelFilters.compactMap { key -> Filter? in
+        let rootFilters = config.rootLevelFilterKeys.compactMap { key -> Filter? in
             let filter = makeRootLevelFilter(withKey: key, using: config)
-            filter?.mutuallyExclusiveFilterKeys = config.mutuallyExclusiveFilters(for: key)
+            filter?.mutuallyExclusiveFilterKeys = Set(config.mutuallyExclusiveFilters(for: key).map({ $0.rawValue }))
             return filter
         }
 
-        let title = "Filtrer søket"
-        let numberOfResults = objectCount ?? hits
-        let root = Filter.list(title: title, key: market, numberOfResults: numberOfResults, subfilters: subfilters)
+        let preferenceFilters = config.preferenceFilterKeys.compactMap {
+            filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .standard, style: .normal) })
+        }
 
-        return FilterContainer(root: root)
+        return FilterContainer(
+            rootFilters: rootFilters,
+            freeTextFilter: Filter.freeText(key: FilterKey.query.rawValue),
+            inlineFilter: Filter.inline(title: "", key: FilterKey.preferences.rawValue, subfilters: preferenceFilters),
+            numberOfResults: objectCount ?? hits
+        )
     }
 
-    private func makeRootLevelFilter(withKey key: String, using config: FilterConfiguration) -> Filter? {
-        let style: Filter.Style = config.contextFilters.contains(key) ? .context : .normal
+    private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration) -> Filter? {
+        let style: Filter.Style = config.contextFilterKeys.contains(key) ? .context : .normal
 
         switch key {
-        case FilterKey.query.rawValue:
-            return Filter.search(key: key)
-        case FilterKey.preferences.rawValue:
-            let subfilters = config.preferenceFilters.compactMap {
-                filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .list, style: .normal) })
-            }
-            return Filter.inline(title: "", key: key, subfilters: subfilters)
-        case FilterKey.map.rawValue:
+        case .map:
             return makeMapFilter(withKey: key)
-        case FilterKey.shoeSize.rawValue:
+        case .shoeSize:
             guard let data = filterData(forKey: key) else { return nil }
             return makeFilter(from: data, withKind: .grid, style: style)
         default:
@@ -97,14 +95,14 @@ public struct FilterSetup: Decodable {
                     return nil
                 }
             } else {
-                return makeFilter(from: data, withKind: .list, style: style)
+                return makeFilter(from: data, withKind: .standard, style: style)
             }
         }
     }
 
-    private func makeMapFilter(withKey key: String) -> Filter {
+    private func makeMapFilter(withKey key: FilterKey) -> Filter {
         return Filter.map(
-            key: key,
+            key: key.rawValue,
             latitudeKey: FilterKey.latitude.rawValue,
             longitudeKey: FilterKey.longitude.rawValue,
             radiusKey: FilterKey.radius.rawValue,
@@ -156,7 +154,7 @@ public struct FilterSetup: Decodable {
         if ["2.69.3964.268", "1.69.3965"].contains(query.value) {
             return Filter.external(title: query.title, key: key, value: query.value, numberOfResults: query.totalResults)
         } else {
-            return Filter.list(
+            return Filter(
                 title: query.title,
                 key: key,
                 value: query.value,
@@ -205,7 +203,7 @@ public struct FilterSetup: Decodable {
         )
     }
 
-    func filterData(forKey key: String) -> FilterData? {
-        return filters.first(where: { $0.parameterName == key })
+    func filterData(forKey key: FilterKey) -> FilterData? {
+        return filters.first(where: { $0.parameterName == key.rawValue })
     }
 }

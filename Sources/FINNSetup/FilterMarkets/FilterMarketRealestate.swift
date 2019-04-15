@@ -22,7 +22,7 @@ public enum FilterMarketRealestate: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketRealestate: FINNFilterConfiguration {
+extension FilterMarketRealestate: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         let defaultFilter: [FilterKey] = [.published]
         switch self {
@@ -36,8 +36,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         switch self {
         case .homes:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .price,
@@ -56,8 +54,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .development:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .price,
@@ -71,8 +67,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .plot, .leisurePlot:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .price,
@@ -80,8 +74,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .leisureSale:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .price,
@@ -95,8 +87,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .leisureSaleAbroad:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .price,
@@ -108,8 +98,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .letting:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .propertyType,
@@ -125,8 +113,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .lettingWanted:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .propertyType,
@@ -136,8 +122,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessSale:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .price,
@@ -146,8 +130,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessLetting:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .area,
@@ -155,8 +137,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .businessPlot:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .price,
@@ -164,8 +144,6 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
             ]
         case .companyForSale:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .category,
@@ -187,12 +165,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
-        guard let filterKey = FilterKey(stringValue: key) else {
-            return nil
-        }
-
-        switch filterKey {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
+        switch key {
         case .price, .priceCollective:
             let minimumValue: Int
             let maximumValue: Int
@@ -263,12 +237,8 @@ extension FilterMarketRealestate: FINNFilterConfiguration {
         }
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
-        guard let filterKey = FilterKey(stringValue: key) else {
-            return nil
-        }
-
-        switch filterKey {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
+        switch key {
         case .noOfBedrooms:
             return StepperFilterConfiguration(minimumValue: 0, maximumValue: 6, unit: "stk")
         default:

@@ -49,7 +49,7 @@ public class SearchLocationViewController: UIViewController {
     // MARK: - Public Properties
 
     public weak var delegate: SearchLocationViewControllerDelegate?
-    public var searchLocationDataSource: SearchLocationDataSource?
+    public weak var searchLocationDataSource: SearchLocationDataSource?
 
     // MARK: - Private Properties
 
@@ -305,13 +305,13 @@ private class SearchLocationSearchBar: UISearchBar {
         let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableViewCell.self])
         textFieldAppearanceInRoot.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
-            NSAttributedString.Key.font: UIFont.regularBody,
+            NSAttributedString.Key.font: UIFont.body,
         ]
 
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [SearchLocationSearchBar.self])
         textFieldAppearanceInSearch.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.licorice,
-            NSAttributedString.Key.font: UIFont.regularBody,
+            NSAttributedString.Key.font: UIFont.body,
         ]
 
         let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [SearchLocationSearchBar.self])

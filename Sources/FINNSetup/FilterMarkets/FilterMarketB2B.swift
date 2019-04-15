@@ -18,7 +18,7 @@ public enum FilterMarketB2B: String, CaseIterable {
 
 // MARK: - FilterConfiguration
 
-extension FilterMarketB2B: FINNFilterConfiguration {
+extension FilterMarketB2B: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         return [.published, .dealerSegment]
     }
@@ -27,8 +27,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         switch self {
         case .truck, .truckAbroad:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .truckSegment,
@@ -40,8 +38,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .bus:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .busSegment,
@@ -52,8 +48,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .construction:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .constructionSegment,
@@ -64,8 +58,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .make,
@@ -75,8 +67,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .agricultureTools:
             return [
-                .query,
-                .preferences,
                 .location,
                 .map,
                 .category,
@@ -85,8 +75,6 @@ extension FilterMarketB2B: FINNFilterConfiguration {
             ]
         case .vanNorway, .vanAbroad:
             return [
-                .query,
-                .preferences,
                 .make,
                 .year,
                 .mileage,
@@ -120,12 +108,8 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         return rawValue == vertical
     }
 
-    public func rangeConfiguration(forKey key: String) -> RangeFilterConfiguration? {
-        guard let filterKey = FilterKey(stringValue: key) else {
-            return nil
-        }
-
-        switch filterKey {
+    public func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration? {
+        switch key {
         case .price:
             let minimumValue: Int
             let maximumValue: Int
@@ -189,7 +173,7 @@ extension FilterMarketB2B: FINNFilterConfiguration {
         }
     }
 
-    public func stepperConfiguration(forKey key: String) -> StepperFilterConfiguration? {
+    public func stepperConfiguration(forKey key: FilterKey) -> StepperFilterConfiguration? {
         return nil
     }
 }

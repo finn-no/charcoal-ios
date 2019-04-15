@@ -224,7 +224,7 @@ private extension OnboardingViewController {
         style.minimumLineHeight = 22
 
         let attrString = NSMutableAttributedString(string: text,
-                                                   attributes: [.font: UIFont.regularBody, .foregroundColor: UIColor.licorice, .kern: 0.3, .paragraphStyle: style])
+                                                   attributes: [.font: UIFont.body, .foregroundColor: UIColor.licorice, .kern: 0.3, .paragraphStyle: style])
 
         let title = (key + ".title").localized()
         if let range = text.range(of: title) {
@@ -233,7 +233,7 @@ private extension OnboardingViewController {
 
         let highlight = (key + ".highlight").localized()
         if let range = text.range(of: highlight) {
-            attrString.addAttribute(.font, value: UIFont.boldBody, range: NSRange(range, in: text))
+            attrString.addAttribute(.font, value: UIFont.bodyStrong, range: NSRange(range, in: text))
         }
 
         return attrString

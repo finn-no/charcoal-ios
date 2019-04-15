@@ -15,7 +15,7 @@ final class RangeFilterValueFormatter: SliderValueFormatter {
 
     func string(from value: Int) -> String? {
         if unit.shouldFormatWithSeparator {
-            return NumberFormatter.decimalFormatter.string(from: value)
+            return value.decimalFormatted
         } else {
             return "\(value)"
         }

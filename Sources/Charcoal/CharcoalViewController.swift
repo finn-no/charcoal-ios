@@ -40,7 +40,7 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public var isLoading: Bool = false {
-        didSet { updateLoading() }
+        didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
     }
 
     // MARK: - Private properties
@@ -55,18 +55,13 @@ public final class CharcoalViewController: UINavigationController {
     }()
 
     private var rootFilterViewController: RootFilterViewController?
-    private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
     // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         delegate = self
-
-        navigationBar.barTintColor = .milk
-        navigationBar.isTranslucent = false
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
     }
 
     // MARK: - Public
@@ -77,17 +72,6 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     // MARK: - Private
-
-    private func updateLoading() {
-        if isLoading {
-            add(loadingViewController)
-            loadingViewController.view.frame.origin.y = navigationBar.frame.height
-            loadingViewController.view.frame.size.height = view.frame.height - navigationBar.frame.height
-            loadingViewController.viewWillAppear(false)
-        } else {
-            loadingViewController.remove()
-        }
-    }
 
     private func configure(with filterContainer: FilterContainer?) {
         guard let filterContainer = filterContainer else { return }
@@ -106,6 +90,19 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
             setViewControllers([rootFilterViewController!], animated: false)
         }
+    }
+
+    private func setupNavigationBar() {
+        let gradient = CAGradientLayer()
+        gradient.backgroundColor = UIColor.clear.cgColor
+        gradient.colors = [UIColor.white.cgColor, UIColor(white: 1, alpha: 0.5).cgColor]
+        gradient.startPoint = CGPoint(x: 0, y: 0.9)
+        gradient.endPoint = CGPoint(x: 0, y: 1)
+        gradient.frame = navigationBar.bounds
+
+        navigationBar.isTranslucent = true
+        navigationBar.setBackgroundImage(UIImage(layer: gradient), for: .default)
+        navigationBar.shadowImage = UIImage()
     }
 }
 

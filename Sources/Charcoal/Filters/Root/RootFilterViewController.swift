@@ -55,9 +55,9 @@ final class RootFilterViewController: FilterViewController {
         return viewController
     }()
 
+    private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
     private var freeTextFilterViewController: FreeTextFilterViewController?
     private var shouldResetInlineFilterCell = false
-    private let verticalAnimationOffset: CGFloat = .mediumSpacing
 
     // MARK: - Filter
 
@@ -105,6 +105,15 @@ final class RootFilterViewController: FilterViewController {
         updateNavigationTitleView()
         updateBottomButtonTitle()
         tableView.reloadData()
+    }
+
+    func showLoadingIndicator(_ show: Bool) {
+        if show {
+            add(loadingViewController)
+            loadingViewController.viewWillAppear(false)
+        } else {
+            loadingViewController.remove()
+        }
     }
 
     private func setup() {
@@ -323,40 +332,41 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
     private func showVerticalViewController() {
         guard let verticals = filterContainer.verticals else { return }
 
-        let offset = verticalAnimationOffset
-
         add(verticalViewController)
         verticalViewController.verticals = verticals
-        verticalViewController.view.alpha = 0
-        verticalViewController.view.frame.origin.y = -offset
+        verticalViewController.view.alpha = 0.6
+        verticalViewController.view.frame.origin.y = -.largeSpacing
 
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: ({ [weak self] in
+        UIView.animate(withDuration: 0.1, animations: { [weak self] in
             self?.verticalViewController.view.alpha = 1
-            self?.verticalViewController.view.frame.origin.y = offset
-        }), completion: ({ _ in
-            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: { [weak self] in
-                self?.verticalViewController.view.frame.origin.y = 0
-            })
-        }))
+        })
+
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0,
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 1,
+            options: [],
+            animations: { [weak self] in self?.verticalViewController.view.frame.origin.y = 0 }
+        )
 
         verticalSelectorView.isExpanded = true
     }
 
-    private func hideVerticalViewController() {
-        let offset = verticalAnimationOffset
+    private func hideVerticalViewController(animated: Bool = true) {
+        defer { verticalSelectorView.isExpanded = false }
 
-        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: ({ [weak self] in
-            self?.verticalViewController.view.frame.origin.y = offset
-        }), completion: ({ _ in
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: ({ [weak self] in
-                self?.verticalViewController.view.frame.origin.y = -offset
-                self?.verticalViewController.view.alpha = 0
-            }), completion: ({ [weak self] _ in
-                self?.verticalViewController.remove()
-            }))
+        guard animated else {
+            verticalViewController.remove()
+            return
+        }
+
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
+            self?.verticalViewController.view.frame.origin.y = -.veryLargeSpacing
+            self?.verticalViewController.view.alpha = 0
+        }), completion: ({ [weak self] _ in
+            self?.verticalViewController.remove()
         }))
-
-        verticalSelectorView.isExpanded = false
     }
 }
 

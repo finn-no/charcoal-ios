@@ -13,8 +13,8 @@ final class VerticalSelectorView: UIView {
 
     var isExpanded: Bool = false {
         didSet {
-            let image = isExpanded ? UIImage(named: .arrowUp) : UIImage(named: .arrowDown)
-            button.setImage(image, for: .normal)
+            let asset: CharcoalImageAsset = isExpanded ? .arrowUp : .arrowDown
+            button.setImage(UIImage(named: asset), for: .normal)
         }
     }
 
@@ -29,7 +29,7 @@ final class VerticalSelectorView: UIView {
     private lazy var button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .milk
-        button.titleLabel?.font = .bodyStrong
+        button.titleLabel?.font = UIFont.bodyStrong.withSize(17)
 
         button.setTitleColor(.primaryBlue, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
@@ -37,7 +37,7 @@ final class VerticalSelectorView: UIView {
 
         let spacing = .smallSpacing / 2
         button.semanticContentAttribute = .forceRightToLeft
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: -spacing)
+        button.imageEdgeInsets = UIEdgeInsets(top: .smallSpacing, leading: spacing, bottom: 0, trailing: -spacing)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
         button.contentEdgeInsets = UIEdgeInsets(
             top: 0,

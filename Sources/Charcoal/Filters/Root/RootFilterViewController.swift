@@ -45,7 +45,10 @@ final class RootFilterViewController: FilterViewController {
     private lazy var resetButton: UIBarButtonItem = {
         let action = #selector(handleResetButtonTap)
         let button = UIBarButtonItem(title: "reset".localized(), style: .plain, target: self, action: action)
-        button.setTitleTextAttributes([.font: UIFont.bodyStrong, .foregroundColor: UIColor.licorice])
+        let font = UIFont.bodyStrong
+        let textColor = UIColor.licorice
+        button.setTitleTextAttributes([.font: font, .foregroundColor: textColor])
+        button.setTitleTextAttributes([.font: font, .foregroundColor: textColor.withAlphaComponent(0.3)], for: .disabled)
         return button
     }()
 
@@ -78,10 +81,8 @@ final class RootFilterViewController: FilterViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         navigationItem.rightBarButtonItem = resetButton
         updateNavigationTitleView()
-
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()
         setup()
@@ -137,7 +138,6 @@ final class RootFilterViewController: FilterViewController {
             navigationItem.titleView = verticalSelectorView
         } else {
             navigationItem.titleView = nil
-            navigationItem.title = "rootTitle".localized()
         }
     }
 
@@ -357,14 +357,9 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         )
     }
 
-    private func hideVerticalViewController(animated: Bool = true) {
+    private func hideVerticalViewController() {
         resetButton.isEnabled = true
         verticalSelectorView.arrowDirection = .down
-
-        guard animated else {
-            verticalViewController.remove()
-            return
-        }
 
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
             self?.verticalViewController.view.frame.origin.y = -.veryLargeSpacing

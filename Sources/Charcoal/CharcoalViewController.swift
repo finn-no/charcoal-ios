@@ -93,16 +93,14 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     private func setupNavigationBar() {
-        let gradient = CAGradientLayer()
-        gradient.backgroundColor = UIColor.clear.cgColor
-        gradient.colors = [UIColor.white.cgColor, UIColor(white: 1, alpha: 0.5).cgColor]
-        gradient.startPoint = CGPoint(x: 0, y: 0.9)
-        gradient.endPoint = CGPoint(x: 0, y: 1)
-        gradient.frame = navigationBar.bounds
-
-        navigationBar.isTranslucent = true
-        navigationBar.setBackgroundImage(UIImage(layer: gradient), for: .default)
+        navigationBar.isTranslucent = false
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
+        navigationBar.layer.masksToBounds = false
+        navigationBar.layer.shadowColor = UIColor.white.cgColor
+        navigationBar.layer.shadowOpacity = 0.7
+        navigationBar.layer.shadowOffset = CGSize(width: 0, height: .mediumSpacing)
+        navigationBar.layer.shadowRadius = 2
     }
 }
 

@@ -9,12 +9,23 @@ protocol VerticalSelectorViewDelegate: AnyObject {
 }
 
 final class VerticalSelectorView: UIView {
+    enum ArrowDirection {
+        case up
+        case down
+    }
+
     weak var delegate: VerticalSelectorViewDelegate?
 
-    var isExpanded: Bool = false {
+    var arrowDirection: ArrowDirection = .down {
         didSet {
-            let asset: CharcoalImageAsset = isExpanded ? .arrowUp : .arrowDown
+            let asset: CharcoalImageAsset = arrowDirection == .up ? .arrowUp : .arrowDown
             button.setImage(UIImage(named: asset), for: .normal)
+        }
+    }
+
+    var isEnabled: Bool = true {
+        didSet {
+            button.isEnabled = isEnabled
         }
     }
 
@@ -34,10 +45,11 @@ final class VerticalSelectorView: UIView {
         button.setTitleColor(.primaryBlue, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)
+        button.setTitleColor(UIColor.primaryBlue.withAlphaComponent(0.5), for: .disabled)
 
         let spacing = .smallSpacing / 2
         button.semanticContentAttribute = .forceRightToLeft
-        button.imageEdgeInsets = UIEdgeInsets(top: .smallSpacing, leading: spacing, bottom: 0, trailing: -spacing)
+        button.imageEdgeInsets = UIEdgeInsets(top: spacing, leading: spacing, bottom: 0, trailing: -spacing)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
         button.contentEdgeInsets = UIEdgeInsets(
             top: 0,
@@ -70,7 +82,8 @@ final class VerticalSelectorView: UIView {
     }
 
     private func setup() {
-        isExpanded = false
+        arrowDirection = .down
+        isEnabled = true
 
         addSubview(titleLabel)
         addSubview(button)

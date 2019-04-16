@@ -108,6 +108,9 @@ final class RootFilterViewController: FilterViewController {
     }
 
     func showLoadingIndicator(_ show: Bool) {
+        resetButton.isEnabled = !show
+        verticalSelectorView.isEnabled = !show
+
         if show {
             add(loadingViewController)
             loadingViewController.viewWillAppear(false)
@@ -322,7 +325,7 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalSelectorViewDelegate {
     func verticalSelectorViewDidSelectButton(_ view: VerticalSelectorView) {
-        if view.isExpanded {
+        if view.arrowDirection == .up {
             hideVerticalViewController()
         } else {
             showVerticalViewController()
@@ -331,6 +334,9 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
 
     private func showVerticalViewController() {
         guard let verticals = filterContainer.verticals else { return }
+
+        resetButton.isEnabled = false
+        verticalSelectorView.arrowDirection = .up
 
         add(verticalViewController)
         verticalViewController.verticals = verticals
@@ -349,12 +355,11 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
             options: [],
             animations: { [weak self] in self?.verticalViewController.view.frame.origin.y = 0 }
         )
-
-        verticalSelectorView.isExpanded = true
     }
 
     private func hideVerticalViewController(animated: Bool = true) {
-        defer { verticalSelectorView.isExpanded = false }
+        resetButton.isEnabled = true
+        verticalSelectorView.arrowDirection = .down
 
         guard animated else {
             verticalViewController.remove()

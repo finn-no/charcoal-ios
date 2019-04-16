@@ -6,16 +6,23 @@ import FINNSetup
 import UIKit
 
 class Setup {
-    var filterContainer: FilterContainer
+    var filterContainer: FilterContainer?
+    let markets: [DemoVertical]
 
-    private var market: String
-    private let submarkets: [Vertical]
+    var current: DemoVertical? {
+        didSet {
+            updateMarket(old: oldValue, new: current)
+        }
+    }
 
-    private init(market: String, submarkets: [Vertical]) {
-        self.market = market
-        self.submarkets = submarkets
-        filterContainer = Setup.filterContainer(name: market)
-        filterContainer.verticals = submarkets
+    private init(markets: [DemoVertical]) {
+        self.markets = markets
+        current = markets.first
+
+        if let current = current {
+            filterContainer = Setup.filterContainer(name: current.name)
+            filterContainer?.verticals = markets
+        }
     }
 
     static func filterContainer(name: String) -> FilterContainer {
@@ -43,15 +50,25 @@ class Setup {
 
         return filterSetup.filterContainer(using: config)
     }
+
+    private func updateMarket(old: DemoVertical?, new: DemoVertical?) {
+        old?.isCurrent = false
+        new?.isCurrent = true
+
+        if let name = new?.name {
+            filterContainer = Setup.filterContainer(name: name)
+            filterContainer?.verticals = markets
+        }
+    }
 }
 
 extension Setup {
     static var bap: Setup {
-        return Setup(market: "bap", submarkets: [])
+        return Setup(markets: [DemoVertical(name: "bap", title: "Torget")])
     }
 
     static var car: Setup {
-        return Setup(market: "car-norway", submarkets: [
+        return Setup(markets: [
             DemoVertical(name: "car-norway", title: "Biler i Norge", isCurrent: true),
             DemoVertical(name: "car-abroad", title: "Biler i utlandet"),
             DemoVertical(name: "mobile-home", title: "Bobil"),
@@ -60,7 +77,7 @@ extension Setup {
     }
 
     static var realestate: Setup {
-        return Setup(market: "realestate-homes", submarkets: [
+        return Setup(markets: [
             DemoVertical(name: "realestate-homes", title: "Boliger til salgs", isCurrent: true),
             DemoVertical(name: "realestate-development", title: "Nye boliger"),
             DemoVertical(name: "realestate-plot", title: "Boligtomter"),
@@ -78,7 +95,7 @@ extension Setup {
     }
 
     static var job: Setup {
-        return Setup(market: "job-full-time", submarkets: [
+        return Setup(markets: [
             DemoVertical(name: "job-full-time", title: "Alle stillinger", isCurrent: true),
             DemoVertical(name: "job-part-time", title: "Deltidsstillinger"),
             DemoVertical(name: "job-management", title: "Lederstillinger"),
@@ -86,7 +103,7 @@ extension Setup {
     }
 
     static var boat: Setup {
-        return Setup(market: "boat-sale", submarkets: [
+        return Setup(markets: [
             DemoVertical(name: "boat-sale", title: "Båter til salgs", isCurrent: true),
             DemoVertical(name: "boat-used-wanted", title: "Båter ønskes kjøpt"),
             DemoVertical(name: "boat-rent", title: "Båter til leie"),
@@ -99,7 +116,7 @@ extension Setup {
     }
 
     static var mc: Setup {
-        return Setup(market: "mc", submarkets: [
+        return Setup(markets: [
             DemoVertical(name: "mc", title: "Motorsykler", isCurrent: true),
             DemoVertical(name: "moped-scooter", title: "Scootere og mopeder"),
             DemoVertical(name: "snowmobile", title: "Snøscootere"),
@@ -108,7 +125,7 @@ extension Setup {
     }
 
     static var b2b: Setup {
-        return Setup(market: "truck", submarkets: [
+        return Setup(markets: [
             DemoVertical(name: "truck", title: "Lastebil og henger", isCurrent: true),
             DemoVertical(name: "truck-abroad", title: "Lastebil og henger i utlandet"),
             DemoVertical(name: "bus", title: "Buss og minibuss"),

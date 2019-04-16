@@ -4,7 +4,7 @@
 
 import Charcoal
 
-struct DemoVertical: Vertical {
+class DemoVertical: Vertical {
     let name: String
     let title: String
     var isCurrent: Bool

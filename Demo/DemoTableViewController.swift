@@ -62,7 +62,12 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
 
         if let submarket = setup.markets.first(where: { $0.name == vertical.name }) {
             setup.current = submarket
-            viewController.filterContainer = setup.filterContainer
+            viewController.isLoading = true
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                viewController.filterContainer = setup.filterContainer
+                viewController.isLoading = false
+            }
         }
     }
 

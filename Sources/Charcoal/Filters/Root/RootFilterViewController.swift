@@ -45,7 +45,7 @@ final class RootFilterViewController: FilterViewController {
     private lazy var resetButton: UIBarButtonItem = {
         let action = #selector(handleResetButtonTap)
         let button = UIBarButtonItem(title: "reset".localized(), style: .plain, target: self, action: action)
-        button.setTitleTextAttributes([.font: UIFont.bodyStrong])
+        button.setTitleTextAttributes([.font: UIFont.bodyStrong, .foregroundColor: UIColor.licorice])
         return button
     }()
 

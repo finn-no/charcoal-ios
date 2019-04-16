@@ -101,6 +101,7 @@
 		CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */; };
 		CF16687D2264A2B100652DB0 /* VerticalSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF16687C2264A2B100652DB0 /* VerticalSelectorView.swift */; };
 		CF16687F2264B63000652DB0 /* VerticalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF16687E2264B63000652DB0 /* VerticalTransitioningDelegate.swift */; };
+		CF1668812265CE1200652DB0 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1668802265CE1200652DB0 /* UIImageExtensions.swift */; };
 		CF33D9CA224A499C00A24DF0 /* FilterSelectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */; };
 		CF33D9D3224A4B9D00A24DF0 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D2224A4B9D00A24DF0 /* UITestCase.swift */; };
 		CF33D9D5224A4D2200A24DF0 /* XCUIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33D9D4224A4D2200A24DF0 /* XCUIApplicationExtensions.swift */; };
@@ -377,6 +378,7 @@
 		CF0B19F12212C6DA00D8D9B7 /* ListFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterCellViewModel.swift; sourceTree = "<group>"; };
 		CF16687C2264A2B100652DB0 /* VerticalSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSelectorView.swift; sourceTree = "<group>"; };
 		CF16687E2264B63000652DB0 /* VerticalTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTransitioningDelegate.swift; sourceTree = "<group>"; };
+		CF1668802265CE1200652DB0 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		CF33D9C7224A499C00A24DF0 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF33D9C9224A499C00A24DF0 /* FilterSelectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionUITests.swift; sourceTree = "<group>"; };
 		CF33D9CB224A499C00A24DF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -788,6 +790,7 @@
 				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
 				CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */,
 				CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */,
+				CF1668802265CE1200652DB0 /* UIImageExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1673,6 +1676,7 @@
 				DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */,
 				CFF4F45A223BD3B600A137DA /* MapRadiusView.swift in Sources */,
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,
+				CF1668812265CE1200652DB0 /* UIImageExtensions.swift in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */,
 				9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */,
 				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,

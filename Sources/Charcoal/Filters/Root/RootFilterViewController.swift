@@ -70,7 +70,7 @@ final class RootFilterViewController: FilterViewController {
 
     init(filterContainer: FilterContainer, selectionStore: FilterSelectionStore) {
         self.filterContainer = filterContainer
-        super.init(title: "rootTitle".localized(), selectionStore: selectionStore)
+        super.init(title: "root.title".localized(), selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -136,7 +136,10 @@ final class RootFilterViewController: FilterViewController {
     private func updateNavigationTitleView() {
         if let vertical = filterContainer.verticals?.first(where: { $0.isCurrent }) {
             verticalSelectorView.delegate = self
-            verticalSelectorView.configure(withTitle: "rootTitle".localized(), buttonTitle: vertical.title)
+            verticalSelectorView.configure(
+                withTitle: "root.verticalSelector.title".localized(),
+                buttonTitle: vertical.title
+            )
             navigationItem.titleView = verticalSelectorView
         } else {
             navigationItem.titleView = nil

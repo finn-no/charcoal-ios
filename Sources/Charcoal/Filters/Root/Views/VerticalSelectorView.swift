@@ -48,6 +48,7 @@ final class VerticalSelectorView: UIView {
         button.setTitleColor(UIColor.primaryBlue.withAlphaComponent(0.5), for: .disabled)
 
         let spacing = .smallSpacing / 2
+
         button.semanticContentAttribute = .forceRightToLeft
         button.imageEdgeInsets = UIEdgeInsets(top: spacing, leading: spacing, bottom: 0, trailing: -spacing)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)

@@ -9,7 +9,7 @@ public protocol VerticalListViewControllerDelegate: AnyObject {
 }
 
 public class VerticalListViewController: UIViewController {
-    static let rowHeight: CGFloat = 48.0
+    private static let rowHeight: CGFloat = 48.0
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)

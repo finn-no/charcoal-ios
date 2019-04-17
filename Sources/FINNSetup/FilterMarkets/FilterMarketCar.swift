@@ -17,7 +17,7 @@ extension FilterMarketCar: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .norway, .abroad:
-            return [.published, .priceChanged, .dealerSegment]
+            return [.published, .dealerSegment, .priceChanged]
         case .mobileHome, .caravan:
             return [.published, .caravanDealerSegment]
         }
@@ -53,18 +53,18 @@ extension FilterMarketCar: FilterConfiguration {
             return [
                 .make,
                 .salesForm,
-                .year,
-                .mileage,
-                .leasepriceInit,
-                .leasepriceMonth,
-                .price,
                 .location,
                 .map,
+                .year,
+                .price,
+                .mileage,
+                .engineEffect,
+                .numberOfSeats,
+                .leasepriceInit,
+                .leasepriceMonth,
                 .bodyType,
                 .engineFuel,
                 .exteriorColour,
-                .engineEffect,
-                .numberOfSeats,
                 .wheelDrive,
                 .transmission,
                 .carEquipment,

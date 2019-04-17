@@ -75,19 +75,19 @@ extension FilterMarketCar: FilterConfiguration {
             ]
         case .mobileHome:
             return [
-                .make,
                 .salesForm,
-                .year,
-                .mileage,
-                .price,
                 .location,
                 .map,
+                .make,
+                .year,
+                .price,
+                .mileage,
+                .mobileHomeSegment,
                 .noOfSleepers,
                 .numberOfSeats,
                 .engineEffect,
-                .mobileHomeSegment,
-                .transmission,
                 .wheelDrive,
+                .transmission,
                 .length,
                 .weight,
             ]

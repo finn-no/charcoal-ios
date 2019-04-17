@@ -93,15 +93,15 @@ extension FilterMarketCar: FilterConfiguration {
             ]
         case .caravan:
             return [
-                .make,
                 .salesForm,
-                .year,
-                .mileage,
-                .price,
                 .location,
                 .map,
-                .noOfSleepers,
+                .make,
+                .year,
+                .price,
+                .mileage,
                 .caravanSegment,
+                .noOfSleepers,
                 .length,
                 .width,
                 .weight,

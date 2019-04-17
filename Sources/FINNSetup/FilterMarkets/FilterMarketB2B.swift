@@ -27,8 +27,8 @@ extension FilterMarketB2B: FilterConfiguration {
         switch self {
         case .truck, .truckAbroad:
             return [
-                .map,
                 .location,
+                .map,
                 .truckSegment,
                 .make,
                 .price,
@@ -38,8 +38,8 @@ extension FilterMarketB2B: FilterConfiguration {
             ]
         case .bus:
             return [
-                .map,
                 .location,
+                .map,
                 .busSegment,
                 .make,
                 .price,
@@ -48,8 +48,8 @@ extension FilterMarketB2B: FilterConfiguration {
             ]
         case .construction:
             return [
-                .map,
                 .location,
+                .map,
                 .constructionSegment,
                 .make,
                 .price,
@@ -58,8 +58,8 @@ extension FilterMarketB2B: FilterConfiguration {
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
-                .map,
                 .location,
+                .map,
                 .make,
                 .price,
                 .year,
@@ -67,8 +67,8 @@ extension FilterMarketB2B: FilterConfiguration {
             ]
         case .agricultureTools:
             return [
-                .map,
                 .location,
+                .map,
                 .category,
                 .price,
                 .year,
@@ -80,8 +80,8 @@ extension FilterMarketB2B: FilterConfiguration {
                 .mileage,
                 .price,
                 .bodyType,
-                .map,
                 .location,
+                .map,
                 .engineFuel,
                 .exteriorColour,
                 .engineEffect,

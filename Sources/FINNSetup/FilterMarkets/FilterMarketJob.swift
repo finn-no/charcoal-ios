@@ -21,8 +21,8 @@ extension FilterMarketJob: FilterConfiguration {
         switch self {
         case .partTime:
             return [
-                .map,
                 .location,
+                .map,
                 .occupation,
                 .industry,
                 .jobDuration,
@@ -31,8 +31,8 @@ extension FilterMarketJob: FilterConfiguration {
             ]
         case .fullTime, .management:
             return [
-                .map,
                 .location,
+                .map,
                 .occupation,
                 .industry,
                 .jobDuration,

@@ -81,7 +81,9 @@ final class RootFilterViewController: FilterViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         navigationItem.rightBarButtonItem = resetButton
+
         updateNavigationTitleView()
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()

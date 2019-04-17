@@ -63,6 +63,14 @@ final class VerticalSelectorView: UIView {
         return button
     }()
 
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, button])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+
     // MARK: - Init
 
     override init(frame: CGRect) {
@@ -85,15 +93,9 @@ final class VerticalSelectorView: UIView {
         arrowDirection = .down
         isEnabled = true
 
-        addSubview(titleLabel)
-        addSubview(button)
-
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, button])
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-
         addSubview(stackView)
         stackView.fillInSuperview()
+        stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
     }
 
     // MARK: - Actions

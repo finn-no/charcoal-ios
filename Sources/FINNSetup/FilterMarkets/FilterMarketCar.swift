@@ -34,8 +34,8 @@ extension FilterMarketCar: FilterConfiguration {
                 .leasepriceInit,
                 .leasepriceMonth,
                 .price,
-                .location,
                 .map,
+                .location,
                 .bodyType,
                 .engineFuel,
                 .exteriorColour,
@@ -53,8 +53,8 @@ extension FilterMarketCar: FilterConfiguration {
             return [
                 .make,
                 .salesForm,
-                .location,
                 .map,
+                .location,
                 .year,
                 .price,
                 .mileage,
@@ -76,8 +76,8 @@ extension FilterMarketCar: FilterConfiguration {
         case .mobileHome:
             return [
                 .salesForm,
-                .location,
                 .map,
+                .location,
                 .make,
                 .year,
                 .price,
@@ -94,8 +94,8 @@ extension FilterMarketCar: FilterConfiguration {
         case .caravan:
             return [
                 .salesForm,
-                .location,
                 .map,
+                .location,
                 .make,
                 .year,
                 .price,

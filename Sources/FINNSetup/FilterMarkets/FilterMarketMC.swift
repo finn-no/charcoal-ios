@@ -17,7 +17,7 @@ extension FilterMarketMC: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .mc:
-            return [.published, .segment, .dealerSegment]
+            return [.published, .dealerSegment, .segment]
         default:
             return [.published, .dealerSegment]
         }
@@ -25,40 +25,28 @@ extension FilterMarketMC: FilterConfiguration {
 
     public var rootLevelFilterKeys: [FilterKey] {
         switch self {
-        case .mc:
+        case .mc, .mopedScooter:
             return [
-                .map,
-                .location,
-                .category,
                 .make,
                 .price,
                 .year,
                 .mileage,
-                .engineEffect,
-                .engineVolume,
-            ]
-        case .mopedScooter:
-            return [
+                .category,
                 .map,
                 .location,
-                .category,
-                .make,
-                .price,
-                .year,
-                .mileage,
-                .engineEffect,
                 .engineVolume,
+                .engineEffect,
             ]
         case .snowmobile, .atv:
             return [
-                .map,
-                .location,
                 .make,
                 .price,
                 .year,
                 .mileage,
-                .engineEffect,
+                .map,
+                .location,
                 .engineVolume,
+                .engineEffect,
             ]
         }
     }

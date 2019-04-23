@@ -21,7 +21,9 @@ extension FilterMarketBoat: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .boatSale:
-            return [.published, .segment]
+            return [.published, .dealerSegment, .segment]
+        case .boatMotor, .boatParts, .boatDock:
+            return [.published, .dealerSegment]
         default:
             return [.published]
         }
@@ -31,8 +33,6 @@ extension FilterMarketBoat: FilterConfiguration {
         switch self {
         case .boatSale:
             return [
-                .map,
-                .location,
                 .motorAdLocation,
                 .boatClass,
                 .make,
@@ -42,62 +42,62 @@ extension FilterMarketBoat: FilterConfiguration {
                 .motorIncluded,
                 .motorType,
                 .fuel,
-                .motorSize,
-                .noOfSeats,
+                .map,
+                .location,
                 .noOfSleepers,
-                .dealerSegment,
+                .noOfSeats,
+                .motorSize,
             ]
         case .boatUsedWanted:
             return [
-                .map,
-                .location,
                 .boatClass,
                 .price,
+                .map,
+                .location,
             ]
         case .boatRent:
             return [
-                .map,
-                .location,
                 .boatClass,
+                .make,
                 .price,
                 .lengthFeet,
                 .year,
                 .fuel,
-                .motorSize,
-                .noOfSeats,
+                .map,
+                .location,
                 .noOfSleepers,
+                .noOfSeats,
+                .motorSize,
             ]
         case .boatMotor, .boatParts:
             return [
-                .map,
-                .location,
                 .type,
                 .price,
+                .map,
+                .location,
                 .engineEffect,
-                .dealerSegment,
             ]
         case .boatPartsMotorWanted:
             return [
+                .price,
                 .map,
                 .location,
                 .type,
-                .price,
                 .engineEffect,
             ]
         case .boatDock:
             return [
+                .price,
+                .width,
                 .map,
                 .location,
-                .width,
-                .price,
-                .dealerSegment,
             ]
         case .boatDockWanted:
             return [
+                .price,
+                .width,
                 .map,
                 .location,
-                .width,
-                .price,
             ]
         }
     }

@@ -31,8 +31,8 @@ extension FilterMarketBoat: FilterConfiguration {
         switch self {
         case .boatSale:
             return [
-                .location,
                 .map,
+                .location,
                 .motorAdLocation,
                 .boatClass,
                 .make,
@@ -49,15 +49,15 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatUsedWanted:
             return [
-                .location,
                 .map,
+                .location,
                 .boatClass,
                 .price,
             ]
         case .boatRent:
             return [
-                .location,
                 .map,
+                .location,
                 .boatClass,
                 .price,
                 .lengthFeet,
@@ -69,8 +69,8 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatMotor, .boatParts:
             return [
-                .location,
                 .map,
+                .location,
                 .type,
                 .price,
                 .engineEffect,
@@ -78,24 +78,24 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatPartsMotorWanted:
             return [
-                .location,
                 .map,
+                .location,
                 .type,
                 .price,
                 .engineEffect,
             ]
         case .boatDock:
             return [
-                .location,
                 .map,
+                .location,
                 .width,
                 .price,
                 .dealerSegment,
             ]
         case .boatDockWanted:
             return [
-                .location,
                 .map,
+                .location,
                 .width,
                 .price,
             ]

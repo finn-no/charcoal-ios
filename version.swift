@@ -1,3 +1,7 @@
+//
+//  Copyright © FINN.no AS, Inc. All rights reserved.
+//
+
 #!/usr/bin/swift
 
 import Foundation
@@ -131,7 +135,7 @@ var message = arguments.firstIndex(where: { Set(["-m", "--message"]).contains($0
 var nextTags = [
     "patch": { currentTag.nextPatch() },
     "minor": { currentTag.nextMinor() },
-    "major": { currentTag.nextMajor() }
+    "major": { currentTag.nextMajor() },
 ]
 
 switch action {

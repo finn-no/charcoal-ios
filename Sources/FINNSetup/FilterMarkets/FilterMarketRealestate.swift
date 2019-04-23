@@ -36,8 +36,8 @@ extension FilterMarketRealestate: FilterConfiguration {
         switch self {
         case .homes:
             return [
-                .location,
                 .map,
+                .location,
                 .price,
                 .priceCollective,
                 .rent,
@@ -54,8 +54,8 @@ extension FilterMarketRealestate: FilterConfiguration {
             ]
         case .development:
             return [
-                .location,
                 .map,
+                .location,
                 .price,
                 .priceCollective,
                 .area,
@@ -67,16 +67,18 @@ extension FilterMarketRealestate: FilterConfiguration {
             ]
         case .plot, .leisurePlot:
             return [
-                .location,
                 .map,
+                .location,
                 .price,
+                .priceCollective,
                 .plotArea,
             ]
         case .leisureSale:
             return [
-                .location,
                 .map,
+                .location,
                 .price,
+                .priceCollective,
                 .area,
                 .noOfBedrooms,
                 .viewing,
@@ -88,18 +90,17 @@ extension FilterMarketRealestate: FilterConfiguration {
         case .leisureSaleAbroad:
             return [
                 .location,
-                .map,
                 .price,
                 .area,
                 .noOfBedrooms,
+                .leisureSituation,
                 .propertyType,
                 .facilities,
-                .leisureSituation,
             ]
         case .letting:
             return [
-                .location,
                 .map,
+                .location,
                 .propertyType,
                 .price,
                 .area,
@@ -113,8 +114,8 @@ extension FilterMarketRealestate: FilterConfiguration {
             ]
         case .lettingWanted:
             return [
-                .location,
                 .map,
+                .location,
                 .propertyType,
                 .price,
                 .noOfOccupants,
@@ -122,30 +123,30 @@ extension FilterMarketRealestate: FilterConfiguration {
             ]
         case .businessSale:
             return [
-                .location,
                 .map,
+                .location,
                 .price,
                 .area,
                 .propertyType,
             ]
         case .businessLetting:
             return [
-                .location,
                 .map,
+                .location,
                 .area,
                 .propertyType,
             ]
         case .businessPlot:
             return [
-                .location,
                 .map,
+                .location,
                 .price,
                 .plotArea,
             ]
         case .companyForSale:
             return [
-                .location,
                 .map,
+                .location,
                 .category,
             ]
         case .travelFhh:

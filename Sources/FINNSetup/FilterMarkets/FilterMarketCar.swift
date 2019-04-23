@@ -17,7 +17,7 @@ extension FilterMarketCar: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .norway, .abroad:
-            return [.published, .priceChanged, .dealerSegment]
+            return [.published, .dealerSegment, .priceChanged]
         case .mobileHome, .caravan:
             return [.published, .caravanDealerSegment]
         }
@@ -34,8 +34,8 @@ extension FilterMarketCar: FilterConfiguration {
                 .leasepriceInit,
                 .leasepriceMonth,
                 .price,
-                .location,
                 .map,
+                .location,
                 .bodyType,
                 .engineFuel,
                 .exteriorColour,
@@ -53,18 +53,18 @@ extension FilterMarketCar: FilterConfiguration {
             return [
                 .make,
                 .salesForm,
+                .map,
+                .location,
                 .year,
+                .price,
                 .mileage,
+                .engineEffect,
+                .numberOfSeats,
                 .leasepriceInit,
                 .leasepriceMonth,
-                .price,
-                .location,
-                .map,
                 .bodyType,
                 .engineFuel,
                 .exteriorColour,
-                .engineEffect,
-                .numberOfSeats,
                 .wheelDrive,
                 .transmission,
                 .carEquipment,
@@ -75,33 +75,33 @@ extension FilterMarketCar: FilterConfiguration {
             ]
         case .mobileHome:
             return [
-                .make,
                 .salesForm,
-                .year,
-                .mileage,
-                .price,
-                .location,
                 .map,
+                .location,
+                .make,
+                .year,
+                .price,
+                .mileage,
+                .mobileHomeSegment,
                 .noOfSleepers,
                 .numberOfSeats,
                 .engineEffect,
-                .mobileHomeSegment,
-                .transmission,
                 .wheelDrive,
+                .transmission,
                 .length,
                 .weight,
             ]
         case .caravan:
             return [
-                .make,
                 .salesForm,
-                .year,
-                .mileage,
-                .price,
-                .location,
                 .map,
-                .noOfSleepers,
+                .location,
+                .make,
+                .year,
+                .price,
+                .mileage,
                 .caravanSegment,
+                .noOfSleepers,
                 .length,
                 .width,
                 .weight,

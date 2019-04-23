@@ -27,8 +27,8 @@ extension FilterMarketMC: FilterConfiguration {
         switch self {
         case .mc:
             return [
-                .location,
                 .map,
+                .location,
                 .category,
                 .make,
                 .price,
@@ -39,8 +39,8 @@ extension FilterMarketMC: FilterConfiguration {
             ]
         case .mopedScooter:
             return [
-                .location,
                 .map,
+                .location,
                 .category,
                 .make,
                 .price,
@@ -51,8 +51,8 @@ extension FilterMarketMC: FilterConfiguration {
             ]
         case .snowmobile, .atv:
             return [
-                .location,
                 .map,
+                .location,
                 .make,
                 .price,
                 .year,

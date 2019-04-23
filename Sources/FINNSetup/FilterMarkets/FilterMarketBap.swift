@@ -33,8 +33,8 @@ extension FilterMarketBap: FilterConfiguration {
             .shoeSize,
             .womenClothingBrand,
             .lengthCm,
-            .location,
             .map,
+            .location,
             .price,
         ]
     }

@@ -14,7 +14,7 @@ final class FilterSelectionUITests: UITestCase {
         XCTAssertTrue(app.hasNavigationTitle("Filtrer søket"))
 
         // 2. Open filter
-        app.tables.element(boundBy: 1).cells.element(boundBy: 3).tap()
+        app.tables.element(boundBy: 1).cells.element(boundBy: 4).tap()
         sleep(1)
         XCTAssertTrue(app.hasNavigationTitle("Område"))
         XCTAssertFalse(app.bottomButton.exists)

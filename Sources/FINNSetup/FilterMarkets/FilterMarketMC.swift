@@ -39,14 +39,14 @@ extension FilterMarketMC: FilterConfiguration {
             ]
         case .snowmobile, .atv:
             return [
-                .map,
-                .location,
                 .make,
                 .price,
                 .year,
                 .mileage,
-                .engineEffect,
+                .map,
+                .location,
                 .engineVolume,
+                .engineEffect,
             ]
         }
     }

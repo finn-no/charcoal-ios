@@ -398,11 +398,13 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
         resetButton.isEnabled = false
+        verticalSelectorView.isEnabled = false
         add(viewController)
     }
 
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
         resetButton.isEnabled = true
+        verticalSelectorView.isEnabled = true
         viewController.remove()
         tableView.reloadData()
     }

@@ -48,10 +48,10 @@ extension FilterMarketBoat: FilterConfiguration {
             ]
         case .boatUsedWanted:
             return [
-                .map,
-                .location,
                 .boatClass,
                 .price,
+                .map,
+                .location,
             ]
         case .boatRent:
             return [

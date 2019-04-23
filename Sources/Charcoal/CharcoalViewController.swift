@@ -40,7 +40,7 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public var isLoading: Bool = false {
-        didSet { updateLoading() }
+        didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
     }
 
     // MARK: - Private properties
@@ -55,12 +55,12 @@ public final class CharcoalViewController: UINavigationController {
     }()
 
     private var rootFilterViewController: RootFilterViewController?
-    private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
 
     // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         delegate = self
     }
 
@@ -72,15 +72,6 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     // MARK: - Private
-
-    private func updateLoading() {
-        if isLoading {
-            add(loadingViewController)
-            loadingViewController.viewWillAppear(false)
-        } else {
-            loadingViewController.remove()
-        }
-    }
 
     private func configure(with filterContainer: FilterContainer?) {
         guard let filterContainer = filterContainer else { return }
@@ -99,6 +90,18 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
             setViewControllers([rootFilterViewController!], animated: false)
         }
+    }
+
+    private func setupNavigationBar() {
+        navigationBar.isTranslucent = false
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+
+        navigationBar.layer.masksToBounds = false
+        navigationBar.layer.shadowColor = UIColor.white.cgColor
+        navigationBar.layer.shadowOpacity = 0.7
+        navigationBar.layer.shadowOffset = CGSize(width: 0, height: .mediumSpacing)
+        navigationBar.layer.shadowRadius = 2
     }
 }
 

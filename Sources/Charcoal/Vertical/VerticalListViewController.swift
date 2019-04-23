@@ -9,7 +9,7 @@ public protocol VerticalListViewControllerDelegate: AnyObject {
 }
 
 public class VerticalListViewController: UIViewController {
-    static let rowHeight: CGFloat = 48.0
+    private static let rowHeight: CGFloat = 48.0
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -23,21 +23,11 @@ public class VerticalListViewController: UIViewController {
     }()
 
     public weak var delegate: VerticalListViewControllerDelegate?
-    public let popoverTransitionDelegate = CustomPopoverTransitioningDelegate()
 
-    private let verticals: [Vertical]
-
-    // MARK: - Init
-
-    public required init(verticals: [Vertical]) {
-        self.verticals = verticals
-        super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .custom
-        transitioningDelegate = popoverTransitionDelegate
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public var verticals: [Vertical] = [] {
+        didSet {
+            tableView.reloadData()
+        }
     }
 
     // MARK: - Lifecycle

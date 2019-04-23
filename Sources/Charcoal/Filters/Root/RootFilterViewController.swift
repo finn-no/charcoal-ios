@@ -28,6 +28,8 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
+    private lazy var verticalSelectorView = VerticalSelectorView()
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
@@ -43,10 +45,20 @@ final class RootFilterViewController: FilterViewController {
     private lazy var resetButton: UIBarButtonItem = {
         let action = #selector(handleResetButtonTap)
         let button = UIBarButtonItem(title: "reset".localized(), style: .plain, target: self, action: action)
-        button.setTitleTextAttributes([.font: UIFont.bodyStrong])
+        let font = UIFont.bodyStrong
+        let textColor = UIColor.licorice
+        button.setTitleTextAttributes([.font: font, .foregroundColor: textColor])
+        button.setTitleTextAttributes([.font: font, .foregroundColor: textColor.withAlphaComponent(0.3)], for: .disabled)
         return button
     }()
 
+    private lazy var verticalViewController: VerticalListViewController = {
+        let viewController = VerticalListViewController()
+        viewController.delegate = self
+        return viewController
+    }()
+
+    private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
     private var freeTextFilterViewController: FreeTextFilterViewController?
     private var shouldResetInlineFilterCell = false
 
@@ -58,7 +70,7 @@ final class RootFilterViewController: FilterViewController {
 
     init(filterContainer: FilterContainer, selectionStore: FilterSelectionStore) {
         self.filterContainer = filterContainer
-        super.init(title: "rootTitle".localized(), selectionStore: selectionStore)
+        super.init(title: "root.title".localized(), selectionStore: selectionStore)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -72,6 +84,7 @@ final class RootFilterViewController: FilterViewController {
 
         navigationItem.rightBarButtonItem = resetButton
 
+        updateNavigationTitleView()
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()
         setup()
@@ -92,8 +105,21 @@ final class RootFilterViewController: FilterViewController {
 
     func set(filterContainer: FilterContainer) {
         self.filterContainer = filterContainer
+        updateNavigationTitleView()
         updateBottomButtonTitle()
         tableView.reloadData()
+    }
+
+    func showLoadingIndicator(_ show: Bool) {
+        resetButton.isEnabled = !show
+        verticalSelectorView.isEnabled = !show
+
+        if show {
+            add(loadingViewController)
+            loadingViewController.viewWillAppear(false)
+        } else {
+            loadingViewController.remove()
+        }
     }
 
     private func setup() {
@@ -105,6 +131,19 @@ final class RootFilterViewController: FilterViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ])
+    }
+
+    private func updateNavigationTitleView() {
+        if let vertical = filterContainer.verticals?.first(where: { $0.isCurrent }) {
+            verticalSelectorView.delegate = self
+            verticalSelectorView.configure(
+                withTitle: "root.verticalSelector.title".localized(),
+                buttonTitle: vertical.title
+            )
+            navigationItem.titleView = verticalSelectorView
+        } else {
+            navigationItem.titleView = nil
+        }
     }
 
     private func updateBottomButtonTitle() {
@@ -167,7 +206,6 @@ extension RootFilterViewController: UITableViewDataSource {
 
             return cell
         case .inline:
-            let vertical = filterContainer.verticals?.first(where: { $0.isCurrent })
             let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
             cell.delegate = self
 
@@ -179,7 +217,7 @@ extension RootFilterViewController: UITableViewDataSource {
                     })
                 })
 
-                cell.configure(withTitles: segmentTitles, verticalTitle: vertical?.title, selectedItems: selectedItems)
+                cell.configure(withTitles: segmentTitles, selectedItems: selectedItems)
             }
 
             if shouldResetInlineFilterCell {
@@ -286,15 +324,54 @@ extension RootFilterViewController: InlineFilterViewDelegate {
             rootDelegate?.rootFilterViewController(self, didSelectInlineFilter: inlineFilter)
         }
     }
+}
 
-    func inlineFilterView(_ inlineFilterview: InlineFilterView, didTapExpandableSegment segment: Segment) {
+// MARK: - VerticalSelectorViewDelegate
+
+extension RootFilterViewController: VerticalSelectorViewDelegate {
+    func verticalSelectorViewDidSelectButton(_ view: VerticalSelectorView) {
+        if view.arrowDirection == .up {
+            hideVerticalViewController()
+        } else {
+            showVerticalViewController()
+        }
+    }
+
+    private func showVerticalViewController() {
         guard let verticals = filterContainer.verticals else { return }
 
-        let verticalViewController = VerticalListViewController(verticals: verticals)
-        verticalViewController.popoverTransitionDelegate.willDismissPopoverHandler = { _ in segment.selectedItems = [] }
-        verticalViewController.popoverTransitionDelegate.sourceView = segment
-        verticalViewController.delegate = self
-        present(verticalViewController, animated: true, completion: nil)
+        resetButton.isEnabled = false
+        verticalSelectorView.arrowDirection = .up
+
+        add(verticalViewController)
+        verticalViewController.verticals = verticals
+        verticalViewController.view.alpha = 0.6
+        verticalViewController.view.frame.origin.y = -.largeSpacing
+
+        UIView.animate(withDuration: 0.1, animations: { [weak self] in
+            self?.verticalViewController.view.alpha = 1
+        })
+
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0,
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 1,
+            options: [],
+            animations: { [weak self] in self?.verticalViewController.view.frame.origin.y = 0 }
+        )
+    }
+
+    private func hideVerticalViewController() {
+        resetButton.isEnabled = true
+        verticalSelectorView.arrowDirection = .down
+
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
+            self?.verticalViewController.view.frame.origin.y = -.veryLargeSpacing
+            self?.verticalViewController.view.alpha = 0
+        }), completion: ({ [weak self] _ in
+            self?.verticalViewController.remove()
+        }))
     }
 }
 
@@ -302,18 +379,12 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        func dismissVerticalViewController(animated: Bool) {
-            DispatchQueue.main.async {
-                verticalViewController.dismiss(animated: animated)
-            }
-        }
-
         if let vertical = filterContainer.verticals?[safe: index], !vertical.isCurrent {
             freeTextFilterViewController?.searchBar.text = nil
-            dismissVerticalViewController(animated: false)
+            hideVerticalViewController()
             rootDelegate?.rootFilterViewController(self, didSelectVertical: vertical)
         } else {
-            dismissVerticalViewController(animated: true)
+            hideVerticalViewController()
         }
     }
 }

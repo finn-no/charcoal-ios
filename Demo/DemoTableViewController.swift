@@ -44,6 +44,7 @@ extension DemoTableViewController: UITableViewDelegate {
             charcoalViewController.textEditingDelegate = self
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
             charcoalViewController.filterContainer = row.setup?.filterContainer
+            charcoalViewController.selectionDelegate = self
         }
 
         if row.usingBottomSheet {

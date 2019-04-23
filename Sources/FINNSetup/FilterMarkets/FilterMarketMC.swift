@@ -25,7 +25,7 @@ extension FilterMarketMC: FilterConfiguration {
 
     public var rootLevelFilterKeys: [FilterKey] {
         switch self {
-        case .mc:
+        case .mc, .mopedScooter:
             return [
                 .make,
                 .price,
@@ -36,18 +36,6 @@ extension FilterMarketMC: FilterConfiguration {
                 .location,
                 .engineVolume,
                 .engineEffect,
-            ]
-        case .mopedScooter:
-            return [
-                .map,
-                .location,
-                .category,
-                .make,
-                .price,
-                .year,
-                .mileage,
-                .engineEffect,
-                .engineVolume,
             ]
         case .snowmobile, .atv:
             return [

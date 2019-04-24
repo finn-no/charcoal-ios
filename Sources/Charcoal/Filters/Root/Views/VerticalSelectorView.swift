@@ -88,14 +88,13 @@ final class VerticalSelectorView: UIView {
         addSubview(titleLabel)
         addSubview(button)
 
+        button.fillInSuperview()
+
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            button.topAnchor.constraint(equalTo: topAnchor),
-            button.leadingAnchor.constraint(equalTo: leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor),
+
             button.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 

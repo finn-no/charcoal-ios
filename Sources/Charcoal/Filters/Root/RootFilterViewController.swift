@@ -377,7 +377,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
             self?.verticalViewController.remove()
         }))
 
-        UIView.animate(withDuration: 0.4, animations: { [weak self] in
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.tableView.alpha = 1
             self?.bottomButton.alpha = 1
         })

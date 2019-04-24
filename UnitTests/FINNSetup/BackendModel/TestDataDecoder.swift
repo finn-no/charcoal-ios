@@ -36,7 +36,7 @@ extension TestDataDecoder {
             return nil
         }
 
-        guard let decodedData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any] else {
+        guard let decodedData = ((try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]) as [AnyHashable: Any]??) else {
             return nil
         }
 

@@ -63,6 +63,8 @@ final class MapFilterViewController: FilterViewController {
             return true
         case .denied, .notDetermined, .restricted:
             return false
+            @unknown default:
+            return false
         }
     }
 

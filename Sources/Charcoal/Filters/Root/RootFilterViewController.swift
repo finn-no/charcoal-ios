@@ -366,7 +366,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         resetButton.isEnabled = true
         verticalSelectorView.arrowDirection = .down
 
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
             self?.verticalViewController.view.frame.origin.y = -.veryLargeSpacing
             self?.verticalViewController.view.alpha = 0
         }), completion: ({ [weak self] _ in

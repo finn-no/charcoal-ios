@@ -8,7 +8,7 @@ OUTPUT=$("$command" \
 --stripunusedargs closure-only \
 --header "$HEADER" \
 --disable redundantReturn \
-*)
+Sources Demo UITests UnitTests)
 
 if [ "$OUTPUT" ]; then
 echo "$OUTPUT" >&2

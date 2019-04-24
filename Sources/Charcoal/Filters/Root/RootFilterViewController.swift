@@ -366,12 +366,20 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         resetButton.isEnabled = true
         verticalSelectorView.arrowDirection = .down
 
+        tableView.alpha = 0
+        bottomButton.alpha = 0
+
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
             self?.verticalViewController.view.frame.origin.y = -.veryLargeSpacing
             self?.verticalViewController.view.alpha = 0
         }), completion: ({ [weak self] _ in
             self?.verticalViewController.remove()
         }))
+
+        UIView.animate(withDuration: 0.4, animations: { [weak self] in
+            self?.tableView.alpha = 1
+            self?.bottomButton.alpha = 1
+        })
     }
 }
 

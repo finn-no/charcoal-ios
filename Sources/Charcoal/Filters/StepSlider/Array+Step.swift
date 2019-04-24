@@ -23,6 +23,6 @@ extension Array where Element == Int {
     }
 
     func value(for step: Step) -> Int? {
-        return step.index.map({ self[safe: $0] }) ?? nil
+        return step.index.map { self[safe: $0] } ?? nil
     }
 }

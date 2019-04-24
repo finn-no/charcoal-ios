@@ -6,7 +6,6 @@
 import MapKit
 
 class MapFilterDemoViewController: DemoViewController {
-
     // MARK: - Private properties
 
     private let officeLocation = CLLocationCoordinate2D(latitude: 59.913833, longitude: 10.743777)

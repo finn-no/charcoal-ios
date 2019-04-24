@@ -58,12 +58,12 @@ public struct FilterSetup: Decodable {
     public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
         let rootFilters = config.rootLevelFilterKeys.compactMap { key -> Filter? in
             let filter = makeRootLevelFilter(withKey: key, using: config)
-            filter?.mutuallyExclusiveFilterKeys = Set(config.mutuallyExclusiveFilters(for: key).map({ $0.rawValue }))
+            filter?.mutuallyExclusiveFilterKeys = Set(config.mutuallyExclusiveFilters(for: key).map { $0.rawValue })
             return filter
         }
 
         let preferenceFilters = config.preferenceFilterKeys.compactMap {
-            filterData(forKey: $0).flatMap({ makeFilter(from: $0, withKind: .standard, style: .normal) })
+            filterData(forKey: $0).flatMap { makeFilter(from: $0, withKind: .standard, style: .normal) }
         }
 
         return FilterContainer(
@@ -128,11 +128,11 @@ public struct FilterSetup: Decodable {
     }
 
     private func makeFilter(from filterData: FilterData, withKind kind: Filter.Kind, style: Filter.Style) -> Filter? {
-        let subfilters = filterData.queries.compactMap({
+        let subfilters = filterData.queries.compactMap {
             makeListFilter(withKey: filterData.parameterName, from: $0)
-        })
+        }
 
-        if style == .context && subfilters.count < 2 {
+        if style == .context, subfilters.count < 2 {
             return nil
         } else {
             return Filter(
@@ -147,9 +147,9 @@ public struct FilterSetup: Decodable {
 
     private func makeListFilter(withKey key: String, from query: FilterDataQuery) -> Filter {
         let filter = query.filter
-        let subfilters = filter?.queries.compactMap({
+        let subfilters = filter?.queries.compactMap {
             makeListFilter(withKey: filter?.parameterName ?? "", from: $0)
-        })
+        }
 
         if ["2.69.3964.268", "1.69.3965"].contains(query.value) {
             return Filter.external(title: query.title, key: key, value: query.value, numberOfResults: query.totalResults)

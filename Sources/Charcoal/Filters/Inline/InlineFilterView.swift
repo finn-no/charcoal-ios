@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol InlineFilterViewDelegate: class {
+protocol InlineFilterViewDelegate: AnyObject {
     func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int)
 }
 

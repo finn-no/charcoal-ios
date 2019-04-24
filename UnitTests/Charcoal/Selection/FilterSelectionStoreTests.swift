@@ -312,7 +312,8 @@ final class FilterSelectionStoreTests: XCTestCase {
             subfilters: [
                 Filter(title: "subfilter C", key: "subfilterC", value: "valueC"),
                 Filter(title: "subfilter D", key: "subfilterD", value: "valueD"),
-        ])
+            ]
+        )
         let queryItems = Set([
             URLQueryItem(name: "filter", value: "value"),
             URLQueryItem(name: "subfilterB", value: "valueB"),

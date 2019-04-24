@@ -107,10 +107,10 @@ class ValueSliderView: UIView {
 
     override func updateConstraints() {
         super.updateConstraints()
-        referenceValueViews.forEach({ view in
+        referenceValueViews.forEach { view in
             let thumbRectForValue = thumbRect(for: view.value)
             view.midXConstraint?.constant = thumbRectForValue.midX
-        })
+        }
     }
 }
 
@@ -184,10 +184,10 @@ private extension ValueSliderView {
 
     func setupReferenceValueView() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
-        referenceValueViews = referenceValueIndexes.map({ index in
+        referenceValueViews = referenceValueIndexes.map { index in
             let referenceValue = range[index]
             return SliderReferenceValueView(value: referenceValue, displayText: valueFormatter.title(for: referenceValue))
-        })
+        }
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -212,7 +212,7 @@ private extension ValueSliderView {
         }
 
         let trailingConstant = valueSlider.currentThumbRect.midX - trackView.bounds.width
-        let activeRangeTrackViewTrailingAnchor = constraints.filter({ $0.identifier == activeRangeTrackViewTrailingAnchorIdentifier }).first
+        let activeRangeTrackViewTrailingAnchor = constraints.filter { $0.identifier == activeRangeTrackViewTrailingAnchorIdentifier }.first
 
         activeRangeTrackViewTrailingAnchor?.constant = trailingConstant
 

@@ -5,7 +5,6 @@
 import UIKit
 
 final class InlineFilterCell: UITableViewCell {
-
     // MARK: - Public properties
 
     var delegate: InlineFilterViewDelegate? {

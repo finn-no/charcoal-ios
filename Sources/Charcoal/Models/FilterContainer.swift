@@ -5,7 +5,6 @@
 import Foundation
 
 public class FilterContainer {
-
     // MARK: - Public properties
 
     public var verticals: [Vertical]?
@@ -18,7 +17,7 @@ public class FilterContainer {
     private(set) var numberOfResults: Int
 
     var allFilters: [Filter] {
-        return [freeTextFilter, inlineFilter].compactMap({ $0 }) + rootFilters
+        return [freeTextFilter, inlineFilter].compactMap { $0 } + rootFilters
     }
 
     // MARK: - Setup

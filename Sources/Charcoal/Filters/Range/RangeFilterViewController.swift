@@ -5,7 +5,6 @@
 import UIKit
 
 final class RangeFilterViewController: FilterViewController {
-
     // MARK: - Private properties
 
     private let lowValueFilter: Filter

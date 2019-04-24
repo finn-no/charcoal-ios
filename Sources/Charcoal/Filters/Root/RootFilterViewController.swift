@@ -115,6 +115,7 @@ final class RootFilterViewController: FilterViewController {
         verticalSelectorView.isEnabled = !show
 
         if show {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             add(loadingViewController)
             loadingViewController.viewWillAppear(false)
         } else {

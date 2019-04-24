@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.platform         = :ios, '10.0'
   s.requires_arc     = true
-  s.swift_version    = '4.2'
+  s.swift_version    = '5.0'
 
   s.source           = { :git => 'https://github.com/finn-no/charcoal-ios.git', :tag => s.version }
   s.default_subspec = "Core"

@@ -61,13 +61,13 @@ public struct RangeFilterConfiguration: Equatable {
 
         switch valueKind {
         case let .incremented(increment):
-            self.values = (minimumValue ... maximumValue).stepValues(with: [(from: minimumValue, increment: increment)])
+            values = (minimumValue ... maximumValue).stepValues(with: [(from: minimumValue, increment: increment)])
             isIncremented = true
         case let .steps(values):
-            self.values = ([minimumValue] + values + [maximumValue]).compactMap({ $0 })
+            self.values = ([minimumValue] + values + [maximumValue]).compactMap { $0 }
             isIncremented = false
         case let .intervals(array):
-            self.values = (minimumValue ... maximumValue).stepValues(with: array)
+            values = (minimumValue ... maximumValue).stepValues(with: array)
             isIncremented = false
         }
     }
@@ -75,11 +75,11 @@ public struct RangeFilterConfiguration: Equatable {
     // MARK: - Helpers
 
     func value(for step: Step) -> Int? {
-        if !hasLowerBoundOffset && step == .lowerBound {
+        if !hasLowerBoundOffset, step == .lowerBound {
             return minimumValue
         }
 
-        if !hasUpperBoundOffset && step == .upperBound {
+        if !hasUpperBoundOffset, step == .upperBound {
             return maximumValue
         }
 
@@ -102,7 +102,7 @@ private extension ClosedRange where Bound == Int {
                 index += 1
             }
 
-            if index > lowerBound && index < upperBound {
+            if index > lowerBound, index < upperBound {
                 values.append(index)
             }
         }

@@ -96,11 +96,11 @@ final class RangeFilterView: UIView {
     }
 
     override func layoutSubviews() {
-        referenceValueViews.forEach({ view in
+        referenceValueViews.forEach { view in
             let thumbRectForValue = sliderInputView.thumbRect(for: view.value)
             let leadingConstant = thumbRectForValue.midX - (view.frame.width / 2)
             view.leadingConstraint?.constant = leadingConstant
-        })
+        }
 
         if shouldForceSmallFontSizeForNumberInput() {
             numberInputView.forceSmallInputFontSize()
@@ -110,7 +110,7 @@ final class RangeFilterView: UIView {
     // MARK: - Public
 
     func setLowValue(_ value: Int?, animated: Bool) {
-        let step = value.map({ filterConfig.values.closestStep(for: $0) }) ?? .lowerBound
+        let step = value.map { filterConfig.values.closestStep(for: $0) } ?? .lowerBound
 
         if let value = value {
             updateNumberInput(for: .low, with: value, hintText: "")
@@ -122,7 +122,7 @@ final class RangeFilterView: UIView {
     }
 
     func setHighValue(_ value: Int?, animated: Bool) {
-        let step = value.map({ filterConfig.values.closestStep(for: $0) }) ?? .upperBound
+        let step = value.map { filterConfig.values.closestStep(for: $0) } ?? .upperBound
 
         if let value = value {
             updateNumberInput(for: .high, with: value, hintText: "")
@@ -158,12 +158,12 @@ extension RangeFilterView {
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),
         ])
 
-        referenceValueViews = filterConfig.referenceValues.map({ referenceValue in
+        referenceValueViews = filterConfig.referenceValues.map { referenceValue in
             return SliderReferenceValueView(
                 value: referenceValue,
                 displayText: formatter.string(from: referenceValue) ?? ""
             )
-        })
+        }
 
         referenceValueViews.forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false

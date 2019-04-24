@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol RootFilterViewControllerDelegate: class {
+protocol RootFilterViewControllerDelegate: AnyObject {
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter)
@@ -210,12 +210,12 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
 
             if let inlineFilter = filterContainer.inlineFilter {
-                let segmentTitles = inlineFilter.subfilters.map({ $0.subfilters.map({ $0.title }) })
-                let selectedItems = inlineFilter.subfilters.map({
-                    $0.subfilters.enumerated().compactMap({ index, filter in
+                let segmentTitles = inlineFilter.subfilters.map { $0.subfilters.map { $0.title } }
+                let selectedItems = inlineFilter.subfilters.map {
+                    $0.subfilters.enumerated().compactMap { index, filter in
                         self.selectionStore.isSelected(filter) ? index : nil
-                    })
-                })
+                    }
+                }
 
                 cell.configure(withTitles: segmentTitles, selectedItems: selectedItems)
             }
@@ -235,9 +235,9 @@ extension RootFilterViewController: UITableViewDataSource {
             cell.delegate = self
             cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, style: currentFilter.style)
 
-            let mutuallyExclusiveFilters = filterContainer.rootFilters.filter({
+            let mutuallyExclusiveFilters = filterContainer.rootFilters.filter {
                 currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
-            })
+            }
 
             cell.isEnabled = !mutuallyExclusiveFilters.reduce(false) {
                 $0 || selectionStore.hasSelectedSubfilters(for: $1)
@@ -298,9 +298,9 @@ extension RootFilterViewController: RootFilterCellDelegate {
     private func reloadCellsWithExclusiveFilters(for filter: Filter) {
         let keys = filter.mutuallyExclusiveFilterKeys
 
-        let indexPathsToReload = filterContainer.rootFilters.enumerated().compactMap({ index, subfilter in
+        let indexPathsToReload = filterContainer.rootFilters.enumerated().compactMap { index, subfilter in
             return keys.contains(subfilter.key) ? IndexPath(row: index, section: Section.rootFilters.rawValue) : nil
-        })
+        }
 
         tableView.reloadRows(at: indexPathsToReload, with: .none)
     }

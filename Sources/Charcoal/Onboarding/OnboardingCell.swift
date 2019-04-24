@@ -5,7 +5,6 @@
 import UIKit
 
 class OnboardingCell: UICollectionViewCell {
-
     // MARK: - Private properties
 
     private lazy var imageView: UIImageView = {

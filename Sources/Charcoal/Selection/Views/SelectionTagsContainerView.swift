@@ -156,8 +156,8 @@ private extension Array where Element == SelectionTitle {
         let prefix = count > 1 ? "(\(count)) " : ""
 
         return SelectionTitle(
-            value: prefix + map({ $0.value }).joined(separator: ", "),
-            accessibilityLabel: map({ $0.accessibilityLabel }).joined(separator: ", ")
+            value: prefix + map { $0.value }.joined(separator: ", "),
+            accessibilityLabel: map { $0.accessibilityLabel }.joined(separator: ", ")
         )
     }
 }

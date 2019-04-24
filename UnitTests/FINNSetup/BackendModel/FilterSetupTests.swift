@@ -40,7 +40,7 @@ class FilterSetupTests: XCTestCase, TestDataDecoder {
         // When
         let filter: FilterSetup?
 
-        if let data = data, let decodedData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any] {
+        if let data = data, let decodedData = ((try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [AnyHashable: Any]) as [AnyHashable: Any]??) {
             filter = FilterSetup.decode(from: decodedData)
         } else {
             filter = nil

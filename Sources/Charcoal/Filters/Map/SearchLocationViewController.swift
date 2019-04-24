@@ -209,8 +209,7 @@ extension SearchLocationViewController: UISearchBarDelegate {
         searchBar.setShowsCancelButton(true, animated: false)
     }
 
-    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    }
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {}
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         endSearchBarEdit()

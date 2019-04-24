@@ -12,7 +12,6 @@ protocol FilterViewControllerDelegate: AnyObject {
 }
 
 class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
-
     // MARK: - Public properties
 
     weak var delegate: FilterViewControllerDelegate?

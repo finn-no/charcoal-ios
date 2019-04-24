@@ -60,7 +60,7 @@ final class VerticalCell: UITableViewCell {
         }
 
         let accessibilityPrefix = vertical.isCurrent ? "selected".localized() + ", " : ""
-        let accessibilitySuffix = detailTextLabel?.text.map({ ", \($0) " }) ?? ""
+        let accessibilitySuffix = detailTextLabel?.text.map { ", \($0) " } ?? ""
 
         accessibilityLabel = accessibilityPrefix + vertical.title + accessibilitySuffix
     }

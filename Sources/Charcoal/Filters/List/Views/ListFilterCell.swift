@@ -133,9 +133,9 @@ final class ListFilterCell: CheckboxTableViewCell {
             isSelected ? "selected".localized() : nil,
             titleLabel.text,
             subtitleLabel.text,
-            detailLabel.text.map({ $0 + " " + "numberOfResults".localized() }),
+            detailLabel.text.map { $0 + " " + "numberOfResults".localized() },
         ]
 
-        accessibilityLabel = accessibilityLabels.compactMap({ $0 }).joined(separator: ", ")
+        accessibilityLabel = accessibilityLabels.compactMap { $0 }.joined(separator: ", ")
     }
 }

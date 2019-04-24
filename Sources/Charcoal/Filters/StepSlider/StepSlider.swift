@@ -119,7 +119,7 @@ final class StepSlider: UISlider {
     // MARK: - Actions
 
     @objc private func sliderValueChanged(sender slider: UISlider, event: UIEvent) {
-        let slideEnded = event.allTouches?.first.map({ $0.phase == .ended }) ?? true
+        let slideEnded = event.allTouches?.first.map { $0.phase == .ended } ?? true
         let newStep = step(from: slider.value)
         let newValue = value(from: newStep)
 

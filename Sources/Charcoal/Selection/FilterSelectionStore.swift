@@ -4,12 +4,11 @@
 
 import Foundation
 
-protocol FilterSelectionStoreDelegate: class {
+protocol FilterSelectionStoreDelegate: AnyObject {
     func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore)
 }
 
 final class FilterSelectionStore {
-
     // MARK: - Internal properties
 
     weak var delegate: FilterSelectionStoreDelegate?
@@ -31,7 +30,7 @@ final class FilterSelectionStore {
     // MARK: - Values
 
     func value<T: LosslessStringConvertible>(for filter: Filter) -> T? {
-        return queryItem(for: filter)?.value.flatMap({ T($0) })
+        return queryItem(for: filter)?.value.flatMap { T($0) }
     }
 
     func clear() {
@@ -151,7 +150,7 @@ extension FilterSelectionStore {
             let accessibilitySuffix = " " + config.unit.accessibilityValue
 
             func formattedValue(for filter: Filter) -> String? {
-                return (self.value(for: filter) as Int?).flatMap({ formatter.string(from: $0) })
+                return (self.value(for: filter) as Int?).flatMap { formatter.string(from: $0) }
             }
 
             let value: String?
@@ -215,7 +214,7 @@ extension FilterSelectionStore {
     }
 
     func hasSelectedSubfilters(for filter: Filter, where predicate: ((Filter) -> Bool) = { _ in true }) -> Bool {
-        if isSelected(filter) && predicate(filter) {
+        if isSelected(filter), predicate(filter) {
             return true
         }
 
@@ -223,7 +222,7 @@ extension FilterSelectionStore {
     }
 
     func selectedSubfilters(for filter: Filter, where predicate: ((Filter) -> Bool) = { _ in true }) -> [Filter] {
-        if isSelected(filter) && predicate(filter) {
+        if isSelected(filter), predicate(filter) {
             return [filter]
         }
 
@@ -234,7 +233,7 @@ extension FilterSelectionStore {
         let keys = filterContainer.allFilters.reduce(Set<String>()) { result, filter in
             result.union(syncSelection(with: filter))
         }
-        queryItems = queryItems.filter({ keys.contains($0.name) })
+        queryItems = queryItems.filter { keys.contains($0.name) }
     }
 
     /**
@@ -247,7 +246,7 @@ extension FilterSelectionStore {
         var keys = Set([filter.key])
 
         for subfilter in filter.subfilters {
-            if isSelected && hasSelectedSubfilters(for: subfilter) {
+            if isSelected, hasSelectedSubfilters(for: subfilter) {
                 _removeValues(for: filter, withSubfilters: false)
                 isSelected = false
             }

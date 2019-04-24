@@ -5,7 +5,6 @@
 import UIKit
 
 class Section {
-
     // MARK: - Internal properties
 
     let title: String

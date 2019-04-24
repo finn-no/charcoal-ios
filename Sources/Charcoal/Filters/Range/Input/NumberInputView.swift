@@ -302,6 +302,6 @@ private extension UIToolbar {
         ]
 
         sizeToFit()
-        setItems(items.map({ $0.buttonItem }), animated: false)
+        setItems(items.map { $0.buttonItem }, animated: false)
     }
 }

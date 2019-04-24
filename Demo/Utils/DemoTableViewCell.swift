@@ -6,7 +6,6 @@ import FinniversKit
 import UIKit
 
 class DemoTableViewCell: UITableViewCell {
-
     // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

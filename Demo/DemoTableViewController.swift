@@ -6,7 +6,6 @@ import FinniversKit
 import FINNSetup
 
 class DemoTableViewController: UIViewController {
-
     // MARK: - Private properties
 
     private let dataSource = DataSource()

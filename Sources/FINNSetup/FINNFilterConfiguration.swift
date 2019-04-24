@@ -21,6 +21,6 @@ public extension FilterConfiguration {
             return []
         }
 
-        return mutuallyExclusiveFilterKeys.filter({ $0 != key })
+        return mutuallyExclusiveFilterKeys.filter { $0 != key }
     }
 }

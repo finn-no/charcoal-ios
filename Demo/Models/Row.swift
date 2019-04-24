@@ -6,7 +6,6 @@ import FINNSetup
 import UIKit
 
 struct Row {
-
     // MARK: - Internal properties
 
     let title: String

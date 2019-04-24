@@ -193,8 +193,8 @@ extension RangeSliderView {
 
         let leadingConstant = lowValueSlider.currentThumbRect.midX
         let trailingConstant = highValueSlider.currentThumbRect.midX - highValueSlider.bounds.maxX
-        let activeRangeTrackViewLeadingAnchor = constraints.filter({ $0.identifier == activeRangeTrackViewLeadingAnchorIdentifier }).first
-        let activeRangeTrackViewTrailingAnchor = constraints.filter({ $0.identifier == activeRangeTrackViewTrailingAnchorIdentifier }).first
+        let activeRangeTrackViewLeadingAnchor = constraints.filter { $0.identifier == activeRangeTrackViewLeadingAnchorIdentifier }.first
+        let activeRangeTrackViewTrailingAnchor = constraints.filter { $0.identifier == activeRangeTrackViewTrailingAnchorIdentifier }.first
 
         activeRangeTrackViewLeadingAnchor?.constant = leadingConstant
         activeRangeTrackViewTrailingAnchor?.constant = trailingConstant
@@ -242,7 +242,7 @@ extension RangeSliderView: StepSliderDelegate {
     func stepSlider(_ stepSlider: StepSlider, accessibilityValueForStep step: Step) -> String {
         switch step {
         case .value:
-            return filterConfig.value(for: step).map({ formatter.accessibilityValue(for: $0) }) ?? ""
+            return filterConfig.value(for: step).map { formatter.accessibilityValue(for: $0) } ?? ""
         case .lowerBound:
             return filterConfig.unit.lowerBoundText + " \(filterConfig.minimumValue)"
         case .upperBound:

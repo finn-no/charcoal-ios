@@ -64,9 +64,9 @@ final class SelectionTagViewCell: UICollectionViewCell {
 
         titleLabel.text = title?.value
         titleLabel.accessibilityLabel = title?.accessibilityLabel
-        removeButton.accessibilityLabel = (title?.accessibilityLabel).map({
+        removeButton.accessibilityLabel = (title?.accessibilityLabel).map {
             "remove".localized() + " " + $0
-        })
+        }
     }
 
     private func setup() {

@@ -63,6 +63,8 @@ final class MapFilterViewController: FilterViewController {
             return true
         case .denied, .notDetermined, .restricted:
             return false
+        @unknown default:
+            return false
         }
     }
 
@@ -130,7 +132,7 @@ final class MapFilterViewController: FilterViewController {
     }
 
     private func attemptToActivateUserLocationSupport() {
-        if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .notDetermined {
+        if CLLocationManager.locationServicesEnabled(), CLLocationManager.authorizationStatus() == .notDetermined {
             hasRequestedLocationAuthorization = true
             locationManager.requestWhenInUseAuthorization()
         } else {

@@ -5,7 +5,6 @@
 @testable import Charcoal
 
 final class RangeFilterDemoViewController: DemoViewController {
-
     // MARK: - Private properties
 
     private let filterConfig = RangeFilterConfiguration(

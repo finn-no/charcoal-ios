@@ -5,24 +5,23 @@
 import FinniversKit
 import UIKit
 
-public protocol FreeTextFilterDataSource: class {
+public protocol FreeTextFilterDataSource: AnyObject {
     func numberOfSuggestions(in freeTextFilterViewController: FreeTextFilterViewController) -> Int
     func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, suggestionAt indexPath: IndexPath) -> String
 }
 
-public protocol FreeTextFilterDelegate: class {
+public protocol FreeTextFilterDelegate: AnyObject {
     func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController, didChangeText text: String?)
 }
 
 // Internal protocol to delegate back to root filter view controller
-protocol FreeTextFilterViewControllerDelegate: class {
+protocol FreeTextFilterViewControllerDelegate: AnyObject {
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController)
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController)
     func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelect value: String?, for filter: Filter)
 }
 
 public class FreeTextFilterViewController: UIViewController {
-
     // MARK: - Public Properties
 
     weak var filterDelegate: FreeTextFilterDelegate?

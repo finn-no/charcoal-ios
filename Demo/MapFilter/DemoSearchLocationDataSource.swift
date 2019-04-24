@@ -27,7 +27,7 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
     private var searchCompletionHandler: ((SearchLocationDataSourceResult) -> Void)? {
         didSet {
             if searchCompletionHandler == nil {
-                waitingLocationLookupItems.forEach({ $0.cancel() })
+                waitingLocationLookupItems.forEach { $0.cancel() }
                 waitingLocationLookupItems.removeAll()
                 localSearch?.cancel()
             }
@@ -82,8 +82,7 @@ extension DemoSearchLocationDataSource: MKLocalSearchCompleterDelegate {
         }
     }
 
-    public func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-    }
+    public func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {}
 
     private func addLocations(for completion: MKLocalSearchCompletion, locationsResult: LocationsResult, dispatchGroup: DispatchGroup) {
         let request = MKLocalSearch.Request(completion: completion)
@@ -95,7 +94,7 @@ extension DemoSearchLocationDataSource: MKLocalSearchCompleterDelegate {
                 self?.searchCompletionHandler?(.failed(error: error))
                 self?.searchCompletionHandler = nil
             } else {
-                locationsResult.locations.append(contentsOf: response?.mapItems.map({ DemoLocation(name: $0.name ?? "", latitude: $0.placemark.coordinate.latitude, longitude: $0.placemark.coordinate.longitude) }) ?? [])
+                locationsResult.locations.append(contentsOf: response?.mapItems.map { DemoLocation(name: $0.name ?? "", latitude: $0.placemark.coordinate.latitude, longitude: $0.placemark.coordinate.longitude) } ?? [])
             }
             dispatchGroup.leave()
         }

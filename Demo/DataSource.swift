@@ -7,7 +7,6 @@ import FINNSetup
 import UIKit
 
 class DataSource: NSObject {
-
     // MARK: - Private properties
 
     private let components = [

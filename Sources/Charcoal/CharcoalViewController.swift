@@ -19,7 +19,6 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
 }
 
 public final class CharcoalViewController: UINavigationController {
-
     // MARK: - Public properties
 
     public var filterContainer: FilterContainer? {

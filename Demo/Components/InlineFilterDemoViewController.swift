@@ -5,7 +5,6 @@
 @testable import Charcoal
 
 final class InlineFilterDemoViewController: DemoViewController {
-
     // MARK: - Private properties
 
     private let titles = [

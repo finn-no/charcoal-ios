@@ -5,7 +5,6 @@
 @testable import Charcoal
 
 final class StepperFilterDemoViewController: DemoViewController {
-
     // MARK: - Private properties
 
     private lazy var stepperFilterView: StepperFilterView = {

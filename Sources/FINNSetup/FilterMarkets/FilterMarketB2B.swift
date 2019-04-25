@@ -27,14 +27,14 @@ extension FilterMarketB2B: FilterConfiguration {
         switch self {
         case .truck, .truckAbroad:
             return [
-                .map,
-                .location,
                 .truckSegment,
                 .make,
                 .price,
                 .year,
                 .engineEffect,
                 .weight,
+                .map,
+                .location,
             ]
         case .bus:
             return [
@@ -48,40 +48,41 @@ extension FilterMarketB2B: FilterConfiguration {
             ]
         case .construction:
             return [
-                .map,
-                .location,
                 .constructionSegment,
-                .make,
                 .price,
                 .year,
                 .engineEffect,
+                .make,
+                .map,
+                .location,
             ]
         case .agricultureTractor, .agricultureThresher:
             return [
-                .map,
-                .location,
                 .make,
                 .price,
                 .year,
                 .engineEffect,
+                .map,
+                .location,
             ]
         case .agricultureTools:
             return [
-                .map,
-                .location,
                 .category,
                 .price,
                 .year,
+                .map,
+                .location,
             ]
         case .vanNorway, .vanAbroad:
             return [
                 .make,
-                .year,
-                .mileage,
-                .price,
-                .bodyType,
+                .salesForm,
                 .map,
                 .location,
+                .year,
+                .price,
+                .mileage,
+                .bodyType,
                 .engineFuel,
                 .exteriorColour,
                 .engineEffect,
@@ -91,7 +92,6 @@ extension FilterMarketB2B: FilterConfiguration {
                 .wheelSets,
                 .warrantyInsurance,
                 .condition,
-                .salesForm,
             ]
         }
     }

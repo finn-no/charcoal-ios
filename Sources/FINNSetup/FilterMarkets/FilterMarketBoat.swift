@@ -69,7 +69,7 @@ extension FilterMarketBoat: FilterConfiguration {
                 .noOfSeats,
                 .motorSize,
             ]
-        case .boatMotor, .boatParts:
+        case .boatMotor, .boatParts, .boatPartsMotorWanted:
             return [
                 .type,
                 .price,
@@ -77,22 +77,7 @@ extension FilterMarketBoat: FilterConfiguration {
                 .location,
                 .engineEffect,
             ]
-        case .boatPartsMotorWanted:
-            return [
-                .price,
-                .map,
-                .location,
-                .type,
-                .engineEffect,
-            ]
-        case .boatDock:
-            return [
-                .price,
-                .width,
-                .map,
-                .location,
-            ]
-        case .boatDockWanted:
+        case .boatDock, .boatDockWanted:
             return [
                 .price,
                 .width,

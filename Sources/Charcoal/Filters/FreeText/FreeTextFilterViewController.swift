@@ -150,7 +150,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
     }
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        if let _ = selectionStore.value(for: filter) as String?, searchBar.text == nil || searchBar.text?.isEmpty == true {
+        if selectionStore.value(for: filter) as String? != nil, searchBar.text == nil || searchBar.text?.isEmpty == true {
             selectionStore.removeValues(for: filter)
             delegate?.freeTextFilterViewController(self, didSelect: nil, for: filter)
         }

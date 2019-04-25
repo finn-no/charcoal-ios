@@ -31,7 +31,6 @@ public class FreeTextFilterViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var currentQuery: String?
     private var didClearText = false
 
     private let filter: Filter
@@ -70,8 +69,8 @@ public class FreeTextFilterViewController: UIViewController {
 
     func reset() {
         searchBar.text = nil
-        currentQuery = nil
         didClearText = false
+        filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
     }
 
     // MARK: - Public methods
@@ -109,7 +108,6 @@ extension FreeTextFilterViewController: UITableViewDelegate {
         selectionStore.setValue(value, for: filter)
         delegate?.freeTextFilterViewController(self, didSelect: value, for: filter)
 
-        currentQuery = value
         returnToSuperView()
     }
 }
@@ -148,23 +146,17 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
         selectionStore.setValue(value, for: filter)
         delegate?.freeTextFilterViewController(self, didSelect: value, for: filter)
 
-        currentQuery = searchBar.text
         returnToSuperView()
     }
 
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        if let currentQuery = currentQuery {
-            // return to previous search
-            searchBar.text = currentQuery
-            filterDelegate?.freeTextFilterViewController(self, didChangeText: currentQuery)
-        } else {
+        if let _ = selectionStore.value(for: filter) as String?, searchBar.text == nil || searchBar.text?.isEmpty == true {
             selectionStore.removeValues(for: filter)
             delegate?.freeTextFilterViewController(self, didSelect: nil, for: filter)
-
-            searchBar.text = nil
-            searchBar.setShowsCancelButton(false, animated: false)
-            filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
         }
+
+        searchBar.text = selectionStore.value(for: filter)
+        filterDelegate?.freeTextFilterViewController(self, didChangeText: selectionStore.value(for: filter))
 
         returnToSuperView()
     }
@@ -177,13 +169,6 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
             selectionStore.removeValues(for: filter)
             delegate?.freeTextFilterViewController(self, didSelect: nil, for: filter)
 
-            currentQuery = nil
-            filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
-            return
-        }
-        // If the user clears the search field and then hits cancel, the search is cancelled
-        if currentQuery != nil, searchText.isEmpty {
-            currentQuery = nil
             filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
             return
         }

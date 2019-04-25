@@ -68,6 +68,12 @@ public class FreeTextFilterViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func reset() {
+        searchBar.text = nil
+        currentQuery = nil
+        didClearText = false
+    }
+
     // MARK: - Public methods
 
     public func reloadData() {

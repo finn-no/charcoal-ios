@@ -161,7 +161,7 @@ final class RootFilterViewController: FilterViewController {
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filterContainer.allFilters)
         rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
-        freeTextFilterViewController?.searchBar.text = nil
+        freeTextFilterViewController?.reset()
         shouldResetInlineFilterCell = true
 
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)

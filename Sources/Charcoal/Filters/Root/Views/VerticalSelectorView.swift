@@ -30,7 +30,7 @@ final class VerticalSelectorView: UIView {
     }
 
     private lazy var titleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
+        let label = UILabel(withAutoLayout: true)
         label.font = UIFont.captionStrong.withSize(12)
         label.textColor = .spaceGray
         label.textAlignment = .center
@@ -38,8 +38,7 @@ final class VerticalSelectorView: UIView {
     }()
 
     private lazy var button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .milk
+        let button = UIButton(withAutoLayout: true)
         button.titleLabel?.font = UIFont.bodyStrong.withSize(17)
 
         button.setTitleColor(.primaryBlue, for: .normal)
@@ -53,7 +52,7 @@ final class VerticalSelectorView: UIView {
         button.imageEdgeInsets = UIEdgeInsets(top: spacing, leading: spacing, bottom: 0, trailing: -spacing)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
         button.contentEdgeInsets = UIEdgeInsets(
-            top: 0,
+            top: titleLabel.font.pointSize,
             leading: .mediumLargeSpacing + spacing,
             bottom: 0,
             trailing: .mediumLargeSpacing + spacing
@@ -62,14 +61,6 @@ final class VerticalSelectorView: UIView {
         button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
 
         return button
-    }()
-
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, button])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        return stackView
     }()
 
     // MARK: - Init
@@ -94,9 +85,17 @@ final class VerticalSelectorView: UIView {
         arrowDirection = .down
         isEnabled = true
 
-        addSubview(stackView)
-        stackView.fillInSuperview()
-        stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
+        addSubview(titleLabel)
+        addSubview(button)
+
+        button.fillInSuperview()
+
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+
+            button.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
+        ])
     }
 
     // MARK: - Actions

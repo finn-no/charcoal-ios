@@ -115,6 +115,7 @@ final class RootFilterViewController: FilterViewController {
         verticalSelectorView.isEnabled = !show
 
         if show {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             add(loadingViewController)
             loadingViewController.viewWillAppear(false)
         } else {
@@ -366,12 +367,20 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         resetButton.isEnabled = true
         verticalSelectorView.arrowDirection = .down
 
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
+        tableView.alpha = 0
+        bottomButton.alpha = 0
+
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
             self?.verticalViewController.view.frame.origin.y = -.veryLargeSpacing
             self?.verticalViewController.view.alpha = 0
         }), completion: ({ [weak self] _ in
             self?.verticalViewController.remove()
         }))
+
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.tableView.alpha = 1
+            self?.bottomButton.alpha = 1
+        })
     }
 }
 

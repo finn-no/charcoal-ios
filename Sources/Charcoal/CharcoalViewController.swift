@@ -98,9 +98,9 @@ public final class CharcoalViewController: UINavigationController {
 
         navigationBar.layer.masksToBounds = false
         navigationBar.layer.shadowColor = UIColor.white.cgColor
-        navigationBar.layer.shadowOpacity = 0.7
-        navigationBar.layer.shadowOffset = CGSize(width: 0, height: .mediumSpacing)
-        navigationBar.layer.shadowRadius = 2
+        navigationBar.layer.shadowOpacity = 1
+        navigationBar.layer.shadowOffset = CGSize(width: 0, height: 6)
+        navigationBar.layer.shadowRadius = 3
     }
 }
 

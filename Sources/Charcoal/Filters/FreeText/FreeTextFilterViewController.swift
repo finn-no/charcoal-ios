@@ -18,7 +18,11 @@ public protocol FreeTextFilterDelegate: AnyObject {
 protocol FreeTextFilterViewControllerDelegate: AnyObject {
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController)
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController)
-    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelect value: String?, for filter: Filter)
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didEnter value: String?, for filter: Filter)
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController,
+                                      didSelectSuggestion suggestion: String,
+                                      at index: Int,
+                                      for filter: Filter)
 }
 
 public class FreeTextFilterViewController: UIViewController {
@@ -106,7 +110,7 @@ extension FreeTextFilterViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         selectionStore.setValue(value, for: filter)
-        delegate?.freeTextFilterViewController(self, didSelect: value, for: filter)
+        delegate?.freeTextFilterViewController(self, didSelectSuggestion: value, at: indexPath.row, for: filter)
 
         returnToSuperView()
     }
@@ -144,7 +148,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
         guard let value = searchBar.text else { return }
 
         selectionStore.setValue(value, for: filter)
-        delegate?.freeTextFilterViewController(self, didSelect: value, for: filter)
+        delegate?.freeTextFilterViewController(self, didEnter: value, for: filter)
 
         returnToSuperView()
     }
@@ -152,7 +156,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if selectionStore.value(for: filter) as String? != nil, searchBar.text == nil || searchBar.text?.isEmpty == true {
             selectionStore.removeValues(for: filter)
-            delegate?.freeTextFilterViewController(self, didSelect: nil, for: filter)
+            delegate?.freeTextFilterViewController(self, didEnter: nil, for: filter)
         }
 
         searchBar.text = selectionStore.value(for: filter)
@@ -167,7 +171,7 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
             didClearText = true
 
             selectionStore.removeValues(for: filter)
-            delegate?.freeTextFilterViewController(self, didSelect: nil, for: filter)
+            delegate?.freeTextFilterViewController(self, didEnter: nil, for: filter)
 
             filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
             return

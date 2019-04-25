@@ -123,6 +123,10 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
         handleFilterSelectionChange(from: .freeTextInput)
     }
 
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectSuggestionAt index: Int, filter: Filter) {
+        handleFilterSelectionChange(from: .freeTextSuggestion(index: index))
+    }
+
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical) {
         selectionDelegate?.charcoalViewController(self, didSelect: vertical)
     }

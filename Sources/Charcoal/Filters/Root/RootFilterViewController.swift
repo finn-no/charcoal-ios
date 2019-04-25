@@ -9,6 +9,7 @@ protocol RootFilterViewControllerDelegate: AnyObject {
     func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectFreeTextFilter filter: Filter)
+    func rootFilterViewController(_ viewController: RootFilterViewController, didSelectSuggestionAt index: Int, filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical)
 }
 
@@ -401,8 +402,15 @@ extension RootFilterViewController: VerticalListViewControllerDelegate {
 // MARK: - FreeTextFilterViewControllerDelegate
 
 extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
-    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didSelect value: String?, for filter: Filter) {
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController, didEnter value: String?, for filter: Filter) {
         rootDelegate?.rootFilterViewController(self, didSelectFreeTextFilter: filter)
+    }
+
+    func freeTextFilterViewController(_ viewController: FreeTextFilterViewController,
+                                      didSelectSuggestion suggestion: String,
+                                      at index: Int,
+                                      for filter: Filter) {
+        rootDelegate?.rootFilterViewController(self, didSelectSuggestionAt: index, filter: filter)
     }
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {

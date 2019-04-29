@@ -62,6 +62,7 @@ final class RootFilterViewController: FilterViewController {
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
     private var freeTextFilterViewController: FreeTextFilterViewController?
     private var shouldResetInlineFilterCell = false
+    private var loadingStartTimeInterval: TimeInterval?
 
     // MARK: - Filter
 
@@ -117,10 +118,17 @@ final class RootFilterViewController: FilterViewController {
 
         if show {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            loadingStartTimeInterval = Date().timeIntervalSinceReferenceDate
             add(loadingViewController)
             loadingViewController.viewWillAppear(false)
         } else {
-            loadingViewController.remove()
+            let timeInterval = Date().timeIntervalSinceReferenceDate
+            let diff = loadingStartTimeInterval.map { 0.5 - (timeInterval - $0) } ?? 0.5
+            let delay = diff > 0 ? diff : 0
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                self?.loadingViewController.remove()
+            }
         }
     }
 

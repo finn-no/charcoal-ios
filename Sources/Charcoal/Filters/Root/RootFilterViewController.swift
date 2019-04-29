@@ -126,6 +126,8 @@ final class RootFilterViewController: FilterViewController {
             let diff = loadingStartTimeInterval.map { 0.5 - (timeInterval - $0) } ?? 0.5
             let delay = diff > 0 ? diff : 0
 
+            loadingStartTimeInterval = nil
+
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
                 self?.loadingViewController.remove()
             }

@@ -122,8 +122,9 @@ final class RootFilterViewController: FilterViewController {
             add(loadingViewController)
             loadingViewController.viewWillAppear(false)
         } else {
+            let minTimeInterval: TimeInterval = 0.5
             let timeInterval = Date().timeIntervalSinceReferenceDate
-            let diff = loadingStartTimeInterval.map { 0.5 - (timeInterval - $0) } ?? 0.5
+            let diff = loadingStartTimeInterval.map { minTimeInterval - (timeInterval - $0) } ?? minTimeInterval
             let delay = diff > 0 ? diff : 0
 
             loadingStartTimeInterval = nil

@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Charcoal
+
+  Created by Markov, Vadym on 30/04/2019.
+  Copyright © 2019 FINN.no. All rights reserved.
+*/
+
+"callout.realestate" = "Trykk her i toppen for å se andre kategorier som Bobil, Campingvogn og Biler i utlandet";
+"callout.car" = "Trykk her i toppen for å se andre kategorier som Bobil, Campingvogn og Biler i utlandet";
+"callout.mc" = "Trykk her i toppen for å se andre kategorier som scootere og mopeder, snøscootere og ATV’er";
+"callout.boat" = "Trykk her i toppen for å se andre kategorier som Båter til leie, Båtmotorer til salgs etc";
+"callout.b2b" = "Trykk her i toppen for å se andre kategorier som Buss og minibuss, Bygg og anlegg, Traktor etc";
+"callout.job" = "Trykk her i toppen for å se andre kategorier";

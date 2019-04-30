@@ -52,6 +52,10 @@ extension FilterMarketJob: FilterConfiguration {
         return [.location, .map]
     }
 
+    public var verticalsCalloutText: String? {
+        return "callout.job".localized()
+    }
+
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

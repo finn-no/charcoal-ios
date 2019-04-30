@@ -63,6 +63,10 @@ extension FilterMarketBap: FilterConfiguration {
         return [.location, .map]
     }
 
+    public var verticalsCalloutText: String? {
+        return nil
+    }
+
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical || vertical.hasPrefix(rawValue + "-")
     }

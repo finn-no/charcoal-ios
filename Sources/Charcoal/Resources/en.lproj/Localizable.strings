@@ -79,3 +79,10 @@
 "onboarding.content.2.text" = "Full kontroll\nVi gir deg bedre oversikt ved å tydeliggjøre filtervalgene du har satt";
 "onboarding.content.2.title" = "Full kontroll";
 "onboarding.content.2.highlight" = "bedre oversikt";
+
+"callout.realestate" = "Trykk her i toppen for å se andre kategorier som Bolig til leie, fritidsboliger, tomter etc.";
+"callout.car" = "Trykk her i toppen for å se andre kategorier som Bobil, Campingvogn og Biler i utlandet";
+"callout.mc" = "Trykk her i toppen for å se andre kategorier som scootere og mopeder, snøscootere og ATV’er";
+"callout.boat" = "Trykk her i toppen for å se andre kategorier som Båter til leie, Båtmotorer til salgs etc.";
+"callout.b2b" = "Trykk her i toppen for å se andre kategorier som Buss og minibuss, Bygg og anlegg, Traktor etc.";
+"callout.job" = "Trykk her i toppen for å se andre kategorier";

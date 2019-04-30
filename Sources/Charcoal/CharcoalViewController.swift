@@ -54,6 +54,7 @@ public final class CharcoalViewController: UINavigationController {
     }()
 
     private var rootFilterViewController: RootFilterViewController?
+    private lazy var verticalCalloutView = VerticalCalloutOverlay(withAutoLayout: true)
 
     // MARK: - Lifecycle
 
@@ -101,6 +102,23 @@ public final class CharcoalViewController: UINavigationController {
         navigationBar.layer.shadowOpacity = 1
         navigationBar.layer.shadowOffset = CGSize(width: 0, height: 6)
         navigationBar.layer.shadowRadius = 3
+    }
+
+    private func showVerticalCallout(withText text: String) {
+        let verticalCalloutView = VerticalCalloutOverlay(withAutoLayout: true)
+        verticalCalloutView.alpha = 0
+
+        view.addSubview(verticalCalloutView)
+        verticalCalloutView.configure(withText: text)
+        verticalCalloutView.fillInSuperview()
+
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.verticalCalloutView.alpha = 1
+        }
+    }
+
+    private func hideVerticalCallout() {
+
     }
 }
 

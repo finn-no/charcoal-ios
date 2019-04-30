@@ -66,12 +66,16 @@ public struct FilterSetup: Decodable {
             filterData(forKey: $0).flatMap { makeFilter(from: $0, withKind: .standard, style: .normal) }
         }
 
-        return FilterContainer(
+        let container = FilterContainer(
             rootFilters: rootFilters,
             freeTextFilter: Filter.freeText(key: FilterKey.query.rawValue),
             inlineFilter: Filter.inline(title: "", key: FilterKey.preferences.rawValue, subfilters: preferenceFilters),
             numberOfResults: objectCount ?? hits
         )
+
+        container.verticalsCalloutText = config.verticalsCalloutText
+
+        return container
     }
 
     private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration) -> Filter? {

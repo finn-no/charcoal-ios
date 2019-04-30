@@ -157,6 +157,12 @@ final class RootFilterViewController: FilterViewController {
         } else {
             navigationItem.titleView = nil
         }
+
+        if let verticalsCalloutText = filterContainer.verticalsCalloutText {
+            let viewController = VerticalCalloutViewController(text: verticalsCalloutText)
+            // viewController.modalTransitionStyle = .crossDissolve
+            present(viewController, animated: true, completion: nil)
+        }
     }
 
     private func updateBottomButtonTitle() {

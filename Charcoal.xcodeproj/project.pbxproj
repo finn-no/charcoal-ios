@@ -117,9 +117,8 @@
 		CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7372254E5C300926A7B /* VerticalCell.swift */; };
 		CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */; };
 		CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */; };
-		CFA4B774227858AB00290FB5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFA4B773227858AB00290FB5 /* Localizable.strings */; };
-		CFA4B7762278594100290FB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA4B7752278594100290FB5 /* StringExtensions.swift */; };
-		CFA4B778227859B400290FB5 /* FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA4B777227859B400290FB5 /* FINNSetup.swift */; };
+		CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
+		CFA4B77F2278890D00290FB5 /* VerticalCalloutOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
 		CFCB35F022366BE8004E6EB3 /* ContextFilterTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */; };
@@ -394,9 +393,7 @@
 		CF8FD7372254E5C300926A7B /* VerticalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalCell.swift; sourceTree = "<group>"; };
 		CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UItableViewExtensions.swift; sourceTree = "<group>"; };
-		CFA4B773227858AB00290FB5 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		CFA4B7752278594100290FB5 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		CFA4B777227859B400290FB5 /* FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNSetup.swift; sourceTree = "<group>"; };
+		CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCalloutOverlay.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
@@ -810,11 +807,9 @@
 				08716B3621F76424003180D8 /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */,
-				CFA4B777227859B400290FB5 /* FINNSetup.swift */,
 				465F6167219B6ECF00CF568B /* BackendModel */,
 				CFCB35F722368D01004E6EB3 /* Extensions */,
 				08716B2721F73AD2003180D8 /* FilterMarkets */,
-				CFA4B7722278587600290FB5 /* Resources */,
 			);
 			path = FINNSetup;
 			sourceTree = "<group>";
@@ -1043,14 +1038,6 @@
 			path = Haptics;
 			sourceTree = "<group>";
 		};
-		CFA4B7722278587600290FB5 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				CFA4B773227858AB00290FB5 /* Localizable.strings */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		CFCB35E92236697A004E6EB3 /* Charcoal */ = {
 			isa = PBXGroup;
 			children = (
@@ -1092,7 +1079,6 @@
 			isa = PBXGroup;
 			children = (
 				CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */,
-				CFA4B7752278594100290FB5 /* StringExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1192,6 +1178,7 @@
 				DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */,
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				CF16687C2264A2B100652DB0 /* VerticalSelectorView.swift */,
+				CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1550,7 +1537,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFA4B774227858AB00290FB5 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1649,6 +1635,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFA4B77F2278890D00290FB5 /* VerticalCalloutOverlay.swift in Sources */,
 				DA39FA34220B17DB00608AC4 /* RootFilterCell.swift in Sources */,
 				CF022960224E5ED300AA953D /* SelectionTitle.swift in Sources */,
 				CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */,
@@ -1788,14 +1775,13 @@
 				CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */,
 				CFEDCE072232B7A8008FCDB1 /* FINNFilterConfiguration.swift in Sources */,
 				CFEDCE0D2232B7A8008FCDB1 /* FilterMarketJob.swift in Sources */,
-				CFA4B778227859B400290FB5 /* FINNSetup.swift in Sources */,
 				CFEDCE0B2232B7A8008FCDB1 /* FilterMarketMC.swift in Sources */,
+				CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */,
 				CFEDCE0E2232B7A8008FCDB1 /* FilterMarketRealestate.swift in Sources */,
 				CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */,
 				CFEDCE062232B7A8008FCDB1 /* FilterMarket.swift in Sources */,
 				CFEDCE0A2232B7A8008FCDB1 /* FilterSetup.swift in Sources */,
 				CFEDCE082232B7A8008FCDB1 /* FilterData.swift in Sources */,
-				CFA4B7762278594100290FB5 /* StringExtensions.swift in Sources */,
 				CFEDCE0F2232B7A8008FCDB1 /* FilterMarketBap.swift in Sources */,
 				CFEDCE092232B7A8008FCDB1 /* FilterDataQuery.swift in Sources */,
 			);

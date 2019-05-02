@@ -9,13 +9,17 @@ protocol VerticalCalloutOverlayDelegate: AnyObject {
 }
 
 final class VerticalCalloutOverlay: UIView {
+    weak var delegate: VerticalCalloutOverlayDelegate?
+
+    // MARK: - Private properties
+
     private lazy var calloutView = CalloutView(withAutoLayout: true)
 
     private lazy var bodyView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = UIColor(white: 1, alpha: 0.8)
         return view
-    }
+    }()
 
     // MARK: - Init
 
@@ -40,6 +44,9 @@ final class VerticalCalloutOverlay: UIView {
         addSubview(bodyView)
         addSubview(calloutView)
 
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        addGestureRecognizer(gestureRecognizer)
+
         NSLayoutConstraint.activate([
             calloutView.topAnchor.constraint(equalTo: topAnchor, constant: 44),
             calloutView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -54,7 +61,7 @@ final class VerticalCalloutOverlay: UIView {
 
     // MARK: - Actions
 
-    @objc private func handleButtonTap() {
-        // delegate?.verticalSelectorViewDidSelectButton(self)
+    @objc private func handleTap() {
+        delegate?.verticalCalloutOverlayDidTapInside(self)
     }
 }

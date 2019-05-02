@@ -54,7 +54,6 @@ public final class CharcoalViewController: UINavigationController {
     }()
 
     private var rootFilterViewController: RootFilterViewController?
-    private lazy var verticalCalloutView = VerticalCalloutOverlay(withAutoLayout: true)
 
     // MARK: - Lifecycle
 
@@ -90,6 +89,13 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
             setViewControllers([rootFilterViewController!], animated: false)
         }
+
+        let userDefaults = UserDefaults.standard
+
+        if let text = filterContainer.verticalsCalloutText, !userDefaults.verticalCalloutShown {
+            showVerticalCallout(withText: text)
+            userDefaults.verticalCalloutShown = true
+        }
     }
 
     private func setupNavigationBar() {
@@ -102,23 +108,6 @@ public final class CharcoalViewController: UINavigationController {
         navigationBar.layer.shadowOpacity = 1
         navigationBar.layer.shadowOffset = CGSize(width: 0, height: 6)
         navigationBar.layer.shadowRadius = 3
-    }
-
-    private func showVerticalCallout(withText text: String) {
-        let verticalCalloutView = VerticalCalloutOverlay(withAutoLayout: true)
-        verticalCalloutView.alpha = 0
-
-        view.addSubview(verticalCalloutView)
-        verticalCalloutView.configure(withText: text)
-        verticalCalloutView.fillInSuperview()
-
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.verticalCalloutView.alpha = 1
-        }
-    }
-
-    private func hideVerticalCallout() {
-
     }
 }
 
@@ -245,7 +234,7 @@ extension CharcoalViewController: FilterSelectionStoreDelegate {
     }
 }
 
-// MARK: - UIGestureRecognizerDelegate
+// MARK: - UINavigationControllerDelegate
 
 extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
@@ -279,5 +268,40 @@ extension CharcoalViewController: UINavigationControllerDelegate {
         for viewController in viewControllers where viewController !== rootFilterViewController {
             (viewController as? ListFilterViewController)?.showBottomButton(selectionHasChanged, animated: false)
         }
+    }
+}
+
+// MARK: - VerticalCalloutOverlayDelegate
+
+extension CharcoalViewController: VerticalCalloutOverlayDelegate {
+    func verticalCalloutOverlayDidTapInside(_ verticalCalloutOverlay: VerticalCalloutOverlay) {
+        UIView.animate(withDuration: 0.3, animations: {
+            verticalCalloutOverlay.alpha = 0
+        }, completion: { _ in
+            verticalCalloutOverlay.removeFromSuperview()
+        })
+    }
+
+    private func showVerticalCallout(withText text: String) {
+        let verticalCalloutOverlay = VerticalCalloutOverlay(withAutoLayout: true)
+        verticalCalloutOverlay.delegate = self
+        verticalCalloutOverlay.alpha = 0
+
+        view.addSubview(verticalCalloutOverlay)
+        verticalCalloutOverlay.configure(withText: text)
+        verticalCalloutOverlay.fillInSuperview()
+
+        UIView.animate(withDuration: 0.3) {
+            verticalCalloutOverlay.alpha = 1
+        }
+    }
+}
+
+// MARK: - UserDefaults
+
+private extension UserDefaults {
+    var verticalCalloutShown: Bool {
+        get { return bool(forKey: #function) }
+        set { set(newValue, forKey: #function) }
     }
 }

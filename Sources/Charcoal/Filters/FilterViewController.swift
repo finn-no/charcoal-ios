@@ -22,6 +22,17 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
 
     lazy var bottomButtonBottomConstraint = bottomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
+    private lazy var topSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.layer.masksToBounds = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = CGSize(width: 0, height: 6)
+        view.layer.shadowRadius = 3
+        return view
+    }()
+
     private(set) lazy var bottomButton: FilterBottomButtonView = {
         let view = FilterBottomButtonView()
         view.delegate = self
@@ -48,6 +59,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .milk
         setup()
+        hideTopSeparator()
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -58,13 +70,28 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     // MARK: - Setup
 
     private func setup() {
+        view.addSubview(topSeparatorView)
         view.addSubview(bottomButton)
 
         NSLayoutConstraint.activate([
+            topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topSeparatorView.heightAnchor.constraint(equalToConstant: 1),
+
             bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
         ])
+    }
+
+    func showTopSeparator() {
+        view.bringSubviewToFront(topSeparatorView)
+        topSeparatorView.isHidden = false
+    }
+
+    func hideTopSeparator() {
+        topSeparatorView.isHidden = true
     }
 
     func showBottomButton(_ show: Bool, animated: Bool) {

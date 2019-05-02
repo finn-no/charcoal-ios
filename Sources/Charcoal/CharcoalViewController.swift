@@ -55,12 +55,34 @@ public final class CharcoalViewController: UINavigationController {
 
     private var rootFilterViewController: RootFilterViewController?
 
+    private lazy var verticalCalloutOverlay: VerticalCalloutOverlay = {
+        let overlay = VerticalCalloutOverlay(withAutoLayout: true)
+        overlay.delegate = self
+        return overlay
+    }()
+
     // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         delegate = self
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let userDefaults = UserDefaults.standard
+
+        if let text = filterContainer?.verticalsCalloutText, !userDefaults.verticalCalloutShown {
+            showVerticalCallout(withText: text)
+            userDefaults.verticalCalloutShown = true
+        }
+    }
+
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        verticalCalloutOverlay.removeFromSuperview()
     }
 
     // MARK: - Public
@@ -227,7 +249,7 @@ extension CharcoalViewController: FilterSelectionStoreDelegate {
     }
 }
 
-// MARK: - UIGestureRecognizerDelegate
+// MARK: - UINavigationControllerDelegate
 
 extension CharcoalViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
@@ -261,5 +283,38 @@ extension CharcoalViewController: UINavigationControllerDelegate {
         for viewController in viewControllers where viewController !== rootFilterViewController {
             (viewController as? ListFilterViewController)?.showBottomButton(selectionHasChanged, animated: false)
         }
+    }
+}
+
+// MARK: - VerticalCalloutOverlayDelegate
+
+extension CharcoalViewController: VerticalCalloutOverlayDelegate {
+    func verticalCalloutOverlayDidTapInside(_ verticalCalloutOverlay: VerticalCalloutOverlay) {
+        UIView.animate(withDuration: 0.3, animations: {
+            verticalCalloutOverlay.alpha = 0
+        }, completion: { _ in
+            verticalCalloutOverlay.removeFromSuperview()
+        })
+    }
+
+    private func showVerticalCallout(withText text: String) {
+        verticalCalloutOverlay.alpha = 0
+
+        view.addSubview(verticalCalloutOverlay)
+        verticalCalloutOverlay.configure(withText: text)
+        verticalCalloutOverlay.fillInSuperview()
+
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: { [weak self] in
+            self?.verticalCalloutOverlay.alpha = 1
+        }, completion: nil)
+    }
+}
+
+// MARK: - UserDefaults
+
+private extension UserDefaults {
+    var verticalCalloutShown: Bool {
+        get { return bool(forKey: #function) }
+        set { set(newValue, forKey: #function) }
     }
 }

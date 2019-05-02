@@ -118,6 +118,10 @@ extension FilterMarketCar: FilterConfiguration {
         return [.location, .map]
     }
 
+    public var verticalsCalloutText: String? {
+        return "callout.car".localized()
+    }
+
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

@@ -59,6 +59,10 @@ extension FilterMarketMC: FilterConfiguration {
         return [.location, .map]
     }
 
+    public var verticalsCalloutText: String? {
+        return "callout.mc".localized()
+    }
+
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

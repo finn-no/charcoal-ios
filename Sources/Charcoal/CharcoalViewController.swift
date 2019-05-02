@@ -92,7 +92,7 @@ public final class CharcoalViewController: UINavigationController {
 
         let userDefaults = UserDefaults.standard
 
-        if let text = filterContainer.verticalsCalloutText, !userDefaults.verticalCalloutShown {
+        if let text = filterContainer.verticalCalloutText, !userDefaults.verticalCalloutShown {
             showVerticalCallout(withText: text)
             userDefaults.verticalCalloutShown = true
         }

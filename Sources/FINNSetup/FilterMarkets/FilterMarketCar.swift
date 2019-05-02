@@ -60,8 +60,6 @@ extension FilterMarketCar: FilterConfiguration {
                 .mileage,
                 .engineEffect,
                 .numberOfSeats,
-                .leasepriceInit,
-                .leasepriceMonth,
                 .bodyType,
                 .engineFuel,
                 .exteriorColour,

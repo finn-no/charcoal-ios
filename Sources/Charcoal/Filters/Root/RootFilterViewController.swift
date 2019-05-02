@@ -40,6 +40,13 @@ final class RootFilterViewController: FilterViewController {
         tableView.register(RootFilterCell.self)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        if #available(iOS 11, *) {
+            tableView.estimatedRowHeight = UITableView.automaticDimension
+        } else {
+            // This is needed for autosizing to work on pre iOS 11 device
+            tableView.estimatedRowHeight = 54
+        }
         return tableView
     }()
 

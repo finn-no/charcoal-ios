@@ -117,12 +117,6 @@ public final class CharcoalViewController: UINavigationController {
         navigationBar.isTranslucent = false
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
-
-        navigationBar.layer.masksToBounds = false
-        navigationBar.layer.shadowColor = UIColor.white.cgColor
-        navigationBar.layer.shadowOpacity = 1
-        navigationBar.layer.shadowOffset = CGSize(width: 0, height: 6)
-        navigationBar.layer.shadowRadius = 3
     }
 }
 

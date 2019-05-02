@@ -23,12 +23,12 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     lazy var bottomButtonBottomConstraint = bottomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
     private lazy var topSeparatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
+        let view = UIView(withAutoLayout: true)
+        view.backgroundColor = .white
         view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowOffset = CGSize(width: 0, height: 6)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowOffset = CGSize(width: 0, height: 1)
         view.layer.shadowRadius = 3
         return view
     }()
@@ -85,15 +85,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         ])
     }
 
-    func showTopSeparator() {
-        view.bringSubviewToFront(topSeparatorView)
-        topSeparatorView.isHidden = false
-    }
-
-    func hideTopSeparator() {
-        topSeparatorView.isHidden = true
-    }
-
     func showBottomButton(_ show: Bool, animated: Bool) {
         view.layoutIfNeeded()
         isShowingBottomButton = show
@@ -112,9 +103,32 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         })
     }
 
+    // MARK: - Top separator
+
+    private func showTopSeparator() {
+        view.bringSubviewToFront(topSeparatorView)
+        topSeparatorView.isHidden = false
+    }
+
+    private func hideTopSeparator() {
+        topSeparatorView.isHidden = true
+    }
+
     // MARK: - FilterBottomButtonViewDelegate
 
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         delegate?.filterViewControllerDidPressBottomButton(self)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension FilterViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            showTopSeparator()
+        } else {
+            hideTopSeparator()
+        }
     }
 }

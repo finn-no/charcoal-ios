@@ -73,7 +73,7 @@ public struct FilterSetup: Decodable {
             numberOfResults: objectCount ?? hits
         )
 
-        container.verticalCalloutText = config.verticalsCalloutText
+        container.verticalsCalloutText = config.verticalsCalloutText
 
         return container
     }

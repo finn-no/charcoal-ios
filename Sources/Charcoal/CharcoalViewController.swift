@@ -55,12 +55,34 @@ public final class CharcoalViewController: UINavigationController {
 
     private var rootFilterViewController: RootFilterViewController?
 
+    private lazy var verticalCalloutOverlay: VerticalCalloutOverlay = {
+        let overlay = VerticalCalloutOverlay(withAutoLayout: true)
+        overlay.delegate = self
+        return overlay
+    }()
+
     // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         delegate = self
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let userDefaults = UserDefaults.standard
+
+        if let text = filterContainer?.verticalsCalloutText, !userDefaults.verticalCalloutShown {
+            showVerticalCallout(withText: text)
+            userDefaults.verticalCalloutShown = true
+        }
+    }
+
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        verticalCalloutOverlay.removeFromSuperview()
     }
 
     // MARK: - Public
@@ -88,13 +110,6 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
             setViewControllers([rootFilterViewController!], animated: false)
-        }
-
-        let userDefaults = UserDefaults.standard
-
-        if let text = filterContainer.verticalCalloutText, !userDefaults.verticalCalloutShown {
-            showVerticalCallout(withText: text)
-            userDefaults.verticalCalloutShown = true
         }
     }
 
@@ -283,17 +298,15 @@ extension CharcoalViewController: VerticalCalloutOverlayDelegate {
     }
 
     private func showVerticalCallout(withText text: String) {
-        let verticalCalloutOverlay = VerticalCalloutOverlay(withAutoLayout: true)
-        verticalCalloutOverlay.delegate = self
         verticalCalloutOverlay.alpha = 0
 
         view.addSubview(verticalCalloutOverlay)
         verticalCalloutOverlay.configure(withText: text)
         verticalCalloutOverlay.fillInSuperview()
 
-        UIView.animate(withDuration: 0.3) {
-            verticalCalloutOverlay.alpha = 1
-        }
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: { [weak self] in
+            self?.verticalCalloutOverlay.alpha = 1
+        }, completion: nil)
     }
 }
 

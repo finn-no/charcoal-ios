@@ -236,7 +236,7 @@ extension NumberInputView: UITextFieldDelegate {
         text.removeWhitespaces()
 
         if text.isEmpty {
-            text = "\(defaultValue)"
+            text = "0" // "\(defaultValue)"
         }
 
         guard let newValue = Int(text) else {

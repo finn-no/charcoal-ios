@@ -9,7 +9,13 @@ protocol InlineFilterViewDelegate: AnyObject {
 }
 
 final class InlineFilterView: UIView {
+    // MARK: - Internal properties
+
     weak var delegate: InlineFilterViewDelegate?
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: collectionView.bounds.width, height: InlineSegmentCell.cellHeight + .smallSpacing)
+    }
 
     // MARK: - Private properties
 

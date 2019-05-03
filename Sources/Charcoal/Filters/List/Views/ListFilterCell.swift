@@ -78,10 +78,15 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         selectionStyle = .none
 
-        if viewModel.accessoryStyle == .external {
+        switch viewModel.accessoryStyle {
+        case .external:
             let accessoryView = UIImageView(image: UIImage(named: .webview).withRenderingMode(.alwaysTemplate))
             accessoryView.tintColor = .chevron
             self.accessoryView = accessoryView
+        case .none:
+            accessoryView = UIView()
+        case .chevron:
+            break
         }
 
         switch viewModel.checkboxStyle {

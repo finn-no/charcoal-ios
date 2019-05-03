@@ -243,7 +243,7 @@ extension NumberInputView: UITextFieldDelegate {
             return false
         }
 
-        textField.text = formatter.string(from: newValue)
+        textField.text = newValue == 0 ? "" : formatter.string(from: newValue)
         textField.accessibilityValue = formatter.accessibilityValue(for: newValue)
 
         delegate?.numberInputView(self, didChangeValue: newValue)

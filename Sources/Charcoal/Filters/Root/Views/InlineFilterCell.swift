@@ -39,6 +39,10 @@ final class InlineFilterCell: UITableViewCell {
         inlineFilterView.resetContentOffset()
     }
 
+    func slideInWithFade() {
+        inlineFilterView.slideInWithFade()
+    }
+
     private func setup() {
         selectionStyle = .none
         contentView.addSubview(inlineFilterView)

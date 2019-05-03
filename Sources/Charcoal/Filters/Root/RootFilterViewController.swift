@@ -69,6 +69,7 @@ final class RootFilterViewController: FilterViewController {
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
     private var freeTextFilterViewController: FreeTextFilterViewController?
     private var shouldResetInlineFilterCell = false
+    private var slideInInlineFilter = true
     private var loadingStartTimeInterval: TimeInterval?
 
     // MARK: - Filter
@@ -101,7 +102,7 @@ final class RootFilterViewController: FilterViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        tableView.reloadSections([Section.rootFilters.rawValue], with: .none)
     }
 
     // MARK: - Public
@@ -243,6 +244,11 @@ extension RootFilterViewController: UITableViewDataSource {
             if shouldResetInlineFilterCell {
                 shouldResetInlineFilterCell = false
                 cell.resetContentOffset()
+            }
+
+            if slideInInlineFilter {
+                slideInInlineFilter = false
+                cell.slideInWithFade()
             }
 
             return cell

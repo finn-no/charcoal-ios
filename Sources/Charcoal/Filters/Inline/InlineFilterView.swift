@@ -56,6 +56,23 @@ final class InlineFilterView: UIView {
     func resetContentOffset() {
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
     }
+
+    func slideInWithFade() {
+        collectionView.setContentOffset(CGPoint(x: -120, y: 0), animated: false)
+        collectionView.alpha = 0
+
+        UIView.animate(
+            withDuration: 0.9,
+            delay: 0,
+            usingSpringWithDamping: 1,
+            initialSpringVelocity: 0,
+            options: [],
+            animations: {
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
+                self.collectionView.alpha = 1.0
+            }
+        )
+    }
 }
 
 // MARK: - Collection view data source

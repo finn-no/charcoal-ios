@@ -78,23 +78,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         enableSwipeBack(true)
     }
 
-    // MARK: - Setup
-
-    private func setup() {
-        view.addSubview(topSeparatorView)
-        view.addSubview(bottomButton)
-
-        NSLayoutConstraint.activate([
-            topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor),
-            topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topSeparatorView.heightAnchor.constraint(equalToConstant: 1),
-
-            bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-        ])
-    }
+    // MARK: - Internal functions
 
     func showBottomButton(_ show: Bool, animated: Bool) {
         view.layoutIfNeeded()
@@ -120,6 +104,24 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         if gestureRecognizer?.isEnabled != isEnabled {
             gestureRecognizer?.isEnabled = isEnabled
         }
+    }
+
+    // MARK: - Setup
+
+    private func setup() {
+        view.addSubview(topSeparatorView)
+        view.addSubview(bottomButton)
+
+        NSLayoutConstraint.activate([
+            topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topSeparatorView.heightAnchor.constraint(equalToConstant: 1),
+
+            bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+        ])
     }
 
     // MARK: - Top separator

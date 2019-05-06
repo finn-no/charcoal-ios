@@ -5,6 +5,7 @@
 import UIKit
 
 protocol RootFilterViewControllerDelegate: AnyObject {
+    func rootFilterViewControllerWillResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter)
@@ -111,6 +112,19 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Public
 
+    func resetFilters() {
+        selectionStore.removeValues(for: filterContainer.allFilters)
+        rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
+
+        freeTextFilterViewController?.reset()
+        configureInlineFilter()
+        inlineFilterView?.resetContentOffset()
+
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        tableView.layoutIfNeeded()
+        tableView.reloadData()
+    }
+
     func reloadFilters() {
         configureInlineFilter()
         tableView.reloadData()
@@ -189,16 +203,7 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
-        selectionStore.removeValues(for: filterContainer.allFilters)
-        rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
-
-        freeTextFilterViewController?.reset()
-        configureInlineFilter()
-        inlineFilterView?.resetContentOffset()
-
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-        tableView.layoutIfNeeded()
-        tableView.reloadData()
+        rootDelegate?.rootFilterViewControllerWillResetAllFilters(self)
     }
 }
 

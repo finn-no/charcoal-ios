@@ -123,6 +123,23 @@ public final class CharcoalViewController: UINavigationController {
 // MARK: - RootFilterViewControllerDelegate
 
 extension CharcoalViewController: RootFilterViewControllerDelegate {
+    func rootFilterViewControllerWillResetAllFilters(_ viewController: RootFilterViewController) {
+        guard !selectionStore.isEmpty else { return }
+
+        let alertController = UIAlertController(title: nil, message: "alert.reset.message".localized(), preferredStyle: .actionSheet)
+
+        let resetAction = UIAlertAction(title: "alert.action.reset".localized(), style: .destructive) { _ in
+            self.rootFilterViewController?.resetFilters()
+        }
+
+        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel)
+
+        alertController.addAction(resetAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true)
+    }
+
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController) {
         handleFilterSelectionChange(from: .resetAllButton)
     }

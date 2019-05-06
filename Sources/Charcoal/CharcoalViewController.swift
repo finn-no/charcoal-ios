@@ -265,14 +265,6 @@ extension CharcoalViewController: UINavigationControllerDelegate {
         }
     }
 
-    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if viewController is RangeFilterViewController {
-            interactivePopGestureRecognizer?.isEnabled = false
-        } else {
-            interactivePopGestureRecognizer?.isEnabled = true
-        }
-    }
-
     private func showBottomButtonIfNeeded() {
         for viewController in viewControllers where viewController !== rootFilterViewController {
             (viewController as? ListFilterViewController)?.showBottomButton(selectionHasChanged, animated: false)

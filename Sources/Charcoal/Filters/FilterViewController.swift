@@ -60,11 +60,50 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         view.backgroundColor = .milk
         setup()
         hideTopSeparator()
+
+        let gestureRecognizer = UIScreenEdgePanGestureRecognizer()
+        gestureRecognizer.delegate = self
+        gestureRecognizer.edges = .left
+        view.addGestureRecognizer(gestureRecognizer)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.bringSubviewToFront(bottomButton)
+        enableSwipeBack(true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        enableSwipeBack(true)
+    }
+
+    // MARK: - Internal functions
+
+    func showBottomButton(_ show: Bool, animated: Bool) {
+        view.layoutIfNeeded()
+        isShowingBottomButton = show
+        bottomButtonBottomConstraint.isActive = show
+
+        let duration = animated ? 0.3 : 0
+
+        if show {
+            bottomButton.isHidden = false
+        }
+
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { [weak self] _ in
+            self?.bottomButton.isHidden = !show
+        })
+    }
+
+    func enableSwipeBack(_ isEnabled: Bool) {
+        let gestureRecognizer = navigationController?.interactivePopGestureRecognizer
+
+        if gestureRecognizer?.isEnabled != isEnabled {
+            gestureRecognizer?.isEnabled = isEnabled
+        }
     }
 
     // MARK: - Setup
@@ -83,24 +122,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
         ])
-    }
-
-    func showBottomButton(_ show: Bool, animated: Bool) {
-        view.layoutIfNeeded()
-        isShowingBottomButton = show
-        bottomButtonBottomConstraint.isActive = show
-
-        let duration = animated ? 0.3 : 0
-
-        if show {
-            bottomButton.isHidden = false
-        }
-
-        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: { [weak self] _ in
-            self?.bottomButton.isHidden = !show
-        })
     }
 
     // MARK: - Top separator
@@ -130,5 +151,12 @@ extension FilterViewController: UIScrollViewDelegate {
         } else {
             hideTopSeparator()
         }
+    }
+}
+
+extension FilterViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        enableSwipeBack(!(touch.view is UISlider))
+        return false
     }
 }

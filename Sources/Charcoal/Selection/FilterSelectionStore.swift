@@ -11,6 +11,10 @@ protocol FilterSelectionStoreDelegate: AnyObject {
 final class FilterSelectionStore {
     // MARK: - Internal properties
 
+    var isEmpty: Bool {
+        return queryItems.isEmpty
+    }
+
     weak var delegate: FilterSelectionStoreDelegate?
 
     // MARK: - Private properties

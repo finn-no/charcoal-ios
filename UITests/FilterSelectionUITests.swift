@@ -9,12 +9,12 @@ final class FilterSelectionUITests: UITestCase {
         app.launch()
 
         // 1. Open real estate market
-        app.tables.element(boundBy: 0).cells.element(boundBy: 5).tap()
+        app.tables.element(boundBy: 0).cells.element(boundBy: 7).tap()
         sleep(1)
         XCTAssertTrue(app.hasNavigationTitle("Filtrer søket"))
 
         // 2. Open filter
-        app.tables.element(boundBy: 1).cells.element(boundBy: 4).tap()
+        app.tables.element(boundBy: 1).cells.element(boundBy: 1).tap()
         sleep(1)
         XCTAssertTrue(app.hasNavigationTitle("Område"))
         XCTAssertFalse(app.bottomButton.exists)

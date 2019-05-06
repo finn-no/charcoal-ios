@@ -125,7 +125,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
 
 extension FilterViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 0 {
+        if scrollView.contentOffset.y + scrollView.contentInset.top > 0 {
             showTopSeparator()
         } else {
             hideTopSeparator()

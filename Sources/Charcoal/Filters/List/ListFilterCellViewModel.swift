@@ -25,7 +25,7 @@ struct ListFilterCellViewModel: SelectableTableViewCellViewModel {
     let isEnabled: Bool
 
     var hasChevron: Bool {
-        return accessoryStyle != .none
+        return true
     }
 
     var isSelected: Bool {

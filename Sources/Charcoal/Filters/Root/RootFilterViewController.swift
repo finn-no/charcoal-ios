@@ -14,18 +14,19 @@ protocol RootFilterViewControllerDelegate: AnyObject {
 }
 
 final class RootFilterViewController: FilterViewController {
-    enum Section: Int, CaseIterable {
-        case freeText, inline, rootFilters
-    }
-
     // MARK: - Internal properties
 
     weak var rootDelegate: (RootFilterViewControllerDelegate & FilterViewControllerDelegate)? {
         didSet { delegate = rootDelegate }
     }
 
-    weak var freeTextFilterDelegate: FreeTextFilterDelegate?
-    weak var freeTextFilterDataSource: FreeTextFilterDataSource?
+    weak var freeTextFilterDelegate: FreeTextFilterDelegate? {
+        didSet { freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate }
+    }
+
+    weak var freeTextFilterDataSource: FreeTextFilterDataSource? {
+        didSet { freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource }
+    }
 
     // MARK: - Private properties
 
@@ -35,8 +36,6 @@ final class RootFilterViewController: FilterViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(FreeTextFilterCell.self)
-        tableView.register(InlineFilterCell.self)
         tableView.register(RootFilterCell.self)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,9 +66,12 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
-    private var freeTextFilterViewController: FreeTextFilterViewController?
-    private var shouldResetInlineFilterCell = false
     private var loadingStartTimeInterval: TimeInterval?
+
+    private var freeTextFilterViewController: FreeTextFilterViewController?
+    private var inlineFilterView: InlineFilterView?
+    private var searchBarTopConstraint: NSLayoutConstraint?
+    private var inlineFilterTopConstraint: NSLayoutConstraint?
 
     // MARK: - Filter
 
@@ -97,6 +99,9 @@ final class RootFilterViewController: FilterViewController {
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()
         setup()
+
+        configureInlineFilter()
+        inlineFilterView?.slideInWithFade()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -107,16 +112,15 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Public
 
     func reloadFilters() {
+        configureInlineFilter()
         tableView.reloadData()
     }
-
-    // MARK: - Setup
 
     func set(filterContainer: FilterContainer) {
         self.filterContainer = filterContainer
         updateNavigationTitleView()
         updateBottomButtonTitle()
-        tableView.reloadData()
+        reloadFilters()
     }
 
     func showLoadingIndicator(_ show: Bool) {
@@ -142,16 +146,7 @@ final class RootFilterViewController: FilterViewController {
         }
     }
 
-    private func setup() {
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
-        ])
-    }
+    // MARK: - Private
 
     private func updateNavigationTitleView() {
         if let vertical = filterContainer.verticals?.first(where: { $0.isCurrent }) {
@@ -176,13 +171,30 @@ final class RootFilterViewController: FilterViewController {
         bottomButton.buttonTitle = title
     }
 
+    private func configureInlineFilter() {
+        guard let inlineFilter = filterContainer.inlineFilter else {
+            return
+        }
+
+        let segmentTitles = inlineFilter.subfilters.map { $0.subfilters.map { $0.title } }
+        let selectedItems = inlineFilter.subfilters.map {
+            $0.subfilters.enumerated().compactMap { index, filter in
+                self.selectionStore.isSelected(filter) ? index : nil
+            }
+        }
+
+        inlineFilterView?.configure(withTitles: segmentTitles, selectedItems: selectedItems)
+    }
+
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
         selectionStore.removeValues(for: filterContainer.allFilters)
         rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
+
         freeTextFilterViewController?.reset()
-        shouldResetInlineFilterCell = true
+        configureInlineFilter()
+        inlineFilterView?.resetContentOffset()
 
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         tableView.layoutIfNeeded()
@@ -190,84 +202,34 @@ final class RootFilterViewController: FilterViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension RootFilterViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.allCases.count
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = Section(rawValue: section) else { return 0 }
-
-        switch section {
-        case .freeText:
-            return filterContainer.freeTextFilter != nil ? 1 : 0
-        case .inline:
-            return filterContainer.inlineFilter != nil ? 1 : 0
-        case .rootFilters:
-            return filterContainer.rootFilters.count
-        }
+        return filterContainer.rootFilters.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
+        let currentFilter = filterContainer.rootFilters[indexPath.row]
+        let titles = selectionStore.titles(for: currentFilter)
+        let isValid = selectionStore.isValid(currentFilter)
+        let cell = tableView.dequeue(RootFilterCell.self, for: indexPath)
 
-        switch section {
-        case .freeText:
-            let cell = tableView.dequeue(FreeTextFilterCell.self, for: indexPath)
+        cell.delegate = self
+        cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, style: currentFilter.style)
 
-            if let freeTextFilter = filterContainer.freeTextFilter, freeTextFilterViewController == nil {
-                freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
-            }
-
-            freeTextFilterViewController?.delegate = self
-            freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate
-            freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource
-            cell.configure(with: freeTextFilterViewController!.searchBar)
-
-            return cell
-        case .inline:
-            let cell = tableView.dequeue(InlineFilterCell.self, for: indexPath)
-            cell.delegate = self
-
-            if let inlineFilter = filterContainer.inlineFilter {
-                let segmentTitles = inlineFilter.subfilters.map { $0.subfilters.map { $0.title } }
-                let selectedItems = inlineFilter.subfilters.map {
-                    $0.subfilters.enumerated().compactMap { index, filter in
-                        self.selectionStore.isSelected(filter) ? index : nil
-                    }
-                }
-
-                cell.configure(withTitles: segmentTitles, selectedItems: selectedItems)
-            }
-
-            if shouldResetInlineFilterCell {
-                shouldResetInlineFilterCell = false
-                cell.resetContentOffset()
-            }
-
-            return cell
-        case .rootFilters:
-            let currentFilter = filterContainer.rootFilters[indexPath.row]
-            let titles = selectionStore.titles(for: currentFilter)
-            let isValid = selectionStore.isValid(currentFilter)
-            let cell = tableView.dequeue(RootFilterCell.self, for: indexPath)
-
-            cell.delegate = self
-            cell.configure(withTitle: currentFilter.title, selectionTitles: titles, isValid: isValid, style: currentFilter.style)
-
-            let mutuallyExclusiveFilters = filterContainer.rootFilters.filter {
-                currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
-            }
-
-            cell.isEnabled = !mutuallyExclusiveFilters.reduce(false) {
-                $0 || selectionStore.hasSelectedSubfilters(for: $1)
-            }
-
-            cell.isSeparatorHidden = indexPath.row == filterContainer.rootFilters.count - 1
-            cell.accessibilityIdentifier = currentFilter.title
-
-            return cell
+        let mutuallyExclusiveFilters = filterContainer.rootFilters.filter {
+            currentFilter.mutuallyExclusiveFilterKeys.contains($0.key)
         }
+
+        cell.isEnabled = !mutuallyExclusiveFilters.reduce(false) {
+            $0 || selectionStore.hasSelectedSubfilters(for: $1)
+        }
+
+        cell.isSeparatorHidden = indexPath.row == filterContainer.rootFilters.count - 1
+        cell.accessibilityIdentifier = currentFilter.title
+
+        return cell
     }
 }
 
@@ -275,14 +237,7 @@ extension RootFilterViewController: UITableViewDataSource {
 
 extension RootFilterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let section = Section(rawValue: indexPath.section) else { return }
-
-        switch section {
-        case .rootFilters:
-            delegate?.filterViewController(self, didSelectFilter: filterContainer.rootFilters[indexPath.row])
-        case .freeText, .inline:
-            return
-        }
+        delegate?.filterViewController(self, didSelectFilter: filterContainer.rootFilters[indexPath.row])
     }
 }
 
@@ -319,14 +274,14 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let keys = filter.mutuallyExclusiveFilterKeys
 
         let indexPathsToReload = filterContainer.rootFilters.enumerated().compactMap { index, subfilter in
-            return keys.contains(subfilter.key) ? IndexPath(row: index, section: Section.rootFilters.rawValue) : nil
+            return keys.contains(subfilter.key) ? IndexPath(row: index, section: 0) : nil
         }
 
         tableView.reloadRows(at: indexPathsToReload, with: .none)
     }
 }
 
-// MARK: - CCInlineFilterViewDelegate
+// MARK: - InlineFilterViewDelegate
 
 extension RootFilterViewController: InlineFilterViewDelegate {
     func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int) {
@@ -441,6 +396,79 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
         resetButton.isEnabled = true
         verticalSelectorView.isEnabled = true
         viewController.remove()
-        tableView.reloadData()
+
+        freeTextFilterViewController?.searchBar.removeFromSuperview()
+        setupFreeTextFilter()
+    }
+}
+
+// MARK: - Setup
+
+private extension RootFilterViewController {
+    func setupFreeTextFilter() {
+        guard let freeTextFilter = filterContainer.freeTextFilter else { return }
+
+        if freeTextFilterViewController == nil {
+            freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
+            freeTextFilterViewController?.delegate = self
+            freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate
+            freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource
+        }
+
+        let searchBar = freeTextFilterViewController!.searchBar
+        tableView.addSubview(searchBar)
+
+        if searchBarTopConstraint == nil {
+            searchBarTopConstraint = searchBar.topAnchor.constraint(equalTo: tableView.topAnchor)
+        }
+
+        NSLayoutConstraint.activate([
+            searchBarTopConstraint!,
+            searchBar.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: .mediumSpacing),
+            searchBar.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -.mediumLargeSpacing),
+        ])
+    }
+
+    func setupInlineFilter() {
+        guard filterContainer.inlineFilter != nil else { return }
+
+        if inlineFilterView == nil {
+            inlineFilterView = InlineFilterView(withAutoLayout: true)
+            inlineFilterView?.delegate = self
+            tableView.addSubview(inlineFilterView!)
+        }
+
+        if inlineFilterTopConstraint == nil {
+            inlineFilterTopConstraint = inlineFilterView!.topAnchor.constraint(equalTo: tableView.topAnchor)
+        }
+
+        NSLayoutConstraint.activate([
+            inlineFilterTopConstraint!,
+            inlineFilterView!.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            inlineFilterView!.widthAnchor.constraint(equalTo: tableView.widthAnchor),
+        ])
+    }
+
+    func setup() {
+        setupFreeTextFilter()
+        setupInlineFilter()
+
+        let freeTextFilterInset = freeTextFilterViewController?.searchBar.intrinsicContentSize.height ?? 0
+        let inlineFilterInset = inlineFilterView?.intrinsicContentSize.height ?? 0
+        let totalInset = freeTextFilterInset + inlineFilterInset
+
+        searchBarTopConstraint?.constant = -totalInset
+        inlineFilterTopConstraint?.constant = -inlineFilterInset
+
+        tableView.contentOffset = CGPoint(x: 0, y: -totalInset)
+        tableView.contentInset = UIEdgeInsets(top: totalInset, left: 0, bottom: 0, right: 0)
+
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
+        ])
     }
 }

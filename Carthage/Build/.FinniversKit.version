@@ -8,11 +8,11 @@
   "tvOS" : [
 
   ],
-  "commitish" : "ed9a1e8bf9cabb4e5936eee45dd8bc09838994be",
+  "commitish" : "9a286bb32a9b1cbb5e190cad903938b9ac9bbb37",
   "iOS" : [
     {
       "name" : "FinniversKit",
-      "hash" : "a0aaa6fbce89dfa7d60f0109ba8afdaf5a26980f23b64a598d31cc770610b0bc"
+      "hash" : "94159b7da86bd312525d99f2655f0a62ed1a5d5f36a6f7f84072f3f4d016e978"
     }
   ]
 }

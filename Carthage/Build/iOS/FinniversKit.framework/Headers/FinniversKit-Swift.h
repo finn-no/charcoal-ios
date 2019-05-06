@@ -210,14 +210,14 @@ SWIFT_CLASS("_TtC12FinniversKit11AdsGridView")
 
 
 
-
-
 @class UICollectionView;
 
 @interface AdsGridView (SWIFT_EXTENSION(FinniversKit)) <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
+
+
 
 
 
@@ -1663,14 +1663,14 @@ SWIFT_CLASS("_TtC12FinniversKit11AdsGridView")
 
 
 
-
-
 @class UICollectionView;
 
 @interface AdsGridView (SWIFT_EXTENSION(FinniversKit)) <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
+
+
 
 
 

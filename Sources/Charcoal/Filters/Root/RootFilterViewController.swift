@@ -5,7 +5,6 @@
 import UIKit
 
 protocol RootFilterViewControllerDelegate: AnyObject {
-    func rootFilterViewControllerWillResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
     func rootFilterViewController(_ viewController: RootFilterViewController, didRemoveFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectInlineFilter filter: Filter)
@@ -112,19 +111,6 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Public
 
-    func resetFilters() {
-        selectionStore.removeValues(for: filterContainer.allFilters)
-        rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
-
-        freeTextFilterViewController?.reset()
-        configureInlineFilter()
-        inlineFilterView?.resetContentOffset()
-
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-        tableView.layoutIfNeeded()
-        tableView.reloadData()
-    }
-
     func reloadFilters() {
         configureInlineFilter()
         tableView.reloadData()
@@ -200,10 +186,32 @@ final class RootFilterViewController: FilterViewController {
         inlineFilterView?.configure(withTitles: segmentTitles, selectedItems: selectedItems)
     }
 
+    private func resetFilters(_ alert: UIAlertAction) {
+        selectionStore.removeValues(for: filterContainer.allFilters)
+        rootDelegate?.rootFilterViewControllerDidResetAllFilters(self)
+
+        freeTextFilterViewController?.reset()
+        configureInlineFilter()
+        inlineFilterView?.resetContentOffset()
+
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        tableView.layoutIfNeeded()
+        tableView.reloadData()
+    }
+
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
-        rootDelegate?.rootFilterViewControllerWillResetAllFilters(self)
+        guard !selectionStore.isEmpty else { return }
+
+        let alertController = UIAlertController(title: nil, message: "alert.reset.message".localized(), preferredStyle: .actionSheet)
+        let resetAction = UIAlertAction(title: "alert.action.reset".localized(), style: .destructive, handler: resetFilters(_:))
+        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel)
+
+        alertController.addAction(resetAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true)
     }
 }
 

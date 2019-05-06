@@ -229,7 +229,7 @@ extension RangeNumberInputView: NumberInputViewDelegate {
         handleInteraction(with: inputGroup(for: view))
     }
 
-    func numberInputView(_ view: NumberInputView, didChangeValue value: Int) {
+    func numberInputView(_ view: NumberInputView, didChangeValue value: Int?) {
         let inputGroup = self.inputGroup(for: view)
 
         inputValues[inputGroup] = value

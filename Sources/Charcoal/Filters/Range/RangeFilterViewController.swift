@@ -56,6 +56,7 @@ extension RangeFilterViewController: RangeFilterViewDelegate {
         selectionStore.setValue(value, for: subfilter)
         delegate?.filterViewController(self, didSelectFilter: subfilter)
         showBottomButton(true, animated: true)
+        enableSwipeBack(true)
     }
 }
 

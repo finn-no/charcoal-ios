@@ -60,11 +60,21 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         view.backgroundColor = .milk
         setup()
         hideTopSeparator()
+
+        let gestureRecornizer = UIScreenEdgePanGestureRecognizer()
+        gestureRecornizer.delegate = self
+        gestureRecornizer.edges = .left
+        view.addGestureRecognizer(gestureRecornizer)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.bringSubviewToFront(bottomButton)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        enableSwipeBack(true)
     }
 
     // MARK: - Setup
@@ -103,6 +113,14 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         })
     }
 
+    func enableSwipeBack(_ isEnabled: Bool) {
+        let gestureRecognizer = navigationController?.interactivePopGestureRecognizer
+
+        if gestureRecognizer?.isEnabled != isEnabled {
+            gestureRecognizer?.isEnabled = isEnabled
+        }
+    }
+
     // MARK: - Top separator
 
     private func showTopSeparator() {
@@ -130,5 +148,12 @@ extension FilterViewController: UIScrollViewDelegate {
         } else {
             hideTopSeparator()
         }
+    }
+}
+
+extension FilterViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        enableSwipeBack(!(touch.view is UISlider))
+        return false
     }
 }

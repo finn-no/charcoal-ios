@@ -158,6 +158,7 @@ extension MapFilterViewController: MapFilterViewDelegate {
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
         hasChanges = true
         self.radius = radius
+        enableSwipeBack(true)
     }
 }
 

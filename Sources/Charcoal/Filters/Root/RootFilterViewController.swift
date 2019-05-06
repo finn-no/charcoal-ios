@@ -20,8 +20,13 @@ final class RootFilterViewController: FilterViewController {
         didSet { delegate = rootDelegate }
     }
 
-    weak var freeTextFilterDelegate: FreeTextFilterDelegate?
-    weak var freeTextFilterDataSource: FreeTextFilterDataSource?
+    weak var freeTextFilterDelegate: FreeTextFilterDelegate? {
+        didSet { freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate }
+    }
+
+    weak var freeTextFilterDataSource: FreeTextFilterDataSource? {
+        didSet { freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource }
+    }
 
     // MARK: - Private properties
 
@@ -107,6 +112,7 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Public
 
     func reloadFilters() {
+        configureInlineFilter()
         tableView.reloadData()
     }
 
@@ -114,7 +120,7 @@ final class RootFilterViewController: FilterViewController {
         self.filterContainer = filterContainer
         updateNavigationTitleView()
         updateBottomButtonTitle()
-        tableView.reloadData()
+        reloadFilters()
     }
 
     func showLoadingIndicator(_ show: Bool) {
@@ -424,12 +430,11 @@ private extension RootFilterViewController {
     }
 
     func setupInlineFilter() {
-        guard filterContainer.inlineFilter != nil else {
-            return
-        }
+        guard filterContainer.inlineFilter != nil else { return }
 
         if inlineFilterView == nil {
             inlineFilterView = InlineFilterView(withAutoLayout: true)
+            inlineFilterView?.delegate = self
             tableView.addSubview(inlineFilterView!)
         }
 

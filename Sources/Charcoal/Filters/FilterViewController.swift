@@ -70,6 +70,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.bringSubviewToFront(bottomButton)
+        enableSwipeBack(true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

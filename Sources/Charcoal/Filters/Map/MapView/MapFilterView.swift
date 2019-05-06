@@ -95,7 +95,7 @@ final class MapFilterView: UIView {
     private lazy var radiusView = MapRadiusView(withAutoLayout: true)
 
     private lazy var distanceSlider: ValueSliderWithLabelView = {
-        let meterStepValues = [200, 300, 400, 500, 700, 1000, 1500, 2000, 5000, 10000, 20000, 30000, 50000, 75000, 100_000]
+        let meterStepValues = [200, 300, 400, 500, 700, 1000, 1500, 2000, 3000, 5000, 7000, 10000, 20000, 30000, 50000, 75000, 100_000]
         let referenceIndexes = [1, Int(meterStepValues.count / 2), meterStepValues.count - 2]
         let slider = ValueSliderWithLabelView(range: meterStepValues, referenceIndexes: referenceIndexes, valueFormatter: MapDistanceValueFormatter())
 

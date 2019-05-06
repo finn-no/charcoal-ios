@@ -61,10 +61,10 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         setup()
         hideTopSeparator()
 
-        let gestureRecornizer = UIScreenEdgePanGestureRecognizer()
-        gestureRecornizer.delegate = self
-        gestureRecornizer.edges = .left
-        view.addGestureRecognizer(gestureRecornizer)
+        let gestureRecognizer = UIScreenEdgePanGestureRecognizer()
+        gestureRecognizer.delegate = self
+        gestureRecognizer.edges = .left
+        view.addGestureRecognizer(gestureRecognizer)
     }
 
     public override func viewWillAppear(_ animated: Bool) {

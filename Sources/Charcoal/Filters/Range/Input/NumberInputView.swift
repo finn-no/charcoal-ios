@@ -7,7 +7,7 @@ import UIKit
 protocol NumberInputViewDelegate: AnyObject {
     func numberInputViewDidBeginEditing(_ view: NumberInputView)
     func numberInputViewDidTapInside(_ view: NumberInputView)
-    func numberInputView(_ view: NumberInputView, didChangeValue value: Int)
+    func numberInputView(_ view: NumberInputView, didChangeValue value: Int?)
 }
 
 final class NumberInputView: UIView {
@@ -236,17 +236,14 @@ extension NumberInputView: UITextFieldDelegate {
         text.removeWhitespaces()
 
         if text.isEmpty {
-            text = "\(defaultValue)"
+            textField.text = text
+            textField.accessibilityValue = "noValue".localized()
+            delegate?.numberInputView(self, didChangeValue: nil)
+        } else if let newValue = Int(text) {
+            textField.text = formatter.string(from: newValue)
+            textField.accessibilityValue = formatter.accessibilityValue(for: newValue)
+            delegate?.numberInputView(self, didChangeValue: newValue)
         }
-
-        guard let newValue = Int(text) else {
-            return false
-        }
-
-        textField.text = formatter.string(from: newValue)
-        textField.accessibilityValue = formatter.accessibilityValue(for: newValue)
-
-        delegate?.numberInputView(self, didChangeValue: newValue)
 
         return false
     }

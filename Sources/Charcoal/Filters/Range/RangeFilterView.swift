@@ -239,6 +239,7 @@ extension RangeFilterView: RangeNumberInputViewDelegate {
             numberInputView.setLowValueHint(text: "")
             delegate?.rangeFilterView(self, didSetLowValue: lowValue)
         } else {
+            updateSliderLowValue(with: .lowerBound)
             delegate?.rangeFilterView(self, didSetLowValue: nil)
         }
 
@@ -254,6 +255,7 @@ extension RangeFilterView: RangeNumberInputViewDelegate {
             numberInputView.setHighValueHint(text: "")
             delegate?.rangeFilterView(self, didSetHighValue: highValue)
         } else {
+            updateSliderHighValue(with: .upperBound)
             delegate?.rangeFilterView(self, didSetHighValue: nil)
         }
 

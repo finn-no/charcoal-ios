@@ -235,8 +235,6 @@ private extension FreeTextFilterViewController {
     }
 
     func setup() {
-        view.backgroundColor = .white
-
         searchBar.removeFromSuperview()
         view.addSubview(searchBar)
         view.addSubview(tableView)

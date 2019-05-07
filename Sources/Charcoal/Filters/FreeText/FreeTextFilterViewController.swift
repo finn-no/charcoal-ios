@@ -108,7 +108,7 @@ public class FreeTextFilterViewController: UIViewController {
         var keyboardHeight = view.convert(keyboardValue.cgRectValue, from: view.window).height
 
         if #available(iOS 11.0, *) {
-            keyboardHeight -= 34
+            keyboardHeight -= view.window?.safeAreaInsets.bottom ?? 0
         }
 
         if notification.name == UIResponder.keyboardWillHideNotification {

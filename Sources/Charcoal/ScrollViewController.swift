@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class ScrollViewController: UIViewController {
+public class ScrollViewController: UIViewController, UIScrollViewDelegate {
     private lazy var topSeparatorView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .white
@@ -15,6 +15,8 @@ public class ScrollViewController: UIViewController {
         view.layer.shadowRadius = 3
         return view
     }()
+
+    private(set) lazy var topSeparatorViewConstraint = topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor)
 
     // MARK: - Lifecycle
 
@@ -30,7 +32,7 @@ public class ScrollViewController: UIViewController {
         view.addSubview(topSeparatorView)
 
         NSLayoutConstraint.activate([
-            topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            topSeparatorViewConstraint,
             topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topSeparatorView.heightAnchor.constraint(equalToConstant: 1),
@@ -47,11 +49,7 @@ public class ScrollViewController: UIViewController {
     private func hideTopSeparator() {
         topSeparatorView.isHidden = true
     }
-}
 
-// MARK: - UIScrollViewDelegate
-
-extension ScrollViewController: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y + scrollView.contentInset.top > 0 {
             showTopSeparator()

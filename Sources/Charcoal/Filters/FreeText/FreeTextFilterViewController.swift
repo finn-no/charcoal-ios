@@ -94,6 +94,11 @@ public class FreeTextFilterViewController: ScrollViewController {
         tableView.reloadData()
     }
 
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        view.bringSubviewToFront(searchBar)
+    }
+
     // MARK: - Helper methods
 
     func reset() {
@@ -230,6 +235,8 @@ private extension FreeTextFilterViewController {
     }
 
     func setup() {
+        view.backgroundColor = .white
+
         searchBar.removeFromSuperview()
         view.addSubview(searchBar)
         view.addSubview(tableView)
@@ -244,6 +251,8 @@ private extension FreeTextFilterViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+
+        topSeparatorViewConstraint.constant = searchBar.frame.height
     }
 }
 

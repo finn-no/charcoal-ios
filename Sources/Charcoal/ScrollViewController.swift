@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ScrollViewController: UIViewController {
+public class ScrollViewController: UIViewController {
     private lazy var topSeparatorView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .white
@@ -52,7 +52,7 @@ class ScrollViewController: UIViewController {
 // MARK: - UIScrollViewDelegate
 
 extension ScrollViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y + scrollView.contentInset.top > 0 {
             showTopSeparator()
         } else {

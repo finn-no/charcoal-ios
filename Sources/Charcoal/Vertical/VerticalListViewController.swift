@@ -4,11 +4,11 @@
 
 import Foundation
 
-public protocol VerticalListViewControllerDelegate: AnyObject {
+protocol VerticalListViewControllerDelegate: AnyObject {
     func verticalListViewController(_: VerticalListViewController, didSelectVerticalAtIndex index: Int)
 }
 
-public class VerticalListViewController: UIViewController {
+class VerticalListViewController: ScrollViewController {
     private static let rowHeight: CGFloat = 48.0
 
     private lazy var tableView: UITableView = {

@@ -25,7 +25,7 @@ protocol FreeTextFilterViewControllerDelegate: AnyObject {
                                       for filter: Filter)
 }
 
-public class FreeTextFilterViewController: UIViewController {
+public class FreeTextFilterViewController: ScrollViewController {
     // MARK: - Public Properties
 
     weak var filterDelegate: FreeTextFilterDelegate?

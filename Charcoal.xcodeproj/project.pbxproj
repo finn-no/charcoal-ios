@@ -114,6 +114,7 @@
 		CF88577D21F61D7E0056CC81 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */; };
 		CF8FD7362254E2CF00926A7B /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */; };
 		CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7372254E5C300926A7B /* VerticalCell.swift */; };
+		CF903FFA2281950500AA1A39 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF903FF92281950500AA1A39 /* UIViewExtensions.swift */; };
 		CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */; };
 		CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */; };
 		CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
@@ -388,6 +389,7 @@
 		CF88577C21F61D7E0056CC81 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 		CF8FD7372254E5C300926A7B /* VerticalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalCell.swift; sourceTree = "<group>"; };
+		CF903FF92281950500AA1A39 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UItableViewExtensions.swift; sourceTree = "<group>"; };
 		CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCalloutOverlay.swift; sourceTree = "<group>"; };
@@ -775,6 +777,7 @@
 				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
 				CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */,
 				CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */,
+				CF903FF92281950500AA1A39 /* UIViewExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1663,6 +1666,7 @@
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
 				CFE987E422579706008D6789 /* NumberInputFontSize.swift in Sources */,
+				CF903FFA2281950500AA1A39 /* UIViewExtensions.swift in Sources */,
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,

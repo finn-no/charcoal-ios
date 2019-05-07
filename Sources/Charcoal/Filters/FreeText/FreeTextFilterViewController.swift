@@ -39,6 +39,7 @@ public class FreeTextFilterViewController: UIViewController {
 
     private let filter: Filter
     private let selectionStore: FilterSelectionStore
+    private let notificationCenter: NotificationCenter
 
     private(set) lazy var searchBar: UISearchBar = {
         let searchBar = FreeTextFilterSearchBar(frame: .zero)
@@ -53,17 +54,20 @@ public class FreeTextFilterViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(IconTitleTableViewCell.self)
+        tableView.removeLastCellSeparator()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(IconTitleTableViewCell.self)
-        tableView.tableFooterView = UIView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
-    init(filter: Filter, selectionStore: FilterSelectionStore) {
+    // MARK: - Init
+
+    init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default) {
         self.filter = filter
         self.selectionStore = selectionStore
+        self.notificationCenter = notificationCenter
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -71,16 +75,49 @@ public class FreeTextFilterViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func reset() {
-        searchBar.text = nil
-        didClearText = false
-        filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
+    // MARK: - Lifecycle
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        notificationCenter.removeObserver(self)
     }
 
     // MARK: - Public methods
 
     public func reloadData() {
         tableView.reloadData()
+    }
+
+    // MARK: - Helper methods
+
+    func reset() {
+        searchBar.text = nil
+        didClearText = false
+        filterDelegate?.freeTextFilterViewController(self, didChangeText: nil)
+    }
+
+    @objc private func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        var keyboardHeight = view.convert(keyboardValue.cgRectValue, from: view.window).height
+
+        if #available(iOS 11.0, *) {
+            keyboardHeight -= view.window?.safeAreaInsets.bottom ?? 0
+        }
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            tableView.contentInset = .zero
+        } else {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+        }
+
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
 }
 

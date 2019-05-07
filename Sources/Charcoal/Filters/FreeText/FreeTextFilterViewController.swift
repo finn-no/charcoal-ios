@@ -54,11 +54,11 @@ public class FreeTextFilterViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(IconTitleTableViewCell.self)
+        tableView.removeLastCellSeparator()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(IconTitleTableViewCell.self)
-        tableView.tableFooterView = UIView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 

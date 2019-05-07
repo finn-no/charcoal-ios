@@ -11,7 +11,7 @@ class DemoTableViewController: UIViewController {
     private let dataSource = DataSource()
     private var bottomSheet: BottomSheet?
     private let searchLocationDataSource = DemoSearchLocationDataSource()
-
+    private var freeTextSearchSuggestions = [String]()
     private var currentRow: Row?
 
     private lazy var tableView: UITableView = {
@@ -41,6 +41,8 @@ extension DemoTableViewController: UITableViewDelegate {
         if let charcoalViewController = viewController as? CharcoalViewController {
             charcoalViewController.selectionDelegate = self
             charcoalViewController.textEditingDelegate = self
+            charcoalViewController.freeTextFilterDataSource = self
+            charcoalViewController.freeTextFilterDelegate = self
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
             charcoalViewController.filterContainer = row.setup?.filterContainer
             charcoalViewController.selectionDelegate = self
@@ -83,5 +85,29 @@ extension DemoTableViewController: CharcoalViewControllerTextEditingDelegate {
 
     func charcoalViewControllerWillEndTextEditing(_ viewController: CharcoalViewController) {
         bottomSheet?.state = .compact
+    }
+}
+
+extension DemoTableViewController: FreeTextFilterDataSource {
+    func numberOfSuggestions(in freeTextFilterViewController: FreeTextFilterViewController) -> Int {
+        return freeTextSearchSuggestions.count
+    }
+
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController,
+                                      suggestionAt indexPath: IndexPath) -> String {
+        return freeTextSearchSuggestions[indexPath.row]
+    }
+}
+
+extension DemoTableViewController: FreeTextFilterDelegate {
+    func freeTextFilterViewController(_ freeTextFilterViewController: FreeTextFilterViewController,
+                                      didChangeText text: String?) {
+        if let text = text, !text.isEmpty {
+            freeTextSearchSuggestions = (1 ... 10).map { "\(text)\($0)" }
+        } else {
+            freeTextSearchSuggestions = []
+        }
+
+        freeTextFilterViewController.reloadData()
     }
 }

@@ -138,6 +138,9 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     // MARK: - FilterBottomButtonViewDelegate
 
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
         delegate?.filterViewControllerDidPressBottomButton(self)
     }
 }

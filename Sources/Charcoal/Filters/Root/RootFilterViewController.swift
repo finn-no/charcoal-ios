@@ -202,6 +202,9 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+
         guard !selectionStore.isEmpty else { return }
 
         let alertController = UIAlertController(title: nil, message: "alert.reset.message".localized(), preferredStyle: .actionSheet)
@@ -308,6 +311,9 @@ extension RootFilterViewController: InlineFilterViewDelegate {
                     selectionStore.setValue(from: subfilter)
                 }
             }
+
+            let generator = UISelectionFeedbackGenerator()
+            generator.selectionChanged()
 
             rootDelegate?.rootFilterViewController(self, didSelectInlineFilter: inlineFilter)
         }

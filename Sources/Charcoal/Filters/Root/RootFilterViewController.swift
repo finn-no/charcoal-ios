@@ -400,12 +400,14 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
     }
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
+        rootDelegate?.filterViewControllerWillBeginTextEditing(self)
         resetButton.isEnabled = false
         verticalSelectorView.isEnabled = false
         add(viewController)
     }
 
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
+        rootDelegate?.filterViewControllerWillEndTextEditing(self)
         resetButton.isEnabled = true
         verticalSelectorView.isEnabled = true
         viewController.remove()

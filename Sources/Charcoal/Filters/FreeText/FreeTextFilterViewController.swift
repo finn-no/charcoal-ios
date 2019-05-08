@@ -25,7 +25,7 @@ protocol FreeTextFilterViewControllerDelegate: AnyObject {
                                       for filter: Filter)
 }
 
-public class FreeTextFilterViewController: UIViewController {
+public class FreeTextFilterViewController: ScrollViewController {
     // MARK: - Public Properties
 
     weak var filterDelegate: FreeTextFilterDelegate?
@@ -92,6 +92,11 @@ public class FreeTextFilterViewController: UIViewController {
 
     public func reloadData() {
         tableView.reloadData()
+    }
+
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        view.bringSubviewToFront(searchBar)
     }
 
     // MARK: - Helper methods
@@ -244,6 +249,8 @@ private extension FreeTextFilterViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+
+        topSeparatorViewConstraint.constant = searchBar.frame.height
     }
 }
 

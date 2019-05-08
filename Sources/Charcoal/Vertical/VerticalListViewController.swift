@@ -4,11 +4,11 @@
 
 import Foundation
 
-public protocol VerticalListViewControllerDelegate: AnyObject {
+protocol VerticalListViewControllerDelegate: AnyObject {
     func verticalListViewController(_: VerticalListViewController, didSelectVerticalAtIndex index: Int)
 }
 
-public class VerticalListViewController: UIViewController {
+final class VerticalListViewController: ScrollViewController {
     private static let rowHeight: CGFloat = 48.0
 
     private lazy var tableView: UITableView = {
@@ -22,9 +22,9 @@ public class VerticalListViewController: UIViewController {
         return tableView
     }()
 
-    public weak var delegate: VerticalListViewControllerDelegate?
+    weak var delegate: VerticalListViewControllerDelegate?
 
-    public var verticals: [Vertical] = [] {
+    var verticals: [Vertical] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -32,7 +32,7 @@ public class VerticalListViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
@@ -78,11 +78,11 @@ public class VerticalListViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension VerticalListViewController: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return verticals.count
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(VerticalCell.self, for: indexPath)
 
         if let vertical = verticals[safe: indexPath.row] {
@@ -96,11 +96,11 @@ extension VerticalListViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension VerticalListViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.verticalListViewController(self, didSelectVerticalAtIndex: indexPath.item)
     }
 
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return type(of: self).rowHeight
     }
 }

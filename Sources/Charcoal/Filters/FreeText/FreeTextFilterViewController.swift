@@ -136,7 +136,7 @@ extension FreeTextFilterViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
         let title = filterDataSource?.freeTextFilterViewController(self, suggestionAt: indexPath)
-        cell.titleLabel.font = .body
+        cell.titleLabel.font = .bodyRegular
         cell.configure(with: FreeTextSuggestionCellViewModel(title: title ?? ""))
         cell.separatorInset = .leadingInset(48)
         return cell
@@ -260,16 +260,17 @@ private class FreeTextFilterSearchBar: UISearchBar {
         let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableView.self])
         textFieldAppearanceInRoot.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
-            NSAttributedString.Key.font: UIFont.body,
+            NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
         textFieldAppearanceInSearch.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.licorice,
-            NSAttributedString.Key.font: UIFont.body,
+            NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 
         let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
+        barButtondAppearance.setTitleTextAttributes([.font: UIFont.bodyRegular])
         barButtondAppearance.title = "cancel".localized()
     }()
 

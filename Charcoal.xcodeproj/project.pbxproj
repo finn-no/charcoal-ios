@@ -128,6 +128,7 @@
 		CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFD8B45622843DD400AA534A /* MapRadiusOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD8B45522843DD400AA534A /* MapRadiusOverlayView.swift */; };
+		CFD8B4582284551B00AA534A /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD8B4572284551B00AA534A /* UIFontExtensions.swift */; };
 		CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */; };
 		CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */; };
 		CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */; };
@@ -401,6 +402,7 @@
 		CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionChangeOrigin.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
 		CFD8B45522843DD400AA534A /* MapRadiusOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRadiusOverlayView.swift; sourceTree = "<group>"; };
+		CFD8B4572284551B00AA534A /* UIFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
 		CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitTests.swift; sourceTree = "<group>"; };
 		CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
 		CFE255D4225B91A000052077 /* GridFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterViewController.swift; sourceTree = "<group>"; };
@@ -772,11 +774,12 @@
 		5589322F209C3CDA00512FF8 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
-				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
 				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
+				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
+				CFD8B4572284551B00AA534A /* UIFontExtensions.swift */,
 				CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */,
 				CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */,
+				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
 				CF903FF92281950500AA1A39 /* UIViewExtensions.swift */,
 			);
 			path = UIKit;
@@ -1651,6 +1654,7 @@
 				CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */,
 				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
+				CFD8B4582284551B00AA534A /* UIFontExtensions.swift in Sources */,
 				CFB272972282CECB00C8C654 /* ScrollViewController.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
 				CF16687D2264A2B100652DB0 /* VerticalSelectorView.swift in Sources */,

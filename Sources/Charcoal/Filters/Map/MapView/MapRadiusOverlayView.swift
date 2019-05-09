@@ -119,7 +119,7 @@ private final class BackgroundView: UIView {
     // MARK: - Setup
 
     private func setup() {
-        backgroundColor = UIColor.primaryBlue.withAlphaComponent(0.2)
+        backgroundColor = UIColor.primaryBlue.withAlphaComponent(0.1)
         clipsToBounds = true
         isUserInteractionEnabled = false
         layer.mask = maskLayer

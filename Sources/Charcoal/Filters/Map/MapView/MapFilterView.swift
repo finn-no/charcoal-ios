@@ -62,6 +62,7 @@ final class MapFilterView: UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
+        view.layer.cornerRadius = 8
         return view
     }()
 
@@ -71,6 +72,7 @@ final class MapFilterView: UIView {
         view.isRotateEnabled = false
         view.isPitchEnabled = false
         view.isZoomEnabled = false
+        view.layer.cornerRadius = 8
         return view
     }()
 

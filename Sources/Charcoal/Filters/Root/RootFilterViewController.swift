@@ -334,7 +334,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
     private func showVerticalViewController() {
         guard let verticals = filterContainer.verticals else { return }
 
-        resetButton.isEnabled = false
+        navigationItem.rightBarButtonItem = nil
         verticalSelectorView.arrowDirection = .up
 
         add(verticalViewController)
@@ -357,7 +357,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
     }
 
     private func hideVerticalViewController() {
-        resetButton.isEnabled = true
+        navigationItem.rightBarButtonItem = resetButton
         verticalSelectorView.arrowDirection = .down
 
         tableView.alpha = 0
@@ -407,14 +407,14 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
         rootDelegate?.filterViewControllerWillBeginTextEditing(self)
-        resetButton.isEnabled = false
+        navigationItem.rightBarButtonItem = nil
         verticalSelectorView.isEnabled = false
         add(viewController)
     }
 
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
         rootDelegate?.filterViewControllerWillEndTextEditing(self)
-        resetButton.isEnabled = true
+        navigationItem.rightBarButtonItem = resetButton
         verticalSelectorView.isEnabled = true
         viewController.remove()
 

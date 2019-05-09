@@ -257,7 +257,7 @@ private extension FreeTextFilterViewController {
 private class FreeTextFilterSearchBar: UISearchBar {
     // Makes sure to setup appearance proxy one time and one time only
     private static let setupSearchQuerySearchBarAppereanceOnce: () = {
-        let textFieldAppearance = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
+        let textFieldAppearance = UITextField.appearance(whenContainedInInstancesOf: [UITableView.self, FreeTextFilterSearchBar.self])
         textFieldAppearance.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.licorice,
             NSAttributedString.Key.font: UIFont.bodyRegular,

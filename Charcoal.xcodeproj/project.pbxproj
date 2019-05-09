@@ -762,9 +762,9 @@
 			isa = PBXGroup;
 			children = (
 				55946B7D20970237008AB7CE /* InlineFilterDemoViewController.swift */,
+				DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */,
 				559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */,
 				DAF3CA7321830F18007235B0 /* StepperFilterDemoViewController.swift */,
-				DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

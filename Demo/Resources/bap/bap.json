@@ -12,7 +12,8 @@
                 "category",
                 "price",
                 "segment",
-                "condition"
+                "condition",
+                "shoe_size"
                 ],
     "filter-data": {
         "price": {
@@ -72,6 +73,66 @@
                         "total-results": 209398
                         }
                         ]
+        },
+        "shoe_size": {
+            "title": "Skostørrelse",
+            "name": "shoe_size",
+            "queries": [
+                {
+                    "title": "36",
+                    "name": "shoe_size_1",
+                    "value": "1.744.839",
+                    "total-results": 11
+                },
+                {
+                    "title": "37",
+                    "name": "shoe_size_2",
+                    "value": "1.744.840",
+                    "total-results": 11
+                },
+                {
+                    "title": "38",
+                    "name": "shoe_size_3",
+                    "value": "1.744.841",
+                    "total-results": 11
+                },
+                {
+                    "title": "39",
+                    "name": "shoe_size_4",
+                    "value": "1.744.842",
+                    "total-results": 11
+                },
+                {
+                    "title": "40",
+                    "name": "shoe_size_5",
+                    "value": "1.744.843",
+                    "total-results": 10
+                },
+                {
+                    "title": "41",
+                    "name": "shoe_size_6",
+                    "value": "1.744.844",
+                    "total-results": 10
+                },
+                {
+                    "title": "42",
+                    "name": "shoe_size_7",
+                    "value": "1.744.845",
+                    "total-results": 10
+                },
+                {
+                    "title": "43",
+                    "name": "shoe_size_8",
+                    "value": "1.744.846",
+                    "total-results": 10
+                },
+                {
+                    "title": "44",
+                    "name": "shoe_size_9",
+                    "value": "1.744.847",
+                    "total-results": 11
+                }
+            ]
         },
         "location": {
             "title": "Område",

@@ -154,11 +154,11 @@ final class RootFilterViewController: FilterViewController {
         }
     }
 
-    func hideResetButton() {
+    // MARK: - Private
+
+    private func hideResetButton() {
         navigationItem.rightBarButtonItem = nil
     }
-
-    // MARK: - Private
 
     private func updateNavigationTitleView() {
         if let vertical = filterContainer.verticals?.first(where: { $0.isCurrent }) {

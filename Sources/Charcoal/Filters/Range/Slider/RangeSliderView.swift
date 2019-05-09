@@ -229,8 +229,7 @@ extension RangeSliderView: StepSliderDelegate {
 
     func stepSlider(_ stepSlider: StepSlider, didChangeStep step: Step) {
         if lowValueSlider.step == highValueSlider.step, generatesHapticFeedbackOnValueChange {
-            let generator = UIImpactFeedbackGenerator(style: .heavy)
-            generator.impactOccurred()
+            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         }
 
         handleStepUpdate(newStep: step, stepSlider: stepSlider)

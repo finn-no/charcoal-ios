@@ -81,6 +81,8 @@ private extension StepperFilterView {
     }
 
     func handleButtonPressed(with type: ButtonType) {
+        UISelectionFeedbackGenerator().selectionChanged()
+
         switch type {
         case .minus:
             let newValue = max(minimumValue, value - 1)

@@ -136,6 +136,7 @@ private extension InlineFilterView {
             return
         }
 
+        UISelectionFeedbackGenerator().selectionChanged()
         delegate?.inlineFilterView(self, didChange: segment, at: index)
     }
 }

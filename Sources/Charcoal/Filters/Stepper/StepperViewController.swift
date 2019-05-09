@@ -67,6 +67,7 @@ private extension StepperFilterViewController {
         default:
             selectionStore.setValue(sender.value, for: filter)
         }
+
         showBottomButton(true, animated: true)
     }
 }

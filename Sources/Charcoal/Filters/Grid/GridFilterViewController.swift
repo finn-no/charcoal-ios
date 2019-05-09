@@ -88,12 +88,16 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let currentFilter = filter.subfilters[indexPath.row]
+
+        UISelectionFeedbackGenerator().selectionChanged()
         selectionStore.setValue(from: currentFilter)
         showBottomButtonIfNeeded()
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let currentFilter = filter.subfilters[indexPath.row]
+
+        UISelectionFeedbackGenerator().selectionChanged()
         selectionStore.removeValues(for: currentFilter)
         showBottomButtonIfNeeded()
     }

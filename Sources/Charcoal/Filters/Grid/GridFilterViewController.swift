@@ -40,6 +40,10 @@ final class GridFilterViewController: FilterViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadData()
+
+        for (index, filter) in filter.subfilters.enumerated() where selectionStore.isSelected(filter) {
+            collectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .left)
+        }
     }
 
     // MARK: - Setup
@@ -60,10 +64,7 @@ extension GridFilterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(GridFilterCell.self, for: indexPath)
         let currentFilter = filter.subfilters[indexPath.row]
-
         cell.configure(withTitle: currentFilter.title, accessibilityPrefix: filter.title)
-        cell.isSelected = selectionStore.isSelected(currentFilter)
-
         return cell
     }
 }

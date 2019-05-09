@@ -62,6 +62,7 @@ final class MapFilterView: UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
+        view.layer.cornerRadius = 8
         return view
     }()
 
@@ -71,6 +72,7 @@ final class MapFilterView: UIView {
         view.isRotateEnabled = false
         view.isPitchEnabled = false
         view.isZoomEnabled = false
+        view.layer.cornerRadius = 8
         return view
     }()
 
@@ -92,7 +94,7 @@ final class MapFilterView: UIView {
         return button
     }()
 
-    private lazy var radiusView = MapRadiusView(withAutoLayout: true)
+    private lazy var radiusOverlayView = MapRadiusOverlayView(withAutoLayout: true)
 
     private lazy var distanceSlider: ValueSliderWithLabelView = {
         let meterStepValues = [200, 300, 400, 500, 700, 1000, 1500, 2000, 3000, 5000, 7000, 10000, 20000, 30000, 50000, 75000, 100_000]
@@ -163,7 +165,7 @@ final class MapFilterView: UIView {
 
     func updateRadiusView() {
         let region = mapView.centeredRegion(for: Double(radius))
-        radiusView.radius = mapView.convert(region, toRectTo: mapView).width
+        radiusOverlayView.radius = mapView.convert(region, toRectTo: mapView).width
     }
 
     private func updateRegion(animated: Bool = true) {
@@ -188,18 +190,16 @@ final class MapFilterView: UIView {
         addSubview(distanceSlider)
 
         mapContainerView.addSubview(mapView)
-        mapContainerView.addSubview(radiusView)
+        mapContainerView.addSubview(radiusOverlayView)
+        mapContainerView.addSubview(userLocationButton)
 
-        mapView.addSubview(userLocationButton)
         mapView.fillInSuperview()
+        radiusOverlayView.fillInSuperview()
 
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
-
-            radiusView.centerXAnchor.constraint(equalTo: mapContainerView.centerXAnchor),
-            radiusView.centerYAnchor.constraint(equalTo: mapContainerView.centerYAnchor),
 
             distanceSlider.topAnchor.constraint(equalTo: mapContainerView.bottomAnchor, constant: .mediumLargeSpacing),
             distanceSlider.leadingAnchor.constraint(equalTo: mapContainerView.leadingAnchor),

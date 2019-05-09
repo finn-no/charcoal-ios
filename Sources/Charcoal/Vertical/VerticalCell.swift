@@ -71,7 +71,7 @@ final class VerticalCell: UITableViewCell {
         self.selectedBackgroundView = selectedBackgroundView
 
         separatorInset = .leadingInset(56)
-        textLabel?.font = .body
+        textLabel?.font = .bodyRegular
         textLabel?.textColor = .licorice
         detailTextLabel?.font = .detail
         detailTextLabel?.textColor = .stone

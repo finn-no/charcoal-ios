@@ -1,9 +1,11 @@
 //
-//  UIFontExtensions.swift
-//  Charcoal
-//
-//  Created by Markov, Vadym on 09/05/2019.
-//  Copyright © 2019 FINN.no. All rights reserved.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UIFont {
+    static var bodyRegular: UIFont {
+        return UIFont.detail.withSize(16).scaledFont(forTextStyle: .callout)
+    }
+}

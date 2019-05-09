@@ -33,6 +33,7 @@ final class ListFilterViewController: FilterViewController {
     init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
         super.init(title: filter.title, selectionStore: selectionStore)
+        scrollView = tableView
     }
 
     required init?(coder aDecoder: NSCoder) {

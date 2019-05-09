@@ -25,6 +25,10 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
     private(set) lazy var bottomButton: FilterBottomButtonView = {
         let view = FilterBottomButtonView()
         view.delegate = self
+        view.layer.masksToBounds = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = shadowRadius
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
         return view
@@ -59,11 +63,17 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         super.viewWillAppear(animated)
         view.bringSubviewToFront(bottomButton)
         enableSwipeBack(true)
+        updateBottomShadow()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableSwipeBack(true)
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        updateBottomShadow()
     }
 
     // MARK: - Internal functions
@@ -72,6 +82,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         view.layoutIfNeeded()
         isShowingBottomButton = show
         bottomButtonBottomConstraint.isActive = show
+        updateBottomShadow()
 
         let duration = animated ? 0.3 : 0
 
@@ -84,6 +95,14 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         }, completion: { [weak self] _ in
             self?.bottomButton.isHidden = !show
         })
+    }
+
+    private func updateBottomShadow() {
+        guard let scrollView = scrollView else { return }
+
+        let overlap = scrollView.contentSize.height - scrollView.contentOffset.y - bottomButton.frame.minY
+        bottomButton.layer.shadowOpacity = overlap < 0 ? 0 : shadowOpacity
+        bottomButton.layer.shadowRadius = min(overlap / 5, shadowRadius)
     }
 
     func enableSwipeBack(_ isEnabled: Bool) {

@@ -39,11 +39,6 @@ private extension FilterBottomButtonView {
         backgroundColor = .milk
         addSubview(button)
 
-        let separatorLine = UIView(frame: .zero)
-        separatorLine.backgroundColor = .sardine
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(separatorLine)
-
         let bottomConstant: CGFloat = .mediumLargeSpacing + windowSafeAreaInsets.bottom
 
         NSLayoutConstraint.activate([
@@ -51,11 +46,6 @@ private extension FilterBottomButtonView {
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
             button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomConstant),
-
-            separatorLine.topAnchor.constraint(equalTo: topAnchor),
-            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
         ])
     }
 

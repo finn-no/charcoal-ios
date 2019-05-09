@@ -250,7 +250,7 @@ private extension FreeTextFilterViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
-        topSeparatorViewConstraint.constant = searchBar.frame.height
+        topSeperatorViewHeight = searchBar.frame.height
     }
 }
 

@@ -5,18 +5,33 @@
 import UIKit
 
 public class ScrollViewController: UIViewController, UIScrollViewDelegate {
+    // MARK: - Internal properties
+
+    weak var scrollView: UIScrollView?
+
+    var topSeperatorViewHeight: CGFloat = 0 {
+        didSet {
+            topSeparatorViewConstraint.constant = topSeperatorViewHeight
+        }
+    }
+
+    let shadowOpacity: Float = 0.3
+    let shadowRadius: CGFloat = 3
+
+    // MARK: - Private properties
+
     private lazy var topSeparatorView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .white
         view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.7
-        view.layer.shadowOffset = CGSize(width: 0, height: 1)
-        view.layer.shadowRadius = 3
+        view.layer.shadowOpacity = shadowOpacity
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = shadowRadius
         return view
     }()
 
-    private(set) lazy var topSeparatorViewConstraint = topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor)
+    private lazy var topSeparatorViewConstraint = topSeparatorView.bottomAnchor.constraint(equalTo: view.topAnchor)
 
     // MARK: - Lifecycle
 
@@ -35,15 +50,16 @@ public class ScrollViewController: UIViewController, UIScrollViewDelegate {
             topSeparatorViewConstraint,
             topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topSeparatorView.heightAnchor.constraint(equalToConstant: 1),
+            topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: -44),
         ])
     }
 
     // MARK: - Top separator
 
-    private func showTopSeparator() {
+    private func showTopSeparator(withRadius radius: CGFloat) {
         view.bringSubviewToFront(topSeparatorView)
         topSeparatorView.isHidden = false
+        topSeparatorView.layer.shadowRadius = radius
     }
 
     private func hideTopSeparator() {
@@ -51,8 +67,9 @@ public class ScrollViewController: UIViewController, UIScrollViewDelegate {
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y + scrollView.contentInset.top > 0 {
-            showTopSeparator()
+        let overlap = scrollView.contentOffset.y + scrollView.contentInset.top
+        if overlap > 0 {
+            showTopSeparator(withRadius: min(overlap / 5, shadowRadius))
         } else {
             hideTopSeparator()
         }

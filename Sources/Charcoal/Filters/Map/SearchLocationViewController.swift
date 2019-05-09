@@ -38,7 +38,7 @@ public protocol SearchLocationViewControllerDelegate: AnyObject {
     func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController)
 }
 
-public class SearchLocationViewController: UIViewController {
+public class SearchLocationViewController: ScrollViewController {
     private enum Section: Int, CaseIterable {
         case homeAddress = 0
         case currentLocation
@@ -92,6 +92,12 @@ public class SearchLocationViewController: UIViewController {
 
     private var showCurrentLocationOption: Bool {
         return !searchResultsSectionActive && (searchLocationDataSource?.showCurrentLocation(in: self) ?? false)
+    }
+
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        view.bringSubviewToFront(searchBar)
+        view.endEditing(false)
     }
 }
 
@@ -150,10 +156,6 @@ extension SearchLocationViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 
 extension SearchLocationViewController: UITableViewDelegate {
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        view.endEditing(false)
-    }
-
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else {
             return
@@ -293,6 +295,8 @@ private extension SearchLocationViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+
+        topSeperatorViewHeight = searchBar.frame.height
     }
 }
 

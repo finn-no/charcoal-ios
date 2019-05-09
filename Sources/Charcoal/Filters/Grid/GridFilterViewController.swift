@@ -23,6 +23,7 @@ final class GridFilterViewController: FilterViewController {
     init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
         super.init(title: filter.title, selectionStore: selectionStore)
+        scrollView = collectionView
     }
 
     required init?(coder aDecoder: NSCoder) {

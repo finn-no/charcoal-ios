@@ -14,7 +14,7 @@ final class InlineFilterView: UIView {
     weak var delegate: InlineFilterViewDelegate?
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: collectionView.bounds.width, height: InlineSegmentCell.cellHeight + .smallSpacing)
+        return CGSize(width: collectionView.bounds.width, height: InlineSegmentCell.cellHeight + .mediumLargeSpacing)
     }
 
     // MARK: - Private properties
@@ -127,7 +127,7 @@ extension InlineFilterView: UICollectionViewDelegateFlowLayout {
 private extension InlineFilterView {
     func setup() {
         addSubview(collectionView)
-        collectionView.fillInSuperview()
+        collectionView.fillInSuperview(insets: UIEdgeInsets(top: .mediumSpacing, leading: 0, bottom: -.mediumSpacing, trailing: 0))
         collectionView.heightAnchor.constraint(equalToConstant: InlineSegmentCell.cellHeight).isActive = true
     }
 

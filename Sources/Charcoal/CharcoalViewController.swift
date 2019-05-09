@@ -241,7 +241,7 @@ extension CharcoalViewController: FilterSelectionStoreDelegate {
             selectionHasChanged = true
         }
 
-        rootFilterViewController?.updateResetButtonVisibility()
+        rootFilterViewController?.updateResetButtonAvailability()
     }
 }
 

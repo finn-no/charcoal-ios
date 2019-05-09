@@ -94,6 +94,7 @@ final class RootFilterViewController: FilterViewController {
         super.viewDidLoad()
 
         updateNavigationTitleView()
+        showResetButton(true)
         showBottomButton(true, animated: false)
         updateBottomButtonTitle()
         setup()
@@ -105,7 +106,7 @@ final class RootFilterViewController: FilterViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        updateResetButtonVisibility()
+        updateResetButtonAvailability()
     }
 
     // MARK: - Public
@@ -113,7 +114,7 @@ final class RootFilterViewController: FilterViewController {
     func reloadFilters() {
         configureInlineFilter()
         tableView.reloadData()
-        updateResetButtonVisibility()
+        updateResetButtonAvailability()
     }
 
     func set(filterContainer: FilterContainer) {
@@ -146,18 +147,14 @@ final class RootFilterViewController: FilterViewController {
         }
     }
 
-    func updateResetButtonVisibility() {
-        if selectionStore.isEmpty {
-            hideResetButton()
-        } else {
-            navigationItem.rightBarButtonItem = resetButton
-        }
+    func updateResetButtonAvailability() {
+        resetButton.isEnabled = !selectionStore.isEmpty
     }
 
     // MARK: - Private
 
-    private func hideResetButton() {
-        navigationItem.rightBarButtonItem = nil
+    private func showResetButton(_ show: Bool) {
+        navigationItem.rightBarButtonItem = show ? resetButton : nil
     }
 
     private func updateNavigationTitleView() {
@@ -346,7 +343,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
     private func showVerticalViewController() {
         guard let verticals = filterContainer.verticals else { return }
 
-        hideResetButton()
+        showResetButton(false)
         verticalSelectorView.arrowDirection = .up
 
         add(verticalViewController)
@@ -369,7 +366,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
     }
 
     private func hideVerticalViewController() {
-        updateResetButtonVisibility()
+        showResetButton(true)
         verticalSelectorView.arrowDirection = .down
 
         tableView.alpha = 0
@@ -419,14 +416,14 @@ extension RootFilterViewController: FreeTextFilterViewControllerDelegate {
 
     func freeTextFilterViewControllerWillBeginEditing(_ viewController: FreeTextFilterViewController) {
         rootDelegate?.filterViewControllerWillBeginTextEditing(self)
-        hideResetButton()
+        showResetButton(false)
         verticalSelectorView.isEnabled = false
         add(viewController)
     }
 
     func freeTextFilterViewControllerWillEndEditing(_ viewController: FreeTextFilterViewController) {
         rootDelegate?.filterViewControllerWillEndTextEditing(self)
-        updateResetButtonVisibility()
+        showResetButton(true)
         verticalSelectorView.isEnabled = true
         viewController.remove()
 

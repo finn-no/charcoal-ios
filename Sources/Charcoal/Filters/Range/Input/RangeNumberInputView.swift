@@ -180,7 +180,7 @@ final class RangeNumberInputView: UIView {
         let useHaptics = generateHapticFeedback && generatesHapticFeedbackOnValueChange
 
         if !isValid, isCurrentValueValid, useHaptics {
-            FeedbackGenerator.generate(.error)
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
 
         inputValidationStatus[inputGroup] = isValid

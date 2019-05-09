@@ -138,7 +138,7 @@ final class StepSlider: UISlider {
         if stepChanged {
             delegate?.stepSlider(self, didChangeStep: step)
             if generatesHapticFeedbackOnValueChange {
-                FeedbackGenerator.generate(.selection)
+                UISelectionFeedbackGenerator().selectionChanged()
             }
         }
 

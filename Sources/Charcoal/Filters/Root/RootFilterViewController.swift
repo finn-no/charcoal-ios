@@ -202,6 +202,8 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Actions
 
     @objc private func handleResetButtonTap() {
+        UINotificationFeedbackGenerator().notificationOccurred(.error)
+
         guard !selectionStore.isEmpty else { return }
 
         let alertController = UIAlertController(title: nil, message: "alert.reset.message".localized(), preferredStyle: .actionSheet)
@@ -266,6 +268,8 @@ extension RootFilterViewController: RootFilterCellDelegate {
         let selectedSubfilters = selectionStore.selectedSubfilters(for: currentFilter)
         let filterToRemove = selectedSubfilters[index]
 
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
         selectionStore.removeValues(for: filterToRemove)
         rootDelegate?.rootFilterViewController(self, didRemoveFilter: filterToRemove)
         reloadCellsWithExclusiveFilters(for: currentFilter)
@@ -318,6 +322,8 @@ extension RootFilterViewController: InlineFilterViewDelegate {
 
 extension RootFilterViewController: VerticalSelectorViewDelegate {
     func verticalSelectorViewDidSelectButton(_ view: VerticalSelectorView) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
         if view.arrowDirection == .up {
             hideVerticalViewController()
         } else {

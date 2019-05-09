@@ -301,7 +301,7 @@ private extension SearchLocationViewController {
 private class SearchLocationSearchBar: UISearchBar {
     // Makes sure to setup appearance proxy one time and one time only
     private static let setupSearchBarAppereanceOnce: () = {
-        let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableViewCell.self])
+        let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [MapFilterView.self])
         textFieldAppearanceInRoot.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
             NSAttributedString.Key.font: UIFont.bodyRegular,

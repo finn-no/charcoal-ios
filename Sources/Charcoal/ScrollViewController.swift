@@ -17,6 +17,7 @@ public class ScrollViewController: UIViewController, UIScrollViewDelegate {
 
     let shadowOpacity: Float = 0.3
     let shadowRadius: CGFloat = 3
+    let shadowScrollFactor: CGFloat = 0.2
 
     // MARK: - Private properties
 
@@ -56,7 +57,7 @@ public class ScrollViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: - Top separator
 
-    private func showTopSeparator(withRadius radius: CGFloat) {
+    private func showTopSeparator(withShadowRadius radius: CGFloat) {
         view.bringSubviewToFront(topSeparatorView)
         topSeparatorView.isHidden = false
         topSeparatorView.layer.shadowRadius = radius
@@ -69,7 +70,7 @@ public class ScrollViewController: UIViewController, UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let overlap = scrollView.contentOffset.y + scrollView.contentInset.top
         if overlap > 0 {
-            showTopSeparator(withRadius: min(overlap / 5, shadowRadius))
+            showTopSeparator(withShadowRadius: min(overlap * shadowScrollFactor, shadowRadius))
         } else {
             hideTopSeparator()
         }

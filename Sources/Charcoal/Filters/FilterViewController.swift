@@ -102,7 +102,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
         let overlap = scrollView.contentSize.height - scrollView.contentOffset.y - bottomButton.frame.minY
         bottomButton.layer.shadowOpacity = overlap < 0 ? 0 : shadowOpacity
-        bottomButton.layer.shadowRadius = min(overlap / 5, shadowRadius)
+        bottomButton.layer.shadowRadius = min(overlap * shadowScrollFactor, shadowRadius)
     }
 
     func enableSwipeBack(_ isEnabled: Bool) {

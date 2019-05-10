@@ -31,7 +31,7 @@ final class VerticalSelectorView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel(withAutoLayout: true)
-        label.font = UIFont.captionStrong.withSize(12)
+        label.font = UIFont.captionStrong.withSize(12).scaledFont(forTextStyle: .footnote)
         label.textColor = .spaceGray
         label.textAlignment = .center
         return label
@@ -39,7 +39,7 @@ final class VerticalSelectorView: UIView {
 
     private lazy var button: UIButton = {
         let button = UIButton(withAutoLayout: true)
-        button.titleLabel?.font = UIFont.bodyStrong.withSize(17)
+        button.titleLabel?.font = UIFont.bodyStrong(withSize: 17, textStyle: .footnote)
 
         button.setTitleColor(.primaryBlue, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)

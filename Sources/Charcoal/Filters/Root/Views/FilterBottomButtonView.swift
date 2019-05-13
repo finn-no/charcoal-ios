@@ -8,7 +8,7 @@ protocol FilterBottomButtonViewDelegate: AnyObject {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton)
 }
 
-class FilterBottomButtonView: UIView {
+class FilterBottomButtonView: ShadowView {
     weak var delegate: FilterBottomButtonViewDelegate?
 
     private lazy var button: Button = {
@@ -20,11 +20,11 @@ class FilterBottomButtonView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: button.intrinsicContentSize.width,
-                      height: button.intrinsicContentSize.height + .largeSpacing)
+                      height: button.intrinsicContentSize.height + .largeSpacing + windowSafeAreaInsets.bottom)
     }
 
-    init() {
-        super.init(frame: .zero)
+    override init() {
+        super.init()
         setup()
     }
 
@@ -36,7 +36,6 @@ class FilterBottomButtonView: UIView {
 
 private extension FilterBottomButtonView {
     func setup() {
-        backgroundColor = .milk
         addSubview(button)
 
         let bottomConstant: CGFloat = .mediumLargeSpacing + windowSafeAreaInsets.bottom

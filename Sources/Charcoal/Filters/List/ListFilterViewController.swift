@@ -33,7 +33,6 @@ final class ListFilterViewController: FilterViewController {
     init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
         super.init(title: filter.title, selectionStore: selectionStore)
-        scrollView = tableView
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -51,6 +50,11 @@ final class ListFilterViewController: FilterViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+
+    override func showBottomButton(_ show: Bool, animated: Bool) {
+        super.showBottomButton(show, animated: animated)
+        bottomButton.update(with: tableView)
     }
 
     // MARK: - Setup

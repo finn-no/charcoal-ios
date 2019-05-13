@@ -82,7 +82,6 @@ final class RootFilterViewController: FilterViewController {
     init(filterContainer: FilterContainer, selectionStore: FilterSelectionStore) {
         self.filterContainer = filterContainer
         super.init(title: "root.title".localized(), selectionStore: selectionStore)
-        scrollView = tableView
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -108,6 +107,7 @@ final class RootFilterViewController: FilterViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        bottomButton.update(with: tableView)
     }
 
     // MARK: - Public

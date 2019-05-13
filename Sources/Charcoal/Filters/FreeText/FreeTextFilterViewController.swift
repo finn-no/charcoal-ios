@@ -25,7 +25,7 @@ protocol FreeTextFilterViewControllerDelegate: AnyObject {
                                       for filter: Filter)
 }
 
-public class FreeTextFilterViewController: ScrollViewController {
+public class FreeTextFilterViewController: UIViewController {
     // MARK: - Public Properties
 
     weak var filterDelegate: FreeTextFilterDelegate?
@@ -40,6 +40,8 @@ public class FreeTextFilterViewController: ScrollViewController {
     private let filter: Filter
     private let selectionStore: FilterSelectionStore
     private let notificationCenter: NotificationCenter
+
+    private lazy var shadowView = ShadowView()
 
     private(set) lazy var searchBar: UISearchBar = {
         let searchBar = FreeTextFilterSearchBar(frame: .zero)
@@ -92,11 +94,6 @@ public class FreeTextFilterViewController: ScrollViewController {
 
     public func reloadData() {
         tableView.reloadData()
-    }
-
-    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-        view.bringSubviewToFront(searchBar)
     }
 
     // MARK: - Helper methods
@@ -155,6 +152,10 @@ extension FreeTextFilterViewController: UITableViewDelegate {
         delegate?.freeTextFilterViewController(self, didSelectSuggestion: value, at: indexPath.row, for: filter)
 
         returnToSuperView()
+    }
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        shadowView.update(with: scrollView)
     }
 }
 
@@ -236,10 +237,16 @@ private extension FreeTextFilterViewController {
 
     func setup() {
         searchBar.removeFromSuperview()
-        view.addSubview(searchBar)
         view.addSubview(tableView)
+        view.addSubview(shadowView)
+        view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
+            shadowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            shadowView.topAnchor.constraint(equalTo: view.topAnchor),
+            shadowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            shadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
+
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
             searchBar.topAnchor.constraint(equalTo: view.topAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
@@ -250,7 +257,7 @@ private extension FreeTextFilterViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
-        topSeperatorViewHeight = searchBar.frame.height
+//        topSeperatorViewHeight = searchBar.frame.height
     }
 }
 

@@ -11,7 +11,7 @@ protocol FilterViewControllerDelegate: AnyObject {
     func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController)
 }
 
-class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate {
+class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     // MARK: - Public properties
 
     weak var delegate: FilterViewControllerDelegate?
@@ -25,14 +25,11 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
     private(set) lazy var bottomButton: FilterBottomButtonView = {
         let view = FilterBottomButtonView()
         view.delegate = self
-        view.layer.masksToBounds = false
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = shadowRadius
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
         return view
     }()
+
+    private lazy var topSeparatorView = ShadowView()
 
     // MARK: - Init
 
@@ -61,19 +58,14 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        view.bringSubviewToFront(topSeparatorView)
         view.bringSubviewToFront(bottomButton)
         enableSwipeBack(true)
-        updateBottomShadow()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableSwipeBack(true)
-    }
-
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-        updateBottomShadow()
     }
 
     // MARK: - Internal functions
@@ -82,7 +74,6 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         view.layoutIfNeeded()
         isShowingBottomButton = show
         bottomButtonBottomConstraint.isActive = show
-        updateBottomShadow()
 
         let duration = animated ? 0.3 : 0
 
@@ -97,14 +88,6 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         })
     }
 
-    private func updateBottomShadow() {
-        guard let scrollView = scrollView else { return }
-
-        let overlap = scrollView.contentSize.height - scrollView.contentOffset.y - bottomButton.frame.minY
-        bottomButton.layer.shadowOpacity = overlap < 0 ? 0 : shadowOpacity
-        bottomButton.layer.shadowRadius = min(overlap * shadowScrollFactor, shadowRadius)
-    }
-
     func enableSwipeBack(_ isEnabled: Bool) {
         let gestureRecognizer = navigationController?.interactivePopGestureRecognizer
 
@@ -116,12 +99,18 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
     // MARK: - Setup
 
     private func setup() {
+        view.addSubview(topSeparatorView)
         view.addSubview(bottomButton)
 
         NSLayoutConstraint.activate([
             bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+
+            topSeparatorView.bottomAnchor.constraint(equalTo: view.topAnchor),
+            topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: -44),
         ])
     }
 
@@ -130,6 +119,13 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         delegate?.filterViewControllerDidPressBottomButton(self)
+    }
+}
+
+extension FilterViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        topSeparatorView.update(with: scrollView)
+        bottomButton.update(with: scrollView)
     }
 }
 

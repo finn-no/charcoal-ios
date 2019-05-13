@@ -240,6 +240,8 @@ extension CharcoalViewController: FilterSelectionStoreDelegate {
         if topViewController !== rootFilterViewController {
             selectionHasChanged = true
         }
+
+        rootFilterViewController?.updateResetButtonAvailability()
     }
 }
 

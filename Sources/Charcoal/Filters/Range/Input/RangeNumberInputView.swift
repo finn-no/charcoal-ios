@@ -47,7 +47,7 @@ final class RangeNumberInputView: UIView {
         let label = UILabel(withAutoLayout: true)
         label.text = "-"
         label.textColor = .licorice
-        label.font = UIFont.body.withSize(fontSize.rawValue)
+        label.font = UIFont.body(withSize: fontSize.rawValue)
         label.isAccessibilityElement = false
         return label
     }()
@@ -132,7 +132,7 @@ final class RangeNumberInputView: UIView {
 
     func forceSmallInputFontSize() {
         fontSize = .smallest
-        inputSeparatorView.font = UIFont.body.withSize(fontSize.rawValue)
+        inputSeparatorView.font = UIFont.body(withSize: fontSize.rawValue)
         lowValueInputView.fontSize = fontSize
         highValueInputView.fontSize = fontSize
     }

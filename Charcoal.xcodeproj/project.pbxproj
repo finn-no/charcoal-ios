@@ -126,6 +126,8 @@
 		CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */; };
 		CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
+		CFD8B45622843DD400AA534A /* MapRadiusOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD8B45522843DD400AA534A /* MapRadiusOverlayView.swift */; };
+		CFD8B4582284551B00AA534A /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD8B4572284551B00AA534A /* UIFontExtensions.swift */; };
 		CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */; };
 		CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */; };
 		CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */; };
@@ -151,7 +153,6 @@
 		CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */; };
 		CFEDCE152232BA5A008FCDB1 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
 		CFEDCE1F2232CA89008FCDB1 /* FINNSetup.h in Headers */ = {isa = PBXBuildFile; fileRef = CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CFF4F45A223BD3B600A137DA /* MapRadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF4F459223BD3B600A137DA /* MapRadiusView.swift */; };
 		CFFD9F8D21F09F7500997D14 /* RangeFilterConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */; };
 		CFFD9F9621F2257900997D14 /* Array+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9521F2257900997D14 /* Array+Step.swift */; };
 		CFFD9F9821F2285400997D14 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F9721F2285400997D14 /* Step.swift */; };
@@ -399,6 +400,8 @@
 		CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnit.swift; sourceTree = "<group>"; };
 		CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionChangeOrigin.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
+		CFD8B45522843DD400AA534A /* MapRadiusOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRadiusOverlayView.swift; sourceTree = "<group>"; };
+		CFD8B4572284551B00AA534A /* UIFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
 		CFE1D4FB224D1A840009B0D6 /* FilterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitTests.swift; sourceTree = "<group>"; };
 		CFE255D2225B7B5C00052077 /* RangeNumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeNumberInputView.swift; sourceTree = "<group>"; };
 		CFE255D4225B91A000052077 /* GridFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridFilterViewController.swift; sourceTree = "<group>"; };
@@ -410,7 +413,6 @@
 		CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FINNSetup.h; sourceTree = "<group>"; };
 		CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		CFEDCE172232BDF2008FCDB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFF4F459223BD3B600A137DA /* MapRadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRadiusView.swift; sourceTree = "<group>"; };
 		CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfigurationTests.swift; sourceTree = "<group>"; };
 		CFFD9F9521F2257900997D14 /* Array+Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Step.swift"; sourceTree = "<group>"; };
 		CFFD9F9721F2285400997D14 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
@@ -772,11 +774,12 @@
 		5589322F209C3CDA00512FF8 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
-				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
 				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
+				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
+				CFD8B4572284551B00AA534A /* UIFontExtensions.swift */,
 				CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */,
 				CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */,
+				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
 				CF903FF92281950500AA1A39 /* UIViewExtensions.swift */,
 			);
 			path = UIKit;
@@ -1096,7 +1099,7 @@
 			isa = PBXGroup;
 			children = (
 				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
-				CFF4F459223BD3B600A137DA /* MapRadiusView.swift */,
+				CFD8B45522843DD400AA534A /* MapRadiusOverlayView.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -1649,7 +1652,6 @@
 				CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */,
 				CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */,
-				CFF4F45A223BD3B600A137DA /* MapRadiusView.swift in Sources */,
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,
 				CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */,
 				9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */,
@@ -1662,6 +1664,7 @@
 				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,
+				CFD8B4582284551B00AA534A /* UIFontExtensions.swift in Sources */,
 				CF16687D2264A2B100652DB0 /* VerticalSelectorView.swift in Sources */,
 				DAFD7A1121AE974B00A468B2 /* InlineSegmentCell.swift in Sources */,
 				CFFD9F9821F2285400997D14 /* Step.swift in Sources */,
@@ -1688,6 +1691,7 @@
 				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
 				9B741D1A21B6990800D18097 /* ValueSliderView.swift in Sources */,
 				DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */,
+				CFD8B45622843DD400AA534A /* MapRadiusOverlayView.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
 				DADF2DD0225375CE00567C78 /* OnboardingViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,

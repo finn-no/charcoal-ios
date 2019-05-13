@@ -60,7 +60,7 @@ final class ListFilterViewController: FilterViewController {
     // MARK: - Setup
 
     private func setup() {
-        view.addSubview(tableView)
+        view.insertSubview(tableView, belowSubview: bottomButton)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

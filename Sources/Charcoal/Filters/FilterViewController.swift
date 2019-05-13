@@ -11,7 +11,7 @@ protocol FilterViewControllerDelegate: AnyObject {
     func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController)
 }
 
-class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
+class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate {
     // MARK: - Public properties
 
     weak var delegate: FilterViewControllerDelegate?
@@ -28,8 +28,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
         view.isHidden = true
         return view
     }()
-
-    private lazy var topSeparatorView = ShadowView()
 
     // MARK: - Init
 
@@ -58,14 +56,17 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.bringSubviewToFront(topSeparatorView)
-        view.bringSubviewToFront(bottomButton)
         enableSwipeBack(true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableSwipeBack(true)
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        bottomButton.update(with: scrollView)
     }
 
     // MARK: - Internal functions
@@ -99,18 +100,14 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     // MARK: - Setup
 
     private func setup() {
-        view.addSubview(topSeparatorView)
-        view.addSubview(bottomButton)
+        view.insertSubview(bottomButton, belowSubview: topShadowView)
 
         NSLayoutConstraint.activate([
             bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
 
-            topSeparatorView.bottomAnchor.constraint(equalTo: view.topAnchor),
-            topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topSeparatorView.heightAnchor.constraint(equalToConstant: 44),
+            topShadowView.bottomAnchor.constraint(equalTo: view.topAnchor),
         ])
     }
 
@@ -119,13 +116,6 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         delegate?.filterViewControllerDidPressBottomButton(self)
-    }
-}
-
-extension FilterViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        topSeparatorView.update(with: scrollView)
-        bottomButton.update(with: scrollView)
     }
 }
 

@@ -182,6 +182,7 @@ extension SearchLocationViewController: UITableViewDelegate {
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         shadowView.update(with: scrollView)
+        view.endEditing(false)
     }
 }
 

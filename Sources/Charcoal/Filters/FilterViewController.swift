@@ -110,7 +110,7 @@ class FilterViewController: UIViewController, FilterBottomButtonViewDelegate {
             topSeparatorView.bottomAnchor.constraint(equalTo: view.topAnchor),
             topSeparatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topSeparatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topSeparatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: -44),
+            topSeparatorView.heightAnchor.constraint(equalToConstant: 44),
         ])
     }
 

@@ -137,6 +137,7 @@ extension FreeTextFilterViewController: UITableViewDataSource {
         let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
         let title = filterDataSource?.freeTextFilterViewController(self, suggestionAt: indexPath)
         cell.titleLabel.font = .bodyRegular
+        cell.titleLabel.adjustsFontForContentSizeCategory = true
         cell.configure(with: FreeTextSuggestionCellViewModel(title: title ?? ""))
         cell.separatorInset = .leadingInset(48)
         return cell
@@ -258,12 +259,14 @@ private class FreeTextFilterSearchBar: UISearchBar {
     // Makes sure to setup appearance proxy one time and one time only
     private static let setupSearchQuerySearchBarAppereanceOnce: () = {
         let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableView.self])
+        textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInRoot.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
             NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
+        textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInSearch.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.licorice,
             NSAttributedString.Key.font: UIFont.bodyRegular,

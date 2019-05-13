@@ -48,6 +48,7 @@ final class RangeNumberInputView: UIView {
         label.text = "-"
         label.textColor = .licorice
         label.font = UIFont.body(withSize: fontSize.rawValue)
+        label.adjustsFontForContentSizeCategory = true
         label.isAccessibilityElement = false
         return label
     }()

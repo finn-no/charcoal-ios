@@ -71,10 +71,14 @@ final class VerticalCell: UITableViewCell {
         self.selectedBackgroundView = selectedBackgroundView
 
         separatorInset = .leadingInset(56)
+
         textLabel?.font = .bodyRegular
         textLabel?.textColor = .licorice
+        textLabel?.adjustsFontForContentSizeCategory = true
+
         detailTextLabel?.font = .detail
         detailTextLabel?.textColor = .stone
+        detailTextLabel?.adjustsFontForContentSizeCategory = true
 
         addSubview(radioButton)
 

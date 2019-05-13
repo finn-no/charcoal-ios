@@ -13,6 +13,7 @@ class FilterBottomButtonView: UIView {
 
     private lazy var button: Button = {
         let button = Button(style: .callToAction)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

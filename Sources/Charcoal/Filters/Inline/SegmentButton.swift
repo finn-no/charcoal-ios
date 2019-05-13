@@ -54,6 +54,8 @@ final class SegmentButton: UIButton {
 private extension SegmentButton {
     func setup(with title: String) {
         titleLabel?.font = .bodyRegular
+        titleLabel?.adjustsFontForContentSizeCategory = true
+
         setTitle(title, for: .normal)
         setTitleColor(.licorice, for: .normal)
         setTitleColor(.milk, for: .selected)

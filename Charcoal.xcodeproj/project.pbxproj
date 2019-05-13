@@ -165,6 +165,7 @@
 		DA39FA34220B17DB00608AC4 /* RootFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */; };
 		DA39FA40220B30E700608AC4 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA3F220B30E700608AC4 /* Int.swift */; };
 		DA3EA33E2289637B00B05E92 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3EA33D2289637B00B05E92 /* ShadowView.swift */; };
+		DA3EA341228983AC00B05E92 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3EA340228983AC00B05E92 /* ScrollViewController.swift */; };
 		DA51040B21BE5F19004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA51040C21BE5F59004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA51041121BE66A1004048BD /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51041021BE66A1004048BD /* HockeySDK.framework */; };
@@ -425,6 +426,7 @@
 		DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterCell.swift; sourceTree = "<group>"; };
 		DA39FA3F220B30E700608AC4 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		DA3EA33D2289637B00B05E92 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		DA3EA340228983AC00B05E92 /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		DA643FB6220C720A001ED360 /* StepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperViewController.swift; sourceTree = "<group>"; };
@@ -939,6 +941,7 @@
 				44ECE662208F7FA20017AC82 /* Info.plist */,
 				44ECE698208F80320017AC82 /* Charcoal.swift */,
 				DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */,
+				DA3EA340228983AC00B05E92 /* ScrollViewController.swift */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				CF4C8703221AE0F000DFAF2A /* Filters */,
 				CF4C8704221AE34B00DFAF2A /* Loading */,
@@ -1636,6 +1639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFA4B77F2278890D00290FB5 /* VerticalCalloutOverlay.swift in Sources */,
+				DA3EA341228983AC00B05E92 /* ScrollViewController.swift in Sources */,
 				DA39FA34220B17DB00608AC4 /* RootFilterCell.swift in Sources */,
 				CF022960224E5ED300AA953D /* SelectionTitle.swift in Sources */,
 				CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */,

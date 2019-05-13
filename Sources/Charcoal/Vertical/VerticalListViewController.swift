@@ -8,7 +8,7 @@ protocol VerticalListViewControllerDelegate: AnyObject {
     func verticalListViewController(_: VerticalListViewController, didSelectVerticalAtIndex index: Int)
 }
 
-final class VerticalListViewController: UIViewController {
+final class VerticalListViewController: ScrollViewController {
     private static let rowHeight: CGFloat = 48.0
 
     private lazy var tableView: UITableView = {
@@ -21,8 +21,6 @@ final class VerticalListViewController: UIViewController {
         registerCells(for: tableView)
         return tableView
     }()
-
-    private lazy var shadowView = ShadowView()
 
     weak var delegate: VerticalListViewControllerDelegate?
 
@@ -58,14 +56,10 @@ final class VerticalListViewController: UIViewController {
     }
 
     private func setup() {
-        view.addSubview(tableView)
-        view.addSubview(shadowView)
+        view.insertSubview(tableView, belowSubview: topShadowView)
 
         NSLayoutConstraint.activate([
-            shadowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            shadowView.bottomAnchor.constraint(equalTo: view.topAnchor),
-            shadowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            shadowView.heightAnchor.constraint(equalToConstant: 44),
+            topShadowView.bottomAnchor.constraint(equalTo: view.topAnchor),
 
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -110,9 +104,5 @@ extension VerticalListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return type(of: self).rowHeight
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        shadowView.update(with: scrollView)
     }
 }

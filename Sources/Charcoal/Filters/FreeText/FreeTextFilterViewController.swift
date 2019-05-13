@@ -25,7 +25,7 @@ protocol FreeTextFilterViewControllerDelegate: AnyObject {
                                       for filter: Filter)
 }
 
-public class FreeTextFilterViewController: UIViewController {
+public class FreeTextFilterViewController: ScrollViewController {
     // MARK: - Public Properties
 
     weak var filterDelegate: FreeTextFilterDelegate?
@@ -40,8 +40,6 @@ public class FreeTextFilterViewController: UIViewController {
     private let filter: Filter
     private let selectionStore: FilterSelectionStore
     private let notificationCenter: NotificationCenter
-
-    private lazy var shadowView = ShadowView()
 
     private(set) lazy var searchBar: UISearchBar = {
         let searchBar = FreeTextFilterSearchBar(frame: .zero)
@@ -153,10 +151,6 @@ extension FreeTextFilterViewController: UITableViewDelegate {
 
         returnToSuperView()
     }
-
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        shadowView.update(with: scrollView)
-    }
 }
 
 // MARK: - SearchBar Delegate
@@ -237,19 +231,15 @@ private extension FreeTextFilterViewController {
 
     func setup() {
         searchBar.removeFromSuperview()
-        view.addSubview(tableView)
-        view.addSubview(shadowView)
+        view.insertSubview(tableView, belowSubview: topShadowView)
         view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
-            shadowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            shadowView.topAnchor.constraint(equalTo: view.topAnchor),
-            shadowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            shadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
-
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
             searchBar.topAnchor.constraint(equalTo: view.topAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
+
+            topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
 
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),

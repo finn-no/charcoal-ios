@@ -38,7 +38,7 @@ public protocol SearchLocationViewControllerDelegate: AnyObject {
     func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController)
 }
 
-public class SearchLocationViewController: UIViewController {
+public class SearchLocationViewController: ScrollViewController {
     private enum Section: Int, CaseIterable {
         case homeAddress = 0
         case currentLocation
@@ -59,8 +59,6 @@ public class SearchLocationViewController: UIViewController {
     private var recentLocations: [LocationInfo] {
         return searchLocationDataSource?.recentLocation(in: self) ?? []
     }
-
-    private lazy var shadowView = ShadowView()
 
     private(set) lazy var searchBar: UISearchBar = {
         let searchBar = SearchLocationSearchBar(frame: .zero)
@@ -94,6 +92,11 @@ public class SearchLocationViewController: UIViewController {
 
     private var showCurrentLocationOption: Bool {
         return !searchResultsSectionActive && (searchLocationDataSource?.showCurrentLocation(in: self) ?? false)
+    }
+
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        view.endEditing(false)
     }
 }
 
@@ -178,11 +181,6 @@ extension SearchLocationViewController: UITableViewDelegate {
             delegate?.searchLocationViewController(self, didSelectLocation: location)
             selectedLocation = location
         }
-    }
-
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        shadowView.update(with: scrollView)
-        view.endEditing(false)
     }
 }
 
@@ -283,19 +281,15 @@ private extension SearchLocationViewController {
         view.backgroundColor = UIColor.milk.withAlphaComponent(0.9)
         tableView.backgroundColor = UIColor.clear
         searchBar.removeFromSuperview()
-        view.addSubview(tableView)
-        view.addSubview(shadowView)
+        view.insertSubview(tableView, belowSubview: topShadowView)
         view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
-            shadowView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            shadowView.topAnchor.constraint(equalTo: view.topAnchor),
-            shadowView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            shadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
-
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
             searchBar.topAnchor.constraint(equalTo: view.topAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
+
+            topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
 
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),

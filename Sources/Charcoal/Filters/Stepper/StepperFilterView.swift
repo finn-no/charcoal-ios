@@ -27,6 +27,7 @@ final class StepperFilterView: UIControl {
         let label = UILabel(frame: .zero)
         label.text = "\(value)+ \(unit)"
         label.font = .title2
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = .licorice
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false

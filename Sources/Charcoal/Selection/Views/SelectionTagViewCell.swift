@@ -16,6 +16,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel(withAutoLayout: true)
         label.font = SelectionTagViewCell.titleFont
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = .milk
         label.textAlignment = .center
         return label

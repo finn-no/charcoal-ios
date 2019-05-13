@@ -109,6 +109,15 @@ final class RootFilterViewController: FilterViewController {
         updateResetButtonAvailability()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            configureInlineFilter()
+            inlineFilterView?.resetContentOffset()
+            updateNavigationTitleView()
+            updateBottomButtonTitle()
+        }
+    }
+
     // MARK: - Public
 
     func reloadFilters() {

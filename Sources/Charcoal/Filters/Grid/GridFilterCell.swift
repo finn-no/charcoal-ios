@@ -7,6 +7,7 @@ import UIKit
 final class GridFilterCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel(withAutoLayout: true)
+        label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         return label
     }()

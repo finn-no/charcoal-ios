@@ -24,6 +24,7 @@ final class SliderReferenceValueView: UIView {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.caption.withSize(12).scaledFont(forTextStyle: .footnote)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = .licorice
         label.textAlignment = .center
         label.text = displayText

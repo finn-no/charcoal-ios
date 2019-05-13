@@ -17,6 +17,7 @@ class ValueSliderWithLabelView: UIView {
     private lazy var valueLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .title2
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = .licorice
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center

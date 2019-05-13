@@ -23,6 +23,7 @@ final class NumberInputView: UIView {
         let textField = UITextField(withAutoLayout: true)
         textField.textColor = Style.textColor
         textField.font = Style.normalFont(size: fontSize)
+        textField.adjustsFontForContentSizeCategory = true
         textField.keyboardType = .numberPad
         textField.textAlignment = .right
         textField.delegate = self
@@ -34,6 +35,7 @@ final class NumberInputView: UIView {
         label.attributedText = attributedUnitText(withFont: Style.normalFont(size: fontSize), from: unit)
         label.textColor = Style.textColor
         label.font = Style.normalFont(size: fontSize)
+        label.adjustsFontForContentSizeCategory = true
         label.isUserInteractionEnabled = true
         label.isAccessibilityElement = false
         label.addGestureRecognizer(makeGestureRecognizer())
@@ -44,6 +46,7 @@ final class NumberInputView: UIView {
         let label = UILabel(withAutoLayout: true)
         label.text = unit.lowerBoundText
         label.font = Style.hintNormalFont
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = Style.textColor
         label.isAccessibilityElement = false
         return label

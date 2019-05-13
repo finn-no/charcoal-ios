@@ -111,10 +111,14 @@ final class ListFilterCell: CheckboxTableViewCell {
             selectedBackgroundView.alpha = 0
             insertSubview(selectedBackgroundView, at: 0)
         }
+
+        detailLabel.adjustsFontForContentSizeCategory = true
+        subtitleLabel.adjustsFontForContentSizeCategory = true
     }
 
     private func setup() {
         titleLabel.font = .bodyRegular
+        titleLabel.adjustsFontForContentSizeCategory = true
 
         addSubview(overlayView)
         checkbox.addSubview(checkboxImageView)

@@ -38,7 +38,7 @@ public protocol SearchLocationViewControllerDelegate: AnyObject {
     func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController)
 }
 
-public class SearchLocationViewController: UIViewController {
+public class SearchLocationViewController: ScrollViewController {
     private enum Section: Int, CaseIterable {
         case homeAddress = 0
         case currentLocation
@@ -92,6 +92,11 @@ public class SearchLocationViewController: UIViewController {
 
     private var showCurrentLocationOption: Bool {
         return !searchResultsSectionActive && (searchLocationDataSource?.showCurrentLocation(in: self) ?? false)
+    }
+
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        view.endEditing(false)
     }
 }
 
@@ -150,10 +155,6 @@ extension SearchLocationViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 
 extension SearchLocationViewController: UITableViewDelegate {
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        view.endEditing(false)
-    }
-
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else {
             return
@@ -280,13 +281,15 @@ private extension SearchLocationViewController {
         view.backgroundColor = UIColor.milk.withAlphaComponent(0.9)
         tableView.backgroundColor = UIColor.clear
         searchBar.removeFromSuperview()
+        view.insertSubview(tableView, belowSubview: topShadowView)
         view.addSubview(searchBar)
-        view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
             searchBar.topAnchor.constraint(equalTo: view.topAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
+
+            topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
 
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),

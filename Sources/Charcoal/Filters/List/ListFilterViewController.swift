@@ -52,10 +52,15 @@ final class ListFilterViewController: FilterViewController {
         tableView.reloadData()
     }
 
+    override func showBottomButton(_ show: Bool, animated: Bool) {
+        super.showBottomButton(show, animated: animated)
+        bottomButton.update(with: tableView)
+    }
+
     // MARK: - Setup
 
     private func setup() {
-        view.addSubview(tableView)
+        view.insertSubview(tableView, belowSubview: bottomButton)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

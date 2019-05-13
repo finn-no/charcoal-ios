@@ -106,6 +106,7 @@ final class RootFilterViewController: FilterViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        bottomButton.update(with: tableView)
         updateResetButtonAvailability()
     }
 
@@ -502,7 +503,7 @@ private extension RootFilterViewController {
         tableView.contentOffset = CGPoint(x: 0, y: -totalInset)
         tableView.contentInset = UIEdgeInsets(top: totalInset, left: 0, bottom: 0, right: 0)
 
-        view.addSubview(tableView)
+        view.insertSubview(tableView, belowSubview: bottomButton)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),

@@ -8,7 +8,7 @@ protocol FilterBottomButtonViewDelegate: AnyObject {
     func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton)
 }
 
-class FilterBottomButtonView: UIView {
+class FilterBottomButtonView: ShadowView {
     weak var delegate: FilterBottomButtonViewDelegate?
 
     private lazy var button: Button = {
@@ -21,11 +21,11 @@ class FilterBottomButtonView: UIView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: button.intrinsicContentSize.width,
-                      height: button.intrinsicContentSize.height + .largeSpacing)
+                      height: button.intrinsicContentSize.height + .largeSpacing + windowSafeAreaInsets.bottom)
     }
 
-    init() {
-        super.init(frame: .zero)
+    override init() {
+        super.init()
         setup()
     }
 
@@ -37,13 +37,7 @@ class FilterBottomButtonView: UIView {
 
 private extension FilterBottomButtonView {
     func setup() {
-        backgroundColor = .milk
         addSubview(button)
-
-        let separatorLine = UIView(frame: .zero)
-        separatorLine.backgroundColor = .sardine
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(separatorLine)
 
         let bottomConstant: CGFloat = .mediumLargeSpacing + windowSafeAreaInsets.bottom
 
@@ -52,11 +46,6 @@ private extension FilterBottomButtonView {
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
             button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
             button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomConstant),
-
-            separatorLine.topAnchor.constraint(equalTo: topAnchor),
-            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
         ])
     }
 

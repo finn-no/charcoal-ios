@@ -25,7 +25,6 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
     private(set) lazy var bottomButton: FilterBottomButtonView = {
         let view = FilterBottomButtonView()
         view.delegate = self
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
         return view
     }()
@@ -57,13 +56,17 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.bringSubviewToFront(bottomButton)
         enableSwipeBack(true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableSwipeBack(true)
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        bottomButton.update(with: scrollView)
     }
 
     // MARK: - Internal functions
@@ -97,12 +100,14 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
     // MARK: - Setup
 
     private func setup() {
-        view.addSubview(bottomButton)
+        view.insertSubview(bottomButton, belowSubview: topShadowView)
 
         NSLayoutConstraint.activate([
             bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+
+            topShadowView.bottomAnchor.constraint(equalTo: view.topAnchor),
         ])
     }
 

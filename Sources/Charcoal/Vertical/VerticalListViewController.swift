@@ -56,9 +56,11 @@ final class VerticalListViewController: ScrollViewController {
     }
 
     private func setup() {
-        view.addSubview(tableView)
+        view.insertSubview(tableView, belowSubview: topShadowView)
 
         NSLayoutConstraint.activate([
+            topShadowView.bottomAnchor.constraint(equalTo: view.topAnchor),
+
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

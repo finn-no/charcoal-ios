@@ -29,7 +29,7 @@ final class RootFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
-    private lazy var verticalSelectorView = VerticalSelectorView()
+    private lazy var verticalSelectorView = VerticalSelectorView(withAutoLayout: true)
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)

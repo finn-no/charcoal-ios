@@ -118,7 +118,6 @@
 		CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */; };
 		CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
 		CFA4B77F2278890D00290FB5 /* VerticalCalloutOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */; };
-		CFAB68ED229184F800925025 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB68EC229184F800925025 /* UITextFieldExtensions.swift */; };
 		CFAB68EF2291856B00925025 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
@@ -396,7 +395,6 @@
 		CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UItableViewExtensions.swift; sourceTree = "<group>"; };
 		CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCalloutOverlay.swift; sourceTree = "<group>"; };
-		CFAB68EC229184F800925025 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
@@ -785,7 +783,6 @@
 				CFD8B4572284551B00AA534A /* UIFontExtensions.swift */,
 				CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */,
 				CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */,
-				CFAB68EC229184F800925025 /* UITextFieldExtensions.swift */,
 				462EC166212D746900E6085C /* UIViewControllerExtensions.swift */,
 				CF903FF92281950500AA1A39 /* UIViewExtensions.swift */,
 			);
@@ -1671,7 +1668,6 @@
 				DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
 				CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */,
-				CFAB68ED229184F800925025 /* UITextFieldExtensions.swift in Sources */,
 				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
 				9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */,
 				DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */,

@@ -251,7 +251,7 @@ extension NumberInputView: UITextFieldDelegate {
             delegate?.numberInputView(self, didChangeValue: newValue)
         }
 
-        textField.updateCursorAfterCharactersChange(in: range, replacementString: string, oldText: oldText)
+        textField.updateCursorAfterReplacement(in: range, with: string, oldText: oldText)
 
         return false
     }
@@ -284,6 +284,24 @@ private struct Style {
 private extension UIView {
     func constraint(withIdentifier identifier: String) -> NSLayoutConstraint? {
         return constraints.first(where: { $0.identifier == identifier })
+    }
+}
+
+private extension UITextField {
+    func updateCursorAfterReplacement(in range: NSRange, with string: String, oldText: String) {
+        let newText = text ?? ""
+        let oldNumberOfWhitespaces = oldText.components(separatedBy: .whitespaces).count
+        let newNumberOfWhitespaces = newText.components(separatedBy: .whitespaces).count
+        let offset = newNumberOfWhitespaces - oldNumberOfWhitespaces
+
+        let cursorLocation = position(
+            from: beginningOfDocument,
+            offset: range.location + string.count + offset
+        )
+
+        if let cursorLocation = cursorLocation {
+            selectedTextRange = textRange(from: cursorLocation, to: cursorLocation)
+        }
     }
 }
 

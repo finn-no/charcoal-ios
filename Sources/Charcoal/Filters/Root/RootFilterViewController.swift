@@ -119,7 +119,7 @@ final class RootFilterViewController: FilterViewController {
         }
     }
 
-    // MARK: - Public
+    // MARK: - Internal
 
     func reloadFilters() {
         configureInlineFilter()

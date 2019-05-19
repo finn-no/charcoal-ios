@@ -9,11 +9,11 @@ extension UIEdgeInsets {
         self.init(top: top, left: leading, bottom: bottom, right: trailing)
     }
 
-    public var leading: CGFloat {
+    var leading: CGFloat {
         return left
     }
 
-    public var trailing: CGFloat {
+    var trailing: CGFloat {
         return right
     }
 }

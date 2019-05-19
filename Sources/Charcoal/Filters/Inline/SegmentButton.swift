@@ -5,7 +5,7 @@
 import Foundation
 
 extension SegmentButton {
-    public enum BorderStyle {
+    enum BorderStyle {
         case first, middle, last, single
     }
 }

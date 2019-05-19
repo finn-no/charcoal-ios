@@ -43,7 +43,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
     // MARK: - Lifecycle
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .milk
         setup()
@@ -54,7 +54,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         view.addGestureRecognizer(gestureRecognizer)
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableSwipeBack(true)
     }

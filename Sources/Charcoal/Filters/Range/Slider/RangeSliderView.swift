@@ -105,7 +105,7 @@ final class RangeSliderView: UIControl {
     }
 }
 
-// MARK: - Public
+// MARK: - Internal
 
 extension RangeSliderView {
     func setLowStep(_ step: Step, animated: Bool) {

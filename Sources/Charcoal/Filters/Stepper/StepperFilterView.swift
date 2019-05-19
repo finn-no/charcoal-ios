@@ -11,8 +11,6 @@ extension StepperFilterView {
 }
 
 final class StepperFilterView: UIControl {
-    // MARK: - Public properties
-
     var value: Int {
         didSet { updateUI(forValue: value) }
     }

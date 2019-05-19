@@ -14,14 +14,14 @@ final class RangeFilterView: UIView {
         case low, high
     }
 
-    public weak var delegate: RangeFilterViewDelegate?
+    weak var delegate: RangeFilterViewDelegate?
 
     private let filterConfig: RangeFilterConfiguration
     private let formatter: RangeFilterValueFormatter
     private var inputValues = [InputValue: Step]()
     private var referenceValueViews = [SliderReferenceValueView]()
 
-    public var generatesHapticFeedbackOnSliderValueChange = true {
+    var generatesHapticFeedbackOnSliderValueChange = true {
         didSet {
             sliderInputView.generatesHapticFeedbackOnValueChange = generatesHapticFeedbackOnSliderValueChange
         }
@@ -107,7 +107,7 @@ final class RangeFilterView: UIView {
         }
     }
 
-    // MARK: - Public
+    // MARK: - Values
 
     func setLowValue(_ value: Int?, animated: Bool) {
         let step = value.map { filterConfig.values.closestStep(for: $0) } ?? .lowerBound

@@ -230,9 +230,18 @@ extension NumberInputView: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var text = textField.text ?? ""
+        let oldText = text
+        var range = range
 
-        guard let stringRange = Range<String.Index>(range, in: text) else {
+        guard var stringRange = Range<String.Index>(range, in: text) else {
             return false
+        }
+
+        if String(text[stringRange]).removingWhitespaces().isEmpty, string.isEmpty {
+            if let lowerBound = text.index(stringRange.lowerBound, offsetBy: -1, limitedBy: text.startIndex) {
+                stringRange = lowerBound ..< stringRange.upperBound
+                range = NSRange(stringRange, in: text)
+            }
         }
 
         text.replaceSubrange(stringRange, with: string)
@@ -247,6 +256,8 @@ extension NumberInputView: UITextFieldDelegate {
             textField.accessibilityValue = formatter.accessibilityValue(for: newValue)
             delegate?.numberInputView(self, didChangeValue: newValue)
         }
+
+        textField.updateCursorLocationAftterCharactersChange(in: range, replacementString: string, oldText: oldText)
 
         return false
     }
@@ -282,10 +293,32 @@ private extension UIView {
     }
 }
 
+private extension UITextField {
+    func updateCursorLocationAftterCharactersChange(in range: NSRange, replacementString: String, oldText: String) {
+        let newText = text ?? ""
+        let diff = newText.count - oldText.count
+        // Consider whitespaces when two characters are being removed instead of one
+        let diffWithFormatting = diff > 0 ? diff - 1 : diff + 1
+
+        let cursorLocation = position(
+            from: beginningOfDocument,
+            offset: range.location + replacementString.count + diffWithFormatting
+        )
+
+        if let cursorLocation = cursorLocation {
+            selectedTextRange = textRange(from: cursorLocation, to: cursorLocation)
+        }
+    }
+}
+
 private extension String {
     mutating func removeWhitespaces() {
+        self = removingWhitespaces()
+    }
+
+    func removingWhitespaces() -> String {
         let components = self.components(separatedBy: .whitespaces)
-        self = components.joined(separator: "")
+        return components.joined(separator: "")
     }
 }
 

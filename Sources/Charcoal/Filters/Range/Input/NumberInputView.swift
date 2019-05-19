@@ -251,7 +251,7 @@ extension NumberInputView: UITextFieldDelegate {
             delegate?.numberInputView(self, didChangeValue: newValue)
         }
 
-        textField.updateCursorLocationAftterCharactersChange(in: range, replacementString: string, oldText: oldText)
+        textField.updateCursorAfterCharactersChange(in: range, replacementString: string, oldText: oldText)
 
         return false
     }
@@ -284,51 +284,6 @@ private struct Style {
 private extension UIView {
     func constraint(withIdentifier identifier: String) -> NSLayoutConstraint? {
         return constraints.first(where: { $0.identifier == identifier })
-    }
-}
-
-private extension UITextField {
-    func updateCursorLocationAftterCharactersChange(in range: NSRange, replacementString: String, oldText: String) {
-        let newText = text ?? ""
-        let diff = newText.count - oldText.count
-        // Consider whitespaces when two characters are being removed instead of one
-        let diffWithFormatting = diff > 0 ? diff - 1 : diff + 1
-
-        let cursorLocation = position(
-            from: beginningOfDocument,
-            offset: range.location + replacementString.count + diffWithFormatting
-        )
-
-        if let cursorLocation = cursorLocation {
-            selectedTextRange = textRange(from: cursorLocation, to: cursorLocation)
-        }
-    }
-}
-
-private extension String {
-    mutating func removeWhitespaces() {
-        self = removingWhitespaces()
-    }
-
-    func removingWhitespaces() -> String {
-        let components = self.components(separatedBy: .whitespaces)
-        return components.joined(separator: "")
-    }
-
-    func range(from range: NSRange, replacementString: String) -> Range<String.Index>? {
-        guard let stringRange = Range<String.Index>(range, in: self) else {
-            return nil
-        }
-
-        guard String(self[stringRange]).removingWhitespaces().isEmpty, replacementString.isEmpty else {
-            return stringRange
-        }
-
-        guard let lowerBound = index(stringRange.lowerBound, offsetBy: -1, limitedBy: startIndex) else {
-            return stringRange
-        }
-
-        return lowerBound ..< stringRange.upperBound
     }
 }
 

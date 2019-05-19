@@ -85,7 +85,7 @@ final class MapFilterViewController: FilterViewController {
 
     // MARK: - Overrides
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
         view.backgroundColor = .milk
@@ -225,25 +225,25 @@ extension MapFilterViewController: MKMapViewDelegate {
 // MARK: - SearchLocationViewControllerDelegate
 
 extension MapFilterViewController: SearchLocationViewControllerDelegate {
-    public func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
+    func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
         delegate?.filterViewControllerWillEndTextEditing(self)
         centerOnUserLocation()
     }
 
-    public func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController) {
+    func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController) {
         // Add view controller as child view controller
         add(searchLocationViewController)
         delegate?.filterViewControllerWillBeginTextEditing(self)
     }
 
-    public func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
+    func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
         delegate?.filterViewControllerWillEndTextEditing(self)
     }
 
-    public func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController,
-                                             didSelectLocation location: LocationInfo?) {
+    func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController,
+                                      didSelectLocation location: LocationInfo?) {
         returnToMapFromLocationSearch()
         delegate?.filterViewControllerWillEndTextEditing(self)
 

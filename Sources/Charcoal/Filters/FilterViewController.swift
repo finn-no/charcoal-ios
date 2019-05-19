@@ -12,11 +12,8 @@ protocol FilterViewControllerDelegate: AnyObject {
 }
 
 class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate {
-    // MARK: - Public properties
-
     weak var delegate: FilterViewControllerDelegate?
     let selectionStore: FilterSelectionStore
-    private(set) var isShowingBottomButton = false
 
     // MARK: - Private properties
 
@@ -28,6 +25,8 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         view.isHidden = true
         return view
     }()
+
+    private(set) var isShowingBottomButton = false
 
     // MARK: - Init
 

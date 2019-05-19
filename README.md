@@ -1,6 +1,5 @@
 <p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/Charcoal.png" width="100%" /></p>
 
-<p align="center">
 [![CI Status](https://circleci.com/gh/finn-no/charcoal-ios.png?style=shield)](https://circleci.com/gh/finn-no/charcoal-ios)
 [![Version](https://img.shields.io/cocoapods/v/Charcoal.svg?style=flat)](http://cocoadocs.org/docsets/Charcoal)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -8,7 +7,6 @@
 [![Platform](https://img.shields.io/cocoapods/p/Charcoal.svg?style=flat)](http://cocoadocs.org/docsets/Charcoal)
 [![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/Charcoal.svg?style=flat)](http://cocoadocs.org/docsets/Charcoal)
 ![Swift](https://img.shields.io/badge/%20in-swift%205.0-orange.svg)
-</p>
 
 ## Description
 

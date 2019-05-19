@@ -230,19 +230,13 @@ extension NumberInputView: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var text = textField.text ?? ""
-        let oldText = text
-        var range = range
 
-        guard var stringRange = Range<String.Index>(range, in: text) else {
+        guard let stringRange = text.range(from: range, replacementString: string) else {
             return false
         }
 
-        if String(text[stringRange]).removingWhitespaces().isEmpty, string.isEmpty {
-            if let lowerBound = text.index(stringRange.lowerBound, offsetBy: -1, limitedBy: text.startIndex) {
-                stringRange = lowerBound ..< stringRange.upperBound
-                range = NSRange(stringRange, in: text)
-            }
-        }
+        let oldText = text
+        let range = NSRange(stringRange, in: text)
 
         text.replaceSubrange(stringRange, with: string)
         text.removeWhitespaces()
@@ -319,6 +313,22 @@ private extension String {
     func removingWhitespaces() -> String {
         let components = self.components(separatedBy: .whitespaces)
         return components.joined(separator: "")
+    }
+
+    func range(from range: NSRange, replacementString: String) -> Range<String.Index>? {
+        guard let stringRange = Range<String.Index>(range, in: self) else {
+            return nil
+        }
+
+        guard String(self[stringRange]).removingWhitespaces().isEmpty, replacementString.isEmpty else {
+            return stringRange
+        }
+
+        guard let lowerBound = index(stringRange.lowerBound, offsetBy: -1, limitedBy: startIndex) else {
+            return stringRange
+        }
+
+        return lowerBound ..< stringRange.upperBound
     }
 }
 

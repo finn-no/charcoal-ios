@@ -7,13 +7,13 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: .charcoal, value: "", comment: comment)
     }
 
-    mutating func removeWhitespaces() {
-        self = removingWhitespaces()
-    }
-
     func removingWhitespaces() -> String {
         let components = self.components(separatedBy: .whitespaces)
         return components.joined(separator: "")
+    }
+
+    mutating func removeWhitespaces() {
+        self = removingWhitespaces()
     }
 
     func range(from range: NSRange, replacementString: String) -> Range<String.Index>? {

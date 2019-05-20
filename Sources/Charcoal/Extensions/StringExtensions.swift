@@ -16,7 +16,8 @@ extension String {
         self = removingWhitespaces()
     }
 
-    func range(from range: NSRange, replacementString: String) -> Range<String.Index>? {
+    func replacementRangeNotConsideringWhitespaces(from range: NSRange,
+                                                   replacementString: String) -> Range<String.Index>? {
         guard let stringRange = Range<String.Index>(range, in: self) else {
             return nil
         }

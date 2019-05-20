@@ -231,7 +231,7 @@ extension NumberInputView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var text = textField.text ?? ""
 
-        guard let stringRange = text.range(from: range, replacementString: string) else {
+        guard let stringRange = text.replacementRangeNotConsideringWhitespaces(from: range, replacementString: string) else {
             return false
         }
 

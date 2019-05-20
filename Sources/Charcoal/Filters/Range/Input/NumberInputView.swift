@@ -173,7 +173,7 @@ final class NumberInputView: UIView {
             textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 
             unitLabel.topAnchor.constraint(equalTo: textField.topAnchor),
-            unitLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor),
+            unitLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: .mediumSpacing),
             unitLabel.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             unitLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
 
@@ -192,7 +192,6 @@ final class NumberInputView: UIView {
     private func attributedUnitText(withFont font: UIFont?, from unit: FilterUnit) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
-        style.firstLineHeadIndent = .mediumSpacing
         style.headIndent = .mediumSpacing
         style.tailIndent = -.mediumSpacing
         style.lineBreakMode = .byCharWrapping

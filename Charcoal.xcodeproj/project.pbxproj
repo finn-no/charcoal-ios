@@ -118,6 +118,7 @@
 		CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */; };
 		CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
 		CFA4B77F2278890D00290FB5 /* VerticalCalloutOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */; };
+		CFAB68EF2291856B00925025 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */; };
 		CFB13DB021FF2B1800F8D126 /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DAF21FF2B1800F8D126 /* StepTests.swift */; };
 		CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */; };
 		CFCB35F022366BE8004E6EB3 /* ContextFilterTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */; };
@@ -394,6 +395,7 @@
 		CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UItableViewExtensions.swift; sourceTree = "<group>"; };
 		CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCalloutOverlay.swift; sourceTree = "<group>"; };
+		CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
 		CFB13DAF21FF2B1800F8D126 /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
 		CFB13DB121FF2CBB00F8D126 /* ArrayStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStepTests.swift; sourceTree = "<group>"; };
 		CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 			children = (
 				CF44FC63225F4D030032A258 /* IntExtensions.swift */,
 				CF33D9DB224BB5B400A24DF0 /* NumberFormatterExtensionsTests.swift */,
+				CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1751,6 +1754,7 @@
 				55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */,
 				CFB13DB221FF2CBB00F8D126 /* ArrayStepTests.swift in Sources */,
 				CFE1D4FC224D1A840009B0D6 /* FilterUnitTests.swift in Sources */,
+				CFAB68EF2291856B00925025 /* StringExtensionsTests.swift in Sources */,
 				DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */,
 				CF794C7722300096003425E2 /* RangerFilterConfiguration+Stubs.swift in Sources */,
 				CF44FC64225F4D030032A258 /* IntExtensions.swift in Sources */,

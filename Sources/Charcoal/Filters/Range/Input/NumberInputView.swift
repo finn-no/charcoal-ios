@@ -231,9 +231,12 @@ extension NumberInputView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var text = textField.text ?? ""
 
-        guard let stringRange = Range<String.Index>(range, in: text) else {
+        guard let stringRange = text.replacementRangeNotConsideringWhitespaces(from: range, replacementString: string) else {
             return false
         }
+
+        let oldText = text
+        let range = NSRange(stringRange, in: text)
 
         text.replaceSubrange(stringRange, with: string)
         text.removeWhitespaces()
@@ -247,6 +250,8 @@ extension NumberInputView: UITextFieldDelegate {
             textField.accessibilityValue = formatter.accessibilityValue(for: newValue)
             delegate?.numberInputView(self, didChangeValue: newValue)
         }
+
+        textField.updateCursorAfterReplacement(in: range, with: string, oldText: oldText)
 
         return false
     }
@@ -282,10 +287,21 @@ private extension UIView {
     }
 }
 
-private extension String {
-    mutating func removeWhitespaces() {
-        let components = self.components(separatedBy: .whitespaces)
-        self = components.joined(separator: "")
+private extension UITextField {
+    func updateCursorAfterReplacement(in range: NSRange, with string: String, oldText: String) {
+        let newText = text ?? ""
+        let oldNumberOfWhitespaces = oldText.components(separatedBy: .whitespaces).count
+        let newNumberOfWhitespaces = newText.components(separatedBy: .whitespaces).count
+        let offset = newNumberOfWhitespaces - oldNumberOfWhitespaces
+
+        let cursorLocation = position(
+            from: beginningOfDocument,
+            offset: range.location + string.count + offset
+        )
+
+        if let cursorLocation = cursorLocation {
+            selectedTextRange = textRange(from: cursorLocation, to: cursorLocation)
+        }
     }
 }
 

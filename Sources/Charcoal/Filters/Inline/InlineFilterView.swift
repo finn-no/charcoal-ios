@@ -44,7 +44,7 @@ final class InlineFilterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Public
+    // MARK: - Confuguration
 
     func configure(withTitles titles: [[String]], selectedItems: [[Int]]) {
         segments = []

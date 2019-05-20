@@ -11,7 +11,7 @@ protocol SegmentDelegate: AnyObject {
 final class Segment: UIControl {
     weak var delegate: SegmentDelegate?
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     var selectedItems: [Int] = [] {
         didSet {

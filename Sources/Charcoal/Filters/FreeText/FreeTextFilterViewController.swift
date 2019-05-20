@@ -26,8 +26,6 @@ protocol FreeTextFilterViewControllerDelegate: AnyObject {
 }
 
 public class FreeTextFilterViewController: ScrollViewController {
-    // MARK: - Public Properties
-
     weak var filterDelegate: FreeTextFilterDelegate?
     weak var filterDataSource: FreeTextFilterDataSource?
 
@@ -36,7 +34,6 @@ public class FreeTextFilterViewController: ScrollViewController {
     // MARK: - Private Properties
 
     private var didClearText = false
-
     private let filter: Filter
     private let selectionStore: FilterSelectionStore
     private let notificationCenter: NotificationCenter

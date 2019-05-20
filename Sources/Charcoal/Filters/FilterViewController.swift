@@ -12,11 +12,8 @@ protocol FilterViewControllerDelegate: AnyObject {
 }
 
 class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate {
-    // MARK: - Public properties
-
     weak var delegate: FilterViewControllerDelegate?
     let selectionStore: FilterSelectionStore
-    private(set) var isShowingBottomButton = false
 
     // MARK: - Private properties
 
@@ -28,6 +25,8 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         view.isHidden = true
         return view
     }()
+
+    private(set) var isShowingBottomButton = false
 
     // MARK: - Init
 
@@ -43,7 +42,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
     // MARK: - Lifecycle
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .milk
         setup()
@@ -54,7 +53,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         view.addGestureRecognizer(gestureRecognizer)
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableSwipeBack(true)
     }

@@ -4,7 +4,7 @@
 
 import UIKit
 
-class OnboardingCell: UICollectionViewCell {
+final class OnboardingCell: UICollectionViewCell {
     // MARK: - Private properties
 
     private lazy var imageView: UIImageView = {
@@ -37,7 +37,7 @@ class OnboardingCell: UICollectionViewCell {
         textLabel.attributedText = nil
     }
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
     func configure(with model: OnboardingCellViewModel) {
         imageView.image = UIImage(named: model.imageAsset)

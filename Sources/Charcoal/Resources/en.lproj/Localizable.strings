@@ -46,6 +46,7 @@
 "unit.kilometers.value" = "km";
 "unit.seats.value" = "seter";
 "unit.squareMeters.value" = "m²";
+"unit.kiloWattHour.value" = "kWh";
 
 "unit.centimeters.accessibilityValue" = "centimeter";
 "unit.cubicCentimeters.accessibilityValue" = "kubikkcentimeter";
@@ -58,6 +59,7 @@
 "unit.seats.accessibilityValue" = "seter";
 "unit.squareMeters.accessibilityValue" = "kvadratmeter";
 "unit.years.accessibilityValue" = "år";
+"unit.kiloWattHour.accessibilityValue" = "kilowattime";
 
 "map.title" = "Område i kart";
 "map.homeAddress" = "Min hjemmeadresse";

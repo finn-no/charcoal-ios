@@ -102,4 +102,7 @@ public enum FilterKey: String, CodingKey {
     case wheelSets = "wheel_sets"
     case womenClothingBrand = "women_clothing_brand"
     case year
+    case batteryCapacity = "battery_capacity"
+    case drivingRange = "driving_range"
+    case maxTrailerWeight = "max_trailer_weight"
 }

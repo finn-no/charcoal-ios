@@ -33,6 +33,9 @@ extension FilterMarketCar: FilterConfiguration {
                 .mileage,
                 .leasepriceInit,
                 .leasepriceMonth,
+                .batteryCapacity,
+                .drivingRange,
+                .maxTrailerWeight,
                 .price,
                 .map,
                 .location,
@@ -56,6 +59,9 @@ extension FilterMarketCar: FilterConfiguration {
                 .map,
                 .location,
                 .year,
+                .batteryCapacity,
+                .drivingRange,
+                .maxTrailerWeight,
                 .price,
                 .mileage,
                 .engineEffect,
@@ -111,6 +117,9 @@ extension FilterMarketCar: FilterConfiguration {
         return [
             .leasepriceInit,
             .leasepriceMonth,
+            .batteryCapacity,
+            .drivingRange,
+            .maxTrailerWeight,
         ]
     }
 
@@ -191,6 +200,12 @@ extension FilterMarketCar: FilterConfiguration {
             default:
                 return nil
             }
+        case .batteryCapacity:
+            return .configuration(minimumValue: 0, maximumValue: 150, increment: 10, unit: .kiloWattHour)
+        case .drivingRange:
+            return .configuration(minimumValue: 0, maximumValue: 750, increment: 50, unit: .kilometers)
+        case .maxTrailerWeight:
+            return .configuration(minimumValue: 0, maximumValue: 4000, increment: 200, unit: .kilograms)
         default:
             return nil
         }

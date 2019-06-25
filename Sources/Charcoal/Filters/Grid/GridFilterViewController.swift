@@ -12,10 +12,12 @@ final class GridFilterViewController: FilterViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.contentInset = UIEdgeInsets(top: .mediumLargeSpacing, left: edgeInset, bottom: 0, right: edgeInset)
         collectionView.register(GridFilterCell.self)
         return collectionView
     }()
 
+    private let edgeInset: CGFloat = 27
     private let filter: Filter
 
     // MARK: - Init
@@ -34,6 +36,7 @@ final class GridFilterViewController: FilterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
+        showBottomButton(false, animated: false)
         setup()
     }
 
@@ -49,8 +52,14 @@ final class GridFilterViewController: FilterViewController {
     // MARK: - Setup
 
     private func setup() {
-        view.addSubview(collectionView)
-        collectionView.fillInSuperview(insets: UIEdgeInsets(top: .mediumLargeSpacing, left: 27, bottom: 0, right: -27))
+        view.insertSubview(collectionView, belowSubview: bottomButton)
+
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
+        ])
     }
 }
 
@@ -76,7 +85,7 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfItemsPerRow: CGFloat = 5
-        let side = (collectionView.frame.width / numberOfItemsPerRow) - .mediumSpacing
+        let side = ((collectionView.frame.width - edgeInset * 2) / numberOfItemsPerRow) - .mediumSpacing
 
         return CGSize(width: side, height: side)
     }

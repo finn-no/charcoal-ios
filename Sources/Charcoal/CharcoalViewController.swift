@@ -189,7 +189,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             guard !filter.subfilters.isEmpty else { break }
 
             let gridViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
-            gridViewController.showBottomButton(viewController.isShowingBottomButton, animated: false)
 
             pushViewController(gridViewController)
         case let .range(lowValueFilter, highValueFilter, filterConfig):

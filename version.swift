@@ -1,8 +1,7 @@
+#!/usr/bin/swift
 //
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
-
-#!/usr/bin/swift
 
 import Foundation
 

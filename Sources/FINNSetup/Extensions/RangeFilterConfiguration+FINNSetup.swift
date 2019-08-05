@@ -18,9 +18,11 @@ extension RangeFilterConfiguration {
     }
 
     static func yearConfiguration(minimumValue: Int) -> RangeFilterConfiguration {
+        let gregorianCalendar = Calendar(identifier: .gregorian)
+        let currentYear = gregorianCalendar.component(.year, from: Date())
         return .configuration(
             minimumValue: minimumValue,
-            maximumValue: Calendar.current.component(.year, from: Date()),
+            maximumValue: currentYear,
             increment: 1,
             unit: .year
         )

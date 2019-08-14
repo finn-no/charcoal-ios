@@ -232,6 +232,10 @@ final class RootFilterViewController: FilterViewController {
         alertController.addAction(resetAction)
         alertController.addAction(cancelAction)
 
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = resetButton
+        }
+
         present(alertController, animated: true)
     }
 }

@@ -7,14 +7,23 @@ import UIKit
 final class OnboardingCell: UICollectionViewCell {
     // MARK: - Private properties
 
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [imageView, textLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = .largeSpacing
+        return stackView
+    }()
+
     private lazy var imageView: UIImageView = {
-        let imageView = UIImageView(withAutoLayout: true)
+        let imageView = UIImageView()
         imageView.contentMode = .center
         return imageView
     }()
 
     private lazy var textLabel: UILabel = {
-        let label = UILabel(withAutoLayout: true)
+        let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
@@ -47,18 +56,13 @@ final class OnboardingCell: UICollectionViewCell {
     // MARK: - Private methods
 
     private func setup() {
-        contentView.addSubview(imageView)
-        contentView.addSubview(textLabel)
+        contentView.addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 52),
-            imageView.widthAnchor.constraint(equalToConstant: 320),
+            stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stackView.widthAnchor.constraint(equalToConstant: 320),
             imageView.heightAnchor.constraint(equalToConstant: 200),
-
-            textLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: .mediumSpacing),
-            textLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -.mediumSpacing),
-            textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: .largeSpacing),
         ])
     }
 }

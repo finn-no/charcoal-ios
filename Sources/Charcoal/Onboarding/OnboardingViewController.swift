@@ -254,7 +254,7 @@ private extension OnboardingViewController {
             collectionView.bottomAnchor.constraint(equalTo: previousButton.topAnchor, constant: -.largeSpacing),
 
             skipButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
-            skipButton.topAnchor.constraint(equalTo: view.topAnchor, constant: .mediumSpacing),
+            skipButton.topAnchor.constraint(equalTo: view.topAnchor, constant: -.mediumSpacing),
 
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageControl.centerYAnchor.constraint(equalTo: collectionView.bottomAnchor),

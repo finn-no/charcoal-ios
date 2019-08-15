@@ -7,6 +7,8 @@ import UIKit
 final class OnboardingCell: UICollectionViewCell {
     // MARK: - Private properties
 
+    private static let imageHeight: CGFloat = 200
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(withAutoLayout: true)
         imageView.contentMode = .center
@@ -52,7 +54,7 @@ final class OnboardingCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 52),
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -OnboardingCell.imageHeight / 4),
             imageView.widthAnchor.constraint(equalToConstant: 320),
             imageView.heightAnchor.constraint(equalToConstant: 200),
 

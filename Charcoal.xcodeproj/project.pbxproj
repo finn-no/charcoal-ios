@@ -73,6 +73,7 @@
 		55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */; };
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
+		9165D180230C0FE10037B927 /* BottomButtonCalloutOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165D17F230C0FE10037B927 /* BottomButtonCalloutOverlay.swift */; };
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
 		9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1521B5592C00D18097 /* MapFilterView.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
@@ -349,6 +350,7 @@
 		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
+		9165D17F230C0FE10037B927 /* BottomButtonCalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButtonCalloutOverlay.swift; sourceTree = "<group>"; };
 		9B5A66F521A2E122005C9118 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9B741D1521B5592C00D18097 /* MapFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterView.swift; sourceTree = "<group>"; };
 		9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderWithLabelView.swift; sourceTree = "<group>"; };
@@ -1177,6 +1179,7 @@
 				9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */,
 				CF16687C2264A2B100652DB0 /* VerticalSelectorView.swift */,
 				CFA4B77D2278890900290FB5 /* VerticalCalloutOverlay.swift */,
+				9165D17F230C0FE10037B927 /* BottomButtonCalloutOverlay.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1644,6 +1647,7 @@
 				CFA4B77F2278890D00290FB5 /* VerticalCalloutOverlay.swift in Sources */,
 				DA3EA341228983AC00B05E92 /* ScrollViewController.swift in Sources */,
 				DA39FA34220B17DB00608AC4 /* RootFilterCell.swift in Sources */,
+				9165D180230C0FE10037B927 /* BottomButtonCalloutOverlay.swift in Sources */,
 				CF022960224E5ED300AA953D /* SelectionTitle.swift in Sources */,
 				CF4C870C221AFC8500DFAF2A /* RangeFilterViewController.swift in Sources */,
 				CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */,

@@ -173,7 +173,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         textEditingDelegate?.charcoalViewControllerWillEndTextEditing(self)
     }
 
-    func filterViewcontrollerWillPresentBottomButton(_ viewController: FilterViewController) {
+    func filterViewControllerWillPresentBottomButton(_ viewController: FilterViewController) {
         if UIDevice.current.userInterfaceIdiom == .pad, !UserDefaults.standard.bottomButtomCalloutShown {
             if viewController is ListFilterViewController ||
                 viewController is RangeFilterViewController ||

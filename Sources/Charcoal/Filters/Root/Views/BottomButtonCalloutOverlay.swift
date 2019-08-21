@@ -13,7 +13,11 @@ final class BottomButtonCalloutOverlay: UIView {
 
     // MARK: - Private properties
 
-    private lazy var calloutView = CalloutView(withAutoLayout: true)
+    private lazy var calloutView: CalloutView = {
+        let view = CalloutView(direction: .down)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     private lazy var bodyView: UIView = {
         let view = UIView(withAutoLayout: true)

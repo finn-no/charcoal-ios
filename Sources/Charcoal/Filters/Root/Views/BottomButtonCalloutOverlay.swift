@@ -59,7 +59,7 @@ final class BottomButtonCalloutOverlay: UIView {
             bodyView.topAnchor.constraint(equalTo: topAnchor),
             bodyView.leadingAnchor.constraint(equalTo: leadingAnchor),
             bodyView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bodyView.bottomAnchor.constraint(equalTo: calloutView.bottomAnchor),
+            bodyView.bottomAnchor.constraint(equalTo: calloutView.bottomAnchor, constant: .mediumSpacing),
 
         ])
     }

@@ -19,6 +19,7 @@ class DataSource: NSObject {
 
     private let markets = [
         Row(title: "Torget", setup: .bap, usingBottomSheet: true),
+        Row(title: "Torget (iPad)", type: DrawerPresentationViewController.self, setup: .bap),
         Row(title: "Bil", setup: .car, usingBottomSheet: true),
         Row(title: "Eiendom", setup: .realestate, usingBottomSheet: true),
         Row(title: "Jobb", setup: .job, usingBottomSheet: true),

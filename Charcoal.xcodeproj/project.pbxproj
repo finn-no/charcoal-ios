@@ -74,6 +74,7 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		9165D180230C0FE10037B927 /* BottomButtonCalloutOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9165D17F230C0FE10037B927 /* BottomButtonCalloutOverlay.swift */; };
+		91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */; };
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
 		9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1521B5592C00D18097 /* MapFilterView.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
@@ -351,6 +352,7 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		9165D17F230C0FE10037B927 /* BottomButtonCalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButtonCalloutOverlay.swift; sourceTree = "<group>"; };
+		91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerPresentationViewController.swift; sourceTree = "<group>"; };
 		9B5A66F521A2E122005C9118 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9B741D1521B5592C00D18097 /* MapFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterView.swift; sourceTree = "<group>"; };
 		9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderWithLabelView.swift; sourceTree = "<group>"; };
@@ -773,6 +775,7 @@
 				DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */,
 				559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */,
 				DAF3CA7321830F18007235B0 /* StepperFilterDemoViewController.swift */,
+				91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1737,6 +1740,7 @@
 				9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */,
 				9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */,
 				44ECE6AC208F816D0017AC82 /* Setup.swift in Sources */,
+				91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */,
 				DA2EFF3B225B51CC00F5B849 /* DemoViewController.swift in Sources */,
 				DA68145022574D3C003F3975 /* Row.swift in Sources */,
 				DAF3CA7421830F18007235B0 /* StepperFilterDemoViewController.swift in Sources */,

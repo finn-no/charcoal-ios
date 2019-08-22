@@ -46,6 +46,17 @@ extension DemoTableViewController: UITableViewDelegate {
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
             charcoalViewController.filterContainer = row.setup?.filterContainer
             charcoalViewController.selectionDelegate = self
+        } else if let viewController = viewController as? DrawerPresentationViewController {
+            let charcoalViewController = viewController.charcoalViewController
+            charcoalViewController.selectionDelegate = self
+            charcoalViewController.freeTextFilterDataSource = self
+            charcoalViewController.freeTextFilterDelegate = self
+            charcoalViewController.searchLocationDataSource = searchLocationDataSource
+            charcoalViewController.filterContainer = row.setup?.filterContainer
+            charcoalViewController.selectionDelegate = self
+
+            viewController.transitioningDelegate = viewController.transition
+            viewController.modalPresentationStyle = .custom
         }
 
         if row.usingBottomSheet {
@@ -71,7 +82,11 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
     }
 
     func charcoalViewControllerDidPressShowResults(_ viewController: CharcoalViewController) {
-        bottomSheet?.state = .dismissed
+        if let bottomSheet = bottomSheet {
+            bottomSheet.state = .dismissed
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {}

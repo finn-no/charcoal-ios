@@ -38,8 +38,10 @@ final class BottomButtonCalloutOverlay: UIView {
 
     // MARK: - Setup
 
-    func configure(withText text: String) {
+    func configure(withText text: String, bottomAnchor: NSLayoutYAxisAnchor) {
         calloutView.show(withText: text, duration: 0)
+
+        calloutView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
     private func setup() {
@@ -52,7 +54,6 @@ final class BottomButtonCalloutOverlay: UIView {
         addGestureRecognizer(gestureRecognizer)
 
         NSLayoutConstraint.activate([
-            calloutView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -76),
             calloutView.centerXAnchor.constraint(equalTo: centerXAnchor),
             calloutView.widthAnchor.constraint(equalToConstant: 250),
 

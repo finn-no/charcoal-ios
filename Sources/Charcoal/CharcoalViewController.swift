@@ -180,7 +180,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 viewController is StepperFilterViewController ||
                 viewController is GridFilterViewController {
                 UserDefaults.standard.bottomButtomCalloutShown = true
-                showBottomButtonCallout(withText: "callout.bottomButton".localized())
+                showBottomButtonCallout(withText: "callout.bottomButton".localized(), andBottomAnchor: viewController.bottomButton.topAnchor)
             }
         }
     }
@@ -327,11 +327,11 @@ extension CharcoalViewController: BottomButtonCalloutOverlayDelegate {
         })
     }
 
-    private func showBottomButtonCallout(withText text: String) {
+    private func showBottomButtonCallout(withText text: String, andBottomAnchor bottomAnchor: NSLayoutYAxisAnchor) {
         bottomButtonCalloutOverlay.alpha = 0
 
         view.addSubview(bottomButtonCalloutOverlay)
-        bottomButtonCalloutOverlay.configure(withText: text)
+        bottomButtonCalloutOverlay.configure(withText: text, bottomAnchor: bottomAnchor)
         bottomButtonCalloutOverlay.fillInSuperview()
 
         UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: { [weak self] in

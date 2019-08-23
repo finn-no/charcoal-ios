@@ -206,7 +206,7 @@ final class MapFilterView: UIView {
             distanceSlider.trailingAnchor.constraint(equalTo: mapContainerView.trailingAnchor),
             distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
 
-            userLocationButton.topAnchor.constraint(equalTo: mapView.compatibleTopAnchor, constant: .mediumSpacing),
+            userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .mediumSpacing),
             userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.mediumSpacing),
             userLocationButton.widthAnchor.constraint(equalToConstant: 46),
             userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),

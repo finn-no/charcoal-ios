@@ -90,5 +90,7 @@
 "callout.b2b" = "Trykk her i toppen for å se andre kategorier som Buss og minibuss, Bygg og anlegg, Traktor etc.";
 "callout.job" = "Trykk her i toppen for å se annonser for Deltidsstillinger og Lederstillinger";
 
+"callout.bottomButton" = "Trykk på Bruk-knappen her i bunnen for å gå videre med valget ditt. Denne vil alltid dukke opp her i slutten av en kategori.";
+
 "alert.reset.message" = "Er du sikker på at du vil nullstille\nog fjerne alle dine filtervalg?";
 "alert.action.reset" = "Nullstill filteret";

@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import UIKit
 
 public protocol CharcoalViewControllerTextEditingDelegate: AnyObject {
@@ -55,11 +56,7 @@ public final class CharcoalViewController: UINavigationController {
 
     private var rootFilterViewController: RootFilterViewController?
 
-    private lazy var verticalCalloutOverlay: VerticalCalloutOverlay = {
-        let overlay = VerticalCalloutOverlay(withAutoLayout: true)
-        overlay.delegate = self
-        return overlay
-    }()
+    private var calloutOverlay: CalloutOverlay?
 
     // MARK: - Lifecycle
 
@@ -75,14 +72,14 @@ public final class CharcoalViewController: UINavigationController {
         let userDefaults = UserDefaults.standard
 
         if let text = filterContainer?.verticalsCalloutText, !userDefaults.verticalCalloutShown {
-            showVerticalCallout(withText: text)
+            showCalloutOverlay(withText: text, andDirection: .up, constrainedToAnchor: navigationBar.bottomAnchor)
             userDefaults.verticalCalloutShown = true
         }
     }
 
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        verticalCalloutOverlay.removeFromSuperview()
+        calloutOverlay?.removeFromSuperview()
     }
 
     // MARK: - Public
@@ -164,6 +161,18 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController) {
         textEditingDelegate?.charcoalViewControllerWillEndTextEditing(self)
+    }
+
+    func filterViewControllerWillPresentBottomButton(_ viewController: FilterViewController) {
+        if UIDevice.current.userInterfaceIdiom == .pad, !UserDefaults.standard.bottomButtomCalloutShown {
+            if viewController is ListFilterViewController ||
+                viewController is RangeFilterViewController ||
+                viewController is StepperFilterViewController ||
+                viewController is GridFilterViewController {
+                UserDefaults.standard.bottomButtomCalloutShown = true
+                showCalloutOverlay(withText: "callout.bottomButton".localized(), andDirection: .down, constrainedToAnchor: viewController.bottomButton.topAnchor)
+            }
+        }
     }
 
     func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController) {
@@ -273,27 +282,35 @@ extension CharcoalViewController: UINavigationControllerDelegate {
     }
 }
 
-// MARK: - VerticalCalloutOverlayDelegate
+// MARK: - CalloutOverlayDelegate
 
-extension CharcoalViewController: VerticalCalloutOverlayDelegate {
-    func verticalCalloutOverlayDidTapInside(_ verticalCalloutOverlay: VerticalCalloutOverlay) {
+extension CharcoalViewController: CalloutOverlayDelegate {
+    func calloutOverlayDidTapInside(_ bottomButtonCalloutOverlay: CalloutOverlay) {
         UIView.animate(withDuration: 0.3, animations: {
-            verticalCalloutOverlay.alpha = 0
+            self.calloutOverlay?.alpha = 0
         }, completion: { _ in
-            verticalCalloutOverlay.removeFromSuperview()
+            self.calloutOverlay?.removeFromSuperview()
+            self.calloutOverlay = nil
         })
     }
 
-    private func showVerticalCallout(withText text: String) {
-        verticalCalloutOverlay.alpha = 0
+    private func showCalloutOverlay(withText text: String, andDirection direction: CalloutView.Direction, constrainedToAnchor anchor: NSLayoutYAxisAnchor) {
+        calloutOverlay = CalloutOverlay(direction: direction)
 
-        view.addSubview(verticalCalloutOverlay)
-        verticalCalloutOverlay.configure(withText: text)
-        verticalCalloutOverlay.fillInSuperview()
+        if let calloutOverlay = calloutOverlay {
+            calloutOverlay.delegate = self
+            calloutOverlay.translatesAutoresizingMaskIntoConstraints = false
+            calloutOverlay.alpha = 0
 
-        UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: { [weak self] in
-            self?.verticalCalloutOverlay.alpha = 1
-        }, completion: nil)
+            view.addSubview(calloutOverlay)
+
+            calloutOverlay.configure(withText: text, calloutAnchor: anchor)
+            calloutOverlay.fillInSuperview()
+
+            UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: { [weak self] in
+                self?.calloutOverlay?.alpha = 1
+            }, completion: nil)
+        }
     }
 }
 
@@ -301,6 +318,11 @@ extension CharcoalViewController: VerticalCalloutOverlayDelegate {
 
 private extension UserDefaults {
     var verticalCalloutShown: Bool {
+        get { return bool(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var bottomButtomCalloutShown: Bool {
         get { return bool(forKey: #function) }
         set { set(newValue, forKey: #function) }
     }

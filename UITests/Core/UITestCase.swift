@@ -15,5 +15,6 @@ class UITestCase: XCTestCase {
         app = XCUIApplication()
         app.launchArguments.append("--uitesting")
         app.launchArguments += ["-verticalCalloutShown", "YES"]
+        app.launchArguments += ["-bottomButtomCalloutShown", "YES"]
     }
 }

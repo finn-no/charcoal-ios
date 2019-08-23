@@ -6,6 +6,7 @@ import UIKit
 
 protocol FilterViewControllerDelegate: AnyObject {
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
+    func filterViewControllerWillPresentBottomButton(_ viewController: FilterViewController)
     func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController)
     func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController)
     func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController)
@@ -79,6 +80,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
         if show {
             bottomButton.isHidden = false
+            delegate?.filterViewControllerWillPresentBottomButton(self)
         }
 
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
@@ -105,7 +107,6 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
             bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-
             topShadowView.bottomAnchor.constraint(equalTo: view.topAnchor),
         ])
     }

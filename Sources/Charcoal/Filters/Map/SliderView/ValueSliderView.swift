@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import UIKit
 
 protocol ValueSliderViewDelegate: AnyObject {
@@ -137,8 +138,6 @@ extension ValueSliderView {
 struct ValueSliderViewStyle {
     static let trackColor: UIColor = .sardine
     static let activeRangeTrackColor: UIColor = .primaryBlue
-    static let sliderThumbImage: UIImage? = UIImage(named: .sliderThumb)
-    static let activeSliderThumbImage: UIImage? = UIImage(named: .sliderThumbActive)
     static let trackHeight: CGFloat = 3.0
     static let activeRangeTrackHeight: CGFloat = 6.0
 }
@@ -226,7 +225,7 @@ private extension ValueSliderView {
 }
 
 extension ValueSliderView: StepSliderDelegate {
-    func stepSlider(_ stepSlider: StepSlider, didChangeValue value: Float) {
+    func stepSlider(_ stepSlider: StepSlider, didChangeRawValue value: Float) {
         updateActiveTrackRange()
         updateAccesibilityValues()
     }

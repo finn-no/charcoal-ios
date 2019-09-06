@@ -2,6 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
+
 public struct RangeFilterConfiguration: Equatable {
     public typealias StepInterval = (from: Int, increment: Int)
 

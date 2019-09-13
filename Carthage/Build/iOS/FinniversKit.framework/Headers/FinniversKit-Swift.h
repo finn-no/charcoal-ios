@@ -543,8 +543,8 @@ SWIFT_CLASS("_TtC12FinniversKit9EmptyView")
 
 
 
-SWIFT_CLASS("_TtC12FinniversKit19FavoriteActionSheet")
-@interface FavoriteActionSheet : BottomSheet
+SWIFT_CLASS("_TtC12FinniversKit21FavoriteAdActionSheet")
+@interface FavoriteAdActionSheet : BottomSheet
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)viewDidLoad;
 @end
@@ -552,26 +552,61 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteActionSheet")
 
 
 
-SWIFT_CLASS("_TtC12FinniversKit18FavoriteActionView")
-@interface FavoriteActionView : UIView
+SWIFT_CLASS("_TtC12FinniversKit20FavoriteAdActionView")
+@interface FavoriteAdActionView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
 @class UITableView;
 
-@interface FavoriteActionView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
+@interface FavoriteAdActionView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
-@interface FavoriteActionView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
+@interface FavoriteAdActionView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
 
+
+
+SWIFT_CLASS("_TtC12FinniversKit22FavoriteAdCommentSheet")
+@interface FavoriteAdCommentSheet : BottomSheet
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit22FavoriteAdSortingSheet")
+@interface FavoriteAdSortingSheet : BottomSheet
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit21FavoriteAdSortingView")
+@interface FavoriteAdSortingView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+@interface FavoriteAdSortingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+@end
+
+
+@interface FavoriteAdSortingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 SWIFT_CLASS("_TtC12FinniversKit23FavoriteAdTableViewCell")
@@ -598,13 +633,13 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 
 
 
+
+
 @interface FavoriteAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 @class UISearchBar;
 
@@ -682,11 +717,11 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 @end
 
 
-
-
 @interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
+
+
 
 
 
@@ -718,42 +753,6 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 - (UITableViewCellEditingStyle)tableView:(UITableView * _Nonnull)tableView editingStyleForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)tableView:(UITableView * _Nonnull)tableView didDeselectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-@end
-
-
-SWIFT_CLASS("_TtC12FinniversKit17FavoriteNoteSheet")
-@interface FavoriteNoteSheet : BottomSheet
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-- (void)viewDidLoad;
-@end
-
-
-
-
-SWIFT_CLASS("_TtC12FinniversKit20FavoriteSortingSheet")
-@interface FavoriteSortingSheet : BottomSheet
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-- (void)viewDidLoad;
-@end
-
-
-
-
-SWIFT_CLASS("_TtC12FinniversKit19FavoriteSortingView")
-@interface FavoriteSortingView : UIView
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-@end
-
-
-@interface FavoriteSortingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-@end
-
-
-@interface FavoriteSortingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
-- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -870,12 +869,12 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
-
-
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDataSource>
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1262,6 +1261,15 @@ SWIFT_CLASS("_TtC12FinniversKit25NotificationsListViewCell")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit5Panel")
+@interface Panel : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit13PhaseListView")
 @interface PhaseListView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -1343,6 +1351,16 @@ SWIFT_CLASS("_TtC12FinniversKit15RemoteImageView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+SWIFT_CLASS("_TtC12FinniversKit14ReputationView")
+@interface ReputationView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit19ReviewButtonControl")
@@ -1641,10 +1659,14 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
+
+
 @interface UIColor (SWIFT_EXTENSION(FinniversKit))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1910,6 +1932,16 @@ SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementUserActionCell")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit31UserAdsListEmphasizedActionCell")
+@interface UserAdsListEmphasizedActionCell : UITableViewCell
+- (void)prepareForReuse;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit21UserAdsListHeaderView")
 @interface UserAdsListHeaderView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -1922,6 +1954,8 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 
@@ -1961,6 +1995,8 @@ SWIFT_CLASS("_TtC12FinniversKit19UserAdsListViewCell")
 @end
 
 
+
+
 SWIFT_CLASS("_TtC12FinniversKit24UserAdsListViewNewAdCell")
 @interface UserAdsListViewNewAdCell : UITableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
@@ -1974,6 +2010,24 @@ SWIFT_CLASS("_TtC12FinniversKit28UserAdsListViewSeeAllAdsCell")
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+SWIFT_CLASS("_TtC12FinniversKit23VerificationActionSheet")
+@interface VerificationActionSheet : BottomSheet
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit16VerificationView")
+@interface VerificationView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

@@ -114,7 +114,6 @@
 		CF8FD7362254E2CF00926A7B /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */; };
 		CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7372254E5C300926A7B /* VerticalCell.swift */; };
 		CF903FFA2281950500AA1A39 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF903FF92281950500AA1A39 /* UIViewExtensions.swift */; };
-		CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */; };
 		CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */; };
 		CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
 		CFA4B77F2278890D00290FB5 /* CalloutOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA4B77D2278890900290FB5 /* CalloutOverlay.swift */; };
@@ -388,7 +387,6 @@
 		CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 		CF8FD7372254E5C300926A7B /* VerticalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalCell.swift; sourceTree = "<group>"; };
 		CF903FF92281950500AA1A39 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
-		CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UItableViewExtensions.swift; sourceTree = "<group>"; };
 		CFA4B77D2278890900290FB5 /* CalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutOverlay.swift; sourceTree = "<group>"; };
 		CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
@@ -771,7 +769,6 @@
 		5589322F209C3CDA00512FF8 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				CF93386222296F820082C68C /* UIBarButtonItemExtensions.swift */,
 				5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */,
 				CFD8B4572284551B00AA534A /* UIFontExtensions.swift */,
 				CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */,
@@ -1619,7 +1616,6 @@
 				CF8FD7362254E2CF00926A7B /* UITableViewCellExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
 				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,
-				CF93386322296F820082C68C /* UIBarButtonItemExtensions.swift in Sources */,
 				CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */,
 				DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */,
 				CF4C870E221AFCC900DFAF2A /* RootFilterViewController.swift in Sources */,

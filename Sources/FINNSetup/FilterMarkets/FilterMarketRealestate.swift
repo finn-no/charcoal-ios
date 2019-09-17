@@ -204,7 +204,7 @@ extension FilterMarketRealestate: FilterConfiguration {
                 increment = 100_000
             default:
                 minimumValue = 1_000_000
-                maximumValue = 10_000_000
+                maximumValue = 15_000_000
                 increment = 50000
             }
 

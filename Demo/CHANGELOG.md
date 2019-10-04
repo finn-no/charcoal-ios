@@ -1,4 +1,7 @@
 ## [5.1.1] - 2019-10-04
+- New build distributed with AppCenter instead of HockeyApp.
+
+## [5.1.1] - 2019-10-04
 - A lot of changes, Charcoal has been used in the FINN.no app for quite a while now.
 
 ## [0.10] - 2019-01-11

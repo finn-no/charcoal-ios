@@ -1,3 +1,6 @@
+## [5.1.1] - 2019-10-04
+- A lot of changes, Charcoal has been used in the FINN.no app for quite a while now.
+
 ## [0.10] - 2019-01-11
 - Fixed realestate filter config
 - Using FinniverKit as a dependency, new lists/cells will use FinniversKit, but old ones needs to be updated so there might be some UI inconsistencies until that is completed. 

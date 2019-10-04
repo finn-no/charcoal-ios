@@ -2,7 +2,10 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import HockeySDK
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+import AppCenterDistribute
 import UIKit
 
 @UIApplicationMain
@@ -10,13 +13,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        BITHockeyManager.shared().configure(withIdentifier: "dcb11108644344b5ae22b778ed0fcf9d")
-        BITHockeyManager.shared().crashManager.crashManagerStatus = .autoSend
-        BITHockeyManager.shared().logLevel = .warning
-        BITHockeyManager.shared().isFeedbackManagerDisabled = true
-        BITHockeyManager.shared().authenticator.identificationType = .anonymous
-        BITHockeyManager.shared().start()
-        BITHockeyManager.shared().authenticator.authenticateInstallation()
+        #if !DEBUG
+            MSAppCenter.start("dcb11108-6443-44b5-ae22-b778ed0fcf9d", withServices: [
+                MSCrashes.self,
+                MSDistribute.self,
+            ])
+            MSCrashes.setEnabled(true)
+            MSDistribute.setEnabled(true)
+        #endif
+
+        /*
+         BITHockeyManager.shared().configure(withIdentifier: "dcb11108644344b5ae22b778ed0fcf9d")
+         BITHockeyManager.shared().crashManager.crashManagerStatus = .autoSend
+         BITHockeyManager.shared().logLevel = .warning
+         BITHockeyManager.shared().isFeedbackManagerDisabled = true
+         BITHockeyManager.shared().authenticator.identificationType = .anonymous
+         BITHockeyManager.shared().start()
+         BITHockeyManager.shared().authenticator.authenticateInstallation()
+         */
 
         window = UIWindow(frame: UIScreen.main.bounds)
         let viewController = DemoTableViewController()

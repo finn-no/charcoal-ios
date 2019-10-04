@@ -31,6 +31,8 @@ DerivedData
 
 Carthage/Checkouts/*
 Carthage/Build/watchOS/*
+Carthage/Build/tvOS/*
+Carthage/Build/Mac/*
 
 # fastlane
 fastlane/report.xml

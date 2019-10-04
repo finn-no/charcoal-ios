@@ -170,6 +170,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import MapKit;
 @import ObjectiveC;
+@import QuartzCore;
 @import UIKit;
 #endif
 
@@ -228,14 +229,14 @@ SWIFT_CLASS("_TtC12FinniversKit11AdsGridView")
 
 
 
+
+
 @class UICollectionView;
 
 @interface AdsGridView (SWIFT_EXTENSION(FinniversKit)) <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
-
-
 
 
 
@@ -616,6 +617,7 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteAdTableViewCell")
 - (void)prepareForReuse;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+- (void)didTransitionToState:(UITableViewCellStateMask)state;
 @end
 
 
@@ -623,12 +625,10 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteAdTableViewCell")
 
 SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 @interface FavoriteAdsListView : UIView
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)layoutSubviews;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
-
-
 
 
 
@@ -641,6 +641,8 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+
 @class UISearchBar;
 
 @interface FavoriteAdsListView (SWIFT_EXTENSION(FinniversKit)) <UISearchBarDelegate>
@@ -649,12 +651,17 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 - (void)searchBar:(UISearchBar * _Nonnull)searchBar textDidChange:(NSString * _Nonnull)searchText;
 @end
 
+@class UISwipeActionsConfiguration;
 
 @interface FavoriteAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)tableView:(UITableView * _Nonnull)tableView didDeselectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)tableView:(UITableView * _Nonnull)tableView canEditRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (UISwipeActionsConfiguration * _Nullable)tableView:(UITableView * _Nonnull)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
 
 
@@ -679,18 +686,6 @@ SWIFT_CLASS("_TtC12FinniversKit34FavoriteFolderActionViewController")
 
 
 
-@interface FavoriteFolderActionViewController (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
-- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-@interface FavoriteFolderActionViewController (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
-- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-@end
-
-
 SWIFT_CLASS("_TtC12FinniversKit24RemoteImageTableViewCell")
 @interface RemoteImageTableViewCell : BasicTableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
@@ -713,6 +708,7 @@ SWIFT_CLASS("_TtC12FinniversKit32FavoriteFolderSelectableViewCell")
 SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 @interface FavoriteFoldersListView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
@@ -804,9 +800,6 @@ typedef SWIFT_ENUM(NSInteger, State, closed) {
 /// Class for referencing the framework bundle
 SWIFT_CLASS("_TtC12FinniversKit12FinniversKit")
 @interface FinniversKit : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL isDynamicTypeEnabled;)
-+ (BOOL)isDynamicTypeEnabled SWIFT_WARN_UNUSED_RESULT;
-+ (void)setIsDynamicTypeEnabled:(BOOL)value;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -853,6 +846,8 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
+
+
 @class UIGestureRecognizer;
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
@@ -873,8 +868,6 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 
@@ -986,11 +979,11 @@ SWIFT_CLASS("_TtC12FinniversKit15KlimabroletView")
 
 
 
-
-
 @interface KlimabroletView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit5Label")
@@ -1060,6 +1053,21 @@ typedef SWIFT_ENUM(NSInteger, DisplayType, closed) {
   DisplayTypeFullscreen = 0,
   DisplayTypeBoxed = 1,
 };
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit18LoanCalculatorView")
+@interface LoanCalculatorView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
 
 
 
@@ -1313,6 +1321,13 @@ SWIFT_CLASS("_TtC12FinniversKit11RadioButton")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit24RadioButtonTableViewCell")
+@interface RadioButtonTableViewCell : BasicTableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit11ReceiptView")
 @interface ReceiptView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -1546,6 +1561,19 @@ SWIFT_CLASS("_TtC12FinniversKit8SoldView")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit10SplashView")
+@interface SplashView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class CAAnimation;
+
+@interface SplashView (SWIFT_EXTENSION(FinniversKit)) <CAAnimationDelegate>
+- (void)animationDidStop:(CAAnimation * _Nonnull)anim finished:(BOOL)flag;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit23StatisticsItemEmptyView")
 @interface StatisticsItemEmptyView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -1673,6 +1701,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 
 
 
+
+
 @interface UIColor (SWIFT_EXTENSION(FinniversKit))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull callToActionButtonHighlightedBodyColor;)
 + (UIColor * _Nonnull)callToActionButtonHighlightedBodyColor SWIFT_WARN_UNUSED_RESULT;
@@ -1684,6 +1714,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 + (UIColor * _Nonnull)linkButtonHighlightedTextColor SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull flatButtonHighlightedTextColor;)
 + (UIColor * _Nonnull)flatButtonHighlightedTextColor SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull dimmingColor;)
++ (UIColor * _Nonnull)dimmingColor SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1724,6 +1756,50 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 + (UIColor * _Nonnull)midnightSectionHeader SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull midnightSectionSeparator;)
 + (UIColor * _Nonnull)midnightSectionSeparator SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface UIColor (SWIFT_EXTENSION(FinniversKit))
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull bgPrimary;)
++ (UIColor * _Nonnull)bgPrimary SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull bgSecondary;)
++ (UIColor * _Nonnull)bgSecondary SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull bgTertiary;)
++ (UIColor * _Nonnull)bgTertiary SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull bgAlert;)
++ (UIColor * _Nonnull)bgAlert SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull bgSuccess;)
++ (UIColor * _Nonnull)bgSuccess SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull bgCritical;)
++ (UIColor * _Nonnull)bgCritical SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull btnPrimary;)
++ (UIColor * _Nonnull)btnPrimary SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull btnDisabled;)
++ (UIColor * _Nonnull)btnDisabled SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull btnCritical;)
++ (UIColor * _Nonnull)btnCritical SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textPrimary;)
++ (UIColor * _Nonnull)textPrimary SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textSecondary;)
++ (UIColor * _Nonnull)textSecondary SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textTertiary;)
++ (UIColor * _Nonnull)textTertiary SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textAction;)
++ (UIColor * _Nonnull)textAction SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textDisabled;)
++ (UIColor * _Nonnull)textDisabled SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textCritical;)
++ (UIColor * _Nonnull)textCritical SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull accentSecondaryBlue;)
++ (UIColor * _Nonnull)accentSecondaryBlue SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull accentPea;)
++ (UIColor * _Nonnull)accentPea SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull accentToothpaste;)
++ (UIColor * _Nonnull)accentToothpaste SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textCTADisabled;)
++ (UIColor * _Nonnull)textCTADisabled SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textToast;)
++ (UIColor * _Nonnull)textToast SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1900,10 +1976,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIFont * _No
 
 
 
-
-
-
-
 SWIFT_CLASS("_TtC12FinniversKit40UserAdManagementButtonAndInformationCell")
 @interface UserAdManagementButtonAndInformationCell : UITableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
@@ -1934,6 +2006,7 @@ SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementUserActionCell")
 
 SWIFT_CLASS("_TtC12FinniversKit31UserAdsListEmphasizedActionCell")
 @interface UserAdsListEmphasizedActionCell : UITableViewCell
+- (void)layoutSubviews;
 - (void)prepareForReuse;
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=3.0);
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -2028,6 +2101,14 @@ SWIFT_CLASS("_TtC12FinniversKit16VerificationView")
 @end
 
 
+
+
+SWIFT_CLASS("_TtC12FinniversKit25VisibilityDrivenTitleView")
+@interface VisibilityDrivenTitleView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)layoutSubviews;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

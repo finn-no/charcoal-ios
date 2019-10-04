@@ -165,7 +165,6 @@
 		DA3EA341228983AC00B05E92 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3EA340228983AC00B05E92 /* ScrollViewController.swift */; };
 		DA51040B21BE5F19004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA51040C21BE5F59004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
-		DA51041121BE66A1004048BD /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51041021BE66A1004048BD /* HockeySDK.framework */; };
 		DA51041221BE680D004048BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
 		DA51041321BE680D004048BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
 		DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
@@ -428,7 +427,6 @@
 		DA3EA33D2289637B00B05E92 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		DA3EA340228983AC00B05E92 /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
-		DA51041021BE66A1004048BD /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Carthage/Build/iOS/HockeySDK.framework; sourceTree = "<group>"; };
 		DA643FB6220C720A001ED360 /* StepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperViewController.swift; sourceTree = "<group>"; };
 		DA68144D22574CD4003F3975 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		DA68144F22574D3C003F3975 /* Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
@@ -476,7 +474,6 @@
 		DAD45C0B223A898C00FE1EF5 /* 687C63D5-5331-309E-A756-E7F9C2F42F59.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "687C63D5-5331-309E-A756-E7F9C2F42F59.bcsymbolmap"; sourceTree = "<group>"; };
 		DAD45C0C223A898C00FE1EF5 /* 55826EB7-032A-3548-AF0F-A5261C7AE180.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "55826EB7-032A-3548-AF0F-A5261C7AE180.bcsymbolmap"; sourceTree = "<group>"; };
 		DAD45C0D223A898C00FE1EF5 /* DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap"; sourceTree = "<group>"; };
-		DAD45C0E223A898C00FE1EF5 /* .HockeySDK-iOS.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".HockeySDK-iOS.version"; sourceTree = "<group>"; };
 		DAD45C0F223A898C00FE1EF5 /* .FinniversKit.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = .FinniversKit.version; sourceTree = "<group>"; };
 		DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		DADF2DD12253761300567C78 /* OnboardingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
@@ -504,7 +501,6 @@
 				DA51040C21BE5F59004048BD /* FinniversKit.framework in Frameworks */,
 				44ECE68E208F7FF90017AC82 /* Charcoal.framework in Frameworks */,
 				CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */,
-				DA51041121BE66A1004048BD /* HockeySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,7 +703,6 @@
 			isa = PBXGroup;
 			children = (
 				DAD45BE7223A898C00FE1EF5 /* Build */,
-				DA51041021BE66A1004048BD /* HockeySDK.framework */,
 				DA51040A21BE5F19004048BD /* FinniversKit.framework */,
 			);
 			name = Frameworks;
@@ -1174,7 +1169,6 @@
 			isa = PBXGroup;
 			children = (
 				DAD45BE8223A898C00FE1EF5 /* iOS */,
-				DAD45C0E223A898C00FE1EF5 /* .HockeySDK-iOS.version */,
 				DAD45C0F223A898C00FE1EF5 /* .FinniversKit.version */,
 			);
 			name = Build;

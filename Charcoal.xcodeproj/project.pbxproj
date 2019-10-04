@@ -74,6 +74,7 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */; };
+		9B56BDA223475E2600775F44 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
 		9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1521B5592C00D18097 /* MapFilterView.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
@@ -203,6 +204,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 44ECE65E208F7FA20017AC82;
 			remoteInfo = FilterKit;
+		};
+		9B56BDA023475E1D00775F44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44ECE646208F7F7B0017AC82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFEDCDF72232B756008FCDB1;
+			remoteInfo = FINNSetup;
 		};
 		CF33D9CC224A499C00A24DF0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -504,6 +512,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B56BDA223475E2600775F44 /* FINNSetup.framework in Frameworks */,
 				DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */,
 				44ECE686208F7FDE0017AC82 /* Charcoal.framework in Frameworks */,
 			);
@@ -1323,6 +1332,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9B56BDA123475E1D00775F44 /* PBXTargetDependency */,
 				44ECE688208F7FDE0017AC82 /* PBXTargetDependency */,
 			);
 			name = UnitTests;
@@ -1763,6 +1773,11 @@
 			isa = PBXTargetDependency;
 			target = 44ECE65E208F7FA20017AC82 /* Charcoal */;
 			targetProxy = 44ECE690208F7FF90017AC82 /* PBXContainerItemProxy */;
+		};
+		9B56BDA123475E1D00775F44 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFEDCDF72232B756008FCDB1 /* FINNSetup */;
+			targetProxy = 9B56BDA023475E1D00775F44 /* PBXContainerItemProxy */;
 		};
 		CF33D9CD224A499C00A24DF0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

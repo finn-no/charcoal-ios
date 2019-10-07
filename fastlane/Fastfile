@@ -47,7 +47,8 @@ platform :ios do
       owner_name: "FINN-no-Organization",
       app_name: "Charcoal-Demo",
       release_notes: beta_changelog,
-      notify_testers: true
+      notify_testers: true,
+      destinations: "Collaborators"
     )
 
     # deletes the files that get created in your repo as a result of running the ipa and match (cert/sigh) commands

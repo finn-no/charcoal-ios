@@ -40,6 +40,7 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 .env
+*.dSYM.zip
 
 # Bundler
 bin/
@@ -47,4 +48,3 @@ bundler/
 
 # Large unneeded AppCenter frameworks
 Carthage/Build/iOS/AppCenterAuth.framework
-

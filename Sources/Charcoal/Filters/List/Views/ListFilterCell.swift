@@ -89,6 +89,8 @@ final class ListFilterCell: CheckboxTableViewCell {
             break
         }
 
+        detailLabelTrailingConstraint.constant = detailLabelConstraint(constantFor: viewModel.accessoryStyle)
+
         switch viewModel.checkboxStyle {
         case .selectedBordered:
             checkboxImageView.setImage(UIImage(named: .checkboxBordered), for: .normal)
@@ -146,5 +148,10 @@ final class ListFilterCell: CheckboxTableViewCell {
         ]
 
         accessibilityLabel = accessibilityLabels.compactMap { $0 }.joined(separator: ", ")
+    }
+
+    private func detailLabelConstraint(constantFor accessoryStyle: ListFilterCellViewModel.AccessoryStyle) -> CGFloat {
+        guard #available(iOS 13, *), accessoryStyle == .chevron else { return 0 }
+        return -.mediumSpacing
     }
 }

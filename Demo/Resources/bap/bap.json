@@ -16,6 +16,22 @@
                 "shoe_size"
                 ],
     "filter-data": {
+        "christmas": {
+          "title": "Julen 2019",
+          "name": "christmas",
+          "queries": [
+            {
+              "title": "Julegaveønske",
+              "value": "bap-gift-wish",
+              "total-results": 1
+            },
+            {
+              "title": "Tilbud om julefeiring",
+              "value": "bap-gift-offer",
+              "total-results": 1
+            }
+          ]
+        },
         "price": {
             "title": "Pris",
             "range": true,

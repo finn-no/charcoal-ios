@@ -12,7 +12,7 @@ protocol RootFilterCellDelegate: AnyObject {
 final class RootFilterCell: BasicTableViewCell {
     weak var delegate: RootFilterCellDelegate?
 
-    var isEnabled = true {
+    override var isEnabled: Bool {
         didSet {
             isUserInteractionEnabled = isEnabled
             accessoryType = isEnabled ? .disclosureIndicator : .none

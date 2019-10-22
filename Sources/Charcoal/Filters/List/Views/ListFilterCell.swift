@@ -66,11 +66,6 @@ final class ListFilterCell: CheckboxTableViewCell {
         selectedBackgroundView?.layer.add(animation, forKey: nil)
     }
 
-    private func showSelectedBackground(_ show: Bool) {
-        selectedBackgroundView?.layer.removeAllAnimations()
-        selectedBackgroundView?.alpha = show ? 1 : 0
-    }
-
     // MARK: - Setup
 
     func configure(with viewModel: ListFilterCellViewModel) {
@@ -139,6 +134,8 @@ final class ListFilterCell: CheckboxTableViewCell {
         ])
     }
 
+    // MARK: - Private methods
+
     private func updateAccessibilityLabel(isSelected: Bool) {
         let accessibilityLabels = [
             isSelected ? "selected".localized() : nil,
@@ -153,5 +150,10 @@ final class ListFilterCell: CheckboxTableViewCell {
     private func detailLabelConstraint(constantFor accessoryStyle: ListFilterCellViewModel.AccessoryStyle) -> CGFloat {
         guard #available(iOS 13, *), accessoryStyle == .chevron else { return 0 }
         return -.mediumSpacing
+    }
+
+    private func showSelectedBackground(_ show: Bool) {
+        selectedBackgroundView?.layer.removeAllAnimations()
+        selectedBackgroundView?.alpha = show ? 1 : 0
     }
 }

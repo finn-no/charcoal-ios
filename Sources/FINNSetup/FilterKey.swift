@@ -13,6 +13,7 @@ public enum FilterKey: String, CodingKey {
     case bodyType = "body_type"
     case caravanDealerSegment = "caravan_dealer_segment"
     case caravanSegment = "caravan_segment"
+    case christmas
     case busSegment = "bus_segment"
     case carEquipment = "car_equipment"
     case carTiresAndRimsType = "cartiresandrims_type"

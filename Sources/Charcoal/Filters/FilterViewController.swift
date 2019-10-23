@@ -72,7 +72,10 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
     // MARK: - Internal functions
 
     func showBottomButton(_ show: Bool, animated: Bool) {
-        view.layoutIfNeeded()
+        if viewIfLoaded?.window != nil {
+            view.layoutIfNeeded()
+        }
+
         isShowingBottomButton = show
         bottomButtonBottomConstraint.isActive = show
 
@@ -83,8 +86,9 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
             delegate?.filterViewControllerWillPresentBottomButton(self)
         }
 
-        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+            guard self?.viewIfLoaded?.window != nil else { return }
+            self?.view.layoutIfNeeded()
         }, completion: { [weak self] _ in
             self?.bottomButton.isHidden = !show
         })

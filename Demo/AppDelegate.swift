@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import HockeySDK
 import UIKit
 
@@ -18,15 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
 
+        if #available(iOS 13.0, *) {
+            FinniversKit.userInterfaceStyleSupport = .dynamic
+        }
+
         window = UIWindow(frame: UIScreen.main.bounds)
         let viewController = DemoTableViewController()
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
 
-        UINavigationBar.appearance().barTintColor = .milk
+        UINavigationBar.appearance().barTintColor = .bgPrimary
         UINavigationBar.appearance().tintColor = .primaryBlue
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.bodyStrong, .foregroundColor: UIColor.licorice]
+        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.bodyStrong, .foregroundColor: UIColor.textPrimary]
         UIBarButtonItem.appearance().setTitleTextAttributes([.font: UIFont.body], for: .normal)
 
         return true

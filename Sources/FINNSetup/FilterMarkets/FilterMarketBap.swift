@@ -36,6 +36,7 @@ extension FilterMarketBap: FilterConfiguration {
             .map,
             .location,
             .price,
+            .christmas,
         ]
     }
 

@@ -45,7 +45,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .milk
+        view.backgroundColor = .bgPrimary
         setup()
 
         let gestureRecognizer = UIScreenEdgePanGestureRecognizer()

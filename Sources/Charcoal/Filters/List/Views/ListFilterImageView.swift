@@ -20,7 +20,7 @@ final class ListFilterImageView: UIView {
 
     private lazy var imageView: UIImageView = {
         let view = UIImageView(withAutoLayout: true)
-        view.backgroundColor = .milk
+        view.backgroundColor = .bgPrimary
         return view
     }()
 

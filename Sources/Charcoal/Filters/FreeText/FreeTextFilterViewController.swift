@@ -42,7 +42,7 @@ public class FreeTextFilterViewController: ScrollViewController {
         let searchBar = FreeTextFilterSearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
-        searchBar.backgroundColor = .milk
+        searchBar.backgroundColor = .bgPrimary
         searchBar.placeholder = filter.title
         searchBar.text = selectionStore.value(for: filter)
         searchBar.translatesAutoresizingMaskIntoConstraints = false

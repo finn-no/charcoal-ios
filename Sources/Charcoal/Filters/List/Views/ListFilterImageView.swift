@@ -44,7 +44,7 @@ final class ListFilterImageView: UIView {
     }
 
     private func setup() {
-        backgroundColor = .milk
+        backgroundColor = .bgPrimary
 
         addSubview(imageView)
         imageView.fillInSuperview()

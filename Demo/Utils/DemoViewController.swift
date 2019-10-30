@@ -7,7 +7,7 @@ import UIKit
 class DemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .bgPrimary
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tapGesture.numberOfTapsRequired = 2

@@ -184,7 +184,7 @@ final class MapFilterView: UIView {
     // MARK: - Setup
 
     private func setup() {
-        backgroundColor = .milk
+        backgroundColor = .bgPrimary
 
         addSubview(mapContainerView)
         addSubview(distanceSlider)

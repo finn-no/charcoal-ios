@@ -59,7 +59,7 @@ private extension SegmentButton {
         setTitle(title, for: .normal)
         setTitleColor(.licorice, for: .normal)
         setTitleColor(.milk, for: .selected)
-        backgroundColor = .milk
+        backgroundColor = .bgPrimary
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
 
         borderLayer.lineWidth = SegmentButton.borderWidth

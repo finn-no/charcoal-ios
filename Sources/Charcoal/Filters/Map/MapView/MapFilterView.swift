@@ -79,7 +79,7 @@ final class MapFilterView: UIView {
     private lazy var userLocationButton: UIButton = {
         let button = UIButton(withAutoLayout: true)
         button.backgroundColor = .bgPrimary
-        button.tintColor = .primaryBlue
+        button.tintColor = .btnPrimary
 
         button.layer.cornerRadius = MapFilterView.userLocationButtonWidth / 2
         button.layer.shadowColor = UIColor.black.cgColor

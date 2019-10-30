@@ -78,7 +78,7 @@ public class OnboardingViewController: UIViewController {
         let pageControl = UIPageControl(withAutoLayout: true)
         pageControl.numberOfPages = content.count
         pageControl.pageIndicatorTintColor = .sardine
-        pageControl.currentPageIndicatorTintColor = .primaryBlue
+        pageControl.currentPageIndicatorTintColor = .btnPrimary
         return pageControl
     }()
 

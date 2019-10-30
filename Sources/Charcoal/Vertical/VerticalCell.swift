@@ -77,7 +77,7 @@ final class VerticalCell: UITableViewCell {
         textLabel?.adjustsFontForContentSizeCategory = true
 
         detailTextLabel?.font = .detail
-        detailTextLabel?.textColor = .stone
+        detailTextLabel?.textColor = .textSecondary
         detailTextLabel?.adjustsFontForContentSizeCategory = true
 
         addSubview(radioButton)

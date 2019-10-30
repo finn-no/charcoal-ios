@@ -52,7 +52,7 @@ final class GridFilterCell: UICollectionViewCell {
             backgroundColor = .primaryBlue
             layer.borderColor = UIColor.primaryBlue.cgColor
             titleLabel.font = UIFont.bodyStrong(withSize: 20)
-            titleLabel.textColor = .milk
+            titleLabel.textColor = .textTertiary
         } else {
             backgroundColor = .milk
             layer.borderColor = UIColor.sardine.cgColor

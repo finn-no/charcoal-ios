@@ -63,7 +63,6 @@ private extension SegmentButton {
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
 
         borderLayer.lineWidth = SegmentButton.borderWidth
-        borderLayer.strokeColor = SegmentButton.borderColor.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor
         layer.addSublayer(borderLayer)
         layer.mask = maskLayer
@@ -116,6 +115,7 @@ private extension SegmentButton {
 
         maskLayer.path = maskPath
         borderLayer.path = borderPath
+        borderLayer.strokeColor = SegmentButton.borderColor.cgColor
     }
 
     func path(with size: CGSize, roundedEdge: Bool = false, transform: CGAffineTransform = .identity) -> CGPath {

@@ -105,6 +105,8 @@ final class RootFilterCell: BasicTableViewCell {
     }
 
     private func setup() {
+        backgroundColor = Theme.mainBackground
+
         titleLabel.font = .bodyRegular
         titleLabel.adjustsFontForContentSizeCategory = true
         titleLabel.textColor = .textPrimary

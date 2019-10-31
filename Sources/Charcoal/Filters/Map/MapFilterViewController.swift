@@ -88,7 +88,7 @@ final class MapFilterViewController: FilterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
-        view.backgroundColor = .bgPrimary
+        view.backgroundColor = Theme.mainBackground
 
         showBottomButton(true, animated: false)
         setup()

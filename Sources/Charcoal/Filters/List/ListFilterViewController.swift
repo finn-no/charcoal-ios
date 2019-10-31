@@ -19,6 +19,7 @@ final class ListFilterViewController: FilterViewController {
         tableView.removeLastCellSeparator()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = 48
+        tableView.backgroundColor = Theme.mainBackground
         return tableView
     }()
 

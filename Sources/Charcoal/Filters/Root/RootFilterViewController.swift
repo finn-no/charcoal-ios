@@ -39,6 +39,7 @@ final class RootFilterViewController: FilterViewController {
         tableView.register(RootFilterCell.self)
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = Theme.mainBackground
 
         if #available(iOS 11, *) {
             tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -65,7 +66,7 @@ final class RootFilterViewController: FilterViewController {
         return viewController
     }()
 
-    private lazy var loadingViewController = LoadingViewController(backgroundColor: .milk, presentationDelay: 0)
+    private lazy var loadingViewController = LoadingViewController(backgroundColor: Theme.mainBackground, presentationDelay: 0)
     private var loadingStartTimeInterval: TimeInterval?
 
     private var freeTextFilterViewController: FreeTextFilterViewController?

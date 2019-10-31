@@ -9,7 +9,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private lazy var overlayView: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        view.backgroundColor = Theme.mainBackground.withAlphaComponent(0.5)
         view.isHidden = true
         return view
     }()
@@ -71,6 +71,7 @@ final class ListFilterCell: CheckboxTableViewCell {
     func configure(with viewModel: ListFilterCellViewModel) {
         super.configure(with: viewModel)
 
+        backgroundColor = Theme.mainBackground
         selectionStyle = .none
 
         switch viewModel.accessoryStyle {

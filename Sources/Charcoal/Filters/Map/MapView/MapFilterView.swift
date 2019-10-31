@@ -78,7 +78,7 @@ final class MapFilterView: UIView {
 
     private lazy var userLocationButton: UIButton = {
         let button = UIButton(withAutoLayout: true)
-        button.backgroundColor = .bgPrimary
+        button.backgroundColor = Theme.mainBackground
         button.tintColor = .btnPrimary
 
         button.layer.cornerRadius = MapFilterView.userLocationButtonWidth / 2
@@ -184,7 +184,7 @@ final class MapFilterView: UIView {
     // MARK: - Setup
 
     private func setup() {
-        backgroundColor = .bgPrimary
+        backgroundColor = Theme.mainBackground
 
         addSubview(mapContainerView)
         addSubview(distanceSlider)

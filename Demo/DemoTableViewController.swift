@@ -65,6 +65,7 @@ extension DemoTableViewController: UITableViewDelegate {
         }
 
         currentRow = row
+        viewController.view.backgroundColor = Theme.mainBackground
         present(viewController, animated: true)
     }
 }

@@ -112,7 +112,7 @@ public final class CharcoalViewController: UINavigationController {
 
     private func setupNavigationBar() {
         navigationBar.isTranslucent = false
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.backgroundColor = Theme.mainBackground
         navigationBar.shadowImage = UIImage()
     }
 }

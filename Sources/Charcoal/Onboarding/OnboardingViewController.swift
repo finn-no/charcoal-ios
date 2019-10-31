@@ -91,7 +91,7 @@ public class OnboardingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isPagingEnabled = true
-        collectionView.backgroundColor = .bgPrimary
+        collectionView.backgroundColor = Theme.mainBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(OnboardingCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false

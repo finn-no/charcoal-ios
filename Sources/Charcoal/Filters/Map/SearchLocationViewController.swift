@@ -65,7 +65,7 @@ public class SearchLocationViewController: ScrollViewController {
         searchBar.placeholder = "map.search.placeholder".localized()
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
-        searchBar.backgroundColor = .bgPrimary
+        searchBar.backgroundColor = Theme.mainBackground
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.preservesSuperviewLayoutMargins = false
         return searchBar

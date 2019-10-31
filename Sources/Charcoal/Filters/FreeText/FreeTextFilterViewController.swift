@@ -260,7 +260,7 @@ private class FreeTextFilterSearchBar: UISearchBar {
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
         textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInSearch.defaultTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.licorice,
+            NSAttributedString.Key.foregroundColor: UIColor.textPrimary,
             NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 

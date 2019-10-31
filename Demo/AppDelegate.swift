@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import Charcoal
 import FinniversKit
 import HockeySDK
 import UIKit
@@ -28,11 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
 
-        UINavigationBar.appearance().barTintColor = .bgPrimary
-        UINavigationBar.appearance().tintColor = .primaryBlue
+        UINavigationBar.appearance().barTintColor = Theme.mainBackground
+        UINavigationBar.appearance().tintColor = .btnPrimary
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.bodyStrong, .foregroundColor: UIColor.textPrimary]
-        UIBarButtonItem.appearance().setTitleTextAttributes([.font: UIFont.body], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([.font: UIFont.body, .foregroundColor: UIColor.textPrimary], for: .normal)
 
         return true
     }

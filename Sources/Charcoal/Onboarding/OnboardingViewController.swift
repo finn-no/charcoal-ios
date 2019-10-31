@@ -223,8 +223,15 @@ private extension OnboardingViewController {
         style.alignment = .center
         style.minimumLineHeight = 22
 
-        let attrString = NSMutableAttributedString(string: text,
-                                                   attributes: [.font: UIFont.body, .foregroundColor: UIColor.licorice, .kern: 0.3, .paragraphStyle: style])
+        let attrString = NSMutableAttributedString(
+            string: text,
+            attributes: [
+                .font: UIFont.body,
+                .foregroundColor: UIColor.textPrimary,
+                .kern: 0.3,
+                .paragraphStyle: style,
+            ]
+        )
 
         let title = (key + ".title").localized()
         if let range = text.range(of: title) {

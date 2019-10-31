@@ -14,7 +14,7 @@ public class Theme {
             return UIColor { (traitCollection) -> UIColor in
                 switch traitCollection.userInterfaceStyle {
                 case .light: return .milk
-                default: return UIColor(red: 38 / 255.0, green: 38 / 255.0, blue: 51 / 255.0, alpha: 1.0)
+                default: return .darkIce
                 }
             }
         } else {

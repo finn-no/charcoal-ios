@@ -15,7 +15,7 @@ protocol SegmentButtonDelegate: AnyObject {
 }
 
 final class SegmentButton: UIButton {
-    static let borderColor: UIColor = .silver
+    static let borderColor: UIColor = .btnDisabled
     static let borderWidth: CGFloat = 1.5
 
     weak var delegate: SegmentButtonDelegate?
@@ -57,9 +57,9 @@ private extension SegmentButton {
         titleLabel?.adjustsFontForContentSizeCategory = true
 
         setTitle(title, for: .normal)
-        setTitleColor(.licorice, for: .normal)
-        setTitleColor(.milk, for: .selected)
-        backgroundColor = .bgPrimary
+        setTitleColor(.textPrimary, for: .normal)
+        setTitleColor(.textTertiary, for: .selected)
+        backgroundColor = Theme.mainBackground
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
 
         borderLayer.lineWidth = SegmentButton.borderWidth
@@ -70,7 +70,7 @@ private extension SegmentButton {
     }
 
     func updateSelected(_ selected: Bool) {
-        backgroundColor = selected ? selectedBackgroundColor : .milk
+        backgroundColor = selected ? selectedBackgroundColor : Theme.mainBackground
 
         if selected {
             borderLayer.removeFromSuperlayer()

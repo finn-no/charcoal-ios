@@ -115,7 +115,7 @@ public final class CharcoalViewController: UINavigationController {
         navigationBar.setBackgroundImage(UIImage(), for: .default)
 
         if #available(iOS 13.0, *) {
-            let appearance = UINavigationBarAppearance()
+            let appearance = UINavigationBar.appearance().standardAppearance.copy()
             appearance.configureWithTransparentBackground()
             appearance.backgroundColor = .bgPrimary
 

@@ -371,11 +371,18 @@ SWIFT_CLASS("_TtC12FinniversKit18BasicTableViewCell")
 @end
 
 
-SWIFT_CLASS("_TtC12FinniversKit16BottomShadowView")
-@interface BottomShadowView : UIView
+SWIFT_CLASS("_TtC12FinniversKit13TopShadowView")
+@interface TopShadowView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)layoutSubviews;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit16BottomShadowView")
+@interface BottomShadowView : TopShadowView
+- (void)layoutSubviews;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSBundle;
@@ -455,6 +462,22 @@ SWIFT_CLASS("_TtC12FinniversKit21CheckboxTableViewCell")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)prepareForReuse;
 @end
+
+
+SWIFT_CLASS("_TtC12FinniversKit21ChristmasWishListView")
+@interface ChristmasWishListView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+@end
+
+
+
+
+
+
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit14CogWheelButton")
@@ -687,6 +710,8 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+
 @class UISearchBar;
 
 @interface FavoriteAdsListView (SWIFT_EXTENSION(FinniversKit)) <UISearchBarDelegate>
@@ -749,13 +774,6 @@ SWIFT_CLASS("_TtC12FinniversKit32FavoriteFolderSelectableViewCell")
 @end
 
 
-SWIFT_CLASS("_TtC12FinniversKit22FavoriteFolderXmasView")
-@interface FavoriteFolderXmasView : UIView
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-@end
-
-
 SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 @interface FavoriteFoldersListView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -766,12 +784,18 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 
 
 
-
-
-
-
 @interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+
+
+
+@class UIGestureRecognizer;
+
+@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
+- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -876,6 +900,13 @@ SWIFT_CLASS("_TtC12FinniversKit14FloatingButton")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit16FooterButtonView")
+@interface FooterButtonView : TopShadowView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit13FrontPageView")
 @interface FrontPageView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -909,14 +940,11 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
-@class UIGestureRecognizer;
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
@@ -931,6 +959,8 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -1208,6 +1238,20 @@ SWIFT_CLASS("_TtC12FinniversKit22MessageFormBottomSheet")
 
 
 
+/// An attempt to create a generic pop-up like container to create views like the klimabrølet pop up
+SWIFT_CLASS("_TtC12FinniversKit16MissionPopupView")
+@interface MissionPopupView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+@interface MissionPopupView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
 
 @class NSLayoutConstraint;
 
@@ -1367,6 +1411,27 @@ SWIFT_CLASS("_TtC12FinniversKit9PopupView")
 @interface PopupView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit11PrimingView")
+@interface PrimingView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)layoutSubviews;
+@end
+
+
+
+
+@interface PrimingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+@interface PrimingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1579,6 +1644,13 @@ SWIFT_CLASS("_TtC12FinniversKit16SelectionboxItem")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit17SelectorTitleView")
+@interface SelectorTitleView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit12SettingsView")
 @interface SettingsView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -1762,11 +1834,14 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
-
 @interface UIColor (SWIFT_EXTENSION(FinniversKit))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+
+
 
 
 
@@ -2099,6 +2174,8 @@ SWIFT_CLASS("_TtC12FinniversKit31UserAdsListEmphasizedActionCell")
 
 
 
+
+
 SWIFT_CLASS("_TtC12FinniversKit21UserAdsListHeaderView")
 @interface UserAdsListHeaderView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -2122,8 +2199,6 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 
 
 
-
-
 @class UITableViewRowAction;
 
 @interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
@@ -2131,6 +2206,8 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 - (NSArray<UITableViewRowAction *> * _Nullable)tableView:(UITableView * _Nonnull)tableView editActionsForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 @interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
@@ -2167,6 +2244,18 @@ SWIFT_CLASS("_TtC12FinniversKit28UserAdsListViewSeeAllAdsCell")
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+SWIFT_CLASS("_TtC12FinniversKit17UserAdsRatingView")
+@interface UserAdsRatingView : UIView
+- (void)layoutSubviews;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit23VerificationActionSheet")
@@ -2569,11 +2658,18 @@ SWIFT_CLASS("_TtC12FinniversKit18BasicTableViewCell")
 @end
 
 
-SWIFT_CLASS("_TtC12FinniversKit16BottomShadowView")
-@interface BottomShadowView : UIView
+SWIFT_CLASS("_TtC12FinniversKit13TopShadowView")
+@interface TopShadowView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (void)layoutSubviews;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit16BottomShadowView")
+@interface BottomShadowView : TopShadowView
+- (void)layoutSubviews;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSBundle;
@@ -2653,6 +2749,22 @@ SWIFT_CLASS("_TtC12FinniversKit21CheckboxTableViewCell")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)prepareForReuse;
 @end
+
+
+SWIFT_CLASS("_TtC12FinniversKit21ChristmasWishListView")
+@interface ChristmasWishListView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+@end
+
+
+
+
+
+
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit14CogWheelButton")
@@ -2885,6 +2997,8 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+
 @class UISearchBar;
 
 @interface FavoriteAdsListView (SWIFT_EXTENSION(FinniversKit)) <UISearchBarDelegate>
@@ -2947,13 +3061,6 @@ SWIFT_CLASS("_TtC12FinniversKit32FavoriteFolderSelectableViewCell")
 @end
 
 
-SWIFT_CLASS("_TtC12FinniversKit22FavoriteFolderXmasView")
-@interface FavoriteFolderXmasView : UIView
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-@end
-
-
 SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 @interface FavoriteFoldersListView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -2964,12 +3071,18 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 
 
 
-
-
-
-
 @interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+
+
+
+@class UIGestureRecognizer;
+
+@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
+- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -3074,6 +3187,13 @@ SWIFT_CLASS("_TtC12FinniversKit14FloatingButton")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit16FooterButtonView")
+@interface FooterButtonView : TopShadowView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit13FrontPageView")
 @interface FrontPageView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -3107,14 +3227,11 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
-@class UIGestureRecognizer;
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
@@ -3129,6 +3246,8 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -3406,6 +3525,20 @@ SWIFT_CLASS("_TtC12FinniversKit22MessageFormBottomSheet")
 
 
 
+/// An attempt to create a generic pop-up like container to create views like the klimabrølet pop up
+SWIFT_CLASS("_TtC12FinniversKit16MissionPopupView")
+@interface MissionPopupView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+@interface MissionPopupView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
 
 @class NSLayoutConstraint;
 
@@ -3565,6 +3698,27 @@ SWIFT_CLASS("_TtC12FinniversKit9PopupView")
 @interface PopupView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit11PrimingView")
+@interface PrimingView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (void)layoutSubviews;
+@end
+
+
+
+
+@interface PrimingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+@interface PrimingView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -3777,6 +3931,13 @@ SWIFT_CLASS("_TtC12FinniversKit16SelectionboxItem")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit17SelectorTitleView")
+@interface SelectorTitleView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit12SettingsView")
 @interface SettingsView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
@@ -3960,11 +4121,14 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
-
 @interface UIColor (SWIFT_EXTENSION(FinniversKit))
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+
+
 
 
 
@@ -4297,6 +4461,8 @@ SWIFT_CLASS("_TtC12FinniversKit31UserAdsListEmphasizedActionCell")
 
 
 
+
+
 SWIFT_CLASS("_TtC12FinniversKit21UserAdsListHeaderView")
 @interface UserAdsListHeaderView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -4320,8 +4486,6 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 
 
 
-
-
 @class UITableViewRowAction;
 
 @interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
@@ -4329,6 +4493,8 @@ SWIFT_CLASS("_TtC12FinniversKit15UserAdsListView")
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 - (NSArray<UITableViewRowAction *> * _Nullable)tableView:(UITableView * _Nonnull)tableView editActionsForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 @interface UserAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
@@ -4365,6 +4531,18 @@ SWIFT_CLASS("_TtC12FinniversKit28UserAdsListViewSeeAllAdsCell")
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+SWIFT_CLASS("_TtC12FinniversKit17UserAdsRatingView")
+@interface UserAdsRatingView : UIView
+- (void)layoutSubviews;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit23VerificationActionSheet")

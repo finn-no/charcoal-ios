@@ -48,7 +48,7 @@ final class RootFilterCell: BasicTableViewCell {
 
     private lazy var hairLine: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .sardine
+        view.backgroundColor = .tableViewSeparator
         return view
     }()
 
@@ -105,9 +105,11 @@ final class RootFilterCell: BasicTableViewCell {
     }
 
     private func setup() {
+        backgroundColor = Theme.mainBackground
+
         titleLabel.font = .bodyRegular
         titleLabel.adjustsFontForContentSizeCategory = true
-        titleLabel.textColor = .licorice
+        titleLabel.textColor = .textPrimary
 
         setContextMarkBackground()
 

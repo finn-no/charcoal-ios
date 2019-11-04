@@ -16,7 +16,7 @@ final class DrawerPresentationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .milk
+        view.backgroundColor = Theme.mainBackground
 
         addChild(charcoalViewController)
         view.addSubview(charcoalViewController.view)

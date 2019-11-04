@@ -15,7 +15,7 @@ protocol SegmentButtonDelegate: AnyObject {
 }
 
 final class SegmentButton: UIButton {
-    static let borderColor: UIColor = .silver
+    static let borderColor: UIColor = .btnDisabled
     static let borderWidth: CGFloat = 1.5
 
     weak var delegate: SegmentButtonDelegate?
@@ -29,7 +29,7 @@ final class SegmentButton: UIButton {
 
     private var borderLayer = CAShapeLayer()
     private var maskLayer = CAShapeLayer()
-    private var selectedBackgroundColor: UIColor = .primaryBlue
+    private var selectedBackgroundColor: UIColor = .btnPrimary
 
     init(title: String) {
         super.init(frame: .zero)
@@ -57,20 +57,19 @@ private extension SegmentButton {
         titleLabel?.adjustsFontForContentSizeCategory = true
 
         setTitle(title, for: .normal)
-        setTitleColor(.licorice, for: .normal)
-        setTitleColor(.milk, for: .selected)
-        backgroundColor = .milk
+        setTitleColor(.textPrimary, for: .normal)
+        setTitleColor(.textTertiary, for: .selected)
+        backgroundColor = Theme.mainBackground
         contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
 
         borderLayer.lineWidth = SegmentButton.borderWidth
-        borderLayer.strokeColor = SegmentButton.borderColor.cgColor
         borderLayer.fillColor = UIColor.clear.cgColor
         layer.addSublayer(borderLayer)
         layer.mask = maskLayer
     }
 
     func updateSelected(_ selected: Bool) {
-        backgroundColor = selected ? selectedBackgroundColor : .milk
+        backgroundColor = selected ? selectedBackgroundColor : Theme.mainBackground
 
         if selected {
             borderLayer.removeFromSuperlayer()
@@ -116,6 +115,7 @@ private extension SegmentButton {
 
         maskLayer.path = maskPath
         borderLayer.path = borderPath
+        borderLayer.strokeColor = SegmentButton.borderColor.cgColor
     }
 
     func path(with size: CGSize, roundedEdge: Bool = false, transform: CGAffineTransform = .identity) -> CGPath {

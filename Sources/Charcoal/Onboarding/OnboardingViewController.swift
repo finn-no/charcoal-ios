@@ -78,7 +78,7 @@ public class OnboardingViewController: UIViewController {
         let pageControl = UIPageControl(withAutoLayout: true)
         pageControl.numberOfPages = content.count
         pageControl.pageIndicatorTintColor = .sardine
-        pageControl.currentPageIndicatorTintColor = .primaryBlue
+        pageControl.currentPageIndicatorTintColor = .btnPrimary
         return pageControl
     }()
 
@@ -91,7 +91,7 @@ public class OnboardingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isPagingEnabled = true
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Theme.mainBackground
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(OnboardingCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -223,8 +223,15 @@ private extension OnboardingViewController {
         style.alignment = .center
         style.minimumLineHeight = 22
 
-        let attrString = NSMutableAttributedString(string: text,
-                                                   attributes: [.font: UIFont.body, .foregroundColor: UIColor.licorice, .kern: 0.3, .paragraphStyle: style])
+        let attrString = NSMutableAttributedString(
+            string: text,
+            attributes: [
+                .font: UIFont.body,
+                .foregroundColor: UIColor.textPrimary,
+                .kern: 0.3,
+                .paragraphStyle: style,
+            ]
+        )
 
         let title = (key + ".title").localized()
         if let range = text.range(of: title) {

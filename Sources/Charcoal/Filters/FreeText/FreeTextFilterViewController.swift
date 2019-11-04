@@ -42,7 +42,7 @@ public class FreeTextFilterViewController: ScrollViewController {
         let searchBar = FreeTextFilterSearchBar(frame: .zero)
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
-        searchBar.backgroundColor = .milk
+        searchBar.backgroundColor = Theme.mainBackground
         searchBar.placeholder = filter.title
         searchBar.text = selectionStore.value(for: filter)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -260,7 +260,7 @@ private class FreeTextFilterSearchBar: UISearchBar {
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
         textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInSearch.defaultTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.licorice,
+            NSAttributedString.Key.foregroundColor: UIColor.textPrimary,
             NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 

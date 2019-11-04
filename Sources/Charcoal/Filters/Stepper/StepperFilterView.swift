@@ -26,14 +26,14 @@ final class StepperFilterView: UIControl {
         label.text = "\(value)+ \(unit)"
         label.font = .title2
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .licorice
+        label.textColor = .textPrimary
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let activeColor = UIColor.primaryBlue
-    private let deactiveColor = UIColor.primaryBlue.withAlphaComponent(0.2)
+    private let activeColor = UIColor.btnPrimary
+    private let deactiveColor = UIColor.btnPrimary.withAlphaComponent(0.2)
 
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)

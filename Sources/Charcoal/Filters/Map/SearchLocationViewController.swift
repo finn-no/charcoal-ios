@@ -65,7 +65,7 @@ public class SearchLocationViewController: ScrollViewController {
         searchBar.placeholder = "map.search.placeholder".localized()
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
-        searchBar.backgroundColor = .milk
+        searchBar.backgroundColor = Theme.mainBackground
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.preservesSuperviewLayoutMargins = false
         return searchBar
@@ -306,7 +306,7 @@ private class SearchLocationSearchBar: UISearchBar {
     private static let setupSearchBarAppereanceOnce: () = {
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [SearchLocationSearchBar.self])
         textFieldAppearanceInSearch.defaultTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.licorice,
+            NSAttributedString.Key.foregroundColor: UIColor.textPrimary,
             NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 

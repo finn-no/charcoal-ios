@@ -1,9 +1,19 @@
 {
-  "commitish" : "880b83ff74aaa7cb649234ffdefd2ee607a524f3",
+  "Mac" : [
+
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "commitish" : "1b18f05e26d638f8dc551ad42c9bba4323d08540",
   "iOS" : [
     {
       "name" : "FinniversKit",
-      "hash" : "4d89b3f1e85b8c8c379748b6275b99dadd47a8b1a0b714e01bc19a2980ff2a02"
+      "hash" : "9d566c3f0b8cfd921cf052c23406805ab6cb5947b0e20222b3deb54f6aefec50",
+      "swiftToolchainVersion" : "5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)"
     }
   ]
 }

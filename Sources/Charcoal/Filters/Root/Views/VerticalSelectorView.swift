@@ -43,10 +43,10 @@ final class VerticalSelectorView: UIView {
         button.titleLabel?.font = UIFont.bodyStrong(withSize: 17, textStyle: .footnote)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
 
-        button.setTitleColor(.primaryBlue, for: .normal)
+        button.setTitleColor(.btnPrimary, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)
-        button.setTitleColor(UIColor.primaryBlue.withAlphaComponent(0.5), for: .disabled)
+        button.setTitleColor(UIColor.btnPrimary.withAlphaComponent(0.5), for: .disabled)
 
         let spacing = .smallSpacing / 2
 

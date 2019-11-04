@@ -16,6 +16,10 @@ extension UIColor {
     class var chevron: UIColor {
         return UIColor(red: 199 / 255, green: 199 / 255, blue: 204 / 255, alpha: 1.0)
     }
+
+    class var darkIce: UIColor {
+        return UIColor(red: 38 / 255, green: 38 / 255, blue: 51 / 255, alpha: 1.0)
+    }
 }
 
 extension CGColor {

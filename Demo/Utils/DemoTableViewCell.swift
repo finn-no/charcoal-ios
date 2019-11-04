@@ -11,7 +11,7 @@ class DemoTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         textLabel?.font = .title3
-        textLabel?.textColor = .milk
+        textLabel?.textColor = .textPrimary
         backgroundColor = .clear
 
         let view = UIView(frame: .zero)
@@ -31,7 +31,7 @@ class DemoTableViewCell: UITableViewCell {
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        selectedBackgroundView?.backgroundColor = UIColor(white: 1.0, alpha: 0.15)
+        selectedBackgroundView?.backgroundColor = UIColor.bgSecondary
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

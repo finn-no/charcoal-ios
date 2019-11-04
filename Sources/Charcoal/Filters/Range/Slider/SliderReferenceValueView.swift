@@ -25,7 +25,7 @@ final class SliderReferenceValueView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.caption.withSize(12).scaledFont(forTextStyle: .footnote)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .licorice
+        label.textColor = .textPrimary
         label.textAlignment = .center
         label.text = displayText
         label.isAccessibilityElement = false

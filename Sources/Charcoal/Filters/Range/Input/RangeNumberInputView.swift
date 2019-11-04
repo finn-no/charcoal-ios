@@ -46,7 +46,7 @@ final class RangeNumberInputView: UIView {
     private lazy var inputSeparatorView: UILabel = {
         let label = UILabel(withAutoLayout: true)
         label.text = "-"
-        label.textColor = .licorice
+        label.textColor = .textPrimary
         label.font = UIFont.body(withSize: fontSize.rawValue)
         label.adjustsFontForContentSizeCategory = true
         label.isAccessibilityElement = false

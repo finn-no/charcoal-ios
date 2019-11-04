@@ -86,6 +86,7 @@
 		9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */; };
 		9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */; };
+		9BABD26B236AE54100860EB5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BABD26A236AE54100860EB5 /* Theme.swift */; };
 		9BB8279A216B57730014028C /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB82799216B57730014028C /* DebugLog.swift */; };
 		9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */; };
 		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
@@ -366,6 +367,7 @@
 		9B741D1921B6990800D18097 /* ValueSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderView.swift; sourceTree = "<group>"; };
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
 		9B9C16FC209AF65E007BCBBC /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		9BABD26A236AE54100860EB5 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9BB82799216B57730014028C /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfiguration.swift; sourceTree = "<group>"; };
 		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -954,6 +956,7 @@
 				44ECE698208F80320017AC82 /* Charcoal.swift */,
 				DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */,
 				DA3EA340228983AC00B05E92 /* ScrollViewController.swift */,
+				9BABD26A236AE54100860EB5 /* Theme.swift */,
 				9BE0A04D2091C12A0000632B /* Extensions */,
 				CF4C8703221AE0F000DFAF2A /* Filters */,
 				CF4C8704221AE34B00DFAF2A /* Loading */,
@@ -961,8 +964,8 @@
 				DA39FA10220B17DB00608AC4 /* Models */,
 				DAE56E7D223A6BCD00F9B9E3 /* Onboarding */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
-				DA3EA33F22896B9200B05E92 /* Shadows */,
 				CF4C8705221AE49F00DFAF2A /* Selection */,
+				DA3EA33F22896B9200B05E92 /* Shadows */,
 				46905238217F5CB500F8E7FD /* Vertical */,
 			);
 			path = Charcoal;
@@ -1657,6 +1660,7 @@
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
 				CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */,
+				9BABD26B236AE54100860EB5 /* Theme.swift in Sources */,
 				CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,

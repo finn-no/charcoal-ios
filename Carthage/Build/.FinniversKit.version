@@ -12,8 +12,7 @@
   "iOS" : [
     {
       "name" : "FinniversKit",
-      "hash" : "9d566c3f0b8cfd921cf052c23406805ab6cb5947b0e20222b3deb54f6aefec50",
-      "swiftToolchainVersion" : "5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)"
+      "hash" : "e912916d2061d176f6205d20e7fa1311b93536a88314de9bb4c61f68a8eeafb1"
     }
   ]
 }

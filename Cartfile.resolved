@@ -1,2 +1,2 @@
-github "bitstadium/HockeySDK-iOS" "5.1.4"
 github "finn-no/FinniversKit" "1b18f05e26d638f8dc551ad42c9bba4323d08540"
+github "microsoft/appcenter-sdk-apple" "2.5.0"

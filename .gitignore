@@ -34,10 +34,8 @@ DerivedData
 
 Carthage/Checkouts/*
 Carthage/Build/watchOS/*
-Carthage/Build/tvOS/FilterKit.framework*
-Carthage/Build/Mac/FilterKit.framework*
-Carthage/Build/iOS/FilterKit.framework*
-FilterKit.framework.zip
+Carthage/Build/tvOS/*
+Carthage/Build/Mac/*
 
 # fastlane
 fastlane/report.xml
@@ -45,8 +43,11 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 .env
+*.dSYM.zip
 
 # Bundler
 bin/
 bundler/
 
+# Large unneeded AppCenter frameworks
+Carthage/Build/iOS/AppCenterAuth.framework

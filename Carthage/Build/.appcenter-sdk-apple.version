@@ -1,0 +1,68 @@
+{
+  "Mac" : [
+    {
+      "name" : "AppCenterPush",
+      "hash" : "70ab03c4d5f5173bc98a80382faa2cff63e275811cd0f4f7d137de39958ff631"
+    },
+    {
+      "name" : "AppCenterAnalytics",
+      "hash" : "3e3609f417fd6c3d9d4ce5aa649d9456fc04ab2fc72db0a2ba49ac2849073c60"
+    },
+    {
+      "name" : "AppCenterCrashes",
+      "hash" : "dea46ac93efb14d967dc4cd6cc8ff2f089c442aa15edbb7cd0606ab7be047c25"
+    },
+    {
+      "name" : "AppCenter",
+      "hash" : "9784b3357e6f80308eac5ff84a94a039a11806afe4928d9c1b38843c545563db"
+    }
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+    {
+      "name" : "AppCenterAnalytics",
+      "hash" : "bfb47521f34865940faaba9c2b4a5244dac85ca733fde18fb7f2454207ffd6a8"
+    },
+    {
+      "name" : "AppCenterCrashes",
+      "hash" : "fbd017030bcd1e0070a8eccec0f3f814b928716374498d9f9d1606f1b4416096"
+    },
+    {
+      "name" : "AppCenter",
+      "hash" : "d449d8228820ba6b5c08471eb326b584c73bda2ebb831e7c8f743098a8627986"
+    }
+  ],
+  "commitish" : "2.5.0",
+  "iOS" : [
+    {
+      "name" : "AppCenterPush",
+      "hash" : "67ce5d20e734a4128339fe3aaa158f0d09a7dd2c190a92bf5b891099bd07a515"
+    },
+    {
+      "name" : "AppCenterAnalytics",
+      "hash" : "7c275278dc23b379be8422865a1e90e04dc80521d9858a6504defbae287f2925"
+    },
+    {
+      "name" : "AppCenterDistribute",
+      "hash" : "dda9344fc8874c494ddc30fde74526f3c500ca45451bb6aadf631b374817cc84"
+    },
+    {
+      "name" : "AppCenterData",
+      "hash" : "d077b230a186858907d63cecfe82569c56833397f9c617468a6ea1aaa0b45c13"
+    },
+    {
+      "name" : "AppCenterCrashes",
+      "hash" : "0ea7bbdcc08bfdd8b99df9ddcb61af634fea82679c5c654b2dcf9b3e5d259f81"
+    },
+    {
+      "name" : "AppCenter",
+      "hash" : "3fd90f06c6327266ac6d7f7c8daa5f712fd7b5d4ca85ad190b061f6f6681c65c"
+    },
+    {
+      "name" : "AppCenterAuth",
+      "hash" : "d0accf097f5f910fdb35f392af95bf00f919fd345deebc842508f59c3df8df7f"
+    }
+  ]
+}

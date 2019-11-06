@@ -215,10 +215,7 @@ extension MapFilterViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if hasRequestedLocationAuthorization {
-            centerOnUserLocation()
-            hasRequestedLocationAuthorization = false
-        }
+        mapFilterView.centerOnInitialCoordinate()
     }
 }
 

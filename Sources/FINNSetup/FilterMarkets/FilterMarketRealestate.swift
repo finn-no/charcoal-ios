@@ -185,18 +185,18 @@ extension FilterMarketRealestate: FilterConfiguration {
             case .leisureSale:
                 minimumValue = 200_000
                 maximumValue = 15_000_000
-                increment = 50000
+                increment = 100_000
             case .leisureSaleAbroad:
                 minimumValue = 400_000
                 maximumValue = 10_000_000
                 increment = 100_000
             case .letting:
                 minimumValue = 1000
-                maximumValue = 15000
-                increment = 100
+                maximumValue = 20000
+                increment = 500
             case .lettingWanted:
                 minimumValue = 4000
-                maximumValue = 15000
+                maximumValue = 20000
                 increment = 500
             case .businessSale:
                 minimumValue = 500_000
@@ -204,8 +204,8 @@ extension FilterMarketRealestate: FilterConfiguration {
                 increment = 100_000
             default:
                 minimumValue = 1_000_000
-                maximumValue = 10_000_000
-                increment = 50000
+                maximumValue = 15_000_000
+                increment = 100_000
             }
 
             return .configuration(

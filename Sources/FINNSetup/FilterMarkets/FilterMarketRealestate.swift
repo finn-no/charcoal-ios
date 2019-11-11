@@ -192,8 +192,8 @@ extension FilterMarketRealestate: FilterConfiguration {
                 increment = 100_000
             case .letting:
                 minimumValue = 1000
-                increment = 100
                 maximumValue = 20000
+                increment = 500
             case .lettingWanted:
                 minimumValue = 4000
                 maximumValue = 20000

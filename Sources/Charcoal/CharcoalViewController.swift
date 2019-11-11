@@ -112,8 +112,19 @@ public final class CharcoalViewController: UINavigationController {
 
     private func setupNavigationBar() {
         navigationBar.isTranslucent = false
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
+        navigationBar.backgroundColor = Theme.mainBackground
+
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBar.appearance().standardAppearance.copy()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = Theme.mainBackground
+
+            navigationBar.standardAppearance = appearance
+            navigationBar.compactAppearance = appearance
+            navigationBar.scrollEdgeAppearance = appearance
+        } else {
+            navigationBar.shadowImage = UIImage()
+        }
     }
 }
 

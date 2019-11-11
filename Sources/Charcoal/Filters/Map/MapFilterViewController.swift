@@ -32,7 +32,6 @@ final class MapFilterViewController: FilterViewController {
     private let locationNameFilter: Filter
     private let locationManager = CLLocationManager()
     private var nextRegionChangeIsFromUserInteraction = false
-    private var hasRequestedLocationAuthorization = false
     private var hasChanges = false
     private var isMapLoaded = false
 
@@ -88,7 +87,7 @@ final class MapFilterViewController: FilterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
-        view.backgroundColor = .milk
+        view.backgroundColor = Theme.mainBackground
 
         showBottomButton(true, animated: false)
         setup()
@@ -133,7 +132,6 @@ final class MapFilterViewController: FilterViewController {
 
     private func attemptToActivateUserLocationSupport() {
         if CLLocationManager.locationServicesEnabled(), CLLocationManager.authorizationStatus() == .notDetermined {
-            hasRequestedLocationAuthorization = true
             locationManager.requestWhenInUseAuthorization()
         } else {
             // Not authorized
@@ -215,10 +213,7 @@ extension MapFilterViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if hasRequestedLocationAuthorization {
-            centerOnUserLocation()
-            hasRequestedLocationAuthorization = false
-        }
+        mapFilterView.centerOnInitialCoordinate()
     }
 }
 

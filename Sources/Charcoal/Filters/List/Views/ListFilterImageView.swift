@@ -20,7 +20,7 @@ final class ListFilterImageView: UIView {
 
     private lazy var imageView: UIImageView = {
         let view = UIImageView(withAutoLayout: true)
-        view.backgroundColor = .milk
+        view.backgroundColor = Theme.mainBackground
         return view
     }()
 
@@ -44,7 +44,7 @@ final class ListFilterImageView: UIView {
     }
 
     private func setup() {
-        backgroundColor = .milk
+        backgroundColor = Theme.mainBackground
 
         addSubview(imageView)
         imageView.fillInSuperview()

@@ -15,7 +15,7 @@ class MapFilterDemoViewController: DemoViewController {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.placeholder = "Søk etter sted eller adresse"
         searchBar.searchBarStyle = .minimal
-        searchBar.backgroundColor = .white
+        searchBar.backgroundColor = Theme.mainBackground
         view.searchBar = searchBar
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -25,7 +25,7 @@ class MapFilterDemoViewController: DemoViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Theme.mainBackground
         view.addSubview(mapView)
 
         NSLayoutConstraint.activate([

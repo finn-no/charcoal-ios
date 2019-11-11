@@ -12,7 +12,7 @@ protocol RootFilterCellDelegate: AnyObject {
 final class RootFilterCell: BasicTableViewCell {
     weak var delegate: RootFilterCellDelegate?
 
-    var isEnabled = true {
+    override var isEnabled: Bool {
         didSet {
             isUserInteractionEnabled = isEnabled
             accessoryType = isEnabled ? .disclosureIndicator : .none
@@ -48,7 +48,7 @@ final class RootFilterCell: BasicTableViewCell {
 
     private lazy var hairLine: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .sardine
+        view.backgroundColor = .tableViewSeparator
         return view
     }()
 
@@ -105,9 +105,11 @@ final class RootFilterCell: BasicTableViewCell {
     }
 
     private func setup() {
+        backgroundColor = Theme.mainBackground
+
         titleLabel.font = .bodyRegular
         titleLabel.adjustsFontForContentSizeCategory = true
-        titleLabel.textColor = .licorice
+        titleLabel.textColor = .textPrimary
 
         setContextMarkBackground()
 
@@ -119,6 +121,11 @@ final class RootFilterCell: BasicTableViewCell {
         stackViewTopAnchorConstraint.constant = .mediumLargeSpacing
         stackViewBottomAnchorConstraint.constant = -.mediumLargeSpacing
 
+        var selectionTagsContainerTrailingConstant: CGFloat = .smallSpacing
+        if #available(iOS 13, *) {
+            selectionTagsContainerTrailingConstant -= .mediumSpacing
+        }
+
         NSLayoutConstraint.activate([
             contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
             contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -127,7 +134,7 @@ final class RootFilterCell: BasicTableViewCell {
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),
-            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: .smallSpacing),
+            selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: selectionTagsContainerTrailingConstant),
 
             hairLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             hairLine.bottomAnchor.constraint(equalTo: bottomAnchor),

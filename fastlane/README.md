@@ -35,7 +35,7 @@ Cleans any fastlane build artifacts
 ```
 fastlane ios beta
 ```
-Submit a new Beta Build to HockeyApp
+Submit a new Beta Build to AppCenter
 
 ----
 

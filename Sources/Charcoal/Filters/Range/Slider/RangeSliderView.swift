@@ -220,9 +220,9 @@ extension RangeSliderView: StepSliderDelegate {
 
     func stepSlider(_ stepSlider: StepSlider, canChangeToStep step: Step) -> Bool {
         if stepSlider == highValueSlider {
-            return step >= lowValueSlider.step
+            return step != .lowerBound && step >= lowValueSlider.step
         } else if stepSlider == lowValueSlider {
-            return step <= highValueSlider.step
+            return step != .upperBound && step <= highValueSlider.step
         } else {
             return true
         }

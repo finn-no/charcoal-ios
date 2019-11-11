@@ -35,8 +35,9 @@ _Charcoal_ /ˈtʃɑːkəʊl/: _a porous black solid, consisting of an amorphous 
 **Making a new Demo release**
 1. Update Demo/CHANGELOG.md
 2. Update version for Demo target in Xcode
-3. Run `sh Scripts/version.sh` to update build number
-4. Run `fastlane` and follow instructions
+3. Install fastlane with bundler if it is not already there. Run `bundle install`.
+4. Run `sh Scripts/version.sh` to update build number
+5. Run `bundle exec fastlane` and follow instructions
 
 ## Installation
 

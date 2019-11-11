@@ -259,8 +259,8 @@ extension NumberInputView: UITextFieldDelegate {
 // MARK: - Styles
 
 private struct Style {
-    static let textColor: UIColor = .licorice
-    static let errorTextColor: UIColor = .cherry
+    static let textColor: UIColor = .textPrimary
+    static let errorTextColor: UIColor = .textCritical
     static let hintNormalFont: UIFont = .body
     static let hintActiveFont: UIFont = .bodyStrong
     static let decorationViewColor: UIColor = .stone

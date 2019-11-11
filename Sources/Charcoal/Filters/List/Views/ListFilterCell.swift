@@ -9,7 +9,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private lazy var overlayView: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        view.backgroundColor = Theme.mainBackground.withAlphaComponent(0.5)
         view.isHidden = true
         return view
     }()
@@ -66,16 +66,12 @@ final class ListFilterCell: CheckboxTableViewCell {
         selectedBackgroundView?.layer.add(animation, forKey: nil)
     }
 
-    private func showSelectedBackground(_ show: Bool) {
-        selectedBackgroundView?.layer.removeAllAnimations()
-        selectedBackgroundView?.alpha = show ? 1 : 0
-    }
-
     // MARK: - Setup
 
     func configure(with viewModel: ListFilterCellViewModel) {
         super.configure(with: viewModel)
 
+        backgroundColor = Theme.mainBackground
         selectionStyle = .none
 
         switch viewModel.accessoryStyle {
@@ -88,6 +84,8 @@ final class ListFilterCell: CheckboxTableViewCell {
         case .chevron:
             break
         }
+
+        detailLabelTrailingConstraint.constant = detailLabelConstraint(constantFor: viewModel.accessoryStyle)
 
         switch viewModel.checkboxStyle {
         case .selectedBordered:
@@ -137,6 +135,8 @@ final class ListFilterCell: CheckboxTableViewCell {
         ])
     }
 
+    // MARK: - Private methods
+
     private func updateAccessibilityLabel(isSelected: Bool) {
         let accessibilityLabels = [
             isSelected ? "selected".localized() : nil,
@@ -146,5 +146,15 @@ final class ListFilterCell: CheckboxTableViewCell {
         ]
 
         accessibilityLabel = accessibilityLabels.compactMap { $0 }.joined(separator: ", ")
+    }
+
+    private func detailLabelConstraint(constantFor accessoryStyle: ListFilterCellViewModel.AccessoryStyle) -> CGFloat {
+        guard #available(iOS 13, *), accessoryStyle == .chevron else { return 0 }
+        return -.mediumSpacing
+    }
+
+    private func showSelectedBackground(_ show: Bool) {
+        selectedBackgroundView?.layer.removeAllAnimations()
+        selectedBackgroundView?.alpha = show ? 1 : 0
     }
 }

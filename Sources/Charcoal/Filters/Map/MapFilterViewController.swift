@@ -31,6 +31,7 @@ final class MapFilterViewController: FilterViewController {
     private let radiusFilter: Filter
     private let locationNameFilter: Filter
     private let locationManager = CLLocationManager()
+    private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
@@ -132,6 +133,7 @@ final class MapFilterViewController: FilterViewController {
 
     private func attemptToActivateUserLocationSupport() {
         if CLLocationManager.locationServicesEnabled(), CLLocationManager.authorizationStatus() == .notDetermined {
+            hasRequestedLocationAuthorization = true
             locationManager.requestWhenInUseAuthorization()
         } else {
             // Not authorized
@@ -213,7 +215,10 @@ extension MapFilterViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        mapFilterView.centerOnInitialCoordinate()
+        if hasRequestedLocationAuthorization {
+            mapFilterView.centerOnInitialCoordinate()
+            hasRequestedLocationAuthorization = false
+        }
     }
 }
 

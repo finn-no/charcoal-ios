@@ -1,20 +1,20 @@
 {
   "Mac" : [
     {
-      "name" : "AppCenterPush",
-      "hash" : "70ab03c4d5f5173bc98a80382faa2cff63e275811cd0f4f7d137de39958ff631"
-    },
-    {
       "name" : "AppCenterAnalytics",
-      "hash" : "3e3609f417fd6c3d9d4ce5aa649d9456fc04ab2fc72db0a2ba49ac2849073c60"
-    },
-    {
-      "name" : "AppCenterCrashes",
-      "hash" : "dea46ac93efb14d967dc4cd6cc8ff2f089c442aa15edbb7cd0606ab7be047c25"
+      "hash" : "df6b4ef0ac630a413c21f9a16f209185ae0b29e3a68d31d4ef724a6be88f2b4e"
     },
     {
       "name" : "AppCenter",
-      "hash" : "9784b3357e6f80308eac5ff84a94a039a11806afe4928d9c1b38843c545563db"
+      "hash" : "ecf969b2c231ab4b88a8d09a2ae674e8cc6644510678bfd35116133a5034af8d"
+    },
+    {
+      "name" : "AppCenterCrashes",
+      "hash" : "dc35c877d490822a05888ee436b3fe1a844cc869dad642f50732b17b1bfbd461"
+    },
+    {
+      "name" : "AppCenterPush",
+      "hash" : "24ba82f0785abde27fd556c61041520c6defbf59d9905bab5ce01c3e119f4aea"
     }
   ],
   "watchOS" : [
@@ -23,46 +23,46 @@
   "tvOS" : [
     {
       "name" : "AppCenterAnalytics",
-      "hash" : "bfb47521f34865940faaba9c2b4a5244dac85ca733fde18fb7f2454207ffd6a8"
+      "hash" : "c0fefc8084b59bb32472751fef117a4a4ef24c68356d2700959ac07f8767ba3e"
     },
     {
       "name" : "AppCenterCrashes",
-      "hash" : "fbd017030bcd1e0070a8eccec0f3f814b928716374498d9f9d1606f1b4416096"
+      "hash" : "99b2c243079f0a98c22af8249c3d62ae360270f175a69c149ad05fd98d5bc5e8"
     },
     {
       "name" : "AppCenter",
-      "hash" : "d449d8228820ba6b5c08471eb326b584c73bda2ebb831e7c8f743098a8627986"
+      "hash" : "9c4ce527dcf2302bac503894810eb8e232877568cc19a948d7ec62165e3fdbdd"
     }
   ],
-  "commitish" : "2.5.0",
+  "commitish" : "2.5.1",
   "iOS" : [
     {
       "name" : "AppCenterPush",
-      "hash" : "67ce5d20e734a4128339fe3aaa158f0d09a7dd2c190a92bf5b891099bd07a515"
+      "hash" : "63f658c847eda15800154e5a28536d2286b67bf4b4a8827b36c4dff1d90cbe66"
     },
     {
       "name" : "AppCenterAnalytics",
-      "hash" : "7c275278dc23b379be8422865a1e90e04dc80521d9858a6504defbae287f2925"
+      "hash" : "9b069eb7c420e5a9191cc06f250717d78fa647b64f8618b7ac2bc81efa2a1a14"
     },
     {
       "name" : "AppCenterDistribute",
-      "hash" : "dda9344fc8874c494ddc30fde74526f3c500ca45451bb6aadf631b374817cc84"
+      "hash" : "3f6011328bff941d65367f55bd8d08297b9785467e058a4c1433b8870f2499a5"
     },
     {
       "name" : "AppCenterData",
-      "hash" : "d077b230a186858907d63cecfe82569c56833397f9c617468a6ea1aaa0b45c13"
+      "hash" : "4dee666b6693262df159acd7d083fabd298c09d652f04c9ac88a89b8935334e9"
     },
     {
       "name" : "AppCenterCrashes",
-      "hash" : "0ea7bbdcc08bfdd8b99df9ddcb61af634fea82679c5c654b2dcf9b3e5d259f81"
+      "hash" : "a5c070509db68d4ce95b0920e431a4fbf239cc597b39e6dd5012362ed928ac0e"
     },
     {
       "name" : "AppCenter",
-      "hash" : "3fd90f06c6327266ac6d7f7c8daa5f712fd7b5d4ca85ad190b061f6f6681c65c"
+      "hash" : "63910ec536a644e91e79b3700ee06b34d9fed2cf2257936097625db50a2c87fc"
     },
     {
       "name" : "AppCenterAuth",
-      "hash" : "d0accf097f5f910fdb35f392af95bf00f919fd345deebc842508f59c3df8df7f"
+      "hash" : "c6407913cc2272c991bdd7b3231c6d7c3c87610cead503492326e1c9b35a2c86"
     }
   ]
 }

@@ -108,6 +108,7 @@ GEM
     naturally (2.2.0)
     os (1.0.1)
     plist (3.5.0)
+    pr_changelog (0.4.0)
     public_suffix (2.0.5)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -156,6 +157,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane (= 2.133.0)
   fastlane-plugin-appcenter
+  pr_changelog (~> 0.4.0)
 
 BUNDLED WITH
    2.0.2

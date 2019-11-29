@@ -144,6 +144,24 @@ let selection = Set([
 viewController.set(selection: selection)
 ```
 
+## Changelogs
+
+This project has a `Gemfile` that specify some development dependencies, one of those is `pr_changelog` which is a tool that helps you to generate changelogs from the Git history of the repo. You install this by running `bundle install`.
+
+To get the changes that have not been released yet just run:
+
+```
+$ pr_changelog
+```
+
+If you want to see what changes were released in the last version, run:
+
+```
+$ pr_changelog --last-release
+```
+
+You can always run the command with the `--help` flag when needed.
+
 ## Dependencies
 
 Some of the UI elements in **Charcoal** are taken from [FinniversKit](https://github.com/finn-no/FinniversKit),

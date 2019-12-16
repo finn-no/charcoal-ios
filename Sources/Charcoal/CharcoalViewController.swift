@@ -43,8 +43,6 @@ public final class CharcoalViewController: UINavigationController {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
     }
 
-    public var canShowRegionReformCallout = false
-
     // MARK: - Private properties
 
     private var selectionHasChanged = false

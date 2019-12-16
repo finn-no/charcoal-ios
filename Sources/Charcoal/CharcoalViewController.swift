@@ -75,7 +75,7 @@ public final class CharcoalViewController: UINavigationController {
 
         if let text = filterContainer?.regionReformCalloutText, !userDefaults.regionReformCalloutShown {
             showCalloutOverlay(withText: text, andDirection: .down, constrainedToTopAnchor: navigationBar.bottomAnchor)
-            // TODO: userDefaults.regionReformCalloutShown = true
+            userDefaults.regionReformCalloutShown = true
         }
     }
 

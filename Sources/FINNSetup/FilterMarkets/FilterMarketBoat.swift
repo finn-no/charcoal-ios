@@ -95,10 +95,6 @@ extension FilterMarketBoat: FilterConfiguration {
         return [.location, .map]
     }
 
-    public var verticalsCalloutText: String? {
-        return "callout.boat".localized()
-    }
-
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

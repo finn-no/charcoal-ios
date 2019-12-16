@@ -8,7 +8,7 @@ public class FilterContainer {
     // MARK: - Public properties
 
     public var verticals: [Vertical]?
-    public var verticalsCalloutText: String?
+    public var locationChangesCalloutText: String?
 
     // MARK: - Internal properties
 

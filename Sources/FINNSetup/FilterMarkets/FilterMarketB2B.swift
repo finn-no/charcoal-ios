@@ -104,10 +104,6 @@ extension FilterMarketB2B: FilterConfiguration {
         return [.location, .map]
     }
 
-    public var verticalsCalloutText: String? {
-        return "callout.b2b".localized()
-    }
-
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

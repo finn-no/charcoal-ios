@@ -9,7 +9,6 @@ public protocol FilterConfiguration {
     var rootLevelFilterKeys: [FilterKey] { get }
     var contextFilterKeys: Set<FilterKey> { get }
     var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
-    var locationChangesCalloutText: String? { get }
 
     func handlesVerticalId(_ vertical: String) -> Bool
     func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration?
@@ -23,9 +22,5 @@ public extension FilterConfiguration {
         }
 
         return mutuallyExclusiveFilterKeys.filter { $0 != key }
-    }
-
-    var locationChangesCalloutText: String? {
-        return "callout.locationChanges".localized()
     }
 }

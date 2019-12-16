@@ -87,5 +87,3 @@
 
 "alert.reset.message" = "Er du sikker på at du vil nullstille\nog fjerne alle dine filtervalg?";
 "alert.action.reset" = "Nullstill filteret";
-
-"callout.locationChanges" = "Obs! Vi har oppdatert områdevalg til å passe til de nye kommunene i Norge";

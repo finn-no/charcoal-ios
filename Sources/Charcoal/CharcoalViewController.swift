@@ -43,6 +43,8 @@ public final class CharcoalViewController: UINavigationController {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
     }
 
+    public var canShowRegionReformCallout = false
+
     // MARK: - Private properties
 
     private var selectionHasChanged = false
@@ -71,9 +73,9 @@ public final class CharcoalViewController: UINavigationController {
 
         let userDefaults = UserDefaults.standard
 
-        if let text = filterContainer?.locationChangesCalloutText, !userDefaults.locationChangesCalloutShown {
+        if let text = filterContainer?.regionReformCalloutText, !userDefaults.regionReformCalloutShown {
             showCalloutOverlay(withText: text, andDirection: .down, constrainedToTopAnchor: navigationBar.bottomAnchor)
-            // TODO: userDefaults.locationChangesCalloutShown = true
+            // TODO: userDefaults.regionReformCalloutShown = true
         }
     }
 
@@ -333,7 +335,7 @@ extension CharcoalViewController: CalloutOverlayDelegate {
 // MARK: - UserDefaults
 
 private extension UserDefaults {
-    var locationChangesCalloutShown: Bool {
+    var regionReformCalloutShown: Bool {
         get { return bool(forKey: "Charcoal." + #function) }
         set { set(newValue, forKey: "Charcoal." + #function) }
     }

@@ -72,9 +72,7 @@ public struct FilterSetup: Decodable {
             inlineFilter: Filter.inline(title: "", key: FilterKey.preferences.rawValue, subfilters: preferenceFilters),
             numberOfResults: objectCount ?? hits
         )
-
-        container.locationChangesCalloutText = config.locationChangesCalloutText
-
+        
         return container
     }
 

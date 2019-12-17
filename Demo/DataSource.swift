@@ -21,6 +21,7 @@ class DataSource: NSObject {
         Row(title: "Torget", setup: .bap, usingBottomSheet: true),
         Row(title: "Torget (iPad)", type: DrawerPresentationViewController.self, setup: .bap),
         Row(title: "Bil", setup: .car, usingBottomSheet: true),
+        Row(title: "Bil with region callout", setup: .carWithRegionReformCallout, usingBottomSheet: true),
         Row(title: "Eiendom", setup: .realestate, usingBottomSheet: true),
         Row(title: "Jobb", setup: .job, usingBottomSheet: true),
         Row(title: "Båt", setup: .boat, usingBottomSheet: true),

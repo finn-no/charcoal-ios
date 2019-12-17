@@ -60,10 +60,6 @@ extension FilterMarket: FilterConfiguration {
         return currentFilterConfig.mutuallyExclusiveFilterKeys
     }
 
-    public var verticalsCalloutText: String? {
-        return currentFilterConfig.verticalsCalloutText
-    }
-
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return currentFilterConfig.handlesVerticalId(vertical)
     }

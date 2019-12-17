@@ -162,10 +162,6 @@ extension FilterMarketRealestate: FilterConfiguration {
         return [.location, .map]
     }
 
-    public var verticalsCalloutText: String? {
-        return "callout.realestate".localized()
-    }
-
     public func handlesVerticalId(_ vertical: String) -> Bool {
         return rawValue == vertical
     }

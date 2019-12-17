@@ -24,20 +24,7 @@ final class CalloutOverlay: UIView {
         }
     }
 
-    private var directionalConstraints: [NSLayoutConstraint] {
-        switch direction {
-        case .up:
-            return [
-                bodyView.topAnchor.constraint(equalTo: calloutView.topAnchor),
-                bodyView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            ]
-        case .down:
-            return [
-                bodyView.topAnchor.constraint(equalTo: topAnchor),
-                bodyView.bottomAnchor.constraint(equalTo: calloutView.bottomAnchor),
-            ]
-        }
-    }
+    private var directionalConstraints: [NSLayoutConstraint]?
 
     private lazy var calloutView: CalloutView = {
         let view = CalloutView(direction: direction)
@@ -68,6 +55,24 @@ final class CalloutOverlay: UIView {
     func configure(withText text: String, calloutAnchor: NSLayoutYAxisAnchor) {
         calloutView.show(withText: text)
         calloutViewDirectionalAnchor.constraint(equalTo: calloutAnchor).isActive = true
+        switch direction {
+        case .up:
+            directionalConstraints = [
+                bodyView.topAnchor.constraint(equalTo: calloutView.topAnchor),
+                bodyView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ]
+        case .down:
+            directionalConstraints = [
+                bodyView.topAnchor.constraint(equalTo: topAnchor),
+                bodyView.bottomAnchor.constraint(equalTo: calloutView.bottomAnchor),
+            ]
+        }
+    }
+
+    func configure(withText text: String, calloutTopAnchor: NSLayoutYAxisAnchor) {
+        calloutView.show(withText: text)
+        calloutView.topAnchor.constraint(equalTo: calloutTopAnchor).isActive = true
+        directionalConstraints = nil
     }
 
     private func setup() {
@@ -79,13 +84,22 @@ final class CalloutOverlay: UIView {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         addGestureRecognizer(gestureRecognizer)
 
-        let constraints = directionalConstraints + [
+        var constraints = [
             calloutView.centerXAnchor.constraint(equalTo: centerXAnchor),
             calloutView.widthAnchor.constraint(equalToConstant: 250),
 
             bodyView.leadingAnchor.constraint(equalTo: leadingAnchor),
             bodyView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ]
+
+        if let directionalConstraints = directionalConstraints {
+            constraints += directionalConstraints
+        } else {
+            constraints += [
+                bodyView.topAnchor.constraint(equalTo: topAnchor),
+                bodyView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ]
+        }
 
         NSLayoutConstraint.activate(constraints)
     }

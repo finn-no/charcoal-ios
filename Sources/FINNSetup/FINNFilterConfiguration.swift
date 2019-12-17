@@ -9,7 +9,6 @@ public protocol FilterConfiguration {
     var rootLevelFilterKeys: [FilterKey] { get }
     var contextFilterKeys: Set<FilterKey> { get }
     var mutuallyExclusiveFilterKeys: Set<FilterKey> { get }
-    var verticalsCalloutText: String? { get }
 
     func handlesVerticalId(_ vertical: String) -> Bool
     func rangeConfiguration(forKey key: FilterKey) -> RangeFilterConfiguration?

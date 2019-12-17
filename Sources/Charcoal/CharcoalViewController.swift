@@ -71,9 +71,9 @@ public final class CharcoalViewController: UINavigationController {
 
         let userDefaults = UserDefaults.standard
 
-        if let text = filterContainer?.verticalsCalloutText, !userDefaults.verticalCalloutShown {
-            showCalloutOverlay(withText: text, andDirection: .up, constrainedToAnchor: navigationBar.bottomAnchor)
-            userDefaults.verticalCalloutShown = true
+        if let text = filterContainer?.regionReformCalloutText, !userDefaults.regionReformCalloutShown {
+            showCalloutOverlay(withText: text, andDirection: .down, constrainedToTopAnchor: navigationBar.bottomAnchor)
+            userDefaults.regionReformCalloutShown = true
         }
     }
 
@@ -181,7 +181,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 viewController is StepperFilterViewController ||
                 viewController is GridFilterViewController {
                 UserDefaults.standard.bottomButtomCalloutShown = true
-                showCalloutOverlay(withText: "callout.bottomButton".localized(), andDirection: .down, constrainedToAnchor: viewController.bottomButton.topAnchor)
+                showCalloutOverlay(withText: "callout.bottomButton".localized(), andDirection: .down, constrainedToDirectionalAnchor: viewController.bottomButton.topAnchor)
             }
         }
     }
@@ -305,7 +305,7 @@ extension CharcoalViewController: CalloutOverlayDelegate {
         })
     }
 
-    private func showCalloutOverlay(withText text: String, andDirection direction: CalloutView.Direction, constrainedToAnchor anchor: NSLayoutYAxisAnchor) {
+    private func showCalloutOverlay(withText text: String, andDirection direction: CalloutView.Direction, constrainedToDirectionalAnchor directionalAnchor: NSLayoutYAxisAnchor? = nil, constrainedToTopAnchor topAnchor: NSLayoutYAxisAnchor? = nil) {
         calloutOverlay = CalloutOverlay(direction: direction)
 
         if let calloutOverlay = calloutOverlay {
@@ -315,7 +315,12 @@ extension CharcoalViewController: CalloutOverlayDelegate {
 
             view.addSubview(calloutOverlay)
 
-            calloutOverlay.configure(withText: text, calloutAnchor: anchor)
+            if let topAnchor = topAnchor {
+                calloutOverlay.configure(withText: text, calloutTopAnchor: topAnchor)
+            } else if let directionalAnchor = directionalAnchor {
+                calloutOverlay.configure(withText: text, calloutAnchor: directionalAnchor)
+            }
+
             calloutOverlay.fillInSuperview()
 
             UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: { [weak self] in
@@ -328,9 +333,9 @@ extension CharcoalViewController: CalloutOverlayDelegate {
 // MARK: - UserDefaults
 
 private extension UserDefaults {
-    var verticalCalloutShown: Bool {
-        get { return bool(forKey: #function) }
-        set { set(newValue, forKey: #function) }
+    var regionReformCalloutShown: Bool {
+        get { return bool(forKey: "Charcoal." + #function) }
+        set { set(newValue, forKey: "Charcoal." + #function) }
     }
 
     var bottomButtomCalloutShown: Bool {

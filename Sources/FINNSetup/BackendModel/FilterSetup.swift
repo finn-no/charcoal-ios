@@ -97,6 +97,10 @@ public struct FilterSetup: Decodable {
                     return nil
                 }
             } else {
+                guard data.queries.count > 0 else {
+                    // No need to show a root filter that has no selectable values
+                    return nil
+                }
                 return makeFilter(from: data, withKind: .standard, style: style)
             }
         }

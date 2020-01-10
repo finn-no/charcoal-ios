@@ -74,6 +74,8 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */; };
+		9B05271723C8A17B000E888A /* CharcoalFeatureConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05271623C8A17B000E888A /* CharcoalFeatureConfig.swift */; };
+		9B05271923C8A1C7000E888A /* FeatureConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05271823C8A1C7000E888A /* FeatureConfig.swift */; };
 		9B2931E323477A6B006469B5 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */; };
 		9B2931E723477AF5006469B5 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E523477AF5006469B5 /* AppCenterCrashes.framework */; };
 		9B2931F52347815B006469B5 /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931F42347815B006469B5 /* AppCenter.framework */; };
@@ -357,6 +359,8 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerPresentationViewController.swift; sourceTree = "<group>"; };
+		9B05271623C8A17B000E888A /* CharcoalFeatureConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharcoalFeatureConfig.swift; sourceTree = "<group>"; };
+		9B05271823C8A1C7000E888A /* FeatureConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureConfig.swift; sourceTree = "<group>"; };
 		9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterDistribute.framework; path = Carthage/Build/iOS/AppCenterDistribute.framework; sourceTree = "<group>"; };
 		9B2931E523477AF5006469B5 /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterCrashes.framework; path = Carthage/Build/iOS/AppCenterCrashes.framework; sourceTree = "<group>"; };
 		9B2931F42347815B006469B5 /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenter.framework; path = Carthage/Build/iOS/AppCenter.framework; sourceTree = "<group>"; };
@@ -821,6 +825,7 @@
 			children = (
 				CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */,
 				CFEDCE172232BDF2008FCDB1 /* Info.plist */,
+				9B05271823C8A1C7000E888A /* FeatureConfig.swift */,
 				08716B3621F76424003180D8 /* FilterKey.swift */,
 				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
 				CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */,
@@ -954,6 +959,7 @@
 				44ECE661208F7FA20017AC82 /* Charcoal.h */,
 				44ECE662208F7FA20017AC82 /* Info.plist */,
 				44ECE698208F80320017AC82 /* Charcoal.swift */,
+				9B05271623C8A17B000E888A /* CharcoalFeatureConfig.swift */,
 				DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */,
 				DA3EA340228983AC00B05E92 /* ScrollViewController.swift */,
 				9BABD26A236AE54100860EB5 /* Theme.swift */,
@@ -1644,6 +1650,7 @@
 				9BB827A6216C9CD40014028C /* RangeFilterConfiguration.swift in Sources */,
 				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,
 				CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */,
+				9B05271723C8A17B000E888A /* CharcoalFeatureConfig.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
 				DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
@@ -1755,6 +1762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B05271923C8A1C7000E888A /* FeatureConfig.swift in Sources */,
 				CFEDCE0C2232B7A8008FCDB1 /* FilterMarketCar.swift in Sources */,
 				CFEDCE102232B7A8008FCDB1 /* FilterMarketBoat.swift in Sources */,
 				CFEDCE052232B7A8008FCDB1 /* FilterKey.swift in Sources */,

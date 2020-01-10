@@ -9,6 +9,7 @@ public struct FilterSetup: Decodable {
     public let filterTitle: String
     public let hits: Int
     public let objectCount: Int?
+    public var featureConfig: FeatureConfig?
 
     let filters: [FilterData]
 
@@ -72,6 +73,8 @@ public struct FilterSetup: Decodable {
             inlineFilter: Filter.inline(title: "", key: FilterKey.preferences.rawValue, subfilters: preferenceFilters),
             numberOfResults: objectCount ?? hits
         )
+
+        container.featureConfig = featureConfig
 
         return container
     }

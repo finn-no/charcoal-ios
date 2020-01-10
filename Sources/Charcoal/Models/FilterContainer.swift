@@ -7,6 +7,7 @@ import Foundation
 public class FilterContainer {
     // MARK: - Public properties
 
+    public var featureConfig: CharcoalFeatureConfig?
     public var verticals: [Vertical]?
     public var regionReformCalloutText: String?
 

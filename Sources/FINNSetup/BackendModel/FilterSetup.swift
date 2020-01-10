@@ -82,6 +82,10 @@ public struct FilterSetup: Decodable {
     private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration) -> Filter? {
         let style: Filter.Style = config.contextFilterKeys.contains(key) ? .context : .normal
 
+        if key == .christmas, !isChristmasFilterEnabled() {
+            return nil
+        }
+
         switch key {
         case .map:
             return makeMapFilter(withKey: key)
@@ -170,6 +174,13 @@ public struct FilterSetup: Decodable {
                 subfilters: subfilters ?? []
             )
         }
+    }
+
+    private func isChristmasFilterEnabled() -> Bool {
+        guard let isEnabled = featureConfig?.featureConfig(.christmasFilter)?.isEnabled else {
+            return false
+        }
+        return isEnabled
     }
 
     public static func decode(from dict: [AnyHashable: Any]?) -> FilterSetup? {

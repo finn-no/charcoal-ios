@@ -5,6 +5,25 @@
 import FINNSetup
 import UIKit
 
+struct FeatureSetup: FeatureInfo {
+    var isEnabled: Bool
+    var text: String?
+    func didShow() {}
+}
+
+class DemoFeatureConfig: FeatureConfig {
+    var features = [FINNFeature: FeatureSetup]()
+    var coreFeatures = [CharcoalFeature: FeatureSetup]()
+
+    func featureConfig(_ feature: FINNFeature) -> FeatureInfo? {
+        return features[feature]
+    }
+
+    func featureConfig(_ feature: CharcoalFeature) -> FeatureInfo? {
+        return coreFeatures[feature]
+    }
+}
+
 class Setup {
     var filterContainer: FilterContainer?
     let markets: [DemoVertical]
@@ -22,7 +41,9 @@ class Setup {
         if let current = current {
             filterContainer = Setup.filterContainer(name: current.name)
             filterContainer?.verticals = markets
-            filterContainer?.regionReformCalloutText = includeRegionReformCallout ? "Obs! Vi har oppdatert områdevalg til å passe til de nye kommunene i Norge" : nil
+            let demoFeatureConfig = DemoFeatureConfig()
+            demoFeatureConfig.coreFeatures[.regionReformCallout] = FeatureSetup(isEnabled: includeRegionReformCallout, text: "Obs! Vi har oppdatert områdevalg til å passe til de nye kommunene i Norge")
+            filterContainer?.featureConfig = demoFeatureConfig
         }
     }
 

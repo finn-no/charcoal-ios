@@ -69,11 +69,11 @@ public final class CharcoalViewController: UINavigationController {
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let userDefaults = UserDefaults.standard
-
-        if let text = filterContainer?.regionReformCalloutText, !userDefaults.regionReformCalloutShown {
+        if let regionReformFeature = filterContainer?.featureConfig?.featureConfig(.regionReformCallout),
+            regionReformFeature.isEnabled,
+            let text = regionReformFeature.text {
             showCalloutOverlay(withText: text, andDirection: .down, constrainedToTopAnchor: navigationBar.bottomAnchor)
-            userDefaults.regionReformCalloutShown = true
+            regionReformFeature.didShow()
         }
     }
 
@@ -333,11 +333,6 @@ extension CharcoalViewController: CalloutOverlayDelegate {
 // MARK: - UserDefaults
 
 private extension UserDefaults {
-    var regionReformCalloutShown: Bool {
-        get { return bool(forKey: "Charcoal." + #function) }
-        set { set(newValue, forKey: "Charcoal." + #function) }
-    }
-
     var bottomButtomCalloutShown: Bool {
         get { return bool(forKey: #function) }
         set { set(newValue, forKey: #function) }

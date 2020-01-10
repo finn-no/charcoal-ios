@@ -9,7 +9,6 @@ public class FilterContainer {
 
     public var featureConfig: CharcoalFeatureConfig?
     public var verticals: [Vertical]?
-    public var regionReformCalloutText: String?
 
     // MARK: - Internal properties
 

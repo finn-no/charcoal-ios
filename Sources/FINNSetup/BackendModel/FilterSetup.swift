@@ -97,6 +97,9 @@ public struct FilterSetup: Decodable {
                     return nil
                 }
             } else {
+                guard !data.queries.isEmpty else {
+                    return nil
+                }
                 return makeFilter(from: data, withKind: .standard, style: style)
             }
         }

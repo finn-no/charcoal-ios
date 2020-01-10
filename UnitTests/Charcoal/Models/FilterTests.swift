@@ -192,9 +192,15 @@ extension FilterTests: TestDataDecoder {
         guard let config = FilterMarket(market: "bap-sale") else { return }
         let filterSetup = filterDataFromJSONFile(named: "ContextFilterTestData")
         let filter = filterSetup?.filterContainer(using: config)
-        let categoryFilter = filter?.rootFilters.first(where: { $0.key == "category" })
         let shoeSizeFilter = filter?.rootFilters.first(where: { $0.key == "shoe_size" })
-        XCTAssertEqual(categoryFilter?.style, .normal)
         XCTAssertEqual(shoeSizeFilter?.style, .context)
+    }
+
+    func testRootFilterWithoutSubfiltersShouldNotShow() {
+        guard let config = FilterMarket(market: "bap-sale") else { return }
+        let filterSetup = filterDataFromJSONFile(named: "ContextFilterTestData")
+        let filter = filterSetup?.filterContainer(using: config)
+        let categoryFilter = filter?.rootFilters.first(where: { $0.key == "category" })
+        XCTAssertNil(categoryFilter)
     }
 }

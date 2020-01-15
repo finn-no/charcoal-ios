@@ -44,7 +44,7 @@ public enum FilterKey: String, CodingKey {
     case industry
     case isNewProperty = "is_new_property"
     case isPrivateBroker = "is_private_broker"
-    case isSold = "is_sold"
+    case lifecycle
     case jobDuration = "job_duration"
     case jobSector = "job_sector"
     case laptopsBrand = "laptops_brand"

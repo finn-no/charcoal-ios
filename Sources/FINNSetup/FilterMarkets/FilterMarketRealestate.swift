@@ -27,7 +27,7 @@ extension FilterMarketRealestate: FilterConfiguration {
         let defaultFilter: [FilterKey] = [.published]
         switch self {
         case .homes:
-            return defaultFilter + [.isSold, .isNewProperty, .isPrivateBroker]
+            return defaultFilter + [.lifecycle, .isNewProperty, .isPrivateBroker]
         default: return defaultFilter
         }
     }

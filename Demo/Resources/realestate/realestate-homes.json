@@ -9,7 +9,7 @@
                 "q",
                 "published",
                 "location",
-                "is_sold",
+                "lifecycle",
                 "is_new_property",
                 "price",
                 "price_collective",
@@ -358,9 +358,9 @@
                         }
                         ]
         },
-        "is_sold": {
+        "lifecycle": {
             "title": "Type søk",
-            "name": "is_sold",
+            "name": "lifecycle",
             "queries": [
                         {
                         "title": "Til salgs",
@@ -368,9 +368,14 @@
                         "total-results": 38202
                         },
                         {
-                        "title": "Solgt",
+                        "title": "Solgt siste 3 dager",
                         "value": "true",
                         "total-results": 464
+                        },
+                        {
+                        "title": "Kommer for salg",
+                        "value": "true",
+                        "total-results": 11
                         }
                         ]
         },

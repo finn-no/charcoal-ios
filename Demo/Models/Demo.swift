@@ -121,7 +121,6 @@ enum ComponentViews: String, CaseIterable {
     case stepperFilter
     case inlineFilter
     case mapFilter
-    case onboarding
 
     var viewController: UIViewController {
         switch self {
@@ -170,8 +169,6 @@ enum ComponentViews: String, CaseIterable {
                 locationNameFilter: mapFilter.subfilters[3],
                 selectionStore: FilterSelectionStore()
             )
-        case .onboarding:
-            return OnboardingViewController()
         }
     }
 }

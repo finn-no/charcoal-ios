@@ -183,9 +183,6 @@
 		DA8D683C220D874400D31941 /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683B220D874400D31941 /* FilterTests.swift */; };
 		DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */; };
 		DAD45C10223A899600FE1EF5 /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD45BFD223A898C00FE1EF5 /* FinniversKit.framework */; };
-		DADF2DCE225373A100567C78 /* OnboardingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */; };
-		DADF2DD0225375CE00567C78 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */; };
-		DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF2DD12253761300567C78 /* OnboardingCell.swift */; };
 		DAEA93D8225F7228003B215D /* MapFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */; };
 		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
@@ -442,7 +439,6 @@
 		DA68144F22574D3C003F3975 /* Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		DA68145322575275003F3975 /* DemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
 		DA68145522576539003F3975 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCellViewModel.swift; sourceTree = "<group>"; };
 		DA7FB7A721B01E33003DBBEB /* SegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentButton.swift; sourceTree = "<group>"; };
 		DA83CE5E22607DEA000CAD39 /* DemoVertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoVertical.swift; sourceTree = "<group>"; };
 		DA8D683B220D874400D31941 /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
@@ -485,8 +481,6 @@
 		DAD45C0C223A898C00FE1EF5 /* 55826EB7-032A-3548-AF0F-A5261C7AE180.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "55826EB7-032A-3548-AF0F-A5261C7AE180.bcsymbolmap"; sourceTree = "<group>"; };
 		DAD45C0D223A898C00FE1EF5 /* DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap"; sourceTree = "<group>"; };
 		DAD45C0F223A898C00FE1EF5 /* .FinniversKit.version */ = {isa = PBXFileReference; lastKnownFileType = text; path = .FinniversKit.version; sourceTree = "<group>"; };
-		DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		DADF2DD12253761300567C78 /* OnboardingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterDemoViewController.swift; sourceTree = "<group>"; };
 		DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextFilterViewController.swift; sourceTree = "<group>"; };
 		DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterView.swift; sourceTree = "<group>"; };
@@ -962,7 +956,6 @@
 				CF4C8704221AE34B00DFAF2A /* Loading */,
 				9BB82798216B57630014028C /* Logging */,
 				DA39FA10220B17DB00608AC4 /* Models */,
-				DAE56E7D223A6BCD00F9B9E3 /* Onboarding */,
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				CF4C8705221AE49F00DFAF2A /* Selection */,
 				DA3EA33F22896B9200B05E92 /* Shadows */,
@@ -1235,16 +1228,6 @@
 				DAD45C0D223A898C00FE1EF5 /* DEE1D980-1D6A-3980-B4D8-8113C8C052C8.bcsymbolmap */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		DAE56E7D223A6BCD00F9B9E3 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				DADF2DCF225375CE00567C78 /* OnboardingViewController.swift */,
-				DADF2DD12253761300567C78 /* OnboardingCell.swift */,
-				DA6C26442240EA9E000AED38 /* OnboardingCellViewModel.swift */,
-			);
-			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		DAF3CA6E218301B3007235B0 /* Stepper */ = {
@@ -1645,7 +1628,6 @@
 				DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */,
 				CF7C46112226F415001FB92C /* ListFilterCell.swift in Sources */,
 				9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */,
-				DADF2DD22253761300567C78 /* OnboardingCell.swift in Sources */,
 				46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */,
 				CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */,
 				CFE255D3225B7B5C00052077 /* RangeNumberInputView.swift in Sources */,
@@ -1668,7 +1650,6 @@
 				55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */,
 				CF81E108221C001C00D00423 /* SelectionTagsContainerView.swift in Sources */,
 				CF81E106221BFFE600D00423 /* SelectionTagViewCell.swift in Sources */,
-				DADF2DCE225373A100567C78 /* OnboardingCellViewModel.swift in Sources */,
 				CFE1D4FA224CFC210009B0D6 /* FilterUnit.swift in Sources */,
 				DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
@@ -1680,7 +1661,6 @@
 				DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */,
 				CFD8B45622843DD400AA534A /* MapRadiusOverlayView.swift in Sources */,
 				9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */,
-				DADF2DD0225375CE00567C78 /* OnboardingViewController.swift in Sources */,
 				5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */,
 				9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */,
 				4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */,

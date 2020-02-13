@@ -8,6 +8,7 @@ import UIKit
 protocol MapFilterViewDelegate: MKMapViewDelegate {
     func mapFilterViewDidSelectLocationButton(_ mapFilterView: MapFilterView)
     func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int)
+    func mapFilterView(_ mapFilterView: MapFilterView, didSetCustomRegion coordinates: [CLLocationCoordinate2D])
 }
 
 final class MapFilterView: UIView {
@@ -46,6 +47,10 @@ final class MapFilterView: UIView {
             userLocationButton.isHighlighted = isUserLocationButtonHighlighted
         }
     }
+
+    private lazy var drawAreaManager: DrawAreaManager = {
+        DrawAreaManager(mapView: mapView)
+    }()
 
     private(set) var radius: Int
     private let initialCenterCoordinate: CLLocationCoordinate2D?
@@ -90,6 +95,23 @@ final class MapFilterView: UIView {
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
+
+        return button
+    }()
+
+    private lazy var drawButton: UIButton = {
+        let button = UIButton(withAutoLayout: true)
+        button.backgroundColor = Theme.mainBackground
+        button.tintColor = .btnPrimary
+
+        button.layer.cornerRadius = MapFilterView.userLocationButtonWidth / 2
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 1)
+        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 0.5
+
+        button.setImage(UIImage(named: .externalLink), for: .normal)
+        button.addTarget(self, action: #selector(didTapDrawButton), for: .touchUpInside)
 
         return button
     }()
@@ -181,6 +203,13 @@ final class MapFilterView: UIView {
         delegate?.mapFilterViewDidSelectLocationButton(self)
     }
 
+    @objc private func didTapDrawButton() {
+        // delegate?.mapFilterViewDidSelectDrawButton(self)
+        radiusOverlayView.isHidden = true
+        mapView.isScrollEnabled = true
+        drawAreaManager.startDrawing()
+    }
+
     // MARK: - Setup
 
     private func setup() {
@@ -192,6 +221,7 @@ final class MapFilterView: UIView {
         mapContainerView.addSubview(mapView)
         mapContainerView.addSubview(radiusOverlayView)
         mapContainerView.addSubview(userLocationButton)
+        mapContainerView.addSubview(drawButton)
 
         mapView.fillInSuperview()
         radiusOverlayView.fillInSuperview()
@@ -208,8 +238,13 @@ final class MapFilterView: UIView {
 
             userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .mediumSpacing),
             userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.mediumSpacing),
-            userLocationButton.widthAnchor.constraint(equalToConstant: 46),
+            userLocationButton.widthAnchor.constraint(equalToConstant: MapFilterView.userLocationButtonWidth),
             userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),
+
+            drawButton.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.mediumSpacing),
+            drawButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.mediumSpacing),
+            drawButton.widthAnchor.constraint(equalToConstant: MapFilterView.userLocationButtonWidth),
+            drawButton.heightAnchor.constraint(equalTo: drawButton.widthAnchor),
         ])
     }
 

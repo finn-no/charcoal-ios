@@ -96,6 +96,10 @@
 		9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */; };
 		9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */; };
 		9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */; };
+		9BFC382823F55ED4000E4199 /* DrawMapAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC382723F55ED4000E4199 /* DrawMapAreaView.swift */; };
+		9BFC382A23F5650C000E4199 /* DrawMapAreaDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC382923F5650C000E4199 /* DrawMapAreaDemoViewController.swift */; };
+		9BFC38BD23F6CF41000E4199 /* DrawAreaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC38BB23F6CDE3000E4199 /* DrawAreaManager.swift */; };
+		9BFC38BF23F6D25C000E4199 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC38BE23F6D25B000E4199 /* LinkedList.swift */; };
 		CF022960224E5ED300AA953D /* SelectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF02295F224E5ED300AA953D /* SelectionTitle.swift */; };
 		CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF077552222FD1C6000A0A36 /* StepperFilterConfiguration.swift */; };
 		CF0B19EB2211B51E00D8D9B7 /* FilterContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */; };
@@ -374,6 +378,10 @@
 		9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketTests.swift; sourceTree = "<group>"; };
 		9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchLocationDataSource.swift; sourceTree = "<group>"; };
+		9BFC382723F55ED4000E4199 /* DrawMapAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawMapAreaView.swift; sourceTree = "<group>"; };
+		9BFC382923F5650C000E4199 /* DrawMapAreaDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawMapAreaDemoViewController.swift; sourceTree = "<group>"; };
+		9BFC38BB23F6CDE3000E4199 /* DrawAreaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawAreaManager.swift; sourceTree = "<group>"; };
+		9BFC38BE23F6D25B000E4199 /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		CF02295F224E5ED300AA953D /* SelectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTitle.swift; sourceTree = "<group>"; };
 		CF077552222FD1C6000A0A36 /* StepperFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperFilterConfiguration.swift; sourceTree = "<group>"; };
 		CF0B19EA2211B51E00D8D9B7 /* FilterContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterContainer.swift; sourceTree = "<group>"; };
@@ -771,11 +779,12 @@
 		55646DB520933D56006AA2DA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */,
+				9BFC382923F5650C000E4199 /* DrawMapAreaDemoViewController.swift */,
 				55946B7D20970237008AB7CE /* InlineFilterDemoViewController.swift */,
 				DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */,
 				559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */,
 				DAF3CA7321830F18007235B0 /* StepperFilterDemoViewController.swift */,
-				91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -837,10 +846,11 @@
 		9B741D1421B558FC00D18097 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */,
-				9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */,
+				9BFC382623F54E6A000E4199 /* DrawMapArea */,
 				CFF4F458223BD38000A137DA /* MapView */,
 				CFF4F45B223BDFF100A137DA /* SliderView */,
+				DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */,
+				9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -900,6 +910,16 @@
 				55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */,
 			);
 			path = BackendModel;
+			sourceTree = "<group>";
+		};
+		9BFC382623F54E6A000E4199 /* DrawMapArea */ = {
+			isa = PBXGroup;
+			children = (
+				9BFC382723F55ED4000E4199 /* DrawMapAreaView.swift */,
+				9BFC38BB23F6CDE3000E4199 /* DrawAreaManager.swift */,
+				9BFC38BE23F6D25B000E4199 /* LinkedList.swift */,
+			);
+			path = DrawMapArea;
 			sourceTree = "<group>";
 		};
 		CF14A0D822539A4200F9AB71 /* Input */ = {
@@ -1654,6 +1674,7 @@
 				DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
+				9BFC382823F55ED4000E4199 /* DrawMapAreaView.swift in Sources */,
 				CF4C8710221B04E200DFAF2A /* Filter.swift in Sources */,
 				CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */,
 				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
@@ -1671,7 +1692,9 @@
 				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
 				CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */,
 				CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */,
+				9BFC38BD23F6CF41000E4199 /* DrawAreaManager.swift in Sources */,
 				CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */,
+				9BFC38BF23F6D25C000E4199 /* LinkedList.swift in Sources */,
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
 				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 			);
@@ -1688,6 +1711,7 @@
 				DAEA93D8225F7228003B215D /* MapFilterDemoViewController.swift in Sources */,
 				44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */,
 				DA68145422575275003F3975 /* DemoTableViewCell.swift in Sources */,
+				9BFC382A23F5650C000E4199 /* DrawMapAreaDemoViewController.swift in Sources */,
 				DA68145622576539003F3975 /* DataSource.swift in Sources */,
 				9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */,
 				9B92332221255A5800B02723 /* ArrayExtensions.swift in Sources */,

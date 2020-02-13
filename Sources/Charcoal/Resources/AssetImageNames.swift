@@ -32,6 +32,8 @@ enum CharcoalImageAsset: String {
     case popoverArrow
     case removeFilterValue
     case searchSmall
+    case sliderThumb
+    case sliderThumbActive
 
     public static var imageNames: [CharcoalImageAsset] {
         return [
@@ -53,6 +55,8 @@ enum CharcoalImageAsset: String {
             .popoverArrow,
             .removeFilterValue,
             .searchSmall,
+            .sliderThumb,
+            .sliderThumbActive,
     ]
   }
 }

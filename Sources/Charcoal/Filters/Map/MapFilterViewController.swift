@@ -160,6 +160,10 @@ extension MapFilterViewController: MapFilterViewDelegate {
         self.radius = radius
         enableSwipeBack(true)
     }
+
+    func mapFilterViewDidSelectDrawButton(_ mapFilterView: MapFilterView) {
+        // TODO:
+    }
 }
 
 // MARK: - MKMapViewDelegate

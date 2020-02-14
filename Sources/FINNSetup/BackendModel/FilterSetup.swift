@@ -111,7 +111,8 @@ public struct FilterSetup: Decodable {
             latitudeKey: FilterKey.latitude.rawValue,
             longitudeKey: FilterKey.longitude.rawValue,
             radiusKey: FilterKey.radius.rawValue,
-            locationKey: FilterKey.geoLocationName.rawValue
+            locationKey: FilterKey.geoLocationName.rawValue,
+            polygonLocationKey: FilterKey.polylocation.rawValue
         )
     }
 

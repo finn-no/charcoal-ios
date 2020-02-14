@@ -30,6 +30,7 @@ final class MapFilterViewController: FilterViewController {
     private let longitudeFilter: Filter
     private let radiusFilter: Filter
     private let locationNameFilter: Filter
+    private let polygonLocationFilter: Filter
     private let locationManager = CLLocationManager()
     private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
@@ -71,11 +72,12 @@ final class MapFilterViewController: FilterViewController {
     // MARK: - Init
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
-         locationNameFilter: Filter, selectionStore: FilterSelectionStore) {
+         locationNameFilter: Filter, polygonLocationFilter: Filter, selectionStore: FilterSelectionStore) {
         self.latitudeFilter = latitudeFilter
         self.longitudeFilter = longitudeFilter
         self.radiusFilter = radiusFilter
         self.locationNameFilter = locationNameFilter
+        self.polygonLocationFilter = polygonLocationFilter
         super.init(title: title, selectionStore: selectionStore)
     }
 
@@ -161,8 +163,11 @@ extension MapFilterViewController: MapFilterViewDelegate {
         enableSwipeBack(true)
     }
 
-    func mapFilterViewDidSelectDrawButton(_ mapFilterView: MapFilterView) {
-        // TODO:
+    func mapFilterView(_ mapFilterView: MapFilterView, didSetCustomRegion coordinates: [CLLocationCoordinate2D]) {
+        radius = nil
+        coordinate = nil
+        locationName = nil
+        polygonLocation = coordinates
     }
 }
 
@@ -301,6 +306,29 @@ private extension MapFilterViewController {
         set {
             selectionStore.setValue(newValue, for: locationNameFilter)
             mapFilterView.locationName = newValue
+        }
+    }
+
+    var polygonLocation: [CLLocationCoordinate2D]? {
+        get {
+            guard let valueString: String = selectionStore.value(for: polygonLocationFilter) else {
+                return nil
+            }
+
+            let coordinates = valueString.split(separator: ";").compactMap { (coordinateString) -> CLLocationCoordinate2D? in
+                let split = coordinateString.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ")
+                guard split.count != 2, let first = split.first, let last = split.last else { return nil }
+                guard let longitude = Double(first) else { return nil }
+                guard let latitude = Double(last) else { return nil }
+                return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            }
+
+            return coordinates
+        }
+        set {
+            let queryValue = newValue?.compactMap { "\($0.longitude) \($0.latitude)" }.joined(separator: ";")
+            selectionStore.setValue(queryValue, for: polygonLocationFilter)
+            DebugLog.write("Polygon location set: \(queryValue ?? "(nil)")")
         }
     }
 }

@@ -227,13 +227,14 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 filterConfig: filterConfig
             )
             pushViewController(stepperViewController)
-        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
+        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, polygonLocationFilter):
             let mapViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 radiusFilter: radiusFilter,
                 locationNameFilter: locationNameFilter,
+                polygonLocationFilter: polygonLocationFilter,
                 selectionStore: selectionStore
             )
 

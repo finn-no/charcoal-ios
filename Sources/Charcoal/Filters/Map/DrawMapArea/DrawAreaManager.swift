@@ -47,7 +47,7 @@ final class DrawAreaManager: NSObject {
     init(mapView: MKMapView) {
         self.mapView = mapView
         super.init()
-        mapView.delegate = self
+        mapView.delegate = self // TODO this needs to be fixed since there already is a delegate (MapFilterViewController)
         registerMapAnnotationViews()
     }
 

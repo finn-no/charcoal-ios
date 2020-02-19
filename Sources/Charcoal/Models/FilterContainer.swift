@@ -12,12 +12,12 @@ public class FilterContainer {
 
     // MARK: - Internal properties
 
-    private(set) var rootFilters: [Filter]
-    private(set) var inlineFilter: Filter?
-    private(set) var freeTextFilter: Filter?
-    private(set) var numberOfResults: Int
+    public private(set) var rootFilters: [Filter]
+    public private(set) var inlineFilter: Filter?
+    public private(set) var freeTextFilter: Filter?
+    public private(set) var numberOfResults: Int
 
-    var allFilters: [Filter] {
+    public var allFilters: [Filter] {
         return [freeTextFilter, inlineFilter].compactMap { $0 } + rootFilters
     }
 

@@ -255,7 +255,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 // MARK: - FilterSelectionStoreDelegate
 
 extension CharcoalViewController: FilterSelectionStoreDelegate {
-    func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {
+    public func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore) {
         if topViewController !== rootFilterViewController {
             selectionHasChanged = true
         }

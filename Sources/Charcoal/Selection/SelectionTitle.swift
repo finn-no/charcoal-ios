@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct SelectionTitle: Equatable {
+public struct SelectionTitle: Equatable {
     let value: String
     let accessibilityLabel: String
 

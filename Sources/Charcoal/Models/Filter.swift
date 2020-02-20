@@ -27,7 +27,7 @@ public final class Filter {
     public var numberOfResults: Int
     public var mutuallyExclusiveFilterKeys = Set<String>()
 
-    fileprivate(set) var subfilters: [Filter] = []
+    public fileprivate(set) var subfilters: [Filter] = []
 
     // MARK: - Init
 

@@ -4,18 +4,18 @@
 
 import Foundation
 
-protocol FilterSelectionStoreDelegate: AnyObject {
+public protocol FilterSelectionStoreDelegate: AnyObject {
     func filterSelectionStoreDidChange(_ selectionStore: FilterSelectionStore)
 }
 
-final class FilterSelectionStore {
+public final class FilterSelectionStore {
     // MARK: - Internal properties
 
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         return queryItems.isEmpty
     }
 
-    weak var delegate: FilterSelectionStoreDelegate?
+    public weak var delegate: FilterSelectionStoreDelegate?
 
     // MARK: - Private properties
 
@@ -23,21 +23,21 @@ final class FilterSelectionStore {
 
     // MARK: - Init
 
-    init(queryItems: Set<URLQueryItem> = []) {
+    public init(queryItems: Set<URLQueryItem> = []) {
         self.queryItems = queryItems
     }
 
-    func set(selection: Set<URLQueryItem>) {
+    public func set(selection: Set<URLQueryItem>) {
         queryItems = selection
     }
 
     // MARK: - Values
 
-    func value<T: LosslessStringConvertible>(for filter: Filter) -> T? {
+    public func value<T: LosslessStringConvertible>(for filter: Filter) -> T? {
         return queryItem(for: filter)?.value.flatMap { T($0) }
     }
 
-    func clear() {
+    public func clear() {
         queryItems.removeAll()
     }
 
@@ -54,7 +54,7 @@ final class FilterSelectionStore {
 
 // MARK: - Selection
 
-extension FilterSelectionStore {
+public extension FilterSelectionStore {
     func setValue(from filter: Filter) {
         _setValue(filter.value, for: filter)
         delegate?.filterSelectionStoreDidChange(self)
@@ -129,7 +129,7 @@ private extension FilterSelectionStore {
 
 // MARK: - Helpers
 
-extension FilterSelectionStore {
+public extension FilterSelectionStore {
     func queryItems(for filter: Filter) -> [URLQueryItem] {
         if let queryItem = queryItem(for: filter) {
             return [queryItem]

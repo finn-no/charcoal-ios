@@ -268,8 +268,8 @@ extension RangeSliderView: StepSliderDelegate {
 
 extension RangeSliderView {
     struct Style {
-        static let trackColor: UIColor = .sardine
-        static let activeRangeTrackColor: UIColor = .primaryBlue
+        static let trackColor: UIColor = .btnDisabled
+        static let activeRangeTrackColor: UIColor = .btnPrimary
         static let trackHeight: CGFloat = 3.0
         static let activeRangeTrackHeight: CGFloat = 6.0
     }

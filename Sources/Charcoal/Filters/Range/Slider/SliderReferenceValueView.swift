@@ -15,7 +15,7 @@ final class SliderReferenceValueView: UIView {
     private lazy var indicatorView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .sardine
+        view.backgroundColor = .textDisabled
         view.layer.cornerRadius = 2.0
         return view
     }()

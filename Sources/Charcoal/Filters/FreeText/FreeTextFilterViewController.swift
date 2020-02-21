@@ -50,7 +50,7 @@ public class FreeTextFilterViewController: ScrollViewController {
     }()
 
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = AppearanceColoredTableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(IconTitleTableViewCell.self)
         tableView.removeLastCellSeparator()
@@ -250,10 +250,10 @@ private extension FreeTextFilterViewController {
 private class FreeTextFilterSearchBar: UISearchBar {
     // Makes sure to setup appearance proxy one time and one time only
     private static let setupSearchQuerySearchBarAppereanceOnce: () = {
-        let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [UITableView.self])
+        let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [AppearanceColoredTableView.self])
         textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInRoot.defaultTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.primaryBlue,
+            NSAttributedString.Key.foregroundColor: UIColor.textAction,
             NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 

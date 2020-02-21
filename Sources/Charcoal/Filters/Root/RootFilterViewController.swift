@@ -33,7 +33,7 @@ final class RootFilterViewController: FilterViewController {
     private lazy var verticalSelectorView = VerticalSelectorView(withAutoLayout: true)
 
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = AppearanceColoredTableView(frame: .zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(RootFilterCell.self)

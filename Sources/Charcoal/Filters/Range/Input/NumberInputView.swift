@@ -263,8 +263,8 @@ private struct Style {
     static let errorTextColor: UIColor = .textCritical
     static let hintNormalFont: UIFont = .body
     static let hintActiveFont: UIFont = .bodyStrong
-    static let decorationViewColor: UIColor = .stone
-    static let decorationViewActiveColor: UIColor = .primaryBlue
+    static let decorationViewColor: UIColor = .textSecondary
+    static let decorationViewActiveColor: UIColor = .btnPrimary
     static let decorationViewHeight: CGFloat = 1.0
     static let decorationViewActiveHeight: CGFloat = 3.0
     static let decorationViewActiveCornerRadius = decorationViewActiveHeight / 2

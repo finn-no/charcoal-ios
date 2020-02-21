@@ -59,6 +59,7 @@
 		4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */; };
 		46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */; };
 		4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905239217F5CD000F8E7FD /* Vertical.swift */; };
+		46D3D47623FFC2040047BFAE /* AppearanceColoredTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D47523FFC2040047BFAE /* AppearanceColoredTableView.swift */; };
 		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
@@ -337,6 +338,7 @@
 		4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReferenceValueView.swift; sourceTree = "<group>"; };
 		46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDistanceValueFormatter.swift; sourceTree = "<group>"; };
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
+		46D3D47523FFC2040047BFAE /* AppearanceColoredTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceColoredTableView.swift; sourceTree = "<group>"; };
 		554D154F20C0782200FA3930 /* car-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-norway.json"; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
@@ -747,6 +749,14 @@
 			path = Vertical;
 			sourceTree = "<group>";
 		};
+		46D3D47423FFC1D80047BFAE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				46D3D47523FFC2040047BFAE /* AppearanceColoredTableView.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		5510EDAA20BFCCFE006E4A0F /* Grid */ = {
 			isa = PBXGroup;
 			children = (
@@ -959,6 +969,7 @@
 				44ECE6AF208F83BD0017AC82 /* Resources */,
 				CF4C8705221AE49F00DFAF2A /* Selection */,
 				DA3EA33F22896B9200B05E92 /* Shadows */,
+				46D3D47423FFC1D80047BFAE /* Utils */,
 				46905238217F5CB500F8E7FD /* Vertical */,
 			);
 			path = Charcoal;
@@ -1616,6 +1627,7 @@
 				CFEDCE152232BA5A008FCDB1 /* StringExtensions.swift in Sources */,
 				55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */,
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
+				46D3D47623FFC2040047BFAE /* AppearanceColoredTableView.swift in Sources */,
 				DA3EA33E2289637B00B05E92 /* ShadowView.swift in Sources */,
 				CF8FD7362254E2CF00926A7B /* UITableViewCellExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,

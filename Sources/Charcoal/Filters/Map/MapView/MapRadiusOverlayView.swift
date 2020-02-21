@@ -16,14 +16,14 @@ final class MapRadiusOverlayView: UIView {
 
     private lazy var centerPointView: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .primaryBlue
+        view.backgroundColor = .btnPrimary
         return view
     }()
 
     private lazy var radiusView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .clear
-        view.layer.borderColor = .primaryBlue
+        view.layer.borderColor = .btnPrimary
         view.layer.borderWidth = 3
         return view
     }()
@@ -119,7 +119,7 @@ private final class BackgroundView: UIView {
     // MARK: - Setup
 
     private func setup() {
-        backgroundColor = UIColor.primaryBlue.withAlphaComponent(0.1)
+        backgroundColor = UIColor.btnPrimary.withAlphaComponent(0.1)
         clipsToBounds = true
         isUserInteractionEnabled = false
         layer.mask = maskLayer

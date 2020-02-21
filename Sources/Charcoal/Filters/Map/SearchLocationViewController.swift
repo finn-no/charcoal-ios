@@ -278,7 +278,7 @@ private extension SearchLocationViewController {
     }
 
     func setup() {
-        view.backgroundColor = UIColor.milk.withAlphaComponent(0.9)
+        view.backgroundColor = UIColor.bgPrimary.withAlphaComponent(0.9)
         tableView.backgroundColor = UIColor.clear
         searchBar.removeFromSuperview()
         view.insertSubview(tableView, belowSubview: topShadowView)

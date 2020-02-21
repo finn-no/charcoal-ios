@@ -49,13 +49,13 @@ final class GridFilterCell: UICollectionViewCell {
 
     private func setupStyles() {
         if isSelected {
-            backgroundColor = .primaryBlue
-            layer.borderColor = UIColor.primaryBlue.cgColor
+            backgroundColor = .btnPrimary
+            layer.borderColor = UIColor.btnPrimary.cgColor
             titleLabel.font = UIFont.bodyStrong(withSize: 20)
             titleLabel.textColor = .textTertiary
         } else {
             backgroundColor = Theme.mainBackground
-            layer.borderColor = UIColor.sardine.cgColor
+            layer.borderColor = UIColor.btnDisabled.cgColor
             titleLabel.font = UIFont.bodyRegular(withSize: 20)
             titleLabel.textColor = .textPrimary
         }

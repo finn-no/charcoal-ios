@@ -25,8 +25,6 @@ protocol FreeTextFilterViewControllerDelegate: AnyObject {
                                       for filter: Filter)
 }
 
-private class AppearanceColoredTableView: UITableView {}
-
 public class FreeTextFilterViewController: ScrollViewController {
     weak var filterDelegate: FreeTextFilterDelegate?
     weak var filterDataSource: FreeTextFilterDataSource?
@@ -51,7 +49,7 @@ public class FreeTextFilterViewController: ScrollViewController {
         return searchBar
     }()
 
-    private lazy var tableView: AppearanceColoredTableView = {
+    private lazy var tableView: UITableView = {
         let tableView = AppearanceColoredTableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(IconTitleTableViewCell.self)

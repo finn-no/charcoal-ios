@@ -31,8 +31,8 @@ class MapFilterDemoViewController: DemoViewController {
         NSLayoutConstraint.activate([
             mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             mapView.heightAnchor.constraint(equalToConstant: 568),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumLargeSpacing),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumLargeSpacing),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingM),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingM),
         ])
     }
 }

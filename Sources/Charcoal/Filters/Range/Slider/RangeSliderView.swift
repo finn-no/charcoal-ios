@@ -173,8 +173,8 @@ extension RangeSliderView {
             highValueSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sliderOffset),
             highValueSlider.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            trackView.leadingAnchor.constraint(equalTo: lowValueSlider.leadingAnchor, constant: .verySmallSpacing),
-            trackView.trailingAnchor.constraint(equalTo: highValueSlider.trailingAnchor, constant: -.verySmallSpacing),
+            trackView.leadingAnchor.constraint(equalTo: lowValueSlider.leadingAnchor, constant: .spacingXXS),
+            trackView.trailingAnchor.constraint(equalTo: highValueSlider.trailingAnchor, constant: -.spacingXXS),
             trackView.centerYAnchor.constraint(equalTo: lowValueSlider.centerYAnchor),
             trackView.heightAnchor.constraint(equalToConstant: Style.trackHeight),
             activeRangeTrackViewLeadingAnchor,

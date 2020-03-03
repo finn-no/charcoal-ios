@@ -59,7 +59,7 @@ final class SliderReferenceValueView: UIView {
             indicatorView.widthAnchor.constraint(equalToConstant: 4),
             indicatorView.heightAnchor.constraint(equalToConstant: 4),
 
-            referenceLabel.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: .mediumSpacing),
+            referenceLabel.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: .spacingS),
             referenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             referenceLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             referenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor),

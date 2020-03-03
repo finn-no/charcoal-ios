@@ -10,9 +10,9 @@ extension UITableViewCell {
             return
         }
 
-        let xPosition = bounds.width - size - .smallSpacing * 3
+        let xPosition = bounds.width - size - .spacingXS * 3
 
         accessoryView.frame = CGRect(x: xPosition, y: (bounds.height - size) / 2, width: size, height: size)
-        contentView.frame.size.width = xPosition - .mediumSpacing
+        contentView.frame.size.width = xPosition - .spacingS
     }
 }

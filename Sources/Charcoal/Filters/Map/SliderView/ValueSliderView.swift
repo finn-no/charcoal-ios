@@ -162,8 +162,8 @@ private extension ValueSliderView {
             valueSlider.leadingAnchor.constraint(equalTo: leadingAnchor),
             valueSlider.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            trackView.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor, constant: .verySmallSpacing),
-            trackView.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor, constant: -.verySmallSpacing),
+            trackView.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor, constant: .spacingXXS),
+            trackView.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor, constant: -.spacingXXS),
             trackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
             trackView.heightAnchor.constraint(equalToConstant: ValueSliderViewStyle.trackHeight),
             activeRangeTrackViewLeadingAnchor,
@@ -171,7 +171,7 @@ private extension ValueSliderView {
             activeRangeTrackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
             activeRangeTrackView.heightAnchor.constraint(equalToConstant: ValueSliderViewStyle.activeRangeTrackHeight),
 
-            referenceValuesContainer.topAnchor.constraint(equalTo: valueSlider.bottomAnchor, constant: .smallSpacing),
+            referenceValuesContainer.topAnchor.constraint(equalTo: valueSlider.bottomAnchor, constant: .spacingXS),
             referenceValuesContainer.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor),
             referenceValuesContainer.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor),
             referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),

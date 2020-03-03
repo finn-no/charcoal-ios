@@ -48,16 +48,16 @@ final class VerticalSelectorView: UIView {
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)
         button.setTitleColor(UIColor.btnPrimary.withAlphaComponent(0.5), for: .disabled)
 
-        let spacing = .smallSpacing / 2
+        let spacing = .spacingXS / 2
 
         button.semanticContentAttribute = .forceRightToLeft
         button.imageEdgeInsets = UIEdgeInsets(top: spacing, leading: spacing, bottom: 0, trailing: -spacing)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
         button.contentEdgeInsets = UIEdgeInsets(
             top: titleLabel.font.pointSize,
-            leading: .mediumLargeSpacing + spacing,
+            leading: .spacingM + spacing,
             bottom: 0,
-            trailing: .mediumLargeSpacing + spacing
+            trailing: .spacingM + spacing
         )
 
         button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)

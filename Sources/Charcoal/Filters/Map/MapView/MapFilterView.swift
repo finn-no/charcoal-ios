@@ -198,16 +198,16 @@ final class MapFilterView: UIView {
 
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
-            mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
+            mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
+            mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
 
-            distanceSlider.topAnchor.constraint(equalTo: mapContainerView.bottomAnchor, constant: .mediumLargeSpacing),
+            distanceSlider.topAnchor.constraint(equalTo: mapContainerView.bottomAnchor, constant: .spacingM),
             distanceSlider.leadingAnchor.constraint(equalTo: mapContainerView.leadingAnchor),
             distanceSlider.trailingAnchor.constraint(equalTo: mapContainerView.trailingAnchor),
-            distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
+            distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
 
-            userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .mediumSpacing),
-            userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.mediumSpacing),
+            userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
+            userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.spacingS),
             userLocationButton.widthAnchor.constraint(equalToConstant: 46),
             userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),
         ])
@@ -225,8 +225,8 @@ final class MapFilterView: UIView {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: mapContainerView.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumSpacing),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumSpacing),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingS),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingS),
         ])
     }
 }

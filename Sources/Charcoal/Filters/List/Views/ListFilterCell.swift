@@ -150,7 +150,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private func detailLabelConstraint(constantFor accessoryStyle: ListFilterCellViewModel.AccessoryStyle) -> CGFloat {
         guard #available(iOS 13, *), accessoryStyle == .chevron else { return 0 }
-        return -.mediumSpacing
+        return -.spacingS
     }
 
     private func showSelectedBackground(_ show: Bool) {

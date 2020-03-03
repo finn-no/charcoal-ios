@@ -149,15 +149,15 @@ final class RangeNumberInputView: UIView {
         addSubview(inputSeparatorView)
 
         NSLayoutConstraint.activate([
-            lowValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
-            lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
+            lowValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .spacingXL),
+            lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
             lowValueInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.mediumSpacing),
+            lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.spacingS),
             lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.6),
 
-            highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .largeSpacing),
-            highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
-            highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .mediumSpacing),
+            highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .spacingXL),
+            highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
+            highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .spacingS),
             highValueInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
             highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.6),
 

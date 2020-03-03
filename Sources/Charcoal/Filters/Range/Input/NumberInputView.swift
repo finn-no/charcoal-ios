@@ -170,10 +170,10 @@ final class NumberInputView: UIView {
 
             textField.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             textField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.mediumSpacing),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
 
             unitLabel.topAnchor.constraint(equalTo: textField.topAnchor),
-            unitLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: .mediumSpacing),
+            unitLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: .spacingS),
             unitLabel.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             unitLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
 
@@ -192,8 +192,8 @@ final class NumberInputView: UIView {
     private func attributedUnitText(withFont font: UIFont?, from unit: FilterUnit) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
-        style.headIndent = .mediumSpacing
-        style.tailIndent = -.mediumSpacing
+        style.headIndent = .spacingS
+        style.tailIndent = -.spacingS
         style.lineBreakMode = .byCharWrapping
 
         let attributes = [
@@ -310,7 +310,7 @@ private extension UIToolbar {
 
         let items: [RangeToolbarItem] = [
             .arrow(imageAsset: .arrowLeft, target: previousTextField),
-            .fixedSpace(width: .mediumLargeSpacing),
+            .fixedSpace(width: .spacingM),
             .arrow(imageAsset: .arrowRight, target: nextTextField),
             .flexibleSpace,
             .done(target: target),

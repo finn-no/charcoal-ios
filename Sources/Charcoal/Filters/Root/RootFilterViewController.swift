@@ -364,7 +364,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         add(verticalViewController)
         verticalViewController.verticals = verticals
         verticalViewController.view.alpha = 0.6
-        verticalViewController.view.frame.origin.y = -.largeSpacing
+        verticalViewController.view.frame.origin.y = -.spacingXL
 
         UIView.animate(withDuration: 0.1, animations: { [weak self] in
             self?.verticalViewController.view.alpha = 1
@@ -388,7 +388,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         bottomButton.alpha = 0
 
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
-            self?.verticalViewController.view.frame.origin.y = -.veryLargeSpacing
+            self?.verticalViewController.view.frame.origin.y = -.spacingXXL
             self?.verticalViewController.view.alpha = 0
         }), completion: ({ [weak self] _ in
             self?.verticalViewController.remove()
@@ -469,8 +469,8 @@ private extension RootFilterViewController {
 
         NSLayoutConstraint.activate([
             searchBarTopConstraint!,
-            searchBar.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: .mediumSpacing),
-            searchBar.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -.mediumLargeSpacing),
+            searchBar.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: .spacingS),
+            searchBar.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -.spacingM),
         ])
     }
 

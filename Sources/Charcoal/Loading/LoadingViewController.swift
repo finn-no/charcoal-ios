@@ -39,7 +39,7 @@ final class LoadingViewController: UIViewController {
             loadingIndicatorView.widthAnchor.constraint(equalToConstant: loadingIndicatorSize),
             loadingIndicatorView.heightAnchor.constraint(equalToConstant: loadingIndicatorSize),
             loadingIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadingIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -.mediumSpacing),
+            loadingIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -.spacingS),
         ])
     }
 

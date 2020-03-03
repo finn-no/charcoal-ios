@@ -145,15 +145,15 @@ extension RangeFilterView {
 
         NSLayoutConstraint.activate([
             numberInputView.topAnchor.constraint(equalTo: topAnchor),
-            numberInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .mediumSpacing),
-            numberInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.mediumSpacing),
+            numberInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .spacingS),
+            numberInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.spacingS),
             numberInputView.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             sliderInputView.topAnchor.constraint(equalTo: numberInputView.bottomAnchor, constant: 50),
-            sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
-            sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
+            sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
+            sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
 
-            referenceValuesContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .smallSpacing),
+            referenceValuesContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .spacingXS),
             referenceValuesContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),
             referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),

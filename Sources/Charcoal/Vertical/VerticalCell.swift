@@ -83,7 +83,7 @@ final class VerticalCell: UITableViewCell {
         addSubview(radioButton)
 
         NSLayoutConstraint.activate([
-            radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
+            radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
             radioButton.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }

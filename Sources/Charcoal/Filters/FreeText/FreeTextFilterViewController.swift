@@ -233,9 +233,9 @@ private extension FreeTextFilterViewController {
         view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .mediumSpacing),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingS),
             searchBar.topAnchor.constraint(equalTo: view.topAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.mediumSpacing),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingS),
 
             topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
 

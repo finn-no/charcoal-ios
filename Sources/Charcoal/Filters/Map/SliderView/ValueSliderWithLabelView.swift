@@ -99,12 +99,12 @@ private extension ValueSliderWithLabelView {
 
         NSLayoutConstraint.activate([
             valueLabel.topAnchor.constraint(equalTo: topAnchor),
-            valueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .mediumSpacing),
-            valueLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.mediumSpacing),
+            valueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .spacingS),
+            valueLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.spacingS),
             valueLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             valueLabel.heightAnchor.constraint(equalToConstant: labelHeight),
 
-            sliderView.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: .mediumSpacing),
+            sliderView.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: .spacingS),
             sliderView.leadingAnchor.constraint(equalTo: leadingAnchor),
             sliderView.trailingAnchor.constraint(equalTo: trailingAnchor),
             sliderView.bottomAnchor.constraint(equalTo: bottomAnchor),

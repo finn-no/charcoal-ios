@@ -14,7 +14,7 @@ final class InlineFilterView: UIView {
     weak var delegate: InlineFilterViewDelegate?
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: collectionView.bounds.width, height: InlineSegmentCell.cellHeight + .mediumLargeSpacing)
+        return CGSize(width: collectionView.bounds.width, height: InlineSegmentCell.cellHeight + .spacingM)
     }
 
     // MARK: - Private properties
@@ -29,7 +29,7 @@ final class InlineFilterView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
+        collectionView.contentInset = UIEdgeInsets(top: 0, leading: .spacingM, bottom: 0, trailing: .spacingM)
         collectionView.register(InlineSegmentCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -112,13 +112,13 @@ extension InlineFilterView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return .mediumSpacing
+        return .spacingS
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return .mediumSpacing
+        return .spacingS
     }
 }
 
@@ -127,7 +127,7 @@ extension InlineFilterView: UICollectionViewDelegateFlowLayout {
 private extension InlineFilterView {
     func setup() {
         addSubview(collectionView)
-        collectionView.fillInSuperview(insets: UIEdgeInsets(top: .mediumSpacing, leading: 0, bottom: -.mediumSpacing, trailing: 0))
+        collectionView.fillInSuperview(insets: UIEdgeInsets(top: .spacingS, leading: 0, bottom: -.spacingS, trailing: 0))
         collectionView.heightAnchor.constraint(equalToConstant: InlineSegmentCell.cellHeight).isActive = true
     }
 

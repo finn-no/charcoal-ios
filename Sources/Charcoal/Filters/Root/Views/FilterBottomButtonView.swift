@@ -21,7 +21,7 @@ class FilterBottomButtonView: ShadowView {
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: button.intrinsicContentSize.width,
-                      height: button.intrinsicContentSize.height + .largeSpacing + windowSafeAreaInsets.bottom)
+                      height: button.intrinsicContentSize.height + .spacingXL + windowSafeAreaInsets.bottom)
     }
 
     override init() {
@@ -39,12 +39,12 @@ private extension FilterBottomButtonView {
     func setup() {
         addSubview(button)
 
-        let bottomConstant: CGFloat = .mediumLargeSpacing + windowSafeAreaInsets.bottom
+        let bottomConstant: CGFloat = .spacingM + windowSafeAreaInsets.bottom
 
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: topAnchor, constant: .mediumLargeSpacing),
-            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .mediumLargeSpacing),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.mediumLargeSpacing),
+            button.topAnchor.constraint(equalTo: topAnchor, constant: .spacingM),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
             button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomConstant),
         ])
     }

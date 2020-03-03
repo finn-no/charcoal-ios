@@ -15,7 +15,7 @@ enum RangeToolbarItem {
         case let .arrow(imageAsset, target):
             let image = UIImage(named: imageAsset)
             let button = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-            button.width = .largeSpacing
+            button.width = .spacingXL
 
             if let target = target {
                 button.target = target

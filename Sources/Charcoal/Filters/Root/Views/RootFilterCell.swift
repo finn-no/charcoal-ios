@@ -54,7 +54,7 @@ final class RootFilterCell: BasicTableViewCell {
 
     private lazy var stackViewToContextMarkConstraint = stackView.leadingAnchor.constraint(
         equalTo: contextMark.trailingAnchor,
-        constant: .mediumSpacing
+        constant: .spacingS
     )
 
     // MARK: - Init
@@ -117,28 +117,28 @@ final class RootFilterCell: BasicTableViewCell {
         contentView.addSubview(selectionTagsContainerView)
         contentView.addSubview(hairLine)
 
-        stackViewLeadingAnchorConstraint.constant = .mediumLargeSpacing + .mediumSpacing
-        stackViewTopAnchorConstraint.constant = .mediumLargeSpacing
-        stackViewBottomAnchorConstraint.constant = -.mediumLargeSpacing
+        stackViewLeadingAnchorConstraint.constant = .spacingM + .spacingS
+        stackViewTopAnchorConstraint.constant = .spacingM
+        stackViewBottomAnchorConstraint.constant = -.spacingM
 
-        var selectionTagsContainerTrailingConstant: CGFloat = .smallSpacing
+        var selectionTagsContainerTrailingConstant: CGFloat = .spacingXS
         if #available(iOS 13, *) {
-            selectionTagsContainerTrailingConstant -= .mediumSpacing
+            selectionTagsContainerTrailingConstant -= .spacingS
         }
 
         NSLayoutConstraint.activate([
-            contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
+            contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .spacingM + .spacingS),
             contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             contextMark.widthAnchor.constraint(equalToConstant: 10),
             contextMark.heightAnchor.constraint(equalToConstant: 10),
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .mediumLargeSpacing),
+            selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .spacingM),
             selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: selectionTagsContainerTrailingConstant),
 
             hairLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             hairLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            hairLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .mediumLargeSpacing + .mediumSpacing),
+            hairLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .spacingM + .spacingS),
             hairLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }

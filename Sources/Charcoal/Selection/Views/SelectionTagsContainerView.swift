@@ -19,7 +19,7 @@ final class SelectionTagsContainerView: UIView {
     private lazy var collectionViewLayout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = .mediumSpacing
+        layout.minimumLineSpacing = .spacingS
         return layout
     }()
 

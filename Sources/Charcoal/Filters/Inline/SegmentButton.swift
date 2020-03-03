@@ -60,7 +60,7 @@ private extension SegmentButton {
         setTitleColor(.textPrimary, for: .normal)
         setTitleColor(.textTertiary, for: .selected)
         backgroundColor = Theme.mainBackground
-        contentEdgeInsets = UIEdgeInsets(top: 0, leading: .mediumLargeSpacing, bottom: 0, trailing: .mediumLargeSpacing)
+        contentEdgeInsets = UIEdgeInsets(top: 0, leading: .spacingM, bottom: 0, trailing: .spacingM)
 
         borderLayer.lineWidth = SegmentButton.borderWidth
         borderLayer.fillColor = UIColor.clear.cgColor

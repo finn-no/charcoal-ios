@@ -12,7 +12,7 @@ final class GridFilterViewController: FilterViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: .mediumLargeSpacing, left: edgeInset, bottom: 0, right: edgeInset)
+        collectionView.contentInset = UIEdgeInsets(top: .spacingM, left: edgeInset, bottom: 0, right: edgeInset)
         collectionView.register(GridFilterCell.self)
         return collectionView
     }()
@@ -85,7 +85,7 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfItemsPerRow: CGFloat = 5
-        let side = ((collectionView.frame.width - edgeInset * 2) / numberOfItemsPerRow) - .mediumSpacing
+        let side = ((collectionView.frame.width - edgeInset * 2) / numberOfItemsPerRow) - .spacingS
 
         return CGSize(width: side, height: side)
     }
@@ -93,7 +93,7 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return .mediumSpacing
+        return .spacingS
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -4,7 +4,7 @@
 
 import FinniversKit
 
-final class GridFilterViewController: FilterViewController {
+public final class GridFilterViewController: FilterViewController {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,25 +22,25 @@ final class GridFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore) {
+    public init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
         super.init(title: filter.title, selectionStore: selectionStore)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Overrides
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
         showBottomButton(false, animated: false)
         setup()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.reloadData()
 
@@ -66,11 +66,11 @@ final class GridFilterViewController: FilterViewController {
 // MARK: - UICollectionViewDataSource
 
 extension GridFilterViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filter.subfilters.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(GridFilterCell.self, for: indexPath)
         let currentFilter = filter.subfilters[indexPath.row]
         cell.configure(withTitle: currentFilter.title, accessibilityPrefix: filter.title)
@@ -81,22 +81,22 @@ extension GridFilterViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView,
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfItemsPerRow: CGFloat = 5
         let side = ((collectionView.frame.width - edgeInset * 2) / numberOfItemsPerRow) - .spacingS
 
         return CGSize(width: side, height: side)
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    public func collectionView(_ collectionView: UICollectionView,
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return .spacingS
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let currentFilter = filter.subfilters[indexPath.row]
 
         UISelectionFeedbackGenerator().selectionChanged()
@@ -104,7 +104,7 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
         showBottomButtonIfNeeded()
     }
 
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let currentFilter = filter.subfilters[indexPath.row]
 
         UISelectionFeedbackGenerator().selectionChanged()

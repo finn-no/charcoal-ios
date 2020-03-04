@@ -5,7 +5,7 @@
 import FinniversKit
 import UIKit
 
-final class StepperFilterViewController: FilterViewController {
+public final class StepperFilterViewController: FilterViewController {
     private let filter: Filter
     private let filterConfig: StepperFilterConfiguration
     private lazy var topConstraint = stepperFilterView.centerYAnchor.constraint(lessThanOrEqualTo: view.topAnchor)
@@ -23,19 +23,19 @@ final class StepperFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore, filterConfig: StepperFilterConfiguration) {
+    public init(filter: Filter, selectionStore: FilterSelectionStore, filterConfig: StepperFilterConfiguration) {
         self.filter = filter
         self.filterConfig = filterConfig
         super.init(title: filter.title, selectionStore: selectionStore)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Lifecycle
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
 
@@ -51,7 +51,7 @@ final class StepperFilterViewController: FilterViewController {
         ])
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         topConstraint.constant = (view.frame.height - bottomButton.intrinsicContentSize.height) / 2
     }

@@ -5,16 +5,16 @@
 import Foundation
 
 public struct SelectionTitle: Equatable {
-    let value: String
-    let accessibilityLabel: String
+    public let value: String
+    public let accessibilityLabel: String
 
     // MARK: - Init
 
-    init(value: String) {
+    public init(value: String) {
         self.init(value: value, accessibilityLabel: value)
     }
 
-    init(value: String, accessibilityLabel: String) {
+    public init(value: String, accessibilityLabel: String) {
         self.value = value
         self.accessibilityLabel = accessibilityLabel
     }

@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol FilterViewControllerDelegate: AnyObject {
+public protocol FilterViewControllerDelegate: AnyObject {
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
     func filterViewControllerWillPresentBottomButton(_ viewController: FilterViewController)
     func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController)
@@ -12,8 +12,8 @@ protocol FilterViewControllerDelegate: AnyObject {
     func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController)
 }
 
-class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate {
-    weak var delegate: FilterViewControllerDelegate?
+public class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate {
+    public weak var delegate: FilterViewControllerDelegate?
     let selectionStore: FilterSelectionStore
 
     // MARK: - Private properties
@@ -43,7 +43,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 
     // MARK: - Lifecycle
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Theme.mainBackground
         setup()
@@ -54,24 +54,22 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
         view.addGestureRecognizer(gestureRecognizer)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableSwipeBack(true)
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableSwipeBack(true)
     }
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         bottomButton.update(with: scrollView)
     }
 
-    // MARK: - Internal functions
-
-    func showBottomButton(_ show: Bool, animated: Bool) {
+    public func showBottomButton(_ show: Bool, animated: Bool) {
         if viewIfLoaded?.window != nil {
             view.layoutIfNeeded()
         }
@@ -93,6 +91,8 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
             self?.bottomButton.isHidden = !show
         })
     }
+
+    // MARK: - Internal functions
 
     func enableSwipeBack(_ isEnabled: Bool) {
         let gestureRecognizer = navigationController?.interactivePopGestureRecognizer
@@ -124,7 +124,7 @@ class FilterViewController: ScrollViewController, FilterBottomButtonViewDelegate
 }
 
 extension FilterViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         enableSwipeBack(!(touch.view is UISlider))
         return false
     }

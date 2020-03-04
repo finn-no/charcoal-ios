@@ -146,6 +146,15 @@ public extension FilterSelectionStore {
         return filters.reduce([]) { $0 + queryItems(for: $1) }
     }
 
+    func allQueryItems(for filterContainer: FilterContainer) -> [URLQueryItem] {
+        filterContainer.allFilters.reduce([]) { $0 + queryItems(for: $1) }
+    }
+
+    func allQueryItems(for filter: Filter) -> [URLQueryItem] {
+        let queryItems = queryItem(for: filter).flatMap { [$0] } ?? []
+        return filter.subfilters.reduce(queryItems) { $0 + allQueryItems(for: $1) }
+    }
+
     func titles(for filter: Filter) -> [SelectionTitle] {
         switch filter.kind {
         case let .range(lowValueFilter, highValueFilter, config):

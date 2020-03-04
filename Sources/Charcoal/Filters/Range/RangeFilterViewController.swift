@@ -4,7 +4,7 @@
 
 import UIKit
 
-final class RangeFilterViewController: FilterViewController {
+public final class RangeFilterViewController: FilterViewController {
     // MARK: - Private properties
 
     private let lowValueFilter: Filter
@@ -20,8 +20,8 @@ final class RangeFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(title: String, lowValueFilter: Filter, highValueFilter: Filter,
-         filterConfig: RangeFilterConfiguration, selectionStore: FilterSelectionStore) {
+    public init(title: String, lowValueFilter: Filter, highValueFilter: Filter,
+                filterConfig: RangeFilterConfiguration, selectionStore: FilterSelectionStore) {
         self.lowValueFilter = lowValueFilter
         self.highValueFilter = highValueFilter
         self.filterConfig = filterConfig
@@ -29,13 +29,13 @@ final class RangeFilterViewController: FilterViewController {
         setup()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Lifecycle
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }

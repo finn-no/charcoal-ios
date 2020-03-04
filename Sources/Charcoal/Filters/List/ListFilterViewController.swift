@@ -4,7 +4,7 @@
 
 import FinniversKit
 
-final class ListFilterViewController: FilterViewController {
+public final class ListFilterViewController: FilterViewController {
     private enum Section: Int {
         case all, subfilters
     }
@@ -31,29 +31,29 @@ final class ListFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore) {
+    public init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
         super.init(title: filter.title, selectionStore: selectionStore)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Overrides
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
         setup()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
 
-    override func showBottomButton(_ show: Bool, animated: Bool) {
+    public override func showBottomButton(_ show: Bool, animated: Bool) {
         super.showBottomButton(show, animated: animated)
         bottomButton.update(with: tableView)
     }
@@ -75,11 +75,11 @@ final class ListFilterViewController: FilterViewController {
 // MARK: - UITableViewDataSource
 
 extension ListFilterViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let section = Section(rawValue: section) else { return 0 }
 
         switch section {
@@ -90,7 +90,7 @@ extension ListFilterViewController: UITableViewDataSource {
         }
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let section = Section(rawValue: indexPath.section) else { fatalError("Apple screwed up!") }
 
         let cell = tableView.dequeue(ListFilterCell.self, for: indexPath)
@@ -123,7 +123,7 @@ extension ListFilterViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension ListFilterViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
 
         tableView.deselectRow(at: indexPath, animated: false)

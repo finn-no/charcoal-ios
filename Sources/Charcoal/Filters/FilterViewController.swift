@@ -27,7 +27,7 @@ public class FilterViewController: ScrollViewController, FilterBottomButtonViewD
         return view
     }()
 
-    private(set) var isShowingBottomButton = false
+    public private(set) var isShowingBottomButton = false
 
     // MARK: - Init
 

@@ -147,7 +147,7 @@ public extension FilterSelectionStore {
     }
 
     func allQueryItems(for filterContainer: FilterContainer) -> [URLQueryItem] {
-        filterContainer.allFilters.reduce([]) { $0 + queryItems(for: $1) }
+        filterContainer.allFilters.reduce([]) { $0 + allQueryItems(for: $1) }
     }
 
     func allQueryItems(for filter: Filter) -> [URLQueryItem] {

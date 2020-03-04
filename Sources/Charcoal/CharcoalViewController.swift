@@ -166,15 +166,15 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 // MARK: - FilterViewControllerDelegate
 
 extension CharcoalViewController: FilterViewControllerDelegate {
-    func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController) {
+    public func filterViewControllerWillBeginTextEditing(_ viewController: FilterViewController) {
         textEditingDelegate?.charcoalViewControllerWillBeginTextEditing(self)
     }
 
-    func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController) {
+    public func filterViewControllerWillEndTextEditing(_ viewController: FilterViewController) {
         textEditingDelegate?.charcoalViewControllerWillEndTextEditing(self)
     }
 
-    func filterViewControllerWillPresentBottomButton(_ viewController: FilterViewController) {
+    public func filterViewControllerWillPresentBottomButton(_ viewController: FilterViewController) {
         if UIDevice.current.userInterfaceIdiom == .pad, !UserDefaults.standard.bottomButtomCalloutShown {
             if viewController is ListFilterViewController ||
                 viewController is RangeFilterViewController ||
@@ -186,7 +186,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         }
     }
 
-    func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController) {
+    public func filterViewControllerDidPressBottomButton(_ viewController: FilterViewController) {
         if viewController === rootFilterViewController {
             selectionDelegate?.charcoalViewControllerDidPressShowResults(self)
         } else {
@@ -195,7 +195,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         }
     }
 
-    func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
+    public func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
         case .standard:
             guard !filter.subfilters.isEmpty else { break }

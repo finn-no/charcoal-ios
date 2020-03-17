@@ -5,10 +5,10 @@
 import Foundation
 
 final class MapPolygonOverlayView: UIView {
-    var radius: CGFloat = 5 {
+    var width: CGFloat = 180 {
         didSet {
-            widthConstraint.constant = radius * 2
-            backgroundView.innerRadius = radius
+            widthConstraint.constant = width
+            backgroundView.innerRadius = width
         }
     }
 
@@ -22,7 +22,7 @@ final class MapPolygonOverlayView: UIView {
         return view
     }()
 
-    private lazy var widthConstraint = radiusView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6)
+    private lazy var widthConstraint = radiusView.widthAnchor.constraint(equalToConstant: width)
 
     // MARK: - Init
 
@@ -56,7 +56,7 @@ final class MapPolygonOverlayView: UIView {
         NSLayoutConstraint.activate([
             radiusView.centerXAnchor.constraint(equalTo: centerXAnchor),
             radiusView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            radiusView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6),
+            widthConstraint,
             radiusView.heightAnchor.constraint(equalTo: radiusView.widthAnchor),
         ])
     }
@@ -65,7 +65,7 @@ final class MapPolygonOverlayView: UIView {
 // MARK: - Private types
 
 private final class BackgroundView: UIView {
-    var innerRadius: CGFloat = 5 {
+    var innerRadius: CGFloat = 180 {
         didSet {
             setNeedsLayout()
             layoutIfNeeded()

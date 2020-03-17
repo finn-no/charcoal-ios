@@ -143,6 +143,10 @@ final class MapPolygonFilterViewController: FilterViewController {
 // MARK: - MapFilterViewDelegate
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
+    func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
+        mapPolygonFilterView.configurePolygons([coordinates])
+    }
+
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {
         nextRegionChangeIsFromUserInteraction = true
         centerOnUserLocation()

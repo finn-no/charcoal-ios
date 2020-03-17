@@ -4,21 +4,20 @@
 
 import MapKit
 import UIKit
+import FinniversKit
 
 protocol MapPolygonFilterViewDelegate: MKMapViewDelegate {
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView)
+    func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D])
 }
 
 final class MapPolygonFilterView: UIView {
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
+    private var polygons = [MKPolygon]()
 
-    weak var delegate: MapPolygonFilterViewDelegate? {
-        didSet {
-            mapView.delegate = delegate
-        }
-    }
+    weak var delegate: MapPolygonFilterViewDelegate?
 
     var searchBar: UISearchBar? {
         didSet {
@@ -72,6 +71,7 @@ final class MapPolygonFilterView: UIView {
         view.isPitchEnabled = true
         view.isZoomEnabled = true
         view.layer.cornerRadius = 8
+        view.delegate = self
         return view
     }()
 
@@ -89,6 +89,19 @@ final class MapPolygonFilterView: UIView {
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
+
+        return button
+    }()
+
+    private lazy var initialAreaSelectionButton: Button = {
+        let button = Button(style: .callToAction, size: .small, withAutoLayout: true)
+        button.setTitle("Fest kartutsnittet her", for: .normal)
+        button.addTarget(self, action: #selector(didTapAreaSelectionButton), for: .touchUpInside)
+
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 1)
+        button.layer.shadowRadius = 3
+        button.layer.shadowOpacity = 0.5
 
         return button
     }()
@@ -151,8 +164,8 @@ final class MapPolygonFilterView: UIView {
     }
 
     func updateRadiusView() {
-        let region = mapView.centeredRegion(for: Double(radius))
-        radiusOverlayView.radius = mapView.convert(region, toRectTo: mapView).width
+//        let region = mapView.centeredRegion(for: Double(radius))
+//        radiusOverlayView.width = mapView.convert(region, toRectTo: mapView).width
     }
 
     private func updateRegion(animated: Bool = true) {
@@ -162,10 +175,31 @@ final class MapPolygonFilterView: UIView {
         updateRadiusView()
     }
 
+    func configurePolygons(_ polygonPoints: [[CLLocationCoordinate2D]]) {
+        radiusOverlayView.isHidden = true
+        initialAreaSelectionButton.isHidden = true
+        polygonPoints.forEach { points in
+            let newPolygon = MKPolygon(coordinates: points, count: points.count)
+            mapView.addOverlay(newPolygon)
+            polygons.append(newPolygon)
+        }
+    }
+
     // MARK: - Actions
 
     @objc private func didTapLocateUserButton() {
         delegate?.mapPolygonFilterViewDidSelectLocationButton(self)
+    }
+
+    @objc private func didTapAreaSelectionButton() {
+        let offset = radiusOverlayView.width/2
+        let coordinates = [
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView)
+        ]
+        delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: coordinates)
     }
 
     // MARK: - Setup
@@ -178,6 +212,7 @@ final class MapPolygonFilterView: UIView {
         mapContainerView.addSubview(mapView)
         mapContainerView.addSubview(radiusOverlayView)
         mapContainerView.addSubview(userLocationButton)
+        mapContainerView.addSubview(initialAreaSelectionButton)
 
         mapView.fillInSuperview()
         radiusOverlayView.fillInSuperview()
@@ -192,6 +227,9 @@ final class MapPolygonFilterView: UIView {
             userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.spacingS),
             userLocationButton.widthAnchor.constraint(equalToConstant: 46),
             userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),
+
+            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingS),
+            initialAreaSelectionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 
@@ -222,5 +260,27 @@ private extension MKMapView {
             latitudinalMeters: CLLocationDistance(radius),
             longitudinalMeters: CLLocationDistance(radius)
         )
+    }
+}
+
+extension MapPolygonFilterView: MKMapViewDelegate {
+    public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKCircle {
+            let circle = MKCircleRenderer(overlay: overlay)
+            circle.strokeColor = UIColor.btnPrimary
+            circle.fillColor = UIColor.btnPrimary.withAlphaComponent(0.15)
+            circle.lineWidth = 2
+            return circle
+        } else if overlay is MKPolygon {
+            let polygon = MKPolygonRenderer(overlay: overlay)
+            polygon.strokeColor = UIColor.btnPrimary
+            polygon.fillColor = UIColor.btnPrimary.withAlphaComponent(0.15)
+            polygon.lineWidth = 2
+            return polygon
+        } else if let tileOverlay = overlay as? MKTileOverlay {
+            return MKTileOverlayRenderer(tileOverlay: tileOverlay)
+        } else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
     }
 }

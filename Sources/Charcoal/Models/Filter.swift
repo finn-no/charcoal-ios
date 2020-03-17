@@ -17,6 +17,7 @@ public final class Filter {
         case external
         case range(lowValueFilter: Filter, highValueFilter: Filter, config: RangeFilterConfiguration)
         case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter)
+        case mapPolygon(latitudeFilter: Filter, longitudeFilter: Filter, locationNameFilter: Filter)
     }
 
     public let title: String
@@ -117,6 +118,23 @@ extension Filter {
         )
 
         let subfilters = [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter]
+
+        return Filter(kind: kind, title: title, key: key, value: nil, numberOfResults: 0, style: .normal, subfilters: subfilters)
+    }
+
+    public static func mapPolygon(title: String? = nil, key: String, latitudeKey: String, longitudeKey: String, locationKey: String) -> Filter {
+        let title = title ?? "map.title".localized()
+        let latitudeFilter = Filter(title: "", key: latitudeKey)
+        let longitudeFilter = Filter(title: "", key: longitudeKey)
+        let locationNameFilter = Filter(title: "", key: locationKey)
+
+        let kind = Kind.mapPolygon(
+            latitudeFilter: latitudeFilter,
+            longitudeFilter: longitudeFilter,
+            locationNameFilter: locationNameFilter
+        )
+
+        let subfilters = [latitudeFilter, longitudeFilter, locationNameFilter]
 
         return Filter(kind: kind, title: title, key: key, value: nil, numberOfResults: 0, style: .normal, subfilters: subfilters)
     }

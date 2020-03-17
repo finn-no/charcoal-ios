@@ -228,19 +228,49 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
-            let mapViewController = MapFilterViewController(
+//            let mapViewController = MapFilterViewController(
+//                title: "filter.title".localized(),
+//                latitudeFilter: latitudeFilter,
+//                longitudeFilter: longitudeFilter,
+//                radiusFilter: radiusFilter,
+//                locationNameFilter: locationNameFilter,
+//                selectionStore: selectionStore
+//            )
+//
+//            mapViewController.mapDataSource = mapDataSource
+//            mapViewController.searchLocationDataSource = searchLocationDataSource
+//
+//            pushViewController(mapViewController)
+
+            // Temporarily display the new polygon filter.
+            // Should add a view navigation controller that switches between the two later.
+            let mapPolygonViewController = MapPolygonFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
-                radiusFilter: radiusFilter,
                 locationNameFilter: locationNameFilter,
                 selectionStore: selectionStore
             )
 
-            mapViewController.mapDataSource = mapDataSource
-            mapViewController.searchLocationDataSource = searchLocationDataSource
+            mapPolygonViewController.mapDataSource = mapDataSource
+            mapPolygonViewController.searchLocationDataSource = searchLocationDataSource
 
-            pushViewController(mapViewController)
+            pushViewController(mapPolygonViewController)
+
+
+        case let .mapPolygon(latitudeFilter, longitudeFilter, locationNameFilter):
+            let mapPolygonViewController = MapPolygonFilterViewController(
+                title: "filter.title".localized(),
+                latitudeFilter: latitudeFilter,
+                longitudeFilter: longitudeFilter,
+                locationNameFilter: locationNameFilter,
+                selectionStore: selectionStore
+            )
+
+            mapPolygonViewController.mapDataSource = mapDataSource
+            mapPolygonViewController.searchLocationDataSource = searchLocationDataSource
+
+            pushViewController(mapPolygonViewController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }

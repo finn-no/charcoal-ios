@@ -55,15 +55,21 @@ public struct FilterSetup: Decodable {
 
     // MARK: - Factory
 
-    public func filterContainer(using config: FilterConfiguration) -> FilterContainer {
+    public func filterContainer(using config: FilterConfiguration, excludedFilters: [FilterKey] = []) -> FilterContainer {
         let rootFilters = config.rootLevelFilterKeys.compactMap { key -> Filter? in
+            if excludedFilters.contains(key) {
+                return nil
+            }
             let filter = makeRootLevelFilter(withKey: key, using: config)
             filter?.mutuallyExclusiveFilterKeys = Set(config.mutuallyExclusiveFilters(for: key).map { $0.rawValue })
             return filter
         }
 
-        let preferenceFilters = config.preferenceFilterKeys.compactMap {
-            filterData(forKey: $0).flatMap { makeFilter(from: $0, withKind: .standard, style: .normal) }
+        let preferenceFilters = config.preferenceFilterKeys.compactMap { key -> Filter? in
+            if excludedFilters.contains(key) {
+                return nil
+            }
+            return filterData(forKey: key).flatMap { makeFilter(from: $0, withKind: .standard, style: .normal) }
         }
 
         let container = FilterContainer(

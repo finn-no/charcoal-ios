@@ -320,6 +320,19 @@ extension MapPolygonFilterView: MKMapViewDelegate {
             dragStartPosition = location
         } else if gesture.state == .changed {
             gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+            if let annotationView = gesture.view as? MKAnnotationView {
+                guard let draggedAnnotationTitle = annotationView.annotation?.title else { return }
+                var coordinates = [CLLocationCoordinate2D]()
+                for annotation in annotations {
+                    if annotation.title != draggedAnnotationTitle {
+                        coordinates.append(annotation.coordinate)
+                    } else {
+                        let coordinateOfTouch = mapView.convert(location, toCoordinateFrom: mapView)
+                        coordinates.append(coordinateOfTouch)
+                    }
+                }
+                updateOverlay(with: coordinates)
+            }
         } else if gesture.state == .ended || gesture.state == .cancelled {
 
             if let annotationView = gesture.view as? MKAnnotationView,
@@ -332,17 +345,17 @@ extension MapPolygonFilterView: MKMapViewDelegate {
                 annotationView.transform = .identity
                 annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
 
-                updateOverlay()
+                updateOverlay(with: annotations.map({ $0.coordinate }))
             }
         }
     }
 
-    func updateOverlay() {
+    func updateOverlay(with coordinates: [CLLocationCoordinate2D]) {
         if let polygon = polygon {
             mapView.removeOverlay(polygon)
         }
         polygon = nil
-        let coordinates = annotations.map({ $0.coordinate })
+
         let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
         mapView.addOverlay(polygon)
         self.polygon = polygon

@@ -144,7 +144,7 @@ final class MapPolygonFilterViewController: FilterViewController {
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
-        mapPolygonFilterView.configurePolygons([coordinates])
+        mapPolygonFilterView.configurePolygons(coordinates)
     }
 
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {

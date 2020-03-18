@@ -15,7 +15,8 @@ final class MapPolygonFilterView: UIView {
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
-    private var polygons = [MKPolygon]()
+    private var polygon: MKPolygon?
+    private var annotations = [MKAnnotation]()
 
     weak var delegate: MapPolygonFilterViewDelegate?
 
@@ -68,7 +69,7 @@ final class MapPolygonFilterView: UIView {
         let view = MKMapView(frame: .zero)
         view.showsUserLocation = true
         view.isRotateEnabled = false
-        view.isPitchEnabled = true
+        view.isPitchEnabled = false
         view.isZoomEnabled = true
         view.layer.cornerRadius = 8
         view.delegate = self
@@ -175,13 +176,19 @@ final class MapPolygonFilterView: UIView {
         updateRadiusView()
     }
 
-    func configurePolygons(_ polygonPoints: [[CLLocationCoordinate2D]]) {
+    func configurePolygons(_ polygonPoints: [CLLocationCoordinate2D]) {
         radiusOverlayView.isHidden = true
         initialAreaSelectionButton.isHidden = true
-        polygonPoints.forEach { points in
-            let newPolygon = MKPolygon(coordinates: points, count: points.count)
-            mapView.addOverlay(newPolygon)
-            polygons.append(newPolygon)
+
+        polygon = MKPolygon(coordinates: polygonPoints, count: polygonPoints.count)
+        mapView.addOverlay(polygon!)
+
+        for point in polygonPoints {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = point
+            annotation.title = "Annotation \(annotations.count)"
+            annotations.append(annotation)
+            mapView.addAnnotation(annotation)
         }
     }
 
@@ -282,5 +289,34 @@ extension MapPolygonFilterView: MKMapViewDelegate {
         } else {
             return MKOverlayRenderer(overlay: overlay)
         }
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !(annotation is MKUserLocation) else { return nil }
+
+        var view = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+        if let view = view {
+            view.annotation = annotation
+        }
+        else {
+            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            view?.isDraggable = true
+        }
+        return view
+    }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
+        updateOverlay()
+    }
+
+    func updateOverlay() {
+        if let polygon = polygon {
+            mapView.removeOverlay(polygon)
+        }
+        polygon = nil
+        let coordinates = annotations.map({ $0.coordinate })
+        let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
+        mapView.addOverlay(polygon)
+        self.polygon = polygon
     }
 }

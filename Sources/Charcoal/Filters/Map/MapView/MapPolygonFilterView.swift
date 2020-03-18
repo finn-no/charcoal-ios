@@ -17,6 +17,7 @@ final class MapPolygonFilterView: UIView {
     private static let userLocationButtonWidth: CGFloat = 46
     private var polygon: MKPolygon?
     private var annotations = [MKAnnotation]()
+    private var dragStartPosition: CGPoint = .zero
 
     weak var delegate: MapPolygonFilterViewDelegate?
 
@@ -300,14 +301,40 @@ extension MapPolygonFilterView: MKMapViewDelegate {
         }
         else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            view?.canShowCallout = false
             view?.image = UIImage(named: .sliderThumb)
-            view?.isDraggable = true
+            view?.isDraggable = false
+
+            let drag = UILongPressGestureRecognizer(target: self, action: #selector(handleDrag(gesture:)))
+            drag.minimumPressDuration = 0
+            drag.allowableMovement = .greatestFiniteMagnitude
+            view?.addGestureRecognizer(drag)
         }
         return view
     }
 
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
-        updateOverlay()
+    @objc func handleDrag(gesture: UILongPressGestureRecognizer) {
+        let location = gesture.location(in: mapView)
+
+        if gesture.state == .began {
+            dragStartPosition = location
+        } else if gesture.state == .changed {
+            gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+        } else if gesture.state == .ended || gesture.state == .cancelled {
+
+            if let annotationView = gesture.view as? MKAnnotationView,
+                let annotation = annotationView.annotation as? MKPointAnnotation {
+
+                let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+                let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
+                let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+
+                annotationView.transform = .identity
+                annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
+
+                updateOverlay()
+            }
+        }
     }
 
     func updateOverlay() {

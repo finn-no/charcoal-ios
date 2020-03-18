@@ -18,6 +18,7 @@ final class MapPolygonFilterView: UIView {
     private var polygon: MKPolygon?
     private var annotations = [MKAnnotation]()
     private var dragStartPosition: CGPoint = .zero
+    private var previousPolygonRenderer: MKPolygonRenderer? = nil
 
     weak var delegate: MapPolygonFilterViewDelegate?
 
@@ -284,6 +285,10 @@ extension MapPolygonFilterView: MKMapViewDelegate {
             polygon.strokeColor = UIColor.btnPrimary
             polygon.fillColor = UIColor.btnPrimary.withAlphaComponent(0.15)
             polygon.lineWidth = 2
+            if previousPolygonRenderer != nil {
+                previousPolygonRenderer!.alpha = 0
+            }
+            previousPolygonRenderer = polygon
             return polygon
         } else if let tileOverlay = overlay as? MKTileOverlay {
             return MKTileOverlayRenderer(tileOverlay: tileOverlay)
@@ -331,7 +336,7 @@ extension MapPolygonFilterView: MKMapViewDelegate {
                         coordinates.append(coordinateOfTouch)
                     }
                 }
-                updateOverlay(with: coordinates)
+                drawPolygon(with: coordinates)
             }
         } else if gesture.state == .ended || gesture.state == .cancelled {
 
@@ -345,14 +350,19 @@ extension MapPolygonFilterView: MKMapViewDelegate {
                 annotationView.transform = .identity
                 annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
 
-                updateOverlay(with: annotations.map({ $0.coordinate }))
+                drawPolygon(with: annotations.map({ $0.coordinate }))
             }
         }
     }
 
-    func updateOverlay(with coordinates: [CLLocationCoordinate2D]) {
+    func drawPolygon(with coordinates: [CLLocationCoordinate2D]) {
         if let polygon = polygon {
-            mapView.removeOverlay(polygon)
+            // Ideally, we want to remove the overlay once we redraw a new polygon.
+            // However, there is a bug in iOS 13.2 and 13.3 where removing overlay causes MapKit to flutter.
+            // https://stackoverflow.com/questions/58674817/ios-13-2-removing-overlay-from-mapkit-causing-map-to-flicker
+            // A temporary solution is to change alpha of the prevoius polygon to 0, in rendererFor overlay.
+            // Rumors say the issue is fixed in iOS 13.4 beta 🤞
+//            mapView.removeOverlay(polygon)
         }
         polygon = nil
 

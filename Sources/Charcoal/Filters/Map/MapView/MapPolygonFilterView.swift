@@ -299,7 +299,8 @@ extension MapPolygonFilterView: MKMapViewDelegate {
             view.annotation = annotation
         }
         else {
-            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            view?.image = UIImage(named: .sliderThumb)
             view?.isDraggable = true
         }
         return view

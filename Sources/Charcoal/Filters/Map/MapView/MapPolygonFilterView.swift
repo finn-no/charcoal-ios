@@ -203,7 +203,8 @@ final class MapPolygonFilterView: UIView {
         let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
         midwayAnnotation.title = "Annotation \(annotations.count)"
         midwayAnnotation.coordinate = midwayPointCoordinate
-        annotations.append(midwayAnnotation)
+        guard let annotationIndex = index(of: annotation) else { return }
+        annotations.insert(midwayAnnotation, at: annotationIndex + 1)
         mapView.addAnnotation(midwayAnnotation)
     }
 
@@ -349,16 +350,18 @@ extension MapPolygonFilterView: MKMapViewDelegate {
             updateNeighborPositions(draggedAnnotation: draggedAnnotation, annotationCoordinate: touchedCoordinate)
 
         } else if gesture.state == .ended || gesture.state == .cancelled {
-
             if let annotationView = gesture.view as? MKAnnotationView,
                 let annotation = annotationView.annotation as? PolygonSearchAnnotation {
 
                 if annotation.type == .intermediate {
                     annotation.type = .vertex
                     annotationView.image = UIImage(named: .sliderThumbActive)
-                    // add neighbors around
+                    if let index = index(of: annotation) {
+                        addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index)].coordinate)
+                        let previousAnnotation = annotations[indexBefore(index)]
+                        addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)
+                    }
                 }
-
                 let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
                 let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
                 let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
@@ -366,13 +369,17 @@ extension MapPolygonFilterView: MKMapViewDelegate {
                 annotationView.transform = .identity
                 annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
                 updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
-                drawPolygon(with: annotations.map({ $0.coordinate })) // remove filter for main after fixing intermediate
+                drawPolygon(with: annotations.map({ $0.coordinate }))
             }
         }
     }
 
+    private func index(of annotation: PolygonSearchAnnotation) -> Int? {
+        return annotations.firstIndex(where: { $0.title == annotation.title })
+    }
+
     private func updateNeighborPositions(draggedAnnotation: PolygonSearchAnnotation, annotationCoordinate: CLLocationCoordinate2D) {
-        guard let index = annotations.firstIndex(where: { $0.title == draggedAnnotation.title } ) else { return }
+        guard let index = index(of: draggedAnnotation) else { return }
         let annotation = annotations[index]
 
         let previousIndex = indexBefore(index)

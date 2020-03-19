@@ -16,7 +16,7 @@ final class MapPolygonFilterView: UIView {
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
     private var polygon: MKPolygon?
-    private var annotations = [MKAnnotation]()
+    private var annotations = [PolygonSearchAnnotation]()
     private var dragStartPosition: CGPoint = .zero
     private var previousPolygonRenderer: MKPolygonRenderer? = nil
 
@@ -185,13 +185,26 @@ final class MapPolygonFilterView: UIView {
         polygon = MKPolygon(coordinates: polygonPoints, count: polygonPoints.count)
         mapView.addOverlay(polygon!)
 
-        for point in polygonPoints {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = point
+        for (index, point) in polygonPoints.enumerated() {
+            let annotation = PolygonSearchAnnotation(type: .vertex)
             annotation.title = "Annotation \(annotations.count)"
+            annotation.coordinate = point
             annotations.append(annotation)
             mapView.addAnnotation(annotation)
+
+            let nextPoint = index == polygonPoints.count - 1 ? polygonPoints.first : polygonPoints[index + 1]
+            addIntermediatePoint(after: annotation, nextPoint: nextPoint)
         }
+    }
+
+    private func addIntermediatePoint(after annotation: PolygonSearchAnnotation, nextPoint: CLLocationCoordinate2D?) {
+        guard let nextPoint = nextPoint else { return }
+        let midwayPointCoordinate = annotation.getMidwayCoordinate(other: nextPoint)
+        let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
+        midwayAnnotation.title = "Annotation \(annotations.count)"
+        midwayAnnotation.coordinate = midwayPointCoordinate
+        annotations.append(midwayAnnotation)
+        mapView.addAnnotation(midwayAnnotation)
     }
 
     // MARK: - Actions
@@ -307,7 +320,9 @@ extension MapPolygonFilterView: MKMapViewDelegate {
         else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
             view?.canShowCallout = false
-            view?.image = UIImage(named: .sliderThumb)
+            if let annotation = annotation as? PolygonSearchAnnotation {
+                view?.image = annotation.type == .vertex ? UIImage(named: .sliderThumbActive) : UIImage(named: .sliderThumb)
+            }
             view?.isDraggable = false
 
             let drag = UILongPressGestureRecognizer(target: self, action: #selector(handleDrag(gesture:)))
@@ -325,10 +340,12 @@ extension MapPolygonFilterView: MKMapViewDelegate {
             dragStartPosition = location
         } else if gesture.state == .changed {
             gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+
             if let annotationView = gesture.view as? MKAnnotationView {
                 guard let draggedAnnotationTitle = annotationView.annotation?.title else { return }
                 var coordinates = [CLLocationCoordinate2D]()
                 for annotation in annotations {
+                    if annotation.type == .intermediate { continue }
                     if annotation.title != draggedAnnotationTitle {
                         coordinates.append(annotation.coordinate)
                     } else {
@@ -341,7 +358,7 @@ extension MapPolygonFilterView: MKMapViewDelegate {
         } else if gesture.state == .ended || gesture.state == .cancelled {
 
             if let annotationView = gesture.view as? MKAnnotationView,
-                let annotation = annotationView.annotation as? MKPointAnnotation {
+                let annotation = annotationView.annotation as? PolygonSearchAnnotation {
 
                 let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
                 let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
@@ -349,8 +366,7 @@ extension MapPolygonFilterView: MKMapViewDelegate {
 
                 annotationView.transform = .identity
                 annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
-
-                drawPolygon(with: annotations.map({ $0.coordinate }))
+                drawPolygon(with: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate })) // remove filter for main after fixing intermediate
             }
         }
     }

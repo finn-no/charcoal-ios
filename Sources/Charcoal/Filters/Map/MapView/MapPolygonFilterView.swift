@@ -340,25 +340,24 @@ extension MapPolygonFilterView: MKMapViewDelegate {
             dragStartPosition = location
         } else if gesture.state == .changed {
             gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+            let touchedCoordinate = mapView.convert(location, toCoordinateFrom: mapView)
 
-            if let annotationView = gesture.view as? MKAnnotationView {
-                guard let draggedAnnotationTitle = annotationView.annotation?.title else { return }
-                var coordinates = [CLLocationCoordinate2D]()
-                for annotation in annotations {
-                    if annotation.type == .intermediate { continue }
-                    if annotation.title != draggedAnnotationTitle {
-                        coordinates.append(annotation.coordinate)
-                    } else {
-                        let coordinateOfTouch = mapView.convert(location, toCoordinateFrom: mapView)
-                        coordinates.append(coordinateOfTouch)
-                    }
-                }
-                drawPolygon(with: coordinates)
-            }
+            guard let annotationView = gesture.view as? MKAnnotationView,
+                let draggedAnnotation = annotationView.annotation as? PolygonSearchAnnotation else { return }
+
+            updatePolygon(draggedAnnotation: draggedAnnotation, touchedCoordinate: touchedCoordinate)
+            updateNeighborPositions(draggedAnnotation: draggedAnnotation, annotationCoordinate: touchedCoordinate)
+
         } else if gesture.state == .ended || gesture.state == .cancelled {
 
             if let annotationView = gesture.view as? MKAnnotationView,
                 let annotation = annotationView.annotation as? PolygonSearchAnnotation {
+
+                if annotation.type == .intermediate {
+                    annotation.type = .vertex
+                    annotationView.image = UIImage(named: .sliderThumbActive)
+                    // add neighbors around
+                }
 
                 let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
                 let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
@@ -366,15 +365,60 @@ extension MapPolygonFilterView: MKMapViewDelegate {
 
                 annotationView.transform = .identity
                 annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
-                drawPolygon(with: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate })) // remove filter for main after fixing intermediate
+                updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
+                drawPolygon(with: annotations.map({ $0.coordinate })) // remove filter for main after fixing intermediate
             }
         }
+    }
+
+    private func updateNeighborPositions(draggedAnnotation: PolygonSearchAnnotation, annotationCoordinate: CLLocationCoordinate2D) {
+        guard let index = annotations.firstIndex(where: { $0.title == draggedAnnotation.title } ) else { return }
+        let annotation = annotations[index]
+
+        let previousIndex = indexBefore(index)
+        let neighborBefore = annotations[previousIndex]
+        if neighborBefore.type == .intermediate {
+            let previousVertex = annotations[indexBefore(previousIndex)]
+            let intermediatePosition = previousVertex.getMidwayCoordinate(other: annotationCoordinate)
+            neighborBefore.coordinate = intermediatePosition
+        }
+
+        let nextIndex = indexAfter(index)
+        let neighborAfter = annotations[nextIndex]
+        if neighborAfter.type == .intermediate {
+            let indexAfterNextIndex = indexAfter(nextIndex)
+            let nextVertex = annotations[indexAfterNextIndex]
+            let intermediatePosition = nextVertex.getMidwayCoordinate(other: annotationCoordinate)
+            neighborAfter.coordinate = intermediatePosition
+        }
+    }
+
+    private func indexBefore(_ index: Int) -> Int {
+        return index > 0 ? index - 1 : annotations.count - 1
+    }
+
+    private func indexAfter(_ index: Int) -> Int {
+        return index + 1 < annotations.count ? index + 1 : 0
+    }
+
+    private func updatePolygon(draggedAnnotation: PolygonSearchAnnotation, touchedCoordinate: CLLocationCoordinate2D) {
+        var coordinates = [CLLocationCoordinate2D]()
+        for annotation in annotations {
+            if annotation.title != draggedAnnotation.title {
+                if annotation.type == .intermediate { continue }
+                coordinates.append(annotation.coordinate)
+            } else {
+                coordinates.append(touchedCoordinate)
+            }
+        }
+        drawPolygon(with: coordinates)
     }
 
     func drawPolygon(with coordinates: [CLLocationCoordinate2D]) {
         if let polygon = polygon {
             // Ideally, we want to remove the overlay once we redraw a new polygon.
             // However, there is a bug in iOS 13.2 and 13.3 where removing overlay causes MapKit to flutter.
+            // https://forums.developer.apple.com/thread/125631
             // https://stackoverflow.com/questions/58674817/ios-13-2-removing-overlay-from-mapkit-causing-map-to-flicker
             // A temporary solution is to change alpha of the prevoius polygon to 0, in rendererFor overlay.
             // Rumors say the issue is fixed in iOS 13.4 beta 🤞

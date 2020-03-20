@@ -228,39 +228,20 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
-//            let mapViewController = MapFilterViewController(
-//                title: "filter.title".localized(),
-//                latitudeFilter: latitudeFilter,
-//                longitudeFilter: longitudeFilter,
-//                radiusFilter: radiusFilter,
-//                locationNameFilter: locationNameFilter,
-//                selectionStore: selectionStore
-//            )
-//
-//            mapViewController.mapDataSource = mapDataSource
-//            mapViewController.searchLocationDataSource = searchLocationDataSource
-//
-//            pushViewController(mapViewController)
 
-            // Temporarily display the new polygon filter.
-            // Should add a view navigation controller that switches between the two later.
-            let mapPolygonViewController = MapPolygonFilterViewController(
+            let mapTabBarController = MapTabBarController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
+                radiusFilter: radiusFilter,
                 locationNameFilter: locationNameFilter,
                 selectionStore: selectionStore
             )
-
-            mapPolygonViewController.mapDataSource = mapDataSource
-            mapPolygonViewController.searchLocationDataSource = searchLocationDataSource
-
-            pushViewController(mapPolygonViewController)
-
+            pushTabBarController(mapTabBarController)
 
         case let .mapPolygon(latitudeFilter, longitudeFilter, locationNameFilter):
             let mapPolygonViewController = MapPolygonFilterViewController(
-                title: "filter.title".localized(),
+                title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 locationNameFilter: locationNameFilter,
@@ -279,6 +260,11 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     private func pushViewController(_ viewController: FilterViewController) {
         viewController.delegate = self
         pushViewController(viewController, animated: true)
+    }
+
+    private func pushTabBarController(_ controller: UITabBarController) {
+        controller.hidesBottomBarWhenPushed = true
+        pushViewController(controller, animated: true)
     }
 }
 

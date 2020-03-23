@@ -47,6 +47,7 @@ extension FilterMarketRealestate: FilterConfiguration {
                 .propertyType,
                 .ownershipType,
                 .facilities,
+                .digitalViewing,
                 .viewing,
                 .floorNavigator,
                 .energyLabel,
@@ -81,6 +82,7 @@ extension FilterMarketRealestate: FilterConfiguration {
                 .priceCollective,
                 .area,
                 .noOfBedrooms,
+                .digitalViewing,
                 .viewing,
                 .leisureSituation,
                 .propertyType,
@@ -109,6 +111,7 @@ extension FilterMarketRealestate: FilterConfiguration {
                 .furnished,
                 .rentFrom,
                 .facilities,
+                .digitalViewing,
                 .viewing,
                 .floorNavigator,
             ]

@@ -18,6 +18,7 @@ final class MapPolygonFilterView: UIView {
     private var polygon: MKPolygon?
     private var annotations = [PolygonSearchAnnotation]()
     private var dragStartPosition: CGPoint = .zero
+    private var touchOffset: CGPoint = .zero
     private var previousPolygonRenderer: MKPolygonRenderer? = nil
     private var visiblePolygonsOnMap = [MKPolygonRenderer]()
     private var polygonsOnMap = [MKPolygon]()
@@ -346,7 +347,7 @@ extension MapPolygonFilterView: MKMapViewDelegate {
             polygon.fillColor = UIColor.btnPrimary.withAlphaComponent(0.15)
             polygon.lineWidth = 2
 
-            if visiblePolygonsOnMap.count > 2 {
+            if visiblePolygonsOnMap.count > 1 {
                 visiblePolygonsOnMap[0].alpha = 0
                 visiblePolygonsOnMap.removeFirst()
             }
@@ -383,50 +384,55 @@ extension MapPolygonFilterView: MKMapViewDelegate {
 
     @objc func handleDrag(gesture: UILongPressGestureRecognizer) {
         let location = gesture.location(in: mapView)
+        guard
+            let annotationView = gesture.view as? MKAnnotationView,
+            let annotation = annotationView.annotation as? PolygonSearchAnnotation
+        else { return }
 
         if gesture.state == .began {
             dragStartPosition = location
+
         } else if gesture.state == .changed {
             gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
-            let touchedCoordinate = mapView.convert(location, toCoordinateFrom: mapView)
 
-            guard
-                let annotationView = gesture.view as? MKAnnotationView,
-                let draggedAnnotation = annotationView.annotation as? PolygonSearchAnnotation
-            else { return }
+            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+            let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
+            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+            let touchedCoordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
 
-            updatePolygon(draggedAnnotation: draggedAnnotation, touchedCoordinate: touchedCoordinate)
-            updateNeighborPositions(draggedAnnotation: draggedAnnotation, annotationCoordinate: touchedCoordinate)
+            updatePolygon(draggedAnnotation: annotation, touchedCoordinate: touchedCoordinate)
+            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: touchedCoordinate)
 
         } else if gesture.state == .ended || gesture.state == .cancelled {
-            if let annotationView = gesture.view as? MKAnnotationView,
-                let annotation = annotationView.annotation as? PolygonSearchAnnotation {
-
-                if annotation.type == .intermediate {
-                    annotation.type = .vertex
-                    annotationView.image = UIImage(named: .sliderThumbActive)
-                    if let index = index(of: annotation) {
-                        addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index)].coordinate)
-                        let previousAnnotation = annotations[indexBefore(index)]
-                        addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)
-                    }
+            if annotation.type == .intermediate {
+                annotation.type = .vertex
+                annotationView.image = UIImage(named: .sliderThumbActive)
+                if let index = index(of: annotation) {
+                    addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index)].coordinate)
+                    let previousAnnotation = annotations[indexBefore(index)]
+                    addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)
                 }
-                let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
-                let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
-                let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
-
-                annotationView.transform = .identity
-                annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
-                updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
-
-                for polygon in visiblePolygonsOnMap {
-                    polygon.alpha = 0
-                }
-                visiblePolygonsOnMap.removeAll()
-
-                drawPolygon(with: annotations.map({ $0.coordinate }))
             }
+            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+            let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
+            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+
+            annotationView.transform = .identity
+            annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
+            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
+
+            for polygon in visiblePolygonsOnMap {
+                polygon.alpha = 0
+            }
+            visiblePolygonsOnMap.removeAll()
+
+            removeMapOverlays()
+            drawPolygon(with: annotations.map({ $0.coordinate }))
         }
+    }
+
+    private func appendOffsetTo(_ location: CGPoint, offset: CGPoint) -> CGPoint {
+        return CGPoint(x: location.x - offset.x, y: location.y - offset.y)
     }
 
     private func index(of annotation: PolygonSearchAnnotation) -> Int? {
@@ -489,14 +495,18 @@ extension MapPolygonFilterView: MKMapViewDelegate {
         polygon = nil
 
         if polygonsOnMap.count > 100 {
-            mapView.removeOverlays(polygonsOnMap)
-            polygonsOnMap.removeAll()
-            visiblePolygonsOnMap.removeAll()
+            removeMapOverlays()
         }
 
         let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
         mapView.addOverlay(polygon)
         polygonsOnMap.append(polygon)
         self.polygon = polygon
+    }
+
+    private func removeMapOverlays() {
+        mapView.removeOverlays(polygonsOnMap)
+        polygonsOnMap.removeAll()
+        visiblePolygonsOnMap.removeAll()
     }
 }

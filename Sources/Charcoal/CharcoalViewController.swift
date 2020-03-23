@@ -239,19 +239,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushTabBarController(mapTabBarController)
 
-        case let .mapPolygon(latitudeFilter, longitudeFilter, locationNameFilter):
-            let mapPolygonViewController = MapPolygonFilterViewController(
-                title: filter.title,
-                latitudeFilter: latitudeFilter,
-                longitudeFilter: longitudeFilter,
-                locationNameFilter: locationNameFilter,
-                selectionStore: selectionStore
-            )
-
-            mapPolygonViewController.mapDataSource = mapDataSource
-            mapPolygonViewController.searchLocationDataSource = searchLocationDataSource
-
-            pushViewController(mapPolygonViewController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }

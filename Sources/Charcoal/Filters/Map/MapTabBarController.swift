@@ -16,6 +16,7 @@ class MapTabBarController: UITabBarController {
         self.mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
         self.polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
         super.init(nibName: nil, bundle: nil)
+        self.title = title
         setup()
     }
 
@@ -29,7 +30,7 @@ class MapTabBarController: UITabBarController {
         self.viewControllers = [mapViewController, polygonMapViewController]
     }
 
-    @objc func toggleViewControllers() {
+    @objc private func toggleViewControllers() {
         selectedIndex = (selectedIndex + 1) % 2
     }
 }

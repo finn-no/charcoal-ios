@@ -12,7 +12,6 @@ class MapTabBarController: UITabBarController {
     weak var mapDataSource: MapFilterDataSource? {
         didSet {
             mapViewController.mapDataSource = mapDataSource
-            polygonMapViewController.mapDataSource = mapDataSource
         }
     }
 

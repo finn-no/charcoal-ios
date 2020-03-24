@@ -9,6 +9,20 @@ class MapTabBarController: UITabBarController {
     private let mapViewController: MapFilterViewController
     private let polygonMapViewController: MapPolygonFilterViewController
 
+    weak var mapDataSource: MapFilterDataSource? {
+        didSet {
+            mapViewController.mapDataSource = mapDataSource
+            polygonMapViewController.mapDataSource = mapDataSource
+        }
+    }
+
+    weak var searchLocationDataSource: SearchLocationDataSource? {
+        didSet {
+            mapViewController.searchLocationDataSource = searchLocationDataSource
+            polygonMapViewController.searchLocationDataSource = searchLocationDataSource
+        }
+    }
+
     private lazy var toggleViewControllersButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: .republish), style: .plain, target: self, action: #selector(toggleViewControllers))
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,

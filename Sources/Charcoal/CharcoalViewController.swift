@@ -228,7 +228,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
-
             let mapTabBarController = MapTabBarController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
@@ -237,8 +236,9 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 locationNameFilter: locationNameFilter,
                 selectionStore: selectionStore
             )
+//            mapTabBarController.mapDataSource = mapDataSource
+            mapTabBarController.searchLocationDataSource = searchLocationDataSource
             pushTabBarController(mapTabBarController)
-
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }

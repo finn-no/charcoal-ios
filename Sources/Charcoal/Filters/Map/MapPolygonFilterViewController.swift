@@ -30,6 +30,8 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
+    private var dragStartPosition: CGPoint = .zero
+    private var annotations = [PolygonSearchAnnotation]()
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
         let mapPolygonFilterView = MapPolygonFilterView(radius: nil, centerCoordinate: coordinate)
@@ -138,13 +140,124 @@ final class MapPolygonFilterViewController: FilterViewController {
             present(alert, animated: true, completion: nil)
         }
     }
+
+    // MARK: - Polygon calculations
+
+    @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
+        let location = mapPolygonFilterView.location(for: gesture)
+
+        guard
+            let annotationView = gesture.view as? MKAnnotationView,
+            let annotation = annotationView.annotation as? PolygonSearchAnnotation
+        else { return }
+
+        if gesture.state == .began {
+            dragStartPosition = location
+
+        } else if gesture.state == .changed {
+            gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+
+            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+            let originalLocation = mapPolygonFilterView.pointForAnnoatation(annotation)
+            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+            let touchedCoordinate = mapPolygonFilterView.coordinateForPoint(updatedLocation)
+
+            updatePolygon(draggedAnnotation: annotation, touchedCoordinate: touchedCoordinate)
+            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: touchedCoordinate)
+
+        } else if gesture.state == .ended || gesture.state == .cancelled {
+            if annotation.type == .intermediate {
+                annotation.type = .vertex
+                annotationView.image = mapPolygonFilterView.imageForAnnotation(ofType: .vertex)
+                if let index = index(of: annotation) {
+                    addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index)].coordinate)
+                    let previousAnnotation = annotations[indexBefore(index)]
+                    addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)
+                }
+            }
+            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+            let originalLocation = mapPolygonFilterView.pointForAnnoatation(annotation)
+            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+
+            annotationView.transform = .identity
+            annotation.coordinate = mapPolygonFilterView.coordinateForPoint(updatedLocation)
+            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
+
+            mapPolygonFilterView.drawPolygon(with: annotations)
+        }
+    }
+
+    private func updatePolygon(draggedAnnotation: PolygonSearchAnnotation, touchedCoordinate: CLLocationCoordinate2D) {
+        guard let annotationIndex = index(of: draggedAnnotation) else { return }
+        var coordinates = annotations.map({ $0.coordinate })
+        coordinates[annotationIndex] = touchedCoordinate
+        mapPolygonFilterView.drawPolygon(with: coordinates)
+    }
+
+    private func updateNeighborPositions(draggedAnnotation: PolygonSearchAnnotation, annotationCoordinate: CLLocationCoordinate2D) {
+        guard let index = index(of: draggedAnnotation) else { return }
+        let annotation = annotations[index]
+
+        let previousIndex = indexBefore(index)
+        let neighborBefore = annotations[previousIndex]
+        if neighborBefore.type == .intermediate {
+            let previousVertex = annotations[indexBefore(previousIndex)]
+            let intermediatePosition = previousVertex.getMidwayCoordinate(other: annotationCoordinate)
+            neighborBefore.coordinate = intermediatePosition // should we update in the view instead? not actually needed
+        }
+
+        let nextIndex = indexAfter(index)
+        let neighborAfter = annotations[nextIndex]
+        if neighborAfter.type == .intermediate {
+            let indexAfterNextIndex = indexAfter(nextIndex)
+            let nextVertex = annotations[indexAfterNextIndex]
+            let intermediatePosition = nextVertex.getMidwayCoordinate(other: annotationCoordinate)
+            neighborAfter.coordinate = intermediatePosition
+        }
+    }
+
+    private func addIntermediatePoint(after annotation: PolygonSearchAnnotation, nextPoint: CLLocationCoordinate2D?) {
+        guard let nextPoint = nextPoint else { return }
+        let midwayPointCoordinate = annotation.getMidwayCoordinate(other: nextPoint)
+        let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
+        midwayAnnotation.title = "Annotation \(annotations.count)"
+        midwayAnnotation.coordinate = midwayPointCoordinate
+        guard let annotationIndex = index(of: annotation) else { return }
+        annotations.insert(midwayAnnotation, at: annotationIndex + 1)
+        mapPolygonFilterView.addAnnotation(midwayAnnotation)
+    }
+
+    private func index(of annotation: PolygonSearchAnnotation) -> Int? {
+        return annotations.firstIndex(where: { $0.title == annotation.title })
+    }
+
+    private func indexBefore(_ index: Int) -> Int {
+        return index > 0 ? index - 1 : annotations.count - 1
+    }
+
+    private func indexAfter(_ index: Int) -> Int {
+        return index + 1 < annotations.count ? index + 1 : 0
+    }
 }
 
 // MARK: - MapFilterViewDelegate
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
-        mapPolygonFilterView.configurePolygon(coordinates)
+        annotations.removeAll()
+
+        for (index, coordinate) in coordinates.enumerated() {
+            let annotation = PolygonSearchAnnotation(type: .vertex)
+            annotation.title = "Annotation \(annotations.count)"
+            annotation.coordinate = coordinate
+            annotations.append(annotation)
+            mapPolygonFilterView.addAnnotation(annotation)
+
+            let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
+            addIntermediatePoint(after: annotation, nextPoint: nextPoint)
+        }
+        mapPolygonFilterView.configure(for: .polygonSelection)
+        mapPolygonFilterView.drawPolygon(with: annotations)
     }
 
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {
@@ -166,11 +279,14 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let tileOverlay = overlay as? MKTileOverlay else {
-            return MKOverlayRenderer(overlay: overlay)
+        if overlay is MKPolygon {
+            let polygon = MKPolygonRenderer(overlay: overlay)
+            polygon.strokeColor = UIColor.btnPrimary
+            polygon.fillColor = UIColor.btnPrimary.withAlphaComponent(0.15)
+            polygon.lineWidth = 2
+            return polygon
         }
-
-        return MKTileOverlayRenderer(tileOverlay: tileOverlay)
+        return MKOverlayRenderer(overlay: overlay)
     }
 
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -209,6 +325,30 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             mapPolygonFilterView.centerOnInitialCoordinate()
             hasRequestedLocationAuthorization = false
         }
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard
+            !(annotation is MKUserLocation),
+            let annotation = annotation as? PolygonSearchAnnotation
+        else { return nil }
+
+        var view = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+        if let view = view {
+            view.annotation = annotation
+        }
+        else {
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            view?.canShowCallout = false
+            view?.isDraggable = false
+
+            let drag = UILongPressGestureRecognizer(target: self, action: #selector(handleAnnotationMovement(gesture:)))
+            drag.minimumPressDuration = 0
+            drag.allowableMovement = .greatestFiniteMagnitude
+            view?.addGestureRecognizer(drag)
+        }
+        view?.image = mapPolygonFilterView.imageForAnnotation(ofType: annotation.type)
+        return view
     }
 }
 

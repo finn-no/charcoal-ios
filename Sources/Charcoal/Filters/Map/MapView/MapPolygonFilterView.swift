@@ -16,12 +16,15 @@ final class MapPolygonFilterView: UIView {
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
     private var polygon: MKPolygon?
-    private var annotations = [PolygonSearchAnnotation]()
     private var dragStartPosition: CGPoint = .zero
 
-    weak var delegate: MapPolygonFilterViewDelegate?
+    weak var delegate: MapPolygonFilterViewDelegate? {
+        didSet {
+            mapView.delegate = delegate
+        }
+    }
 
-    private enum State { case squareAreaSelection, polygonSelection }
+    enum State { case squareAreaSelection, polygonSelection }
     private var state = State.squareAreaSelection
 
     var searchBar: UISearchBar? {
@@ -69,14 +72,13 @@ final class MapPolygonFilterView: UIView {
         return view
     }()
 
-    private lazy var mapView: MKMapView = {
+    lazy var mapView: MKMapView = {
         let view = MKMapView(frame: .zero)
         view.showsUserLocation = true
         view.isRotateEnabled = false
         view.isPitchEnabled = false
         view.isZoomEnabled = true
         view.layer.cornerRadius = 8
-        view.delegate = self
         return view
     }()
 
@@ -164,6 +166,18 @@ final class MapPolygonFilterView: UIView {
 
     // MARK: - API
 
+    func location(for gesture: UILongPressGestureRecognizer) -> CGPoint {
+        return gesture.location(in: mapView)
+    }
+
+    func pointForAnnoatation(_ annotation: PolygonSearchAnnotation) -> CGPoint {
+        return mapView.convert(annotation.coordinate, toPointTo: mapView)
+    }
+
+    func coordinateForPoint(_ point: CGPoint) -> CLLocationCoordinate2D {
+        return mapView.convert(point, toCoordinateFrom: mapView)
+    }
+
     func setMapTileOverlay(_ overlay: MKTileOverlay) {
         mapView.addOverlay(overlay, level: .aboveLabels)
     }
@@ -197,36 +211,6 @@ final class MapPolygonFilterView: UIView {
         updateRadiusView()
     }
 
-    func configurePolygon(_ polygonPoints: [CLLocationCoordinate2D]) {
-        radiusOverlayView.isHidden = true
-        initialAreaSelectionButton.isHidden = true
-
-        polygon = MKPolygon(coordinates: polygonPoints, count: polygonPoints.count)
-        mapView.addOverlay(polygon!)
-
-        for (index, point) in polygonPoints.enumerated() {
-            let annotation = PolygonSearchAnnotation(type: .vertex)
-            annotation.title = "Annotation \(annotations.count)"
-            annotation.coordinate = point
-            annotations.append(annotation)
-            mapView.addAnnotation(annotation)
-
-            let nextPoint = index == polygonPoints.count - 1 ? polygonPoints.first : polygonPoints[index + 1]
-            addIntermediatePoint(after: annotation, nextPoint: nextPoint)
-        }
-    }
-
-    private func addIntermediatePoint(after annotation: PolygonSearchAnnotation, nextPoint: CLLocationCoordinate2D?) {
-        guard let nextPoint = nextPoint else { return }
-        let midwayPointCoordinate = annotation.getMidwayCoordinate(other: nextPoint)
-        let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
-        midwayAnnotation.title = "Annotation \(annotations.count)"
-        midwayAnnotation.coordinate = midwayPointCoordinate
-        guard let annotationIndex = index(of: annotation) else { return }
-        annotations.insert(midwayAnnotation, at: annotationIndex + 1)
-        mapView.addAnnotation(midwayAnnotation)
-    }
-
     // MARK: - Actions
 
     @objc private func didTapLocateUserButton() {
@@ -234,7 +218,14 @@ final class MapPolygonFilterView: UIView {
     }
 
     @objc private func didTapAreaSelectionButton() {
-        configure(for: .polygonSelection)
+        let offset = radiusOverlayView.width/2
+        let coordinates = [
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView)
+        ]
+        delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: coordinates)
     }
 
     @objc private func didTapRedoAreaSelectionButton() {
@@ -256,6 +247,8 @@ final class MapPolygonFilterView: UIView {
 
         mapView.fillInSuperview()
         radiusOverlayView.fillInSuperview()
+
+        configure(for: .squareAreaSelection)
 
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
@@ -295,11 +288,12 @@ final class MapPolygonFilterView: UIView {
         ])
     }
 
-    private func configure(for state: State) {
+    // MARK: - API
+
+    func configure(for state: State) {
         switch state {
         case .squareAreaSelection:
-            mapView.removeAnnotations(annotations)
-            annotations.removeAll()
+            mapView.removeAnnotations(mapView.annotations)
             if let polygon = polygon {
                 mapView.removeOverlay(polygon)
             }
@@ -310,16 +304,32 @@ final class MapPolygonFilterView: UIView {
 
         case .polygonSelection:
             redoAreaSelectionButton.isHidden = false
-
-            let offset = radiusOverlayView.width/2
-            let coordinates = [
-                mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-                mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-                mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
-                mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView)
-            ]
-            delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: coordinates)
+            radiusOverlayView.isHidden = true
+            initialAreaSelectionButton.isHidden = true
         }
+    }
+
+    func drawPolygon(with annotations: [PolygonSearchAnnotation]) {
+        drawPolygon(with: annotations.map({ $0.coordinate }))
+    }
+
+    func drawPolygon(with coordinates: [CLLocationCoordinate2D]) {
+        if let polygon = polygon {
+            mapView.removeOverlay(polygon)
+        }
+        polygon = nil
+
+        let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
+        mapView.addOverlay(polygon)
+        self.polygon = polygon
+    }
+
+    func addAnnotation(_ annotation: PolygonSearchAnnotation) {
+        mapView.addAnnotation(annotation)
+    }
+
+    func imageForAnnotation(ofType pointType: PolygonSearchAnnotation.PointType) -> UIImage {
+        return pointType == .vertex ? UIImage(named: .sliderThumbActive) : UIImage(named: .sliderThumb)
     }
 }
 
@@ -332,147 +342,5 @@ private extension MKMapView {
             latitudinalMeters: CLLocationDistance(radius),
             longitudinalMeters: CLLocationDistance(radius)
         )
-    }
-}
-
-extension MapPolygonFilterView: MKMapViewDelegate {
-    public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolygon {
-            let polygon = MKPolygonRenderer(overlay: overlay)
-            polygon.strokeColor = UIColor.btnPrimary
-            polygon.fillColor = UIColor.btnPrimary.withAlphaComponent(0.15)
-            polygon.lineWidth = 2
-            return polygon
-        }
-        return MKOverlayRenderer(overlay: overlay)
-    }
-
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard
-            !(annotation is MKUserLocation),
-            let annotation = annotation as? PolygonSearchAnnotation
-        else { return nil }
-
-        var view = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
-        if let view = view {
-            view.annotation = annotation
-        }
-        else {
-            view = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-            view?.canShowCallout = false
-            view?.isDraggable = false
-
-            let drag = UILongPressGestureRecognizer(target: self, action: #selector(handleDrag(gesture:)))
-            drag.minimumPressDuration = 0
-            drag.allowableMovement = .greatestFiniteMagnitude
-            view?.addGestureRecognizer(drag)
-        }
-        view?.image = annotation.type == .vertex ? UIImage(named: .sliderThumbActive) : UIImage(named: .sliderThumb)
-        return view
-    }
-
-    @objc func handleDrag(gesture: UILongPressGestureRecognizer) {
-        let location = gesture.location(in: mapView)
-        guard
-            let annotationView = gesture.view as? MKAnnotationView,
-            let annotation = annotationView.annotation as? PolygonSearchAnnotation
-        else { return }
-
-        if gesture.state == .began {
-            dragStartPosition = location
-
-        } else if gesture.state == .changed {
-            gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
-
-            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
-            let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
-            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
-            let touchedCoordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
-
-            updatePolygon(draggedAnnotation: annotation, touchedCoordinate: touchedCoordinate)
-            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: touchedCoordinate)
-
-        } else if gesture.state == .ended || gesture.state == .cancelled {
-            if annotation.type == .intermediate {
-                annotation.type = .vertex
-                annotationView.image = UIImage(named: .sliderThumbActive)
-                if let index = index(of: annotation) {
-                    addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index)].coordinate)
-                    let previousAnnotation = annotations[indexBefore(index)]
-                    addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)
-                }
-            }
-            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
-            let originalLocation = mapView.convert(annotation.coordinate, toPointTo: mapView)
-            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
-
-            annotationView.transform = .identity
-            annotation.coordinate = mapView.convert(updatedLocation, toCoordinateFrom: mapView)
-            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
-
-            drawPolygon(with: annotations.map({ $0.coordinate }))
-        }
-    }
-
-    private func appendOffsetTo(_ location: CGPoint, offset: CGPoint) -> CGPoint {
-        return CGPoint(x: location.x - offset.x, y: location.y - offset.y)
-    }
-
-    private func index(of annotation: PolygonSearchAnnotation) -> Int? {
-        return annotations.firstIndex(where: { $0.title == annotation.title })
-    }
-
-    private func updateNeighborPositions(draggedAnnotation: PolygonSearchAnnotation, annotationCoordinate: CLLocationCoordinate2D) {
-        guard let index = index(of: draggedAnnotation) else { return }
-        let annotation = annotations[index]
-
-        let previousIndex = indexBefore(index)
-        let neighborBefore = annotations[previousIndex]
-        if neighborBefore.type == .intermediate {
-            let previousVertex = annotations[indexBefore(previousIndex)]
-            let intermediatePosition = previousVertex.getMidwayCoordinate(other: annotationCoordinate)
-            neighborBefore.coordinate = intermediatePosition
-        }
-
-        let nextIndex = indexAfter(index)
-        let neighborAfter = annotations[nextIndex]
-        if neighborAfter.type == .intermediate {
-            let indexAfterNextIndex = indexAfter(nextIndex)
-            let nextVertex = annotations[indexAfterNextIndex]
-            let intermediatePosition = nextVertex.getMidwayCoordinate(other: annotationCoordinate)
-            neighborAfter.coordinate = intermediatePosition
-        }
-    }
-
-    private func indexBefore(_ index: Int) -> Int {
-        return index > 0 ? index - 1 : annotations.count - 1
-    }
-
-    private func indexAfter(_ index: Int) -> Int {
-        return index + 1 < annotations.count ? index + 1 : 0
-    }
-
-    private func updatePolygon(draggedAnnotation: PolygonSearchAnnotation, touchedCoordinate: CLLocationCoordinate2D) {
-        var coordinates = [CLLocationCoordinate2D]()
-        for annotation in annotations {
-            if annotation.title != draggedAnnotation.title {
-                if annotation.type == .intermediate { continue }
-                coordinates.append(annotation.coordinate)
-            } else {
-                coordinates.append(touchedCoordinate)
-            }
-        }
-        drawPolygon(with: coordinates)
-    }
-
-    func drawPolygon(with coordinates: [CLLocationCoordinate2D]) {
-        if let polygon = polygon {
-            mapView.removeOverlay(polygon)
-        }
-        polygon = nil
-
-        let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
-        mapView.addOverlay(polygon)
-        self.polygon = polygon
     }
 }

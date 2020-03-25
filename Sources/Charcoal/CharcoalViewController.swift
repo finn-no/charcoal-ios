@@ -236,6 +236,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 locationNameFilter: locationNameFilter,
                 selectionStore: selectionStore
             )
+            mapTabBarController.filterDelegate = self
             mapTabBarController.mapDataSource = mapDataSource
             mapTabBarController.searchLocationDataSource = searchLocationDataSource
             pushTabBarController(mapTabBarController)

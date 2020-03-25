@@ -9,6 +9,12 @@ class MapTabBarController: UITabBarController {
     private let mapViewController: MapFilterViewController
     private let polygonMapViewController: MapPolygonFilterViewController
 
+    weak var filterDelegate: FilterViewControllerDelegate? {
+        didSet {
+            mapViewController.delegate = filterDelegate
+        }
+    }
+
     weak var mapDataSource: MapFilterDataSource? {
         didSet {
             mapViewController.mapDataSource = mapDataSource

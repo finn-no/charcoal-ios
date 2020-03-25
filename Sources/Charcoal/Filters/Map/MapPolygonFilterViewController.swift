@@ -281,8 +281,8 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolygon {
             let polygon = MKPolygonRenderer(overlay: overlay)
-            polygon.strokeColor = UIColor.btnPrimary
-            polygon.fillColor = UIColor.btnPrimary.withAlphaComponent(0.15)
+            polygon.strokeColor = UIColor.accentSecondaryBlue
+            polygon.fillColor = UIColor.accentSecondaryBlue.withAlphaComponent(0.15)
             polygon.lineWidth = 2
             return polygon
         }

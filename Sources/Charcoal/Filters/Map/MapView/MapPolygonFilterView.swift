@@ -161,7 +161,7 @@ final class MapPolygonFilterView: UIView {
         }
     }()
 
-    private lazy var radiusOverlayView = MapPolygonOverlayView(withAutoLayout: true)
+    private lazy var squareSelectionOverlayView = MapPolygonSquareSelectionOverlayView(withAutoLayout: true)
 
     // MARK: - Init
 
@@ -249,7 +249,7 @@ final class MapPolygonFilterView: UIView {
     }
 
     @objc private func didTapAreaSelectionButton() {
-        let offset = radiusOverlayView.width/2
+        let offset = squareSelectionOverlayView.width/2
         let coordinates = [
             mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
             mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
@@ -271,13 +271,13 @@ final class MapPolygonFilterView: UIView {
         addSubview(mapContainerView)
 
         mapContainerView.addSubview(mapView)
-        mapContainerView.addSubview(radiusOverlayView)
+        mapContainerView.addSubview(squareSelectionOverlayView)
         mapContainerView.addSubview(userLocationButton)
         mapContainerView.addSubview(initialAreaSelectionButton)
         mapContainerView.addSubview(redoAreaSelectionButton)
 
         mapView.fillInSuperview()
-        radiusOverlayView.fillInSuperview()
+        squareSelectionOverlayView.fillInSuperview()
 
         configure(for: .squareAreaSelection)
 
@@ -329,13 +329,13 @@ final class MapPolygonFilterView: UIView {
                 mapView.removeOverlay(polygon)
             }
             polygon = nil
-            radiusOverlayView.isHidden = false
+            squareSelectionOverlayView.isHidden = false
             initialAreaSelectionButton.isHidden = false
             redoAreaSelectionButton.isHidden = true
 
         case .polygonSelection:
             redoAreaSelectionButton.isHidden = false
-            radiusOverlayView.isHidden = true
+            squareSelectionOverlayView.isHidden = true
             initialAreaSelectionButton.isHidden = true
         }
     }

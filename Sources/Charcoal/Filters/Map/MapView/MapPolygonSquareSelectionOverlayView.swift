@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class MapPolygonOverlayView: UIView {
+final class MapPolygonSquareSelectionOverlayView: UIView {
     var width: CGFloat = 180 {
         didSet {
             widthConstraint.constant = width
@@ -14,15 +14,15 @@ final class MapPolygonOverlayView: UIView {
 
     private lazy var backgroundView = BackgroundView(withAutoLayout: true)
 
-    private lazy var radiusView: UIView = {
+    private lazy var squareView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .clear
-        view.layer.borderColor = .btnPrimary
-        view.layer.borderWidth = 3
+        view.layer.borderColor = .accentSecondaryBlue
+        view.layer.borderWidth = 2
         return view
     }()
 
-    private lazy var widthConstraint = radiusView.widthAnchor.constraint(equalToConstant: width)
+    private lazy var widthConstraint = squareView.widthAnchor.constraint(equalToConstant: width)
 
     // MARK: - Init
 
@@ -49,15 +49,15 @@ final class MapPolygonOverlayView: UIView {
         isUserInteractionEnabled = false
 
         addSubview(backgroundView)
-        addSubview(radiusView)
+        addSubview(squareView)
 
         backgroundView.fillInSuperview()
 
         NSLayoutConstraint.activate([
-            radiusView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            radiusView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            squareView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            squareView.centerYAnchor.constraint(equalTo: centerYAnchor),
             widthConstraint,
-            radiusView.heightAnchor.constraint(equalTo: radiusView.widthAnchor),
+            squareView.heightAnchor.constraint(equalTo: squareView.widthAnchor),
         ])
     }
 }
@@ -105,7 +105,7 @@ private final class BackgroundView: UIView {
     // MARK: - Setup
 
     private func setup() {
-        backgroundColor = UIColor.btnPrimary.withAlphaComponent(0.1)
+        backgroundColor = UIColor.accentSecondaryBlue.withAlphaComponent(0.15)
         clipsToBounds = true
         isUserInteractionEnabled = false
         layer.mask = maskLayer

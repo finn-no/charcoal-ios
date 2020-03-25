@@ -130,6 +130,37 @@ final class MapPolygonFilterView: UIView {
         return button
     }()
 
+    private lazy var vertexAnnotationImage: UIImage = {
+        let diameter: CGFloat = 20
+        let borderWidth: CGFloat = 2.5
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: diameter, height: diameter))
+        return renderer.image { ctx in
+            ctx.cgContext.setFillColor(UIColor.bgPrimary.cgColor)
+            ctx.cgContext.setStrokeColor(UIColor.accentSecondaryBlue.cgColor)
+            ctx.cgContext.setLineWidth(borderWidth)
+
+            let rectangle = CGRect(x: borderWidth, y: borderWidth, width: diameter - borderWidth*2, height: diameter - borderWidth*2)
+            ctx.cgContext.addEllipse(in: rectangle)
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+    }()
+
+    private lazy var intermediateAnnotationImage: UIImage = {
+        let diameter: CGFloat = 14
+        let borderWidth: CGFloat = 2
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: diameter, height: diameter))
+        return renderer.image { ctx in
+            ctx.cgContext.setFillColor(UIColor.bgPrimary.cgColor)
+            ctx.cgContext.setStrokeColor(UIColor.accentSecondaryBlue.cgColor)
+            ctx.cgContext.setLineWidth(borderWidth)
+            ctx.cgContext.setAlpha(0.6)
+
+            let rectangle = CGRect(x: borderWidth, y: borderWidth, width: diameter - borderWidth*2, height: diameter - borderWidth*2)
+            ctx.cgContext.addEllipse(in: rectangle)
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+    }()
+
     private lazy var radiusOverlayView = MapPolygonOverlayView(withAutoLayout: true)
 
     // MARK: - Init
@@ -329,7 +360,7 @@ final class MapPolygonFilterView: UIView {
     }
 
     func imageForAnnotation(ofType pointType: PolygonSearchAnnotation.PointType) -> UIImage {
-        return pointType == .vertex ? UIImage(named: .sliderThumbActive) : UIImage(named: .sliderThumb)
+        return pointType == .vertex ? vertexAnnotationImage : intermediateAnnotationImage
     }
 }
 

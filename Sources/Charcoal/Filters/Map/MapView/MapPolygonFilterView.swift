@@ -15,6 +15,7 @@ final class MapPolygonFilterView: UIView {
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
+    private static let viewFinderDiameter: CGFloat = 96
     private var polygon: MKPolygon?
     private var dragStartPosition: CGPoint = .zero
 
@@ -79,6 +80,25 @@ final class MapPolygonFilterView: UIView {
         view.isPitchEnabled = false
         view.isZoomEnabled = true
         view.layer.cornerRadius = 8
+        return view
+    }()
+
+    private lazy var viewFinder: UIView = {
+        let view = MapViewFinder(radius: nil, centerCoordinate: nil)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = MapPolygonFilterView.viewFinderDiameter / 2
+        view.clipsToBounds = true
+        view.layer.borderColor = .bgPrimary
+        view.layer.borderWidth = 4
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = .zero
+//        view.layer.shadowRadius = 9
+//        view.layer.shadowOpacity = 0.5
+//
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 1)
+        view.layer.shadowRadius = 3
+        view.layer.shadowOpacity = 0.5
         return view
     }()
 
@@ -273,6 +293,7 @@ final class MapPolygonFilterView: UIView {
         backgroundColor = Theme.mainBackground
 
         addSubview(mapContainerView)
+        addSubview(viewFinder)
 
         mapContainerView.addSubview(mapView)
         mapContainerView.addSubview(squareSelectionOverlayView)
@@ -290,6 +311,11 @@ final class MapPolygonFilterView: UIView {
             mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
             mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
             mapContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
+
+            viewFinder.topAnchor.constraint(equalTo: topAnchor),
+            viewFinder.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
+            viewFinder.widthAnchor.constraint(equalToConstant: MapPolygonFilterView.viewFinderDiameter),
+            viewFinder.heightAnchor.constraint(equalToConstant: MapPolygonFilterView.viewFinderDiameter),
 
             userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
             userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.spacingS),
@@ -314,6 +340,7 @@ final class MapPolygonFilterView: UIView {
         searchBar.preservesSuperviewLayoutMargins = false
 
         addSubview(searchBar)
+        bringSubviewToFront(viewFinder)
 
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),

@@ -106,4 +106,6 @@ public enum FilterKey: String, CodingKey {
     case batteryCapacity = "battery_capacity"
     case drivingRange = "driving_range"
     case maxTrailerWeight = "max_trailer_weight"
+    case coronaAid = "corona_aid"
+    case digitalViewing = "video_type"
 }

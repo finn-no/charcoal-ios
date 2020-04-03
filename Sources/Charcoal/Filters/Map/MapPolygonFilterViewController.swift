@@ -25,6 +25,8 @@ final class MapPolygonFilterViewController: FilterViewController {
     private let latitudeFilter: Filter
     private let longitudeFilter: Filter
     private let locationNameFilter: Filter
+    private let bboxFilter: Filter
+    private let polygonFilter: Filter
     private let locationManager = CLLocationManager()
     private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
@@ -68,10 +70,12 @@ final class MapPolygonFilterViewController: FilterViewController {
     // MARK: - Init
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter,
-         locationNameFilter: Filter, selectionStore: FilterSelectionStore) {
+         locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
         self.latitudeFilter = latitudeFilter
         self.longitudeFilter = longitudeFilter
         self.locationNameFilter = locationNameFilter
+        self.bboxFilter = bboxFilter
+        self.polygonFilter = polygonFilter
         super.init(title: title, selectionStore: selectionStore)
     }
 
@@ -91,10 +95,30 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        coordinate = mapPolygonFilterView.centerCoordinate
         locationName = mapPolygonFilterView.locationName
 
+        if false { // Annotation is rectangle
+            // Implement bbox search
+            polygon = nil
+        } else {
+            polygon = createPolygonQuery(for: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate }))
+            bbox = nil
+        }
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
+    }
+
+    private func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
+        guard coordinates.count > 4 else { return nil }
+        var query = ""
+        for coordinate in coordinates {
+            query += queryString(for: coordinate) + ","
+        }
+        query += queryString(for: coordinates[0])
+        return query
+    }
+
+    private func queryString(for coordinate: CLLocationCoordinate2D) -> String {
+        return String(coordinate.longitude) + " " + String(coordinate.latitude)
     }
 
     // MARK: - Setup
@@ -423,6 +447,24 @@ private extension MapPolygonFilterViewController {
         set {
             selectionStore.setValue(newValue, for: locationNameFilter)
             mapPolygonFilterView.locationName = newValue
+        }
+    }
+
+    var bbox: String? {
+        get {
+            return selectionStore.value(for: bboxFilter)
+        }
+        set {
+            selectionStore.setValue(newValue, for: bboxFilter)
+        }
+    }
+
+    var polygon: String? {
+        get {
+            return selectionStore.value(for: polygonFilter)
+        }
+        set {
+            selectionStore.setValue(newValue, for: polygonFilter)
         }
     }
 }

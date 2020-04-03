@@ -16,7 +16,7 @@ public final class Filter {
         case stepper(config: StepperFilterConfiguration)
         case external
         case range(lowValueFilter: Filter, highValueFilter: Filter, config: RangeFilterConfiguration)
-        case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter)
+        case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter)
     }
 
     public let title: String
@@ -102,21 +102,25 @@ extension Filter {
     }
 
     public static func map(title: String? = nil, key: String, latitudeKey: String,
-                           longitudeKey: String, radiusKey: String, locationKey: String) -> Filter {
+                           longitudeKey: String, radiusKey: String, locationKey: String, bboxKey: String, polygonKey: String) -> Filter {
         let title = title ?? "map.title".localized()
         let latitudeFilter = Filter(title: "", key: latitudeKey)
         let longitudeFilter = Filter(title: "", key: longitudeKey)
         let radiusFilter = Filter(title: "", key: radiusKey)
         let locationNameFilter = Filter(title: "", key: locationKey)
+        let bboxFilter = Filter(title: "", key: bboxKey)
+        let polygonFilter = Filter(title: "", key: polygonKey)
 
         let kind = Kind.map(
             latitudeFilter: latitudeFilter,
             longitudeFilter: longitudeFilter,
             radiusFilter: radiusFilter,
-            locationNameFilter: locationNameFilter
+            locationNameFilter: locationNameFilter,
+            bboxFilter: bboxFilter,
+            polygonFilter: polygonFilter
         )
 
-        let subfilters = [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter]
+        let subfilters = [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter]
 
         return Filter(kind: kind, title: title, key: key, value: nil, numberOfResults: 0, style: .normal, subfilters: subfilters)
     }

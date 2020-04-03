@@ -227,13 +227,15 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 filterConfig: filterConfig
             )
             pushViewController(stepperViewController)
-        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
+        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
             let mapTabBarController = MapTabBarController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 radiusFilter: radiusFilter,
                 locationNameFilter: locationNameFilter,
+                bboxFilter: bboxFilter,
+                polygonFilter: polygonFilter,
                 selectionStore: selectionStore
             )
             mapTabBarController.filterDelegate = self

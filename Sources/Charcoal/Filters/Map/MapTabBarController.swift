@@ -8,10 +8,12 @@ class MapTabBarController: UITabBarController {
 
     private let mapViewController: MapFilterViewController
     private let polygonMapViewController: MapPolygonFilterViewController
+    private let selectionStore: FilterSelectionStore
 
     weak var filterDelegate: FilterViewControllerDelegate? {
         didSet {
             mapViewController.delegate = filterDelegate
+            polygonMapViewController.delegate = filterDelegate
         }
     }
 
@@ -31,9 +33,10 @@ class MapTabBarController: UITabBarController {
     private lazy var toggleViewControllersButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: .republish), style: .plain, target: self, action: #selector(toggleViewControllers))
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
-    locationNameFilter: Filter, selectionStore: FilterSelectionStore) {
+         locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
         self.mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
-        self.polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
+        self.polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
+        self.selectionStore = selectionStore
         super.init(nibName: nil, bundle: nil)
         self.title = title
         setup()
@@ -50,6 +53,8 @@ class MapTabBarController: UITabBarController {
     }
 
     @objc private func toggleViewControllers() {
+        selectionStore.clear()
+        // TODO: Remember filter settings between toggles
         selectedIndex = (selectedIndex + 1) % 2
     }
 }

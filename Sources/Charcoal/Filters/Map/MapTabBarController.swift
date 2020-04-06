@@ -29,12 +29,19 @@ class MapTabBarController: UITabBarController {
         }
     }
 
+    private let selectionStore: FilterSelectionStore
+    private let radiusFilter: Filter
+    private let polygonFilter: Filter
+
     private lazy var toggleViewControllersButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: .republish), style: .plain, target: self, action: #selector(toggleViewControllers))
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
          locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
         self.mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
         self.polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
+        self.selectionStore = selectionStore
+        self.radiusFilter = radiusFilter
+        self.polygonFilter = polygonFilter
         super.init(nibName: nil, bundle: nil)
         self.title = title
         setup()
@@ -48,12 +55,17 @@ class MapTabBarController: UITabBarController {
         tabBar.isHidden = true
         navigationItem.rightBarButtonItem = toggleViewControllersButton
         self.viewControllers = [mapViewController, polygonMapViewController]
+        if selectionStore.isSelected(polygonFilter) {
+            selectedViewController = polygonMapViewController
+        } else {
+            selectedViewController = mapViewController
+        }
     }
 
     @objc private func toggleViewControllers() {
-        if viewControllers?[safe: selectedIndex] == mapViewController {
+        if selectedViewController == mapViewController {
             mapViewController.resetFilterValues()
-        } else if viewControllers?[safe: selectedIndex] == polygonMapViewController {
+        } else if selectedViewController == polygonMapViewController {
             polygonMapViewController.resetFilterValues()
         }
         selectedIndex = (selectedIndex + 1) % 2

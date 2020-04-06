@@ -126,6 +126,14 @@ final class MapPolygonFilterViewController: FilterViewController {
             mapPolygonFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapPolygonFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+
+        if let coordinateQuery: String = selectionStore.value(for: polygonFilter) {
+            let coordinates = createPolygonCoordinates(from: coordinateQuery)
+            setupAnnotations(from: coordinates)
+            guard annotations.count > 0 else { return }
+            mapPolygonFilterView.configure(for: .polygonSelection)
+            mapPolygonFilterView.drawPolygon(with: annotations)
+        }
     }
 
     // MARK: - Internal methods
@@ -182,7 +190,38 @@ final class MapPolygonFilterViewController: FilterViewController {
         return String(coordinate.longitude) + " " + String(coordinate.latitude)
     }
 
+    private func createPolygonCoordinates(from query: String) -> [CLLocationCoordinate2D] {
+        let formattedString = query.removingPercentEncoding
+        var coordinates = [CLLocationCoordinate2D]()
+        let points = query.components(separatedBy: ",")
+        for point in points {
+            let pointCoordinate = point.components(separatedBy: " ")
+            guard
+                pointCoordinate.count == 2,
+                let latitude = Double(pointCoordinate[1]),
+                let longitude = Double(pointCoordinate[0])
+            else { return [] }
+            coordinates.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        }
+        return coordinates
+    }
+
     // MARK: - Polygon calculations
+
+    private func setupAnnotations(from coordinates: [CLLocationCoordinate2D]) {
+        annotations.removeAll()
+
+        for (index, coordinate) in coordinates.enumerated() {
+            let annotation = PolygonSearchAnnotation(type: .vertex)
+            annotation.title = "Annotation \(annotations.count)"
+            annotation.coordinate = coordinate
+            annotations.append(annotation)
+            mapPolygonFilterView.addAnnotation(annotation)
+
+            let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
+            addIntermediatePoint(after: annotation, nextPoint: nextPoint)
+        }
+    }
 
     @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
         annotationDidMove = true
@@ -286,18 +325,7 @@ final class MapPolygonFilterViewController: FilterViewController {
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
-        annotations.removeAll()
-
-        for (index, coordinate) in coordinates.enumerated() {
-            let annotation = PolygonSearchAnnotation(type: .vertex)
-            annotation.title = "Annotation \(annotations.count)"
-            annotation.coordinate = coordinate
-            annotations.append(annotation)
-            mapPolygonFilterView.addAnnotation(annotation)
-
-            let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
-            addIntermediatePoint(after: annotation, nextPoint: nextPoint)
-        }
+        setupAnnotations(from: coordinates)
         annotationDidMove = false
         mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)

@@ -8,7 +8,6 @@ class MapTabBarController: UITabBarController {
 
     private let mapViewController: MapFilterViewController
     private let polygonMapViewController: MapPolygonFilterViewController
-    private let selectionStore: FilterSelectionStore
 
     weak var filterDelegate: FilterViewControllerDelegate? {
         didSet {
@@ -36,7 +35,6 @@ class MapTabBarController: UITabBarController {
          locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
         self.mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
         self.polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
-        self.selectionStore = selectionStore
         super.init(nibName: nil, bundle: nil)
         self.title = title
         setup()
@@ -53,8 +51,11 @@ class MapTabBarController: UITabBarController {
     }
 
     @objc private func toggleViewControllers() {
-        selectionStore.clear()
-        // TODO: Remember filter settings between toggles
+        if viewControllers?[safe: selectedIndex] == mapViewController {
+            mapViewController.resetFilterValues()
+        } else if viewControllers?[safe: selectedIndex] == polygonMapViewController {
+            polygonMapViewController.resetFilterValues()
+        }
         selectedIndex = (selectedIndex + 1) % 2
     }
 }

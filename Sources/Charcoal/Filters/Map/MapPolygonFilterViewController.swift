@@ -36,7 +36,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var annotations = [PolygonSearchAnnotation]()
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
-        let mapPolygonFilterView = MapPolygonFilterView(radius: nil, centerCoordinate: coordinate)
+        let mapPolygonFilterView = MapPolygonFilterView(centerCoordinate: coordinate)
         mapPolygonFilterView.translatesAutoresizingMaskIntoConstraints = false
         mapPolygonFilterView.searchBar = searchLocationViewController.searchBar
         mapPolygonFilterView.locationName = locationName
@@ -107,20 +107,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
     }
 
-    private func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
-        guard coordinates.count > 4 else { return nil }
-        var query = ""
-        for coordinate in coordinates {
-            query += queryString(for: coordinate) + ","
-        }
-        query += queryString(for: coordinates[0])
-        return query
-    }
-
-    private func queryString(for coordinate: CLLocationCoordinate2D) -> String {
-        return String(coordinate.longitude) + " " + String(coordinate.latitude)
-    }
-
     // MARK: - Setup
 
     private func setup() {
@@ -133,6 +119,14 @@ final class MapPolygonFilterViewController: FilterViewController {
             mapPolygonFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
+
+    // MARK: - Internal methods
+
+    func resetFilterValues() {
+        selectionStore.removeValues(for: [latitudeFilter, longitudeFilter, locationNameFilter, bboxFilter, polygonFilter])
+    }
+
+    // MARK: - Private methods
 
     private func returnToMapFromLocationSearch() {
         mapPolygonFilterView.searchBar = searchLocationViewController.searchBar
@@ -163,6 +157,22 @@ final class MapPolygonFilterViewController: FilterViewController {
             alert.addAction(UIAlertAction(title: "cancel".localized(), style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
+    }
+
+    // MARK: - Networking
+
+    private func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
+        guard coordinates.count > 4 else { return nil }
+        var query = ""
+        for coordinate in coordinates {
+            query += queryString(for: coordinate) + ","
+        }
+        query += queryString(for: coordinates[0])
+        return query
+    }
+
+    private func queryString(for coordinate: CLLocationCoordinate2D) -> String {
+        return String(coordinate.longitude) + " " + String(coordinate.latitude)
     }
 
     // MARK: - Polygon calculations

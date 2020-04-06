@@ -54,7 +54,6 @@ final class MapPolygonFilterView: UIView {
         }
     }
 
-    private(set) var radius: Int
     private let initialCenterCoordinate: CLLocationCoordinate2D?
 
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
@@ -170,8 +169,7 @@ final class MapPolygonFilterView: UIView {
 
     // MARK: - Init
 
-    init(radius: Int?, centerCoordinate: CLLocationCoordinate2D?) {
-        self.radius = radius ?? MapPolygonFilterView.defaultRadius
+    init(centerCoordinate: CLLocationCoordinate2D?) {
         initialCenterCoordinate = centerCoordinate
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
 
@@ -235,16 +233,10 @@ final class MapPolygonFilterView: UIView {
         }
     }
 
-    func updateRadiusView() {
-//        let region = mapView.centeredRegion(for: Double(radius))
-//        radiusOverlayView.width = mapView.convert(region, toRectTo: mapView).width
-    }
-
     private func updateRegion(animated: Bool = true) {
-        let region = mapView.centeredRegion(for: Double(radius) * 2.2)
+        let region = mapView.centeredRegion(for: Double(MapPolygonFilterView.defaultRadius) * 2.2)
 
         mapView.setRegion(region, animated: animated)
-        updateRadiusView()
     }
 
     // MARK: - Actions

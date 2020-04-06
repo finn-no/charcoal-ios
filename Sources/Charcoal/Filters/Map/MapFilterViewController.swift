@@ -115,6 +115,14 @@ final class MapFilterViewController: FilterViewController {
         ])
     }
 
+    // MARK: - Internal methods
+
+    func resetFilterValues() {
+        selectionStore.removeValues(for: [radiusFilter, latitudeFilter, longitudeFilter, locationNameFilter])
+    }
+
+    // MARK: - Private methods
+
     private func returnToMapFromLocationSearch() {
         mapFilterView.searchBar = searchLocationViewController.searchBar
         mapFilterView.setNeedsLayout()

@@ -32,6 +32,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
+    private var annotationDidMove = false
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
 
@@ -97,8 +98,15 @@ final class MapPolygonFilterViewController: FilterViewController {
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         locationName = mapPolygonFilterView.locationName
 
-        if false { // Annotation is rectangle
-            // Implement bbox search
+        if !annotationDidMove {
+            let bboxCoordinates = [
+                annotations.map( { $0.coordinate.longitude } ).min() ?? 0,
+                annotations.map( { $0.coordinate.latitude } ).min() ?? 0,
+                annotations.map( { $0.coordinate.longitude } ).max() ?? 0,
+                annotations.map( { $0.coordinate.latitude } ).max() ?? 0
+            ]
+            guard !bboxCoordinates.contains(0) else { return }
+            bbox = bboxCoordinates.map({ String($0) }).joined(separator: ",")
             polygon = nil
         } else {
             polygon = createPolygonQuery(for: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate }))
@@ -162,7 +170,6 @@ final class MapPolygonFilterViewController: FilterViewController {
     // MARK: - Networking
 
     private func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
-        guard coordinates.count > 4 else { return nil }
         var query = ""
         for coordinate in coordinates {
             query += queryString(for: coordinate) + ","
@@ -178,6 +185,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     // MARK: - Polygon calculations
 
     @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
+        annotationDidMove = true
         let location = mapPolygonFilterView.location(for: gesture)
 
         guard
@@ -290,6 +298,7 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
             let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
             addIntermediatePoint(after: annotation, nextPoint: nextPoint)
         }
+        annotationDidMove = false
         mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)
     }

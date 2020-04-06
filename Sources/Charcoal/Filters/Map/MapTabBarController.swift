@@ -32,6 +32,7 @@ class MapTabBarController: UITabBarController {
     private let selectionStore: FilterSelectionStore
     private let radiusFilter: Filter
     private let polygonFilter: Filter
+    private let bboxFilter: Filter
 
     private lazy var toggleViewControllersButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: .republish), style: .plain, target: self, action: #selector(toggleViewControllers))
 
@@ -42,6 +43,7 @@ class MapTabBarController: UITabBarController {
         self.selectionStore = selectionStore
         self.radiusFilter = radiusFilter
         self.polygonFilter = polygonFilter
+        self.bboxFilter = bboxFilter
         super.init(nibName: nil, bundle: nil)
         self.title = title
         setup()
@@ -55,7 +57,7 @@ class MapTabBarController: UITabBarController {
         tabBar.isHidden = true
         navigationItem.rightBarButtonItem = toggleViewControllersButton
         self.viewControllers = [mapViewController, polygonMapViewController]
-        if selectionStore.isSelected(polygonFilter) {
+        if selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
             selectedViewController = polygonMapViewController
         } else {
             selectedViewController = mapViewController

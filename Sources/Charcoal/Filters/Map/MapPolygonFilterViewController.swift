@@ -32,7 +32,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
-    private var annotationDidMove = false
+    private var isBboxSearch = true
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
 
@@ -98,7 +98,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         locationName = mapPolygonFilterView.locationName
 
-        if !annotationDidMove {
+        if isBboxSearch {
             let bboxCoordinates = [
                 annotations.map( { $0.coordinate.longitude } ).min() ?? 0,
                 annotations.map( { $0.coordinate.latitude } ).min() ?? 0,
@@ -127,13 +127,17 @@ final class MapPolygonFilterViewController: FilterViewController {
             mapPolygonFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
 
+        var coordinates = [CLLocationCoordinate2D]()
         if let coordinateQuery: String = selectionStore.value(for: polygonFilter) {
-            let coordinates = createPolygonCoordinates(from: coordinateQuery)
-            setupAnnotations(from: coordinates)
-            guard annotations.count > 0 else { return }
-            mapPolygonFilterView.configure(for: .polygonSelection)
-            mapPolygonFilterView.drawPolygon(with: annotations)
+            coordinates = createPolygonCoordinates(from: coordinateQuery)
+            isBboxSearch = false
+        } else if let bboxQuery: String = selectionStore.value(for: bboxFilter) {
+            coordinates = createBboxCoordinates(from: bboxQuery)
         }
+        setupAnnotations(from: coordinates)
+        guard annotations.count > 0 else { return }
+        mapPolygonFilterView.configure(for: .polygonSelection)
+        mapPolygonFilterView.drawPolygon(with: annotations)
     }
 
     // MARK: - Internal methods
@@ -177,6 +181,8 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     // MARK: - Networking
 
+    // TODO: Move networking code?
+
     private func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
         var query = ""
         for coordinate in coordinates {
@@ -195,15 +201,25 @@ final class MapPolygonFilterViewController: FilterViewController {
         var coordinates = [CLLocationCoordinate2D]()
         let points = query.components(separatedBy: ",")
         for point in points {
-            let pointCoordinate = point.components(separatedBy: " ")
-            guard
-                pointCoordinate.count == 2,
-                let latitude = Double(pointCoordinate[1]),
-                let longitude = Double(pointCoordinate[0])
-            else { return [] }
-            coordinates.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+            let pointCoordinate = point.components(separatedBy: " ").compactMap({ Double($0) })
+            guard pointCoordinate.count == 2 else { return [] }
+            coordinates.append(CLLocationCoordinate2D(latitude: pointCoordinate[1], longitude: pointCoordinate[0]))
         }
         return coordinates
+    }
+
+    private func createBboxCoordinates(from query: String) -> [CLLocationCoordinate2D] {
+        guard
+            let values = (query.removingPercentEncoding)?.split(separator: ",").compactMap({ Double($0) }),
+            values.count == 4
+        else { return [] }
+
+        let southWestCoordinate = CLLocationCoordinate2D(latitude: values[1], longitude: values[0])
+        let northEastCoordinate = CLLocationCoordinate2D(latitude: values[3], longitude: values[2])
+        let northWestCoordinate = CLLocationCoordinate2D(latitude: southWestCoordinate.latitude, longitude: northEastCoordinate.longitude)
+        let southEastCoordinate = CLLocationCoordinate2D(latitude: northEastCoordinate.latitude, longitude: southWestCoordinate.longitude)
+
+        return [southWestCoordinate, northWestCoordinate, northEastCoordinate, southEastCoordinate]
     }
 
     // MARK: - Polygon calculations
@@ -224,7 +240,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
-        annotationDidMove = true
+        isBboxSearch = false
         let location = mapPolygonFilterView.location(for: gesture)
 
         guard
@@ -326,7 +342,7 @@ final class MapPolygonFilterViewController: FilterViewController {
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
         setupAnnotations(from: coordinates)
-        annotationDidMove = false
+        isBboxSearch = true
         mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)
     }

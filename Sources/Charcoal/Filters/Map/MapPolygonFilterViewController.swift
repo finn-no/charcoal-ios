@@ -102,23 +102,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        self.mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
-        locationName = mapPolygonFilterView.locationName
-
-        if isBboxSearch {
-            let bboxCoordinates = [
-                annotations.map( { $0.coordinate.longitude } ).min() ?? 0,
-                annotations.map( { $0.coordinate.latitude } ).min() ?? 0,
-                annotations.map( { $0.coordinate.longitude } ).max() ?? 0,
-                annotations.map( { $0.coordinate.latitude } ).max() ?? 0
-            ]
-            guard !bboxCoordinates.contains(0) else { return }
-            bbox = bboxCoordinates.map({ String($0) }).joined(separator: ",")
-            polygon = nil
-        } else {
-            polygon = createPolygonQuery(for: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate }))
-            bbox = nil
-        }
+        updateFilterValues()
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
     }
 
@@ -154,6 +138,26 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     // MARK: - Private methods
+
+    private func updateFilterValues() {
+        self.mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
+        locationName = mapPolygonFilterView.locationName
+
+        if isBboxSearch {
+            let bboxCoordinates = [
+                annotations.map( { $0.coordinate.longitude } ).min() ?? 0,
+                annotations.map( { $0.coordinate.latitude } ).min() ?? 0,
+                annotations.map( { $0.coordinate.longitude } ).max() ?? 0,
+                annotations.map( { $0.coordinate.latitude } ).max() ?? 0
+            ]
+            guard !bboxCoordinates.contains(0) else { return }
+            bbox = bboxCoordinates.map({ String($0) }).joined(separator: ",")
+            polygon = nil
+        } else {
+            polygon = createPolygonQuery(for: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate }))
+            bbox = nil
+        }
+    }
 
     private func returnToMapFromLocationSearch() {
         mapPolygonFilterView.searchBar = searchLocationViewController.searchBar
@@ -288,6 +292,7 @@ final class MapPolygonFilterViewController: FilterViewController {
             updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
 
             mapPolygonFilterView.drawPolygon(with: annotations)
+            updateFilterValues()
         }
     }
 
@@ -347,11 +352,16 @@ final class MapPolygonFilterViewController: FilterViewController {
 // MARK: - MapFilterViewDelegate
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
+    func mapPolygonFilterViewDidSelectRedoAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView) {
+        resetFilterValues()
+    }
+
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
         setupAnnotations(from: coordinates)
         isBboxSearch = true
         mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)
+        updateFilterValues()
     }
 
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {

@@ -9,6 +9,7 @@ import FinniversKit
 protocol MapPolygonFilterViewDelegate: MKMapViewDelegate {
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView)
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D])
+    func mapPolygonFilterViewDidSelectRedoAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView)
 }
 
 final class MapPolygonFilterView: UIView {
@@ -257,6 +258,7 @@ final class MapPolygonFilterView: UIView {
     }
 
     @objc private func didTapRedoAreaSelectionButton() {
+        delegate?.mapPolygonFilterViewDidSelectRedoAreaSelectionButton(self)
         configure(for: .squareAreaSelection)
     }
 

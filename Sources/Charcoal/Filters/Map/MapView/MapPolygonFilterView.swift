@@ -176,7 +176,6 @@ final class MapPolygonFilterView: UIView {
 
         setup()
         updateRegion(animated: false)
-        centerOnInitialCoordinate()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -217,14 +216,7 @@ final class MapPolygonFilterView: UIView {
         mapView.addOverlay(overlay, level: .aboveLabels)
     }
 
-    func centerOnInitialCoordinate() {
-        let userCoordinate = mapView.userLocation.location?.coordinate
-        let centerCoordinate = initialCenterCoordinate ?? userCoordinate ?? MapPolygonFilterView.defaultCenterCoordinate
-
-        centerOnCoordinate(centerCoordinate, animated: false)
-    }
-
-    func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, animated: Bool) {
+    func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, distance: CLLocationDistance? = nil, animated: Bool) {
         mapView.setCenter(coordinate, animated: animated)
     }
 

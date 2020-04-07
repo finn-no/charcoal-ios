@@ -126,9 +126,36 @@ final class MapPolygonFilterViewController: FilterViewController {
             coordinates = createBboxCoordinates(from: bboxQuery)
         }
         setupAnnotations(from: coordinates)
-        guard annotations.count > 0 else { return }
+        guard annotations.count > 0 else {
+            centerOnUserLocation()
+            return
+        }
         mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)
+        centerMapOnPolygonCenter()
+    }
+
+    private func centerMapOnPolygonCenter() {
+        let latitudes = annotations.map({ $0.coordinate.latitude })
+        let longitudes = annotations.map({ $0.coordinate.longitude })
+
+        guard
+            let maxLatitude = latitudes.max(),
+            let minLatitude = latitudes.min(),
+            let maxLongitude = longitudes.max(),
+            let minLongitude = longitudes.min()
+        else { return }
+
+        let midLatitude = (maxLatitude + minLatitude) / 2
+        let midLongitude = (maxLongitude + minLongitude) / 2
+
+        let centerCoordinate = CLLocationCoordinate2D(latitude: midLatitude, longitude: midLongitude)
+
+        let centerLocation = CLLocation(latitude: midLatitude, longitude: midLongitude)
+        let cornerLocation = CLLocation(latitude: maxLatitude, longitude: maxLongitude)
+        let distance = centerLocation.distance(from: cornerLocation) * 2.2
+
+        mapPolygonFilterView.centerOnCoordinate(centerCoordinate, distance: distance, animated: true)
     }
 
     // MARK: - Internal methods
@@ -379,7 +406,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
         }
 
         isMapLoaded = true
-        mapPolygonFilterView.centerOnInitialCoordinate()
+//        mapPolygonFilterView.centerOnInitialCoordinate()
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -431,7 +458,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if hasRequestedLocationAuthorization {
-            mapPolygonFilterView.centerOnInitialCoordinate()
+            centerOnUserLocation()
             hasRequestedLocationAuthorization = false
         }
     }

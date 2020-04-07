@@ -46,7 +46,10 @@ class MapTabBarController: UITabBarController {
         self.bboxFilter = bboxFilter
         super.init(nibName: nil, bundle: nil)
         self.title = title
+
         setup()
+        mapViewController.mapFilterDelegate = self
+        polygonMapViewController.mapPolygonFilterDelegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -65,11 +68,22 @@ class MapTabBarController: UITabBarController {
     }
 
     @objc private func toggleViewControllers() {
-        if selectedViewController == mapViewController {
-            mapViewController.resetFilterValues()
-        } else if selectedViewController == polygonMapViewController {
-            polygonMapViewController.resetFilterValues()
-        }
         selectedIndex = (selectedIndex + 1) % 2
+    }
+}
+
+// MARK: - MapFilterViewControllerDelegate
+
+extension MapTabBarController: MapFilterViewControllerDelegate {
+    func mapFilterViewControllerDidSelectFilter(_ mapFilterViewController: MapFilterViewController) {
+        polygonMapViewController.resetFilterValues()
+    }
+}
+
+// MARK: - MapPolygonFilterViewControllerDelegate
+
+extension MapTabBarController: MapPolygonFilterViewControllerDelegate {
+    func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
+        mapViewController.resetFilterValues()
     }
 }

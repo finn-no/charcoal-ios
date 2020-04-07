@@ -9,6 +9,10 @@ public protocol MapFilterDataSource: AnyObject {
     var mapTileOverlay: MKTileOverlay? { get }
 }
 
+protocol MapFilterViewControllerDelegate: AnyObject {
+    func mapFilterViewControllerDidSelectFilter(_ mapFilterViewController: MapFilterViewController)
+}
+
 final class MapFilterViewController: FilterViewController {
     weak var mapDataSource: MapFilterDataSource? {
         didSet {
@@ -23,6 +27,8 @@ final class MapFilterViewController: FilterViewController {
             searchLocationViewController.searchLocationDataSource = searchLocationDataSource
         }
     }
+
+    weak var mapFilterDelegate: MapFilterViewControllerDelegate?
 
     // MARK: - Private properties
 
@@ -99,6 +105,7 @@ final class MapFilterViewController: FilterViewController {
         coordinate = mapFilterView.centerCoordinate
         locationName = mapFilterView.locationName
 
+        mapFilterDelegate?.mapFilterViewControllerDidSelectFilter(self)
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
     }
 

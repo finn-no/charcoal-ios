@@ -5,6 +5,10 @@
 import MapKit
 import UIKit
 
+protocol MapPolygonFilterViewControllerDelegate: AnyObject {
+    func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
+}
+
 final class MapPolygonFilterViewController: FilterViewController {
     weak var mapDataSource: MapFilterDataSource? {
         didSet {
@@ -68,6 +72,8 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
+    weak var mapPolygonFilterDelegate: MapPolygonFilterViewControllerDelegate?
+
     // MARK: - Init
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter,
@@ -96,6 +102,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        self.mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
         locationName = mapPolygonFilterView.locationName
 
         if isBboxSearch {

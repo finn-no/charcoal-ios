@@ -195,13 +195,13 @@ public extension FilterSelectionStore {
                 return []
             }
         case let .map(_, _, radiusFilter, _, bboxFilter, polygonFilter):
-            if let radius: Int = value(for: radiusFilter) {
-                let value = MapDistanceValueFormatter().title(for: radius)
-                return [SelectionTitle(value: value)]
-            } else if let bbox: String = value(for: bboxFilter) {
+            if let bbox: String = value(for: bboxFilter) {
                 return [SelectionTitle(value: "BBoxsøk")]
             } else if let polygon: String = value(for: polygonFilter) {
                 return [SelectionTitle(value: "Polygonsøk")]
+            } else if let radius: Int = value(for: radiusFilter) {
+                let value = MapDistanceValueFormatter().title(for: radius)
+                return [SelectionTitle(value: value)]
             } else {
                 return []
             }

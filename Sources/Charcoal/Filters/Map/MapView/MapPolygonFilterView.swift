@@ -175,27 +175,11 @@ final class MapPolygonFilterView: UIView {
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
 
         setup()
-        updateRegion(animated: false)
+        setInitialRegion(animated: false)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: - Overrides
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        // Update radius so it fits for new view sizes
-        let updateViewWorkItem = DispatchWorkItem { [weak self] in
-            self?.updateRegion()
-        }
-
-        updateViewDispatchWorkItem = updateViewWorkItem
-
-        // Use a delay incase the view is being changed to new sizes by user
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
     }
 
     // MARK: - API
@@ -216,8 +200,11 @@ final class MapPolygonFilterView: UIView {
         mapView.addOverlay(overlay, level: .aboveLabels)
     }
 
-    func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, distance: CLLocationDistance? = nil, animated: Bool) {
+    func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, regionDistance: CLLocationDistance? = nil, animated: Bool) {
         mapView.setCenter(coordinate, animated: animated)
+        guard let distance = regionDistance else { return }
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: distance * 1.1, longitudinalMeters: distance * 1.1)
+        mapView.setRegion(mapView.regionThatFits(region), animated: true)
     }
 
     func centerOnUserLocation() {
@@ -226,9 +213,8 @@ final class MapPolygonFilterView: UIView {
         }
     }
 
-    private func updateRegion(animated: Bool = true) {
+    private func setInitialRegion(animated: Bool = true) {
         let region = mapView.centeredRegion(for: Double(MapPolygonFilterView.defaultRadius) * 2.2)
-
         mapView.setRegion(region, animated: animated)
     }
 

@@ -151,11 +151,11 @@ final class MapPolygonFilterViewController: FilterViewController {
 
         let centerCoordinate = CLLocationCoordinate2D(latitude: midLatitude, longitude: midLongitude)
 
-        let centerLocation = CLLocation(latitude: midLatitude, longitude: midLongitude)
-        let cornerLocation = CLLocation(latitude: maxLatitude, longitude: maxLongitude)
-        let distance = centerLocation.distance(from: cornerLocation) * 2.2
+        let minLocation = CLLocation(latitude: minLatitude, longitude: minLongitude)
+        let maxLocation = CLLocation(latitude: maxLatitude, longitude: maxLongitude)
+        let distance = minLocation.distance(from: maxLocation)
 
-        mapPolygonFilterView.centerOnCoordinate(centerCoordinate, distance: distance, animated: true)
+        mapPolygonFilterView.centerOnCoordinate(centerCoordinate, regionDistance: distance, animated: true)
     }
 
     // MARK: - Internal methods

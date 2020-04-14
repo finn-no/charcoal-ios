@@ -189,6 +189,9 @@ final class MapPolygonFilterViewController: FilterViewController {
             guard !bboxCoordinates.contains(0) else { return }
             bbox = bboxCoordinates.map({ String($0) }).joined(separator: ",")
             polygon = nil
+        } else if !polygonIsValid {
+            polygon = nil
+            bbox = nil
         } else {
             polygon = createPolygonQuery(for: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate }))
             bbox = nil
@@ -287,10 +290,12 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private func hideIntermediateAnnotations() {
+        bottomButton.isEnabled = false
         mapPolygonFilterView.removeAnnotations( annotations.filter( {$0.type == .intermediate}))
     }
 
     private func showIntermediateAnnotations() {
+        bottomButton.isEnabled = true
         annotations.filter({$0.type == .intermediate}).forEach({annotation in
             mapPolygonFilterView.addAnnotation(annotation)
         })

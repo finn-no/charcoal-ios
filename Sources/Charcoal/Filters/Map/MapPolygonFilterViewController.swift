@@ -39,8 +39,15 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var isBboxSearch = true
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
-    private var polygonIsValid = true
     private var overlappingEdges = [PolygonEdge]()
+
+    private var polygonIsValid = true {
+        didSet {
+            if oldValue != polygonIsValid {
+                if polygonIsValid { showIntermediateAnnotations() } else { hideIntermediateAnnotations() }
+            }
+        }
+    }
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
         let mapPolygonFilterView = MapPolygonFilterView(centerCoordinate: coordinate)
@@ -277,6 +284,16 @@ final class MapPolygonFilterViewController: FilterViewController {
             let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
             addIntermediatePoint(after: annotation, nextPoint: nextPoint)
         }
+    }
+
+    private func hideIntermediateAnnotations() {
+        mapPolygonFilterView.removeAnnotations( annotations.filter( {$0.type == .intermediate}))
+    }
+
+    private func showIntermediateAnnotations() {
+        annotations.filter({$0.type == .intermediate}).forEach({annotation in
+            mapPolygonFilterView.addAnnotation(annotation)
+        })
     }
 
     @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {

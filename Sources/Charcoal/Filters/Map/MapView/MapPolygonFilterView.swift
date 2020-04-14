@@ -336,6 +336,10 @@ final class MapPolygonFilterView: UIView {
         mapView.addAnnotation(annotation)
     }
 
+    func removeAnnotations(_ annotations: [PolygonSearchAnnotation]) {
+        mapView.removeAnnotations(annotations)
+    }
+
     func imageForAnnotation(ofType pointType: PolygonSearchAnnotation.PointType) -> UIImage {
         return pointType == .vertex ? vertexAnnotationImage : intermediateAnnotationImage
     }

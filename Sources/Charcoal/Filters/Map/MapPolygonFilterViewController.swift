@@ -36,17 +36,22 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
-    private var isBboxSearch = true
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
     private var overlappingEdges = [PolygonEdge]()
 
-    private var polygonIsValid = true {
+    private var state: State = .bbox {
         didSet {
-            if oldValue != polygonIsValid {
-                if polygonIsValid { showIntermediateAnnotations() } else { hideIntermediateAnnotations() }
+            if oldValue != state {
+                configure(for: state)
             }
         }
+    }
+
+    private enum State {
+        case bbox
+        case polygon
+        case invalidPolygon
     }
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
@@ -130,9 +135,10 @@ final class MapPolygonFilterViewController: FilterViewController {
         var coordinates = [CLLocationCoordinate2D]()
         if let coordinateQuery: String = selectionStore.value(for: polygonFilter) {
             coordinates = createPolygonCoordinates(from: coordinateQuery)
-            isBboxSearch = false
+            state = .polygon
         } else if let bboxQuery: String = selectionStore.value(for: bboxFilter) {
             coordinates = createBboxCoordinates(from: bboxQuery)
+            state = .bbox
         }
         setupAnnotations(from: coordinates)
         guard annotations.count > 0 else {
@@ -175,11 +181,27 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     // MARK: - Private methods
 
+    private func configure(for state: State) {
+        switch state {
+        case .polygon:
+            bottomButton.isEnabled = true
+            annotations.filter({$0.type == .intermediate}).forEach({annotation in
+                mapPolygonFilterView.addAnnotation(annotation)
+            })
+        case .invalidPolygon:
+            bottomButton.isEnabled = false
+            mapPolygonFilterView.removeAnnotations( annotations.filter( {$0.type == .intermediate}))
+        default:
+            break
+        }
+    }
+
     private func updateFilterValues() {
         self.mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
         locationName = mapPolygonFilterView.locationName
 
-        if isBboxSearch {
+        switch state {
+        case .bbox:
             let bboxCoordinates = [
                 annotations.map( { $0.coordinate.longitude } ).min() ?? 0,
                 annotations.map( { $0.coordinate.latitude } ).min() ?? 0,
@@ -189,11 +211,13 @@ final class MapPolygonFilterViewController: FilterViewController {
             guard !bboxCoordinates.contains(0) else { return }
             bbox = bboxCoordinates.map({ String($0) }).joined(separator: ",")
             polygon = nil
-        } else if !polygonIsValid {
-            polygon = nil
-            bbox = nil
-        } else {
+
+        case .polygon:
             polygon = createPolygonQuery(for: annotations.filter({ $0.type == .vertex }).map({ $0.coordinate }))
+            bbox = nil
+
+        case .invalidPolygon:
+            polygon = nil
             bbox = nil
         }
     }
@@ -289,20 +313,8 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
-    private func hideIntermediateAnnotations() {
-        bottomButton.isEnabled = false
-        mapPolygonFilterView.removeAnnotations( annotations.filter( {$0.type == .intermediate}))
-    }
-
-    private func showIntermediateAnnotations() {
-        bottomButton.isEnabled = true
-        annotations.filter({$0.type == .intermediate}).forEach({annotation in
-            mapPolygonFilterView.addAnnotation(annotation)
-        })
-    }
-
     @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
-        isBboxSearch = false
+        state = .polygon
         let location = mapPolygonFilterView.location(for: gesture)
 
         guard
@@ -342,7 +354,7 @@ final class MapPolygonFilterViewController: FilterViewController {
             annotation.coordinate = mapPolygonFilterView.coordinateForPoint(updatedLocation)
             updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
 
-            polygonIsValid = isPolygonStateValid(draggedAnnotation: annotation)
+            state = isPolygonStateValid(draggedAnnotation: annotation) ? .polygon : .invalidPolygon
             mapPolygonFilterView.drawPolygon(with: annotations)
             updateFilterValues()
         }
@@ -489,7 +501,7 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
 
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
         setupAnnotations(from: coordinates)
-        isBboxSearch = true
+        state = .bbox
         mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)
         updateFilterValues()
@@ -517,7 +529,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
         if overlay is MKPolygon {
             let polygon = MKPolygonRenderer(overlay: overlay)
             polygon.strokeColor = UIColor.accentSecondaryBlue
-            polygon.fillColor = polygonIsValid ? UIColor.accentSecondaryBlue.withAlphaComponent(0.15) : UIColor.red.withAlphaComponent(0.20)
+            polygon.fillColor = state != .invalidPolygon ? UIColor.accentSecondaryBlue.withAlphaComponent(0.15) : UIColor.red.withAlphaComponent(0.20)
             polygon.lineWidth = 2
             if #available(iOS 13.0, *) {
                 // MapKit renders overlays as vectors by default from iOS 13, but we are opting out of it.

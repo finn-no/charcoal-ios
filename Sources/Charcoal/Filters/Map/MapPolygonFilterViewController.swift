@@ -40,6 +40,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
     private var polygonIsValid = true
+    private var overlappingEdges = [PolygonEdge]()
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
         let mapPolygonFilterView = MapPolygonFilterView(centerCoordinate: coordinate)
@@ -329,12 +330,14 @@ final class MapPolygonFilterViewController: FilterViewController {
         let vertexAnnotations = annotations.filter({ $0.type == .vertex })
         guard let index = vertexAnnotations.firstIndex(where: {$0.title == draggedAnnotation.title}) else { return false }
 
-        let leftAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexBefore(index, in: vertexAnnotations)])
-        let draggedAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(draggedAnnotation)
-        let rightAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexAfter(index, in: vertexAnnotations)])
+        let leftAnnotation = vertexAnnotations[indexBefore(index, in: vertexAnnotations)]
+        let rightAnnotation = vertexAnnotations[indexAfter(index, in: vertexAnnotations)]
 
-        let leftAnnotationWithOffset = addOffsetToPoint(leftAnnotationPoint, vectorHead: draggedAnnotationPoint)
-        let rightAnnotationWithOffset = addOffsetToPoint(rightAnnotationPoint, vectorHead: draggedAnnotationPoint)
+        let draggedAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(draggedAnnotation)
+        let leftAnnotationPointWithOffset = addOffsetToPoint(mapPolygonFilterView.pointForAnnoatation(leftAnnotation), vectorHead: draggedAnnotationPoint)
+        let rightAnnotationPointWithOffset = addOffsetToPoint(mapPolygonFilterView.pointForAnnoatation(rightAnnotation), vectorHead: draggedAnnotationPoint)
+
+        updateStateForCurrentOverlaps()
 
         for i in 0...vertexAnnotations.count-1 {
             if indexAfter(i, in: vertexAnnotations) == index || i == index { continue }
@@ -342,13 +345,21 @@ final class MapPolygonFilterViewController: FilterViewController {
             let leftPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[i])
             let rightPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexAfter(i, in: vertexAnnotations)])
 
-            if intersect(p1: leftAnnotationWithOffset, p2: draggedAnnotationPoint, q1: leftPoint, q2: rightPoint) ||
-                intersect(p1: draggedAnnotationPoint, p2: rightAnnotationWithOffset, q1: leftPoint, q2: rightPoint) {
-                mapPolygonFilterView.setNeedsDisplay()
-                return false
+            let leftEdgeIntersects = intersect(p1: leftAnnotationPointWithOffset, p2: draggedAnnotationPoint, q1: leftPoint, q2: rightPoint)
+            if leftEdgeIntersects {
+                if !overlappingEdges.contains(where: { $0.x.title == leftAnnotation.title }) {
+                    overlappingEdges.append(PolygonEdge(leftAnnotation, draggedAnnotation))
+                }
+            }
+
+            let rightEdgeIntersects = intersect(p1: draggedAnnotationPoint, p2: rightAnnotationPointWithOffset, q1: leftPoint, q2: rightPoint)
+            if rightEdgeIntersects {
+                if !overlappingEdges.contains(where: { $0.x.title == draggedAnnotation.title }) {
+                    overlappingEdges.append(PolygonEdge(draggedAnnotation, rightAnnotation))
+                }
             }
         }
-        return true
+        return overlappingEdges.count == 0
     }
 
     private func addOffsetToPoint(_ vectorTail: CGPoint, vectorHead: CGPoint) -> CGPoint {
@@ -358,6 +369,32 @@ final class MapPolygonFilterViewController: FilterViewController {
         let xOffset = epsilon * (vectorHead.x - vectorTail.x) / edgeLength;
         let yOffset = epsilon * (vectorHead.y - vectorTail.y) / edgeLength;
         return CGPoint(x: vectorTail.x + xOffset, y: vectorTail.y + yOffset)
+    }
+
+    private func updateStateForCurrentOverlaps() {
+        let vertexAnnotations = annotations.filter({ $0.type == .vertex })
+        var edgesStillOverlapping = [PolygonEdge]()
+
+        for edge in overlappingEdges {
+            guard let edgeIndex = vertexAnnotations.firstIndex(where: {$0.title == edge.x.title}) else { return }
+
+            let edgeLeftPoint = mapPolygonFilterView.pointForAnnoatation(edge.x)
+            let edgeRightPoint = mapPolygonFilterView.pointForAnnoatation(edge.y)
+
+            var edgeOverlaps: Bool = false
+            for i in 0...vertexAnnotations.count-1 {
+                if i == indexBefore(edgeIndex, in: vertexAnnotations) || i == edgeIndex || i == indexAfter(edgeIndex, in: vertexAnnotations) { continue }
+
+                let leftPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[i])
+                let rightPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexAfter(i, in: vertexAnnotations)])
+
+                if intersect(p1: edgeLeftPoint, p2: edgeRightPoint, q1: leftPoint, q2: rightPoint) {
+                    edgesStillOverlapping.append(edge)
+                    break
+                }
+            }
+        }
+        overlappingEdges = edgesStillOverlapping
     }
 
     private func intersect(p1: CGPoint, p2: CGPoint, q1: CGPoint, q2: CGPoint) -> Bool {

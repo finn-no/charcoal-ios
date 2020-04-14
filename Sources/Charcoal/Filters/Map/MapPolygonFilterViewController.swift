@@ -511,9 +511,8 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolygon {
             let polygon = MKPolygonRenderer(overlay: overlay)
-            let polygonColor = polygonIsValid ? UIColor.accentSecondaryBlue : UIColor.btnCritical
-            polygon.strokeColor = polygonColor
-            polygon.fillColor = polygonColor.withAlphaComponent(0.15)
+            polygon.strokeColor = UIColor.accentSecondaryBlue
+            polygon.fillColor = polygonIsValid ? UIColor.accentSecondaryBlue.withAlphaComponent(0.15) : UIColor.red.withAlphaComponent(0.20)
             polygon.lineWidth = 2
             if #available(iOS 13.0, *) {
                 // MapKit renders overlays as vectors by default from iOS 13, but we are opting out of it.

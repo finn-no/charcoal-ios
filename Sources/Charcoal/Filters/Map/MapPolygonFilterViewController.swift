@@ -39,6 +39,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var isBboxSearch = true
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
+    private var polygonIsValid = true
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
         let mapPolygonFilterView = MapPolygonFilterView(centerCoordinate: coordinate)
@@ -305,8 +306,8 @@ final class MapPolygonFilterViewController: FilterViewController {
                 annotation.type = .vertex
                 annotationView.image = mapPolygonFilterView.imageForAnnotation(ofType: .vertex)
                 if let index = index(of: annotation) {
-                    addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index)].coordinate)
-                    let previousAnnotation = annotations[indexBefore(index)]
+                    addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index, in: annotations)].coordinate)
+                    let previousAnnotation = annotations[indexBefore(index, in: annotations)]
                     addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)
                 }
             }
@@ -318,9 +319,53 @@ final class MapPolygonFilterViewController: FilterViewController {
             annotation.coordinate = mapPolygonFilterView.coordinateForPoint(updatedLocation)
             updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
 
+            polygonIsValid = isPolygonStateValid(draggedAnnotation: annotation)
             mapPolygonFilterView.drawPolygon(with: annotations)
             updateFilterValues()
         }
+    }
+
+    private func isPolygonStateValid(draggedAnnotation: PolygonSearchAnnotation) -> Bool {
+        let vertexAnnotations = annotations.filter({ $0.type == .vertex })
+        guard let index = vertexAnnotations.firstIndex(where: {$0.title == draggedAnnotation.title}) else { return false }
+
+        let leftAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexBefore(index, in: vertexAnnotations)])
+        let draggedAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(draggedAnnotation)
+        let rightAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexAfter(index, in: vertexAnnotations)])
+
+        let leftAnnotationWithOffset = addOffsetToPoint(leftAnnotationPoint, vectorHead: draggedAnnotationPoint)
+        let rightAnnotationWithOffset = addOffsetToPoint(rightAnnotationPoint, vectorHead: draggedAnnotationPoint)
+
+        for i in 0...vertexAnnotations.count-1 {
+            if indexAfter(i, in: vertexAnnotations) == index || i == index { continue }
+
+            let leftPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[i])
+            let rightPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexAfter(i, in: vertexAnnotations)])
+
+            if intersect(p1: leftAnnotationWithOffset, p2: draggedAnnotationPoint, q1: leftPoint, q2: rightPoint) ||
+                intersect(p1: draggedAnnotationPoint, p2: rightAnnotationWithOffset, q1: leftPoint, q2: rightPoint) {
+                mapPolygonFilterView.setNeedsDisplay()
+                return false
+            }
+        }
+        return true
+    }
+
+    private func addOffsetToPoint(_ vectorTail: CGPoint, vectorHead: CGPoint) -> CGPoint {
+        // Adding a small constant to avoid overlap between adjacent points
+        let epsilon: CGFloat = 1
+        let edgeLength = sqrt(pow(vectorHead.x - vectorTail.x, 2) + pow(vectorHead.y - vectorTail.y, 2))
+        let xOffset = epsilon * (vectorHead.x - vectorTail.x) / edgeLength;
+        let yOffset = epsilon * (vectorHead.y - vectorTail.y) / edgeLength;
+        return CGPoint(x: vectorTail.x + xOffset, y: vectorTail.y + yOffset)
+    }
+
+    private func intersect(p1: CGPoint, p2: CGPoint, q1: CGPoint, q2: CGPoint) -> Bool {
+        return ccw(p1,q1,q2) != ccw(p2,q1,q2) && ccw(p1,p2,q1) != ccw(p1,p2,q2)
+    }
+
+    private func ccw(_ a: CGPoint, _ b: CGPoint, _ c: CGPoint) -> Bool {
+        return (c.y-a.y) * (b.x-a.x) > (b.y-a.y) * (c.x-a.x)
     }
 
     private func updatePolygon(draggedAnnotation: PolygonSearchAnnotation, touchedCoordinate: CLLocationCoordinate2D) {
@@ -334,18 +379,18 @@ final class MapPolygonFilterViewController: FilterViewController {
         guard let index = index(of: draggedAnnotation) else { return }
         let annotation = annotations[index]
 
-        let previousIndex = indexBefore(index)
+        let previousIndex = indexBefore(index, in: annotations)
         let neighborBefore = annotations[previousIndex]
         if neighborBefore.type == .intermediate {
-            let previousVertex = annotations[indexBefore(previousIndex)]
+            let previousVertex = annotations[indexBefore(previousIndex, in: annotations)]
             let intermediatePosition = previousVertex.getMidwayCoordinate(other: annotationCoordinate)
             neighborBefore.coordinate = intermediatePosition // should we update in the view instead? not actually needed
         }
 
-        let nextIndex = indexAfter(index)
+        let nextIndex = indexAfter(index, in: annotations)
         let neighborAfter = annotations[nextIndex]
         if neighborAfter.type == .intermediate {
-            let indexAfterNextIndex = indexAfter(nextIndex)
+            let indexAfterNextIndex = indexAfter(nextIndex, in: annotations)
             let nextVertex = annotations[indexAfterNextIndex]
             let intermediatePosition = nextVertex.getMidwayCoordinate(other: annotationCoordinate)
             neighborAfter.coordinate = intermediatePosition
@@ -367,12 +412,12 @@ final class MapPolygonFilterViewController: FilterViewController {
         return annotations.firstIndex(where: { $0.title == annotation.title })
     }
 
-    private func indexBefore(_ index: Int) -> Int {
-        return index > 0 ? index - 1 : annotations.count - 1
+    private func indexBefore(_ index: Int, in array: [AnyObject]) -> Int {
+        return index > 0 ? index - 1 : array.count - 1
     }
 
-    private func indexAfter(_ index: Int) -> Int {
-        return index + 1 < annotations.count ? index + 1 : 0
+    private func indexAfter(_ index: Int, in array: [AnyObject]) -> Int {
+        return index + 1 < array.count ? index + 1 : 0
     }
 }
 
@@ -412,8 +457,9 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolygon {
             let polygon = MKPolygonRenderer(overlay: overlay)
-            polygon.strokeColor = UIColor.accentSecondaryBlue
-            polygon.fillColor = UIColor.accentSecondaryBlue.withAlphaComponent(0.15)
+            let polygonColor = polygonIsValid ? UIColor.accentSecondaryBlue : UIColor.btnCritical
+            polygon.strokeColor = polygonColor
+            polygon.fillColor = polygonColor.withAlphaComponent(0.15)
             polygon.lineWidth = 2
             if #available(iOS 13.0, *) {
                 // MapKit renders overlays as vectors by default from iOS 13, but we are opting out of it.

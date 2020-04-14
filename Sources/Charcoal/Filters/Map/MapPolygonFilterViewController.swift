@@ -400,9 +400,8 @@ final class MapPolygonFilterViewController: FilterViewController {
         // Adding a small constant to avoid overlap between adjacent points
         let epsilon: CGFloat = 1
         let edgeLength = sqrt(pow(vectorHead.x - vectorTail.x, 2) + pow(vectorHead.y - vectorTail.y, 2))
-        let xOffset = epsilon * (vectorHead.x - vectorTail.x) / edgeLength;
-        let yOffset = epsilon * (vectorHead.y - vectorTail.y) / edgeLength;
-        return CGPoint(x: vectorTail.x + xOffset, y: vectorTail.y + yOffset)
+        let offset = epsilon * (vectorHead - vectorTail) / edgeLength
+        return vectorTail + offset
     }
 
     private func updateStateForCurrentOverlaps() {
@@ -696,4 +695,20 @@ private extension MapPolygonFilterViewController {
 
 private func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
     return (fabs(lhs.latitude - rhs.latitude) <= 1e-5) && (fabs(lhs.longitude - rhs.longitude) <= 1e-5)
+}
+
+private func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+}
+
+private func *(lhs: CGFloat, rhs: CGPoint) -> CGPoint {
+    return CGPoint(x: lhs * rhs.x, y: lhs * rhs.y)
+}
+
+private func /(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
+    return CGPoint(x: lhs.x / rhs, y: lhs.y / rhs)
+}
+
+private func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }

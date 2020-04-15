@@ -14,6 +14,7 @@ extension UIImage {
 }
 
 enum CharcoalImageAsset: String {
+    case arrowCounterClockwise
     case arrowDown
     case arrowLeft
     case arrowRight
@@ -35,6 +36,7 @@ enum CharcoalImageAsset: String {
 
     public static var imageNames: [CharcoalImageAsset] {
         return [
+            .arrowCounterClockwise,
             .arrowDown,
             .arrowLeft,
             .arrowRight,

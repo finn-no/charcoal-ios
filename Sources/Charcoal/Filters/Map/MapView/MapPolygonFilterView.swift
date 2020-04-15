@@ -2,9 +2,9 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import MapKit
 import UIKit
-import FinniversKit
 
 protocol MapPolygonFilterViewDelegate: MKMapViewDelegate {
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView)
@@ -141,8 +141,8 @@ final class MapPolygonFilterView: UIView {
             ctx.cgContext.setStrokeColor(UIColor.accentSecondaryBlue.cgColor)
             ctx.cgContext.setLineWidth(borderWidth)
 
-            let margin = (clickableAreaSize - diameter)/2
-            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth*2, height: diameter - borderWidth*2)
+            let margin = (clickableAreaSize - diameter) / 2
+            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth * 2, height: diameter - borderWidth * 2)
             ctx.cgContext.addEllipse(in: rectangle)
             ctx.cgContext.drawPath(using: .fillStroke)
         }
@@ -159,8 +159,8 @@ final class MapPolygonFilterView: UIView {
             ctx.cgContext.setLineWidth(borderWidth)
             ctx.cgContext.setAlpha(0.6)
 
-            let margin = (clickableAreaSize - diameter)/2
-            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth*2, height: diameter - borderWidth*2)
+            let margin = (clickableAreaSize - diameter) / 2
+            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth * 2, height: diameter - borderWidth * 2)
             ctx.cgContext.addEllipse(in: rectangle)
             ctx.cgContext.drawPath(using: .fillStroke)
         }
@@ -225,12 +225,12 @@ final class MapPolygonFilterView: UIView {
     }
 
     @objc private func didTapAreaSelectionButton() {
-        let offset = squareSelectionOverlayView.width/2
+        let offset = squareSelectionOverlayView.width / 2
         let coordinates = [
             mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
             mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
             mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView)
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
         ]
         delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: coordinates)
     }
@@ -318,7 +318,7 @@ final class MapPolygonFilterView: UIView {
     }
 
     func drawPolygon(with annotations: [PolygonSearchAnnotation]) {
-        drawPolygon(with: annotations.map({ $0.coordinate }))
+        drawPolygon(with: annotations.map { $0.coordinate })
     }
 
     func drawPolygon(with coordinates: [CLLocationCoordinate2D]) {

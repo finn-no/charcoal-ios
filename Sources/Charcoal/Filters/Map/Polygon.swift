@@ -5,7 +5,6 @@
 import Foundation
 
 class Polygon {
-
     private var edges: [PolygonEdge]
 
     init(edges: [PolygonEdge]) {
@@ -35,7 +34,7 @@ class Polygon {
     }
 
     private func neighborEdges(for edge: PolygonEdge) -> [PolygonEdge] {
-        guard let index = edges.firstIndex(where: {$0 == edge}) else { return []}
+        guard let index = edges.firstIndex(where: { $0 == edge }) else { return [] }
         let previousIndex = index > 0 ? index - 1 : edges.count - 1
         let nextIndex = index + 1 < edges.count ? index + 1 : 0
 

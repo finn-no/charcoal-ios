@@ -5,7 +5,6 @@
 import Foundation
 
 class MapTabBarController: UITabBarController {
-
     private let mapViewController: MapFilterViewController
     private let polygonMapViewController: MapPolygonFilterViewController
 
@@ -42,8 +41,8 @@ class MapTabBarController: UITabBarController {
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
          locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
-        self.mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
-        self.polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
+        mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
+        polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
         self.selectionStore = selectionStore
         self.radiusFilter = radiusFilter
         self.polygonFilter = polygonFilter
@@ -63,7 +62,7 @@ class MapTabBarController: UITabBarController {
     private func setup() {
         tabBar.isHidden = true
         navigationItem.rightBarButtonItem = toggleButton
-        self.viewControllers = [mapViewController, polygonMapViewController]
+        viewControllers = [mapViewController, polygonMapViewController]
         if selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
             selectedViewController = polygonMapViewController
         } else {

@@ -1,8 +1,5 @@
 //
-//  PolygonSearchAnnotation.swift
-//  Charcoal
-//
-//  Created by Graneggen, Nina Røsdal on 18/03/2020.
+//  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
 import Foundation

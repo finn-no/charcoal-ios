@@ -96,7 +96,7 @@ private final class BackgroundView: UIView {
         super.layoutSubviews()
 
         let path = CGMutablePath()
-        let origin = CGPoint(x: center.x - innerRadius/2, y: center.y - innerRadius/2)
+        let origin = CGPoint(x: center.x - innerRadius / 2, y: center.y - innerRadius / 2)
         path.addRect(CGRect(origin: origin, size: CGSize(width: innerRadius, height: innerRadius)))
 
         maskLayer.path = path

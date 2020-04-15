@@ -29,12 +29,16 @@ class MapTabBarController: UITabBarController {
         }
     }
 
+    private lazy var toggleButton: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(toggleViewControllers))
+        buttonItem.setTitleTextAttributes([.font: UIFont.bodyStrong], for: .normal)
+        return buttonItem
+    }()
+
     private let selectionStore: FilterSelectionStore
     private let radiusFilter: Filter
     private let polygonFilter: Filter
     private let bboxFilter: Filter
-
-    private lazy var toggleViewControllersButton: UIBarButtonItem = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(toggleViewControllers))
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
          locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
@@ -58,23 +62,23 @@ class MapTabBarController: UITabBarController {
 
     private func setup() {
         tabBar.isHidden = true
-        navigationItem.rightBarButtonItem = toggleViewControllersButton
+        navigationItem.rightBarButtonItem = toggleButton
         self.viewControllers = [mapViewController, polygonMapViewController]
         if selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
             selectedViewController = polygonMapViewController
         } else {
             selectedViewController = mapViewController
         }
-        updateToggleButtonImage()
+        updateToggleButtonLabel()
     }
 
     @objc private func toggleViewControllers() {
         selectedIndex = (selectedIndex + 1) % 2
-        updateToggleButtonImage()
+        updateToggleButtonLabel()
     }
 
-    private func updateToggleButtonImage() {
-        toggleViewControllersButton.image = selectedViewController == polygonMapViewController ? UIImage(named: .republish) : UIImage(named: .remove)
+    private func updateToggleButtonLabel() {
+        toggleButton.title = selectedViewController == polygonMapViewController ? "map.radiusSearch.title".localized() : "map.polygonSearch.title".localized()
     }
 }
 

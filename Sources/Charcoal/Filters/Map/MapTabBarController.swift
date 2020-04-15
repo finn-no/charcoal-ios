@@ -34,7 +34,7 @@ class MapTabBarController: UITabBarController {
     private let polygonFilter: Filter
     private let bboxFilter: Filter
 
-    private lazy var toggleViewControllersButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: .republish), style: .plain, target: self, action: #selector(toggleViewControllers))
+    private lazy var toggleViewControllersButton: UIBarButtonItem = UIBarButtonItem(image: nil, style: .plain, target: self, action: #selector(toggleViewControllers))
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
          locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
@@ -65,10 +65,16 @@ class MapTabBarController: UITabBarController {
         } else {
             selectedViewController = mapViewController
         }
+        updateToggleButtonImage()
     }
 
     @objc private func toggleViewControllers() {
         selectedIndex = (selectedIndex + 1) % 2
+        updateToggleButtonImage()
+    }
+
+    private func updateToggleButtonImage() {
+        toggleViewControllersButton.image = selectedViewController == polygonMapViewController ? UIImage(named: .republish) : UIImage(named: .remove)
     }
 }
 

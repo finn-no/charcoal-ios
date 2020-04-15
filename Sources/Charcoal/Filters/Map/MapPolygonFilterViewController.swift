@@ -38,7 +38,6 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var isMapLoaded = false
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
-    private var overlappingEdges = [PolygonEdge]()
 
     private var state: State = .bbox {
         didSet {
@@ -273,7 +272,8 @@ final class MapPolygonFilterViewController: FilterViewController {
     private func createPolygonCoordinates(from query: String) -> [CLLocationCoordinate2D] {
         let formattedString = query.removingPercentEncoding
         var coordinates = [CLLocationCoordinate2D]()
-        let points = query.components(separatedBy: ",")
+        var points = query.components(separatedBy: ",")
+        points.removeLast() // The same coordinate is appended on beginning and end of the query, to close the polygon.
         for point in points {
             let pointCoordinate = point.components(separatedBy: " ").compactMap({ Double($0) })
             guard pointCoordinate.count == 2 else { return [] }
@@ -314,7 +314,9 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
-        state = .polygon
+        if state == .bbox {
+            state = .polygon
+        }
         let location = mapPolygonFilterView.location(for: gesture)
 
         guard
@@ -362,80 +364,23 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func isPolygonStateValid(draggedAnnotation: PolygonSearchAnnotation) -> Bool {
         let vertexAnnotations = annotations.filter({ $0.type == .vertex })
-        guard let index = vertexAnnotations.firstIndex(where: {$0.title == draggedAnnotation.title}) else { return false }
+        guard
+            vertexAnnotations.count > 3,
+            let lastAnnotation = vertexAnnotations.last
+        else { return false }
 
-        let leftAnnotation = vertexAnnotations[indexBefore(index, in: vertexAnnotations)]
-        let rightAnnotation = vertexAnnotations[indexAfter(index, in: vertexAnnotations)]
+        var edges = [PolygonEdge]()
+        var previousPoint = mapPolygonFilterView.pointForAnnoatation(lastAnnotation)
 
-        let draggedAnnotationPoint = mapPolygonFilterView.pointForAnnoatation(draggedAnnotation)
-        let leftAnnotationPointWithOffset = addOffsetToPoint(mapPolygonFilterView.pointForAnnoatation(leftAnnotation), vectorHead: draggedAnnotationPoint)
-        let rightAnnotationPointWithOffset = addOffsetToPoint(mapPolygonFilterView.pointForAnnoatation(rightAnnotation), vectorHead: draggedAnnotationPoint)
-
-        updateStateForCurrentOverlaps()
-
-        for i in 0...vertexAnnotations.count-1 {
-            if indexAfter(i, in: vertexAnnotations) == index || i == index { continue }
-
-            let leftPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[i])
-            let rightPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexAfter(i, in: vertexAnnotations)])
-
-            let leftEdgeIntersects = intersect(p1: leftAnnotationPointWithOffset, p2: draggedAnnotationPoint, q1: leftPoint, q2: rightPoint)
-            if leftEdgeIntersects {
-                if !overlappingEdges.contains(where: { $0.x.title == leftAnnotation.title }) {
-                    overlappingEdges.append(PolygonEdge(leftAnnotation, draggedAnnotation))
-                }
-            }
-
-            let rightEdgeIntersects = intersect(p1: draggedAnnotationPoint, p2: rightAnnotationPointWithOffset, q1: leftPoint, q2: rightPoint)
-            if rightEdgeIntersects {
-                if !overlappingEdges.contains(where: { $0.x.title == draggedAnnotation.title }) {
-                    overlappingEdges.append(PolygonEdge(draggedAnnotation, rightAnnotation))
-                }
-            }
+        for (index, annotation) in vertexAnnotations.enumerated() {
+            let point = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[index])
+            let edge = PolygonEdge(previousPoint, point)
+            edges.append(edge)
+            previousPoint = point
         }
-        return overlappingEdges.count == 0
-    }
 
-    private func addOffsetToPoint(_ vectorTail: CGPoint, vectorHead: CGPoint) -> CGPoint {
-        // Adding a small constant to avoid overlap between adjacent points
-        let epsilon: CGFloat = 1
-        let edgeLength = sqrt(pow(vectorHead.x - vectorTail.x, 2) + pow(vectorHead.y - vectorTail.y, 2))
-        let offset = epsilon * (vectorHead - vectorTail) / edgeLength
-        return vectorTail + offset
-    }
-
-    private func updateStateForCurrentOverlaps() {
-        let vertexAnnotations = annotations.filter({ $0.type == .vertex })
-        var edgesStillOverlapping = [PolygonEdge]()
-
-        for edge in overlappingEdges {
-            guard let edgeIndex = vertexAnnotations.firstIndex(where: {$0.title == edge.x.title}) else { return }
-
-            let edgeLeftPoint = mapPolygonFilterView.pointForAnnoatation(edge.x)
-            let edgeRightPoint = mapPolygonFilterView.pointForAnnoatation(edge.y)
-
-            var edgeOverlaps: Bool = false
-            for i in 0...vertexAnnotations.count-1 {
-                if i == indexBefore(edgeIndex, in: vertexAnnotations) || i == edgeIndex || i == indexAfter(edgeIndex, in: vertexAnnotations) { continue }
-
-                let leftPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[i])
-                let rightPoint = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[indexAfter(i, in: vertexAnnotations)])
-
-                if intersect(p1: edgeLeftPoint, p2: edgeRightPoint, q1: leftPoint, q2: rightPoint) {
-                    edgesStillOverlapping.append(edge)
-                    break
-                }
-            }
-        }
-        overlappingEdges = edgesStillOverlapping
-    }
-
-    private func intersect(p1: CGPoint, p2: CGPoint, q1: CGPoint, q2: CGPoint) -> Bool {
-        return ccw(p1,q1,q2) != ccw(p2,q1,q2) && ccw(p1,p2,q1) != ccw(p1,p2,q2)
-    }
-
-    private func ccw(_ a: CGPoint, _ b: CGPoint, _ c: CGPoint) -> Bool {
-        return (c.y-a.y) * (b.x-a.x) > (b.y-a.y) * (c.x-a.x)
+        let polygon = Polygon(edges: edges)
+        return !polygon.hasIntersectingEdges()
     }
 
     private func updatePolygon(draggedAnnotation: PolygonSearchAnnotation, touchedCoordinate: CLLocationCoordinate2D) {
@@ -695,20 +640,4 @@ private extension MapPolygonFilterViewController {
 
 private func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
     return (fabs(lhs.latitude - rhs.latitude) <= 1e-5) && (fabs(lhs.longitude - rhs.longitude) <= 1e-5)
-}
-
-private func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
-    return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
-}
-
-private func *(lhs: CGFloat, rhs: CGPoint) -> CGPoint {
-    return CGPoint(x: lhs * rhs.x, y: lhs * rhs.y)
-}
-
-private func /(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
-    return CGPoint(x: lhs.x / rhs, y: lhs.y / rhs)
-}
-
-private func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
-    return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }

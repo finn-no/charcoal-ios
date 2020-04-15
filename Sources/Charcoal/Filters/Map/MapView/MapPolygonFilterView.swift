@@ -112,7 +112,7 @@ final class MapPolygonFilterView: UIView {
         button.layer.shadowRadius = 3
         button.layer.shadowOpacity = 0.5
 
-        button.setImage(UIImage(named: .republish), for: .normal)
+        button.setImage(UIImage(named: .arrowCounterClockwise), for: .normal)
         button.addTarget(self, action: #selector(didTapRedoAreaSelectionButton), for: .touchUpInside)
 
         return button

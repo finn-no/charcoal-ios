@@ -95,7 +95,8 @@ public extension FilterSelectionStore {
     func isSelected(_ filter: Filter) -> Bool {
         switch filter.kind {
         case let .map(_, _, radiusFilter, _, bboxFilter, polygonFilter):
-            return isSelected(radiusFilter) || isSelected(bboxFilter) || isSelected(polygonFilter)
+            let polygonFilterIsSelected = polygonFilter != nil ? isSelected(polygonFilter!) : false
+            return isSelected(radiusFilter) || isSelected(bboxFilter) || polygonFilterIsSelected
         case .range:
             return filter.subfilters.contains(where: { isSelected($0) })
         default:
@@ -197,7 +198,8 @@ public extension FilterSelectionStore {
         case let .map(_, _, radiusFilter, _, bboxFilter, polygonFilter):
             if let bbox: String = value(for: bboxFilter) {
                 return [SelectionTitle(value: "BBoxsøk")]
-            } else if let polygon: String = value(for: polygonFilter) {
+            } else if let polygonFilter = polygonFilter,
+                let polygon: String = value(for: polygonFilter) {
                 return [SelectionTitle(value: "Polygonsøk")]
             } else if let radius: Int = value(for: radiusFilter) {
                 let value = MapDistanceValueFormatter().title(for: radius)

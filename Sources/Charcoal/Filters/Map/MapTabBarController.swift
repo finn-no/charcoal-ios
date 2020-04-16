@@ -6,12 +6,12 @@ import Foundation
 
 class MapTabBarController: UITabBarController {
     private let mapViewController: MapFilterViewController
-    private let polygonMapViewController: MapPolygonFilterViewController
+    private let polygonMapViewController: MapPolygonFilterViewController?
 
     weak var filterDelegate: FilterViewControllerDelegate? {
         didSet {
             mapViewController.delegate = filterDelegate
-            polygonMapViewController.delegate = filterDelegate
+            polygonMapViewController?.delegate = filterDelegate
         }
     }
 
@@ -24,7 +24,7 @@ class MapTabBarController: UITabBarController {
     weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             mapViewController.searchLocationDataSource = searchLocationDataSource
-            polygonMapViewController.searchLocationDataSource = searchLocationDataSource
+            polygonMapViewController?.searchLocationDataSource = searchLocationDataSource
         }
     }
 
@@ -36,23 +36,30 @@ class MapTabBarController: UITabBarController {
 
     private let selectionStore: FilterSelectionStore
     private let radiusFilter: Filter
-    private let polygonFilter: Filter
     private let bboxFilter: Filter
+    private let polygonFilter: Filter?
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
-         locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
+         locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter?, selectionStore: FilterSelectionStore) {
+
         mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
-        polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
+
+        if let polygonFilter = polygonFilter {
+            self.polygonMapViewController = MapPolygonFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
+        } else {
+            self.polygonMapViewController = nil
+        }
+
         self.selectionStore = selectionStore
         self.radiusFilter = radiusFilter
-        self.polygonFilter = polygonFilter
         self.bboxFilter = bboxFilter
+        self.polygonFilter = polygonFilter
         super.init(nibName: nil, bundle: nil)
         self.title = title
 
         setup()
         mapViewController.mapFilterDelegate = self
-        polygonMapViewController.mapPolygonFilterDelegate = self
+        polygonMapViewController?.mapPolygonFilterDelegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -61,9 +68,18 @@ class MapTabBarController: UITabBarController {
 
     private func setup() {
         tabBar.isHidden = true
+
+        guard let polygonMapViewController = polygonMapViewController else {
+            viewControllers = [mapViewController]
+            selectedViewController = mapViewController
+            return
+        }
+
         navigationItem.rightBarButtonItem = toggleButton
         viewControllers = [mapViewController, polygonMapViewController]
-        if selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
+        if polygonMapViewController != nil,
+            let polygonFilter = polygonFilter,
+            selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
             selectedViewController = polygonMapViewController
         } else {
             selectedViewController = mapViewController
@@ -85,7 +101,7 @@ class MapTabBarController: UITabBarController {
 
 extension MapTabBarController: MapFilterViewControllerDelegate {
     func mapFilterViewControllerDidSelectFilter(_ mapFilterViewController: MapFilterViewController) {
-        polygonMapViewController.resetFilterValues()
+        polygonMapViewController?.resetFilterValues()
     }
 }
 

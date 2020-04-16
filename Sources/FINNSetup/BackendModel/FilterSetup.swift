@@ -60,7 +60,7 @@ public struct FilterSetup: Decodable {
             if excludedFilters.contains(key) {
                 return nil
             }
-            let filter = makeRootLevelFilter(withKey: key, using: config)
+            let filter = makeRootLevelFilter(withKey: key, using: config, excludedFilters: excludedFilters)
             filter?.mutuallyExclusiveFilterKeys = Set(config.mutuallyExclusiveFilters(for: key).map { $0.rawValue })
             return filter
         }
@@ -82,12 +82,12 @@ public struct FilterSetup: Decodable {
         return container
     }
 
-    private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration) -> Filter? {
+    private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration, excludedFilters: [FilterKey]) -> Filter? {
         let style: Filter.Style = config.contextFilterKeys.contains(key) ? .context : .normal
 
         switch key {
         case .map:
-            return makeMapFilter(withKey: key)
+            return makeMapFilter(withKey: key, excludePolygon: excludedFilters.contains(.polygon))
         case .shoeSize:
             guard let data = filterData(forKey: key) else { return nil }
             return makeFilter(from: data, withKind: .grid, style: style)
@@ -111,7 +111,8 @@ public struct FilterSetup: Decodable {
         }
     }
 
-    private func makeMapFilter(withKey key: FilterKey) -> Filter {
+    private func makeMapFilter(withKey key: FilterKey, excludePolygon: Bool) -> Filter {
+        let polygonKey = excludePolygon ? nil : FilterKey.polygon.rawValue
         return Filter.map(
             key: key.rawValue,
             latitudeKey: FilterKey.latitude.rawValue,
@@ -119,7 +120,7 @@ public struct FilterSetup: Decodable {
             radiusKey: FilterKey.radius.rawValue,
             locationKey: FilterKey.geoLocationName.rawValue,
             bboxKey: FilterKey.bbox.rawValue,
-            polygonKey: FilterKey.polygon.rawValue
+            polygonKey: polygonKey
         )
     }
 

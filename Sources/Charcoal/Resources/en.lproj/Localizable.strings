@@ -62,8 +62,9 @@
 "unit.kiloWattHour.accessibilityValue" = "kilowattime";
 
 "map.title" = "Område i kart";
-"map.radiusSearch.title" = "Avstand";
-"map.polygonSearch.title" = "Utsnitt";
+"map.radiusSearch.toggleButton.title" = "Avstand";
+"map.polygonSearch.toggleButton.title" = "Utsnitt";
+"map.polygonSearch.filter.title" = "Egendefinert utsnitt";
 "map.polygonSearch.initialAreaSelection.button" = "Fest kartutsnittet her";
 "map.homeAddress" = "Min hjemmeadresse";
 "map.currentLocation" = "Min nåværende posisjon";

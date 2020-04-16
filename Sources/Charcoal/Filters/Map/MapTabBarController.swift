@@ -93,7 +93,7 @@ class MapTabBarController: UITabBarController {
     }
 
     private func updateToggleButtonLabel() {
-        toggleButton.title = selectedViewController == polygonMapViewController ? "map.radiusSearch.title".localized() : "map.polygonSearch.title".localized()
+        toggleButton.title = selectedViewController == polygonMapViewController ? "map.radiusSearch.toggleButton.title".localized() : "map.polygonSearch.toggleButton.title".localized()
     }
 }
 

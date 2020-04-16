@@ -120,13 +120,17 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var initialAreaSelectionButton: Button = {
         let button = Button(style: .callToAction, size: .small, withAutoLayout: true)
-        button.setTitle("Fest kartutsnittet her", for: .normal)
+        button.setTitle("map.polygonSearch.initialAreaSelection.button".localized(), for: .normal)
         button.addTarget(self, action: #selector(didTapAreaSelectionButton), for: .touchUpInside)
 
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 1)
         button.layer.shadowRadius = 3
         button.layer.shadowOpacity = 0.5
+
+        button.setImage(UIImage(named: .areaSelectionPin).withRenderingMode(.alwaysTemplate), for: .normal)
+        button.imageView?.tintColor = .ice
+        button.imageEdgeInsets = UIEdgeInsets(leading: -.spacingS)
 
         return button
     }()

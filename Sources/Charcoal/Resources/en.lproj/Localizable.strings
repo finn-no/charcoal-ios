@@ -64,6 +64,7 @@
 "map.title" = "Område i kart";
 "map.radiusSearch.title" = "Avstand";
 "map.polygonSearch.title" = "Utsnitt";
+"map.polygonSearch.initialAreaSelection.button" = "Fest kartutsnittet her";
 "map.homeAddress" = "Min hjemmeadresse";
 "map.currentLocation" = "Min nåværende posisjon";
 "map.valueSliderAccessibilityLabel" = "Slider for verdi";

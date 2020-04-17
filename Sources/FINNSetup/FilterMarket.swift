@@ -108,3 +108,15 @@ extension FilterMarket: CaseIterable {
         return allB2BMarkets + allBapMarkets + allBoatMarkets + allCarMarkets + allJobMarkets + allMCMarkets + allRealestateMarkets
     }
 }
+
+// MARK: - Extensions
+
+extension FilterMarket {
+
+    public var isRealestate: Bool {
+        switch self {
+        case .realestate(_): return true
+        default: return false
+        }
+    }
+}

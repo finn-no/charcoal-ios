@@ -26,8 +26,6 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     // MARK: - Private properties
 
-    private let latitudeFilter: Filter
-    private let longitudeFilter: Filter
     private let locationNameFilter: Filter
     private let bboxFilter: Filter
     private let polygonFilter: Filter
@@ -54,7 +52,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
-        let mapPolygonFilterView = MapPolygonFilterView(centerCoordinate: coordinate)
+        let mapPolygonFilterView = MapPolygonFilterView()
         mapPolygonFilterView.translatesAutoresizingMaskIntoConstraints = false
         mapPolygonFilterView.searchBar = searchLocationViewController.searchBar
         mapPolygonFilterView.locationName = locationName
@@ -89,10 +87,7 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    init(title: String, latitudeFilter: Filter, longitudeFilter: Filter,
-         locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
-        self.latitudeFilter = latitudeFilter
-        self.longitudeFilter = longitudeFilter
+    init(title: String, locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
         self.locationNameFilter = locationNameFilter
         self.bboxFilter = bboxFilter
         self.polygonFilter = polygonFilter
@@ -175,7 +170,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     // MARK: - Internal methods
 
     func resetFilterValues() {
-        selectionStore.removeValues(for: [latitudeFilter, longitudeFilter, locationNameFilter, bboxFilter, polygonFilter])
+        selectionStore.removeValues(for: [locationNameFilter, bboxFilter, polygonFilter])
     }
 
     // MARK: - Private methods
@@ -524,10 +519,6 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             hasChanges = true
         }
 
-        if hasChanges {
-            self.coordinate = coordinate
-        }
-
         nextRegionChangeIsFromUserInteraction = false
     }
 
@@ -592,7 +583,6 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
 
             hasChanges = true
             locationName = location.name
-            self.coordinate = coordinate
 
             mapPolygonFilterView.centerOnCoordinate(coordinate, animated: true)
         }
@@ -602,23 +592,6 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
 // MARK: - Store
 
 private extension MapPolygonFilterViewController {
-    var coordinate: CLLocationCoordinate2D? {
-        get {
-            guard let latitude: Double = selectionStore.value(for: latitudeFilter) else {
-                return nil
-            }
-
-            guard let longitude: Double = selectionStore.value(for: longitudeFilter) else {
-                return nil
-            }
-
-            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        }
-        set {
-            selectionStore.setValue(newValue?.latitude, for: latitudeFilter)
-            selectionStore.setValue(newValue?.longitude, for: longitudeFilter)
-        }
-    }
 
     var locationName: String? {
         get {

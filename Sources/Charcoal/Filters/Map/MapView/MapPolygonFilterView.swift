@@ -55,8 +55,6 @@ final class MapPolygonFilterView: UIView {
         }
     }
 
-    private let initialCenterCoordinate: CLLocationCoordinate2D?
-
     private var updateViewDispatchWorkItem: DispatchWorkItem? {
         didSet {
             oldValue?.cancel()
@@ -174,8 +172,7 @@ final class MapPolygonFilterView: UIView {
 
     // MARK: - Init
 
-    init(centerCoordinate: CLLocationCoordinate2D?) {
-        initialCenterCoordinate = centerCoordinate
+    init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
 
         setup()

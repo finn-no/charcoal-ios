@@ -182,7 +182,7 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func configure(for state: State) {
         switch state {
-        case .polygon:
+        case .polygon, .bbox:
             bottomButton.isEnabled = true
             annotations.filter { $0.type == .intermediate }.forEach { annotation in
                 mapPolygonFilterView.addAnnotation(annotation)
@@ -250,6 +250,12 @@ final class MapPolygonFilterViewController: FilterViewController {
             alert.addAction(UIAlertAction(title: "cancel".localized(), style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
+    }
+
+    private func resetPolygon() {
+        resetFilterValues()
+        state = .bbox
+        mapPolygonFilterView.configure(for: .squareAreaSelection)
     }
 
     // MARK: - Networking
@@ -439,8 +445,17 @@ final class MapPolygonFilterViewController: FilterViewController {
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectRedoAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView) {
-        resetFilterValues()
-        configure(for: .polygon)
+        if state == .bbox {
+            resetPolygon()
+            return
+        }
+
+        let alertController = UIAlertController(title: "map.polygonSearch.resetPolygon.alert.title".localized(), message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "map.polygonSearch.resetPolygon.alert.action".localized(), style: .destructive, handler: {_ in
+            self.resetPolygon()
+        }))
+        alertController.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil))
+        present(alertController, animated: true)
     }
 
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {

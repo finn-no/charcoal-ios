@@ -64,14 +64,16 @@
 "map.title" = "Område i kart";
 "map.radiusSearch.toggleButton.title" = "Avstand";
 "map.polygonSearch.toggleButton.title" = "Utsnitt";
-"map.polygonSearch.filter.title" = "Egendefinert utsnitt";
-"map.polygonSearch.initialAreaSelection.button" = "Fest kartutsnittet her";
 "map.homeAddress" = "Min hjemmeadresse";
 "map.currentLocation" = "Min nåværende posisjon";
 "map.valueSliderAccessibilityLabel" = "Slider for verdi";
 "map.locationError.title" = "Informasjon";
 "map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
 "map.search.placeholder" = "Søk etter sted eller adresse";
+"map.polygonSearch.filter.title" = "Egendefinert utsnitt";
+"map.polygonSearch.initialAreaSelection.button" = "Fest kartutsnittet her";
+"map.polygonSearch.resetPolygon.alert.title" = "Er du sikker på at du vil nullstille utsnittet?";
+"map.polygonSearch.resetPolygon.alert.action" = "Nullstill utsnittet";
 
 "callout.bottomButton" = "Trykk på Bruk-knappen for å gå videre.";
 

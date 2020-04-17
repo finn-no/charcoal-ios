@@ -241,7 +241,6 @@ final class MapPolygonFilterView: UIView {
 
     @objc private func didTapRedoAreaSelectionButton() {
         delegate?.mapPolygonFilterViewDidSelectRedoAreaSelectionButton(self)
-        configure(for: .squareAreaSelection)
     }
 
     // MARK: - Setup

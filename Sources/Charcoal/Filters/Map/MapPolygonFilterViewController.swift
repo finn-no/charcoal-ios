@@ -199,12 +199,12 @@ final class MapPolygonFilterViewController: FilterViewController {
         case .invalidPolygon:
             bottomButton.isEnabled = false
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
-        default:
-            break
         }
     }
 
     private func updateFilterValues() {
+        guard state != .invalidPolygon else { return }
+
         mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
         locationName = mapPolygonFilterView.locationName
 
@@ -224,9 +224,8 @@ final class MapPolygonFilterViewController: FilterViewController {
             polygon = createPolygonQuery(for: annotations.filter { $0.type == .vertex }.map { $0.coordinate })
             bbox = nil
 
-        case .invalidPolygon:
-            polygon = nil
-            bbox = nil
+        default:
+            break
         }
     }
 

@@ -18,7 +18,8 @@ final class MapPolygonFilterView: UIView {
     private static let userLocationButtonWidth: CGFloat = 46
     private static let viewFinderDiameter: CGFloat = 96
     private var polygon: MKPolygon?
-    private var dragStartPosition: CGPoint = .zero
+
+    private(set) var annotationPointsInMapView = [CGPoint]()
 
     weak var delegate: MapPolygonFilterViewDelegate? {
         didSet {
@@ -189,7 +190,7 @@ final class MapPolygonFilterView: UIView {
         return gesture.location(in: mapView)
     }
 
-    func pointForAnnoatation(_ annotation: PolygonSearchAnnotation) -> CGPoint {
+    func pointForAnnoatation(_ annotation: PolygonSearchAnnotation) -> CGPoint { // rename
         return mapView.convert(annotation.coordinate, toPointTo: mapView)
     }
 
@@ -319,6 +320,9 @@ final class MapPolygonFilterView: UIView {
 
     func drawPolygon(with annotations: [PolygonSearchAnnotation]) {
         drawPolygon(with: annotations.map { $0.coordinate })
+        if mapView.frame.size.height > 0 {
+            annotationPointsInMapView = annotations.map({ pointForAnnoatation($0) })
+        }
     }
 
     func drawPolygon(with coordinates: [CLLocationCoordinate2D]) {

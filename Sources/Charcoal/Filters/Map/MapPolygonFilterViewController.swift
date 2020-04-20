@@ -109,6 +109,12 @@ final class MapPolygonFilterViewController: FilterViewController {
         setup()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        if annotations.count > 0 {
+            mapPolygonFilterView.drawPolygon(with: annotations)
+        }
+    }
+
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         updateFilterValues()
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
@@ -248,9 +254,36 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private func resetPolygon() {
+        annotations.removeAll()
         resetFilterValues()
         state = .bbox
         mapPolygonFilterView.configure(for: .squareAreaSelection)
+    }
+
+    private func presentLocationChangedAlertIfNeeded() {
+        guard
+            !annotations.isEmpty,
+            mapPolygonFilterView.annotationPointsInMapView.count == annotations.count
+        else { return }
+
+        let alert = UIAlertController(title: "map.polygonSearch.locationChanged.alert.title".localized(), message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "yes".localized(), style: .default, handler: { [weak self] _ in
+            self?.repositionPolygon()
+        }))
+        alert.addAction(UIAlertAction(title: "no".localized(), style: .default, handler: { [weak self] _ in
+            self?.annotations.removeAll()
+            self?.mapPolygonFilterView.configure(for: .squareAreaSelection)
+        }))
+        present(alert, animated: true)
+    }
+
+    private func repositionPolygon() {
+        let pointsInMapView = mapPolygonFilterView.annotationPointsInMapView
+        for (index, annotation) in annotations.enumerated() {
+            annotation.coordinate = mapPolygonFilterView.coordinateForPoint(pointsInMapView[index])
+        }
+        mapPolygonFilterView.drawPolygon(with: annotations)
+        updateFilterValues()
     }
 
     // MARK: - Networking
@@ -560,6 +593,7 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
         returnToMapFromLocationSearch()
         delegate?.filterViewControllerWillEndTextEditing(self)
         centerOnUserLocation()
+        presentLocationChangedAlertIfNeeded()
     }
 
     func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController) {
@@ -585,6 +619,7 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
             locationName = location.name
 
             mapPolygonFilterView.centerOnCoordinate(coordinate, animated: true)
+            presentLocationChangedAlertIfNeeded()
         }
     }
 }

@@ -36,6 +36,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var isMapLoaded = false
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
+    private static let maxNumberOfVertices = 10
 
     private var state: State = .bbox {
         didSet {
@@ -341,6 +342,7 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func setupAnnotations(from coordinates: [CLLocationCoordinate2D]) {
         annotations.removeAll()
+        let shouldAppendIntermediateAnnotations = coordinates.count < MapPolygonFilterViewController.maxNumberOfVertices
 
         for (index, coordinate) in coordinates.enumerated() {
             let annotation = PolygonSearchAnnotation(type: .vertex)
@@ -349,8 +351,10 @@ final class MapPolygonFilterViewController: FilterViewController {
             annotations.append(annotation)
             mapPolygonFilterView.addAnnotation(annotation)
 
-            let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
-            addIntermediatePoint(after: annotation, nextPoint: nextPoint)
+            if shouldAppendIntermediateAnnotations {
+                let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
+                addIntermediatePoint(after: annotation, nextPoint: nextPoint)
+            }
         }
     }
 
@@ -383,7 +387,11 @@ final class MapPolygonFilterViewController: FilterViewController {
             if annotation.type == .intermediate {
                 annotation.type = .vertex
                 annotationView.image = mapPolygonFilterView.imageForAnnotation(ofType: .vertex)
-                if let index = index(of: annotation) {
+
+                if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
+                    mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
+                    annotations.removeAll(where: { $0.type == .intermediate })
+                } else if let index = index(of: annotation) {
                     addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index, in: annotations)].coordinate)
                     let previousAnnotation = annotations[indexBefore(index, in: annotations)]
                     addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)

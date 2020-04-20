@@ -116,6 +116,14 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+        if annotations.isEmpty {
+            let coordinates = mapPolygonFilterView.initialSquareOverlayToCoordinates()
+            for (index, coordinate) in coordinates.enumerated() {
+                let annotation = PolygonSearchAnnotation(type: .vertex)
+                annotation.coordinate = coordinate
+                annotations.append(annotation)
+            }
+        }
         updateFilterValues()
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
     }

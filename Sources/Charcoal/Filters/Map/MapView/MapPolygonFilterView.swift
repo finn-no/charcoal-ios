@@ -220,6 +220,16 @@ final class MapPolygonFilterView: UIView {
         mapView.setRegion(region, animated: animated)
     }
 
+    func initialSquareOverlayToCoordinates() -> [CLLocationCoordinate2D] {
+        let offset = squareSelectionOverlayView.width / 2
+        return [
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
+        ]
+    }
+
     // MARK: - Actions
 
     @objc private func didTapLocateUserButton() {
@@ -227,14 +237,7 @@ final class MapPolygonFilterView: UIView {
     }
 
     @objc private func didTapAreaSelectionButton() {
-        let offset = squareSelectionOverlayView.width / 2
-        let coordinates = [
-            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
-        ]
-        delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: coordinates)
+        delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: initialSquareOverlayToCoordinates())
     }
 
     @objc private func didTapRedoAreaSelectionButton() {

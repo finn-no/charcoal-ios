@@ -129,6 +129,7 @@ final class MapPolygonFilterView: UIView {
 
         button.setImage(UIImage(named: .areaSelectionPin).withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.tintColor = .ice
+        button.adjustsImageWhenHighlighted = false
         button.imageEdgeInsets = UIEdgeInsets(leading: -.spacingS)
 
         return button
@@ -206,7 +207,7 @@ final class MapPolygonFilterView: UIView {
         mapView.setCenter(coordinate, animated: animated)
         guard let distance = regionDistance else { return }
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: distance * 1.1, longitudinalMeters: distance * 1.1)
-        mapView.setRegion(mapView.regionThatFits(region), animated: true)
+        mapView.setRegion(region, animated: true)
     }
 
     func centerOnUserLocation() {

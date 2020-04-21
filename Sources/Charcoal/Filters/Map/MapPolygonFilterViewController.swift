@@ -154,8 +154,8 @@ final class MapPolygonFilterViewController: FilterViewController {
             centerOnUserLocation()
             return
         }
-        mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)
+        mapPolygonFilterView.configure(for: .polygonSelection)
         centerMapOnPolygonCenter()
     }
 
@@ -504,8 +504,8 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
         setupAnnotations(from: coordinates)
         state = .bbox
-        mapPolygonFilterView.configure(for: .polygonSelection)
         mapPolygonFilterView.drawPolygon(with: annotations)
+        mapPolygonFilterView.configure(for: .polygonSelection)
         updateFilterValues()
     }
 

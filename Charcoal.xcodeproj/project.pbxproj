@@ -60,6 +60,8 @@
 		46774F3B21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */; };
 		4690523A217F5CD000F8E7FD /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46905239217F5CD000F8E7FD /* Vertical.swift */; };
 		46D3D47623FFC2040047BFAE /* AppearanceColoredTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3D47523FFC2040047BFAE /* AppearanceColoredTableView.swift */; };
+		493BBD86245058A800AC8EA6 /* MapRadiusFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493BBD85245058A800AC8EA6 /* MapRadiusFilterView.swift */; };
+		493BBD88245058B000AC8EA6 /* MapRadiusFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493BBD87245058B000AC8EA6 /* MapRadiusFilterViewController.swift */; };
 		4978F74024474B8300D9D6C2 /* MapTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F73F24474B8300D9D6C2 /* MapTabBarController.swift */; };
 		4978F74224474B9200D9D6C2 /* MapPolygonFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74124474B9200D9D6C2 /* MapPolygonFilterViewController.swift */; };
 		4978F74524474B9E00D9D6C2 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74324474B9E00D9D6C2 /* Polygon.swift */; };
@@ -89,7 +91,6 @@
 		9B2931F723478420006469B5 /* AppCenterDistributeResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9B2931F623478420006469B5 /* AppCenterDistributeResources.bundle */; };
 		9B56BDA223475E2600775F44 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
-		9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1521B5592C00D18097 /* MapFilterView.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
 		9B741D1A21B6990800D18097 /* ValueSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1921B6990800D18097 /* ValueSliderView.swift */; };
 		9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */; };
@@ -170,7 +171,6 @@
 		DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */; };
 		DA2EFF3B225B51CC00F5B849 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2EFF3A225B51CC00F5B849 /* DemoViewController.swift */; };
 		DA39FA2D220B17DB00608AC4 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA19220B17DB00608AC4 /* FilterViewController.swift */; };
-		DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */; };
 		DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */; };
 		DA39FA33220B17DB00608AC4 /* InlineFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA22220B17DB00608AC4 /* InlineFilterView.swift */; };
 		DA39FA34220B17DB00608AC4 /* RootFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */; };
@@ -347,6 +347,8 @@
 		46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDistanceValueFormatter.swift; sourceTree = "<group>"; };
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
 		46D3D47523FFC2040047BFAE /* AppearanceColoredTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceColoredTableView.swift; sourceTree = "<group>"; };
+		493BBD85245058A800AC8EA6 /* MapRadiusFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRadiusFilterView.swift; sourceTree = "<group>"; };
+		493BBD87245058B000AC8EA6 /* MapRadiusFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRadiusFilterViewController.swift; sourceTree = "<group>"; };
 		4978F73F24474B8300D9D6C2 /* MapTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTabBarController.swift; sourceTree = "<group>"; };
 		4978F74124474B9200D9D6C2 /* MapPolygonFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPolygonFilterViewController.swift; sourceTree = "<group>"; };
 		4978F74324474B9E00D9D6C2 /* Polygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
@@ -377,7 +379,6 @@
 		9B2931F42347815B006469B5 /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenter.framework; path = Carthage/Build/iOS/AppCenter.framework; sourceTree = "<group>"; };
 		9B2931F623478420006469B5 /* AppCenterDistributeResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AppCenterDistributeResources.bundle; path = Carthage/Build/iOS/AppCenterDistribute.framework/AppCenterDistributeResources.bundle; sourceTree = SOURCE_ROOT; };
 		9B5A66F521A2E122005C9118 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
-		9B741D1521B5592C00D18097 /* MapFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFilterView.swift; sourceTree = "<group>"; };
 		9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderWithLabelView.swift; sourceTree = "<group>"; };
 		9B741D1921B6990800D18097 /* ValueSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderView.swift; sourceTree = "<group>"; };
 		9B8D53AD21528F2200FB9573 /* RangeFilterValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterValueFormatter.swift; sourceTree = "<group>"; };
@@ -444,7 +445,6 @@
 		DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextSuggestionCellViewModel.swift; sourceTree = "<group>"; };
 		DA2EFF3A225B51CC00F5B849 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		DA39FA19220B17DB00608AC4 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapFilterViewController.swift; sourceTree = "<group>"; };
 		DA39FA1C220B17DB00608AC4 /* CharcoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharcoalViewController.swift; sourceTree = "<group>"; };
 		DA39FA22220B17DB00608AC4 /* InlineFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineFilterView.swift; sourceTree = "<group>"; };
 		DA39FA23220B17DB00608AC4 /* RootFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootFilterCell.swift; sourceTree = "<group>"; };
@@ -789,7 +789,7 @@
 		4978F75A2450430C00D9D6C2 /* Radius */ = {
 			isa = PBXGroup;
 			children = (
-				DA39FA1A220B17DB00608AC4 /* MapFilterViewController.swift */,
+				493BBD87245058B000AC8EA6 /* MapRadiusFilterViewController.swift */,
 				CFF4F45B223BDFF100A137DA /* SliderView */,
 				CFF4F458223BD38000A137DA /* MapView */,
 			);
@@ -1158,7 +1158,7 @@
 		CFF4F458223BD38000A137DA /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
+				493BBD85245058A800AC8EA6 /* MapRadiusFilterView.swift */,
 				CFD8B45522843DD400AA534A /* MapRadiusOverlayView.swift */,
 			);
 			path = MapView;
@@ -1677,6 +1677,7 @@
 				462EC167212D746900E6085C /* UIViewControllerExtensions.swift in Sources */,
 				46D3D47623FFC2040047BFAE /* AppearanceColoredTableView.swift in Sources */,
 				DA3EA33E2289637B00B05E92 /* ShadowView.swift in Sources */,
+				493BBD88245058B000AC8EA6 /* MapRadiusFilterViewController.swift in Sources */,
 				CF8FD7362254E2CF00926A7B /* UITableViewCellExtensions.swift in Sources */,
 				DA51041221BE680D004048BD /* Color.swift in Sources */,
 				DA39FA30220B17DB00608AC4 /* CharcoalViewController.swift in Sources */,
@@ -1720,6 +1721,7 @@
 				DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */,
 				DA7FB7A821B01E33003DBBEB /* SegmentButton.swift in Sources */,
 				9BB8279A216B57730014028C /* DebugLog.swift in Sources */,
+				493BBD86245058A800AC8EA6 /* MapRadiusFilterView.swift in Sources */,
 				CF4C8710221B04E200DFAF2A /* Filter.swift in Sources */,
 				CF0B19F22212C6DA00D8D9B7 /* ListFilterCellViewModel.swift in Sources */,
 				DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */,
@@ -1735,12 +1737,10 @@
 				9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */,
 				4670268F2170DD3900B9C952 /* SliderReferenceValueView.swift in Sources */,
 				9B8D53AE21528F2200FB9573 /* RangeFilterValueFormatter.swift in Sources */,
-				9B741D1621B5592C00D18097 /* MapFilterView.swift in Sources */,
 				CF33D9D9224BACBC00A24DF0 /* NumberFormatterExtensions.swift in Sources */,
 				CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */,
 				CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */,
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
-				DA39FA2E220B17DB00608AC4 /* MapFilterViewController.swift in Sources */,
 				4978F74624474B9E00D9D6C2 /* PolygonEdge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

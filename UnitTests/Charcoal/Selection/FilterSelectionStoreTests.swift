@@ -125,7 +125,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testIsSelectedWithMap() {
-        let filter = Filter.map(title: "Map", key: "map", latitudeKey: "lat", longitudeKey: "lon", radiusKey: "r", locationKey: "loc")
+        let filter = Filter.map(title: "Map", key: "map", latitudeKey: "lat", longitudeKey: "lon", radiusKey: "r", locationKey: "loc", bboxKey: "bbox", polygonKey: "polylocation")
 
         store.setValue(10, for: filter.subfilters[2])
         XCTAssertTrue(store.isSelected(filter.subfilters[2]))
@@ -224,7 +224,7 @@ final class FilterSelectionStoreTests: XCTestCase {
     }
 
     func testTitlesWithMap() {
-        let filter = Filter.map(title: "Map", key: "map", latitudeKey: "lat", longitudeKey: "lon", radiusKey: "r", locationKey: "loc")
+        let filter = Filter.map(title: "Map", key: "map", latitudeKey: "lat", longitudeKey: "lon", radiusKey: "r", locationKey: "loc", bboxKey: "bbox", polygonKey: "polylocation")
         XCTAssertTrue(store.titles(for: filter).isEmpty)
 
         store.setValue(10, for: filter.subfilters[2])

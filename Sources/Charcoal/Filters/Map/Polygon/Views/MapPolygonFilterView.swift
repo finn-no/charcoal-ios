@@ -175,6 +175,7 @@ final class MapPolygonFilterView: UIView {
 
         setup()
         setInitialRegion(animated: false)
+        centerOnInitialCoordinate()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -261,8 +262,6 @@ final class MapPolygonFilterView: UIView {
     func centerOnUserLocation() {
         if let location = mapView.userLocation.location {
             centerOnCoordinate(location.coordinate)
-        } else {
-            centerOnCoordinate(MapPolygonFilterView.defaultCenterCoordinate)
         }
     }
 
@@ -330,6 +329,13 @@ final class MapPolygonFilterView: UIView {
     private func setInitialRegion(animated: Bool = true) {
         let region = mapView.centeredRegion(for: Double(MapPolygonFilterView.defaultRadius) * 2.2)
         mapView.setRegion(region, animated: animated)
+    }
+
+    private func centerOnInitialCoordinate() {
+        let userCoordinate = mapView.userLocation.location?.coordinate
+        let centerCoordinate = userCoordinate ?? MapPolygonFilterView.defaultCenterCoordinate
+
+        centerOnCoordinate(centerCoordinate)
     }
 
     // MARK: - Actions

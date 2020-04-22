@@ -142,10 +142,7 @@ final class MapPolygonFilterViewController: FilterViewController {
             state = .bbox
         }
         setupAnnotations(from: coordinates)
-        guard annotations.count > 0 else {
-            centerOnUserLocation()
-            return
-        }
+        guard annotations.count > 0 else { return }
         mapPolygonFilterView.drawPolygon(with: annotations)
         mapPolygonFilterView.configure(for: .polygonSelection)
         centerMapOnPolygonCenter()

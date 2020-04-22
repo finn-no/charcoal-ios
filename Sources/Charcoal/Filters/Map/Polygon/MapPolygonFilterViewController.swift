@@ -428,7 +428,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 }
 
-// MARK: - MapFilterViewDelegate
+// MARK: - MapPolygonFilterViewDelegate
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectRedoAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView) {

@@ -9,15 +9,15 @@ public protocol MapFilterDataSource: AnyObject {
     var mapTileOverlay: MKTileOverlay? { get }
 }
 
-protocol MapFilterViewControllerDelegate: AnyObject {
-    func mapFilterViewControllerDidSelectFilter(_ mapFilterViewController: MapFilterViewController)
+protocol MapRadiusFilterViewControllerDelegate: AnyObject {
+    func mapRadiusFilterViewControllerDidSelectFilter(_ mapRadiusFilterViewController: MapRadiusFilterViewController)
 }
 
-final class MapFilterViewController: FilterViewController {
+final class MapRadiusFilterViewController: FilterViewController {
     weak var mapDataSource: MapFilterDataSource? {
         didSet {
             if let mapTileOverlay = mapDataSource?.mapTileOverlay {
-                mapFilterView.setMapTileOverlay(mapTileOverlay)
+                mapRadiusFilterView.setMapTileOverlay(mapTileOverlay)
             }
         }
     }
@@ -28,7 +28,7 @@ final class MapFilterViewController: FilterViewController {
         }
     }
 
-    weak var mapFilterDelegate: MapFilterViewControllerDelegate?
+    weak var mapRadiusFilterDelegate: MapRadiusFilterViewControllerDelegate?
 
     // MARK: - Private properties
 
@@ -42,13 +42,13 @@ final class MapFilterViewController: FilterViewController {
     private var hasChanges = false
     private var isMapLoaded = false
 
-    private lazy var mapFilterView: MapFilterView = {
-        let mapFilterView = MapFilterView(radius: radius, centerCoordinate: coordinate)
-        mapFilterView.translatesAutoresizingMaskIntoConstraints = false
-        mapFilterView.searchBar = searchLocationViewController.searchBar
-        mapFilterView.locationName = locationName
-        mapFilterView.delegate = self
-        return mapFilterView
+    private lazy var mapRadiusFilterView: MapRadiusFilterView = {
+        let mapRadiusFilterView = MapRadiusFilterView(radius: radius, centerCoordinate: coordinate)
+        mapRadiusFilterView.translatesAutoresizingMaskIntoConstraints = false
+        mapRadiusFilterView.searchBar = searchLocationViewController.searchBar
+        mapRadiusFilterView.locationName = locationName
+        mapRadiusFilterView.delegate = self
+        return mapRadiusFilterView
     }()
 
     private lazy var searchLocationViewController: SearchLocationViewController = {
@@ -101,24 +101,24 @@ final class MapFilterViewController: FilterViewController {
     }
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        radius = mapFilterView.radius
-        coordinate = mapFilterView.centerCoordinate
-        locationName = mapFilterView.locationName
+        radius = mapRadiusFilterView.radius
+        coordinate = mapRadiusFilterView.centerCoordinate
+        locationName = mapRadiusFilterView.locationName
 
-        mapFilterDelegate?.mapFilterViewControllerDidSelectFilter(self)
+        mapRadiusFilterDelegate?.mapRadiusFilterViewControllerDidSelectFilter(self)
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
     }
 
     // MARK: - Setup
 
     private func setup() {
-        view.addSubview(mapFilterView)
+        view.addSubview(mapRadiusFilterView)
 
         NSLayoutConstraint.activate([
-            mapFilterView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapFilterView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
-            mapFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapRadiusFilterView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapRadiusFilterView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
+            mapRadiusFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapRadiusFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 
@@ -131,8 +131,8 @@ final class MapFilterViewController: FilterViewController {
     // MARK: - Private methods
 
     private func returnToMapFromLocationSearch() {
-        mapFilterView.searchBar = searchLocationViewController.searchBar
-        mapFilterView.setNeedsLayout()
+        mapRadiusFilterView.searchBar = searchLocationViewController.searchBar
+        mapRadiusFilterView.setNeedsLayout()
 
         searchLocationViewController.remove()
     }
@@ -143,7 +143,7 @@ final class MapFilterViewController: FilterViewController {
             return
         }
 
-        mapFilterView.centerOnUserLocation()
+        mapRadiusFilterView.centerOnUserLocation()
     }
 
     private func attemptToActivateUserLocationSupport() {
@@ -162,15 +162,15 @@ final class MapFilterViewController: FilterViewController {
     }
 }
 
-// MARK: - MapFilterViewDelegate
+// MARK: - MapRadiusFilterViewDelegate
 
-extension MapFilterViewController: MapFilterViewDelegate {
-    func mapFilterViewDidSelectLocationButton(_ mapFilterView: MapFilterView) {
+extension MapRadiusFilterViewController: MapRadiusFilterViewDelegate {
+    func mapRadiusFilterViewDidSelectLocationButton(_ mapRadiusFilterView: MapRadiusFilterView) {
         nextRegionChangeIsFromUserInteraction = true
         centerOnUserLocation()
     }
 
-    func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int) {
+    func mapRadiusFilterView(_ mapRadiusFilterView: MapRadiusFilterView, didChangeRadius radius: Int) {
         hasChanges = true
         self.radius = radius
         enableSwipeBack(true)
@@ -179,14 +179,14 @@ extension MapFilterViewController: MapFilterViewDelegate {
 
 // MARK: - MKMapViewDelegate
 
-extension MapFilterViewController: MKMapViewDelegate {
+extension MapRadiusFilterViewController: MKMapViewDelegate {
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         guard !isMapLoaded else {
             return
         }
 
         isMapLoaded = true
-        mapFilterView.centerOnInitialCoordinate()
+        mapRadiusFilterView.centerOnInitialCoordinate()
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -214,8 +214,8 @@ extension MapFilterViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let coordinate = mapView.centerCoordinate
 
-        mapFilterView.updateRadiusView()
-        mapFilterView.isUserLocationButtonHighlighted = coordinate == mapView.userLocation.coordinate
+        mapRadiusFilterView.updateRadiusView()
+        mapRadiusFilterView.isUserLocationButtonHighlighted = coordinate == mapView.userLocation.coordinate
 
         if nextRegionChangeIsFromUserInteraction {
             locationName = nil
@@ -231,7 +231,7 @@ extension MapFilterViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if hasRequestedLocationAuthorization {
-            mapFilterView.centerOnInitialCoordinate()
+            mapRadiusFilterView.centerOnInitialCoordinate()
             hasRequestedLocationAuthorization = false
         }
     }
@@ -239,7 +239,7 @@ extension MapFilterViewController: MKMapViewDelegate {
 
 // MARK: - SearchLocationViewControllerDelegate
 
-extension MapFilterViewController: SearchLocationViewControllerDelegate {
+extension MapRadiusFilterViewController: SearchLocationViewControllerDelegate {
     func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
         delegate?.filterViewControllerWillEndTextEditing(self)
@@ -269,14 +269,14 @@ extension MapFilterViewController: SearchLocationViewControllerDelegate {
             locationName = location.name
             self.coordinate = coordinate
 
-            mapFilterView.centerOnCoordinate(coordinate, animated: true)
+            mapRadiusFilterView.centerOnCoordinate(coordinate, animated: true)
         }
     }
 }
 
 // MARK: - Store
 
-private extension MapFilterViewController {
+private extension MapRadiusFilterViewController {
     var radius: Int? {
         get {
             return selectionStore.value(for: radiusFilter)
@@ -301,7 +301,7 @@ private extension MapFilterViewController {
         set {
             selectionStore.setValue(newValue?.latitude, for: latitudeFilter)
             selectionStore.setValue(newValue?.longitude, for: longitudeFilter)
-            radius = mapFilterView.radius
+            radius = mapRadiusFilterView.radius
         }
     }
 
@@ -311,7 +311,7 @@ private extension MapFilterViewController {
         }
         set {
             selectionStore.setValue(newValue, for: locationNameFilter)
-            mapFilterView.locationName = newValue
+            mapRadiusFilterView.locationName = newValue
         }
     }
 }

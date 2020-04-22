@@ -5,17 +5,17 @@
 import MapKit
 import UIKit
 
-protocol MapFilterViewDelegate: MKMapViewDelegate {
-    func mapFilterViewDidSelectLocationButton(_ mapFilterView: MapFilterView)
-    func mapFilterView(_ mapFilterView: MapFilterView, didChangeRadius radius: Int)
+protocol MapRadiusFilterViewDelegate: MKMapViewDelegate {
+    func mapRadiusFilterViewDidSelectLocationButton(_ mapRadiusFilterView: MapRadiusFilterView)
+    func mapRadiusFilterView(_ mapRadiusFilterView: MapRadiusFilterView, didChangeRadius radius: Int)
 }
 
-final class MapFilterView: UIView {
+final class MapRadiusFilterView: UIView {
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let userLocationButtonWidth: CGFloat = 46
 
-    weak var delegate: MapFilterViewDelegate? {
+    weak var delegate: MapRadiusFilterViewDelegate? {
         didSet {
             mapView.delegate = delegate
         }
@@ -81,7 +81,7 @@ final class MapFilterView: UIView {
         button.backgroundColor = Theme.mainBackground
         button.tintColor = .btnPrimary
 
-        button.layer.cornerRadius = MapFilterView.userLocationButtonWidth / 2
+        button.layer.cornerRadius = MapRadiusFilterView.userLocationButtonWidth / 2
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 1)
         button.layer.shadowRadius = 3
@@ -111,7 +111,7 @@ final class MapFilterView: UIView {
     // MARK: - Init
 
     init(radius: Int?, centerCoordinate: CLLocationCoordinate2D?) {
-        self.radius = radius ?? MapFilterView.defaultRadius
+        self.radius = radius ?? MapRadiusFilterView.defaultRadius
         initialCenterCoordinate = centerCoordinate
         super.init(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
 
@@ -148,7 +148,7 @@ final class MapFilterView: UIView {
 
     func centerOnInitialCoordinate() {
         let userCoordinate = mapView.userLocation.location?.coordinate
-        let centerCoordinate = initialCenterCoordinate ?? userCoordinate ?? MapFilterView.defaultCenterCoordinate
+        let centerCoordinate = initialCenterCoordinate ?? userCoordinate ?? MapRadiusFilterView.defaultCenterCoordinate
 
         centerOnCoordinate(centerCoordinate, animated: false)
     }
@@ -178,7 +178,7 @@ final class MapFilterView: UIView {
     // MARK: - Actions
 
     @objc private func didTapLocateUserButton() {
-        delegate?.mapFilterViewDidSelectLocationButton(self)
+        delegate?.mapRadiusFilterViewDidSelectLocationButton(self)
     }
 
     // MARK: - Setup
@@ -233,11 +233,11 @@ final class MapFilterView: UIView {
 
 // MARK: - ValueSliderWithLabelViewDelegate
 
-extension MapFilterView: ValueSliderWithLabelViewDelegate {
+extension MapRadiusFilterView: ValueSliderWithLabelViewDelegate {
     func valueSliderWithLabelView(_ valueSliderWithLabelView: ValueSliderWithLabelView, didSetValue value: Int) {
         radius = value
         updateRegion()
-        delegate?.mapFilterView(self, didChangeRadius: radius)
+        delegate?.mapRadiusFilterView(self, didChangeRadius: radius)
     }
 }
 

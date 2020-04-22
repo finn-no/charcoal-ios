@@ -5,26 +5,26 @@
 import Foundation
 
 class MapTabBarController: UITabBarController {
-    private let mapViewController: MapFilterViewController
-    private let polygonMapViewController: MapPolygonFilterViewController?
+    private let mapRadiusFilterViewController: MapRadiusFilterViewController
+    private let mapPolygonFilterViewController: MapPolygonFilterViewController?
 
     weak var filterDelegate: FilterViewControllerDelegate? {
         didSet {
-            mapViewController.delegate = filterDelegate
-            polygonMapViewController?.delegate = filterDelegate
+            mapRadiusFilterViewController.delegate = filterDelegate
+            mapPolygonFilterViewController?.delegate = filterDelegate
         }
     }
 
     weak var mapDataSource: MapFilterDataSource? {
         didSet {
-            mapViewController.mapDataSource = mapDataSource
+            mapRadiusFilterViewController.mapDataSource = mapDataSource
         }
     }
 
     weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
-            mapViewController.searchLocationDataSource = searchLocationDataSource
-            polygonMapViewController?.searchLocationDataSource = searchLocationDataSource
+            mapRadiusFilterViewController.searchLocationDataSource = searchLocationDataSource
+            mapPolygonFilterViewController?.searchLocationDataSource = searchLocationDataSource
         }
     }
 
@@ -40,12 +40,12 @@ class MapTabBarController: UITabBarController {
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
          locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter?, selectionStore: FilterSelectionStore) {
-        mapViewController = MapFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
+        mapRadiusFilterViewController = MapRadiusFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
 
         if let polygonFilter = polygonFilter {
-            polygonMapViewController = MapPolygonFilterViewController(title: title, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
+            mapPolygonFilterViewController = MapPolygonFilterViewController(title: title, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
         } else {
-            polygonMapViewController = nil
+            mapPolygonFilterViewController = nil
         }
 
         self.selectionStore = selectionStore
@@ -55,8 +55,8 @@ class MapTabBarController: UITabBarController {
         self.title = title
 
         setup()
-        mapViewController.mapFilterDelegate = self
-        polygonMapViewController?.mapPolygonFilterDelegate = self
+        mapRadiusFilterViewController.mapRadiusFilterDelegate = self
+        mapPolygonFilterViewController?.mapPolygonFilterDelegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -66,20 +66,20 @@ class MapTabBarController: UITabBarController {
     private func setup() {
         tabBar.isHidden = true
 
-        guard let polygonMapViewController = polygonMapViewController else {
-            viewControllers = [mapViewController]
-            selectedViewController = mapViewController
+        guard let polygonMapViewController = mapPolygonFilterViewController else {
+            viewControllers = [mapRadiusFilterViewController]
+            selectedViewController = mapRadiusFilterViewController
             return
         }
 
         navigationItem.rightBarButtonItem = toggleButton
-        viewControllers = [mapViewController, polygonMapViewController]
+        viewControllers = [mapRadiusFilterViewController, polygonMapViewController]
 
         if let polygonFilter = polygonFilter,
             selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
             selectedViewController = polygonMapViewController
         } else {
-            selectedViewController = mapViewController
+            selectedViewController = mapRadiusFilterViewController
         }
         updateToggleButtonLabel()
     }
@@ -90,15 +90,15 @@ class MapTabBarController: UITabBarController {
     }
 
     private func updateToggleButtonLabel() {
-        toggleButton.title = selectedViewController == polygonMapViewController ? "map.radiusSearch.toggleButton.title".localized() : "map.polygonSearch.toggleButton.title".localized()
+        toggleButton.title = selectedViewController == mapPolygonFilterViewController ? "map.radiusSearch.toggleButton.title".localized() : "map.polygonSearch.toggleButton.title".localized()
     }
 }
 
-// MARK: - MapFilterViewControllerDelegate
+// MARK: - MapRadiusFilterViewControllerDelegate
 
-extension MapTabBarController: MapFilterViewControllerDelegate {
-    func mapFilterViewControllerDidSelectFilter(_ mapFilterViewController: MapFilterViewController) {
-        polygonMapViewController?.resetFilterValues()
+extension MapTabBarController: MapRadiusFilterViewControllerDelegate {
+    func mapRadiusFilterViewControllerDidSelectFilter(_ mapRadiusFilterViewController: MapRadiusFilterViewController) {
+        mapPolygonFilterViewController?.resetFilterValues()
     }
 }
 
@@ -106,6 +106,6 @@ extension MapTabBarController: MapFilterViewControllerDelegate {
 
 extension MapTabBarController: MapPolygonFilterViewControllerDelegate {
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
-        mapViewController.resetFilterValues()
+        mapRadiusFilterViewController.resetFilterValues()
     }
 }

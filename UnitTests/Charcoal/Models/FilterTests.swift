@@ -135,16 +135,16 @@ final class FilterTests: XCTestCase {
         XCTAssertNil(filter.value)
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
-        XCTAssertEqual(filter.subfilters.count, 4)
+        XCTAssertEqual(filter.subfilters.count, 6)
 
         switch filter.kind {
-        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
+        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
             XCTAssertEqual(latitudeFilter.key, "lat")
             XCTAssertEqual(longitudeFilter.key, "lon")
             XCTAssertEqual(radiusFilter.key, "r")
             XCTAssertEqual(locationNameFilter.key, "loc")
-            XCTAssertEqual(bboxKey.key, "bbox")
-            XCTAssertEqual(polygonKey.key, "polylocation")
+            XCTAssertEqual(bboxFilter.key, "bbox")
+            XCTAssertEqual(polygonFilter!.key, "polylocation")
         default:
             XCTFail("Incorrect filter kind")
         }

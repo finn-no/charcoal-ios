@@ -66,7 +66,6 @@
 		4978F74624474B9E00D9D6C2 /* PolygonEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74424474B9E00D9D6C2 /* PolygonEdge.swift */; };
 		4978F74B24474C3900D9D6C2 /* PolygonSearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74724474C3900D9D6C2 /* PolygonSearchAnnotation.swift */; };
 		4978F74C24474C3900D9D6C2 /* MapPolygonFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74824474C3900D9D6C2 /* MapPolygonFilterView.swift */; };
-		4978F74D24474C3900D9D6C2 /* DragAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74924474C3900D9D6C2 /* DragAnnotation.swift */; };
 		4978F756244F262C00D9D6C2 /* PolygonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F755244F262C00D9D6C2 /* PolygonData.swift */; };
 		4978F758244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F757244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift */; };
 		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
@@ -354,7 +353,6 @@
 		4978F74424474B9E00D9D6C2 /* PolygonEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonEdge.swift; sourceTree = "<group>"; };
 		4978F74724474C3900D9D6C2 /* PolygonSearchAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonSearchAnnotation.swift; sourceTree = "<group>"; };
 		4978F74824474C3900D9D6C2 /* MapPolygonFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPolygonFilterView.swift; sourceTree = "<group>"; };
-		4978F74924474C3900D9D6C2 /* DragAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAnnotation.swift; sourceTree = "<group>"; };
 		4978F755244F262C00D9D6C2 /* PolygonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonData.swift; sourceTree = "<group>"; };
 		4978F757244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitialAreaSelectionOverlayView.swift; path = MapView/InitialAreaSelectionOverlayView.swift; sourceTree = "<group>"; };
 		554D154F20C0782200FA3930 /* car-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-norway.json"; sourceTree = "<group>"; };
@@ -1134,7 +1132,6 @@
 		CFF4F458223BD38000A137DA /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				4978F74924474C3900D9D6C2 /* DragAnnotation.swift */,
 				4978F74824474C3900D9D6C2 /* MapPolygonFilterView.swift */,
 				4978F74724474C3900D9D6C2 /* PolygonSearchAnnotation.swift */,
 				9B741D1521B5592C00D18097 /* MapFilterView.swift */,
@@ -1685,7 +1682,6 @@
 				4978F74024474B8300D9D6C2 /* MapTabBarController.swift in Sources */,
 				CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */,
 				9BABD26B236AE54100860EB5 /* Theme.swift in Sources */,
-				4978F74D24474C3900D9D6C2 /* DragAnnotation.swift in Sources */,
 				CF077553222FD1C6000A0A36 /* StepperFilterConfiguration.swift in Sources */,
 				44ECE6A2208F80320017AC82 /* Charcoal.swift in Sources */,
 				CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */,

@@ -28,7 +28,8 @@ final class MapPolygonFilterView: UIView {
 
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
-    private static let userLocationButtonWidth: CGFloat = 46
+    private static let annotationFillColor: CGColor = UIColor.bgPrimary.cgColor
+    private static let annotationBorderColor: CGColor = UIColor.accentSecondaryBlue.cgColor
 
     private var polygon: MKPolygon?
 
@@ -79,37 +80,18 @@ final class MapPolygonFilterView: UIView {
     }()
 
     private lazy var userLocationButton: UIButton = {
-        let button = UIButton(withAutoLayout: true)
-        button.backgroundColor = Theme.mainBackground
-        button.tintColor = .btnPrimary
-
-        button.layer.cornerRadius = MapPolygonFilterView.userLocationButtonWidth / 2
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 1)
-        button.layer.shadowRadius = 3
-        button.layer.shadowOpacity = 0.5
-
+        let button = CircleButton()
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
-
         return button
     }()
 
     private lazy var redoAreaSelectionButton: UIButton = {
-        let button = UIButton(withAutoLayout: true)
-        button.backgroundColor = Theme.mainBackground
-        button.tintColor = .btnPrimary
-
-        button.layer.cornerRadius = MapPolygonFilterView.userLocationButtonWidth / 2
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 1)
-        button.layer.shadowRadius = 3
-        button.layer.shadowOpacity = 0.5
-
-        button.setImage(UIImage(named: .arrowCounterClockwise), for: .normal)
+        let button = CircleButton()
+        button.setImage(UIImage(named: .arrowCounterClockwise).withRenderingMode(.alwaysTemplate), for: .normal)
+        button.imageView?.tintColor = .iconSecondary
         button.addTarget(self, action: #selector(didTapRedoAreaSelectionButton), for: .touchUpInside)
-
         return button
     }()
 
@@ -131,40 +113,9 @@ final class MapPolygonFilterView: UIView {
         return button
     }()
 
-    private lazy var vertexAnnotationImage: UIImage = {
-        let clickableAreaSize: CGFloat = 40
-        let diameter: CGFloat = 20
-        let borderWidth: CGFloat = 2.5
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: clickableAreaSize, height: clickableAreaSize))
-        return renderer.image { ctx in
-            ctx.cgContext.setFillColor(UIColor.bgPrimary.cgColor)
-            ctx.cgContext.setStrokeColor(UIColor.accentSecondaryBlue.cgColor)
-            ctx.cgContext.setLineWidth(borderWidth)
+    private lazy var vertexAnnotationImage: UIImage = annotationImage(clickableAreaSize: 40, diameter: 20, borderWidth: 2.5, alpha: 1)
 
-            let margin = (clickableAreaSize - diameter) / 2
-            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth * 2, height: diameter - borderWidth * 2)
-            ctx.cgContext.addEllipse(in: rectangle)
-            ctx.cgContext.drawPath(using: .fillStroke)
-        }
-    }()
-
-    private lazy var intermediateAnnotationImage: UIImage = {
-        let clickableAreaSize: CGFloat = 40
-        let diameter: CGFloat = 14
-        let borderWidth: CGFloat = 2
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: clickableAreaSize, height: clickableAreaSize))
-        return renderer.image { ctx in
-            ctx.cgContext.setFillColor(UIColor.bgPrimary.cgColor)
-            ctx.cgContext.setStrokeColor(UIColor.accentSecondaryBlue.cgColor)
-            ctx.cgContext.setLineWidth(borderWidth)
-            ctx.cgContext.setAlpha(0.6)
-
-            let margin = (clickableAreaSize - diameter) / 2
-            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth * 2, height: diameter - borderWidth * 2)
-            ctx.cgContext.addEllipse(in: rectangle)
-            ctx.cgContext.drawPath(using: .fillStroke)
-        }
-    }()
+    private lazy var intermediateAnnotationImage: UIImage = annotationImage(clickableAreaSize: 40, diameter: 14, borderWidth: 2, alpha: 0.6)
 
     private lazy var initialAreaSelectionOverlayView = InitialAreaSelectionOverlayView(withAutoLayout: true)
 
@@ -208,12 +159,12 @@ final class MapPolygonFilterView: UIView {
 
             userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
             userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.spacingS),
-            userLocationButton.widthAnchor.constraint(equalToConstant: 46),
+            userLocationButton.widthAnchor.constraint(equalToConstant: CircleButton.width),
             userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),
 
             redoAreaSelectionButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
             redoAreaSelectionButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: .spacingS),
-            redoAreaSelectionButton.widthAnchor.constraint(equalToConstant: 46),
+            redoAreaSelectionButton.widthAnchor.constraint(equalToConstant: CircleButton.width),
             redoAreaSelectionButton.heightAnchor.constraint(equalTo: redoAreaSelectionButton.widthAnchor),
 
             initialAreaSelectionButton.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingS),
@@ -326,6 +277,21 @@ final class MapPolygonFilterView: UIView {
 
     // MARK: - Private methods
 
+    private func annotationImage(clickableAreaSize: CGFloat, diameter: CGFloat, borderWidth: CGFloat, alpha: CGFloat) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: clickableAreaSize, height: clickableAreaSize))
+        return renderer.image { ctx in
+            ctx.cgContext.setFillColor(MapPolygonFilterView.annotationFillColor)
+            ctx.cgContext.setStrokeColor(MapPolygonFilterView.annotationBorderColor)
+            ctx.cgContext.setLineWidth(borderWidth)
+            ctx.cgContext.setAlpha(alpha)
+
+            let margin = (clickableAreaSize - diameter) / 2
+            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth * 2, height: diameter - borderWidth * 2)
+            ctx.cgContext.addEllipse(in: rectangle)
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+    }
+
     private func setInitialRegion(animated: Bool = true) {
         let region = mapView.centeredRegion(for: Double(MapPolygonFilterView.defaultRadius) * 2.2)
         mapView.setRegion(region, animated: animated)
@@ -362,5 +328,32 @@ private extension MKMapView {
             latitudinalMeters: CLLocationDistance(radius),
             longitudinalMeters: CLLocationDistance(radius)
         )
+    }
+}
+
+// MARK: - Private classes
+
+private class CircleButton: UIButton {
+    static let width: CGFloat = 46
+
+    init() {
+        super.init(frame: .zero)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = Theme.mainBackground
+        tintColor = .btnPrimary
+
+        layer.cornerRadius = CircleButton.width / 2
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowRadius = 3
+        layer.shadowOpacity = 0.5
     }
 }

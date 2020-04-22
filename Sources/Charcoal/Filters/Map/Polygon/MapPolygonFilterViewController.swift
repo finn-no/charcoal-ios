@@ -265,6 +265,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     // MARK: - Polygon handling
 
     private func setupAnnotations(from coordinates: [CLLocationCoordinate2D]) {
+        guard coordinates.count > 2 else { return }
         annotations.removeAll()
         let shouldAppendIntermediateAnnotations = coordinates.count < MapPolygonFilterViewController.maxNumberOfVertices
 
@@ -298,7 +299,7 @@ final class MapPolygonFilterViewController: FilterViewController {
         updateFilterValues()
     }
 
-    @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
+    @objc private func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
         if state == .bbox {
             state = .polygon
         }
@@ -327,7 +328,7 @@ final class MapPolygonFilterViewController: FilterViewController {
             annotation.coordinate = updatedCoordinate(for: annotation, gestureLocation: location)
             updateNeighborPositions(around: annotation, with: annotation.coordinate)
 
-            state = isPolygonStateValid(movingAnnotation: annotation) ? .polygon : .invalidPolygon
+            state = isPolygonStateValid() ? .polygon : .invalidPolygon
             mapPolygonFilterView.drawPolygon(with: annotations)
             updateFilterValues()
         }
@@ -382,17 +383,20 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private func addIntermediatePoint(after annotation: PolygonSearchAnnotation, nextCoordinate: CLLocationCoordinate2D?) {
-        guard let nextCoordinate = nextCoordinate else { return }
+        guard
+            let nextCoordinate = nextCoordinate,
+            let annotationIndex = index(of: annotation)
+        else { return }
+
         let midwayCoordinate = annotation.getMidwayCoordinate(other: nextCoordinate)
         let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
         midwayAnnotation.title = "Annotation \(annotations.count)"
         midwayAnnotation.coordinate = midwayCoordinate
-        guard let annotationIndex = index(of: annotation) else { return }
         annotations.insert(midwayAnnotation, at: annotationIndex + 1)
         mapPolygonFilterView.addAnnotation(midwayAnnotation)
     }
 
-    private func isPolygonStateValid(movingAnnotation: PolygonSearchAnnotation) -> Bool {
+    private func isPolygonStateValid() -> Bool {
         let vertexAnnotations = annotations.filter { $0.type == .vertex }
         guard
             vertexAnnotations.count > 3,
@@ -456,7 +460,7 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     }
 }
 
-// MARK: - MKmapPolygonViewDelegate
+// MARK: - MKMapViewDelegate
 
 extension MapPolygonFilterViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

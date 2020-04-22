@@ -10,19 +10,19 @@ protocol MapPolygonFilterViewControllerDelegate: AnyObject {
 }
 
 final class MapPolygonFilterViewController: FilterViewController {
-    weak var mapDataSource: MapFilterDataSource? {
-        didSet {
-            if let mapTileOverlay = mapDataSource?.mapTileOverlay {
-                mapPolygonFilterView.setMapTileOverlay(mapTileOverlay)
-            }
-        }
-    }
-
     weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             searchLocationViewController.searchLocationDataSource = searchLocationDataSource
         }
     }
+
+    private enum State {
+        case bbox
+        case polygon
+        case invalidPolygon
+    }
+
+    weak var mapPolygonFilterDelegate: MapPolygonFilterViewControllerDelegate?
 
     // MARK: - Private properties
 
@@ -32,8 +32,6 @@ final class MapPolygonFilterViewController: FilterViewController {
     private let locationManager = CLLocationManager()
     private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
-    private var hasChanges = false
-    private var isMapLoaded = false
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
     private static let maxNumberOfVertices = 10
@@ -44,12 +42,6 @@ final class MapPolygonFilterViewController: FilterViewController {
                 configure(for: state)
             }
         }
-    }
-
-    private enum State {
-        case bbox
-        case polygon
-        case invalidPolygon
     }
 
     private lazy var mapPolygonFilterView: MapPolygonFilterView = {
@@ -84,8 +76,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
-    weak var mapPolygonFilterDelegate: MapPolygonFilterViewControllerDelegate?
-
     // MARK: - Init
 
     init(title: String, locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
@@ -118,8 +108,8 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         if annotations.isEmpty {
-            let coordinates = mapPolygonFilterView.initialSquareOverlayToCoordinates()
-            for (index, coordinate) in coordinates.enumerated() {
+            let coordinates = mapPolygonFilterView.initialAreaOverlayToCoordinates()
+            for coordinate in coordinates {
                 let annotation = PolygonSearchAnnotation(type: .vertex)
                 annotation.coordinate = coordinate
                 annotations.append(annotation)
@@ -142,11 +132,13 @@ final class MapPolygonFilterViewController: FilterViewController {
         ])
 
         var coordinates = [CLLocationCoordinate2D]()
-        if let coordinateQuery: String = selectionStore.value(for: polygonFilter) {
-            coordinates = createPolygonCoordinates(from: coordinateQuery)
+        if let coordinateQuery: String = selectionStore.value(for: polygonFilter),
+            let polygonCoordinates = PolygonData.createPolygonCoordinates(from: coordinateQuery) {
+            coordinates = polygonCoordinates
             state = .polygon
-        } else if let bboxQuery: String = selectionStore.value(for: bboxFilter) {
-            coordinates = createBboxCoordinates(from: bboxQuery)
+        } else if let bboxQuery: String = selectionStore.value(for: bboxFilter),
+            let bboxCoordinates = PolygonData.createBBoxCoordinates(from: bboxQuery) {
+            coordinates = bboxCoordinates
             state = .bbox
         }
         setupAnnotations(from: coordinates)
@@ -157,29 +149,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         mapPolygonFilterView.drawPolygon(with: annotations)
         mapPolygonFilterView.configure(for: .polygonSelection)
         centerMapOnPolygonCenter()
-    }
-
-    private func centerMapOnPolygonCenter() {
-        let latitudes = annotations.map { $0.coordinate.latitude }
-        let longitudes = annotations.map { $0.coordinate.longitude }
-
-        guard
-            let maxLatitude = latitudes.max(),
-            let minLatitude = latitudes.min(),
-            let maxLongitude = longitudes.max(),
-            let minLongitude = longitudes.min()
-        else { return }
-
-        let midLatitude = (maxLatitude + minLatitude) / 2
-        let midLongitude = (maxLongitude + minLongitude) / 2
-
-        let centerCoordinate = CLLocationCoordinate2D(latitude: midLatitude, longitude: midLongitude)
-
-        let minLocation = CLLocation(latitude: minLatitude, longitude: minLongitude)
-        let maxLocation = CLLocation(latitude: maxLatitude, longitude: maxLongitude)
-        let distance = minLocation.distance(from: maxLocation)
-
-        mapPolygonFilterView.centerOnCoordinate(centerCoordinate, regionDistance: distance, animated: true)
     }
 
     // MARK: - Internal methods
@@ -203,26 +172,44 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
+    private func centerMapOnPolygonCenter() {
+        let latitudes = annotations.map { $0.coordinate.latitude }
+        let longitudes = annotations.map { $0.coordinate.longitude }
+
+        guard
+            let maxLatitude = latitudes.max(),
+            let minLatitude = latitudes.min(),
+            let maxLongitude = longitudes.max(),
+            let minLongitude = longitudes.min()
+        else { return }
+
+        let midLatitude = (maxLatitude + minLatitude) / 2
+        let midLongitude = (maxLongitude + minLongitude) / 2
+
+        let centerCoordinate = CLLocationCoordinate2D(latitude: midLatitude, longitude: midLongitude)
+
+        let minLocation = CLLocation(latitude: minLatitude, longitude: minLongitude)
+        let maxLocation = CLLocation(latitude: maxLatitude, longitude: maxLongitude)
+        let distance = minLocation.distance(from: maxLocation)
+
+        mapPolygonFilterView.centerOnCoordinate(centerCoordinate, regionDistance: distance)
+    }
+
     private func updateFilterValues() {
         guard state != .invalidPolygon else { return }
 
         mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
         locationName = mapPolygonFilterView.locationName
+        
+        let vertexAnnotationCoordinates = annotations.filter { $0.type == .vertex }.map { $0.coordinate }
 
         switch state {
         case .bbox:
-            let bboxCoordinates = [
-                annotations.map { $0.coordinate.longitude }.min() ?? 0,
-                annotations.map { $0.coordinate.latitude }.min() ?? 0,
-                annotations.map { $0.coordinate.longitude }.max() ?? 0,
-                annotations.map { $0.coordinate.latitude }.max() ?? 0,
-            ]
-            guard !bboxCoordinates.contains(0) else { return }
-            bbox = bboxCoordinates.map { String($0) }.joined(separator: ",")
+            bbox = PolygonData.createBBoxQuery(for: vertexAnnotationCoordinates)
             polygon = nil
 
         case .polygon:
-            polygon = createPolygonQuery(for: annotations.filter { $0.type == .vertex }.map { $0.coordinate })
+            polygon = PolygonData.createPolygonQuery(for: vertexAnnotationCoordinates)
             bbox = nil
 
         default:
@@ -261,13 +248,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
-    private func resetPolygon() {
-        annotations.removeAll()
-        resetFilterValues()
-        state = .bbox
-        mapPolygonFilterView.configure(for: .squareAreaSelection)
-    }
-
     private func presentLocationChangedAlertIfNeeded() {
         guard
             !annotations.isEmpty,
@@ -275,70 +255,17 @@ final class MapPolygonFilterViewController: FilterViewController {
         else { return }
 
         let alert = UIAlertController(title: "map.polygonSearch.locationChanged.alert.title".localized(), message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "yes".localized(), style: .default, handler: { [weak self] _ in
-            self?.repositionPolygon()
+        alert.addAction(UIAlertAction(title: "yes".localized(), style: .default, handler: { _ in
+            self.repositionPolygon()
         }))
-        alert.addAction(UIAlertAction(title: "no".localized(), style: .default, handler: { [weak self] _ in
-            self?.annotations.removeAll()
-            self?.mapPolygonFilterView.configure(for: .squareAreaSelection)
+        alert.addAction(UIAlertAction(title: "no".localized(), style: .default, handler: { _ in
+            self.annotations.removeAll()
+            self.mapPolygonFilterView.configure(for: .initialAreaSelection)
         }))
         present(alert, animated: true)
     }
 
-    private func repositionPolygon() {
-        let pointsInMapView = mapPolygonFilterView.annotationPointsInMapView
-        for (index, annotation) in annotations.enumerated() {
-            annotation.coordinate = mapPolygonFilterView.coordinateForPoint(pointsInMapView[index])
-        }
-        mapPolygonFilterView.drawPolygon(with: annotations)
-        updateFilterValues()
-    }
-
-    // MARK: - Networking
-
-    // TODO: Move networking code?
-
-    private func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
-        var query = ""
-        for coordinate in coordinates {
-            query += queryString(for: coordinate) + ","
-        }
-        query += queryString(for: coordinates[0])
-        return query
-    }
-
-    private func queryString(for coordinate: CLLocationCoordinate2D) -> String {
-        return String(coordinate.longitude) + " " + String(coordinate.latitude)
-    }
-
-    private func createPolygonCoordinates(from query: String) -> [CLLocationCoordinate2D] {
-        guard let formattedString = query.removingPercentEncoding else { return [] }
-        var coordinates = [CLLocationCoordinate2D]()
-        var points = formattedString.components(separatedBy: ",")
-        points.removeLast() // The same coordinate is appended on beginning and end of the query, to close the polygon.
-        for point in points {
-            let pointCoordinate = point.components(separatedBy: " ").compactMap { Double($0) }
-            guard pointCoordinate.count == 2 else { return [] }
-            coordinates.append(CLLocationCoordinate2D(latitude: pointCoordinate[1], longitude: pointCoordinate[0]))
-        }
-        return coordinates
-    }
-
-    private func createBboxCoordinates(from query: String) -> [CLLocationCoordinate2D] {
-        guard
-            let values = (query.removingPercentEncoding)?.split(separator: ",").compactMap({ Double($0) }),
-            values.count == 4
-        else { return [] }
-
-        let southWestCoordinate = CLLocationCoordinate2D(latitude: values[1], longitude: values[0])
-        let northEastCoordinate = CLLocationCoordinate2D(latitude: values[3], longitude: values[2])
-        let northWestCoordinate = CLLocationCoordinate2D(latitude: southWestCoordinate.latitude, longitude: northEastCoordinate.longitude)
-        let southEastCoordinate = CLLocationCoordinate2D(latitude: northEastCoordinate.latitude, longitude: southWestCoordinate.longitude)
-
-        return [southWestCoordinate, northWestCoordinate, northEastCoordinate, southEastCoordinate]
-    }
-
-    // MARK: - Polygon calculations
+    // MARK: - Polygon handling
 
     private func setupAnnotations(from coordinates: [CLLocationCoordinate2D]) {
         annotations.removeAll()
@@ -352,10 +279,26 @@ final class MapPolygonFilterViewController: FilterViewController {
             mapPolygonFilterView.addAnnotation(annotation)
 
             if shouldAppendIntermediateAnnotations {
-                let nextPoint = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
-                addIntermediatePoint(after: annotation, nextPoint: nextPoint)
+                let nextCoordinate = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
+                addIntermediatePoint(after: annotation, nextCoordinate: nextCoordinate)
             }
         }
+    }
+
+    private func resetPolygon() {
+        annotations.removeAll()
+        resetFilterValues()
+        state = .bbox
+        mapPolygonFilterView.configure(for: .initialAreaSelection)
+    }
+
+    private func repositionPolygon() {
+        let pointsInMapView = mapPolygonFilterView.annotationPointsInMapView
+        for (index, annotation) in annotations.enumerated() {
+            annotation.coordinate = mapPolygonFilterView.coordinateForPoint(pointsInMapView[index])
+        }
+        mapPolygonFilterView.drawPolygon(with: annotations)
+        updateFilterValues()
     }
 
     @objc func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
@@ -375,43 +318,84 @@ final class MapPolygonFilterViewController: FilterViewController {
         } else if gesture.state == .changed {
             gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
 
-            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
-            let originalLocation = mapPolygonFilterView.pointForAnnoatation(annotation)
-            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
-            let touchedCoordinate = mapPolygonFilterView.coordinateForPoint(updatedLocation)
-
-            updatePolygon(draggedAnnotation: annotation, touchedCoordinate: touchedCoordinate)
-            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: touchedCoordinate)
+            let touchedCoordinate = updatedCoordinate(for: annotation, gestureLocation: location)
+            updatePolygon(movingAnnotation: annotation, with: touchedCoordinate)
+            updateNeighborPositions(around: annotation, with: touchedCoordinate)
 
         } else if gesture.state == .ended || gesture.state == .cancelled {
             if annotation.type == .intermediate {
-                annotation.type = .vertex
-                annotationView.image = mapPolygonFilterView.imageForAnnotation(ofType: .vertex)
-
-                if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
-                    mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
-                    annotations.removeAll(where: { $0.type == .intermediate })
-                } else if let index = index(of: annotation) {
-                    addIntermediatePoint(after: annotation, nextPoint: annotations[indexAfter(index, in: annotations)].coordinate)
-                    let previousAnnotation = annotations[indexBefore(index, in: annotations)]
-                    addIntermediatePoint(after: previousAnnotation, nextPoint: annotation.coordinate)
-                }
+                convertToVertexAnnotation(annotation: annotation, with: annotationView)
             }
-            let translate = CGPoint(x: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
-            let originalLocation = mapPolygonFilterView.pointForAnnoatation(annotation)
-            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
-
             annotationView.transform = .identity
-            annotation.coordinate = mapPolygonFilterView.coordinateForPoint(updatedLocation)
-            updateNeighborPositions(draggedAnnotation: annotation, annotationCoordinate: annotation.coordinate)
+            annotation.coordinate = updatedCoordinate(for: annotation, gestureLocation: location)
+            updateNeighborPositions(around: annotation, with: annotation.coordinate)
 
-            state = isPolygonStateValid(draggedAnnotation: annotation) ? .polygon : .invalidPolygon
+            state = isPolygonStateValid(movingAnnotation: annotation) ? .polygon : .invalidPolygon
             mapPolygonFilterView.drawPolygon(with: annotations)
             updateFilterValues()
         }
     }
 
-    private func isPolygonStateValid(draggedAnnotation: PolygonSearchAnnotation) -> Bool {
+    private func updatedCoordinate(for annotation: PolygonSearchAnnotation, gestureLocation: CGPoint) -> CLLocationCoordinate2D {
+        let translate = CGPoint(x: gestureLocation.x - dragStartPosition.x, y: gestureLocation.y - dragStartPosition.y)
+        let originalLocation = mapPolygonFilterView.pointForAnnotation(annotation)
+        let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+        return mapPolygonFilterView.coordinateForPoint(updatedLocation)
+    }
+
+    private func updatePolygon(movingAnnotation: PolygonSearchAnnotation, with coordinate: CLLocationCoordinate2D) {
+        guard let index = index(of: movingAnnotation) else { return }
+        var coordinates = annotations.map { $0.coordinate }
+        coordinates[index] = coordinate
+        mapPolygonFilterView.drawPolygon(with: coordinates)
+    }
+
+    private func updateNeighborPositions(around movingAnnotation: PolygonSearchAnnotation, with coordinate: CLLocationCoordinate2D) {
+        guard let index = index(of: movingAnnotation) else { return }
+
+        let previousIndex = indexBefore(index, in: annotations)
+        let neighborBefore = annotations[previousIndex]
+        if neighborBefore.type == .intermediate {
+            let previousVertex = annotations[indexBefore(previousIndex, in: annotations)]
+            let intermediatePosition = previousVertex.getMidwayCoordinate(other: coordinate)
+            neighborBefore.coordinate = intermediatePosition
+        }
+
+        let nextIndex = indexAfter(index, in: annotations)
+        let neighborAfter = annotations[nextIndex]
+        if neighborAfter.type == .intermediate {
+            let nextVertex = annotations[indexAfter(nextIndex, in: annotations)]
+            let intermediatePosition = nextVertex.getMidwayCoordinate(other: coordinate)
+            neighborAfter.coordinate = intermediatePosition
+        }
+    }
+
+    private func convertToVertexAnnotation(annotation: PolygonSearchAnnotation, with annotationView: MKAnnotationView) {
+        annotation.type = .vertex
+        annotationView.image = mapPolygonFilterView.imageForAnnotation(ofType: .vertex)
+
+        if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
+            mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
+            annotations.removeAll(where: { $0.type == .intermediate })
+        } else if let index = index(of: annotation) {
+            addIntermediatePoint(after: annotation, nextCoordinate: annotations[indexAfter(index, in: annotations)].coordinate)
+            let previousAnnotation = annotations[indexBefore(index, in: annotations)]
+            addIntermediatePoint(after: previousAnnotation, nextCoordinate: annotation.coordinate)
+        }
+    }
+
+    private func addIntermediatePoint(after annotation: PolygonSearchAnnotation, nextCoordinate: CLLocationCoordinate2D?) {
+        guard let nextCoordinate = nextCoordinate else { return }
+        let midwayCoordinate = annotation.getMidwayCoordinate(other: nextCoordinate)
+        let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
+        midwayAnnotation.title = "Annotation \(annotations.count)"
+        midwayAnnotation.coordinate = midwayCoordinate
+        guard let annotationIndex = index(of: annotation) else { return }
+        annotations.insert(midwayAnnotation, at: annotationIndex + 1)
+        mapPolygonFilterView.addAnnotation(midwayAnnotation)
+    }
+
+    private func isPolygonStateValid(movingAnnotation: PolygonSearchAnnotation) -> Bool {
         let vertexAnnotations = annotations.filter { $0.type == .vertex }
         guard
             vertexAnnotations.count > 3,
@@ -419,56 +403,16 @@ final class MapPolygonFilterViewController: FilterViewController {
         else { return false }
 
         var edges = [PolygonEdge]()
-        var previousPoint = mapPolygonFilterView.pointForAnnoatation(lastAnnotation)
+        var previousPoint = mapPolygonFilterView.pointForAnnotation(lastAnnotation)
 
         for (index, annotation) in vertexAnnotations.enumerated() {
-            let point = mapPolygonFilterView.pointForAnnoatation(vertexAnnotations[index])
-            let edge = PolygonEdge(previousPoint, point)
-            edges.append(edge)
+            let point = mapPolygonFilterView.pointForAnnotation(vertexAnnotations[index])
+            edges.append(PolygonEdge(previousPoint, point))
             previousPoint = point
         }
 
         let polygon = Polygon(edges: edges)
         return !polygon.hasIntersectingEdges()
-    }
-
-    private func updatePolygon(draggedAnnotation: PolygonSearchAnnotation, touchedCoordinate: CLLocationCoordinate2D) {
-        guard let annotationIndex = index(of: draggedAnnotation) else { return }
-        var coordinates = annotations.map { $0.coordinate }
-        coordinates[annotationIndex] = touchedCoordinate
-        mapPolygonFilterView.drawPolygon(with: coordinates)
-    }
-
-    private func updateNeighborPositions(draggedAnnotation: PolygonSearchAnnotation, annotationCoordinate: CLLocationCoordinate2D) {
-        guard let index = index(of: draggedAnnotation) else { return }
-
-        let previousIndex = indexBefore(index, in: annotations)
-        let neighborBefore = annotations[previousIndex]
-        if neighborBefore.type == .intermediate {
-            let previousVertex = annotations[indexBefore(previousIndex, in: annotations)]
-            let intermediatePosition = previousVertex.getMidwayCoordinate(other: annotationCoordinate)
-            neighborBefore.coordinate = intermediatePosition // should we update in the view instead? not actually needed
-        }
-
-        let nextIndex = indexAfter(index, in: annotations)
-        let neighborAfter = annotations[nextIndex]
-        if neighborAfter.type == .intermediate {
-            let indexAfterNextIndex = indexAfter(nextIndex, in: annotations)
-            let nextVertex = annotations[indexAfterNextIndex]
-            let intermediatePosition = nextVertex.getMidwayCoordinate(other: annotationCoordinate)
-            neighborAfter.coordinate = intermediatePosition
-        }
-    }
-
-    private func addIntermediatePoint(after annotation: PolygonSearchAnnotation, nextPoint: CLLocationCoordinate2D?) {
-        guard let nextPoint = nextPoint else { return }
-        let midwayPointCoordinate = annotation.getMidwayCoordinate(other: nextPoint)
-        let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
-        midwayAnnotation.title = "Annotation \(annotations.count)"
-        midwayAnnotation.coordinate = midwayPointCoordinate
-        guard let annotationIndex = index(of: annotation) else { return }
-        annotations.insert(midwayAnnotation, at: annotationIndex + 1)
-        mapPolygonFilterView.addAnnotation(midwayAnnotation)
     }
 
     private func index(of annotation: PolygonSearchAnnotation) -> Int? {
@@ -494,7 +438,7 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
         }
 
         let alertController = UIAlertController(title: "map.polygonSearch.resetPolygon.alert.title".localized(), message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "map.polygonSearch.resetPolygon.alert.action".localized(), style: .destructive, handler: {_ in
+        alertController.addAction(UIAlertAction(title: "map.polygonSearch.resetPolygon.alert.action".localized(), style: .destructive, handler: { _ in
             self.resetPolygon()
         }))
         alertController.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil))
@@ -518,14 +462,6 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
 // MARK: - MKmapPolygonViewDelegate
 
 extension MapPolygonFilterViewController: MKMapViewDelegate {
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        guard !isMapLoaded else {
-            return
-        }
-
-        isMapLoaded = true
-//        mapPolygonFilterView.centerOnInitialCoordinate()
-    }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolygon {
@@ -564,7 +500,6 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
 
         if nextRegionChangeIsFromUserInteraction {
             locationName = nil
-            hasChanges = true
         }
 
         nextRegionChangeIsFromUserInteraction = false
@@ -591,10 +526,10 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             view?.canShowCallout = false
             view?.isDraggable = false
 
-            let drag = UILongPressGestureRecognizer(target: self, action: #selector(handleAnnotationMovement(gesture:)))
-            drag.minimumPressDuration = 0
-            drag.allowableMovement = .greatestFiniteMagnitude
-            view?.addGestureRecognizer(drag)
+            let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleAnnotationMovement(gesture:)))
+            longPressGestureRecognizer.minimumPressDuration = 0
+            longPressGestureRecognizer.allowableMovement = .greatestFiniteMagnitude
+            view?.addGestureRecognizer(longPressGestureRecognizer)
         }
         view?.image = mapPolygonFilterView.imageForAnnotation(ofType: annotation.type)
         return view
@@ -630,10 +565,9 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
         if let location = location {
             let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
 
-            hasChanges = true
             locationName = location.name
 
-            mapPolygonFilterView.centerOnCoordinate(coordinate, animated: true)
+            mapPolygonFilterView.centerOnCoordinate(coordinate)
             presentLocationChangedAlertIfNeeded()
         }
     }
@@ -642,7 +576,6 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
 // MARK: - Store
 
 private extension MapPolygonFilterViewController {
-
     var locationName: String? {
         get {
             return selectionStore.value(for: locationNameFilter)

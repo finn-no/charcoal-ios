@@ -4,11 +4,11 @@
 
 import Foundation
 
-final class MapPolygonSquareSelectionOverlayView: UIView {
+final class InitialAreaSelectionOverlayView: UIView {
     var width: CGFloat = 180 {
         didSet {
             widthConstraint.constant = width
-            backgroundView.innerRadius = width
+            backgroundView.width = width
         }
     }
 
@@ -35,12 +35,6 @@ final class MapPolygonSquareSelectionOverlayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Overrides
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-
     // MARK: - Setup
 
     private func setup() {
@@ -65,19 +59,14 @@ final class MapPolygonSquareSelectionOverlayView: UIView {
 // MARK: - Private types
 
 private final class BackgroundView: UIView {
-    var innerRadius: CGFloat = 180 {
+    var width: CGFloat = 180 {
         didSet {
             setNeedsLayout()
             layoutIfNeeded()
         }
     }
 
-    private lazy var maskLayer: CAShapeLayer = {
-        let layer = CAShapeLayer()
-        layer.backgroundColor = UIColor.black.cgColor
-        layer.fillRule = .evenOdd
-        return layer
-    }()
+    private lazy var maskLayer = CAShapeLayer()
 
     // MARK: - Init
 
@@ -96,8 +85,8 @@ private final class BackgroundView: UIView {
         super.layoutSubviews()
 
         let path = CGMutablePath()
-        let origin = CGPoint(x: center.x - innerRadius / 2, y: center.y - innerRadius / 2)
-        path.addRect(CGRect(origin: origin, size: CGSize(width: innerRadius, height: innerRadius)))
+        let origin = CGPoint(x: center.x - width / 2, y: center.y - width / 2)
+        path.addRect(CGRect(origin: origin, size: CGSize(width: width, height: width)))
 
         maskLayer.path = path
     }

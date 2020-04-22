@@ -13,22 +13,28 @@ protocol MapPolygonFilterViewDelegate: MKMapViewDelegate {
 }
 
 final class MapPolygonFilterView: UIView {
-    private static let defaultRadius = 40000
-    private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
-    private static let userLocationButtonWidth: CGFloat = 46
-    private static let viewFinderDiameter: CGFloat = 96
-    private var polygon: MKPolygon?
-
-    private(set) var annotationPointsInMapView = [CGPoint]()
-
     weak var delegate: MapPolygonFilterViewDelegate? {
         didSet {
             mapView.delegate = delegate
         }
     }
 
-    enum State { case squareAreaSelection, polygonSelection }
-    private var state = State.squareAreaSelection
+    enum State {
+        case initialAreaSelection
+        case polygonSelection
+    }
+
+    // MARK: - Private properties
+
+    private static let defaultRadius = 40000
+    private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
+    private static let userLocationButtonWidth: CGFloat = 46
+
+    private var polygon: MKPolygon?
+
+    // MARK: - Internal properties
+
+    private(set) var annotationPointsInMapView = [CGPoint]()
 
     var searchBar: UISearchBar? {
         didSet {
@@ -46,19 +52,9 @@ final class MapPolygonFilterView: UIView {
         }
     }
 
-    var centerCoordinate: CLLocationCoordinate2D {
-        return mapView.centerCoordinate
-    }
-
     var isUserLocationButtonHighlighted = false {
         didSet {
             userLocationButton.isHighlighted = isUserLocationButtonHighlighted
-        }
-    }
-
-    private var updateViewDispatchWorkItem: DispatchWorkItem? {
-        didSet {
-            oldValue?.cancel()
         }
     }
 
@@ -72,7 +68,7 @@ final class MapPolygonFilterView: UIView {
         return view
     }()
 
-    lazy var mapView: MKMapView = {
+    private lazy var mapView: MKMapView = {
         let view = MKMapView(frame: .zero)
         view.showsUserLocation = true
         view.isRotateEnabled = false
@@ -170,7 +166,7 @@ final class MapPolygonFilterView: UIView {
         }
     }()
 
-    private lazy var squareSelectionOverlayView = MapPolygonSquareSelectionOverlayView(withAutoLayout: true)
+    private lazy var initialAreaSelectionOverlayView = InitialAreaSelectionOverlayView(withAutoLayout: true)
 
     // MARK: - Init
 
@@ -185,66 +181,6 @@ final class MapPolygonFilterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - API
-
-    func location(for gesture: UILongPressGestureRecognizer) -> CGPoint {
-        return gesture.location(in: mapView)
-    }
-
-    func pointForAnnoatation(_ annotation: PolygonSearchAnnotation) -> CGPoint { // rename
-        return mapView.convert(annotation.coordinate, toPointTo: mapView)
-    }
-
-    func coordinateForPoint(_ point: CGPoint) -> CLLocationCoordinate2D {
-        return mapView.convert(point, toCoordinateFrom: mapView)
-    }
-
-    func setMapTileOverlay(_ overlay: MKTileOverlay) {
-        mapView.addOverlay(overlay, level: .aboveLabels)
-    }
-
-    func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, regionDistance: CLLocationDistance? = nil, animated: Bool) {
-        mapView.setCenter(coordinate, animated: animated)
-        guard let distance = regionDistance else { return }
-        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: distance * 1.1, longitudinalMeters: distance * 1.1)
-        mapView.setRegion(region, animated: true)
-    }
-
-    func centerOnUserLocation() {
-        if let location = mapView.userLocation.location {
-            centerOnCoordinate(location.coordinate, animated: true)
-        }
-    }
-
-    private func setInitialRegion(animated: Bool = true) {
-        let region = mapView.centeredRegion(for: Double(MapPolygonFilterView.defaultRadius) * 2.2)
-        mapView.setRegion(region, animated: animated)
-    }
-
-    func initialSquareOverlayToCoordinates() -> [CLLocationCoordinate2D] {
-        let offset = squareSelectionOverlayView.width / 2
-        return [
-            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
-        ]
-    }
-
-    // MARK: - Actions
-
-    @objc private func didTapLocateUserButton() {
-        delegate?.mapPolygonFilterViewDidSelectLocationButton(self)
-    }
-
-    @objc private func didTapAreaSelectionButton() {
-        delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: initialSquareOverlayToCoordinates())
-    }
-
-    @objc private func didTapRedoAreaSelectionButton() {
-        delegate?.mapPolygonFilterViewDidSelectRedoAreaSelectionButton(self)
-    }
-
     // MARK: - Setup
 
     private func setup() {
@@ -253,15 +189,15 @@ final class MapPolygonFilterView: UIView {
         addSubview(mapContainerView)
 
         mapContainerView.addSubview(mapView)
-        mapContainerView.addSubview(squareSelectionOverlayView)
+        mapContainerView.addSubview(initialAreaSelectionOverlayView)
         mapContainerView.addSubview(userLocationButton)
         mapContainerView.addSubview(initialAreaSelectionButton)
         mapContainerView.addSubview(redoAreaSelectionButton)
 
         mapView.fillInSuperview()
-        squareSelectionOverlayView.fillInSuperview()
+        initialAreaSelectionOverlayView.fillInSuperview()
 
-        configure(for: .squareAreaSelection)
+        configure(for: .initialAreaSelection)
 
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
@@ -303,21 +239,58 @@ final class MapPolygonFilterView: UIView {
 
     // MARK: - API
 
+    func location(for gesture: UILongPressGestureRecognizer) -> CGPoint {
+        return gesture.location(in: mapView)
+    }
+
+    func pointForAnnotation(_ annotation: PolygonSearchAnnotation) -> CGPoint {
+        return mapView.convert(annotation.coordinate, toPointTo: mapView)
+    }
+
+    func coordinateForPoint(_ point: CGPoint) -> CLLocationCoordinate2D {
+        return mapView.convert(point, toCoordinateFrom: mapView)
+    }
+
+    func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, regionDistance: CLLocationDistance? = nil) {
+        mapView.setCenter(coordinate, animated: true)
+        guard let distance = regionDistance else { return }
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: distance * 1.1, longitudinalMeters: distance * 1.1)
+        mapView.setRegion(region, animated: true)
+    }
+
+    func centerOnUserLocation() {
+        if let location = mapView.userLocation.location {
+            centerOnCoordinate(location.coordinate)
+        } else {
+            centerOnCoordinate(MapPolygonFilterView.defaultCenterCoordinate)
+        }
+    }
+
+    func initialAreaOverlayToCoordinates() -> [CLLocationCoordinate2D] {
+        let offset = initialAreaSelectionOverlayView.width / 2
+        return [
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
+            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
+        ]
+    }
+
     func configure(for state: State) {
         switch state {
-        case .squareAreaSelection:
+        case .initialAreaSelection:
             mapView.removeAnnotations(mapView.annotations)
             if let polygon = polygon {
                 mapView.removeOverlay(polygon)
             }
             polygon = nil
-            squareSelectionOverlayView.isHidden = false
+            initialAreaSelectionOverlayView.isHidden = false
             initialAreaSelectionButton.isHidden = false
             redoAreaSelectionButton.isHidden = true
 
         case .polygonSelection:
             redoAreaSelectionButton.isHidden = false
-            squareSelectionOverlayView.isHidden = true
+            initialAreaSelectionOverlayView.isHidden = true
             initialAreaSelectionButton.isHidden = true
         }
     }
@@ -325,7 +298,7 @@ final class MapPolygonFilterView: UIView {
     func drawPolygon(with annotations: [PolygonSearchAnnotation]) {
         drawPolygon(with: annotations.map { $0.coordinate })
         if mapView.frame.size.height > 0 {
-            annotationPointsInMapView = annotations.map({ pointForAnnoatation($0) })
+            annotationPointsInMapView = annotations.map { pointForAnnotation($0) }
         }
     }
 
@@ -350,6 +323,27 @@ final class MapPolygonFilterView: UIView {
 
     func imageForAnnotation(ofType pointType: PolygonSearchAnnotation.PointType) -> UIImage {
         return pointType == .vertex ? vertexAnnotationImage : intermediateAnnotationImage
+    }
+
+    // MARK: - Private methods
+
+    private func setInitialRegion(animated: Bool = true) {
+        let region = mapView.centeredRegion(for: Double(MapPolygonFilterView.defaultRadius) * 2.2)
+        mapView.setRegion(region, animated: animated)
+    }
+
+    // MARK: - Actions
+
+    @objc private func didTapLocateUserButton() {
+        delegate?.mapPolygonFilterViewDidSelectLocationButton(self)
+    }
+
+    @objc private func didTapAreaSelectionButton() {
+        delegate?.mapPolygonFilterViewDidSelectInitialAreaSelectionButton(self, coordinates: initialAreaOverlayToCoordinates())
+    }
+
+    @objc private func didTapRedoAreaSelectionButton() {
+        delegate?.mapPolygonFilterViewDidSelectRedoAreaSelectionButton(self)
     }
 }
 

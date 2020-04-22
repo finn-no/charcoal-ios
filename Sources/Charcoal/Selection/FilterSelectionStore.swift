@@ -197,10 +197,10 @@ public extension FilterSelectionStore {
             }
         case let .map(_, _, radiusFilter, _, bboxFilter, polygonFilter):
             let polygonSearchTitle = "map.polygonSearch.filter.title".localized()
-            if let bbox: String = value(for: bboxFilter) {
+            if let _: String = value(for: bboxFilter) {
                 return [SelectionTitle(value: polygonSearchTitle)]
             } else if let polygonFilter = polygonFilter,
-                let polygon: String = value(for: polygonFilter) {
+                let _: String = value(for: polygonFilter) {
                 return [SelectionTitle(value: polygonSearchTitle)]
             } else if let radius: Int = value(for: radiusFilter) {
                 let value = MapDistanceValueFormatter().title(for: radius)

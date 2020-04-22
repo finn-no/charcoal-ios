@@ -200,7 +200,7 @@ final class MapPolygonFilterViewController: FilterViewController {
 
         mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
         locationName = mapPolygonFilterView.locationName
-        
+
         let vertexAnnotationCoordinates = annotations.filter { $0.type == .vertex }.map { $0.coordinate }
 
         switch state {
@@ -405,8 +405,8 @@ final class MapPolygonFilterViewController: FilterViewController {
         var edges = [PolygonEdge]()
         var previousPoint = mapPolygonFilterView.pointForAnnotation(lastAnnotation)
 
-        for (index, annotation) in vertexAnnotations.enumerated() {
-            let point = mapPolygonFilterView.pointForAnnotation(vertexAnnotations[index])
+        for annotation in vertexAnnotations {
+            let point = mapPolygonFilterView.pointForAnnotation(annotation)
             edges.append(PolygonEdge(previousPoint, point))
             previousPoint = point
         }
@@ -462,7 +462,6 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
 // MARK: - MKmapPolygonViewDelegate
 
 extension MapPolygonFilterViewController: MKMapViewDelegate {
-
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolygon {
             let polygon = MKPolygonRenderer(overlay: overlay)

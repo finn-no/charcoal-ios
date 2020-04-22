@@ -5,29 +5,29 @@
 import Foundation
 
 class PolygonEdge {
-    private let x: CGPoint
-    private let y: CGPoint
+    private let p1: CGPoint
+    private let p2: CGPoint
 
-    init(_ x: CGPoint, _ y: CGPoint) {
-        self.x = x
-        self.y = y
+    init(_ p1: CGPoint, _ p2: CGPoint) {
+        self.p1 = p1
+        self.p2 = p2
     }
 
     func intersects(with edge: PolygonEdge) -> Bool {
-        return intersect(p1: x, p2: y, q1: edge.x, q2: edge.y)
+        return intersect(p1: p1, p2: p2, q1: edge.p1, q2: edge.p2)
     }
 
     private func intersect(p1: CGPoint, p2: CGPoint, q1: CGPoint, q2: CGPoint) -> Bool {
         return ccw(p1, q1, q2) != ccw(p2, q1, q2) && ccw(p1, p2, q1) != ccw(p1, p2, q2)
     }
 
-    private func ccw(_ a: CGPoint, _ b: CGPoint, _ c: CGPoint) -> Bool {
-        return (c.y - a.y) * (b.x - a.x) > (b.y - a.y) * (c.x - a.x)
+    private func ccw(_ p1: CGPoint, _ p2: CGPoint, _ p3: CGPoint) -> Bool {
+        return (p3.y - p1.y) * (p2.x - p1.x) > (p2.y - p1.y) * (p3.x - p1.x)
     }
 }
 
 extension PolygonEdge: Equatable {
     static func == (lhs: PolygonEdge, rhs: PolygonEdge) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y
+        return lhs.p1 == rhs.p1 && lhs.p2 == rhs.p2
     }
 }

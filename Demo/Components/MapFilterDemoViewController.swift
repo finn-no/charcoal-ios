@@ -10,8 +10,8 @@ class MapFilterDemoViewController: DemoViewController {
 
     private let officeLocation = CLLocationCoordinate2D(latitude: 59.913833, longitude: 10.743777)
 
-    private lazy var mapView: MapFilterView = {
-        let view = MapFilterView(radius: 40000, centerCoordinate: officeLocation)
+    private lazy var mapView: MapRadiusFilterView = {
+        let view = MapRadiusFilterView(radius: 40000, centerCoordinate: officeLocation)
         let searchBar = UISearchBar(frame: .zero)
         searchBar.placeholder = "Søk etter sted eller adresse"
         searchBar.searchBarStyle = .minimal

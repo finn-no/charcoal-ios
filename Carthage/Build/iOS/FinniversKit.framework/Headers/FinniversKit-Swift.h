@@ -189,7 +189,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import MapKit;
 @import ObjectiveC;
-@import QuartzCore;
 @import UIKit;
 #endif
 
@@ -385,17 +384,17 @@ SWIFT_CLASS("_TtC12FinniversKit14BasicTableView")
 @end
 
 @class UITableView;
+
+@interface BasicTableView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+@end
+
 @class UITableViewCell;
 
 @interface BasicTableView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-@interface BasicTableView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -488,13 +487,13 @@ SWIFT_CLASS("_TtC12FinniversKit15BuyerPickerView")
 @end
 
 
+
+
 @interface BuyerPickerView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 SWIFT_CLASS("_TtC12FinniversKit11CalloutView")
@@ -630,6 +629,16 @@ SWIFT_CLASS("_TtC12FinniversKit18ContractActionView")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit14CoronaHelpView")
+@interface CoronaHelpView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+@end
+
+
+
+
 /// note:
 ///
 /// A view ment to be used as a Dialogue view
@@ -686,6 +695,13 @@ SWIFT_CLASS("_TtC12FinniversKit9EmptyView")
 @end
 
 
+
+
+SWIFT_CLASS("_TtC12FinniversKit9ErrorView")
+@interface ErrorView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS("_TtC12FinniversKit20FavoriteAdActionView")
@@ -779,13 +795,13 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 
 
 
-
-
 @interface FavoriteAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 @class UISearchBar;
 
@@ -806,6 +822,13 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 - (BOOL)tableView:(UITableView * _Nonnull)tableView canEditRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (UISwipeActionsConfiguration * _Nullable)tableView:(UITableView * _Nonnull)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit18FavoriteButtonView")
+@interface FavoriteButtonView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -846,11 +869,6 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
-
-@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
-- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
-@end
-
 @class UIGestureRecognizer;
 
 @interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
@@ -860,6 +878,11 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 
 
 
+
+
+@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
 
 
 
@@ -1006,6 +1029,14 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
+@interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
+- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
+- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
+@end
+
+
+
+
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer SWIFT_WARN_UNUSED_RESULT;
@@ -1014,18 +1045,10 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
-@interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
-- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
-- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
-@end
-
-
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDataSource>
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 
@@ -1148,11 +1171,11 @@ SWIFT_CLASS("_TtC12FinniversKit15KlimabroletView")
 
 
 
+
+
 @interface KlimabroletView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
-
-
 
 
 SWIFT_CLASS("_TtC12FinniversKit5Label")
@@ -1162,6 +1185,13 @@ SWIFT_CLASS("_TtC12FinniversKit5Label")
 @end
 
 
+
+
+@interface Label (SWIFT_EXTENSION(FinniversKit))
+@property (nonatomic, readonly) BOOL canBecomeFirstResponder;
+- (BOOL)canPerformAction:(SEL _Nonnull)action withSender:(id _Nullable)sender SWIFT_WARN_UNUSED_RESULT;
+- (void)copy:(id _Nullable)sender;
+@end
 
 
 SWIFT_CLASS("_TtC12FinniversKit18LinkButtonListView")
@@ -1561,6 +1591,8 @@ SWIFT_CLASS("_TtC12FinniversKit19ObjectPagePriceView")
 
 
 
+
+
 SWIFT_CLASS("_TtC12FinniversKit19ObjectPageTitleView")
 @interface ObjectPageTitleView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
@@ -1702,6 +1734,7 @@ SWIFT_CLASS("_TtC12FinniversKit24RadioButtonTableViewCell")
 @interface RadioButtonTableViewCell : BasicTableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
 @end
 
 
@@ -1799,10 +1832,10 @@ SWIFT_CLASS("_TtC12FinniversKit18SafetyElementsView")
 
 
 
-
-
 @interface SafetyElementsView (SWIFT_EXTENSION(FinniversKit))
 @end
+
+
 
 
 
@@ -1844,6 +1877,13 @@ SWIFT_CLASS("_TtC12FinniversKit21SavedSearchesListView")
 @interface SavedSearchesListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit19SearchListEmptyView")
+@interface SearchListEmptyView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
 
 
@@ -1952,6 +1992,7 @@ SWIFT_CLASS("_TtC12FinniversKit12SettingsView")
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
@@ -1980,19 +2021,6 @@ SWIFT_CLASS("_TtC12FinniversKit8SoldView")
 @interface SoldView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-@end
-
-
-SWIFT_CLASS("_TtC12FinniversKit10SplashView")
-@interface SplashView : UIView
-- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class CAAnimation;
-
-@interface SplashView (SWIFT_EXTENSION(FinniversKit)) <CAAnimationDelegate>
-- (void)animationDidStop:(CAAnimation * _Nonnull)anim finished:(BOOL)flag;
 @end
 
 
@@ -2099,6 +2127,40 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit20TransactionAlertView")
+@interface TransactionAlertView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit21TransactionHeaderView")
+@interface TransactionHeaderView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit29TransactionProcessSummaryView")
+@interface TransactionProcessSummaryView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit26TransactionStepContentView")
+@interface TransactionStepContentView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit18TransactionStepDot")
 @interface TransactionStepDot : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -2119,8 +2181,6 @@ SWIFT_CLASS("_TtC12FinniversKit19TransactionStepView")
 
 
 
-
-
 SWIFT_CLASS("_TtC12FinniversKit15TransactionView")
 @interface TransactionView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -2132,13 +2192,6 @@ SWIFT_CLASS("_TtC12FinniversKit15TransactionView")
 
 
 
-
-
-SWIFT_CLASS("_TtC12FinniversKit22TransactionWarningView")
-@interface TransactionWarningView : UIView
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-@end
 
 
 
@@ -2161,6 +2214,8 @@ SWIFT_CLASS("_TtC12FinniversKit22TransactionWarningView")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -2264,6 +2319,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 + (UIColor * _Nonnull)btnDisabled SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull btnCritical;)
 + (UIColor * _Nonnull)btnCritical SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull btnAction;)
++ (UIColor * _Nonnull)btnAction SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textPrimary;)
 + (UIColor * _Nonnull)textPrimary SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textSecondary;)
@@ -2507,6 +2564,13 @@ SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementStatisticsCell")
 
 SWIFT_CLASS("_TtC12FinniversKit39UserAdManagementStatisticsEmptyViewCell")
 @interface UserAdManagementStatisticsEmptyViewCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit45UserAdManagementTransactionProcessSummaryCell")
+@interface UserAdManagementTransactionProcessSummaryCell : UITableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
@@ -2782,7 +2846,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import MapKit;
 @import ObjectiveC;
-@import QuartzCore;
 @import UIKit;
 #endif
 
@@ -2978,17 +3041,17 @@ SWIFT_CLASS("_TtC12FinniversKit14BasicTableView")
 @end
 
 @class UITableView;
+
+@interface BasicTableView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+@end
+
 @class UITableViewCell;
 
 @interface BasicTableView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-@interface BasicTableView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDelegate>
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -3081,13 +3144,13 @@ SWIFT_CLASS("_TtC12FinniversKit15BuyerPickerView")
 @end
 
 
+
+
 @interface BuyerPickerView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 SWIFT_CLASS("_TtC12FinniversKit11CalloutView")
@@ -3223,6 +3286,16 @@ SWIFT_CLASS("_TtC12FinniversKit18ContractActionView")
 @end
 
 
+SWIFT_CLASS("_TtC12FinniversKit14CoronaHelpView")
+@interface CoronaHelpView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+@end
+
+
+
+
 /// note:
 ///
 /// A view ment to be used as a Dialogue view
@@ -3279,6 +3352,13 @@ SWIFT_CLASS("_TtC12FinniversKit9EmptyView")
 @end
 
 
+
+
+SWIFT_CLASS("_TtC12FinniversKit9ErrorView")
+@interface ErrorView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS("_TtC12FinniversKit20FavoriteAdActionView")
@@ -3372,13 +3452,13 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 
 
 
-
-
 @interface FavoriteAdsListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 @class UISearchBar;
 
@@ -3399,6 +3479,13 @@ SWIFT_CLASS("_TtC12FinniversKit19FavoriteAdsListView")
 - (BOOL)tableView:(UITableView * _Nonnull)tableView canEditRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (UISwipeActionsConfiguration * _Nullable)tableView:(UITableView * _Nonnull)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit18FavoriteButtonView")
+@interface FavoriteButtonView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -3439,11 +3526,6 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
-
-@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
-- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
-@end
-
 @class UIGestureRecognizer;
 
 @interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
@@ -3453,6 +3535,11 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 
 
 
+
+
+@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
 
 
 
@@ -3599,6 +3686,14 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
+@interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
+- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
+- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
+@end
+
+
+
+
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer SWIFT_WARN_UNUSED_RESULT;
@@ -3607,18 +3702,10 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
-@interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
-- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
-- (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
-@end
-
-
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDataSource>
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerBeforeViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 - (UIViewController * _Nullable)pageViewController:(UIPageViewController * _Nonnull)pageViewController viewControllerAfterViewController:(UIViewController * _Nonnull)viewController SWIFT_WARN_UNUSED_RESULT;
 @end
-
-
 
 
 
@@ -3741,11 +3828,11 @@ SWIFT_CLASS("_TtC12FinniversKit15KlimabroletView")
 
 
 
+
+
 @interface KlimabroletView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
-
-
 
 
 SWIFT_CLASS("_TtC12FinniversKit5Label")
@@ -3755,6 +3842,13 @@ SWIFT_CLASS("_TtC12FinniversKit5Label")
 @end
 
 
+
+
+@interface Label (SWIFT_EXTENSION(FinniversKit))
+@property (nonatomic, readonly) BOOL canBecomeFirstResponder;
+- (BOOL)canPerformAction:(SEL _Nonnull)action withSender:(id _Nullable)sender SWIFT_WARN_UNUSED_RESULT;
+- (void)copy:(id _Nullable)sender;
+@end
 
 
 SWIFT_CLASS("_TtC12FinniversKit18LinkButtonListView")
@@ -4154,6 +4248,8 @@ SWIFT_CLASS("_TtC12FinniversKit19ObjectPagePriceView")
 
 
 
+
+
 SWIFT_CLASS("_TtC12FinniversKit19ObjectPageTitleView")
 @interface ObjectPageTitleView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
@@ -4295,6 +4391,7 @@ SWIFT_CLASS("_TtC12FinniversKit24RadioButtonTableViewCell")
 @interface RadioButtonTableViewCell : BasicTableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
 @end
 
 
@@ -4392,10 +4489,10 @@ SWIFT_CLASS("_TtC12FinniversKit18SafetyElementsView")
 
 
 
-
-
 @interface SafetyElementsView (SWIFT_EXTENSION(FinniversKit))
 @end
+
+
 
 
 
@@ -4437,6 +4534,13 @@ SWIFT_CLASS("_TtC12FinniversKit21SavedSearchesListView")
 @interface SavedSearchesListView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit19SearchListEmptyView")
+@interface SearchListEmptyView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
 
 
@@ -4545,6 +4649,7 @@ SWIFT_CLASS("_TtC12FinniversKit12SettingsView")
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForFooterInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 @end
@@ -4573,19 +4678,6 @@ SWIFT_CLASS("_TtC12FinniversKit8SoldView")
 @interface SoldView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-@end
-
-
-SWIFT_CLASS("_TtC12FinniversKit10SplashView")
-@interface SplashView : UIView
-- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class CAAnimation;
-
-@interface SplashView (SWIFT_EXTENSION(FinniversKit)) <CAAnimationDelegate>
-- (void)animationDidStop:(CAAnimation * _Nonnull)anim finished:(BOOL)flag;
 @end
 
 
@@ -4692,6 +4784,40 @@ SWIFT_CLASS("_TtC12FinniversKit9ToastView")
 
 
 
+SWIFT_CLASS("_TtC12FinniversKit20TransactionAlertView")
+@interface TransactionAlertView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit21TransactionHeaderView")
+@interface TransactionHeaderView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit29TransactionProcessSummaryView")
+@interface TransactionProcessSummaryView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC12FinniversKit26TransactionStepContentView")
+@interface TransactionStepContentView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+
+
 SWIFT_CLASS("_TtC12FinniversKit18TransactionStepDot")
 @interface TransactionStepDot : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
@@ -4712,8 +4838,6 @@ SWIFT_CLASS("_TtC12FinniversKit19TransactionStepView")
 
 
 
-
-
 SWIFT_CLASS("_TtC12FinniversKit15TransactionView")
 @interface TransactionView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -4725,13 +4849,6 @@ SWIFT_CLASS("_TtC12FinniversKit15TransactionView")
 
 
 
-
-
-SWIFT_CLASS("_TtC12FinniversKit22TransactionWarningView")
-@interface TransactionWarningView : UIView
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-@end
 
 
 
@@ -4754,6 +4871,8 @@ SWIFT_CLASS("_TtC12FinniversKit22TransactionWarningView")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull defaultCellSelectedBackgroundColor;)
 + (UIColor * _Nonnull)defaultCellSelectedBackgroundColor SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -4857,6 +4976,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 + (UIColor * _Nonnull)btnDisabled SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull btnCritical;)
 + (UIColor * _Nonnull)btnCritical SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull btnAction;)
++ (UIColor * _Nonnull)btnAction SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textPrimary;)
 + (UIColor * _Nonnull)textPrimary SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull textSecondary;)
@@ -5100,6 +5221,13 @@ SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementStatisticsCell")
 
 SWIFT_CLASS("_TtC12FinniversKit39UserAdManagementStatisticsEmptyViewCell")
 @interface UserAdManagementStatisticsEmptyViewCell : UITableViewCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12FinniversKit45UserAdManagementTransactionProcessSummaryCell")
+@interface UserAdManagementTransactionProcessSummaryCell : UITableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end

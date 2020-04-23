@@ -293,7 +293,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private func repositionPolygon() {
         let pointsInMapView = mapPolygonFilterView.annotationPointsInMapView
         for (index, annotation) in annotations.enumerated() {
-            annotation.coordinate = mapPolygonFilterView.coordinateForPoint(pointsInMapView[index])
+            annotation.coordinate = mapPolygonFilterView.coordinate(for: pointsInMapView[index])
         }
         mapPolygonFilterView.drawPolygon(with: annotations)
         updateFilterValues()
@@ -336,9 +336,9 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func updatedCoordinate(for annotation: PolygonSearchAnnotation, gestureLocation: CGPoint) -> CLLocationCoordinate2D {
         let translate = CGPoint(x: gestureLocation.x - dragStartPosition.x, y: gestureLocation.y - dragStartPosition.y)
-        let originalLocation = mapPolygonFilterView.pointForAnnotation(annotation)
+        let originalLocation = mapPolygonFilterView.point(for: annotation)
         let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
-        return mapPolygonFilterView.coordinateForPoint(updatedLocation)
+        return mapPolygonFilterView.coordinate(for: updatedLocation)
     }
 
     private func updatePolygon(movingAnnotation: PolygonSearchAnnotation, with coordinate: CLLocationCoordinate2D) {
@@ -404,10 +404,10 @@ final class MapPolygonFilterViewController: FilterViewController {
         else { return false }
 
         var edges = [PolygonEdge]()
-        var previousPoint = mapPolygonFilterView.pointForAnnotation(lastAnnotation)
+        var previousPoint = mapPolygonFilterView.point(for: lastAnnotation)
 
         for annotation in vertexAnnotations {
-            let point = mapPolygonFilterView.pointForAnnotation(annotation)
+            let point = mapPolygonFilterView.point(for: annotation)
             edges.append(PolygonEdge(previousPoint, point))
             previousPoint = point
         }

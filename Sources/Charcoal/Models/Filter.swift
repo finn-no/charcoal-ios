@@ -16,7 +16,7 @@ public final class Filter {
         case stepper(config: StepperFilterConfiguration)
         case external
         case range(lowValueFilter: Filter, highValueFilter: Filter, config: RangeFilterConfiguration)
-        case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter?)
+        case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?)
     }
 
     public let title: String
@@ -102,19 +102,23 @@ extension Filter {
     }
 
     public static func map(title: String? = nil, key: String, latitudeKey: String,
-                           longitudeKey: String, radiusKey: String, locationKey: String, bboxKey: String, polygonKey: String?) -> Filter {
+                           longitudeKey: String, radiusKey: String, locationKey: String, bboxKey: String?, polygonKey: String?) -> Filter {
         let title = title ?? "map.title".localized()
         let latitudeFilter = Filter(title: "", key: latitudeKey)
         let longitudeFilter = Filter(title: "", key: longitudeKey)
         let radiusFilter = Filter(title: "", key: radiusKey)
         let locationNameFilter = Filter(title: "", key: locationKey)
-        let bboxFilter = Filter(title: "", key: bboxKey)
 
-        var subfilters = [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter]
+        var subfilters = [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter]
 
-        let polygonFilter = polygonKey != nil ? Filter(title: "", key: polygonKey!) : nil
-        if let polygonFilter = polygonFilter {
-            subfilters.append(polygonFilter)
+        var bboxFilter: Filter? = nil
+        var polygonFilter: Filter? = nil
+
+        if let bboxKey = bboxKey,
+            let polygonKey = polygonKey {
+            bboxFilter = Filter(title: "", key: bboxKey)
+            polygonFilter = Filter(title: "", key: polygonKey)
+            subfilters.append(contentsOf: [bboxFilter!, polygonFilter!])
         }
 
         let kind = Kind.map(

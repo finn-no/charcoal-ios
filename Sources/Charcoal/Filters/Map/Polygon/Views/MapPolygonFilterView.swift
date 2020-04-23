@@ -91,6 +91,7 @@ final class MapPolygonFilterView: UIView {
         let button = CircleButton()
         button.setImage(UIImage(named: .arrowCounterClockwise).withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.tintColor = .iconSecondary
+        button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(didTapRedoAreaSelectionButton), for: .touchUpInside)
         return button
     }()
@@ -195,11 +196,11 @@ final class MapPolygonFilterView: UIView {
         return gesture.location(in: mapView)
     }
 
-    func pointForAnnotation(_ annotation: PolygonSearchAnnotation) -> CGPoint {
+    func point(for annotation: PolygonSearchAnnotation) -> CGPoint {
         return mapView.convert(annotation.coordinate, toPointTo: mapView)
     }
 
-    func coordinateForPoint(_ point: CGPoint) -> CLLocationCoordinate2D {
+    func coordinate(for point: CGPoint) -> CLLocationCoordinate2D {
         return mapView.convert(point, toCoordinateFrom: mapView)
     }
 
@@ -219,10 +220,10 @@ final class MapPolygonFilterView: UIView {
     func initialAreaOverlayToCoordinates() -> [CLLocationCoordinate2D] {
         let offset = initialAreaSelectionOverlayView.width / 2
         return [
-            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
-            mapView.convert(CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset), toCoordinateFrom: mapView),
+            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset)),
+            coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset)),
+            coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset)),
+            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset))
         ]
     }
 
@@ -248,7 +249,7 @@ final class MapPolygonFilterView: UIView {
     func drawPolygon(with annotations: [PolygonSearchAnnotation]) {
         drawPolygon(with: annotations.map { $0.coordinate })
         if mapView.frame.size.height > 0 {
-            annotationPointsInMapView = annotations.map { pointForAnnotation($0) }
+            annotationPointsInMapView = annotations.map { point(for: $0) }
         }
     }
 

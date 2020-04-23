@@ -87,7 +87,7 @@ public struct FilterSetup: Decodable {
 
         switch key {
         case .map:
-            return makeMapFilter(withKey: key, excludePolygon: excludedFilters.contains(.polygon))
+            return makeMapFilter(withKey: key, excludePolygonSearch: excludedFilters.contains(.polygon))
         case .shoeSize:
             guard let data = filterData(forKey: key) else { return nil }
             return makeFilter(from: data, withKind: .grid, style: style)
@@ -111,16 +111,15 @@ public struct FilterSetup: Decodable {
         }
     }
 
-    private func makeMapFilter(withKey key: FilterKey, excludePolygon: Bool) -> Filter {
-        let polygonKey = excludePolygon ? nil : FilterKey.polygon.rawValue
+    private func makeMapFilter(withKey key: FilterKey, excludePolygonSearch: Bool) -> Filter {
         return Filter.map(
             key: key.rawValue,
             latitudeKey: FilterKey.latitude.rawValue,
             longitudeKey: FilterKey.longitude.rawValue,
             radiusKey: FilterKey.radius.rawValue,
             locationKey: FilterKey.geoLocationName.rawValue,
-            bboxKey: FilterKey.bbox.rawValue,
-            polygonKey: polygonKey
+            bboxKey: excludePolygonSearch ? nil : FilterKey.bbox.rawValue,
+            polygonKey: excludePolygonSearch ? nil : FilterKey.polygon.rawValue
         )
     }
 

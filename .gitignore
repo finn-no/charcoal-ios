@@ -51,3 +51,5 @@ bundler/
 
 # Large unneeded AppCenter frameworks
 Carthage/Build/iOS/AppCenterAuth.framework
+Carthage/Build/iOS/FinnUI.framework
+Carthage/Build/iOS/FinnUI.framework.dSYM

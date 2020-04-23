@@ -143,7 +143,7 @@ final class FilterTests: XCTestCase {
             XCTAssertEqual(longitudeFilter.key, "lon")
             XCTAssertEqual(radiusFilter.key, "r")
             XCTAssertEqual(locationNameFilter.key, "loc")
-            XCTAssertEqual(bboxFilter.key, "bbox")
+            XCTAssertEqual(bboxFilter!.key, "bbox")
             XCTAssertEqual(polygonFilter!.key, "polylocation")
         default:
             XCTFail("Incorrect filter kind")

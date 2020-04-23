@@ -223,7 +223,7 @@ final class MapPolygonFilterView: UIView {
             coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset)),
             coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset)),
             coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset)),
-            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset))
+            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset)),
         ]
     }
 

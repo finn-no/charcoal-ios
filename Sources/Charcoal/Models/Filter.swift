@@ -111,8 +111,8 @@ extension Filter {
 
         var subfilters = [latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter]
 
-        var bboxFilter: Filter? = nil
-        var polygonFilter: Filter? = nil
+        var bboxFilter: Filter?
+        var polygonFilter: Filter?
 
         if let bboxKey = bboxKey,
             let polygonKey = polygonKey {

@@ -21,7 +21,8 @@ public struct PolygonData {
         return coordinates
     }
 
-    static func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String {
+    static func createPolygonQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
+        guard coordinates.count > 3 else { return nil }
         var query = ""
         for coordinate in coordinates {
             query += string(for: coordinate) + ","
@@ -40,7 +41,7 @@ public struct PolygonData {
         guard
             let values = (query.removingPercentEncoding)?.split(separator: ",").compactMap({ Double($0) }),
             values.count == 4
-        else { return [] }
+        else { return nil }
 
         let southWestCoordinate = CLLocationCoordinate2D(latitude: values[1], longitude: values[0])
         let northEastCoordinate = CLLocationCoordinate2D(latitude: values[3], longitude: values[2])

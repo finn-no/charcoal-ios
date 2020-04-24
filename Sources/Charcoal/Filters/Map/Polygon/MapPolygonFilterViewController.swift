@@ -32,6 +32,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private let locationManager = CLLocationManager()
     private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
+    private var didSelectLocationButton = false
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
     private static let maxNumberOfVertices = 10
@@ -457,6 +458,7 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {
         nextRegionChangeIsFromUserInteraction = true
         centerOnUserLocation()
+        didSelectLocationButton = true
     }
 }
 
@@ -501,7 +503,10 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
         if nextRegionChangeIsFromUserInteraction {
             locationName = nil
         }
-
+        if didSelectLocationButton && !mapPolygonFilterView.polygonIsVisibleInMap() {
+            presentLocationChangedAlertIfNeeded()
+        }
+        didSelectLocationButton = false
         nextRegionChangeIsFromUserInteraction = false
     }
 
@@ -567,8 +572,14 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
 
             locationName = location.name
 
+            let previousCenter = mapPolygonFilterView.centerCoordinate
+
             mapPolygonFilterView.centerOnCoordinate(coordinate)
-            presentLocationChangedAlertIfNeeded()
+
+            if let previousCenter = previousCenter,
+                !(previousCenter == coordinate) {
+                presentLocationChangedAlertIfNeeded()
+            }
         }
     }
 }

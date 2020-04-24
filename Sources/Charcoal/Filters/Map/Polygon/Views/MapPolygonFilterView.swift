@@ -59,6 +59,10 @@ final class MapPolygonFilterView: UIView {
         }
     }
 
+    var centerCoordinate: CLLocationCoordinate2D? {
+        return mapView.centerCoordinate
+    }
+
     // MARK: - Subviews
 
     private lazy var mapContainerView: UIView = {
@@ -274,6 +278,11 @@ final class MapPolygonFilterView: UIView {
 
     func imageForAnnotation(ofType pointType: PolygonSearchAnnotation.PointType) -> UIImage {
         return pointType == .vertex ? vertexAnnotationImage : intermediateAnnotationImage
+    }
+
+    func polygonIsVisibleInMap() -> Bool {
+        var visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
+        return visibleAnnotations.filter({ !($0 is MKUserLocation) }).count > 0
     }
 
     // MARK: - Private methods

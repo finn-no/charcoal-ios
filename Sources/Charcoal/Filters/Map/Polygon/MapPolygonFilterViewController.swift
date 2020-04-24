@@ -503,7 +503,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
         if nextRegionChangeIsFromUserInteraction {
             locationName = nil
         }
-        if didSelectLocationButton && !mapPolygonFilterView.polygonIsVisibleInMap() {
+        if didSelectLocationButton, !mapPolygonFilterView.polygonIsVisibleInMap() {
             presentLocationChangedAlertIfNeeded()
         }
         didSelectLocationButton = false

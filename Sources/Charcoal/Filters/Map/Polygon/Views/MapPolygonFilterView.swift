@@ -281,8 +281,8 @@ final class MapPolygonFilterView: UIView {
     }
 
     func polygonIsVisibleInMap() -> Bool {
-        var visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
-        return visibleAnnotations.filter({ !($0 is MKUserLocation) }).count > 0
+        let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
+        return visibleAnnotations.filter { !($0 is MKUserLocation) }.count > 0
     }
 
     // MARK: - Private methods

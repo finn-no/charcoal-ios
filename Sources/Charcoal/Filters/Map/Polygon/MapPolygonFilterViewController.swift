@@ -102,12 +102,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         setup()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        if annotations.count > 0 {
-            mapPolygonFilterView.drawPolygon(with: annotations)
-        }
-    }
-
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         if annotations.isEmpty {
             let coordinates = mapPolygonFilterView.initialAreaOverlayToCoordinates()
@@ -247,17 +241,12 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
-    private func presentLocationChangedAlertIfNeeded() {
-        guard
-            !annotations.isEmpty,
-            mapPolygonFilterView.annotationPointsInMapView.count == annotations.count
-        else { return }
+    private func presentLocationChangedAlert() {
+        guard !annotations.isEmpty else { return }
 
         let alert = UIAlertController(title: "map.polygonSearch.locationChanged.alert.title".localized(), message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "yes".localized(), style: .default, handler: { _ in
-            self.repositionPolygon()
-        }))
-        alert.addAction(UIAlertAction(title: "no".localized(), style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "map.polygonSearch.locationChanged.alert.keepArea".localized(), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "map.polygonSearch.locationChanged.alert.resetArea".localized(), style: .destructive, handler: { _ in
             self.annotations.removeAll()
             self.mapPolygonFilterView.configure(for: .initialAreaSelection)
         }))
@@ -290,15 +279,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         resetFilterValues()
         state = .bbox
         mapPolygonFilterView.configure(for: .initialAreaSelection)
-    }
-
-    private func repositionPolygon() {
-        let pointsInMapView = mapPolygonFilterView.annotationPointsInMapView
-        for (index, annotation) in annotations.enumerated() {
-            annotation.coordinate = mapPolygonFilterView.coordinate(for: pointsInMapView[index])
-        }
-        mapPolygonFilterView.drawPolygon(with: annotations)
-        updateFilterValues()
     }
 
     @objc private func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
@@ -507,7 +487,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             locationName = nil
         }
         if didSelectLocationButton, !mapPolygonFilterView.polygonIsVisibleInMap() {
-            presentLocationChangedAlertIfNeeded()
+            presentLocationChangedAlert()
         }
         didSelectLocationButton = false
         nextRegionChangeIsFromUserInteraction = false
@@ -551,7 +531,7 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
         returnToMapFromLocationSearch()
         delegate?.filterViewControllerWillEndTextEditing(self)
         centerOnUserLocation()
-        presentLocationChangedAlertIfNeeded()
+        presentLocationChangedAlert()
     }
 
     func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController) {
@@ -581,7 +561,7 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
 
             if let previousCenter = previousCenter,
                 !(previousCenter == coordinate) {
-                presentLocationChangedAlertIfNeeded()
+                presentLocationChangedAlert()
             }
         }
     }

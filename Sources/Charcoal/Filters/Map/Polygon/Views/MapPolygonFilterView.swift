@@ -35,8 +35,6 @@ final class MapPolygonFilterView: UIView {
 
     // MARK: - Internal properties
 
-    private(set) var annotationPointsInMapView = [CGPoint]()
-
     var searchBar: UISearchBar? {
         didSet {
             oldValue?.removeFromSuperview()
@@ -252,9 +250,6 @@ final class MapPolygonFilterView: UIView {
 
     func drawPolygon(with annotations: [PolygonSearchAnnotation]) {
         drawPolygon(with: annotations.map { $0.coordinate })
-        if mapView.frame.size.height > 0 {
-            annotationPointsInMapView = annotations.map { point(for: $0) }
-        }
     }
 
     func drawPolygon(with coordinates: [CLLocationCoordinate2D]) {

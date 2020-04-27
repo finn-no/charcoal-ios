@@ -430,6 +430,9 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     }
 
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+
         setupAnnotations(from: coordinates)
         state = .bbox
         mapPolygonFilterView.drawPolygon(with: annotations)

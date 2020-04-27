@@ -172,7 +172,7 @@ final class MapPolygonFilterView: UIView {
             redoAreaSelectionButton.widthAnchor.constraint(equalToConstant: CircleButton.width),
             redoAreaSelectionButton.heightAnchor.constraint(equalTo: redoAreaSelectionButton.widthAnchor),
 
-            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingS),
+            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingM),
             initialAreaSelectionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }

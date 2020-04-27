@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import MapKit
 
 public protocol FilterViewControllerDelegate: AnyObject {
     func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter)
@@ -125,7 +126,20 @@ public class FilterViewController: ScrollViewController, FilterBottomButtonViewD
 
 extension FilterViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let view = gestureRecognizer.view as? MKAnnotationView,
+            view.reuseIdentifier == MapPolygonFilterViewController.annotationId {
+            return true
+        }
         enableSwipeBack(!(touch.view is UISlider))
+        return false
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer.view == otherGestureRecognizer.view,
+            let view = gestureRecognizer.view as? MKAnnotationView,
+            view.reuseIdentifier == MapPolygonFilterViewController.annotationId {
+            return true
+        }
         return false
     }
 }

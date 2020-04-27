@@ -25,6 +25,8 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     weak var mapPolygonFilterDelegate: MapPolygonFilterViewControllerDelegate?
 
+    static let annotationId = "polygonpin"
+
     // MARK: - Private properties
 
     private let locationNameFilter: Filter
@@ -317,6 +319,10 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
+    @objc private func handleAnnotationDoubleTap(gesture: UITapGestureRecognizer) {
+        print("DOUBLE TAPPED")
+    }
+
     private func updatedCoordinate(for annotation: PolygonSearchAnnotation, gestureLocation: CGPoint) -> CLLocationCoordinate2D {
         let translate = CGPoint(x: gestureLocation.x - dragStartPosition.x, y: gestureLocation.y - dragStartPosition.y)
         let originalLocation = mapPolygonFilterView.point(for: annotation)
@@ -509,18 +515,23 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             let annotation = annotation as? PolygonSearchAnnotation
         else { return nil }
 
-        var view = mapView.dequeueReusableAnnotationView(withIdentifier: "pin")
+        var view = mapView.dequeueReusableAnnotationView(withIdentifier: MapPolygonFilterViewController.annotationId)
         if let view = view {
             view.annotation = annotation
         } else {
-            view = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: MapPolygonFilterViewController.annotationId)
             view?.canShowCallout = false
             view?.isDraggable = false
 
             let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleAnnotationMovement(gesture:)))
             longPressGestureRecognizer.minimumPressDuration = 0
             longPressGestureRecognizer.allowableMovement = .greatestFiniteMagnitude
+            longPressGestureRecognizer.delegate = self
             view?.addGestureRecognizer(longPressGestureRecognizer)
+
+            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleAnnotationDoubleTap(gesture:)))
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            view?.addGestureRecognizer(doubleTapGestureRecognizer)
         }
         view?.image = mapPolygonFilterView.imageForAnnotation(ofType: annotation.type)
         return view

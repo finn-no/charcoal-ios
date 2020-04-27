@@ -4,9 +4,15 @@
 
 import Foundation
 
+protocol MapTabBarControllerDelegate: AnyObject {
+    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.PolygonSelection)
+}
+
 class MapTabBarController: UITabBarController {
     private let mapRadiusFilterViewController: MapRadiusFilterViewController
     private let mapPolygonFilterViewController: MapPolygonFilterViewController?
+
+    weak var tabBarDelegate: MapTabBarControllerDelegate?
 
     weak var filterDelegate: FilterViewControllerDelegate? {
         didSet {
@@ -89,6 +95,10 @@ class MapTabBarController: UITabBarController {
     @objc private func toggleViewControllers() {
         selectedIndex = (selectedIndex + 1) % 2
         updateToggleButtonLabel()
+
+        if selectedViewController == mapPolygonFilterViewController {
+            tabBarDelegate?.mapTabBarController(self, didSelect: .openPolygonSearch)
+        }
     }
 
     private func updateToggleButtonLabel() {
@@ -107,6 +117,10 @@ extension MapTabBarController: MapRadiusFilterViewControllerDelegate {
 // MARK: - MapPolygonFilterViewControllerDelegate
 
 extension MapTabBarController: MapPolygonFilterViewControllerDelegate {
+    func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController, didSelect selection: CharcoalViewController.PolygonSelection) {
+        tabBarDelegate?.mapTabBarController(self, didSelect: selection)
+    }
+
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
         mapRadiusFilterViewController.resetFilterValues()
     }

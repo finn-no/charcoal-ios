@@ -92,6 +92,7 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {}
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem], origin: SelectionChangeOrigin) {}
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.PolygonSelection) {}
 }
 
 extension DemoTableViewController: CharcoalViewControllerTextEditingDelegate {

@@ -7,6 +7,7 @@ import UIKit
 
 protocol MapPolygonFilterViewControllerDelegate: AnyObject {
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
+    func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController, didSelect selection: CharcoalViewController.PolygonSelection)
 }
 
 final class MapPolygonFilterViewController: FilterViewController {
@@ -303,6 +304,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     @objc private func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
         if state == .bbox {
             state = .polygon
+            mapPolygonFilterDelegate?.mapPolygonFilterViewController(self, didSelect: .polygonArea)
         }
         let location = mapPolygonFilterView.location(for: gesture)
 
@@ -453,6 +455,7 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
         mapPolygonFilterView.drawPolygon(with: annotations)
         mapPolygonFilterView.configure(for: .polygonSelection)
         updateFilterValues()
+        mapPolygonFilterDelegate?.mapPolygonFilterViewController(self, didSelect: .initialBboxArea)
     }
 
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {

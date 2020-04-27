@@ -17,6 +17,7 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin)
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.PolygonSelection)
 }
 
 public final class CharcoalViewController: UINavigationController {
@@ -41,6 +42,12 @@ public final class CharcoalViewController: UINavigationController {
 
     public var isLoading: Bool = false {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
+    }
+
+    public enum PolygonSelection {
+        case openPolygonSearch
+        case initialBboxArea
+        case polygonArea
     }
 
     // MARK: - Private properties
@@ -241,6 +248,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             mapTabBarController.filterDelegate = self
             mapTabBarController.mapDataSource = mapDataSource
             mapTabBarController.searchLocationDataSource = searchLocationDataSource
+            mapTabBarController.tabBarDelegate = self
             pushTabBarController(mapTabBarController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
@@ -296,6 +304,14 @@ extension CharcoalViewController: UINavigationControllerDelegate {
         for viewController in viewControllers where viewController !== rootFilterViewController {
             (viewController as? ListFilterViewController)?.showBottomButton(selectionHasChanged, animated: false)
         }
+    }
+}
+
+// MARK: - MapTabBarControllerDelegate
+
+extension CharcoalViewController: MapTabBarControllerDelegate {
+    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.PolygonSelection) {
+        selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }
 

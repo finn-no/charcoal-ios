@@ -94,7 +94,7 @@ final class MapPolygonFilterView: UIView {
     private lazy var redoAreaSelectionButton: UIButton = {
         let button = CircleButton()
         button.setImage(UIImage(named: .arrowCounterClockwise).withRenderingMode(.alwaysTemplate), for: .normal)
-        button.imageView?.tintColor = .iconSecondary
+        button.imageView?.tintColor = .iconPrimary
         button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(didTapRedoAreaSelectionButton), for: .touchUpInside)
         return button

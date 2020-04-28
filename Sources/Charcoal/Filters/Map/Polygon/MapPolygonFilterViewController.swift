@@ -261,18 +261,16 @@ final class MapPolygonFilterViewController: FilterViewController {
         guard coordinates.count > 2 else { return }
         mapPolygonFilterView.removeAnnotations(annotations)
         annotations.removeAll()
-        let shouldAppendIntermediateAnnotations = coordinates.count < MapPolygonFilterViewController.maxNumberOfVertices
 
         for (index, coordinate) in coordinates.enumerated() {
             let annotation = PolygonSearchAnnotation(type: .vertex)
             annotation.coordinate = coordinate
             annotations.append(annotation)
             mapPolygonFilterView.addAnnotation(annotation)
+        }
 
-            if shouldAppendIntermediateAnnotations {
-                let nextCoordinate = index == coordinates.count - 1 ? coordinates.first : coordinates[index + 1]
-                addIntermediatePoint(after: annotation, nextCoordinate: nextCoordinate)
-            }
+        if coordinates.count < MapPolygonFilterViewController.maxNumberOfVertices {
+            addIntermediatePointsToPolygon()
         }
     }
 
@@ -331,22 +329,17 @@ final class MapPolygonFilterViewController: FilterViewController {
         if annotations.filter({ $0.type == .vertex }).count == MapPolygonFilterViewController.maxNumberOfVertices {
             mapPolygonFilterView.removeAnnotations([annotation])
             annotations.remove(at: index)
-            let vertexAnnotations = annotations
-            for annotation in vertexAnnotations {
-                guard let annotationIndex = self.index(of: annotation) else { return }
-                addIntermediatePoint(after: annotation, nextCoordinate: annotations[indexAfter(annotationIndex, in: annotations)].coordinate)
-            }
+            addIntermediatePointsToPolygon()
 
         } else {
-            let leadingIntermediateIndex = indexBefore(index, in: annotations)
-            let trailingIntermediateIndex = indexAfter(index, in: annotations)
-            let leadingVertexAnnotation = annotations[indexBefore(leadingIntermediateIndex, in: annotations)]
-            let trailingVertexAnnotation = annotations[indexAfter(trailingIntermediateIndex, in: annotations)]
+            let leadingIntermediateIndex = indexBefore(index)
+            let trailingIntermediateIndex = indexAfter(index)
+            let leadingVertexAnnotation = annotations[indexBefore(leadingIntermediateIndex)]
 
             let annotationsToRemove = [annotation, annotations[leadingIntermediateIndex], annotations[trailingIntermediateIndex]]
             mapPolygonFilterView.removeAnnotations(annotationsToRemove)
             annotations.removeAll(where: { annotationsToRemove.contains($0) })
-            addIntermediatePoint(after: leadingVertexAnnotation, nextCoordinate: trailingVertexAnnotation.coordinate)
+            addIntermediatePoint(after: leadingVertexAnnotation)
         }
 
         let generator = UIImpactFeedbackGenerator(style: .light)
@@ -374,18 +367,18 @@ final class MapPolygonFilterViewController: FilterViewController {
     private func updateNeighborPositions(around movingAnnotation: PolygonSearchAnnotation, with coordinate: CLLocationCoordinate2D) {
         guard let index = index(of: movingAnnotation) else { return }
 
-        let previousIndex = indexBefore(index, in: annotations)
+        let previousIndex = indexBefore(index)
         let neighborBefore = annotations[previousIndex]
         if neighborBefore.type == .intermediate {
-            let previousVertex = annotations[indexBefore(previousIndex, in: annotations)]
+            let previousVertex = annotations[indexBefore(previousIndex)]
             let intermediatePosition = previousVertex.getMidwayCoordinate(other: coordinate)
             neighborBefore.coordinate = intermediatePosition
         }
 
-        let nextIndex = indexAfter(index, in: annotations)
+        let nextIndex = indexAfter(index)
         let neighborAfter = annotations[nextIndex]
         if neighborAfter.type == .intermediate {
-            let nextVertex = annotations[indexAfter(nextIndex, in: annotations)]
+            let nextVertex = annotations[indexAfter(nextIndex)]
             let intermediatePosition = nextVertex.getMidwayCoordinate(other: coordinate)
             neighborAfter.coordinate = intermediatePosition
         }
@@ -399,19 +392,31 @@ final class MapPolygonFilterViewController: FilterViewController {
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
             annotations.removeAll(where: { $0.type == .intermediate })
         } else if let index = index(of: annotation) {
-            addIntermediatePoint(after: annotation, nextCoordinate: annotations[indexAfter(index, in: annotations)].coordinate)
-            let previousAnnotation = annotations[indexBefore(index, in: annotations)]
-            addIntermediatePoint(after: previousAnnotation, nextCoordinate: annotation.coordinate)
+            addIntermediatePoint(after: annotation)
+            let previousAnnotation = annotations[indexBefore(index)]
+            addIntermediatePoint(after: previousAnnotation)
         }
     }
 
-    private func addIntermediatePoint(after annotation: PolygonSearchAnnotation, nextCoordinate: CLLocationCoordinate2D?) {
+    private func addIntermediatePointsToPolygon() {
+        guard annotations.filter({ $0.type == .intermediate }).isEmpty else { return }
+        let vertexAnnotations = annotations
+
+        for annotation in vertexAnnotations {
+            addIntermediatePoint(after: annotation)
+        }
+    }
+
+    private func addIntermediatePoint(after annotation: PolygonSearchAnnotation) {
         guard
-            let nextCoordinate = nextCoordinate,
+            annotation.type == .vertex,
             let annotationIndex = index(of: annotation)
         else { return }
 
-        let midwayCoordinate = annotation.getMidwayCoordinate(other: nextCoordinate)
+        let nextAnnotation = annotations[indexAfter(annotationIndex)]
+        guard nextAnnotation.type == .vertex else { return }
+
+        let midwayCoordinate = annotation.getMidwayCoordinate(other: nextAnnotation.coordinate)
         let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
         midwayAnnotation.coordinate = midwayCoordinate
         annotations.insert(midwayAnnotation, at: annotationIndex + 1)
@@ -442,12 +447,12 @@ final class MapPolygonFilterViewController: FilterViewController {
         return annotations.firstIndex(where: { $0 == annotation })
     }
 
-    private func indexBefore(_ index: Int, in array: [AnyObject]) -> Int {
-        return index > 0 ? index - 1 : array.count - 1
+    private func indexBefore(_ index: Int) -> Int {
+        return index > 0 ? index - 1 : annotations.count - 1
     }
 
-    private func indexAfter(_ index: Int, in array: [AnyObject]) -> Int {
-        return index + 1 < array.count ? index + 1 : 0
+    private func indexAfter(_ index: Int) -> Int {
+        return index + 1 < annotations.count ? index + 1 : 0
     }
 }
 

@@ -331,7 +331,7 @@ final class MapPolygonFilterViewController: FilterViewController {
         else { return }
 
         if annotations.filter({ $0.type == .vertex }).count == MapPolygonFilterViewController.maxNumberOfVertices {
-            mapPolygonFilterView.removeAnnotations([annotation])
+            mapPolygonFilterView.removeAnnotation(annotation)
             annotations.remove(at: index)
             addIntermediatePointsToPolygon()
 
@@ -390,7 +390,10 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func convertToVertexAnnotation(annotation: PolygonSearchAnnotation, with annotationView: MKAnnotationView) {
         annotation.type = .vertex
-        annotationView.image = mapPolygonFilterView.imageForAnnotation(ofType: .vertex)
+
+        // Annotation must be removed and added to configure displayPriority correctly in viewFor annotation
+        mapPolygonFilterView.removeAnnotation(annotation)
+        mapPolygonFilterView.addAnnotation(annotation)
 
         if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
@@ -578,6 +581,8 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             view?.addGestureRecognizer(doubleTapGestureRecognizer)
         }
         view?.image = mapPolygonFilterView.imageForAnnotation(ofType: annotation.type)
+        view?.displayPriority = annotation.type == .vertex ? .required : .defaultHigh
+        view?.collisionMode = .circle
         return view
     }
 }

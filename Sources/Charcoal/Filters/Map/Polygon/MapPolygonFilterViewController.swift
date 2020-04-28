@@ -420,7 +420,9 @@ final class MapPolygonFilterViewController: FilterViewController {
         let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
         midwayAnnotation.coordinate = midwayCoordinate
         annotations.insert(midwayAnnotation, at: annotationIndex + 1)
-        mapPolygonFilterView.addAnnotation(midwayAnnotation)
+        if state != .invalidPolygon {
+            mapPolygonFilterView.addAnnotation(midwayAnnotation)
+        }
     }
 
     private func isPolygonStateValid() -> Bool {

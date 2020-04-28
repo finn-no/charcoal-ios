@@ -259,12 +259,12 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func setupAnnotations(from coordinates: [CLLocationCoordinate2D]) {
         guard coordinates.count > 2 else { return }
+        mapPolygonFilterView.removeAnnotations(annotations)
         annotations.removeAll()
         let shouldAppendIntermediateAnnotations = coordinates.count < MapPolygonFilterViewController.maxNumberOfVertices
 
         for (index, coordinate) in coordinates.enumerated() {
             let annotation = PolygonSearchAnnotation(type: .vertex)
-            annotation.title = "Annotation \(annotations.count)"
             annotation.coordinate = coordinate
             annotations.append(annotation)
             mapPolygonFilterView.addAnnotation(annotation)
@@ -320,7 +320,41 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     @objc private func handleAnnotationDoubleTap(gesture: UITapGestureRecognizer) {
-        print("DOUBLE TAPPED")
+        guard
+            annotations.count > 8,
+            let annotationView = gesture.view as? MKAnnotationView,
+            let annotation = annotationView.annotation as? PolygonSearchAnnotation,
+            annotation.type == .vertex,
+            let index = index(of: annotation)
+        else { return }
+
+        if annotations.filter({ $0.type == .vertex }).count == MapPolygonFilterViewController.maxNumberOfVertices {
+            mapPolygonFilterView.removeAnnotations([annotation])
+            annotations.remove(at: index)
+            let vertexAnnotations = annotations
+            for annotation in vertexAnnotations {
+                guard let annotationIndex = self.index(of: annotation) else { return }
+                addIntermediatePoint(after: annotation, nextCoordinate: annotations[indexAfter(annotationIndex, in: annotations)].coordinate)
+            }
+
+        } else {
+            let leadingIntermediateIndex = indexBefore(index, in: annotations)
+            let trailingIntermediateIndex = indexAfter(index, in: annotations)
+            let leadingVertexAnnotation = annotations[indexBefore(leadingIntermediateIndex, in: annotations)]
+            let trailingVertexAnnotation = annotations[indexAfter(trailingIntermediateIndex, in: annotations)]
+
+            let annotationsToRemove = [annotation, annotations[leadingIntermediateIndex], annotations[trailingIntermediateIndex]]
+            mapPolygonFilterView.removeAnnotations(annotationsToRemove)
+            annotations.removeAll(where: { annotationsToRemove.contains($0) })
+            addIntermediatePoint(after: leadingVertexAnnotation, nextCoordinate: trailingVertexAnnotation.coordinate)
+        }
+
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
+        state = isPolygonStateValid() ? .polygon : .invalidPolygon
+        mapPolygonFilterView.drawPolygon(with: annotations)
+        updateFilterValues()
     }
 
     private func updatedCoordinate(for annotation: PolygonSearchAnnotation, gestureLocation: CGPoint) -> CLLocationCoordinate2D {
@@ -379,7 +413,6 @@ final class MapPolygonFilterViewController: FilterViewController {
 
         let midwayCoordinate = annotation.getMidwayCoordinate(other: nextCoordinate)
         let midwayAnnotation = PolygonSearchAnnotation(type: .intermediate)
-        midwayAnnotation.title = "Annotation \(annotations.count)"
         midwayAnnotation.coordinate = midwayCoordinate
         annotations.insert(midwayAnnotation, at: annotationIndex + 1)
         mapPolygonFilterView.addAnnotation(midwayAnnotation)
@@ -406,7 +439,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private func index(of annotation: PolygonSearchAnnotation) -> Int? {
-        return annotations.firstIndex(where: { $0.title == annotation.title })
+        return annotations.firstIndex(where: { $0 == annotation })
     }
 
     private func indexBefore(_ index: Int, in array: [AnyObject]) -> Int {

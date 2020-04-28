@@ -318,8 +318,12 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     @objc private func handleAnnotationDoubleTap(gesture: UITapGestureRecognizer) {
+        guard annotations.filter({ $0.type == .vertex }).count > 4 else {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.warning)
+            return
+        }
         guard
-            annotations.count > 8,
             let annotationView = gesture.view as? MKAnnotationView,
             let annotation = annotationView.annotation as? PolygonSearchAnnotation,
             annotation.type == .vertex,

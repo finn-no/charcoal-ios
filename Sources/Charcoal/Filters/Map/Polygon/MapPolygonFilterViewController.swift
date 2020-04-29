@@ -257,6 +257,23 @@ final class MapPolygonFilterViewController: FilterViewController {
         present(alert, animated: true)
     }
 
+    private func showGuidanceIfNeeded() {
+        guard shouldShowCallout else { return }
+
+        mapPolygonFilterView.showInfoBox(with: "map.polygonSearch.maxAnnotations.label.title".localized(), completion: { [weak self] in
+            self?.displayAnnotationCallout()
+        })
+    }
+
+    private func displayAnnotationCallout() {
+        guard state != .bbox else { return }
+
+        let visibleVertices = mapPolygonFilterView.visibleAnnotations().filter( { $0.type == .vertex} )
+        guard let annotationForCallout = visibleVertices.min(by: { $0.coordinate.latitude < $1.coordinate.latitude }) else { return }
+
+        mapPolygonFilterView.selectAnnotation(annotationForCallout)
+    }
+
     // MARK: - Polygon handling
 
     private func setupAnnotations(from coordinates: [CLLocationCoordinate2D]) {
@@ -400,22 +417,13 @@ final class MapPolygonFilterViewController: FilterViewController {
         if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
             annotations.removeAll(where: { $0.type == .intermediate })
-            showCalloutIfNeeded()
+            showGuidanceIfNeeded()
 
         } else if let index = index(of: annotation) {
             addIntermediatePoint(after: annotation)
             let previousAnnotation = annotations[indexBefore(index)]
             addIntermediatePoint(after: previousAnnotation)
         }
-    }
-
-    private func showCalloutIfNeeded() {
-        guard shouldShowCallout else { return }
-
-        let visibleVertices = mapPolygonFilterView.visibleAnnotations().filter( { $0.type == .vertex} )
-        guard let annotationForCallout = visibleVertices.min(by: { $0.coordinate.latitude < $1.coordinate.latitude }) else { return }
-
-        mapPolygonFilterView.selectAnnotation(annotationForCallout)
     }
 
     private func addIntermediatePointsToPolygon() {

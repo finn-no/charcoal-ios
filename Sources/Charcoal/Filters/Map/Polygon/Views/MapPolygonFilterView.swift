@@ -122,6 +122,8 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var initialAreaSelectionOverlayView = InitialAreaSelectionOverlayView(withAutoLayout: true)
 
+    private lazy var infoView = InfoView(withAutoLayout: true)
+
     // MARK: - Init
 
     init() {
@@ -148,6 +150,7 @@ final class MapPolygonFilterView: UIView {
         mapContainerView.addSubview(userLocationButton)
         mapContainerView.addSubview(initialAreaSelectionButton)
         mapContainerView.addSubview(redoAreaSelectionButton)
+        mapContainerView.addSubview(infoView)
 
         mapView.fillInSuperview()
         initialAreaSelectionOverlayView.fillInSuperview()
@@ -172,6 +175,9 @@ final class MapPolygonFilterView: UIView {
 
             initialAreaSelectionButton.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingM),
             initialAreaSelectionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+
+            infoView.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingM),
+            infoView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 
@@ -240,11 +246,13 @@ final class MapPolygonFilterView: UIView {
             initialAreaSelectionOverlayView.isHidden = false
             initialAreaSelectionButton.isHidden = false
             redoAreaSelectionButton.isHidden = true
+            infoView.isHidden = true
 
         case .polygonSelection:
             redoAreaSelectionButton.isHidden = false
             initialAreaSelectionOverlayView.isHidden = true
             initialAreaSelectionButton.isHidden = true
+            infoView.isHidden = false
         }
     }
 
@@ -289,6 +297,10 @@ final class MapPolygonFilterView: UIView {
 
     func visibleAnnotations() -> [PolygonSearchAnnotation] {
         return mapView.annotations(in: mapView.visibleMapRect).compactMap({ $0 as? PolygonSearchAnnotation })
+    }
+
+    func showInfoBox(with text: String, completion: @escaping () -> Void) {
+        infoView.show(with: text, completion: completion)
     }
 
     // MARK: - Private methods

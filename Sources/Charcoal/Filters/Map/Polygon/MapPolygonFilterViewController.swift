@@ -258,7 +258,8 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private func showGuidanceIfNeeded() {
-        guard shouldShowCallout else { return }
+        guard !UserDefaults.standard.polygonSearchGuidanceShown else { return }
+        UserDefaults.standard.polygonSearchGuidanceShown = true
 
         mapPolygonFilterView.showInfoBox(with: "map.polygonSearch.maxAnnotations.label.title".localized(), completion: { [weak self] in
             self?.displayAnnotationCallout()
@@ -700,4 +701,13 @@ private extension MapPolygonFilterViewController {
 
 private func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
     return (fabs(lhs.latitude - rhs.latitude) <= 1e-5) && (fabs(lhs.longitude - rhs.longitude) <= 1e-5)
+}
+
+// MARK: - UserDefaults
+
+private extension UserDefaults {
+    var polygonSearchGuidanceShown: Bool {
+        get { return bool(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
 }

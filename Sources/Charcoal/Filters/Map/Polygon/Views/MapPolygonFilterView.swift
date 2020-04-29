@@ -275,13 +275,20 @@ final class MapPolygonFilterView: UIView {
         mapView.removeAnnotations(annotations)
     }
 
+    func selectAnnotation(_ annotation: PolygonSearchAnnotation) {
+        mapView.selectAnnotation(annotation, animated: true)
+    }
+
     func imageForAnnotation(ofType pointType: PolygonSearchAnnotation.PointType) -> UIImage {
         return pointType == .vertex ? vertexAnnotationImage : intermediateAnnotationImage
     }
 
     func polygonIsVisibleInMap() -> Bool {
-        let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
-        return visibleAnnotations.filter { !($0 is MKUserLocation) }.count > 0
+        return visibleAnnotations().filter { !($0 is MKUserLocation) }.count > 0
+    }
+
+    func visibleAnnotations() -> [PolygonSearchAnnotation] {
+        return mapView.annotations(in: mapView.visibleMapRect).compactMap({ $0 as? PolygonSearchAnnotation })
     }
 
     // MARK: - Private methods

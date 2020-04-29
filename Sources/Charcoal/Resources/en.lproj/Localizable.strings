@@ -79,6 +79,7 @@
 "map.polygonSearch.locationChanged.alert.title" = "Ønsker du å beholde ditt egendefinerte kartutsnitt?";
 "map.polygonSearch.locationChanged.alert.keepArea" = "Behold kartutsnittet";
 "map.polygonSearch.locationChanged.alert.resetArea" = "Nullstill kartutsnittet";
+"map.polygonSearch.doubleClick.callout.title" = "Visste du at du\nkan dobbeltklikke for\nå slette et punkt?";
 
 "callout.bottomButton" = "Trykk på Bruk-knappen for å gå videre.";
 

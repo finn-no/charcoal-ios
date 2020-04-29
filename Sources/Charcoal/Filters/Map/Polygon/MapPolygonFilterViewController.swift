@@ -4,6 +4,7 @@
 
 import MapKit
 import UIKit
+import FinniversKit
 
 protocol MapPolygonFilterViewControllerDelegate: AnyObject {
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
@@ -39,6 +40,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
     private static let maxNumberOfVertices = 10
+    private var shouldShowCallout = true // TODO: make this only once ever
 
     private var state: State = .bbox {
         didSet {
@@ -398,11 +400,22 @@ final class MapPolygonFilterViewController: FilterViewController {
         if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
             annotations.removeAll(where: { $0.type == .intermediate })
+            showCalloutIfNeeded()
+
         } else if let index = index(of: annotation) {
             addIntermediatePoint(after: annotation)
             let previousAnnotation = annotations[indexBefore(index)]
             addIntermediatePoint(after: previousAnnotation)
         }
+    }
+
+    private func showCalloutIfNeeded() {
+        guard shouldShowCallout else { return }
+
+        let visibleVertices = mapPolygonFilterView.visibleAnnotations().filter( { $0.type == .vertex} )
+        guard let annotationForCallout = visibleVertices.min(by: { $0.coordinate.latitude < $1.coordinate.latitude }) else { return }
+
+        mapPolygonFilterView.selectAnnotation(annotationForCallout)
     }
 
     private func addIntermediatePointsToPolygon() {
@@ -567,7 +580,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             view.annotation = annotation
         } else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: MapPolygonFilterViewController.annotationId)
-            view?.canShowCallout = false
+            view?.canShowCallout = true
             view?.isDraggable = false
 
             let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleAnnotationMovement(gesture:)))
@@ -584,6 +597,19 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
         view?.displayPriority = annotation.type == .vertex ? .required : .defaultHigh
         view?.collisionMode = .circle
         return view
+    }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard shouldShowCallout else { return }
+
+        let label = Label(style: .detail)
+        label.text = "map.polygonSearch.doubleClick.callout.title".localized()
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        view.detailCalloutAccessoryView = label
+
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        feedbackGenerator.impactOccurred()
     }
 }
 

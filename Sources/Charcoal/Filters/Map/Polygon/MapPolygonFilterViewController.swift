@@ -40,7 +40,6 @@ final class MapPolygonFilterViewController: FilterViewController {
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
     private static let maxNumberOfVertices = 10
-    private var shouldShowCallout = true // TODO: make this only once ever
 
     private var state: State = .bbox {
         didSet {
@@ -609,8 +608,6 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard shouldShowCallout else { return }
-
         let label = Label(style: .detail)
         label.text = "map.polygonSearch.doubleClick.callout.title".localized()
         label.textAlignment = .center

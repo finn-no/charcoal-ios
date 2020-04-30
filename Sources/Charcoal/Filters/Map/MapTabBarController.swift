@@ -21,12 +21,6 @@ class MapTabBarController: UITabBarController {
         }
     }
 
-    weak var mapDataSource: MapFilterDataSource? {
-        didSet {
-            mapRadiusFilterViewController.mapDataSource = mapDataSource
-        }
-    }
-
     weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             mapRadiusFilterViewController.searchLocationDataSource = searchLocationDataSource

@@ -29,7 +29,6 @@ public final class CharcoalViewController: UINavigationController {
 
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
     public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
-    public weak var mapDataSource: MapFilterDataSource?
     public weak var searchLocationDataSource: SearchLocationDataSource?
 
     public weak var freeTextFilterDataSource: FreeTextFilterDataSource? {
@@ -246,7 +245,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 selectionStore: selectionStore
             )
             mapTabBarController.filterDelegate = self
-            mapTabBarController.mapDataSource = mapDataSource
             mapTabBarController.searchLocationDataSource = searchLocationDataSource
             mapTabBarController.tabBarDelegate = self
             pushTabBarController(mapTabBarController)

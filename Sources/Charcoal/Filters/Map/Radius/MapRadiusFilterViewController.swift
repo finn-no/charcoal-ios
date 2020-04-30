@@ -5,23 +5,11 @@
 import MapKit
 import UIKit
 
-public protocol MapFilterDataSource: AnyObject {
-    var mapTileOverlay: MKTileOverlay? { get }
-}
-
 protocol MapRadiusFilterViewControllerDelegate: AnyObject {
     func mapRadiusFilterViewControllerDidSelectFilter(_ mapRadiusFilterViewController: MapRadiusFilterViewController)
 }
 
 final class MapRadiusFilterViewController: FilterViewController {
-    weak var mapDataSource: MapFilterDataSource? {
-        didSet {
-            if let mapTileOverlay = mapDataSource?.mapTileOverlay {
-                mapRadiusFilterView.setMapTileOverlay(mapTileOverlay)
-            }
-        }
-    }
-
     weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             searchLocationViewController.searchLocationDataSource = searchLocationDataSource
@@ -190,11 +178,7 @@ extension MapRadiusFilterViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let tileOverlay = overlay as? MKTileOverlay else {
-            return MKOverlayRenderer(overlay: overlay)
-        }
-
-        return MKTileOverlayRenderer(tileOverlay: tileOverlay)
+        return MKOverlayRenderer(overlay: overlay)
     }
 
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {

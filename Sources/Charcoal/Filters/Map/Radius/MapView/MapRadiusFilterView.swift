@@ -142,10 +142,6 @@ final class MapRadiusFilterView: UIView {
 
     // MARK: - API
 
-    func setMapTileOverlay(_ overlay: MKTileOverlay) {
-        mapView.addOverlay(overlay, level: .aboveLabels)
-    }
-
     func centerOnInitialCoordinate() {
         let userCoordinate = mapView.userLocation.location?.coordinate
         let centerCoordinate = initialCenterCoordinate ?? userCoordinate ?? MapRadiusFilterView.defaultCenterCoordinate

@@ -250,6 +250,11 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             mapTabBarController.searchLocationDataSource = searchLocationDataSource
             mapTabBarController.tabBarDelegate = self
             pushTabBarController(mapTabBarController)
+
+            if polygonFilter != nil {
+                showPolygonSearchCalloutIfNeeded()
+            }
+
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }
@@ -263,6 +268,12 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     private func pushTabBarController(_ controller: UITabBarController) {
         controller.hidesBottomBarWhenPushed = true
         pushViewController(controller, animated: true)
+    }
+
+    private func showPolygonSearchCalloutIfNeeded() {
+        guard !UserDefaults.standard.polygonSearchCalloutShown else { return }
+        UserDefaults.standard.polygonSearchCalloutShown = true
+        showCalloutOverlay(withText: "map.polygonSearch.callout.title".localized(), andDirection: .up, andArrowAlignment: .right(15), constrainedToDirectionalAnchor: navigationBar.bottomAnchor)
     }
 }
 
@@ -327,8 +338,8 @@ extension CharcoalViewController: CalloutOverlayDelegate {
         })
     }
 
-    private func showCalloutOverlay(withText text: String, andDirection direction: CalloutView.Direction, constrainedToDirectionalAnchor directionalAnchor: NSLayoutYAxisAnchor? = nil, constrainedToTopAnchor topAnchor: NSLayoutYAxisAnchor? = nil) {
-        calloutOverlay = CalloutOverlay(direction: direction)
+    private func showCalloutOverlay(withText text: String, andDirection direction: CalloutView.Direction, andArrowAlignment arrowAlignment: CalloutView.ArrowAlignment = .center, constrainedToDirectionalAnchor directionalAnchor: NSLayoutYAxisAnchor? = nil, constrainedToTopAnchor topAnchor: NSLayoutYAxisAnchor? = nil) {
+        calloutOverlay = CalloutOverlay(direction: direction, arrowAlignment: arrowAlignment)
 
         if let calloutOverlay = calloutOverlay {
             calloutOverlay.delegate = self
@@ -361,6 +372,11 @@ private extension UserDefaults {
     }
 
     var bottomButtomCalloutShown: Bool {
+        get { return bool(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var polygonSearchCalloutShown: Bool {
         get { return bool(forKey: #function) }
         set { set(newValue, forKey: #function) }
     }

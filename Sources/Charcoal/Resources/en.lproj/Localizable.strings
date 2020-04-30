@@ -81,6 +81,7 @@
 "map.polygonSearch.locationChanged.alert.resetArea" = "Nullstill kartutsnittet";
 "map.polygonSearch.doubleClick.callout.title" = "Visste du at du\nkan dobbeltklikke for\nå slette et punkt?";
 "map.polygonSearch.maxAnnotations.label.title" = "Du har nådd maks antall punkter";
+"map.polygonSearch.callout.title" = "Sjekk ut vårt nye områdesøk!";
 
 "callout.bottomButton" = "Trykk på Bruk-knappen for å gå videre.";
 

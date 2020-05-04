@@ -225,16 +225,6 @@ final class MapPolygonFilterView: UIView {
         }
     }
 
-    func initialAreaOverlayToCoordinates() -> [CLLocationCoordinate2D] {
-        let offset = initialAreaSelectionOverlayView.width / 2
-        return [
-            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset)),
-            coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset)),
-            coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset)),
-            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset)),
-        ]
-    }
-
     func configure(for state: State) {
         switch state {
         case .initialAreaSelection:
@@ -330,6 +320,16 @@ final class MapPolygonFilterView: UIView {
         let centerCoordinate = userCoordinate ?? MapPolygonFilterView.defaultCenterCoordinate
 
         centerOnCoordinate(centerCoordinate)
+    }
+
+    private func initialAreaOverlayToCoordinates() -> [CLLocationCoordinate2D] {
+        let offset = initialAreaSelectionOverlayView.width / 2
+        return [
+            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y - offset)),
+            coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y - offset)),
+            coordinate(for: CGPoint(x: mapView.center.x + offset, y: mapView.center.y + offset)),
+            coordinate(for: CGPoint(x: mapView.center.x - offset, y: mapView.center.y + offset)),
+        ]
     }
 
     // MARK: - Actions

@@ -19,6 +19,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private enum State {
+        case initialAreaSelection
         case bbox
         case polygon
         case invalidPolygon
@@ -106,14 +107,6 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        if annotations.isEmpty {
-            let coordinates = mapPolygonFilterView.initialAreaOverlayToCoordinates()
-            for coordinate in coordinates {
-                let annotation = PolygonSearchAnnotation(type: .vertex)
-                annotation.coordinate = coordinate
-                annotations.append(annotation)
-            }
-        }
         updateFilterValues()
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
     }
@@ -141,7 +134,10 @@ final class MapPolygonFilterViewController: FilterViewController {
             state = .bbox
         }
         setupAnnotations(from: coordinates)
-        guard annotations.count > 0 else { return }
+        guard annotations.count > 0 else {
+            state = .initialAreaSelection
+            return
+        }
         mapPolygonFilterView.drawPolygon(with: annotations)
         mapPolygonFilterView.configure(for: .polygonSelection)
         centerMapOnPolygonCenter()
@@ -157,6 +153,12 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func configure(for state: State) {
         switch state {
+        case .initialAreaSelection:
+            bottomButton.isEnabled = false
+            annotations.removeAll()
+            resetFilterValues()
+            mapPolygonFilterView.configure(for: .initialAreaSelection)
+
         case .polygon, .bbox:
             bottomButton.isEnabled = true
             annotations.filter { $0.type == .intermediate }.forEach { annotation in
@@ -250,8 +252,8 @@ final class MapPolygonFilterViewController: FilterViewController {
         let alert = UIAlertController(title: "map.polygonSearch.locationChanged.alert.title".localized(), message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "map.polygonSearch.locationChanged.alert.keepArea".localized(), style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "map.polygonSearch.locationChanged.alert.resetArea".localized(), style: .destructive, handler: { _ in
-            self.annotations.removeAll()
             self.mapPolygonFilterView.configure(for: .initialAreaSelection)
+            self.state = .initialAreaSelection
         }))
         present(alert, animated: true)
     }
@@ -291,13 +293,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         if coordinates.count < MapPolygonFilterViewController.maxNumberOfVertices {
             addIntermediatePointsToPolygon()
         }
-    }
-
-    private func resetPolygon() {
-        annotations.removeAll()
-        resetFilterValues()
-        state = .bbox
-        mapPolygonFilterView.configure(for: .initialAreaSelection)
     }
 
     @objc private func handleAnnotationMovement(gesture: UILongPressGestureRecognizer) {
@@ -491,13 +486,13 @@ final class MapPolygonFilterViewController: FilterViewController {
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectRedoAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView) {
         if state == .bbox {
-            resetPolygon()
+            state = .initialAreaSelection
             return
         }
 
         let alertController = UIAlertController(title: "map.polygonSearch.resetPolygon.alert.title".localized(), message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "map.polygonSearch.resetPolygon.alert.action".localized(), style: .destructive, handler: { _ in
-            self.resetPolygon()
+            self.state = .initialAreaSelection
         }))
         alertController.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil))
         present(alertController, animated: true)
@@ -507,8 +502,8 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
 
-        setupAnnotations(from: coordinates)
         state = .bbox
+        setupAnnotations(from: coordinates)
         mapPolygonFilterView.drawPolygon(with: annotations)
         mapPolygonFilterView.configure(for: .polygonSelection)
         updateFilterValues()

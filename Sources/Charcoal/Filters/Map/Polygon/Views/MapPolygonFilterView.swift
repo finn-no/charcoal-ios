@@ -289,7 +289,7 @@ final class MapPolygonFilterView: UIView {
         return mapView.annotations(in: mapView.visibleMapRect).compactMap { $0 as? PolygonSearchAnnotation }
     }
 
-    func showInfoBox(with text: String, completion: @escaping () -> Void) {
+    func showInfoBox(with text: String, completion: (() -> Void)?) {
         infoView.show(with: text, completion: completion)
     }
 

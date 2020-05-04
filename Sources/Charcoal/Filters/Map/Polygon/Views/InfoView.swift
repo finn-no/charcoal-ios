@@ -54,7 +54,7 @@ class InfoView: UIView {
 
     // MARK: - API
 
-    func show(with text: String, completion: @escaping () -> Void) {
+    func show(with text: String, completion: (() -> Void)?) {
         label.text = text
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
             self.alpha = 1
@@ -64,7 +64,7 @@ class InfoView: UIView {
             UIView.animate(withDuration: 0.2, delay: 5, options: .curveEaseOut, animations: {
                 self?.alpha = 0.0
             }, completion: { _ in
-                completion()
+                completion?()
             })
         })
     }

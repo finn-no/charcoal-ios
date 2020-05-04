@@ -335,6 +335,7 @@ final class MapPolygonFilterViewController: FilterViewController {
         guard annotations.filter({ $0.type == .vertex }).count > 4 else {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.warning)
+            mapPolygonFilterView.showInfoBox(with: "map.polygonSearch.minAnnotations.label.title".localized(), completion: nil)
             return
         }
         guard

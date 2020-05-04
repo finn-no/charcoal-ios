@@ -292,11 +292,11 @@ final class MapPolygonFilterView: UIView {
     }
 
     func polygonIsVisibleInMap() -> Bool {
-        return visibleAnnotations().filter { !($0 is MKUserLocation) }.count > 0
+        return visibleAnnotations().count > 0
     }
 
     func visibleAnnotations() -> [PolygonSearchAnnotation] {
-        return mapView.annotations(in: mapView.visibleMapRect).compactMap({ $0 as? PolygonSearchAnnotation })
+        return mapView.annotations(in: mapView.visibleMapRect).compactMap { $0 as? PolygonSearchAnnotation }
     }
 
     func showInfoBox(with text: String, completion: @escaping () -> Void) {

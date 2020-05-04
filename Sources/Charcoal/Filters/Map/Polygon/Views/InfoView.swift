@@ -2,11 +2,10 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
 import FinniversKit
+import Foundation
 
 class InfoView: UIView {
-
     // MARK: - Subviews
 
     private lazy var boxView: UIView = {

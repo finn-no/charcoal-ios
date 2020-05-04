@@ -2,9 +2,9 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import MapKit
 import UIKit
-import FinniversKit
 
 protocol MapPolygonFilterViewControllerDelegate: AnyObject {
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
@@ -268,7 +268,7 @@ final class MapPolygonFilterViewController: FilterViewController {
     private func displayAnnotationCallout() {
         guard state != .bbox else { return }
 
-        let visibleVertices = mapPolygonFilterView.visibleAnnotations().filter( { $0.type == .vertex} )
+        let visibleVertices = mapPolygonFilterView.visibleAnnotations().filter { $0.type == .vertex }
         guard let annotationForCallout = visibleVertices.min(by: { $0.coordinate.latitude < $1.coordinate.latitude }) else { return }
 
         mapPolygonFilterView.selectAnnotation(annotationForCallout)
@@ -281,7 +281,7 @@ final class MapPolygonFilterViewController: FilterViewController {
         mapPolygonFilterView.removeAnnotations(annotations)
         annotations.removeAll()
 
-        for (index, coordinate) in coordinates.enumerated() {
+        for coordinate in coordinates {
             let annotation = PolygonSearchAnnotation(type: .vertex)
             annotation.coordinate = coordinate
             annotations.append(annotation)

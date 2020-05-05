@@ -41,12 +41,12 @@
       "hash" : "d2faefd84138a8d8b0a99e8ead1fce564f2099220f17812556c2735b9de7046c"
     },
     {
-      "name" : "AppCenterDistribute",
-      "hash" : "0bc73d3f0e7ef55ebc8691de278efc3b009da8b5b9ad52daa5106011bf9b5943"
-    },
-    {
       "name" : "AppCenterData",
       "hash" : "98d4bd1780f47cb67db8251796a452611557121a0f2e769e63e54921d0b53177"
+    },
+    {
+      "name" : "AppCenterDistribute",
+      "hash" : "0bc73d3f0e7ef55ebc8691de278efc3b009da8b5b9ad52daa5106011bf9b5943"
     },
     {
       "name" : "AppCenterAnalytics",

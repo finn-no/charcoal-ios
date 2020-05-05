@@ -12,13 +12,13 @@
   "iOS" : [
     {
       "name" : "FinnUI",
-      "hash" : "fbbcdfb36a0fdbc5c0039a85e9ff4a267ee9a03aa39bcab66a9ac6cfc9a02408",
-      "swiftToolchainVersion" : "5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)"
+      "hash" : "e43046064df54b7895f5747c39ad5f8e43c3b450d2bef7a82e171e0a81539223",
+      "swiftToolchainVersion" : "5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)"
     },
     {
       "name" : "FinniversKit",
-      "hash" : "c7f6738a7269a536c9f7dfed923c55291ba4f586ddd958c82fc67d5ec49433d3",
-      "swiftToolchainVersion" : "5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)"
+      "hash" : "159d06e886eaedec4a364b36bd187558e1c1f807cc2e346681a01ac23d33790f",
+      "swiftToolchainVersion" : "5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)"
     }
   ]
 }

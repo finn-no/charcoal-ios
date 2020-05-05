@@ -1,20 +1,20 @@
 {
   "Mac" : [
     {
-      "name" : "AppCenter",
-      "hash" : "796b11ae01d3d72b224524a56057d2bc09222dbeb2db2aaef9bcc653a58cfa6a"
-    },
-    {
-      "name" : "AppCenterCrashes",
-      "hash" : "7b59a83c0db2c8d58a29142ad992e1388e0677b86f328f6612d7893d0e34bf16"
+      "name" : "AppCenterPush",
+      "hash" : "4e2d773d49d3169acf2a193c5b258b87fa1540ccaa7b365d76c66221ac300f8a"
     },
     {
       "name" : "AppCenterAnalytics",
       "hash" : "5261c88a02b41a6918784fb26246ca96b6de213b46d7c78f71318679dddba2da"
     },
     {
-      "name" : "AppCenterPush",
-      "hash" : "4e2d773d49d3169acf2a193c5b258b87fa1540ccaa7b365d76c66221ac300f8a"
+      "name" : "AppCenterCrashes",
+      "hash" : "7b59a83c0db2c8d58a29142ad992e1388e0677b86f328f6612d7893d0e34bf16"
+    },
+    {
+      "name" : "AppCenter",
+      "hash" : "796b11ae01d3d72b224524a56057d2bc09222dbeb2db2aaef9bcc653a58cfa6a"
     }
   ],
   "watchOS" : [
@@ -41,16 +41,16 @@
       "hash" : "d2faefd84138a8d8b0a99e8ead1fce564f2099220f17812556c2735b9de7046c"
     },
     {
-      "name" : "AppCenterAnalytics",
-      "hash" : "e9f109c5ce6b51fa4d99602e6363feff16909450018a8117b85ed849a2135cc6"
+      "name" : "AppCenterDistribute",
+      "hash" : "0bc73d3f0e7ef55ebc8691de278efc3b009da8b5b9ad52daa5106011bf9b5943"
     },
     {
       "name" : "AppCenterData",
       "hash" : "98d4bd1780f47cb67db8251796a452611557121a0f2e769e63e54921d0b53177"
     },
     {
-      "name" : "AppCenterDistribute",
-      "hash" : "0bc73d3f0e7ef55ebc8691de278efc3b009da8b5b9ad52daa5106011bf9b5943"
+      "name" : "AppCenterAnalytics",
+      "hash" : "e9f109c5ce6b51fa4d99602e6363feff16909450018a8117b85ed849a2135cc6"
     },
     {
       "name" : "AppCenterCrashes",

@@ -28,7 +28,7 @@ final class MapPolygonFilterView: UIView {
 
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
-    private static let annotationFillColor: CGColor = UIColor.bgPrimary.cgColor
+    private static let annotationFillColor: CGColor = UIColor.milk.cgColor
     private static let annotationBorderColor: CGColor = UIColor.accentSecondaryBlue.cgColor
 
     private var polygon: MKPolygon?

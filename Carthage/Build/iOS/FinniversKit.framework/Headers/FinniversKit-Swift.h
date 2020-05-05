@@ -209,6 +209,13 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
+SWIFT_CLASS("_TtC12FinniversKit22AdConfirmationLinkView")
+@interface AdConfirmationLinkView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit24AdConfirmationObjectView")
 @interface AdConfirmationObjectView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
@@ -234,6 +241,8 @@ SWIFT_CLASS("_TtC12FinniversKit18AdConfirmationView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 @end
+
+
 
 
 
@@ -487,13 +496,13 @@ SWIFT_CLASS("_TtC12FinniversKit15BuyerPickerView")
 @end
 
 
-
-
 @interface BuyerPickerView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit11CalloutView")
@@ -869,19 +878,19 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
-@class UIGestureRecognizer;
-
-@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
-- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-
 
 
 
 @interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+
+@class UIGestureRecognizer;
+
+@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
+- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1029,12 +1038,12 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
+
+
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
 - (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
 - (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
 @end
-
-
 
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
@@ -1826,14 +1835,14 @@ SWIFT_CLASS("_TtC12FinniversKit18SafetyElementsView")
 @end
 
 
-
-
-
-
-
-
 @interface SafetyElementsView (SWIFT_EXTENSION(FinniversKit))
 @end
+
+
+
+
+
+
 
 
 
@@ -2295,6 +2304,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 + (UIColor * _Nonnull)midnightSectionSeparator SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull darkIce;)
 + (UIColor * _Nonnull)darkIce SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull lime;)
++ (UIColor * _Nonnull)lime SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -2569,11 +2580,13 @@ SWIFT_CLASS("_TtC12FinniversKit39UserAdManagementStatisticsEmptyViewCell")
 @end
 
 
-SWIFT_CLASS("_TtC12FinniversKit45UserAdManagementTransactionProcessSummaryCell")
-@interface UserAdManagementTransactionProcessSummaryCell : UITableViewCell
+SWIFT_CLASS("_TtC12FinniversKit38UserAdManagementTransactionProcessCell")
+@interface UserAdManagementTransactionProcessCell : UITableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementUserActionCell")
@@ -2866,6 +2879,13 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
+SWIFT_CLASS("_TtC12FinniversKit22AdConfirmationLinkView")
+@interface AdConfirmationLinkView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12FinniversKit24AdConfirmationObjectView")
 @interface AdConfirmationObjectView : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
@@ -2891,6 +2911,8 @@ SWIFT_CLASS("_TtC12FinniversKit18AdConfirmationView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 @end
+
+
 
 
 
@@ -3144,13 +3166,13 @@ SWIFT_CLASS("_TtC12FinniversKit15BuyerPickerView")
 @end
 
 
-
-
 @interface BuyerPickerView (SWIFT_EXTENSION(FinniversKit)) <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit11CalloutView")
@@ -3526,19 +3548,19 @@ SWIFT_CLASS("_TtC12FinniversKit23FavoriteFoldersListView")
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
-@class UIGestureRecognizer;
-
-@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
-- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-
 
 
 
 @interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
+
+@class UIGestureRecognizer;
+
+@interface FavoriteFoldersListView (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
+- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nonnull)touch SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -3686,12 +3708,12 @@ SWIFT_CLASS("_TtC12FinniversKit31FullscreenGalleryViewController")
 
 
 
+
+
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIPageViewControllerDelegate>
 - (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> * _Nonnull)previousViewControllers transitionCompleted:(BOOL)completed;
 - (void)pageViewController:(UIPageViewController * _Nonnull)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> * _Nonnull)pendingViewControllers;
 @end
-
-
 
 
 @interface FullscreenGalleryViewController (SWIFT_EXTENSION(FinniversKit)) <UIGestureRecognizerDelegate>
@@ -4483,14 +4505,14 @@ SWIFT_CLASS("_TtC12FinniversKit18SafetyElementsView")
 @end
 
 
-
-
-
-
-
-
 @interface SafetyElementsView (SWIFT_EXTENSION(FinniversKit))
 @end
+
+
+
+
+
+
 
 
 
@@ -4952,6 +4974,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _N
 + (UIColor * _Nonnull)midnightSectionSeparator SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull darkIce;)
 + (UIColor * _Nonnull)darkIce SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) UIColor * _Nonnull lime;)
++ (UIColor * _Nonnull)lime SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -5226,11 +5250,13 @@ SWIFT_CLASS("_TtC12FinniversKit39UserAdManagementStatisticsEmptyViewCell")
 @end
 
 
-SWIFT_CLASS("_TtC12FinniversKit45UserAdManagementTransactionProcessSummaryCell")
-@interface UserAdManagementTransactionProcessSummaryCell : UITableViewCell
+SWIFT_CLASS("_TtC12FinniversKit38UserAdManagementTransactionProcessCell")
+@interface UserAdManagementTransactionProcessCell : UITableViewCell
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier SWIFT_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC12FinniversKit30UserAdManagementUserActionCell")

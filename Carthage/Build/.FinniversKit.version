@@ -8,16 +8,16 @@
   "tvOS" : [
 
   ],
-  "commitish" : "19a0a860a5a2e955f82764ae5f6bd6aae223c075",
+  "commitish" : "3d188746d8a9b15dbaea51a445cb362fefeb7784",
   "iOS" : [
     {
       "name" : "FinnUI",
-      "hash" : "1169f154ea4515bc4c732d8affb90a8e33fc62b5fa3fe390f00fb18168e05b47",
+      "hash" : "e43046064df54b7895f5747c39ad5f8e43c3b450d2bef7a82e171e0a81539223",
       "swiftToolchainVersion" : "5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)"
     },
     {
       "name" : "FinniversKit",
-      "hash" : "eff11624d8b93064c3dbf5dfe6dd83e3ebc5a30aeb4ac606a08465848eff976d",
+      "hash" : "159d06e886eaedec4a364b36bd187558e1c1f807cc2e346681a01ac23d33790f",
       "swiftToolchainVersion" : "5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)"
     }
   ]

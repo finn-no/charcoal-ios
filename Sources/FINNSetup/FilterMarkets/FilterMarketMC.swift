@@ -17,7 +17,7 @@ extension FilterMarketMC: FilterConfiguration {
     public var preferenceFilterKeys: [FilterKey] {
         switch self {
         case .mc:
-            return [.published, .dealerSegment, .segment]
+            return [.published, .dealerSegment, .mcCondition]
         default:
             return [.published, .dealerSegment]
         }

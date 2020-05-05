@@ -10,9 +10,9 @@
         "location",
         "category",
         "make",
-        "segment",
         "price",
         "year",
+        "mc_condition",
         "mileage",
         "engine_effect",
         "engine_volume",
@@ -23,6 +23,22 @@
             "title": "Kilometerstand",
             "range": true,
             "name": "mileage"
+        },
+        "mc_condition": {
+            "title": "Tilstand",
+            "name": "mc_condition",
+            "queries": [
+                {
+                    "title": "Brukt MC",
+                    "value": "2",
+                    "total-results": 4822
+                },
+                {
+                    "title": "Ny MC",
+                    "value": "1",
+                    "total-results": 2072
+                }
+            ]
         },
         "engine_effect": {
             "title": "Hestekrefter",
@@ -324,22 +340,6 @@
                     "title": "Privat",
                     "value": "1",
                     "total-results": 1010
-                }
-            ]
-        },
-        "segment": {
-            "title": "Tilstand",
-            "name": "segment",
-            "queries": [
-                {
-                    "title": "Brukt MC",
-                    "value": "21",
-                    "total-results": 2601
-                },
-                {
-                    "title": "Ny MC",
-                    "value": "23",
-                    "total-results": 1785
                 }
             ]
         },

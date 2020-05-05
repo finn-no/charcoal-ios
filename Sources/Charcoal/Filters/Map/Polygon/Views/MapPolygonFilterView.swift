@@ -118,7 +118,7 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var vertexAnnotationImage: UIImage = annotationImage(clickableAreaSize: 40, diameter: 20, borderWidth: 2.5, alpha: 1)
 
-    private lazy var intermediateAnnotationImage: UIImage = annotationImage(clickableAreaSize: 30, diameter: 14, borderWidth: 2, alpha: 0.6)
+    private lazy var intermediateAnnotationImage: UIImage = annotationImage(clickableAreaSize: 40, diameter: 14, borderWidth: 2, alpha: 0.6)
 
     private lazy var initialAreaSelectionOverlayView = InitialAreaSelectionOverlayView(withAutoLayout: true)
 

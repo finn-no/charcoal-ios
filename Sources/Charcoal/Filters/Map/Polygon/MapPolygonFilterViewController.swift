@@ -314,20 +314,13 @@ final class MapPolygonFilterViewController: FilterViewController {
             gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
 
             let touchedCoordinate = updatedCoordinate(for: annotation, gestureLocation: location)
-            updatePolygon(movingAnnotation: annotation, with: touchedCoordinate)
-            updateNeighborPositions(around: annotation, with: touchedCoordinate)
+            updatePolygon(withTemporaryCoordinate: touchedCoordinate, for: annotation)
 
         } else if gesture.state == .ended || gesture.state == .cancelled {
-            if annotation.type == .intermediate {
-                convertToVertexAnnotation(annotation: annotation, with: annotationView)
-            }
-            annotationView.transform = .identity
-            annotation.coordinate = updatedCoordinate(for: annotation, gestureLocation: location)
-            updateNeighborPositions(around: annotation, with: annotation.coordinate)
+            guard dragStartPosition != location else { return }
 
-            state = isPolygonStateValid() ? .polygon : .invalidPolygon
-            mapPolygonFilterView.drawPolygon(with: annotations)
-            updateFilterValues()
+            let coordinate = updatedCoordinate(for: annotation, gestureLocation: location)
+            updatePolygon(withFinalCoordinate: coordinate, for: annotation, withView: annotationView)
         }
     }
 
@@ -369,18 +362,38 @@ final class MapPolygonFilterViewController: FilterViewController {
         updateFilterValues()
     }
 
+    private func updatePolygon(withTemporaryCoordinate coordinate: CLLocationCoordinate2D, for annotation: PolygonSearchAnnotation) {
+        guard let index = index(of: annotation) else { return }
+        var coordinates = annotations.map { $0.coordinate }
+        coordinates[index] = coordinate
+        mapPolygonFilterView.drawPolygon(with: coordinates)
+        updateNeighborPositions(around: annotation, with: coordinate)
+    }
+
+    private func updatePolygon(withFinalCoordinate coordinate: CLLocationCoordinate2D, for annotation: PolygonSearchAnnotation, withView annotationView: MKAnnotationView) {
+        annotationView.transform = .identity
+        annotation.coordinate = coordinate
+
+        // Annotation must be removed and readded for display priorities to work as intended
+        mapPolygonFilterView.removeAnnotation(annotation)
+        mapPolygonFilterView.addAnnotation(annotation)
+
+        if annotation.type == .intermediate {
+            convertToVertexAnnotation(annotation: annotation, with: annotationView)
+        } else {
+            updateNeighborPositions(around: annotation, with: coordinate)
+        }
+
+        state = isPolygonStateValid() ? .polygon : .invalidPolygon
+        mapPolygonFilterView.drawPolygon(with: annotations)
+        updateFilterValues()
+    }
+
     private func updatedCoordinate(for annotation: PolygonSearchAnnotation, gestureLocation: CGPoint) -> CLLocationCoordinate2D {
         let translate = CGPoint(x: gestureLocation.x - dragStartPosition.x, y: gestureLocation.y - dragStartPosition.y)
         let originalLocation = mapPolygonFilterView.point(for: annotation)
         let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
         return mapPolygonFilterView.coordinate(for: updatedLocation)
-    }
-
-    private func updatePolygon(movingAnnotation: PolygonSearchAnnotation, with coordinate: CLLocationCoordinate2D) {
-        guard let index = index(of: movingAnnotation) else { return }
-        var coordinates = annotations.map { $0.coordinate }
-        coordinates[index] = coordinate
-        mapPolygonFilterView.drawPolygon(with: coordinates)
     }
 
     private func updateNeighborPositions(around movingAnnotation: PolygonSearchAnnotation, with coordinate: CLLocationCoordinate2D) {
@@ -405,10 +418,6 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     private func convertToVertexAnnotation(annotation: PolygonSearchAnnotation, with annotationView: MKAnnotationView) {
         annotation.type = .vertex
-
-        // Annotation must be removed and added to configure displayPriority correctly in viewFor annotation
-        mapPolygonFilterView.removeAnnotation(annotation)
-        mapPolygonFilterView.addAnnotation(annotation)
 
         if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })

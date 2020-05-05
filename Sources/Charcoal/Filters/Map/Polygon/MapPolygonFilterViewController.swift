@@ -500,7 +500,9 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
             return
         }
 
-        let alertController = UIAlertController(title: "map.polygonSearch.resetPolygon.alert.title".localized(), message: nil, preferredStyle: .actionSheet)
+        let preferredStyle: UIAlertController.Style = traitCollection.horizontalSizeClass == .compact ? .actionSheet : .alert
+
+        let alertController = UIAlertController(title: "map.polygonSearch.resetPolygon.alert.title".localized(), message: nil, preferredStyle: preferredStyle)
         alertController.addAction(UIAlertAction(title: "map.polygonSearch.resetPolygon.alert.action".localized(), style: .destructive, handler: { _ in
             self.state = .initialAreaSelection
         }))

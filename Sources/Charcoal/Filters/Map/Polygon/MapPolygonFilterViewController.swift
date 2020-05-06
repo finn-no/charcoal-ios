@@ -718,6 +718,17 @@ private func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bo
     return (fabs(lhs.latitude - rhs.latitude) <= 1e-5) && (fabs(lhs.longitude - rhs.longitude) <= 1e-5)
 }
 
+private extension MKPolygonRenderer {
+    override open func applyStrokeProperties(to context: CGContext, atZoomScale zoomScale: MKZoomScale) {
+        super.applyStrokeProperties(to: context, atZoomScale: zoomScale)
+        UIGraphicsPushContext(context)
+        if let context = UIGraphicsGetCurrentContext() {
+            let scale = UIScreen.main.scale
+            context.setLineWidth(2.0 / zoomScale * scale)
+        }
+    }
+}
+
 // MARK: - UserDefaults
 
 private extension UserDefaults {

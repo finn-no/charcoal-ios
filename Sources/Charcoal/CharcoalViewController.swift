@@ -17,7 +17,7 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin)
-    func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.PolygonSelection)
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.MapSelection)
 }
 
 public final class CharcoalViewController: UINavigationController {
@@ -43,10 +43,10 @@ public final class CharcoalViewController: UINavigationController {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
     }
 
-    public enum PolygonSelection {
+    public enum MapSelection {
         case openPolygonSearch
-        case initialBboxArea
-        case polygonArea
+        case openRadiusSearch
+        case initialArea
     }
 
     // MARK: - Private properties
@@ -319,7 +319,7 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 // MARK: - MapTabBarControllerDelegate
 
 extension CharcoalViewController: MapTabBarControllerDelegate {
-    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.PolygonSelection) {
+    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.MapSelection) {
         selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }

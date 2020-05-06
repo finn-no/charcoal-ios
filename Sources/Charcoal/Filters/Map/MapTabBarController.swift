@@ -5,7 +5,7 @@
 import Foundation
 
 protocol MapTabBarControllerDelegate: AnyObject {
-    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.PolygonSelection)
+    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.MapSelection)
 }
 
 class MapTabBarController: UITabBarController {
@@ -90,9 +90,8 @@ class MapTabBarController: UITabBarController {
         selectedIndex = (selectedIndex + 1) % 2
         updateToggleButtonLabel()
 
-        if selectedViewController == mapPolygonFilterViewController {
-            tabBarDelegate?.mapTabBarController(self, didSelect: .openPolygonSearch)
-        }
+        let openedSearch: CharcoalViewController.MapSelection = selectedViewController == mapRadiusFilterViewController ? .openRadiusSearch : .openPolygonSearch
+        tabBarDelegate?.mapTabBarController(self, didSelect: openedSearch)
     }
 
     private func updateToggleButtonLabel() {
@@ -111,8 +110,8 @@ extension MapTabBarController: MapRadiusFilterViewControllerDelegate {
 // MARK: - MapPolygonFilterViewControllerDelegate
 
 extension MapTabBarController: MapPolygonFilterViewControllerDelegate {
-    func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController, didSelect selection: CharcoalViewController.PolygonSelection) {
-        tabBarDelegate?.mapTabBarController(self, didSelect: selection)
+    func mapPolygonFilterViewControllerDidSelectInitialArea(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
+        tabBarDelegate?.mapTabBarController(self, didSelect: .initialArea)
     }
 
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {

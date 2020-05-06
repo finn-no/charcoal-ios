@@ -178,7 +178,9 @@ final class MapPolygonFilterViewController: FilterViewController {
             let maxLatitude = latitudes.max(),
             let minLatitude = latitudes.min(),
             let maxLongitude = longitudes.max(),
-            let minLongitude = longitudes.min()
+            let minLongitude = longitudes.min(),
+            minLatitude > 0,
+            minLongitude > 0
         else { return }
 
         let midLatitude = (maxLatitude + minLatitude) / 2
@@ -626,6 +628,8 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard !(view.annotation is MKUserLocation) else { return }
+
         let label = Label(style: .detail)
         label.text = "map.polygonSearch.doubleClick.callout.title".localized()
         label.textAlignment = .center

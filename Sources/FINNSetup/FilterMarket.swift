@@ -109,13 +109,3 @@ extension FilterMarket: CaseIterable {
     }
 }
 
-// MARK: - Extensions
-
-extension FilterMarket {
-    public var isRealestate: Bool {
-        switch self {
-        case .realestate: return true
-        default: return false
-        }
-    }
-}

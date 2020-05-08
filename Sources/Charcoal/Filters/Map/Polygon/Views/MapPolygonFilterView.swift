@@ -63,6 +63,10 @@ final class MapPolygonFilterView: UIView {
         return mapView.centerCoordinate
     }
 
+    var visibleAnnotations: [PolygonSearchAnnotation] {
+        mapView.annotations(in: mapView.visibleMapRect).compactMap { $0 as? PolygonSearchAnnotation }
+    }
+
     // MARK: - Subviews
 
     private lazy var mapContainerView: UIView = {
@@ -284,11 +288,7 @@ final class MapPolygonFilterView: UIView {
     }
 
     func polygonIsVisibleInMap() -> Bool {
-        return visibleAnnotations().count > 0
-    }
-
-    func visibleAnnotations() -> [PolygonSearchAnnotation] {
-        return mapView.annotations(in: mapView.visibleMapRect).compactMap { $0 as? PolygonSearchAnnotation }
+        return visibleAnnotations.count > 0
     }
 
     func showInfoBox(with text: String, completion: (() -> Void)?) {

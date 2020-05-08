@@ -272,18 +272,19 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     private func showGuidanceIfNeeded() {
-        guard !UserDefaults.standard.polygonSearchGuidanceShown else { return }
-        UserDefaults.standard.polygonSearchGuidanceShown = true
-
         mapPolygonFilterView.showInfoBox(with: "map.polygonSearch.maxAnnotations.label.title".localized(), completion: { [weak self] in
             self?.displayAnnotationCallout()
         })
     }
 
     private func displayAnnotationCallout() {
-        guard state != .bbox else { return }
+        guard
+            !UserDefaults.standard.polygonSearchGuidanceShown,
+            state != .bbox
+        else { return }
+        UserDefaults.standard.polygonSearchGuidanceShown = true
 
-        let visibleVertices = mapPolygonFilterView.visibleAnnotations().filter { $0.type == .vertex }
+        let visibleVertices = mapPolygonFilterView.visibleAnnotations.filter { $0.type == .vertex }
         guard let annotationForCallout = visibleVertices.min(by: { $0.coordinate.latitude < $1.coordinate.latitude }) else { return }
 
         mapPolygonFilterView.selectAnnotation(annotationForCallout)

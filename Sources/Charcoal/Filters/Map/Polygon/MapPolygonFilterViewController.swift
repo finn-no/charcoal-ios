@@ -27,8 +27,6 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     weak var mapPolygonFilterDelegate: MapPolygonFilterViewControllerDelegate?
 
-    static let annotationId = "polygonpin"
-
     // MARK: - Private properties
 
     private let locationNameFilter: Filter
@@ -251,9 +249,21 @@ final class MapPolygonFilterViewController: FilterViewController {
     private func presentLocationChangedAlert() {
         guard !annotations.isEmpty else { return }
 
-        let alert = UIAlertController(title: "map.polygonSearch.locationChanged.alert.title".localized(), message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "map.polygonSearch.locationChanged.alert.keepArea".localized(), style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "map.polygonSearch.locationChanged.alert.resetArea".localized(), style: .destructive, handler: { _ in
+        let alert = UIAlertController(
+            title: "map.polygonSearch.locationChanged.alert.title".localized(),
+            message: nil,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: "map.polygonSearch.locationChanged.alert.keepArea".localized(),
+            style: .default,
+            handler: nil
+        ))
+
+        alert.addAction(UIAlertAction(
+            title: "map.polygonSearch.locationChanged.alert.resetArea".localized(),
+            style: .destructive,
+            handler: { _ in
             self.mapPolygonFilterView.configure(for: .initialAreaSelection)
             self.state = .initialAreaSelection
         }))
@@ -602,15 +612,20 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             let annotation = annotation as? PolygonSearchAnnotation
         else { return nil }
 
-        var view = mapView.dequeueReusableAnnotationView(withIdentifier: MapPolygonFilterViewController.annotationId)
+        let reuseIdentifier = "polygonpin"
+
+        var view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         if let view = view {
             view.annotation = annotation
         } else {
-            view = MKAnnotationView(annotation: annotation, reuseIdentifier: MapPolygonFilterViewController.annotationId)
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             view?.canShowCallout = true
             view?.isDraggable = false
 
-            let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleAnnotationMovement(gesture:)))
+            let longPressGestureRecognizer = UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(handleAnnotationMovement(gesture:))
+            )
             longPressGestureRecognizer.minimumPressDuration = 0
             longPressGestureRecognizer.allowableMovement = .greatestFiniteMagnitude
             longPressGestureRecognizer.delegate = self
@@ -722,7 +737,7 @@ private func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bo
 }
 
 private extension MKPolygonRenderer {
-    override open func applyStrokeProperties(to context: CGContext, atZoomScale zoomScale: MKZoomScale) {
+    open override func applyStrokeProperties(to context: CGContext, atZoomScale zoomScale: MKZoomScale) {
         super.applyStrokeProperties(to: context, atZoomScale: zoomScale)
         UIGraphicsPushContext(context)
         if let context = UIGraphicsGetCurrentContext() {
@@ -736,7 +751,7 @@ private extension MKPolygonRenderer {
 
 private extension UserDefaults {
     var polygonSearchGuidanceShown: Bool {
-        get { return bool(forKey: #function) }
-        set { set(newValue, forKey: #function) }
+        get { return bool(forKey: "Charcoal." + #function) }
+        set { set(newValue, forKey: "Charcoal." + #function) }
     }
 }

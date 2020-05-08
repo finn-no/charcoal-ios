@@ -108,4 +108,3 @@ extension FilterMarket: CaseIterable {
         return allB2BMarkets + allBapMarkets + allBoatMarkets + allCarMarkets + allJobMarkets + allMCMarkets + allRealestateMarkets
     }
 }
-

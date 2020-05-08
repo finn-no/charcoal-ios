@@ -271,7 +271,12 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     private func showPolygonSearchCalloutIfNeeded() {
         guard !UserDefaults.standard.polygonSearchCalloutShown else { return }
         UserDefaults.standard.polygonSearchCalloutShown = true
-        showCalloutOverlay(withText: "map.polygonSearch.callout.title".localized(), andDirection: .up, andArrowAlignment: .right(15), constrainedToDirectionalAnchor: navigationBar.bottomAnchor)
+        showCalloutOverlay(
+            withText: "map.polygonSearch.callout.title".localized(),
+            andDirection: .up,
+            andArrowAlignment: .right(15),
+            constrainedToDirectionalAnchor: navigationBar.bottomAnchor
+        )
     }
 }
 
@@ -336,7 +341,11 @@ extension CharcoalViewController: CalloutOverlayDelegate {
         })
     }
 
-    private func showCalloutOverlay(withText text: String, andDirection direction: CalloutView.Direction, andArrowAlignment arrowAlignment: CalloutView.ArrowAlignment = .center, constrainedToDirectionalAnchor directionalAnchor: NSLayoutYAxisAnchor? = nil, constrainedToTopAnchor topAnchor: NSLayoutYAxisAnchor? = nil) {
+    private func showCalloutOverlay(withText text: String,
+                                    andDirection direction: CalloutView.Direction,
+                                    andArrowAlignment arrowAlignment: CalloutView.ArrowAlignment = .center,
+                                    constrainedToDirectionalAnchor directionalAnchor: NSLayoutYAxisAnchor? = nil,
+                                    constrainedToTopAnchor topAnchor: NSLayoutYAxisAnchor? = nil) {
         calloutOverlay = CalloutOverlay(direction: direction, arrowAlignment: arrowAlignment)
 
         if let calloutOverlay = calloutOverlay {
@@ -375,7 +384,7 @@ private extension UserDefaults {
     }
 
     var polygonSearchCalloutShown: Bool {
-        get { return bool(forKey: #function) }
-        set { set(newValue, forKey: #function) }
+        get { return bool(forKey: "Charcoal." + #function) }
+        set { set(newValue, forKey: "Charcoal." + #function) }
     }
 }

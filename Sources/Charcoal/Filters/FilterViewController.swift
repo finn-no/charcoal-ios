@@ -127,7 +127,7 @@ public class FilterViewController: ScrollViewController, FilterBottomButtonViewD
 extension FilterViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if let view = gestureRecognizer.view as? MKAnnotationView,
-            view.reuseIdentifier == MapPolygonFilterViewController.annotationId {
+            view.annotation is PolygonSearchAnnotation {
             return true
         }
         enableSwipeBack(!(touch.view is UISlider))
@@ -137,7 +137,7 @@ extension FilterViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer.view == otherGestureRecognizer.view,
             let view = gestureRecognizer.view as? MKAnnotationView,
-            view.reuseIdentifier == MapPolygonFilterViewController.annotationId {
+            view.annotation is PolygonSearchAnnotation {
             return true
         }
         return false

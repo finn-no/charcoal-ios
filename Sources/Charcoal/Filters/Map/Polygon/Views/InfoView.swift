@@ -11,13 +11,9 @@ class InfoView: UIView {
     private lazy var boxView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .bgPrimary
-
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 0, height: 1)
-        view.layer.shadowRadius = 5
-        view.layer.shadowOpacity = 0.2
         view.layer.cornerRadius = 16
 
+        view.dropShadow(color: .black, opacity: 0.2, offset: CGSize(width: 0, height: 1), radius: 5)
         return view
     }()
 

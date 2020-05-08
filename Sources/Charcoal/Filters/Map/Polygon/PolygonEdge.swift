@@ -18,10 +18,11 @@ class PolygonEdge {
     }
 
     private func intersect(p1: CGPoint, p2: CGPoint, q1: CGPoint, q2: CGPoint) -> Bool {
-        return ccw(p1, q1, q2) != ccw(p2, q1, q2) && ccw(p1, p2, q1) != ccw(p1, p2, q2)
+        return crossProduct(p1, q1, q2) != crossProduct(p2, q1, q2)
+            && crossProduct(p1, p2, q1) != crossProduct(p1, p2, q2)
     }
 
-    private func ccw(_ p1: CGPoint, _ p2: CGPoint, _ p3: CGPoint) -> Bool {
+    private func crossProduct(_ p1: CGPoint, _ p2: CGPoint, _ p3: CGPoint) -> Bool {
         return (p3.y - p1.y) * (p2.x - p1.x) > (p2.y - p1.y) * (p3.x - p1.x)
     }
 }

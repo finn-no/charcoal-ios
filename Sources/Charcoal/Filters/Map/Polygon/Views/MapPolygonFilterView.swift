@@ -109,10 +109,7 @@ final class MapPolygonFilterView: UIView {
         button.setTitle("map.polygonSearch.initialAreaSelection.button".localized(), for: .normal)
         button.addTarget(self, action: #selector(didTapAreaSelectionButton), for: .touchUpInside)
 
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 1)
-        button.layer.shadowRadius = 3
-        button.layer.shadowOpacity = 0.5
+        button.dropShadow(color: .black, opacity: 0.5, offset: CGSize(width: 0, height: 1), radius: 3)
 
         button.setImage(UIImage(named: .areaSelectionPin).withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.tintColor = .ice
@@ -122,9 +119,11 @@ final class MapPolygonFilterView: UIView {
         return button
     }()
 
-    private lazy var vertexAnnotationImage: UIImage = annotationImage(clickableAreaSize: 40, diameter: 20, borderWidth: 2.5, alpha: 1)
+    private lazy var vertexAnnotationImage: UIImage =
+        annotationImage(clickableAreaSize: 40, diameter: 20, borderWidth: 2.5, alpha: 1)
 
-    private lazy var intermediateAnnotationImage: UIImage = annotationImage(clickableAreaSize: 40, diameter: 14, borderWidth: 2, alpha: 0.6)
+    private lazy var intermediateAnnotationImage: UIImage =
+        annotationImage(clickableAreaSize: 40, diameter: 14, borderWidth: 2, alpha: 0.6)
 
     private lazy var initialAreaSelectionOverlayView = InitialAreaSelectionOverlayView(withAutoLayout: true)
 
@@ -221,7 +220,11 @@ final class MapPolygonFilterView: UIView {
     func centerOnCoordinate(_ coordinate: CLLocationCoordinate2D, regionDistance: CLLocationDistance? = nil) {
         mapView.setCenter(coordinate, animated: true)
         guard let distance = regionDistance else { return }
-        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: distance * 1.1, longitudinalMeters: distance * 1.1)
+        let region = MKCoordinateRegion(
+            center: coordinate,
+            latitudinalMeters: distance * 1.1,
+            longitudinalMeters: distance * 1.1
+        )
         mapView.setRegion(region, animated: true)
     }
 
@@ -379,11 +382,8 @@ private class CircleButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = Theme.mainBackground
         tintColor = .btnPrimary
-
         layer.cornerRadius = CircleButton.width / 2
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowRadius = 3
-        layer.shadowOpacity = 0.5
+
+        dropShadow(color: .black, opacity: 0.5, offset: CGSize(width: 0, height: 1), radius: 3)
     }
 }

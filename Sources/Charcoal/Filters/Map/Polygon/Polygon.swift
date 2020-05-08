@@ -11,7 +11,7 @@ class Polygon {
         self.edges = edges
     }
 
-    func hasIntersectingEdges() -> Bool {
+    var hasIntersectingEdges: Bool {
         for edge in edges {
             if edgeIntersects(edge) {
                 return true

@@ -497,7 +497,7 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
 
         let polygon = Polygon(edges: edges)
-        return !polygon.hasIntersectingEdges()
+        return !polygon.hasIntersectingEdges
     }
 
     private func index(of annotation: PolygonSearchAnnotation) -> Int? {

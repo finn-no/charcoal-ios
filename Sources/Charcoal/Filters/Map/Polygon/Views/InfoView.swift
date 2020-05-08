@@ -21,7 +21,12 @@ class InfoView: UIView {
         return view
     }()
 
-    private lazy var label: Label = Label(style: .detailStrong, withAutoLayout: true)
+    private lazy var label: Label = {
+        let label = Label(style: .detailStrong, withAutoLayout: true)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
 
     // MARK: - Init
 

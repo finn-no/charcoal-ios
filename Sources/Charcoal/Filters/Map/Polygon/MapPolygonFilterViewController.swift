@@ -271,8 +271,15 @@ final class MapPolygonFilterViewController: FilterViewController {
         present(alert, animated: true)
     }
 
-    private func showGuidanceIfNeeded() {
-        mapPolygonFilterView.showInfoBox(with: "map.polygonSearch.maxAnnotations.label.title".localized(), completion: { [weak self] in
+    private func showMaxAnnotationsReachedInfo() {
+        let infoBoxTitle: String
+        if UserDefaults.standard.polygonSearchGuidanceShown, !UserDefaults.standard.polygonSearchDidDeletePoint {
+            infoBoxTitle = "map.polygonSearch.maxAnnotations.label.title.detailed".localized()
+        } else {
+            infoBoxTitle = "map.polygonSearch.maxAnnotations.label.title".localized()
+        }
+
+        mapPolygonFilterView.showInfoBox(with: infoBoxTitle, completion: { [weak self] in
             self?.displayAnnotationCallout()
         })
     }
@@ -338,6 +345,8 @@ final class MapPolygonFilterViewController: FilterViewController {
     }
 
     @objc private func handleAnnotationDoubleTap(gesture: UITapGestureRecognizer) {
+        UserDefaults.standard.polygonSearchDidDeletePoint = true
+
         guard annotations.filter({ $0.type == .vertex }).count > 4 else {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.warning)
@@ -435,7 +444,7 @@ final class MapPolygonFilterViewController: FilterViewController {
         if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
             annotations.removeAll(where: { $0.type == .intermediate })
-            showGuidanceIfNeeded()
+            showMaxAnnotationsReachedInfo()
 
         } else if let index = index(of: annotation) {
             addIntermediatePoint(after: annotation)
@@ -756,6 +765,11 @@ private extension MKPolygonRenderer {
 
 private extension UserDefaults {
     var polygonSearchGuidanceShown: Bool {
+        get { return bool(forKey: "Charcoal." + #function) }
+        set { set(newValue, forKey: "Charcoal." + #function) }
+    }
+
+    var polygonSearchDidDeletePoint: Bool {
         get { return bool(forKey: "Charcoal." + #function) }
         set { set(newValue, forKey: "Charcoal." + #function) }
     }

@@ -234,7 +234,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
-            let mapTabBarController = MapTabBarController(
+            let mapFilterViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
@@ -244,10 +244,10 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 polygonFilter: polygonFilter,
                 selectionStore: selectionStore
             )
-            mapTabBarController.filterDelegate = self
-            mapTabBarController.searchLocationDataSource = searchLocationDataSource
-            mapTabBarController.tabBarDelegate = self
-            pushTabBarController(mapTabBarController)
+            mapFilterViewController.filterDelegate = self
+            mapFilterViewController.searchLocationDataSource = searchLocationDataSource
+            mapFilterViewController.mapFilterDelegate = self
+            pushViewController(mapFilterViewController)
 
             if polygonFilter != nil {
                 showPolygonSearchCalloutIfNeeded()
@@ -263,9 +263,8 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         pushViewController(viewController, animated: true)
     }
 
-    private func pushTabBarController(_ controller: UITabBarController) {
-        controller.hidesBottomBarWhenPushed = true
-        pushViewController(controller, animated: true)
+    private func pushViewController(_ viewController: UIViewController) {
+        pushViewController(viewController, animated: true)
     }
 
     private func showPolygonSearchCalloutIfNeeded() {
@@ -321,10 +320,10 @@ extension CharcoalViewController: UINavigationControllerDelegate {
     }
 }
 
-// MARK: - MapTabBarControllerDelegate
+// MARK: - MapFilterViewControllerDelegate
 
-extension CharcoalViewController: MapTabBarControllerDelegate {
-    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.MapSelection) {
+extension CharcoalViewController: MapFilterViewControllerDelegate {
+    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController, didSelect selection: CharcoalViewController.MapSelection) {
         selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }

@@ -4,15 +4,17 @@
 
 import Foundation
 
-protocol MapTabBarControllerDelegate: AnyObject {
-    func mapTabBarController(_ mapTabBarController: MapTabBarController, didSelect selection: CharcoalViewController.MapSelection)
+protocol MapFilterViewControllerDelegate: AnyObject {
+    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
+                                 didSelect selection: CharcoalViewController.MapSelection)
 }
 
-class MapTabBarController: UITabBarController {
+class MapFilterViewController: UIViewController {
     private let mapRadiusFilterViewController: MapRadiusFilterViewController
     private let mapPolygonFilterViewController: MapPolygonFilterViewController?
+    private var selectedViewController: UIViewController
 
-    weak var tabBarDelegate: MapTabBarControllerDelegate?
+    weak var mapFilterDelegate: MapFilterViewControllerDelegate?
 
     weak var filterDelegate: FilterViewControllerDelegate? {
         didSet {
@@ -40,11 +42,27 @@ class MapTabBarController: UITabBarController {
 
     init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
          locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, selectionStore: FilterSelectionStore) {
-        mapRadiusFilterViewController = MapRadiusFilterViewController(title: title, latitudeFilter: latitudeFilter, longitudeFilter: longitudeFilter, radiusFilter: radiusFilter, locationNameFilter: locationNameFilter, selectionStore: selectionStore)
+        mapRadiusFilterViewController =
+            MapRadiusFilterViewController(
+                title: title,
+                latitudeFilter: latitudeFilter,
+                longitudeFilter: longitudeFilter,
+                radiusFilter: radiusFilter,
+                locationNameFilter: locationNameFilter,
+                selectionStore: selectionStore
+            )
+        selectedViewController = mapRadiusFilterViewController
 
         if let bboxFilter = bboxFilter,
             let polygonFilter = polygonFilter {
-            mapPolygonFilterViewController = MapPolygonFilterViewController(title: title, locationNameFilter: locationNameFilter, bboxFilter: bboxFilter, polygonFilter: polygonFilter, selectionStore: selectionStore)
+            mapPolygonFilterViewController =
+                MapPolygonFilterViewController(
+                    title: title,
+                    locationNameFilter: locationNameFilter,
+                    bboxFilter: bboxFilter,
+                    polygonFilter: polygonFilter,
+                    selectionStore: selectionStore
+                )
         } else {
             mapPolygonFilterViewController = nil
         }
@@ -65,43 +83,49 @@ class MapTabBarController: UITabBarController {
     }
 
     private func setup() {
-        tabBar.isHidden = true
-
-        guard let polygonMapViewController = mapPolygonFilterViewController else {
-            viewControllers = [mapRadiusFilterViewController]
-            selectedViewController = mapRadiusFilterViewController
+        guard let mapPolygonFilterViewController = mapPolygonFilterViewController else {
+            add(mapRadiusFilterViewController)
             return
         }
 
         navigationItem.rightBarButtonItem = toggleButton
-        viewControllers = [mapRadiusFilterViewController, polygonMapViewController]
 
         if let bboxFilter = bboxFilter,
             let polygonFilter = polygonFilter,
             selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
-            selectedViewController = polygonMapViewController
+            selectedViewController = mapPolygonFilterViewController
         } else {
             selectedViewController = mapRadiusFilterViewController
         }
+
+        add(selectedViewController)
         updateToggleButtonLabel()
     }
 
     @objc private func toggleViewControllers() {
-        selectedIndex = (selectedIndex + 1) % 2
+        guard let mapPolygonFilterViewController = mapPolygonFilterViewController else { return }
+
+        selectedViewController.remove()
+        selectedViewController = selectedViewController == mapRadiusFilterViewController ?
+            mapPolygonFilterViewController : mapRadiusFilterViewController
+        add(selectedViewController)
         updateToggleButtonLabel()
 
-        let openedSearch: CharcoalViewController.MapSelection = selectedViewController == mapRadiusFilterViewController ? .openRadiusSearch : .openPolygonSearch
-        tabBarDelegate?.mapTabBarController(self, didSelect: openedSearch)
+        let openedSearch: CharcoalViewController.MapSelection =
+            selectedViewController == mapRadiusFilterViewController ? .openRadiusSearch : .openPolygonSearch
+        mapFilterDelegate?.mapFilterViewController(self, didSelect: openedSearch)
     }
 
     private func updateToggleButtonLabel() {
-        toggleButton.title = selectedViewController == mapPolygonFilterViewController ? "map.radiusSearch.toggleButton.title".localized() : "map.polygonSearch.toggleButton.title".localized()
+        toggleButton.title = selectedViewController == mapPolygonFilterViewController ?
+            "map.radiusSearch.toggleButton.title".localized() :
+            "map.polygonSearch.toggleButton.title".localized()
     }
 }
 
 // MARK: - MapRadiusFilterViewControllerDelegate
 
-extension MapTabBarController: MapRadiusFilterViewControllerDelegate {
+extension MapFilterViewController: MapRadiusFilterViewControllerDelegate {
     func mapRadiusFilterViewControllerDidSelectFilter(_ mapRadiusFilterViewController: MapRadiusFilterViewController) {
         mapPolygonFilterViewController?.resetFilterValues()
     }
@@ -109,9 +133,9 @@ extension MapTabBarController: MapRadiusFilterViewControllerDelegate {
 
 // MARK: - MapPolygonFilterViewControllerDelegate
 
-extension MapTabBarController: MapPolygonFilterViewControllerDelegate {
+extension MapFilterViewController: MapPolygonFilterViewControllerDelegate {
     func mapPolygonFilterViewControllerDidSelectInitialArea(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
-        tabBarDelegate?.mapTabBarController(self, didSelect: .initialArea)
+        mapFilterDelegate?.mapFilterViewController(self, didSelect: .initialArea)
     }
 
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {

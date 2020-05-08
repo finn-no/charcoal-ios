@@ -507,6 +507,9 @@ final class MapPolygonFilterViewController: FilterViewController {
 
 extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
     func mapPolygonFilterViewDidSelectRedoAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView) {
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        feedbackGenerator.impactOccurred()
+
         if state == .bbox {
             state = .initialAreaSelection
             return

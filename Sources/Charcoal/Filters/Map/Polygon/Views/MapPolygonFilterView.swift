@@ -24,12 +24,14 @@ final class MapPolygonFilterView: UIView {
         case polygonSelection
     }
 
+    static let overlayColor: UIColor = .accentSecondaryBlue
+
     // MARK: - Private properties
 
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
     private static let annotationFillColor: CGColor = UIColor.milk.cgColor
-    private static let annotationBorderColor: CGColor = UIColor.accentSecondaryBlue.cgColor
+    private static let annotationBorderColor: CGColor = MapPolygonFilterView.overlayColor.cgColor
 
     private var polygon: MKPolygon?
 

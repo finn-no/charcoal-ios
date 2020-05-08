@@ -264,9 +264,10 @@ final class MapPolygonFilterViewController: FilterViewController {
             title: "map.polygonSearch.locationChanged.alert.resetArea".localized(),
             style: .destructive,
             handler: { _ in
-            self.mapPolygonFilterView.configure(for: .initialAreaSelection)
-            self.state = .initialAreaSelection
-        }))
+                self.mapPolygonFilterView.configure(for: .initialAreaSelection)
+                self.state = .initialAreaSelection
+            }
+        ))
         present(alert, animated: true)
     }
 
@@ -546,7 +547,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolygon {
             let polygon = MKPolygonRenderer(overlay: overlay)
-            polygon.strokeColor = UIColor.accentSecondaryBlue
+            polygon.strokeColor = MapPolygonFilterView.overlayColor
 
             var validPolygonAlphaComponent: CGFloat = 0.15
             var invalidPolygonAlphaComponent: CGFloat = 0.2
@@ -556,7 +557,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
                 invalidPolygonAlphaComponent = 0.1
             }
             polygon.fillColor = state != .invalidPolygon ?
-                UIColor.accentSecondaryBlue.withAlphaComponent(validPolygonAlphaComponent) :
+                MapPolygonFilterView.overlayColor.withAlphaComponent(validPolygonAlphaComponent) :
                 UIColor.textCritical.withAlphaComponent(invalidPolygonAlphaComponent)
             polygon.lineWidth = 2
 

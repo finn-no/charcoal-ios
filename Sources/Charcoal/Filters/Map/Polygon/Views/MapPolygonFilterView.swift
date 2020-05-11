@@ -97,7 +97,8 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var redoAreaSelectionButton: UIButton = {
         let button = CircleButton()
-        button.setImage(UIImage(named: .arrowCounterClockwise).withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(UIImage(named: .arrowCounterClockwise)
+            .withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.tintColor = .iconPrimary
         button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(didTapRedoAreaSelectionButton), for: .touchUpInside)
@@ -111,7 +112,8 @@ final class MapPolygonFilterView: UIView {
 
         button.dropShadow(color: .black, opacity: 0.5, offset: CGSize(width: 0, height: 1), radius: 3)
 
-        button.setImage(UIImage(named: .areaSelectionPin).withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(UIImage(named: .areaSelectionPin)
+            .withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.tintColor = .ice
         button.adjustsImageWhenHighlighted = false
         button.imageEdgeInsets = UIEdgeInsets(leading: -.spacingS)
@@ -300,8 +302,12 @@ final class MapPolygonFilterView: UIView {
 
     // MARK: - Private methods
 
-    private func annotationImage(clickableAreaSize: CGFloat, diameter: CGFloat, borderWidth: CGFloat, alpha: CGFloat) -> UIImage {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: clickableAreaSize, height: clickableAreaSize))
+    private func annotationImage(clickableAreaSize: CGFloat,
+                                 diameter: CGFloat,
+                                 borderWidth: CGFloat,
+                                 alpha: CGFloat) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size:
+            CGSize(width: clickableAreaSize, height: clickableAreaSize))
         return renderer.image { ctx in
             ctx.cgContext.setFillColor(MapPolygonFilterView.annotationFillColor)
             ctx.cgContext.setStrokeColor(MapPolygonFilterView.annotationBorderColor)
@@ -309,7 +315,10 @@ final class MapPolygonFilterView: UIView {
             ctx.cgContext.setAlpha(alpha)
 
             let margin = (clickableAreaSize - diameter) / 2
-            let rectangle = CGRect(x: borderWidth + margin, y: borderWidth + margin, width: diameter - borderWidth * 2, height: diameter - borderWidth * 2)
+            let rectangle = CGRect(x: borderWidth + margin,
+                                   y: borderWidth + margin,
+                                   width: diameter - borderWidth * 2,
+                                   height: diameter - borderWidth * 2)
             ctx.cgContext.addEllipse(in: rectangle)
             ctx.cgContext.drawPath(using: .fillStroke)
         }

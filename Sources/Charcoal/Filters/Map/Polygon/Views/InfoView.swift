@@ -11,7 +11,7 @@ class InfoView: UIView {
     private lazy var boxView: UIView = {
         let view = UIView(withAutoLayout: true)
         view.backgroundColor = .bgPrimary
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = .spacingM
 
         view.dropShadow(color: .black, opacity: 0.2, offset: CGSize(width: 0, height: 1), radius: 5)
         return view

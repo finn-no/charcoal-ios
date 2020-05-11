@@ -82,7 +82,8 @@ public struct FilterSetup: Decodable {
         return container
     }
 
-    private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration, excludedFilters: [FilterKey]) -> Filter? {
+    private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration,
+                                     excludedFilters: [FilterKey]) -> Filter? {
         let style: Filter.Style = config.contextFilterKeys.contains(key) ? .context : .normal
 
         switch key {

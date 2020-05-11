@@ -16,7 +16,8 @@ public final class Filter {
         case stepper(config: StepperFilterConfiguration)
         case external
         case range(lowValueFilter: Filter, highValueFilter: Filter, config: RangeFilterConfiguration)
-        case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter, locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?)
+        case map(latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
+                 locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?)
     }
 
     public let title: String
@@ -102,7 +103,8 @@ extension Filter {
     }
 
     public static func map(title: String? = nil, key: String, latitudeKey: String,
-                           longitudeKey: String, radiusKey: String, locationKey: String, bboxKey: String?, polygonKey: String?) -> Filter {
+                           longitudeKey: String, radiusKey: String, locationKey: String,
+                           bboxKey: String?, polygonKey: String?) -> Filter {
         let title = title ?? "map.title".localized()
         let latitudeFilter = Filter(title: "", key: latitudeKey)
         let longitudeFilter = Filter(title: "", key: longitudeKey)
@@ -130,7 +132,8 @@ extension Filter {
             polygonFilter: polygonFilter
         )
 
-        return Filter(kind: kind, title: title, key: key, value: nil, numberOfResults: 0, style: .normal, subfilters: subfilters)
+        return Filter(kind: kind, title: title, key: key, value: nil, numberOfResults: 0,
+                      style: .normal, subfilters: subfilters)
     }
 }
 

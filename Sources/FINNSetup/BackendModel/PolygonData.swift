@@ -13,10 +13,13 @@ public struct PolygonData {
         var coordinates = [CLLocationCoordinate2D]()
         var points = formattedString.components(separatedBy: ",")
         points.removeLast() // The same coordinate is appended on beginning and end of the query, to close the polygon.
+
         for point in points {
             let pointCoordinate = point.components(separatedBy: " ").compactMap { Double($0) }
             guard pointCoordinate.count == 2 else { return nil }
-            coordinates.append(CLLocationCoordinate2D(latitude: pointCoordinate[1], longitude: pointCoordinate[0]))
+            coordinates.append(CLLocationCoordinate2D(
+                latitude: pointCoordinate[1], longitude: pointCoordinate[0]
+            ))
         }
         return coordinates
     }
@@ -45,8 +48,12 @@ public struct PolygonData {
 
         let southWestCoordinate = CLLocationCoordinate2D(latitude: values[1], longitude: values[0])
         let northEastCoordinate = CLLocationCoordinate2D(latitude: values[3], longitude: values[2])
-        let northWestCoordinate = CLLocationCoordinate2D(latitude: southWestCoordinate.latitude, longitude: northEastCoordinate.longitude)
-        let southEastCoordinate = CLLocationCoordinate2D(latitude: northEastCoordinate.latitude, longitude: southWestCoordinate.longitude)
+        let northWestCoordinate = CLLocationCoordinate2D(
+            latitude: southWestCoordinate.latitude, longitude: northEastCoordinate.longitude
+        )
+        let southEastCoordinate = CLLocationCoordinate2D(
+            latitude: northEastCoordinate.latitude, longitude: southWestCoordinate.longitude
+        )
 
         return [southWestCoordinate, northWestCoordinate, northEastCoordinate, southEastCoordinate]
     }

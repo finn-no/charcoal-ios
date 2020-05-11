@@ -9,19 +9,17 @@ protocol MapFilterViewControllerDelegate: AnyObject {
                                  didSelect selection: CharcoalViewController.MapSelection)
 }
 
-class MapFilterViewController: UIViewController {
+protocol ToggleFilter: AnyObject {
+    func resetFilterValues()
+    func updateFilterValues()
+}
+
+class MapFilterViewController: FilterViewController {
     private let mapRadiusFilterViewController: MapRadiusFilterViewController
     private let mapPolygonFilterViewController: MapPolygonFilterViewController?
     private var selectedViewController: UIViewController
 
     weak var mapFilterDelegate: MapFilterViewControllerDelegate?
-
-    weak var filterDelegate: FilterViewControllerDelegate? {
-        didSet {
-            mapRadiusFilterViewController.delegate = filterDelegate
-            mapPolygonFilterViewController?.delegate = filterDelegate
-        }
-    }
 
     weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
@@ -36,7 +34,12 @@ class MapFilterViewController: UIViewController {
         return buttonItem
     }()
 
-    private let selectionStore: FilterSelectionStore
+    private lazy var mapContainerView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private let bboxFilter: Filter?
     private let polygonFilter: Filter?
 
@@ -44,7 +47,6 @@ class MapFilterViewController: UIViewController {
          locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, selectionStore: FilterSelectionStore) {
         mapRadiusFilterViewController =
             MapRadiusFilterViewController(
-                title: title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 radiusFilter: radiusFilter,
@@ -57,7 +59,6 @@ class MapFilterViewController: UIViewController {
             let polygonFilter = polygonFilter {
             mapPolygonFilterViewController =
                 MapPolygonFilterViewController(
-                    title: title,
                     locationNameFilter: locationNameFilter,
                     bboxFilter: bboxFilter,
                     polygonFilter: polygonFilter,
@@ -67,24 +68,62 @@ class MapFilterViewController: UIViewController {
             mapPolygonFilterViewController = nil
         }
 
-        self.selectionStore = selectionStore
         self.bboxFilter = bboxFilter
         self.polygonFilter = polygonFilter
-        super.init(nibName: nil, bundle: nil)
+        super.init(title: title, selectionStore: selectionStore)
         self.title = title
 
-        setup()
-        mapRadiusFilterViewController.mapRadiusFilterDelegate = self
-        mapPolygonFilterViewController?.mapPolygonFilterDelegate = self
+        mapRadiusFilterViewController.delegate = self
+        mapPolygonFilterViewController?.delegate = self
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setup() {
+    // MARK: - Overrides
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bottomButton.buttonTitle = "applyButton".localized()
+        view.backgroundColor = Theme.mainBackground
+
+        showBottomButton(true, animated: false)
+        setup()
+    }
+
+    override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
         guard let mapPolygonFilterViewController = mapPolygonFilterViewController else {
-            add(mapRadiusFilterViewController)
+            mapRadiusFilterViewController.updateFilterValues()
+            super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
+            return
+        }
+
+        let inactiveViewController = selectedViewController == mapPolygonFilterViewController ?
+            mapRadiusFilterViewController : mapPolygonFilterViewController
+
+        if let inactiveViewController = inactiveViewController as? ToggleFilter,
+            let selectedViewController = selectedViewController as? ToggleFilter {
+            inactiveViewController.resetFilterValues()
+            selectedViewController.updateFilterValues()
+        }
+        super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
+    }
+
+    // MARK: - Setup
+
+    private func setup() {
+        view.insertSubview(mapContainerView, belowSubview: bottomButton)
+
+        NSLayoutConstraint.activate([
+            mapContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapContainerView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapContainerView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
+        ])
+
+        guard let mapPolygonFilterViewController = mapPolygonFilterViewController else {
+            display(mapRadiusFilterViewController)
             return
         }
 
@@ -98,17 +137,31 @@ class MapFilterViewController: UIViewController {
             selectedViewController = mapRadiusFilterViewController
         }
 
-        add(selectedViewController)
+        display(selectedViewController)
         updateToggleButtonLabel()
     }
+
+    private func display(_ childViewController: UIViewController) {
+        guard childViewController.parent == nil else { return }
+
+        addChild(childViewController)
+        childViewController.view.frame = mapContainerView.bounds
+        childViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapContainerView.addSubview(childViewController.view)
+        childViewController.didMove(toParent: self)
+    }
+
+    // MARK: - Private methods
 
     @objc private func toggleViewControllers() {
         guard let mapPolygonFilterViewController = mapPolygonFilterViewController else { return }
 
+        bottomButton.isEnabled = true
+
         selectedViewController.remove()
         selectedViewController = selectedViewController == mapRadiusFilterViewController ?
             mapPolygonFilterViewController : mapRadiusFilterViewController
-        add(selectedViewController)
+        display(selectedViewController)
         updateToggleButtonLabel()
 
         let openedSearch: CharcoalViewController.MapSelection =
@@ -126,14 +179,34 @@ class MapFilterViewController: UIViewController {
 // MARK: - MapRadiusFilterViewControllerDelegate
 
 extension MapFilterViewController: MapRadiusFilterViewControllerDelegate {
-    func mapRadiusFilterViewControllerDidSelectFilter(_ mapRadiusFilterViewController: MapRadiusFilterViewController) {
-        mapPolygonFilterViewController?.resetFilterValues()
+    func mapRadiusFilterViewControllerWillBeginTextEditing(_ mapRadiusFilterViewController: MapRadiusFilterViewController) {
+        delegate?.filterViewControllerWillBeginTextEditing(self)
+    }
+
+    func mapRadiusFilterViewControllerWillEndTextEditing(_ mapRadiusFilterViewController: MapRadiusFilterViewController) {
+        delegate?.filterViewControllerWillEndTextEditing(self)
+    }
+
+    func mapRadiusFilterViewControllerDidChangeRadius(_ mapRadiusFilterViewController: MapRadiusFilterViewController) {
+        enableSwipeBack(true)
     }
 }
 
 // MARK: - MapPolygonFilterViewControllerDelegate
 
 extension MapFilterViewController: MapPolygonFilterViewControllerDelegate {
+    func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController, searchIsEnabled: Bool) {
+        bottomButton.isEnabled = searchIsEnabled
+    }
+
+    func mapPolygonFilterViewControllerWillBeginTextEditing(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
+        delegate?.filterViewControllerWillBeginTextEditing(self)
+    }
+
+    func mapPolygonFilterViewControllerWillEndTextEditing(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
+        delegate?.filterViewControllerWillEndTextEditing(self)
+    }
+
     func mapPolygonFilterViewControllerDidSelectInitialArea(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
         mapFilterDelegate?.mapFilterViewController(self, didSelect: .initialArea)
     }

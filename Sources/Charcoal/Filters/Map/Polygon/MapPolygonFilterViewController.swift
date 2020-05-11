@@ -9,9 +9,12 @@ import UIKit
 protocol MapPolygonFilterViewControllerDelegate: AnyObject {
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
     func mapPolygonFilterViewControllerDidSelectInitialArea(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
+    func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController, searchIsEnabled: Bool)
+    func mapPolygonFilterViewControllerWillBeginTextEditing(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
+    func mapPolygonFilterViewControllerWillEndTextEditing(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
 }
 
-final class MapPolygonFilterViewController: FilterViewController {
+final class MapPolygonFilterViewController: UIViewController {
     weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             searchLocationViewController.searchLocationDataSource = searchLocationDataSource
@@ -25,7 +28,7 @@ final class MapPolygonFilterViewController: FilterViewController {
         case invalidPolygon
     }
 
-    weak var mapPolygonFilterDelegate: MapPolygonFilterViewControllerDelegate?
+    weak var delegate: MapPolygonFilterViewControllerDelegate?
 
     // MARK: - Private properties
 
@@ -80,13 +83,17 @@ final class MapPolygonFilterViewController: FilterViewController {
         }
     }
 
+    private let selectionStore: FilterSelectionStore
+
     // MARK: - Init
 
-    init(title: String, locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
+    init(locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
         self.locationNameFilter = locationNameFilter
         self.bboxFilter = bboxFilter
         self.polygonFilter = polygonFilter
-        super.init(title: title, selectionStore: selectionStore)
+        self.selectionStore = selectionStore
+        super.init(nibName: nil, bundle: nil)
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -95,31 +102,16 @@ final class MapPolygonFilterViewController: FilterViewController {
 
     // MARK: - Overrides
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        bottomButton.buttonTitle = "applyButton".localized()
-        view.backgroundColor = Theme.mainBackground
-
-        showBottomButton(true, animated: false)
-        setup()
-    }
-
-    override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
-        updateFilterValues()
-        super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
+    override func viewDidAppear(_ animated: Bool) {
+        let searchIsEnabled = state != .invalidPolygon && state != .initialAreaSelection
+        delegate?.mapPolygonFilterViewController(self, searchIsEnabled: searchIsEnabled)
     }
 
     // MARK: - Setup
 
     private func setup() {
         view.addSubview(mapPolygonFilterView)
-
-        NSLayoutConstraint.activate([
-            mapPolygonFilterView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapPolygonFilterView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
-            mapPolygonFilterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapPolygonFilterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
+        mapPolygonFilterView.fillInSuperview()
 
         var coordinates = [CLLocationCoordinate2D]()
         if let coordinateQuery: String = selectionStore.value(for: polygonFilter),
@@ -141,29 +133,23 @@ final class MapPolygonFilterViewController: FilterViewController {
         centerMapOnPolygonCenter()
     }
 
-    // MARK: - Internal methods
-
-    func resetFilterValues() {
-        selectionStore.removeValues(for: [locationNameFilter, bboxFilter, polygonFilter])
-    }
-
     // MARK: - Private methods
 
     private func configure(for state: State) {
         switch state {
         case .initialAreaSelection:
-            bottomButton.isEnabled = false
+            delegate?.mapPolygonFilterViewController(self, searchIsEnabled: false)
             annotations.removeAll()
             resetFilterValues()
             mapPolygonFilterView.configure(for: .initialAreaSelection)
 
         case .polygon, .bbox:
-            bottomButton.isEnabled = true
+            delegate?.mapPolygonFilterViewController(self, searchIsEnabled: true)
             annotations.filter { $0.type == .intermediate }.forEach { annotation in
                 mapPolygonFilterView.addAnnotation(annotation)
             }
         case .invalidPolygon:
-            bottomButton.isEnabled = false
+            delegate?.mapPolygonFilterViewController(self, searchIsEnabled: false)
             mapPolygonFilterView.removeAnnotations(annotations.filter { $0.type == .intermediate })
         }
     }
@@ -191,28 +177,6 @@ final class MapPolygonFilterViewController: FilterViewController {
         let distance = minLocation.distance(from: maxLocation)
 
         mapPolygonFilterView.centerOnCoordinate(centerCoordinate, regionDistance: distance)
-    }
-
-    private func updateFilterValues() {
-        guard state != .invalidPolygon else { return }
-
-        mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
-        locationName = mapPolygonFilterView.locationName
-
-        let vertexAnnotationCoordinates = annotations.filter { $0.type == .vertex }.map { $0.coordinate }
-
-        switch state {
-        case .bbox:
-            bbox = PolygonData.createBBoxQuery(for: vertexAnnotationCoordinates)
-            polygon = nil
-
-        case .polygon:
-            polygon = PolygonData.createPolygonQuery(for: vertexAnnotationCoordinates)
-            bbox = nil
-
-        default:
-            break
-        }
     }
 
     private func returnToMapFromLocationSearch() {
@@ -544,7 +508,7 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
         mapPolygonFilterView.drawPolygon(with: annotations)
         mapPolygonFilterView.configure(for: .polygonSelection)
         updateFilterValues()
-        mapPolygonFilterDelegate?.mapPolygonFilterViewControllerDidSelectInitialArea(self)
+        delegate?.mapPolygonFilterViewControllerDidSelectInitialArea(self)
     }
 
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {
@@ -674,7 +638,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
 extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
     func searchLocationViewControllerDidSelectCurrentLocation(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
-        delegate?.filterViewControllerWillEndTextEditing(self)
+        delegate?.mapPolygonFilterViewControllerWillEndTextEditing(self)
         centerOnUserLocation()
         presentLocationChangedAlert()
     }
@@ -682,18 +646,18 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
     func searchLocationViewControllerWillBeginEditing(_ searchLocationViewController: SearchLocationViewController) {
         // Add view controller as child view controller
         add(searchLocationViewController)
-        delegate?.filterViewControllerWillBeginTextEditing(self)
+        delegate?.mapPolygonFilterViewControllerWillBeginTextEditing(self)
     }
 
     func searchLocationViewControllerDidCancelSearch(_ searchLocationViewController: SearchLocationViewController) {
         returnToMapFromLocationSearch()
-        delegate?.filterViewControllerWillEndTextEditing(self)
+        delegate?.mapPolygonFilterViewControllerWillEndTextEditing(self)
     }
 
     func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController,
                                       didSelectLocation location: LocationInfo?) {
         returnToMapFromLocationSearch()
-        delegate?.filterViewControllerWillEndTextEditing(self)
+        delegate?.mapPolygonFilterViewControllerWillEndTextEditing(self)
 
         if let location = location {
             let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
@@ -709,6 +673,57 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
                 presentLocationChangedAlert()
             }
         }
+    }
+}
+
+// MARK: - ToggleFilter
+
+extension MapPolygonFilterViewController: ToggleFilter {
+    func resetFilterValues() {
+        selectionStore.removeValues(for: [locationNameFilter, bboxFilter, polygonFilter])
+    }
+
+    func updateFilterValues() {
+        guard state != .invalidPolygon else { return }
+
+        delegate?.mapPolygonFilterViewControllerDidSelectFilter(self)
+        locationName = mapPolygonFilterView.locationName
+
+        let vertexAnnotationCoordinates = annotations.filter { $0.type == .vertex }.map { $0.coordinate }
+
+        switch state {
+        case .bbox:
+            bbox = PolygonData.createBBoxQuery(for: vertexAnnotationCoordinates)
+            polygon = nil
+
+        case .polygon:
+            polygon = PolygonData.createPolygonQuery(for: vertexAnnotationCoordinates)
+            bbox = nil
+
+        default:
+            break
+        }
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension MapPolygonFilterViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let view = gestureRecognizer.view as? MKAnnotationView,
+            view.annotation is PolygonSearchAnnotation {
+            return true
+        }
+        return false
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer.view == otherGestureRecognizer.view,
+            let view = gestureRecognizer.view as? MKAnnotationView,
+            view.annotation is PolygonSearchAnnotation {
+            return true
+        }
+        return false
     }
 }
 

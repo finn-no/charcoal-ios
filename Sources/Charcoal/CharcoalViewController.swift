@@ -244,7 +244,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 polygonFilter: polygonFilter,
                 selectionStore: selectionStore
             )
-            mapFilterViewController.filterDelegate = self
             mapFilterViewController.searchLocationDataSource = searchLocationDataSource
             mapFilterViewController.mapFilterDelegate = self
             pushViewController(mapFilterViewController)
@@ -260,10 +259,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     private func pushViewController(_ viewController: FilterViewController) {
         viewController.delegate = self
-        pushViewController(viewController, animated: true)
-    }
-
-    private func pushViewController(_ viewController: UIViewController) {
         pushViewController(viewController, animated: true)
     }
 

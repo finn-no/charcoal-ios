@@ -29,7 +29,12 @@ class MapFilterViewController: FilterViewController {
     }
 
     private lazy var toggleButton: UIBarButtonItem = {
-        let buttonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(toggleViewControllers))
+        let buttonItem = UIBarButtonItem(
+            title: nil,
+            style: .plain,
+            target: self,
+            action: #selector(toggleViewControllers)
+        )
         buttonItem.setTitleTextAttributes([.font: UIFont.bodyStrong], for: .normal)
         return buttonItem
     }()
@@ -92,7 +97,8 @@ class MapFilterViewController: FilterViewController {
         setup()
     }
 
-    override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView, didTapButton button: UIButton) {
+    override func filterBottomButtonView(_ filterBottomButtonView: FilterBottomButtonView,
+                                         didTapButton button: UIButton) {
         guard let mapPolygonFilterViewController = mapPolygonFilterViewController else {
             mapRadiusFilterViewController.updateFilterValues()
             super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
@@ -195,7 +201,8 @@ extension MapFilterViewController: MapRadiusFilterViewControllerDelegate {
 // MARK: - MapPolygonFilterViewControllerDelegate
 
 extension MapFilterViewController: MapPolygonFilterViewControllerDelegate {
-    func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController, searchIsEnabled: Bool) {
+    func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController,
+                                        searchIsEnabled: Bool) {
         bottomButton.isEnabled = searchIsEnabled
     }
 

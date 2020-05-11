@@ -87,7 +87,8 @@ final class MapPolygonFilterViewController: UIViewController {
 
     // MARK: - Init
 
-    init(locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter, selectionStore: FilterSelectionStore) {
+    init(locationNameFilter: Filter, bboxFilter: Filter, polygonFilter: Filter,
+         selectionStore: FilterSelectionStore) {
         self.locationNameFilter = locationNameFilter
         self.bboxFilter = bboxFilter
         self.polygonFilter = polygonFilter
@@ -237,7 +238,8 @@ final class MapPolygonFilterViewController: UIViewController {
 
     private func showMaxAnnotationsReachedInfo() {
         let infoBoxTitle: String
-        if UserDefaults.standard.polygonSearchGuidanceShown, !UserDefaults.standard.polygonSearchDidDeletePoint {
+        if UserDefaults.standard.polygonSearchGuidanceShown,
+            !UserDefaults.standard.polygonSearchDidDeletePoint {
             infoBoxTitle = "map.polygonSearch.maxAnnotations.label.title.detailed".localized()
         } else {
             infoBoxTitle = "map.polygonSearch.maxAnnotations.label.title".localized()
@@ -256,7 +258,9 @@ final class MapPolygonFilterViewController: UIViewController {
         UserDefaults.standard.polygonSearchGuidanceShown = true
 
         let visibleVertices = mapPolygonFilterView.visibleAnnotations.filter { $0.type == .vertex }
-        guard let annotationForCallout = visibleVertices.min(by: { $0.coordinate.latitude < $1.coordinate.latitude }) else { return }
+        guard
+            let annotationForCallout = visibleVertices.min(by: { $0.coordinate.latitude < $1.coordinate.latitude })
+        else { return }
 
         mapPolygonFilterView.selectAnnotation(annotationForCallout)
     }
@@ -295,7 +299,8 @@ final class MapPolygonFilterViewController: UIViewController {
             dragStartPosition = location
 
         } else if gesture.state == .changed {
-            gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x, y: location.y - dragStartPosition.y)
+            gesture.view?.transform = CGAffineTransform(translationX: location.x - dragStartPosition.x,
+                                                        y: location.y - dragStartPosition.y)
 
             let touchedCoordinate = updatedCoordinate(for: annotation, gestureLocation: location)
             updatePolygon(withTemporaryCoordinate: touchedCoordinate, for: annotation)
@@ -314,7 +319,10 @@ final class MapPolygonFilterViewController: UIViewController {
         guard annotations.filter({ $0.type == .vertex }).count > 4 else {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.warning)
-            mapPolygonFilterView.showInfoBox(with: "map.polygonSearch.minAnnotations.label.title".localized(), completion: nil)
+            mapPolygonFilterView.showInfoBox(
+                with: "map.polygonSearch.minAnnotations.label.title".localized(),
+                completion: nil
+            )
             return
         }
         guard
@@ -334,7 +342,11 @@ final class MapPolygonFilterViewController: UIViewController {
             let trailingIntermediateIndex = indexAfter(index)
             let leadingVertexAnnotation = annotations[indexBefore(leadingIntermediateIndex)]
 
-            let annotationsToRemove = [annotation, annotations[leadingIntermediateIndex], annotations[trailingIntermediateIndex]]
+            let annotationsToRemove = [
+                annotation,
+                annotations[leadingIntermediateIndex],
+                annotations[trailingIntermediateIndex],
+            ]
             mapPolygonFilterView.removeAnnotations(annotationsToRemove)
             annotations.removeAll(where: { annotationsToRemove.contains($0) })
             addIntermediatePoint(after: leadingVertexAnnotation)
@@ -348,7 +360,8 @@ final class MapPolygonFilterViewController: UIViewController {
         updateFilterValues()
     }
 
-    private func updatePolygon(withTemporaryCoordinate coordinate: CLLocationCoordinate2D, for annotation: PolygonSearchAnnotation) {
+    private func updatePolygon(withTemporaryCoordinate coordinate: CLLocationCoordinate2D,
+                               for annotation: PolygonSearchAnnotation) {
         guard let index = index(of: annotation) else { return }
         var coordinates = annotations.map { $0.coordinate }
         coordinates[index] = coordinate
@@ -356,7 +369,9 @@ final class MapPolygonFilterViewController: UIViewController {
         updateNeighborPositions(around: annotation, with: coordinate)
     }
 
-    private func updatePolygon(withFinalCoordinate coordinate: CLLocationCoordinate2D, for annotation: PolygonSearchAnnotation, withView annotationView: MKAnnotationView) {
+    private func updatePolygon(withFinalCoordinate coordinate: CLLocationCoordinate2D,
+                               for annotation: PolygonSearchAnnotation,
+                               withView annotationView: MKAnnotationView) {
         annotationView.transform = .identity
         annotation.coordinate = coordinate
 
@@ -375,14 +390,21 @@ final class MapPolygonFilterViewController: UIViewController {
         updateFilterValues()
     }
 
-    private func updatedCoordinate(for annotation: PolygonSearchAnnotation, gestureLocation: CGPoint) -> CLLocationCoordinate2D {
-        let translate = CGPoint(x: gestureLocation.x - dragStartPosition.x, y: gestureLocation.y - dragStartPosition.y)
+    private func updatedCoordinate(for annotation: PolygonSearchAnnotation,
+                                   gestureLocation: CGPoint) -> CLLocationCoordinate2D {
+        let translate = CGPoint(x: gestureLocation.x - dragStartPosition.x,
+                                y: gestureLocation.y - dragStartPosition.y)
+
         let originalLocation = mapPolygonFilterView.point(for: annotation)
-        let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+
+        let updatedLocation = CGPoint(x: originalLocation.x + translate.x,
+                                      y: originalLocation.y + translate.y)
+
         return mapPolygonFilterView.coordinate(for: updatedLocation)
     }
 
-    private func updateNeighborPositions(around movingAnnotation: PolygonSearchAnnotation, with coordinate: CLLocationCoordinate2D) {
+    private func updateNeighborPositions(around movingAnnotation: PolygonSearchAnnotation,
+                                         with coordinate: CLLocationCoordinate2D) {
         guard let index = index(of: movingAnnotation) else { return }
 
         let previousIndex = indexBefore(index)
@@ -402,7 +424,8 @@ final class MapPolygonFilterViewController: UIViewController {
         }
     }
 
-    private func convertToVertexAnnotation(annotation: PolygonSearchAnnotation, with annotationView: MKAnnotationView) {
+    private func convertToVertexAnnotation(annotation: PolygonSearchAnnotation,
+                                           with annotationView: MKAnnotationView) {
         annotation.type = .vertex
 
         if annotations.filter({ $0.type == .vertex }).count >= MapPolygonFilterViewController.maxNumberOfVertices {
@@ -491,15 +514,30 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
 
         let preferredStyle: UIAlertController.Style = traitCollection.horizontalSizeClass == .compact ? .actionSheet : .alert
 
-        let alertController = UIAlertController(title: "map.polygonSearch.resetPolygon.alert.title".localized(), message: nil, preferredStyle: preferredStyle)
-        alertController.addAction(UIAlertAction(title: "map.polygonSearch.resetPolygon.alert.action".localized(), style: .destructive, handler: { _ in
-            self.state = .initialAreaSelection
-        }))
-        alertController.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil))
+        let alertController = UIAlertController(
+            title: "map.polygonSearch.resetPolygon.alert.title".localized(),
+            message: nil,
+            preferredStyle: preferredStyle
+        )
+        alertController.addAction(UIAlertAction(
+            title: "map.polygonSearch.resetPolygon.alert.action".localized(),
+            style: .destructive,
+            handler: { _ in
+                self.state = .initialAreaSelection
+            }
+        )
+        )
+        alertController.addAction(UIAlertAction(
+            title: "cancel".localized(),
+            style: .cancel,
+            handler: nil
+        )
+        )
         present(alertController, animated: true)
     }
 
-    func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D]) {
+    func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView,
+                                                                 coordinates: [CLLocationCoordinate2D]) {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
 
@@ -609,7 +647,8 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             longPressGestureRecognizer.delegate = self
             view?.addGestureRecognizer(longPressGestureRecognizer)
 
-            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleAnnotationDoubleTap(gesture:)))
+            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                    action: #selector(handleAnnotationDoubleTap(gesture:)))
             doubleTapGestureRecognizer.numberOfTapsRequired = 2
             view?.addGestureRecognizer(doubleTapGestureRecognizer)
         }
@@ -660,7 +699,10 @@ extension MapPolygonFilterViewController: SearchLocationViewControllerDelegate {
         delegate?.mapPolygonFilterViewControllerWillEndTextEditing(self)
 
         if let location = location {
-            let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            let coordinate = CLLocationCoordinate2D(
+                latitude: location.latitude,
+                longitude: location.longitude
+            )
 
             locationName = location.name
 
@@ -717,7 +759,8 @@ extension MapPolygonFilterViewController: UIGestureRecognizerDelegate {
         return false
     }
 
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                  shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer.view == otherGestureRecognizer.view,
             let view = gestureRecognizer.view as? MKAnnotationView,
             view.annotation is PolygonSearchAnnotation {

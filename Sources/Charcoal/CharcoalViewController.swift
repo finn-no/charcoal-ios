@@ -17,7 +17,8 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin)
-    func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.MapSelection)
+    func charcoalViewController(_ viewController: CharcoalViewController,
+                                didSelect selection: CharcoalViewController.MapSelection)
 }
 
 public final class CharcoalViewController: UINavigationController {
@@ -318,7 +319,8 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 // MARK: - MapFilterViewControllerDelegate
 
 extension CharcoalViewController: MapFilterViewControllerDelegate {
-    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController, didSelect selection: CharcoalViewController.MapSelection) {
+    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
+                                 didSelect selection: CharcoalViewController.MapSelection) {
         selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }

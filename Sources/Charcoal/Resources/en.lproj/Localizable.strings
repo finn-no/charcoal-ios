@@ -76,8 +76,8 @@
 "map.polygonSearch.initialAreaSelection.button" = "Fest kartutsnittet her";
 "map.polygonSearch.resetPolygon.alert.title" = "Er du sikker på at du vil nullstille utsnittet?";
 "map.polygonSearch.resetPolygon.alert.action" = "Nullstill utsnittet";
-"map.polygonSearch.locationChanged.alert.title" = "Ønsker du å beholde ditt egendefinerte kartutsnitt?";
-"map.polygonSearch.locationChanged.alert.keepArea" = "Behold utsnittet der det er";
+"map.polygonSearch.locationChanged.alert.title" = "Ønsker du å beholde det egendefinerte kartutsnittet der det er?";
+"map.polygonSearch.locationChanged.alert.keepArea" = "Behold utsnittet";
 "map.polygonSearch.locationChanged.alert.resetArea" = "Nullstill utsnittet";
 "map.polygonSearch.doubleClick.callout.title" = "Visste du at du\nkan dobbelttrykke for\nå slette et punkt?";
 "map.polygonSearch.maxAnnotations.label.title" = "Du har nådd maks antall punkter";

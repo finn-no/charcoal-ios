@@ -24,6 +24,12 @@ class FilterBottomButtonView: ShadowView {
                       height: button.intrinsicContentSize.height + .spacingXL + windowSafeAreaInsets.bottom)
     }
 
+    var isEnabled = true {
+        didSet {
+            button.isEnabled = isEnabled
+        }
+    }
+
     override init() {
         super.init()
         setup()

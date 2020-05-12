@@ -14,6 +14,7 @@ final class CalloutOverlay: UIView {
     // MARK: - Private properties
 
     private let direction: CalloutView.Direction
+    private let arrowAlignment: CalloutView.ArrowAlignment
 
     private var calloutViewDirectionalAnchor: NSLayoutYAxisAnchor {
         switch direction {
@@ -27,7 +28,7 @@ final class CalloutOverlay: UIView {
     private var directionalConstraints: [NSLayoutConstraint]?
 
     private lazy var calloutView: CalloutView = {
-        let view = CalloutView(direction: direction)
+        let view = CalloutView(direction: direction, arrowAlignment: arrowAlignment)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -40,8 +41,9 @@ final class CalloutOverlay: UIView {
 
     // MARK: - Init
 
-    init(direction: CalloutView.Direction) {
+    init(direction: CalloutView.Direction, arrowAlignment: CalloutView.ArrowAlignment = .center) {
         self.direction = direction
+        self.arrowAlignment = arrowAlignment
         super.init(frame: .zero)
         setup()
     }
@@ -85,12 +87,20 @@ final class CalloutOverlay: UIView {
         addGestureRecognizer(gestureRecognizer)
 
         var constraints = [
-            calloutView.centerXAnchor.constraint(equalTo: centerXAnchor),
             calloutView.widthAnchor.constraint(equalToConstant: 250),
 
             bodyView.leadingAnchor.constraint(equalTo: leadingAnchor),
             bodyView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ]
+
+        switch arrowAlignment {
+        case .center:
+            constraints.append(calloutView.centerXAnchor.constraint(equalTo: centerXAnchor))
+        case .left:
+            constraints.append(calloutView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM))
+        case .right:
+            constraints.append(calloutView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM))
+        }
 
         if let directionalConstraints = directionalConstraints {
             constraints += directionalConstraints

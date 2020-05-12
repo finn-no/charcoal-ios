@@ -17,6 +17,8 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin)
+    func charcoalViewController(_ viewController: CharcoalViewController,
+                                didSelect selection: CharcoalViewController.MapSelection)
 }
 
 public final class CharcoalViewController: UINavigationController {
@@ -28,7 +30,6 @@ public final class CharcoalViewController: UINavigationController {
 
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
     public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
-    public weak var mapDataSource: MapFilterDataSource?
     public weak var searchLocationDataSource: SearchLocationDataSource?
 
     public weak var freeTextFilterDataSource: FreeTextFilterDataSource? {
@@ -41,6 +42,12 @@ public final class CharcoalViewController: UINavigationController {
 
     public var isLoading: Bool = false {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
+    }
+
+    public enum MapSelection {
+        case openPolygonSearch
+        case openRadiusSearch
+        case initialArea
     }
 
     // MARK: - Private properties
@@ -227,20 +234,25 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 filterConfig: filterConfig
             )
             pushViewController(stepperViewController)
-        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter):
-            let mapViewController = MapFilterViewController(
+        case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
+            let mapFilterViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
                 longitudeFilter: longitudeFilter,
                 radiusFilter: radiusFilter,
                 locationNameFilter: locationNameFilter,
+                bboxFilter: bboxFilter,
+                polygonFilter: polygonFilter,
                 selectionStore: selectionStore
             )
+            mapFilterViewController.searchLocationDataSource = searchLocationDataSource
+            mapFilterViewController.mapFilterDelegate = self
+            pushViewController(mapFilterViewController)
 
-            mapViewController.mapDataSource = mapDataSource
-            mapViewController.searchLocationDataSource = searchLocationDataSource
+            if polygonFilter != nil {
+                showPolygonSearchCalloutIfNeeded()
+            }
 
-            pushViewController(mapViewController)
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }
@@ -249,6 +261,17 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     private func pushViewController(_ viewController: FilterViewController) {
         viewController.delegate = self
         pushViewController(viewController, animated: true)
+    }
+
+    private func showPolygonSearchCalloutIfNeeded() {
+        guard !UserDefaults.standard.polygonSearchCalloutShown else { return }
+        UserDefaults.standard.polygonSearchCalloutShown = true
+        showCalloutOverlay(
+            withText: "map.polygonSearch.callout.title".localized(),
+            andDirection: .up,
+            andArrowAlignment: .right(15),
+            constrainedToDirectionalAnchor: navigationBar.bottomAnchor
+        )
     }
 }
 
@@ -293,6 +316,15 @@ extension CharcoalViewController: UINavigationControllerDelegate {
     }
 }
 
+// MARK: - MapFilterViewControllerDelegate
+
+extension CharcoalViewController: MapFilterViewControllerDelegate {
+    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
+                                 didSelect selection: CharcoalViewController.MapSelection) {
+        selectionDelegate?.charcoalViewController(self, didSelect: selection)
+    }
+}
+
 // MARK: - CalloutOverlayDelegate
 
 extension CharcoalViewController: CalloutOverlayDelegate {
@@ -305,8 +337,12 @@ extension CharcoalViewController: CalloutOverlayDelegate {
         })
     }
 
-    private func showCalloutOverlay(withText text: String, andDirection direction: CalloutView.Direction, constrainedToDirectionalAnchor directionalAnchor: NSLayoutYAxisAnchor? = nil, constrainedToTopAnchor topAnchor: NSLayoutYAxisAnchor? = nil) {
-        calloutOverlay = CalloutOverlay(direction: direction)
+    private func showCalloutOverlay(withText text: String,
+                                    andDirection direction: CalloutView.Direction,
+                                    andArrowAlignment arrowAlignment: CalloutView.ArrowAlignment = .center,
+                                    constrainedToDirectionalAnchor directionalAnchor: NSLayoutYAxisAnchor? = nil,
+                                    constrainedToTopAnchor topAnchor: NSLayoutYAxisAnchor? = nil) {
+        calloutOverlay = CalloutOverlay(direction: direction, arrowAlignment: arrowAlignment)
 
         if let calloutOverlay = calloutOverlay {
             calloutOverlay.delegate = self
@@ -341,5 +377,10 @@ private extension UserDefaults {
     var bottomButtomCalloutShown: Bool {
         get { return bool(forKey: #function) }
         set { set(newValue, forKey: #function) }
+    }
+
+    var polygonSearchCalloutShown: Bool {
+        get { return bool(forKey: "Charcoal." + #function) }
+        set { set(newValue, forKey: "Charcoal." + #function) }
     }
 }

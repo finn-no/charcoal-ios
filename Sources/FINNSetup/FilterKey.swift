@@ -8,6 +8,7 @@ public enum FilterKey: String, CodingKey {
     case applicationDeadline = "applicationdeadline"
     case animalsAllowed = "animals_allowed"
     case area
+    case bbox
     case bikesType = "bikes_type"
     case boatClass = "class"
     case bodyType = "body_type"
@@ -78,6 +79,7 @@ public enum FilterKey: String, CodingKey {
     case ownershipType = "ownership_type"
     case plotArea = "plot_area"
     case plotOwned = "plot_owned"
+    case polygon = "polylocation"
     case preferences
     case price
     case priceChanged = "price_changed"

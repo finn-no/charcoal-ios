@@ -10,6 +10,8 @@
 "done" = "Ferdig";
 "reset" = "Nullstill";
 "applyButton" = "Bruk";
+"yes" = "Ja";
+"no" = "Nei";
 "showResultsButton" = "Vis %i treff";
 "searchPlaceholder" = "Ord i annonsen";
 "browserText" = "Åpnes i nettleseren";
@@ -62,12 +64,26 @@
 "unit.kiloWattHour.accessibilityValue" = "kilowattime";
 
 "map.title" = "Område i kart";
+"map.radiusSearch.toggleButton.title" = "Avstand";
+"map.polygonSearch.toggleButton.title" = "Utsnitt";
 "map.homeAddress" = "Min hjemmeadresse";
 "map.currentLocation" = "Min nåværende posisjon";
 "map.valueSliderAccessibilityLabel" = "Slider for verdi";
 "map.locationError.title" = "Informasjon";
 "map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
 "map.search.placeholder" = "Søk etter sted eller adresse";
+"map.polygonSearch.filter.title" = "Egendefinert utsnitt";
+"map.polygonSearch.initialAreaSelection.button" = "Fest kartutsnittet her";
+"map.polygonSearch.resetPolygon.alert.title" = "Er du sikker på at du vil nullstille utsnittet?";
+"map.polygonSearch.resetPolygon.alert.action" = "Nullstill utsnittet";
+"map.polygonSearch.locationChanged.alert.title" = "Ønsker du å beholde det egendefinerte kartutsnittet der det er?";
+"map.polygonSearch.locationChanged.alert.keepArea" = "Behold utsnittet";
+"map.polygonSearch.locationChanged.alert.resetArea" = "Nullstill utsnittet";
+"map.polygonSearch.doubleClick.callout.title" = "Visste du at du\nkan dobbelttrykke for\nå slette et punkt?";
+"map.polygonSearch.maxAnnotations.label.title" = "Du har nådd maks antall punkter";
+"map.polygonSearch.maxAnnotations.label.title.detailed" = "Du har nådd maks antall punkter.\nDobbelttrykk på et punkt for å slette det.";
+"map.polygonSearch.minAnnotations.label.title" = "Du kan ikke fjerne flere punkter";
+"map.polygonSearch.callout.title" = "Sjekk ut vårt nye områdesøk!";
 
 "callout.bottomButton" = "Trykk på Bruk-knappen for å gå videre.";
 

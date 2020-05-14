@@ -37,7 +37,7 @@ final class CalloutOverlay: UIView {
         let view = UIView(withAutoLayout: true)
         if #available(iOS 13, *),
             traitCollection.userInterfaceStyle == .dark {
-            view.backgroundColor = UIColor.bgSecondary.withAlphaComponent(0.8)
+            view.backgroundColor = UIColor.bgSecondary.withAlphaComponent(0.6)
         } else {
             view.backgroundColor = UIColor(white: 1, alpha: 0.8)
         }

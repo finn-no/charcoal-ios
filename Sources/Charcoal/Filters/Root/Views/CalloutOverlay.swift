@@ -35,7 +35,7 @@ final class CalloutOverlay: UIView {
 
     private lazy var bodyView: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = UIColor(white: 1, alpha: 0.8)
+        view.backgroundColor = .overlayBackground
         return view
     }()
 
@@ -118,5 +118,11 @@ final class CalloutOverlay: UIView {
 
     @objc private func handleTap() {
         delegate?.calloutOverlayDidTapInside(self)
+    }
+}
+
+private extension UIColor {
+    class var overlayBackground: UIColor {
+        dynamicColorIfAvailable(defaultColor: milk.withAlphaComponent(0.8), darkModeColor: darkIce.withAlphaComponent(0.6))
     }
 }

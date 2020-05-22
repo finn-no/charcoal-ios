@@ -6,6 +6,8 @@ import Foundation
 import MapKit
 
 public struct PolygonData {
+    private static let coordinateFormat = "%.5f"
+
     // MARK: - Polygon
 
     public static func createPolygonCoordinates(from query: String) -> [CLLocationCoordinate2D]? {
@@ -35,7 +37,8 @@ public struct PolygonData {
     }
 
     private static func string(for coordinate: CLLocationCoordinate2D) -> String {
-        return String(coordinate.longitude) + " " + String(coordinate.latitude)
+        return String(format: PolygonData.coordinateFormat, coordinate.longitude)
+            + " " + String(format: PolygonData.coordinateFormat, coordinate.latitude)
     }
 
     // MARK: - BBox
@@ -66,6 +69,6 @@ public struct PolygonData {
             coordinates.map { $0.latitude }.max() ?? 0,
         ]
         guard !bboxCoordinates.contains(0) else { return nil }
-        return bboxCoordinates.map { String($0) }.joined(separator: ",")
+        return bboxCoordinates.map { String(format: PolygonData.coordinateFormat, $0) }.joined(separator: ",")
     }
 }

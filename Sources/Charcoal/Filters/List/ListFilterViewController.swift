@@ -35,6 +35,7 @@ public final class ListFilterViewController: FilterViewController {
 
     private let filter: Filter
     private var filteredSubfilters: [Filter]
+    private let notificationCenter: NotificationCenter
 
     private var canSelectAll: Bool {
         return filter.value != nil
@@ -42,9 +43,10 @@ public final class ListFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    public init(filter: Filter, selectionStore: FilterSelectionStore) {
+    public init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default) {
         self.filter = filter
         filteredSubfilters = filter.subfilters
+        self.notificationCenter = notificationCenter
         super.init(title: filter.title, selectionStore: selectionStore)
     }
 
@@ -63,6 +65,13 @@ public final class ListFilterViewController: FilterViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        notificationCenter.removeObserver(self)
     }
 
     public override func showBottomButton(_ show: Bool, animated: Bool) {
@@ -106,6 +115,26 @@ public final class ListFilterViewController: FilterViewController {
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         searchBar.endEditing(true)
+    }
+
+    // MARK: - Actions
+
+    @objc private func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        var keyboardHeight = view.convert(keyboardValue.cgRectValue, from: view.window).height
+
+        if #available(iOS 11.0, *) {
+            keyboardHeight -= view.window?.safeAreaInsets.bottom ?? 0
+        }
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            tableView.contentInset = .zero
+        } else {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+        }
+
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
 }
 

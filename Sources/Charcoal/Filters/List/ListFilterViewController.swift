@@ -86,22 +86,18 @@ public final class ListFilterViewController: FilterViewController {
 
             topShadowViewBottomAnchor.isActive = false
 
-            NSLayoutConstraint.activate(
-                sharedTableViewConstraints +
-                [
-                    searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingS),
-                    searchBar.topAnchor.constraint(equalTo: view.topAnchor),
-                    searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingS),
+            let searchBarConstraints = [
+                searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingS),
+                searchBar.topAnchor.constraint(equalTo: view.topAnchor),
+                searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingS),
 
-                    topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
-                    tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-                ]
-            )
+                topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
+                tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            ]
+
+            NSLayoutConstraint.activate(sharedTableViewConstraints + searchBarConstraints)
         } else {
-            NSLayoutConstraint.activate(
-                sharedTableViewConstraints +
-                [tableView.topAnchor.constraint(equalTo: view.topAnchor)]
-            )
+            NSLayoutConstraint.activate(sharedTableViewConstraints + [tableView.topAnchor.constraint(equalTo: view.topAnchor)])
         }
     }
 }

@@ -197,4 +197,14 @@ extension ListFilterViewController: UITableViewDelegate {
 // MARK: - UISearchBarDelegate
 
 extension ListFilterViewController: UISearchBarDelegate {
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredSubfilters = filter.subfilters
+        } else {
+            let searchTextLowercased = searchText.lowercased()
+            filteredSubfilters = filter.subfilters.filter { $0.title.lowercased().contains(searchTextLowercased) }
+        }
+
+        tableView.reloadData()
+    }
 }

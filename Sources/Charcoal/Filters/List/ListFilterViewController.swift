@@ -30,6 +30,7 @@ public final class ListFilterViewController: FilterViewController {
     }()
 
     private let filter: Filter
+    private var filteredSubfilters: [Filter]
 
     private var canSelectAll: Bool {
         return filter.value != nil
@@ -39,6 +40,7 @@ public final class ListFilterViewController: FilterViewController {
 
     public init(filter: Filter, selectionStore: FilterSelectionStore) {
         self.filter = filter
+        filteredSubfilters = filter.subfilters
         super.init(title: filter.title, selectionStore: selectionStore)
     }
 
@@ -114,7 +116,7 @@ extension ListFilterViewController: UITableViewDataSource {
         case .all:
             return canSelectAll ? 1 : 0
         case .subfilters:
-            return filter.subfilters.count
+            return filteredSubfilters.count
         }
     }
 
@@ -130,7 +132,7 @@ extension ListFilterViewController: UITableViewDataSource {
         case .all:
             viewModel = .selectAll(from: filter, isSelected: isAllSelected)
         case .subfilters:
-            let subfilter = filter.subfilters[indexPath.row]
+            let subfilter = filteredSubfilters[indexPath.row]
 
             switch subfilter.kind {
             case .external:
@@ -164,7 +166,7 @@ extension ListFilterViewController: UITableViewDelegate {
             tableView.reloadSections(IndexSet(integer: Section.subfilters.rawValue), with: .fade)
             showBottomButton(true, animated: true)
         case .subfilters:
-            let subfilter = filter.subfilters[indexPath.row]
+            let subfilter = filteredSubfilters[indexPath.row]
 
             switch subfilter.kind {
             case _ where !subfilter.subfilters.isEmpty, .external:

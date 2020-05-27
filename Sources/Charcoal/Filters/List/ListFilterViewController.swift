@@ -69,12 +69,34 @@ public final class ListFilterViewController: FilterViewController {
     private func setup() {
         view.insertSubview(tableView, belowSubview: bottomButton)
 
-        NSLayoutConstraint.activate([
+        let sharedTableViewConstraints = [
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
-        ])
+        ]
+
+        if filter.subfilters.count >= 20 {
+            view.addSubview(searchBar)
+
+            topShadowViewBottomAnchor.isActive = false
+
+            NSLayoutConstraint.activate(
+                sharedTableViewConstraints +
+                [
+                    searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingS),
+                    searchBar.topAnchor.constraint(equalTo: view.topAnchor),
+                    searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingS),
+
+                    topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
+                    tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+                ]
+            )
+        } else {
+            NSLayoutConstraint.activate(
+                sharedTableViewConstraints +
+                [tableView.topAnchor.constraint(equalTo: view.topAnchor)]
+            )
+        }
     }
 }
 

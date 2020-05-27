@@ -23,6 +23,12 @@ public final class ListFilterViewController: FilterViewController {
         return tableView
     }()
 
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar(withAutoLayout: true)
+        searchBar.placeholder = "Placeholder"
+        return searchBar
+    }()
+
     private let filter: Filter
 
     private var canSelectAll: Bool {

@@ -85,6 +85,7 @@
 		55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */; };
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
+		8D6800979EDCAFB591D588CC /* FreeTextFilterSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */; };
 		91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */; };
 		9B2931E323477A6B006469B5 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */; };
 		9B2931E723477AF5006469B5 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E523477AF5006469B5 /* AppCenterCrashes.framework */; };
@@ -375,6 +376,7 @@
 		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
+		8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeTextFilterSearchBar.swift; sourceTree = "<group>"; };
 		91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerPresentationViewController.swift; sourceTree = "<group>"; };
 		9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterDistribute.framework; path = Carthage/Build/iOS/AppCenterDistribute.framework; sourceTree = "<group>"; };
 		9B2931E523477AF5006469B5 /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterCrashes.framework; path = Carthage/Build/iOS/AppCenterCrashes.framework; sourceTree = "<group>"; };
@@ -1066,6 +1068,7 @@
 			children = (
 				DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */,
 				DA1C346F222534C700FB22A5 /* ViewModels */,
+				8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */,
 			);
 			path = FreeText;
 			sourceTree = "<group>";
@@ -1746,6 +1749,7 @@
 				CFE255D7225B929B00052077 /* GridFilterCell.swift in Sources */,
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
 				4978F74624474B9E00D9D6C2 /* PolygonEdge.swift in Sources */,
+				8D6800979EDCAFB591D588CC /* FreeTextFilterSearchBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

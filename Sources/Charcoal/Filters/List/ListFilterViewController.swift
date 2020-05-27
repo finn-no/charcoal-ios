@@ -24,8 +24,12 @@ public final class ListFilterViewController: FilterViewController {
     }()
 
     private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar(withAutoLayout: true)
-        searchBar.placeholder = "Placeholder"
+        let searchBar = FreeTextFilterSearchBar(frame: .zero)
+        searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
+        searchBar.backgroundColor = Theme.mainBackground
+        searchBar.placeholder = "Avgrens søket"
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
 
@@ -188,4 +192,9 @@ extension ListFilterViewController: UITableViewDelegate {
             cell.animateSelection(isSelected: isSelected)
         }
     }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension ListFilterViewController: UISearchBarDelegate {
 }

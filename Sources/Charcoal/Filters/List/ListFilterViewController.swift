@@ -100,6 +100,13 @@ public final class ListFilterViewController: FilterViewController {
             NSLayoutConstraint.activate(sharedTableViewConstraints + [tableView.topAnchor.constraint(equalTo: view.topAnchor)])
         }
     }
+
+    // MARK: - Overrides
+
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        searchBar.endEditing(true)
+    }
 }
 
 // MARK: - UITableViewDataSource

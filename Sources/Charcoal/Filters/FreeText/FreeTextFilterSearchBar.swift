@@ -10,15 +10,15 @@ class FreeTextFilterSearchBar: UISearchBar {
         let textFieldAppearanceInRoot = UITextField.appearance(whenContainedInInstancesOf: [AppearanceColoredTableView.self])
         textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInRoot.defaultTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.textAction,
-            NSAttributedString.Key.font: UIFont.bodyRegular,
+            .foregroundColor: UIColor.textAction,
+            .font: UIFont.bodyRegular,
         ]
 
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
         textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInSearch.defaultTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.textPrimary,
-            NSAttributedString.Key.font: UIFont.bodyRegular,
+            .foregroundColor: UIColor.textPrimary,
+            .font: UIFont.bodyRegular,
         ]
 
         let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])

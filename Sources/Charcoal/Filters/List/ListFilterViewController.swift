@@ -233,7 +233,14 @@ extension ListFilterViewController: UISearchBarDelegate {
             scopedSubfilters = filter.subfilters
         } else {
             let searchTextLowercased = searchText.lowercased()
-            scopedSubfilters = filter.subfilters.filter { $0.title.lowercased().contains(searchTextLowercased) }
+            // Find subfilters matching the query and make those who are prefixed with the query appear at the top.
+            scopedSubfilters = filter.subfilters
+                .filter { $0.title.lowercased().contains(searchTextLowercased) }
+                .sorted {
+                    let first = $0.title.lowercased().hasPrefix(searchTextLowercased) ? 0 : 1
+                    let second = $1.title.lowercased().hasPrefix(searchTextLowercased) ? 0 : 1
+                    return first < second
+                }
         }
 
         tableView.reloadData()

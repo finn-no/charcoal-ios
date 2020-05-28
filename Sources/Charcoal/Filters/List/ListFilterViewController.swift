@@ -34,7 +34,7 @@ public final class ListFilterViewController: FilterViewController {
     }()
 
     private let filter: Filter
-    private var filteredSubfilters: [Filter]
+    private var scopedSubfilters: [Filter]
     private let notificationCenter: NotificationCenter
     private let searchbarSubfilterThreshold: Int
 
@@ -46,7 +46,7 @@ public final class ListFilterViewController: FilterViewController {
 
     public init(filter: Filter, selectionStore: FilterSelectionStore, searchbarSubfilterThreshold: Int = 20, notificationCenter: NotificationCenter = .default) {
         self.filter = filter
-        filteredSubfilters = filter.subfilters
+        scopedSubfilters = filter.subfilters
         self.searchbarSubfilterThreshold = searchbarSubfilterThreshold
         self.notificationCenter = notificationCenter
         super.init(title: filter.title, selectionStore: selectionStore)
@@ -151,7 +151,7 @@ extension ListFilterViewController: UITableViewDataSource {
         case .all:
             return canSelectAll ? 1 : 0
         case .subfilters:
-            return filteredSubfilters.count
+            return scopedSubfilters.count
         }
     }
 
@@ -167,7 +167,7 @@ extension ListFilterViewController: UITableViewDataSource {
         case .all:
             viewModel = .selectAll(from: filter, isSelected: isAllSelected)
         case .subfilters:
-            let subfilter = filteredSubfilters[indexPath.row]
+            let subfilter = scopedSubfilters[indexPath.row]
 
             switch subfilter.kind {
             case .external:
@@ -201,7 +201,7 @@ extension ListFilterViewController: UITableViewDelegate {
             tableView.reloadSections(IndexSet(integer: Section.subfilters.rawValue), with: .fade)
             showBottomButton(true, animated: true)
         case .subfilters:
-            let subfilter = filteredSubfilters[indexPath.row]
+            let subfilter = scopedSubfilters[indexPath.row]
 
             switch subfilter.kind {
             case _ where !subfilter.subfilters.isEmpty, .external:
@@ -230,10 +230,10 @@ extension ListFilterViewController: UITableViewDelegate {
 extension ListFilterViewController: UISearchBarDelegate {
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            filteredSubfilters = filter.subfilters
+            scopedSubfilters = filter.subfilters
         } else {
             let searchTextLowercased = searchText.lowercased()
-            filteredSubfilters = filter.subfilters.filter { $0.title.lowercased().contains(searchTextLowercased) }
+            scopedSubfilters = filter.subfilters.filter { $0.title.lowercased().contains(searchTextLowercased) }
         }
 
         tableView.reloadData()

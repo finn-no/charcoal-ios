@@ -28,7 +28,7 @@ public final class ListFilterViewController: FilterViewController {
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         searchBar.backgroundColor = Theme.mainBackground
-        searchBar.placeholder = "Avgrens søket"
+        searchBar.placeholder = "filterAsYouType.placeholder".localized()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()

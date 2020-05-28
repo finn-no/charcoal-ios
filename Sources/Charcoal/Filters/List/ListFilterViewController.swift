@@ -36,6 +36,7 @@ public final class ListFilterViewController: FilterViewController {
     private let filter: Filter
     private var filteredSubfilters: [Filter]
     private let notificationCenter: NotificationCenter
+    private let searchbarSubfilterThreshold: Int
 
     private var canSelectAll: Bool {
         return filter.value != nil
@@ -43,9 +44,10 @@ public final class ListFilterViewController: FilterViewController {
 
     // MARK: - Init
 
-    public init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default) {
+    public init(filter: Filter, selectionStore: FilterSelectionStore, searchbarSubfilterThreshold: Int = 20, notificationCenter: NotificationCenter = .default) {
         self.filter = filter
         filteredSubfilters = filter.subfilters
+        self.searchbarSubfilterThreshold = searchbarSubfilterThreshold
         self.notificationCenter = notificationCenter
         super.init(title: filter.title, selectionStore: selectionStore)
     }
@@ -90,7 +92,7 @@ public final class ListFilterViewController: FilterViewController {
             tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ]
 
-        if filter.subfilters.count >= 20 {
+        if filter.subfilters.count >= searchbarSubfilterThreshold {
             view.addSubview(searchBar)
 
             topShadowViewBottomAnchor.isActive = false

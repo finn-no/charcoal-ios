@@ -29,6 +29,7 @@
 "next" = "Neste";
 "skip" = "Hopp over";
 "noValue" = "Ingen verdi";
+"filterAsYouType.placeholder" = "Avgrens søket";
 
 "root.title" = "Filtrer søket";
 "root.verticalSelector.title" = "Flere kategorier";

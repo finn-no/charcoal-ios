@@ -19,6 +19,7 @@ public class FilterViewController: ScrollViewController, FilterBottomButtonViewD
     // MARK: - Private properties
 
     lazy var bottomButtonBottomConstraint = bottomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    private(set) lazy var topShadowViewBottomAnchor = topShadowView.bottomAnchor.constraint(equalTo: view.topAnchor)
 
     private(set) lazy var bottomButton: FilterBottomButtonView = {
         let view = FilterBottomButtonView()
@@ -111,7 +112,7 @@ public class FilterViewController: ScrollViewController, FilterBottomButtonViewD
             bottomButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomButton.topAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-            topShadowView.bottomAnchor.constraint(equalTo: view.topAnchor),
+            topShadowViewBottomAnchor,
         ])
     }
 

@@ -245,4 +245,8 @@ extension ListFilterViewController: UISearchBarDelegate {
 
         tableView.reloadData()
     }
+
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
 }

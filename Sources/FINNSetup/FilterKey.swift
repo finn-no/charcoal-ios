@@ -66,6 +66,7 @@ public enum FilterKey: String, CodingKey {
     case managerRole = "manager_role"
     case map
     case markets
+    case material
     case maxTrailerWeight = "max_trailer_weight"
     case mcCondition = "mc_condition"
     case mileage

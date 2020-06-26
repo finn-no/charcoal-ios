@@ -33,6 +33,11 @@
             "range": true,
             "name": "length_feet"
         },
+        "width": {
+            "title": "Bredde",
+            "range": true,
+            "name": "width"
+        },
         "motor_size": {
             "title": "Hestekrefter",
             "range": true,

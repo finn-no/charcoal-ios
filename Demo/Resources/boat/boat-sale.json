@@ -39,6 +39,11 @@
             "range": true,
             "name": "length_feet"
         },
+        "width": {
+            "title": "Bredde",
+            "range": true,
+            "name": "width"
+        },
         "motor_size": {
             "title": "Hestekrefter",
             "range": true,
@@ -1913,6 +1918,37 @@
                     "title": "Nei",
                     "value": "-1",
                     "total-results": 640
+                }
+            ]
+        },
+        "material": {
+            "title": "Byggemateriale",
+            "name": "material",
+            "queries": [
+                {
+                    "title": "Aluminium",
+                    "value": "4",
+                    "total-results": 728
+                },
+                {
+                    "title": "Annet",
+                    "value": "5",
+                    "total-results": 271
+                },
+                {
+                    "title": "Glassfiber",
+                    "value": "2",
+                    "total-results": 5912
+                },
+                {
+                    "title": "Plast",
+                    "value": "1",
+                    "total-results": 1154
+                },
+                {
+                    "title": "Tre",
+                    "value": "3",
+                    "total-results": 365
                 }
             ]
         },

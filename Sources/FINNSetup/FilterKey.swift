@@ -5,28 +5,32 @@
 import Foundation
 
 public enum FilterKey: String, CodingKey {
-    case applicationDeadline = "applicationdeadline"
     case animalsAllowed = "animals_allowed"
+    case applicationDeadline = "applicationdeadline"
     case area
+    case batteryCapacity = "battery_capacity"
     case bbox
     case bikesType = "bikes_type"
     case boatClass = "class"
     case bodyType = "body_type"
+    case busSegment = "bus_segment"
     case caravanDealerSegment = "caravan_dealer_segment"
     case caravanSegment = "caravan_segment"
-    case christmas
-    case busSegment = "bus_segment"
     case carEquipment = "car_equipment"
-    case carTiresAndRimsType = "cartiresandrims_type"
     case carPartsBrand = "carparts_brand"
+    case carTiresAndRimsType = "cartiresandrims_type"
     case category
     case childrenClothingSize = "children_clothing_size"
+    case christmas
+    case clothingSize = "clothing_size"
     case computerAccType = "computeracc_type"
     case condition
     case constructionSegment = "construction_segment"
     case constructionYear = "construction_year"
-    case clothingSize = "clothing_size"
+    case coronaAid = "corona_aid"
     case dealerSegment = "dealer_segment"
+    case digitalViewing = "video_type"
+    case drivingRange = "driving_range"
     case energyLabel = "energy_label"
     case engineEffect = "engine_effect"
     case engineFuel = "engine_fuel"
@@ -45,7 +49,6 @@ public enum FilterKey: String, CodingKey {
     case industry
     case isNewProperty = "is_new_property"
     case isPrivateBroker = "is_private_broker"
-    case lifecycle
     case jobDuration = "job_duration"
     case jobSector = "job_sector"
     case laptopsBrand = "laptops_brand"
@@ -56,12 +59,14 @@ public enum FilterKey: String, CodingKey {
     case length
     case lengthCm = "length_cm"
     case lengthFeet = "length_feet"
+    case lifecycle
     case location
     case longitude = "lon"
     case make
     case managerRole = "manager_role"
     case map
     case markets
+    case maxTrailerWeight = "max_trailer_weight"
     case mcCondition = "mc_condition"
     case mileage
     case mobileBrand = "mobile_brand"
@@ -101,14 +106,9 @@ public enum FilterKey: String, CodingKey {
     case viewing
     case warrantyInsurance = "warranty_insurance"
     case weight
-    case width
     case wheelDrive = "wheel_drive"
     case wheelSets = "wheel_sets"
+    case width
     case womenClothingBrand = "women_clothing_brand"
     case year
-    case batteryCapacity = "battery_capacity"
-    case drivingRange = "driving_range"
-    case maxTrailerWeight = "max_trailer_weight"
-    case coronaAid = "corona_aid"
-    case digitalViewing = "video_type"
 }

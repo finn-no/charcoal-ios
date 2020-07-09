@@ -19,13 +19,19 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
                                 origin: SelectionChangeOrigin)
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didSelect selection: CharcoalViewController.MapSelection)
+    func charcoalViewControllerDidConfigureInitialFilterContainer(_ viewController: CharcoalViewController)
 }
 
 public final class CharcoalViewController: UINavigationController {
     // MARK: - Public properties
 
     public var filterContainer: FilterContainer? {
-        didSet { configure(with: filterContainer) }
+        didSet {
+            configure(with: filterContainer)
+            if oldValue == nil {
+                selectionDelegate?.charcoalViewControllerDidConfigureInitialFilterContainer(self)
+            }
+        }
     }
 
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?

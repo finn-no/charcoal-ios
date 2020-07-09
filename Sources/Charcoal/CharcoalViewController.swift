@@ -44,6 +44,15 @@ public final class CharcoalViewController: UINavigationController {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
     }
 
+    public var allSelectionTitles: [SelectionTitle] {
+        var selectionTitles: [SelectionTitle] = []
+        guard let allFilters = filterContainer?.allFilters else { return [] }
+        for filter in allFilters {
+            selectionTitles.append(contentsOf: selectionStore.titles(for: filter))
+        }
+        return selectionTitles
+    }
+
     public enum MapSelection {
         case openPolygonSearch
         case openRadiusSearch

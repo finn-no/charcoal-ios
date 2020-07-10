@@ -214,6 +214,10 @@ public extension FilterSelectionStore {
             }
         default:
             if isSelected(filter) {
+                if filter.key == "q",
+                    let query = queryItems(for: filter).first?.value?.capitalized {
+                    return [SelectionTitle(value: query)]
+                }
                 return [SelectionTitle(value: filter.title)]
             } else {
                 return filter.subfilters.reduce([]) { $0 + titles(for: $1) }

@@ -60,12 +60,7 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public var selectedFilters: [Filter] {
-        guard let filters = filterContainer?.allFilters else { return [] }
-        var selectedFilters: [Filter] = []
-        for filter in filters {
-            selectedFilters.append(contentsOf: filter.subfilters.filter(selectionStore.isSelected(_:)))
-        }
-        return selectedFilters
+        return self.selectedFilters(in: filterContainer?.allFilters)
     }
 
     public enum MapSelection {
@@ -130,6 +125,10 @@ public final class CharcoalViewController: UINavigationController {
         selectionStore.queryItem(for: filter)
     }
 
+    public func allQueryItems(for filter: Filter) -> [URLQueryItem]? {
+        selectionStore.allQueryItems(for: filter)
+    }
+
     // MARK: - Private
 
     private func configure(with filterContainer: FilterContainer?) {
@@ -166,6 +165,20 @@ public final class CharcoalViewController: UINavigationController {
         } else {
             navigationBar.shadowImage = UIImage()
         }
+    }
+
+    private func selectedFilters(in filters: [Filter]?) -> [Filter] {
+        guard let filters = filters else { return [] }
+
+        var selectedFilters: [Filter] = []
+        for filter in filters {
+            if selectionStore.isSelected(filter) {
+                selectedFilters.append(filter)
+            } else {
+                selectedFilters.append(contentsOf: self.selectedFilters(in: filter.subfilters))
+            }
+        }
+        return selectedFilters
     }
 }
 

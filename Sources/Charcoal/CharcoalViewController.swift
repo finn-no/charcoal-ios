@@ -59,6 +59,15 @@ public final class CharcoalViewController: UINavigationController {
         return selectionTitles
     }
 
+    public var selectedFilters: [Filter] {
+        guard let filters = filterContainer?.allFilters else { return [] }
+        var selectedFilters: [Filter] = []
+        for filter in filters {
+            selectedFilters.append(contentsOf: filter.subfilters.filter(selectionStore.isSelected(_:)))
+        }
+        return selectedFilters
+    }
+
     public enum MapSelection {
         case openPolygonSearch
         case openRadiusSearch
@@ -109,6 +118,16 @@ public final class CharcoalViewController: UINavigationController {
     public func set(selection: Set<URLQueryItem>) {
         selectionStore.set(selection: selection)
         rootFilterViewController?.reloadFilters()
+    }
+
+    public func title(for filter: Filter) -> SelectionTitle? {
+        let titles = selectionStore.titles(for: filter)
+        guard titles.count == 1 else { return nil }
+        return titles.first
+    }
+
+    public func queryItem(for filter: Filter) -> URLQueryItem? {
+        selectionStore.queryItem(for: filter)
     }
 
     // MARK: - Private

@@ -116,6 +116,9 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public func title(for filter: Filter) -> SelectionTitle? {
+        if filterContainer?.freeTextFilter == filter {
+            return selectionStore.title(forFreeTextFilter: filter)
+        }
         let titles = selectionStore.titles(for: filter)
         guard titles.count == 1 else { return nil }
         return titles.first

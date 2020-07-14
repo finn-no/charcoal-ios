@@ -126,6 +126,7 @@ final class RootFilterViewController: FilterViewController {
         configureInlineFilter()
         tableView.reloadData()
         updateResetButtonAvailability()
+        freeTextFilterViewController?.reloadSearchBarText()
     }
 
     func set(filterContainer: FilterContainer) {

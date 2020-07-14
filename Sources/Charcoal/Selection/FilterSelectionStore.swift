@@ -214,15 +214,18 @@ public extension FilterSelectionStore {
             }
         default:
             if isSelected(filter) {
-                if filter.key == "q",
-                    let query = queryItems(for: filter).first?.value?.capitalized {
-                    return [SelectionTitle(value: query)]
-                }
                 return [SelectionTitle(value: filter.title)]
             } else {
                 return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
             }
         }
+    }
+
+    func title(forFreeTextFilter filter: Filter) -> SelectionTitle? {
+        guard let formattedQuery = queryItems(for: filter).first?.value?.capitalized else {
+            return nil
+        }
+        return SelectionTitle(value: formattedQuery)
     }
 
     func isValid(_ filter: Filter) -> Bool {

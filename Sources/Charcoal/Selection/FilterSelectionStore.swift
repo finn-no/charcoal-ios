@@ -222,10 +222,10 @@ public extension FilterSelectionStore {
     }
 
     func title(forFreeTextFilter filter: Filter) -> SelectionTitle? {
-        guard let formattedQuery = queryItems(for: filter).first?.value?.capitalized else {
+        guard let query = queryItems(for: filter).first?.value else {
             return nil
         }
-        return SelectionTitle(value: formattedQuery)
+        return SelectionTitle(value: "'" + query + "'")
     }
 
     func isValid(_ filter: Filter) -> Bool {

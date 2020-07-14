@@ -121,6 +121,10 @@ public final class CharcoalViewController: UINavigationController {
         return titles.first
     }
 
+    public func isValid(_ filter: Filter) -> Bool {
+        return selectionStore.isValid(filter)
+    }
+
     public func queryItem(for filter: Filter) -> URLQueryItem? {
         selectionStore.queryItem(for: filter)
     }

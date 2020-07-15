@@ -91,7 +91,9 @@ public class FreeTextFilterViewController: ScrollViewController {
         tableView.reloadData()
     }
 
-    public func reloadSearchBarText(){
+    // MARK: - Internal methods
+
+    func reloadSearchBarText() {
         searchBar.text = selectionStore.value(for: filter)
     }
 

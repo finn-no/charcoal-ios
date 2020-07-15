@@ -19,19 +19,13 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
                                 origin: SelectionChangeOrigin)
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didSelect selection: CharcoalViewController.MapSelection)
-    func charcoalViewControllerDidConfigureInitialFilterContainer(_ viewController: CharcoalViewController)
 }
 
 public final class CharcoalViewController: UINavigationController {
     // MARK: - Public properties
 
     public var filterContainer: FilterContainer? {
-        didSet {
-            configure(with: filterContainer)
-            if oldValue == nil {
-                selectionDelegate?.charcoalViewControllerDidConfigureInitialFilterContainer(self)
-            }
-        }
+        didSet { configure(with: filterContainer) }
     }
 
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
@@ -48,15 +42,6 @@ public final class CharcoalViewController: UINavigationController {
 
     public var isLoading: Bool = false {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
-    }
-
-    public var allSelectionTitles: [SelectionTitle] {
-        var selectionTitles: [SelectionTitle] = []
-        guard let allFilters = filterContainer?.allFilters else { return [] }
-        for filter in allFilters {
-            selectionTitles.append(contentsOf: selectionStore.titles(for: filter))
-        }
-        return selectionTitles
     }
 
     public var selectedFilters: [Filter] {
@@ -126,10 +111,6 @@ public final class CharcoalViewController: UINavigationController {
 
     public func isValid(_ filter: Filter) -> Bool {
         return selectionStore.isValid(filter)
-    }
-
-    public func queryItem(for filter: Filter) -> URLQueryItem? {
-        selectionStore.queryItem(for: filter)
     }
 
     public func allQueryItems(for filter: Filter) -> [URLQueryItem]? {

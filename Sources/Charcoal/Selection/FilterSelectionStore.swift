@@ -41,7 +41,7 @@ public final class FilterSelectionStore {
         queryItems.removeAll()
     }
 
-    func queryItem(for filter: Filter) -> URLQueryItem? {
+    private func queryItem(for filter: Filter) -> URLQueryItem? {
         if let value = filter.value {
             return queryItems.first(where: { $0.name == filter.key && $0.value == value })
         } else if filter.subfilters.isEmpty {

@@ -100,6 +100,11 @@ public final class CharcoalViewController: UINavigationController {
         rootFilterViewController?.reloadFilters()
     }
 
+    public func removeFilter(_ filter: Filter) {
+        selectionStore.removeValues(for: filter)
+        handleFilterSelectionChange(from: .externalSearchFilterTag)
+    }
+
     public func title(for filter: Filter) -> SelectionTitle? {
         if filterContainer?.freeTextFilter == filter {
             return selectionStore.title(forFreeTextFilter: filter)
@@ -111,10 +116,6 @@ public final class CharcoalViewController: UINavigationController {
 
     public func isValid(_ filter: Filter) -> Bool {
         return selectionStore.isValid(filter)
-    }
-
-    public func allQueryItems(for filter: Filter) -> [URLQueryItem]? {
-        selectionStore.allQueryItems(for: filter)
     }
 
     // MARK: - Private

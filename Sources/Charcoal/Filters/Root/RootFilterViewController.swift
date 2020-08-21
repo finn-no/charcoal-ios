@@ -116,7 +116,9 @@ final class RootFilterViewController: FilterViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if focusOnFreeTextFilterOnNextAppearance {
-            freeTextFilterViewController?.searchBar.becomeFirstResponder()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [ weak self ] in
+                self?.freeTextFilterViewController?.searchBar.becomeFirstResponder()
+            }
             focusOnFreeTextFilterOnNextAppearance = false
         }
     }

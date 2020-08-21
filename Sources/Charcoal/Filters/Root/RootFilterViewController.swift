@@ -28,6 +28,8 @@ final class RootFilterViewController: FilterViewController {
         didSet { freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource }
     }
 
+    var focusOnFreeTextFilterOnNextAppearance: Bool = false
+
     // MARK: - Private properties
 
     private lazy var verticalSelectorView = VerticalSelectorView(withAutoLayout: true)
@@ -109,6 +111,14 @@ final class RootFilterViewController: FilterViewController {
         tableView.reloadData()
         bottomButton.update(with: tableView)
         updateResetButtonAvailability()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if focusOnFreeTextFilterOnNextAppearance {
+            freeTextFilterViewController?.searchBar.becomeFirstResponder()
+            focusOnFreeTextFilterOnNextAppearance = false
+        }
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

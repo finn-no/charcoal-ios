@@ -212,6 +212,11 @@ public extension FilterSelectionStore {
             } else {
                 return []
             }
+        case let .freeText:
+            guard let query = queryItems(for: filter).first?.value else {
+                return []
+            }
+            return [SelectionTitle(value: "'" + query + "'")]
         default:
             if isSelected(filter) {
                 return [SelectionTitle(value: filter.title)]
@@ -219,13 +224,6 @@ public extension FilterSelectionStore {
                 return filter.subfilters.reduce([]) { $0 + titles(for: $1) }
             }
         }
-    }
-
-    func title(forFreeTextFilter filter: Filter) -> SelectionTitle? {
-        guard let query = queryItems(for: filter).first?.value else {
-            return nil
-        }
-        return SelectionTitle(value: "'" + query + "'")
     }
 
     func isValid(_ filter: Filter) -> Bool {

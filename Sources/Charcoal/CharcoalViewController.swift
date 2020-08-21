@@ -106,9 +106,6 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public func title(for filter: Filter) -> SelectionTitle? {
-        if filterContainer?.freeTextFilter == filter {
-            return selectionStore.title(forFreeTextFilter: filter)
-        }
         let titles = selectionStore.titles(for: filter)
         guard titles.count == 1 else { return nil }
         return titles.first
@@ -116,6 +113,12 @@ public final class CharcoalViewController: UINavigationController {
 
     public func isValid(_ filter: Filter) -> Bool {
         return selectionStore.isValid(filter)
+    }
+
+    public func focusOnFilter(_ filter: Filter) {
+        if filter.kind == .freeText {
+            rootFilterViewController?.focusOnFreeTextFilterOnNextAppearance = true
+        }
     }
 
     // MARK: - Private
@@ -240,7 +243,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     public func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
-        case .standard:
+        case .standard, .freeText:
             guard !filter.subfilters.isEmpty else { break }
 
             let listViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)

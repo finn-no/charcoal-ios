@@ -11,6 +11,7 @@ public final class Filter {
     }
 
     public enum Kind: Equatable {
+        case freeText
         case standard
         case grid
         case stepper(config: StepperFilterConfiguration)
@@ -68,7 +69,7 @@ extension Filter: Equatable {
 extension Filter {
     public static func freeText(title: String? = nil, key: String) -> Filter {
         let title = title ?? "searchPlaceholder".localized()
-        return Filter(title: title, key: key, value: nil, numberOfResults: 0)
+        return Filter(kind: .freeText, title: title, key: key, value: nil, numberOfResults: 0)
     }
 
     public static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {

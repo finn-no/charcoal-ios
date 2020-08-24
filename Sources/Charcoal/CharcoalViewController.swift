@@ -69,12 +69,25 @@ public final class CharcoalViewController: UINavigationController {
 
     private var calloutOverlay: CalloutOverlay?
 
+    private var pushSelectedFiltersOnNextAppearance = false
+    private var filterViewControllersToDisplay = [FilterViewController]()
+
     // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         delegate = self
+    }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        for filterViewController in filterViewControllersToDisplay {
+            pushViewController(filterViewController, withAnimation: false)
+        }
+        pushSelectedFiltersOnNextAppearance = false
+        filterViewControllersToDisplay.removeAll()
     }
 
     public override func viewDidAppear(_ animated: Bool) {
@@ -119,6 +132,22 @@ public final class CharcoalViewController: UINavigationController {
         if filter.kind == .freeText {
             rootFilterViewController?.focusOnFreeTextFilterOnNextAppearance = true
         }
+        guard let rootFilterViewController = rootFilterViewController else { return }
+
+        popToRootViewController(animated: false)
+        pushSelectedFiltersOnNextAppearance = true
+
+        let filterHierarchy = parents(for: filter) + [filter]
+
+        for filter in filterHierarchy {
+            guard let currentViewController = visibleViewController as? FilterViewController else { return }
+            filterViewController(currentViewController, didSelectFilter: filter)
+        }
+    }
+
+    func parents(for filter: Filter) -> [Filter] {
+        guard let parent = filter.parent else { return [] }
+        return parents(for: parent) + [parent]
     }
 
     // MARK: - Private
@@ -250,6 +279,10 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
 
             listViewController.showBottomButton(showBottomButton, animated: false)
+            if pushSelectedFiltersOnNextAppearance {
+                filterViewControllersToDisplay.append(listViewController)
+                return
+            }
             pushViewController(listViewController)
         case .grid:
             guard !filter.subfilters.isEmpty else { break }
@@ -297,9 +330,9 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         }
     }
 
-    private func pushViewController(_ viewController: FilterViewController) {
+    private func pushViewController(_ viewController: FilterViewController, withAnimation: Bool = true) {
         viewController.delegate = self
-        pushViewController(viewController, animated: true)
+        pushViewController(viewController, animated: withAnimation)
     }
 
     private func showPolygonSearchCalloutIfNeeded() {

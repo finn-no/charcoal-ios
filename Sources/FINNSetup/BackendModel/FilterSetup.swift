@@ -72,6 +72,10 @@ public struct FilterSetup: Decodable {
             return filterData(forKey: key).flatMap { makeFilter(from: $0, withKind: .standard, style: .normal) }
         }
 
+        rootFilters.forEach({
+            addParentsToSubfilters(of: $0)
+        })
+
         let container = FilterContainer(
             rootFilters: rootFilters,
             freeTextFilter: Filter.freeText(key: FilterKey.query.rawValue),
@@ -80,6 +84,13 @@ public struct FilterSetup: Decodable {
         )
 
         return container
+    }
+
+    private func addParentsToSubfilters(of filter: Filter) {
+        filter.subfilters.forEach({
+            $0.parent = filter
+            addParentsToSubfilters(of: $0)
+        })
     }
 
     private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration,

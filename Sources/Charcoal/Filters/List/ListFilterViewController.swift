@@ -42,6 +42,10 @@ public final class ListFilterViewController: FilterViewController {
         return filter.value != nil
     }
 
+    private lazy var tableViewBottomAnchorConstraint: NSLayoutConstraint = {
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    }()
+
     // MARK: - Init
 
     public init(filter: Filter, selectionStore: FilterSelectionStore, searchbarSubfilterThreshold: Int = 20, notificationCenter: NotificationCenter = .default) {
@@ -78,6 +82,10 @@ public final class ListFilterViewController: FilterViewController {
 
     public override func showBottomButton(_ show: Bool, animated: Bool) {
         super.showBottomButton(show, animated: animated)
+        if show {
+            tableViewBottomAnchorConstraint.constant = -bottomButton.frame.height
+            view.layoutIfNeeded()
+        }
         bottomButton.update(with: tableView)
     }
 
@@ -89,7 +97,7 @@ public final class ListFilterViewController: FilterViewController {
         let sharedTableViewConstraints = [
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
+            tableViewBottomAnchorConstraint,
         ]
 
         if filter.subfilters.count >= searchbarSubfilterThreshold {

@@ -69,25 +69,12 @@ public final class CharcoalViewController: UINavigationController {
 
     private var calloutOverlay: CalloutOverlay?
 
-    private var pushSelectedFiltersOnNextAppearance = false
-    private var filterViewControllersToDisplay = [FilterViewController]()
-
     // MARK: - Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         delegate = self
-    }
-
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        for filterViewController in filterViewControllersToDisplay {
-            pushViewController(filterViewController, withAnimation: false)
-        }
-        pushSelectedFiltersOnNextAppearance = false
-        filterViewControllersToDisplay.removeAll()
     }
 
     public override func viewDidAppear(_ animated: Bool) {
@@ -135,7 +122,6 @@ public final class CharcoalViewController: UINavigationController {
         guard let rootFilterViewController = rootFilterViewController else { return }
 
         popToRootViewController(animated: false)
-        pushSelectedFiltersOnNextAppearance = true
 
         let filterHierarchy = parents(for: filter) + [filter]
 
@@ -271,8 +257,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     }
 
     public func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
-        var filterViewController: FilterViewController? = nil
-
         switch filter.kind {
         case .standard, .freeText:
             guard !filter.subfilters.isEmpty else { break }
@@ -281,26 +265,28 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
 
             listViewController.showBottomButton(showBottomButton, animated: false)
-            filterViewController = listViewController
+            pushViewController(listViewController)
         case .grid:
             guard !filter.subfilters.isEmpty else { break }
 
-            filterViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
-
+            let gridFilterViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
+            pushViewController(gridFilterViewController)
         case let .range(lowValueFilter, highValueFilter, filterConfig):
-            filterViewController = RangeFilterViewController(
+            let rangeFilterViewController = RangeFilterViewController(
                 title: filter.title,
                 lowValueFilter: lowValueFilter,
                 highValueFilter: highValueFilter,
                 filterConfig: filterConfig,
                 selectionStore: selectionStore
             )
+            pushViewController(rangeFilterViewController)
         case let .stepper(filterConfig):
-            filterViewController = StepperFilterViewController(
+            let stepperFilterViewController = StepperFilterViewController(
                 filter: filter,
                 selectionStore: selectionStore,
                 filterConfig: filterConfig
             )
+            pushViewController(stepperFilterViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
             let mapFilterViewController = MapFilterViewController(
                 title: filter.title,
@@ -314,7 +300,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             mapFilterViewController.searchLocationDataSource = searchLocationDataSource
             mapFilterViewController.mapFilterDelegate = self
-            filterViewController = mapFilterViewController
+            pushViewController(mapFilterViewController)
 
             if polygonFilter != nil {
                 showPolygonSearchCalloutIfNeeded()
@@ -323,19 +309,11 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }
-
-        guard let selectedViewController = filterViewController else { return }
-
-        if pushSelectedFiltersOnNextAppearance {
-            filterViewControllersToDisplay.append(selectedViewController)
-            return
-        }
-        pushViewController(selectedViewController)
     }
 
-    private func pushViewController(_ viewController: FilterViewController, withAnimation: Bool = true) {
+    private func pushViewController(_ viewController: FilterViewController) {
         viewController.delegate = self
-        pushViewController(viewController, animated: withAnimation)
+        pushViewController(viewController, animated: true)
     }
 
     private func showPolygonSearchCalloutIfNeeded() {

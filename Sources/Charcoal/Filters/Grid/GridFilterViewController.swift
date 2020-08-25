@@ -20,6 +20,10 @@ public final class GridFilterViewController: FilterViewController {
     private let edgeInset: CGFloat = 27
     private let filter: Filter
 
+    private lazy var collectionViewBottomAnchorConstraint: NSLayoutConstraint = {
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    }()
+
     // MARK: - Init
 
     public init(filter: Filter, selectionStore: FilterSelectionStore) {
@@ -49,6 +53,15 @@ public final class GridFilterViewController: FilterViewController {
         }
     }
 
+    public override func showBottomButton(_ show: Bool, animated: Bool) {
+        super.showBottomButton(show, animated: animated)
+
+        if show {
+            collectionViewBottomAnchorConstraint.constant = -bottomButton.frame.height
+            view.layoutIfNeeded()
+        }
+    }
+
     // MARK: - Setup
 
     private func setup() {
@@ -58,7 +71,7 @@ public final class GridFilterViewController: FilterViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
+            collectionViewBottomAnchorConstraint,
         ])
     }
 }

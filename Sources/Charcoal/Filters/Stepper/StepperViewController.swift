@@ -51,8 +51,8 @@ public final class StepperFilterViewController: FilterViewController {
         ])
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         topConstraint.constant = (view.frame.height - bottomButton.intrinsicContentSize.height) / 2
     }
 }

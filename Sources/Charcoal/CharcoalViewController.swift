@@ -271,6 +271,8 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     }
 
     public func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
+        var filterViewController: FilterViewController? = nil
+
         switch filter.kind {
         case .standard, .freeText:
             guard !filter.subfilters.isEmpty else { break }
@@ -279,33 +281,26 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             let showBottomButton = viewController === rootFilterViewController ? false : viewController.isShowingBottomButton
 
             listViewController.showBottomButton(showBottomButton, animated: false)
-            if pushSelectedFiltersOnNextAppearance {
-                filterViewControllersToDisplay.append(listViewController)
-                return
-            }
-            pushViewController(listViewController)
+            filterViewController = listViewController
         case .grid:
             guard !filter.subfilters.isEmpty else { break }
 
-            let gridViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
+            filterViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
 
-            pushViewController(gridViewController)
         case let .range(lowValueFilter, highValueFilter, filterConfig):
-            let rangeViewController = RangeFilterViewController(
+            filterViewController = RangeFilterViewController(
                 title: filter.title,
                 lowValueFilter: lowValueFilter,
                 highValueFilter: highValueFilter,
                 filterConfig: filterConfig,
                 selectionStore: selectionStore
             )
-            pushViewController(rangeViewController)
         case let .stepper(filterConfig):
-            let stepperViewController = StepperFilterViewController(
+            filterViewController = StepperFilterViewController(
                 filter: filter,
                 selectionStore: selectionStore,
                 filterConfig: filterConfig
             )
-            pushViewController(stepperViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
             let mapFilterViewController = MapFilterViewController(
                 title: filter.title,
@@ -319,7 +314,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             mapFilterViewController.searchLocationDataSource = searchLocationDataSource
             mapFilterViewController.mapFilterDelegate = self
-            pushViewController(mapFilterViewController)
+            filterViewController = mapFilterViewController
 
             if polygonFilter != nil {
                 showPolygonSearchCalloutIfNeeded()
@@ -328,6 +323,14 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }
+
+        guard let selectedViewController = filterViewController else { return }
+
+        if pushSelectedFiltersOnNextAppearance {
+            filterViewControllersToDisplay.append(selectedViewController)
+            return
+        }
+        pushViewController(selectedViewController)
     }
 
     private func pushViewController(_ viewController: FilterViewController, withAnimation: Bool = true) {

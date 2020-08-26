@@ -175,6 +175,15 @@ final class RootFilterViewController: FilterViewController {
         resetButton.isEnabled = !selectionStore.isEmpty
     }
 
+    func scrollToInlineFilter(_ filter: Filter) {
+        guard
+            let inlineFilter = filterContainer.inlineFilter,
+            let index = inlineFilter.subfilters.firstIndex(of: filter)
+        else { return }
+
+        inlineFilterView?.scrollToSegment(at: index)
+    }
+
     // MARK: - Private
 
     private func showResetButton(_ show: Bool) {

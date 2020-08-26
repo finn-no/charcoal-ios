@@ -118,10 +118,17 @@ public final class CharcoalViewController: UINavigationController {
     public func focusOnFilter(_ filter: Filter) {
         if filter.kind == .freeText {
             rootFilterViewController?.focusOnFreeTextFilterOnNextAppearance = true
+            return
         }
-        guard let rootFilterViewController = rootFilterViewController else { return }
 
+        guard let rootFilterViewController = rootFilterViewController else { return }
         popToRootViewController(animated: false)
+
+        if let parent = filter.parent,
+            hasInlineFilterAsParent(parent) {
+            rootFilterViewController.scrollToInlineFilter(parent)
+            return
+        }
 
         let filterHierarchy = parents(for: filter) + [filter]
 
@@ -186,6 +193,10 @@ public final class CharcoalViewController: UINavigationController {
             }
         }
         return selectedFilters
+    }
+
+    private func hasInlineFilterAsParent(_ filter: Filter) -> Bool {
+        filterContainer?.inlineFilter?.subfilters.contains(filter) ?? false
     }
 }
 

@@ -72,7 +72,8 @@ public struct FilterSetup: Decodable {
             return filterData(forKey: key).flatMap { makeFilter(from: $0, withKind: .standard, style: .normal) }
         }
 
-        rootFilters.forEach({
+        let filters = rootFilters + preferenceFilters
+        filters.forEach({
             addParentsToSubfilters(of: $0)
         })
 

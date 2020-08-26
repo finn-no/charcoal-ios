@@ -115,14 +115,14 @@ public final class CharcoalViewController: UINavigationController {
         return selectionStore.isValid(filter)
     }
 
-    public func focusOnFilter(_ filter: Filter) {
-        if filter.kind == .freeText {
-            rootFilterViewController?.focusOnFreeTextFilterOnNextAppearance = true
-            return
-        }
-
+    public func shortcutToFilter(_ filter: Filter) {
         guard let rootFilterViewController = rootFilterViewController else { return }
         popToRootViewController(animated: false)
+
+        if filter.kind == .freeText {
+            rootFilterViewController.focusOnFreeTextFilterOnNextAppearance = true
+            return
+        }
 
         if let parent = filter.parent,
             hasInlineFilterAsParent(parent) {

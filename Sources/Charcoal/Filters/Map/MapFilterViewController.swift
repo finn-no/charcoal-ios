@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol MapFilterViewControllerDelegate: AnyObject {
+public protocol MapFilterViewControllerDelegate: AnyObject {
     func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
                                  didSelect selection: CharcoalViewController.MapSelection)
 }
@@ -14,14 +14,14 @@ protocol ToggleFilter: AnyObject {
     func updateFilterValues()
 }
 
-class MapFilterViewController: FilterViewController {
+public class MapFilterViewController: FilterViewController {
     private let mapRadiusFilterViewController: MapRadiusFilterViewController
     private let mapPolygonFilterViewController: MapPolygonFilterViewController?
     private var selectedViewController: UIViewController
 
-    weak var mapFilterDelegate: MapFilterViewControllerDelegate?
+    public weak var mapFilterDelegate: MapFilterViewControllerDelegate?
 
-    weak var searchLocationDataSource: SearchLocationDataSource? {
+    public weak var searchLocationDataSource: SearchLocationDataSource? {
         didSet {
             mapRadiusFilterViewController.searchLocationDataSource = searchLocationDataSource
             mapPolygonFilterViewController?.searchLocationDataSource = searchLocationDataSource
@@ -48,8 +48,8 @@ class MapFilterViewController: FilterViewController {
     private let bboxFilter: Filter?
     private let polygonFilter: Filter?
 
-    init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
-         locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, selectionStore: FilterSelectionStore) {
+    public init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
+                locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, selectionStore: FilterSelectionStore) {
         mapRadiusFilterViewController =
             MapRadiusFilterViewController(
                 latitudeFilter: latitudeFilter,
@@ -82,13 +82,13 @@ class MapFilterViewController: FilterViewController {
         mapPolygonFilterViewController?.delegate = self
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Overrides
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         bottomButton.buttonTitle = "applyButton".localized()
         view.backgroundColor = Theme.mainBackground

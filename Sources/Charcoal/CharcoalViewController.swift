@@ -322,8 +322,8 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 // MARK: - MapFilterViewControllerDelegate
 
 extension CharcoalViewController: MapFilterViewControllerDelegate {
-    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
-                                 didSelect selection: CharcoalViewController.MapSelection) {
+    public func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
+                                        didSelect selection: CharcoalViewController.MapSelection) {
         selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }

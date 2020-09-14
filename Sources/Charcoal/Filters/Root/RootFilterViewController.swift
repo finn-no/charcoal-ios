@@ -111,14 +111,9 @@ final class RootFilterViewController: FilterViewController {
         tableView.reloadData()
         bottomButton.update(with: tableView)
         updateResetButtonAvailability()
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         if focusOnFreeTextFilterOnNextAppearance {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [ weak self ] in
-                self?.freeTextFilterViewController?.searchBar.becomeFirstResponder()
-            }
+            freeTextFilterViewController?.searchBar.becomeFirstResponder()
             focusOnFreeTextFilterOnNextAppearance = false
         }
     }

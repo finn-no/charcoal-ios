@@ -12,6 +12,13 @@ final class VerticalCell: UITableViewCell {
         return radioButton
     }()
 
+    private lazy var externalVerticalIcon: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: .webview).withRenderingMode(.alwaysTemplate))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = .chevron
+        return imageView
+    }()
+
     // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -48,19 +55,11 @@ final class VerticalCell: UITableViewCell {
         textLabel?.text = vertical.title
         radioButton.isHighlighted = vertical.isCurrent
 
-        if vertical.isExternal {
-            detailTextLabel?.text = "browserText".localized()
-
-            let accessoryView = UIImageView(image: UIImage(named: .webview).withRenderingMode(.alwaysTemplate))
-            accessoryView.tintColor = .chevron
-            self.accessoryView = accessoryView
-        } else {
-            accessoryView = nil
-            detailTextLabel?.text = nil
-        }
+        radioButton.isHidden = vertical.isExternal
+        externalVerticalIcon.isHidden = !radioButton.isHidden
 
         let accessibilityPrefix = vertical.isCurrent ? "selected".localized() + ", " : ""
-        let accessibilitySuffix = detailTextLabel?.text.map { ", \($0) " } ?? ""
+        let accessibilitySuffix = vertical.isExternal ? ", " + "browserText".localized() + " " : ""
 
         accessibilityLabel = accessibilityPrefix + vertical.title + accessibilitySuffix
     }
@@ -76,15 +75,16 @@ final class VerticalCell: UITableViewCell {
         textLabel?.textColor = .textPrimary
         textLabel?.adjustsFontForContentSizeCategory = true
 
-        detailTextLabel?.font = .detail
-        detailTextLabel?.textColor = .textSecondary
-        detailTextLabel?.adjustsFontForContentSizeCategory = true
-
         addSubview(radioButton)
+        addSubview(externalVerticalIcon)
+        externalVerticalIcon.isHidden = true
 
         NSLayoutConstraint.activate([
             radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
             radioButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            externalVerticalIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM + .spacingXS),
+            externalVerticalIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }
 }

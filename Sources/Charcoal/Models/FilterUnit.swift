@@ -17,6 +17,7 @@ public enum FilterUnit: Equatable {
     case squareMeters
     case year
     case kiloWattHour
+    case knots
     case custom(
         value: String,
         accessibilityValue: String,
@@ -49,6 +50,8 @@ public enum FilterUnit: Equatable {
             return ""
         case .kiloWattHour:
             return "unit.kiloWattHour.value".localized()
+        case .knots:
+            return "unit.knots.value".localized()
         case let .custom(value, _, _):
             return value
         }
@@ -80,6 +83,8 @@ public enum FilterUnit: Equatable {
             return "unit.years.accessibilityValue".localized()
         case .kiloWattHour:
             return "unit.kiloWattHour.accessibilityValue".localized()
+        case .knots:
+            return "unit.knots.accessibilityValue".localized()
         case let .custom(_, accessibilityValue, _):
             return accessibilityValue
         }

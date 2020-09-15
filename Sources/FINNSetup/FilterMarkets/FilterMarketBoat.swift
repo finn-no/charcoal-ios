@@ -40,6 +40,7 @@ extension FilterMarketBoat: FilterConfiguration {
                 .lengthFeet,
                 .width,
                 .year,
+                .speed,
                 .motorIncluded,
                 .motorType,
                 .material,
@@ -128,6 +129,8 @@ extension FilterMarketBoat: FilterConfiguration {
             return .configuration(minimumValue: 0, maximumValue: 60, increment: 1, unit: .feet)
         case .year:
             return .yearConfiguration(minimumValue: 1985)
+        case .speed:
+            return .configuration(minimumValue: 0, maximumValue: 100, increment: 2, unit: .knots)
         case .motorSize, .engineEffect:
             return .horsePowerConfiguration(minimumValue: 0, maximumValue: 500)
         case .noOfSeats:

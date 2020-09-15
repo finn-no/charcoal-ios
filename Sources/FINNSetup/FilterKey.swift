@@ -101,6 +101,7 @@ public enum FilterKey: String, CodingKey {
     case searchType = "search_type"
     case segment
     case shoeSize = "shoe_size"
+    case speed
     case transmission
     case truckSegment = "truck_segment"
     case type

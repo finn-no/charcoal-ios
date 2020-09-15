@@ -9,6 +9,7 @@ public class FilterContainer {
 
     public var verticals: [Vertical]?
     public var regionReformCalloutText: String?
+    public var nettbilCalloutText: String?
 
     // MARK: - Internal properties
 

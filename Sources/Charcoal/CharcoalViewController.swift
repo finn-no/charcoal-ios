@@ -85,6 +85,9 @@ public final class CharcoalViewController: UINavigationController {
         if let text = filterContainer?.regionReformCalloutText, !userDefaults.regionReformCalloutShown {
             showCalloutOverlay(withText: text, andDirection: .down, constrainedToTopAnchor: navigationBar.bottomAnchor)
             userDefaults.regionReformCalloutShown = true
+        } else if let nettbilCalloutText = filterContainer?.nettbilCalloutText, !userDefaults.nettbilCalloutShown {
+            showCalloutOverlay(withText: nettbilCalloutText, andDirection: .up, constrainedToTopAnchor: navigationBar.bottomAnchor)
+            userDefaults.nettbilCalloutShown = true
         }
     }
 
@@ -383,8 +386,8 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 // MARK: - MapFilterViewControllerDelegate
 
 extension CharcoalViewController: MapFilterViewControllerDelegate {
-    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
-                                 didSelect selection: CharcoalViewController.MapSelection) {
+    public func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
+                                        didSelect selection: CharcoalViewController.MapSelection) {
         selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }
@@ -444,6 +447,11 @@ private extension UserDefaults {
     }
 
     var polygonSearchCalloutShown: Bool {
+        get { return bool(forKey: "Charcoal." + #function) }
+        set { set(newValue, forKey: "Charcoal." + #function) }
+    }
+
+    var nettbilCalloutShown: Bool {
         get { return bool(forKey: "Charcoal." + #function) }
         set { set(newValue, forKey: "Charcoal." + #function) }
     }

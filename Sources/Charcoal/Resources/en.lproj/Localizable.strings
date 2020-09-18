@@ -86,7 +86,6 @@
 "map.polygonSearch.maxAnnotations.label.title" = "Du har nådd maks antall punkter";
 "map.polygonSearch.maxAnnotations.label.title.detailed" = "Du har nådd maks antall punkter.\nDobbelttrykk på et punkt for å slette det.";
 "map.polygonSearch.minAnnotations.label.title" = "Du kan ikke fjerne flere punkter";
-"map.polygonSearch.callout.title" = "Sjekk ut vårt nye områdesøk!";
 
 "callout.bottomButton" = "Trykk på Bruk-knappen for å gå videre.";
 

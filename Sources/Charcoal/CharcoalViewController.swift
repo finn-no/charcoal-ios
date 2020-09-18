@@ -78,10 +78,7 @@ public final class CharcoalViewController: UINavigationController {
 
         let userDefaults = UserDefaults.standard
 
-        if let text = filterContainer?.regionReformCalloutText, !userDefaults.regionReformCalloutShown {
-            showCalloutOverlay(withText: text, andDirection: .down, constrainedToTopAnchor: navigationBar.bottomAnchor)
-            userDefaults.regionReformCalloutShown = true
-        } else if let nettbilCalloutText = filterContainer?.nettbilCalloutText, !userDefaults.nettbilCalloutShown {
+        if let nettbilCalloutText = filterContainer?.nettbilCalloutText, !userDefaults.nettbilCalloutShown {
             showCalloutOverlay(withText: nettbilCalloutText, andDirection: .up, constrainedToTopAnchor: navigationBar.bottomAnchor)
             userDefaults.nettbilCalloutShown = true
         }
@@ -252,10 +249,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             mapFilterViewController.mapFilterDelegate = self
             pushViewController(mapFilterViewController)
 
-            if polygonFilter != nil {
-                showPolygonSearchCalloutIfNeeded()
-            }
-
         case .external:
             selectionDelegate?.charcoalViewController(self, didSelectExternalFilterWithKey: filter.key, value: filter.value)
         }
@@ -264,17 +257,6 @@ extension CharcoalViewController: FilterViewControllerDelegate {
     private func pushViewController(_ viewController: FilterViewController) {
         viewController.delegate = self
         pushViewController(viewController, animated: true)
-    }
-
-    private func showPolygonSearchCalloutIfNeeded() {
-        guard !UserDefaults.standard.polygonSearchCalloutShown else { return }
-        UserDefaults.standard.polygonSearchCalloutShown = true
-        showCalloutOverlay(
-            withText: "map.polygonSearch.callout.title".localized(),
-            andDirection: .up,
-            andArrowAlignment: .right(15),
-            constrainedToDirectionalAnchor: navigationBar.bottomAnchor
-        )
     }
 }
 
@@ -372,19 +354,9 @@ extension CharcoalViewController: CalloutOverlayDelegate {
 // MARK: - UserDefaults
 
 private extension UserDefaults {
-    var regionReformCalloutShown: Bool {
-        get { return bool(forKey: "Charcoal." + #function) }
-        set { set(newValue, forKey: "Charcoal." + #function) }
-    }
-
     var bottomButtomCalloutShown: Bool {
         get { return bool(forKey: #function) }
         set { set(newValue, forKey: #function) }
-    }
-
-    var polygonSearchCalloutShown: Bool {
-        get { return bool(forKey: "Charcoal." + #function) }
-        set { set(newValue, forKey: "Charcoal." + #function) }
     }
 
     var nettbilCalloutShown: Bool {

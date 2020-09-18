@@ -14,7 +14,6 @@ class UITestCase: XCTestCase {
 
         app = XCUIApplication()
         app.launchArguments.append("--uitesting")
-        app.launchArguments += ["-Charcoal.regionReformCalloutShown", "YES"]
         app.launchArguments += ["-bottomButtomCalloutShown", "YES"]
     }
 }

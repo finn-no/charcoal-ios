@@ -9,7 +9,7 @@ final class FilterSelectionUITests: UITestCase {
         app.launch()
 
         // 1. Open real estate market
-        app.tables.element(boundBy: 0).cells.element(boundBy: 8).tap()
+        app.tables.element(boundBy: 0).cells.element(boundBy: 7).tap()
         sleep(1)
         XCTAssertTrue(app.hasNavigationTitle("Filtrer søket"))
 

@@ -216,7 +216,7 @@ public extension FilterSelectionStore {
             guard let query = queryItems(for: filter).first?.value else {
                 return []
             }
-            return [SelectionTitle(value: "'" + query + "'")]
+            return [SelectionTitle(value: "'\(query)'")]
         default:
             if isSelected(filter) {
                 return [SelectionTitle(value: filter.title)]

@@ -63,8 +63,8 @@ final class InlineFilterView: UIView {
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
     }
 
-    func scrollToSegment(at index: Int) {
-        collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
+    func scrollToItem(at index: Int) {
+        collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: false)
     }
 
     func slideInWithFade() {

@@ -178,7 +178,7 @@ final class RootFilterViewController: FilterViewController {
             let index = inlineFilter.subfilters.firstIndex(of: filter)
         else { return }
 
-        inlineFilterView?.scrollToSegment(at: index)
+        inlineFilterView?.scrollToItem(at: index)
     }
 
     // MARK: - Private

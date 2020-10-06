@@ -45,7 +45,7 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public var selectedFilters: [Filter] {
-        return self.selectedFilters(in: filterContainer?.allFilters)
+        selectedFilters(in: filterContainer?.allFilters)
     }
 
     public enum MapSelection {
@@ -112,7 +112,7 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public func isValid(_ filter: Filter) -> Bool {
-        return selectionStore.isValid(filter)
+        selectionStore.isValid(filter)
     }
 
     public func shortcutToFilter(_ filter: Filter) {
@@ -136,11 +136,6 @@ public final class CharcoalViewController: UINavigationController {
             guard let currentViewController = visibleViewController as? FilterViewController else { return }
             filterViewController(currentViewController, didSelectFilter: filter)
         }
-    }
-
-    func parents(for filter: Filter) -> [Filter] {
-        guard let parent = filter.parent else { return [] }
-        return parents(for: parent) + [parent]
     }
 
     // MARK: - Private
@@ -193,6 +188,11 @@ public final class CharcoalViewController: UINavigationController {
             }
         }
         return selectedFilters
+    }
+
+    private func parents(for filter: Filter) -> [Filter] {
+        guard let parent = filter.parent else { return [] }
+        return parents(for: parent) + [parent]
     }
 
     private func hasInlineFilterAsParent(_ filter: Filter) -> Bool {

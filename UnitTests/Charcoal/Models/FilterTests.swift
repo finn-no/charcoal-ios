@@ -39,7 +39,7 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertTrue(filter.subfilters.isEmpty)
-        XCTAssertEqual(filter.kind, .standard)
+        XCTAssertEqual(filter.kind, .freeText)
     }
 
     func testInlineFilter() {

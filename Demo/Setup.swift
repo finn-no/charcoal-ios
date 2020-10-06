@@ -15,14 +15,13 @@ class Setup {
         }
     }
 
-    private init(markets: [DemoVertical], includeRegionReformCallout: Bool = false) {
+    private init(markets: [DemoVertical]) {
         self.markets = markets
         current = markets.first
 
         if let current = current {
             filterContainer = Setup.filterContainer(name: current.name)
             filterContainer?.verticals = markets
-            filterContainer?.regionReformCalloutText = includeRegionReformCallout ? "Obs! Vi har oppdatert områdevalg til å passe til de nye kommunene i Norge" : nil
         }
     }
 
@@ -75,18 +74,6 @@ extension Setup {
             DemoVertical(name: "mobile-home", title: "Bobil"),
             DemoVertical(name: "caravan", title: "Campingvogn"),
         ])
-    }
-
-    static var carWithRegionReformCallout: Setup {
-        return Setup(
-            markets: [
-                DemoVertical(name: "car-norway", title: "Biler i Norge", isCurrent: true),
-                DemoVertical(name: "car-abroad", title: "Biler i utlandet"),
-                DemoVertical(name: "mobile-home", title: "Bobil"),
-                DemoVertical(name: "caravan", title: "Campingvogn"),
-            ],
-            includeRegionReformCallout: true
-        )
     }
 
     static var realestate: Setup {

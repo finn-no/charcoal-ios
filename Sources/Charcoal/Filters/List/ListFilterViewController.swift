@@ -73,6 +73,7 @@ public final class ListFilterViewController: FilterViewController {
         tableView.reloadData()
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        view.layoutIfNeeded()
     }
 
     public override func viewWillDisappear(_ animated: Bool) {

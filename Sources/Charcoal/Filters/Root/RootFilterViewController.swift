@@ -114,6 +114,7 @@ final class RootFilterViewController: FilterViewController {
     }
 
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         if focusOnFreeTextFilterOnNextAppearance {
             freeTextFilterViewController?.searchBar.becomeFirstResponder()
             focusOnFreeTextFilterOnNextAppearance = false

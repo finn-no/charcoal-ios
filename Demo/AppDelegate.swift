@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
 
         if #available(iOS 13.0, *) {
-            FinniversKit.userInterfaceStyleSupport = .dynamic
+            FinniversKit.Config.userInterfaceStyleSupport = .dynamic
         }
 
         window = UIWindow(frame: UIScreen.main.bounds)

@@ -1,24 +1,17 @@
 {
-  "Mac" : [
-
-  ],
-  "watchOS" : [
-
-  ],
-  "tvOS" : [
-
-  ],
-  "commitish" : "3d188746d8a9b15dbaea51a445cb362fefeb7784",
+  "commitish" : "523754eef3b4e95ff93d09ef3ba1312a6fbe0c92",
   "iOS" : [
     {
+      "hash" : "8006dadcebd82f1d34da59b841c2717a1aaf3d0de325c4c1f1002c0ea25ea276",
       "name" : "FinnUI",
-      "hash" : "e43046064df54b7895f5747c39ad5f8e43c3b450d2bef7a82e171e0a81539223",
-      "swiftToolchainVersion" : "5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)"
+      "linking" : "dynamic",
+      "swiftToolchainVersion" : "5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)"
     },
     {
+      "hash" : "6c1bfb95d4787a37d0dff1822dc1f2948a015e07a9db20335bb835fc752b6b54",
       "name" : "FinniversKit",
-      "hash" : "159d06e886eaedec4a364b36bd187558e1c1f807cc2e346681a01ac23d33790f",
-      "swiftToolchainVersion" : "5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)"
+      "linking" : "dynamic",
+      "swiftToolchainVersion" : "5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)"
     }
   ]
 }

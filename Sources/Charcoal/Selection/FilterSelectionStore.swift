@@ -212,6 +212,11 @@ public extension FilterSelectionStore {
             } else {
                 return []
             }
+        case let .freeText:
+            guard let query = queryItems(for: filter).first?.value else {
+                return []
+            }
+            return [SelectionTitle(value: "'\(query)'")]
         default:
             if isSelected(filter) {
                 return [SelectionTitle(value: filter.title)]

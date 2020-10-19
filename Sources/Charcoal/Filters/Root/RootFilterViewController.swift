@@ -28,6 +28,8 @@ final class RootFilterViewController: FilterViewController {
         didSet { freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource }
     }
 
+    var focusOnFreeTextFilterOnNextAppearance: Bool = false
+
     // MARK: - Private properties
 
     private lazy var verticalSelectorView = VerticalSelectorView(withAutoLayout: true)
@@ -111,6 +113,14 @@ final class RootFilterViewController: FilterViewController {
         updateResetButtonAvailability()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if focusOnFreeTextFilterOnNextAppearance {
+            freeTextFilterViewController?.searchBar.becomeFirstResponder()
+            focusOnFreeTextFilterOnNextAppearance = false
+        }
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             configureInlineFilter()
@@ -126,6 +136,7 @@ final class RootFilterViewController: FilterViewController {
         configureInlineFilter()
         tableView.reloadData()
         updateResetButtonAvailability()
+        freeTextFilterViewController?.reloadSearchBarText()
     }
 
     func set(filterContainer: FilterContainer) {
@@ -160,6 +171,15 @@ final class RootFilterViewController: FilterViewController {
 
     func updateResetButtonAvailability() {
         resetButton.isEnabled = !selectionStore.isEmpty
+    }
+
+    func scrollToInlineFilter(_ filter: Filter) {
+        guard
+            let inlineFilter = filterContainer.inlineFilter,
+            let index = inlineFilter.subfilters.firstIndex(of: filter)
+        else { return }
+
+        inlineFilterView?.scrollToItem(at: index)
     }
 
     // MARK: - Private

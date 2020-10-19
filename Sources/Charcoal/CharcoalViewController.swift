@@ -44,6 +44,10 @@ public final class CharcoalViewController: UINavigationController {
         didSet { rootFilterViewController?.showLoadingIndicator(isLoading) }
     }
 
+    public var selectedFilters: [Filter] {
+        selectedFilters(in: filterContainer?.allFilters)
+    }
+
     public enum MapSelection {
         case openPolygonSearch
         case openRadiusSearch
@@ -96,6 +100,44 @@ public final class CharcoalViewController: UINavigationController {
         rootFilterViewController?.reloadFilters()
     }
 
+    public func removeFilter(_ filter: Filter) {
+        selectionStore.removeValues(for: filter)
+        handleFilterSelectionChange(from: .externalSearchFilterTag)
+    }
+
+    public func title(for filter: Filter) -> SelectionTitle? {
+        let titles = selectionStore.titles(for: filter)
+        guard titles.count == 1 else { return nil }
+        return titles.first
+    }
+
+    public func isValid(_ filter: Filter) -> Bool {
+        selectionStore.isValid(filter)
+    }
+
+    public func shortcutToFilter(_ filter: Filter) {
+        guard let rootFilterViewController = rootFilterViewController else { return }
+        popToRootViewController(animated: false)
+
+        if filter.kind == .freeText {
+            rootFilterViewController.focusOnFreeTextFilterOnNextAppearance = true
+            return
+        }
+
+        if let parent = filter.parent,
+            hasInlineFilterAsParent(parent) {
+            rootFilterViewController.scrollToInlineFilter(parent)
+            return
+        }
+
+        let filterHierarchy = parents(for: filter) + [filter]
+
+        for filter in filterHierarchy {
+            guard let currentViewController = visibleViewController as? FilterViewController else { return }
+            filterViewController(currentViewController, didSelectFilter: filter)
+        }
+    }
+
     // MARK: - Private
 
     private func configure(with filterContainer: FilterContainer?) {
@@ -132,6 +174,29 @@ public final class CharcoalViewController: UINavigationController {
         } else {
             navigationBar.shadowImage = UIImage()
         }
+    }
+
+    private func selectedFilters(in filters: [Filter]?) -> [Filter] {
+        guard let filters = filters else { return [] }
+
+        var selectedFilters: [Filter] = []
+        for filter in filters {
+            if selectionStore.isSelected(filter) {
+                selectedFilters.append(filter)
+            } else {
+                selectedFilters.append(contentsOf: self.selectedFilters(in: filter.subfilters))
+            }
+        }
+        return selectedFilters
+    }
+
+    private func parents(for filter: Filter) -> [Filter] {
+        guard let parent = filter.parent else { return [] }
+        return parents(for: parent) + [parent]
+    }
+
+    private func hasInlineFilterAsParent(_ filter: Filter) -> Bool {
+        filterContainer?.inlineFilter?.subfilters.contains(filter) ?? false
     }
 }
 
@@ -204,7 +269,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     public func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
-        case .standard:
+        case .standard, .freeText:
             guard !filter.subfilters.isEmpty else { break }
 
             let listViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)
@@ -215,25 +280,24 @@ extension CharcoalViewController: FilterViewControllerDelegate {
         case .grid:
             guard !filter.subfilters.isEmpty else { break }
 
-            let gridViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
-
-            pushViewController(gridViewController)
+            let gridFilterViewController = GridFilterViewController(filter: filter, selectionStore: selectionStore)
+            pushViewController(gridFilterViewController)
         case let .range(lowValueFilter, highValueFilter, filterConfig):
-            let rangeViewController = RangeFilterViewController(
+            let rangeFilterViewController = RangeFilterViewController(
                 title: filter.title,
                 lowValueFilter: lowValueFilter,
                 highValueFilter: highValueFilter,
                 filterConfig: filterConfig,
                 selectionStore: selectionStore
             )
-            pushViewController(rangeViewController)
+            pushViewController(rangeFilterViewController)
         case let .stepper(filterConfig):
-            let stepperViewController = StepperFilterViewController(
+            let stepperFilterViewController = StepperFilterViewController(
                 filter: filter,
                 selectionStore: selectionStore,
                 filterConfig: filterConfig
             )
-            pushViewController(stepperViewController)
+            pushViewController(stepperFilterViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
             let mapFilterViewController = MapFilterViewController(
                 title: filter.title,

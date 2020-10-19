@@ -10,4 +10,5 @@ public enum SelectionChangeOrigin {
     case navigation
     case removeFilterButton
     case resetAllButton
+    case externalSearchFilterTag
 }

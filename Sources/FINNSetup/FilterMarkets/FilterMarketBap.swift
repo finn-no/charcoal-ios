@@ -17,6 +17,7 @@ extension FilterMarketBap: FilterConfiguration {
 
     public var rootLevelFilterKeys: [FilterKey] {
         return [
+            .christmas,
             .coronaAid,
             .category,
             .bikesType,
@@ -37,7 +38,6 @@ extension FilterMarketBap: FilterConfiguration {
             .map,
             .location,
             .price,
-            .christmas,
         ]
     }
 

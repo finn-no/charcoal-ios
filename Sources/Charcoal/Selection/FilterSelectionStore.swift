@@ -212,7 +212,7 @@ public extension FilterSelectionStore {
             } else {
                 return []
             }
-        case let .freeText:
+        case .freeText:
             guard let query = queryItems(for: filter).first?.value else {
                 return []
             }

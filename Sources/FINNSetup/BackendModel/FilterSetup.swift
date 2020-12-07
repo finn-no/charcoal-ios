@@ -73,9 +73,9 @@ public struct FilterSetup: Decodable {
         }
 
         let filters = rootFilters + preferenceFilters
-        filters.forEach({
+        filters.forEach {
             addParentsToSubfilters(of: $0)
-        })
+        }
 
         let container = FilterContainer(
             rootFilters: rootFilters,
@@ -88,10 +88,10 @@ public struct FilterSetup: Decodable {
     }
 
     private func addParentsToSubfilters(of filter: Filter) {
-        filter.subfilters.forEach({
+        filter.subfilters.forEach {
             $0.parent = filter
             addParentsToSubfilters(of: $0)
-        })
+        }
     }
 
     private func makeRootLevelFilter(withKey key: FilterKey, using config: FilterConfiguration,

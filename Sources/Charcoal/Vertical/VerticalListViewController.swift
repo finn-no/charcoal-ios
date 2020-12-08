@@ -17,6 +17,7 @@ final class VerticalListViewController: ScrollViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = true
+        tableView.backgroundColor = Theme.mainBackground
         tableView.removeLastCellSeparator()
         registerCells(for: tableView)
         return tableView

@@ -68,6 +68,7 @@ final class VerticalCell: UITableViewCell {
         let selectedBackgroundView = UIView()
         selectedBackgroundView.backgroundColor = .defaultCellSelectedBackgroundColor
         self.selectedBackgroundView = selectedBackgroundView
+        backgroundColor = .clear
 
         separatorInset = .leadingInset(56)
 

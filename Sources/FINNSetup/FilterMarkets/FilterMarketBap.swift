@@ -17,6 +17,7 @@ extension FilterMarketBap: FilterConfiguration {
 
     public var rootLevelFilterKeys: [FilterKey] {
         return [
+            .gjerdrumAid,
             .christmas,
             .coronaAid,
             .category,

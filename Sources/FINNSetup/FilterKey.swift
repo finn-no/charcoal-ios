@@ -113,4 +113,5 @@ public enum FilterKey: String, CodingKey {
     case width
     case womenClothingBrand = "women_clothing_brand"
     case year
+    case gjerdrumAid = "gjerdrum_aid"
 }

@@ -16,6 +16,8 @@ class MapFilterDemoViewController: DemoViewController {
         searchBar.placeholder = "Søk etter sted eller adresse"
         searchBar.searchBarStyle = .minimal
         searchBar.backgroundColor = Theme.mainBackground
+        searchBar.smartQuotesType = .no
+        searchBar.smartDashesType = .no
         view.searchBar = searchBar
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

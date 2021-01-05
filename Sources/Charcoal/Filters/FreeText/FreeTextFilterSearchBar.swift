@@ -29,10 +29,14 @@ class FreeTextFilterSearchBar: UISearchBar {
     override init(frame: CGRect) {
         _ = FreeTextFilterSearchBar.setupSearchQuerySearchBarAppereanceOnce
         super.init(frame: frame)
+        smartQuotesType = .no
+        smartDashesType = .no
     }
 
     required init?(coder aDecoder: NSCoder) {
         _ = FreeTextFilterSearchBar.setupSearchQuerySearchBarAppereanceOnce
         super.init(coder: aDecoder)
+        smartQuotesType = .no
+        smartDashesType = .no
     }
 }

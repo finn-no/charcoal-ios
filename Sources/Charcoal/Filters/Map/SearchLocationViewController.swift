@@ -318,11 +318,15 @@ private class SearchLocationSearchBar: UISearchBar {
     override init(frame: CGRect) {
         _ = SearchLocationSearchBar.setupSearchBarAppereanceOnce
         super.init(frame: frame)
+        smartQuotesType = .no
+        smartDashesType = .no
     }
 
     required init?(coder aDecoder: NSCoder) {
         _ = SearchLocationSearchBar.setupSearchBarAppereanceOnce
         super.init(coder: aDecoder)
+        smartQuotesType = .no
+        smartDashesType = .no
     }
 }
 

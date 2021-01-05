@@ -36,6 +36,21 @@ Cleans any fastlane build artifacts
 fastlane ios beta
 ```
 Submit a new Beta Build to AppCenter
+### ios make_charcoal_version
+```
+fastlane ios make_charcoal_version
+```
+Create a new Charcoal version
+### ios verify_ssh_to_github
+```
+fastlane ios verify_ssh_to_github
+```
+Attempt to connect to github.com with ssh
+### ios verify_environment_variable
+```
+fastlane ios verify_environment_variable
+```
+Verify that environment variable exists
 
 ----
 

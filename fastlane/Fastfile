@@ -1,5 +1,7 @@
 fastlane_version "2.94.0"
 
+skip_docs
+
 default_platform :ios
 
 platform :ios do

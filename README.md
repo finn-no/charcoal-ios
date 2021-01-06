@@ -167,6 +167,20 @@ You can always run the command with the `--help` flag when needed.
 Some of the UI elements in **Charcoal** are taken from [FinniversKit](https://github.com/finn-no/FinniversKit),
 a framework which holds all the UI elements of the FINN iOS app.
 
+## Creating a new release
+
+### Setup
+- Install dependencies listed in Gemfile with `bundle install` (dependencies will be installed in `./bundler`)
+- Fastlane will use the GitHub API, so make sure to create a personal access token [here](https://github.com/settings/tokens) and place it within an environment variable called **`CHARCOAL_GITHUB_ACCESS_TOKEN`**.
+  - When creating a token, you only need to give access to the scope `repo`.
+  - There are multiple ways to make an environment variable, for example by using a `.env` file or adding it to `.bashrc`/`.bash_profile`). Don't forget to run `source .env` (for whichever file you set the environment variables in) if you don't want to restart your shell.
+  - Run `bundle exec fastlane verify_environment_variable` to see if it is configured correctly.
+- Run `bundle exec fastlane verify_ssh_to_github` to see if ssh to GitHub is working.
+
+### Make release
+- Run `bundle exec fastlane make_charcoal_version`. Follow instructions, you will be asked for confirmation before all remote changes.
+- After the release has been created you can edit the description on GitHub by using the printed link.
+
 ## License
 
 **Charcoal** is available under the MIT license. See the [LICENSE](https://github.com/finn-no/charcoal-ios/blob/master/LICENSE.md) file for more info.

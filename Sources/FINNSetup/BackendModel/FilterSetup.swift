@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Charcoal
 
 public struct FilterSetup: Decodable {
     public let market: String

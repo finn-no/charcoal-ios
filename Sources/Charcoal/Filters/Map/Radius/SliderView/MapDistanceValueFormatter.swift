@@ -2,6 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import UIKit
+
 class MapDistanceValueFormatter: SliderValueFormatter {
     func accessibilityValue(for value: Int) -> String {
         return title(for: value)

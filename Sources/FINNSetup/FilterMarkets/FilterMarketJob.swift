@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import Charcoal
 
 public enum FilterMarketJob: String, CaseIterable {
     case fullTime = "job-full-time"

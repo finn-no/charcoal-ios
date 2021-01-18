@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol VerticalListViewControllerDelegate: AnyObject {
     func verticalListViewController(_: VerticalListViewController, didSelectVerticalAtIndex index: Int)

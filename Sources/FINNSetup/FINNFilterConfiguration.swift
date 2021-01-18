@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import Charcoal
 
 public protocol FilterConfiguration {
     var preferenceFilterKeys: [FilterKey] { get }

@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Charcoal
 
 extension RangeFilterConfiguration {
     static func configuration(minimumValue: Int, maximumValue: Int, increment: Int, unit: FilterUnit) -> RangeFilterConfiguration {

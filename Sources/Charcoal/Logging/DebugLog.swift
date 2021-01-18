@@ -2,6 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import Foundation
+
 class DebugLog: NSObject {
     static func write(_ log: String) {
         #if DEBUG

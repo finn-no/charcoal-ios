@@ -3,7 +3,7 @@
 //
 
 import MapKit
-import UIKit
+import FinniversKit
 
 protocol MapRadiusFilterViewDelegate: MKMapViewDelegate {
     func mapRadiusFilterViewDidSelectLocationButton(_ mapRadiusFilterView: MapRadiusFilterView)

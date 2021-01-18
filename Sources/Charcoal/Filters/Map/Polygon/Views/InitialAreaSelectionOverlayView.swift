@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class InitialAreaSelectionOverlayView: UIView {
     var width: CGFloat = 180

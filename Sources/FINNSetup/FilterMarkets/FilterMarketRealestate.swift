@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import Charcoal
 
 public enum FilterMarketRealestate: String, CaseIterable {
     case homes = "realestate-homes"

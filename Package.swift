@@ -23,6 +23,7 @@ let package = Package(
                 "FinniversKit"
             ],
             path: "Sources/Charcoal",
+            exclude: ["Info.plist"],
             resources: [
                 .process("Sources/Charcoal/Resources")
             ]

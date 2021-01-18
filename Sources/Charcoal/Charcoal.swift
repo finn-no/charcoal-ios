@@ -7,7 +7,11 @@ import Foundation
 /// Class for referencing the framework bundle
 public class Charcoal {
     static var bundle: Bundle {
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
         return Bundle(for: Charcoal.self)
+        #endif
     }
 }
 

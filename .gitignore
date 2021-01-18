@@ -33,6 +33,7 @@ DerivedData
 *.bcsymbolmap
 
 .build/
+.swiftpm/
 
 Carthage/Checkouts/*
 Carthage/Build/watchOS/*

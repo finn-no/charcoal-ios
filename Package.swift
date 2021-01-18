@@ -13,14 +13,9 @@ let package = Package(
             name: "Charcoal",
             targets: ["Charcoal"]
         ),
-        .library(
-            name: "Charcoal/FINNSetup",
-            targets: ["FINNSetup"]
-        ),
     ],
     dependencies: [
         .package(name: "FinniversKit", url: "https://github.com/finn-no/FinniversKit.git", from: "71.0.0"),
-        .package(name: "AppCenter", url: "https://github.com/microsoft/appcenter-sdk-apple.git", .upToNextMinor(from: "4.1.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -30,21 +25,13 @@ let package = Package(
             dependencies: [
                 "FinniversKit"
             ],
-            path: "Sources/Charcoal"
-        ),
-        .target(
-            name: "FINNSetup",
-            dependencies: [
-                "Charcoal"
-            ],
-            path: "Sources/FINNSetup"
+            path: "Sources/Charcoal",
+            resources: [
+            ]
         ),
         .testTarget(
             name: "CharcoalTests",
-            dependencies: [
-                "Charcoal",
-                "FINNSetup"
-            ],
+            dependencies: ["Charcoal"],
             path: "UnitTests/Charcoal"
         ),
     ]

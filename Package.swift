@@ -27,6 +27,7 @@ let package = Package(
             ],
             path: "Sources/Charcoal",
             resources: [
+                .process("Sources/Charcoal/Resources")
             ]
         ),
         .testTarget(

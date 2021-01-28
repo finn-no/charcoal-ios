@@ -68,7 +68,6 @@
 		4978F74624474B9E00D9D6C2 /* PolygonEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74424474B9E00D9D6C2 /* PolygonEdge.swift */; };
 		4978F74B24474C3900D9D6C2 /* PolygonSearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74724474C3900D9D6C2 /* PolygonSearchAnnotation.swift */; };
 		4978F74C24474C3900D9D6C2 /* MapPolygonFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74824474C3900D9D6C2 /* MapPolygonFilterView.swift */; };
-		4978F756244F262C00D9D6C2 /* PolygonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F755244F262C00D9D6C2 /* PolygonData.swift */; };
 		4978F758244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F757244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift */; };
 		49A6620B245AA663005AFE77 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A6620A245AA662005AFE77 /* InfoView.swift */; };
 		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
@@ -86,6 +85,7 @@
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		8D6800979EDCAFB591D588CC /* FreeTextFilterSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */; };
+		8D68029613DAB8E5627580FA /* PolygonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6804481070D5F09B67CD50 /* PolygonData.swift */; };
 		91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */; };
 		9B2931E323477A6B006469B5 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */; };
 		9B2931E723477AF5006469B5 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E523477AF5006469B5 /* AppCenterCrashes.framework */; };
@@ -357,7 +357,6 @@
 		4978F74424474B9E00D9D6C2 /* PolygonEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonEdge.swift; sourceTree = "<group>"; };
 		4978F74724474C3900D9D6C2 /* PolygonSearchAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonSearchAnnotation.swift; sourceTree = "<group>"; };
 		4978F74824474C3900D9D6C2 /* MapPolygonFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPolygonFilterView.swift; sourceTree = "<group>"; };
-		4978F755244F262C00D9D6C2 /* PolygonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonData.swift; sourceTree = "<group>"; };
 		4978F757244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialAreaSelectionOverlayView.swift; sourceTree = "<group>"; };
 		49A6620A245AA662005AFE77 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		554D154F20C0782200FA3930 /* car-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-norway.json"; sourceTree = "<group>"; };
@@ -376,6 +375,7 @@
 		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
+		8D6804481070D5F09B67CD50 /* PolygonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonData.swift; sourceTree = "<group>"; };
 		8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeTextFilterSearchBar.swift; sourceTree = "<group>"; };
 		91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerPresentationViewController.swift; sourceTree = "<group>"; };
 		9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterDistribute.framework; path = Carthage/Build/iOS/AppCenterDistribute.framework; sourceTree = "<group>"; };
@@ -753,7 +753,6 @@
 		465F6167219B6ECF00CF568B /* BackendModel */ = {
 			isa = PBXGroup;
 			children = (
-				4978F755244F262C00D9D6C2 /* PolygonData.swift */,
 				465F616A219B7A1900CF568B /* FilterData.swift */,
 				465F616E219B7B8B00CF568B /* FilterDataQuery.swift */,
 				55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */,
@@ -1197,6 +1196,7 @@
 				9BB827A5216C9CD40014028C /* RangeFilterConfiguration.swift */,
 				CF077552222FD1C6000A0A36 /* StepperFilterConfiguration.swift */,
 				46905239217F5CD000F8E7FD /* Vertical.swift */,
+				8D6804481070D5F09B67CD50 /* PolygonData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1709,7 +1709,6 @@
 				559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */,
 				DAFD7A1321AE976D00A468B2 /* Segment.swift in Sources */,
 				DA39FA40220B30E700608AC4 /* Int.swift in Sources */,
-				4978F756244F262C00D9D6C2 /* PolygonData.swift in Sources */,
 				4978F74024474B8300D9D6C2 /* MapFilterViewController.swift in Sources */,
 				CFE255D5225B91A000052077 /* GridFilterViewController.swift in Sources */,
 				9BABD26B236AE54100860EB5 /* Theme.swift in Sources */,
@@ -1750,6 +1749,7 @@
 				CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */,
 				4978F74624474B9E00D9D6C2 /* PolygonEdge.swift in Sources */,
 				8D6800979EDCAFB591D588CC /* FreeTextFilterSearchBar.swift in Sources */,
+				8D68029613DAB8E5627580FA /* PolygonData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

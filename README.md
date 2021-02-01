@@ -47,13 +47,18 @@ _Charcoal_ /ˈtʃɑːkəʊl/: _a porous black solid, consisting of an amorphous 
 the core module of the framework, simply add the following line to your `Podfile`:
 
 ```ruby
-pod 'Charcoal'
+pod "Charcoal", git: "https://github.com/finn-no/charcoal-ios"
+```
+
+You will also need to include the FinniversKit dependency in your Podfile.
+```ruby
+pod "FinniversKit", git: "https://github.com/finn-no/FinniversKit"
 ```
 
 For using FINN-specific configuration in addition to core functionality:
 
 ```ruby
-pod 'Charcoal/FINN'
+pod 'Charcoal/FINN', git: "https://github.com/finn-no/charcoal-ios"
 ```
 
 ### Carthage

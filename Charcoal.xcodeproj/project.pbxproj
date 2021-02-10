@@ -86,6 +86,7 @@
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
 		8D6800979EDCAFB591D588CC /* FreeTextFilterSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */; };
 		8D68029613DAB8E5627580FA /* PolygonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6804481070D5F09B67CD50 /* PolygonData.swift */; };
+		8D6807E266F9831E7994198D /* DemoSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6809A7FFB2D3F07FF622C0 /* DemoSections.swift */; };
 		91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */; };
 		9B2931E323477A6B006469B5 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */; };
 		9B2931E723477AF5006469B5 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E523477AF5006469B5 /* AppCenterCrashes.framework */; };
@@ -376,6 +377,7 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		8D6804481070D5F09B67CD50 /* PolygonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonData.swift; sourceTree = "<group>"; };
+		8D6809A7FFB2D3F07FF622C0 /* DemoSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSections.swift; sourceTree = "<group>"; };
 		8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeTextFilterSearchBar.swift; sourceTree = "<group>"; };
 		91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerPresentationViewController.swift; sourceTree = "<group>"; };
 		9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterDistribute.framework; path = Carthage/Build/iOS/AppCenterDistribute.framework; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 				CF4C8707221AEB6500DFAF2A /* Extensions */,
 				9BF778CD21C1661D006C0416 /* MapFilter */,
 				5598F20E20C008F900E148E0 /* Resources */,
+				8D6809A7FFB2D3F07FF622C0 /* DemoSections.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -1776,6 +1779,7 @@
 				9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */,
 				559C6CBD20BBE709009B734D /* RangeFilterDemoViewController.swift in Sources */,
 				CF33D9D7224A6B0600A24DF0 /* CommandLineExtensions.swift in Sources */,
+				8D6807E266F9831E7994198D /* DemoSections.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

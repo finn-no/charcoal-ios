@@ -2,8 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
 import Charcoal
+import Foundation
 
 public struct FilterSetup: Decodable {
     public let market: String

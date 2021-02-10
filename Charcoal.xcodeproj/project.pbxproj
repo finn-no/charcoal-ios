@@ -186,7 +186,6 @@
 		DA51041321BE680D004048BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6377D21244C0B00AB9DFE /* Color.swift */; };
 		DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA51040A21BE5F19004048BD /* FinniversKit.framework */; };
 		DA643FB7220C720A001ED360 /* StepperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA643FB6220C720A001ED360 /* StepperViewController.swift */; };
-		DA68144E22574CD4003F3975 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68144D22574CD4003F3975 /* Section.swift */; };
 		DA68145022574D3C003F3975 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68144F22574D3C003F3975 /* Row.swift */; };
 		DA68145422575275003F3975 /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68145322575275003F3975 /* DemoTableViewCell.swift */; };
 		DA68145622576539003F3975 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68145522576539003F3975 /* DataSource.swift */; };
@@ -459,7 +458,6 @@
 		DA3EA340228983AC00B05E92 /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		DA51040A21BE5F19004048BD /* FinniversKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FinniversKit.framework; path = Carthage/Build/iOS/FinniversKit.framework; sourceTree = "<group>"; };
 		DA643FB6220C720A001ED360 /* StepperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperViewController.swift; sourceTree = "<group>"; };
-		DA68144D22574CD4003F3975 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		DA68144F22574D3C003F3975 /* Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		DA68145322575275003F3975 /* DemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
 		DA68145522576539003F3975 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -943,7 +941,6 @@
 		9BE0A0502091CED70000632B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DA68144D22574CD4003F3975 /* Section.swift */,
 				DA68144F22574D3C003F3975 /* Row.swift */,
 				DA83CE5E22607DEA000CAD39 /* DemoVertical.swift */,
 			);
@@ -1761,7 +1758,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55946B7E20970237008AB7CE /* InlineFilterDemoViewController.swift in Sources */,
-				DA68144E22574CD4003F3975 /* Section.swift in Sources */,
 				DA51041321BE680D004048BD /* Color.swift in Sources */,
 				DA83CE5F22607DEA000CAD39 /* DemoVertical.swift in Sources */,
 				DAEA93D8225F7228003B215D /* MapFilterDemoViewController.swift in Sources */,

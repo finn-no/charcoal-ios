@@ -2,12 +2,10 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FINNSetup
+import Charcoal
 import UIKit
 
 struct Row {
-    // MARK: - Internal properties
-
     let title: String
     let setup: Setup?
     let usingBottomSheet: Bool

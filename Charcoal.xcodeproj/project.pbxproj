@@ -88,6 +88,7 @@
 		8D68029613DAB8E5627580FA /* PolygonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6804481070D5F09B67CD50 /* PolygonData.swift */; };
 		8D6804AB50EFE10BA7868FAB /* FilterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680D55C6A685175DBAFB02 /* FilterExtensions.swift */; };
 		8D6806418DBD3278187A1AB2 /* FilterContainerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680DB4776992E3612B82FF /* FilterContainerExtensions.swift */; };
+		8D680CA4332574FD2E4F2A96 /* RangeFilterConfigurationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6804EBAEA9850A12EDB86B /* RangeFilterConfigurationExtensions.swift */; };
 		8D680E7E5D77D20804619DBE /* DemoSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680CDC3FC817D6F3341879 /* DemoSections.swift */; };
 		91E6C09F230D8649009EDE12 /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E6C09E230D8649009EDE12 /* DrawerPresentationViewController.swift */; };
 		9B2931E323477A6B006469B5 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E223477A6B006469B5 /* AppCenterDistribute.framework */; };
@@ -378,6 +379,7 @@
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		8D6804481070D5F09B67CD50 /* PolygonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonData.swift; sourceTree = "<group>"; };
+		8D6804EBAEA9850A12EDB86B /* RangeFilterConfigurationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterConfigurationExtensions.swift; sourceTree = "<group>"; };
 		8D680AD29F6FD45E8F683EE6 /* FreeTextFilterSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeTextFilterSearchBar.swift; sourceTree = "<group>"; };
 		8D680CDC3FC817D6F3341879 /* DemoSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSections.swift; sourceTree = "<group>"; };
 		8D680D55C6A685175DBAFB02 /* FilterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterExtensions.swift; sourceTree = "<group>"; };
@@ -1082,6 +1084,7 @@
 				CF33D9D6224A6B0600A24DF0 /* CommandLineExtensions.swift */,
 				8D680D55C6A685175DBAFB02 /* FilterExtensions.swift */,
 				8D680DB4776992E3612B82FF /* FilterContainerExtensions.swift */,
+				8D6804EBAEA9850A12EDB86B /* RangeFilterConfigurationExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1784,6 +1787,7 @@
 				8D680E7E5D77D20804619DBE /* DemoSections.swift in Sources */,
 				8D6804AB50EFE10BA7868FAB /* FilterExtensions.swift in Sources */,
 				8D6806418DBD3278187A1AB2 /* FilterContainerExtensions.swift in Sources */,
+				8D680CA4332574FD2E4F2A96 /* RangeFilterConfigurationExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

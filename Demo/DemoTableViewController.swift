@@ -74,6 +74,11 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
         guard let vertical = vertical as? DemoVertical, let setup = currentRow?.setup else { return }
 
+        guard !vertical.isExternal else {
+            print("🔥 Did select external vertical with title: \(vertical.title)")
+            return
+        }
+
         if let submarket = setup.markets.first(where: { $0.id == vertical.id }) {
             setup.current = submarket
             viewController.isLoading = true

@@ -3,7 +3,6 @@
 //
 
 @testable import Charcoal
-@testable import FINNSetup
 import XCTest
 
 final class FilterTests: XCTestCase {
@@ -186,25 +185,5 @@ final class FilterTests: XCTestCase {
         filter1.mergeSubfilters(with: filter2)
         XCTAssertEqual(filter1.subfilters.count, 3)
         XCTAssertEqual(filter1.subfilter(at: 2)?.key, "subkey3")
-    }
-}
-
-// MARK: - TestDataDecoder
-
-extension FilterTests: TestDataDecoder {
-    func testContextFilterSetup() {
-        guard let config = FilterMarket(market: "bap-sale") else { return }
-        let filterSetup = filterDataFromJSONFile(named: "ContextFilterTestData")
-        let filter = filterSetup?.filterContainer(using: config)
-        let shoeSizeFilter = filter?.rootFilters.first(where: { $0.key == "shoe_size" })
-        XCTAssertEqual(shoeSizeFilter?.style, .context)
-    }
-
-    func testRootFilterWithoutSubfiltersShouldNotShow() {
-        guard let config = FilterMarket(market: "bap-sale") else { return }
-        let filterSetup = filterDataFromJSONFile(named: "ContextFilterTestData")
-        let filter = filterSetup?.filterContainer(using: config)
-        let categoryFilter = filter?.rootFilters.first(where: { $0.key == "category" })
-        XCTAssertNil(categoryFilter)
     }
 }

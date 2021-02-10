@@ -1,16 +1,12 @@
+//
+//  Copyright © FINN.no AS, Inc. All rights reserved.
+//
+
 import Charcoal
 
 extension FilterContainer {
-    static var singleVertical: FilterContainer {
-        create(rootFilters: [.createList(name: "Kategorier")], numberOfVerticals: 0)
-    }
-
-    static var multipleVerticals: FilterContainer {
-        create(rootFilters: [.createList(name: "Kategorier")])
-    }
-
     static func create(
-        rootFilters: [Filter] = [],
+        rootFilters: [Filter] = defaultRootFilters(),
         freeTextFilter: Filter? = .freeText,
         inlineFilter: Filter? = nil,
         numberOfResults: Int = 123,
@@ -20,5 +16,12 @@ extension FilterContainer {
         let container = FilterContainer(rootFilters: rootFilters, freeTextFilter: freeTextFilter, inlineFilter: inlineFilter, numberOfResults: numberOfResults)
         container.verticals = DemoVertical.create(numberOfVerticals, lastVerticalIsExternal: lastVerticalIsExternal)
         return container
+    }
+
+    static func defaultRootFilters(isContextFilters: Bool = false) -> [Filter] {
+        [
+            .price(isContextFilter: isContextFilters),
+            .list(name: "Kategorier", isContextFilter: isContextFilters),
+        ]
     }
 }

@@ -34,3 +34,13 @@ enum DemoSections: CaseIterable {
         }
     }
 }
+
+private extension FilterContainer {
+    static var singleVertical: FilterContainer {
+        create(numberOfVerticals: 0)
+    }
+
+    static var multipleVerticals: FilterContainer {
+        create()
+    }
+}

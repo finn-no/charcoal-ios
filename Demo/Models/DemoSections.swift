@@ -7,6 +7,7 @@ import Charcoal
 enum DemoSections: CaseIterable {
     case components
     case verticals
+    case misc
 
     var title: String {
         switch self {
@@ -14,6 +15,8 @@ enum DemoSections: CaseIterable {
             return "Components"
         case .verticals:
             return "Verticals"
+        case .misc:
+            return "Miscellaneous"
         }
     }
 
@@ -31,6 +34,10 @@ enum DemoSections: CaseIterable {
                 Row(title: "Single vertical", filterContainer: .singleVertical),
                 Row(title: "Multiple verticals", filterContainer: .multipleVerticals),
             ]
+        case .misc:
+            return [
+                Row(title: "Context filters", filterContainer: .contextFilter),
+            ]
         }
     }
 }
@@ -42,5 +49,9 @@ private extension FilterContainer {
 
     static var multipleVerticals: FilterContainer {
         create()
+    }
+
+    static var contextFilter: FilterContainer {
+        create(rootFilters: FilterContainer.defaultRootFilters(isContextFilters: true))
     }
 }

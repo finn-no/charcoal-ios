@@ -19,4 +19,8 @@ struct Row {
         self.setup = setup
         self.usingBottomSheet = usingBottomSheet
     }
+
+    init(title: String, type: UIViewController.Type = CharcoalViewController.self, filterContainer: FilterContainer, usingBottomSheet: Bool = false) {
+        self.init(title: title, type: type, setup: Setup(filterContainer: filterContainer), usingBottomSheet: usingBottomSheet)
+    }
 }

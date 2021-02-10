@@ -74,7 +74,7 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
         guard let vertical = vertical as? DemoVertical, let setup = currentRow?.setup else { return }
 
-        if let submarket = setup.markets.first(where: { $0.name == vertical.name }) {
+        if let submarket = setup.markets.first(where: { $0.id == vertical.id }) {
             setup.current = submarket
             viewController.isLoading = true
             viewController.filterContainer = setup.filterContainer

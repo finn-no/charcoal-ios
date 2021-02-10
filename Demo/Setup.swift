@@ -16,9 +16,9 @@ class Setup {
         }
     }
 
-    init(markets: [DemoVertical] = [], filterContainer: FilterContainer) {
-        self.markets = markets
+    init(filterContainer: FilterContainer) {
+        defer { current = markets.first }
         self.filterContainer = filterContainer
-        current = markets.first
+        markets = (filterContainer.verticals as? [DemoVertical]) ?? []
     }
 }

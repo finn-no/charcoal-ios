@@ -20,7 +20,7 @@ extension FilterContainer {
 
     static func defaultRootFilters(isContextFilters: Bool = false, includePolygonSearch: Bool = true) -> [Filter] {
         [
-            .list(name: "Kategorier", isContextFilter: isContextFilters),
+            .list(name: "Kategori", isContextFilter: isContextFilters),
             .map(includePolygonSearch: includePolygonSearch),
             .location(),
             .price(isContextFilter: isContextFilters),

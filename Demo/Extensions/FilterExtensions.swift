@@ -21,7 +21,7 @@ extension Filter {
             value: nil,
             numberOfResults: 0,
             style: isContextFilter ? .context : .normal,
-            subfilters: createListItems(count: count)
+            subfilters: createListItems(filterTitle: name, count: count)
         )
     }
 
@@ -65,29 +65,29 @@ extension Filter {
 // MARK: - Private extensions
 
 private extension Filter {
-    static func createListItems(count: Int, parentLevel: String? = nil, lastItemIsExternal: Bool = true) -> [Filter] {
+    static func createListItems(filterTitle: String, count: Int, parentLevel: String? = nil, lastItemIsExternal: Bool = true) -> [Filter] {
         guard count > 0 else { return [] }
         return (1 ... count).map {
             let isExternal = lastItemIsExternal && $0 > 1 && $0 == count
-            return Self.createListItem(id: $0, parentLevel: parentLevel, isExternal: isExternal)
+            return Self.createListItem(filterTitle: filterTitle, id: $0, parentLevel: parentLevel, isExternal: isExternal)
         }
     }
 
-    static func createListItem(id: Int, parentLevel: String?, isExternal: Bool) -> Filter {
+    static func createListItem(filterTitle: String, id: Int, parentLevel: String?, isExternal: Bool) -> Filter {
         let itemLevelString: String
         if let parentLevel = parentLevel {
             itemLevelString = "\(parentLevel)_\(id)"
         } else {
-            itemLevelString = "\(id)"
+            itemLevelString = "\(filterTitle) \(id)"
         }
 
         return Filter(
             kind: isExternal ? .external : .standard,
-            title: "Sub Item \(itemLevelString)",
-            key: "item_\(itemLevelString)",
-            value: "\(id)",
+            title: "\(itemLevelString)",
+            key: "\(itemLevelString)",
+            value: "\(itemLevelString)",
             numberOfResults: id,
-            subfilters: createListItems(count: id - 1, parentLevel: itemLevelString)
+            subfilters: createListItems(filterTitle: filterTitle, count: id - 1, parentLevel: itemLevelString)
         )
     }
 }

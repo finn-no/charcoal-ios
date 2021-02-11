@@ -7,44 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08716B3F21F89C7C003180D8 /* boat-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B3E21F89C7C003180D8 /* boat-sale.json */; };
-		08716B4121F89CD6003180D8 /* boat-used-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4021F89CD6003180D8 /* boat-used-wanted.json */; };
-		08716B4321F89CE0003180D8 /* boat-rent.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4221F89CE0003180D8 /* boat-rent.json */; };
-		08716B4721F89D4A003180D8 /* boat-parts.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4621F89D4A003180D8 /* boat-parts.json */; };
-		08716B4921F89D83003180D8 /* boat-motor.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4821F89D83003180D8 /* boat-motor.json */; };
-		08716B4B21F89DBB003180D8 /* boat-parts-motor-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4A21F89DBB003180D8 /* boat-parts-motor-wanted.json */; };
-		08716B4D21F89DDE003180D8 /* boat-dock.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4C21F89DDE003180D8 /* boat-dock.json */; };
-		08716B4F21F89DE5003180D8 /* boat-dock-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B4E21F89DE5003180D8 /* boat-dock-wanted.json */; };
-		08716B5D21FB108D003180D8 /* realestate-business-plot.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5021FB108C003180D8 /* realestate-business-plot.json */; };
-		08716B5E21FB108D003180D8 /* realestate-letting-wanted.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5121FB108C003180D8 /* realestate-letting-wanted.json */; };
-		08716B5F21FB108D003180D8 /* realestate-homes.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5221FB108C003180D8 /* realestate-homes.json */; };
-		08716B6021FB108D003180D8 /* realestate-letting.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5321FB108C003180D8 /* realestate-letting.json */; };
-		08716B6221FB108D003180D8 /* realestate-leisure-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5521FB108C003180D8 /* realestate-leisure-sale.json */; };
-		08716B6321FB108D003180D8 /* realestate-development.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5621FB108C003180D8 /* realestate-development.json */; };
-		08716B6421FB108D003180D8 /* realestate-business-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5721FB108C003180D8 /* realestate-business-sale.json */; };
-		08716B6521FB108D003180D8 /* realestate-business-letting.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5821FB108C003180D8 /* realestate-business-letting.json */; };
-		08716B6621FB108D003180D8 /* company-for-sale.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5921FB108D003180D8 /* company-for-sale.json */; };
-		08716B6721FB108D003180D8 /* realestate-leisure-sale-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5A21FB108D003180D8 /* realestate-leisure-sale-abroad.json */; };
-		08716B6821FB108D003180D8 /* realestate-plot.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5B21FB108D003180D8 /* realestate-plot.json */; };
-		08716B6921FB108D003180D8 /* realestate-leisure-plot.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B5C21FB108D003180D8 /* realestate-leisure-plot.json */; };
-		08716B8B21FF2CCA003180D8 /* bus.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8221FF2CCA003180D8 /* bus.json */; };
-		08716B8C21FF2CCA003180D8 /* truck.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8321FF2CCA003180D8 /* truck.json */; };
-		08716B8D21FF2CCA003180D8 /* van-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8421FF2CCA003180D8 /* van-norway.json */; };
-		08716B8E21FF2CCA003180D8 /* truck-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8521FF2CCA003180D8 /* truck-abroad.json */; };
-		08716B8F21FF2CCA003180D8 /* agriculture-tractor.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8621FF2CCA003180D8 /* agriculture-tractor.json */; };
-		08716B9021FF2CCA003180D8 /* agriculture-thresher.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8721FF2CCA003180D8 /* agriculture-thresher.json */; };
-		08716B9121FF2CCA003180D8 /* agriculture-tools.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8821FF2CCA003180D8 /* agriculture-tools.json */; };
-		08716B9221FF2CCA003180D8 /* van-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8921FF2CCA003180D8 /* van-abroad.json */; };
-		08716B9321FF2CCA003180D8 /* construction.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B8A21FF2CCA003180D8 /* construction.json */; };
-		08716B9721FF40F6003180D8 /* mobile-home.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9621FF40F6003180D8 /* mobile-home.json */; };
-		08716B9921FF4112003180D8 /* caravan.json in Resources */ = {isa = PBXBuildFile; fileRef = 08716B9821FF4112003180D8 /* caravan.json */; };
-		088C090F21F5C3AA00983132 /* job-full-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C090E21F5C3AA00983132 /* job-full-time.json */; };
-		088C091121F5CE4200983132 /* job-part-time.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091021F5CE4200983132 /* job-part-time.json */; };
-		088C091321F5CE4C00983132 /* job-management.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091221F5CE4C00983132 /* job-management.json */; };
-		088C091521F5E09900983132 /* mc.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091421F5E09900983132 /* mc.json */; };
-		088C091721F5E5EE00983132 /* moped-scooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091621F5E5EE00983132 /* moped-scooter.json */; };
-		088C091921F5E63800983132 /* snowmobile.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091821F5E63800983132 /* snowmobile.json */; };
-		088C091B21F5E67900983132 /* atv.json in Resources */ = {isa = PBXBuildFile; fileRef = 088C091A21F5E67900983132 /* atv.json */; };
 		44ECE663208F7FA20017AC82 /* Charcoal.h in Headers */ = {isa = PBXBuildFile; fileRef = 44ECE661208F7FA20017AC82 /* Charcoal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44ECE66E208F7FD00017AC82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ECE66D208F7FD00017AC82 /* AppDelegate.swift */; };
 		44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44ECE674208F7FD20017AC82 /* Assets.xcassets */; };
@@ -70,7 +32,6 @@
 		4978F74C24474C3900D9D6C2 /* MapPolygonFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F74824474C3900D9D6C2 /* MapPolygonFilterView.swift */; };
 		4978F758244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4978F757244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift */; };
 		49A6620B245AA663005AFE77 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A6620A245AA662005AFE77 /* InfoView.swift */; };
-		5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */ = {isa = PBXBuildFile; fileRef = 554D154F20C0782200FA3930 /* car-norway.json */; };
 		55646DB12091FE8E006AA2DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55646DAF2091FE11006AA2DA /* Assets.xcassets */; };
 		55893226209B206000512FF8 /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		5589322D209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */; };
@@ -80,7 +41,6 @@
 		559C6CB020B6CA72009B734D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559C6CB220B6CA72009B734D /* Localizable.strings */; };
 		559C6CBB20B8495A009B734D /* RangeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CB920B83178009B734D /* RangeFilterView.swift */; };
 		559C6CBD20BBE709009B734D /* RangeFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */; };
-		55ABF8B020CFD8A100E31229 /* bap.json in Resources */ = {isa = PBXBuildFile; fileRef = 55ABF8AF20CFD8A100E31229 /* bap.json */; };
 		55BDA76620DB7FC000331FFC /* TestDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */; };
 		55F97D1220AC4FD5002BABC9 /* VerticalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */; };
 		55F97D1720B4432C002BABC9 /* RangeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F97D1620B4432C002BABC9 /* RangeSliderView.swift */; };
@@ -108,7 +68,6 @@
 		9BD637642124435800AB9DFE /* AssetImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55893225209B206000512FF8 /* AssetImageNames.swift */; };
 		9BE0A04F2091C2E90000632B /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */; };
 		9BE0A06520934A4B0000632B /* FilterBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */; };
-		9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BE0D54021A4509F00F0B63B /* car-abroad.json */; };
 		9BE0D54321A4552300F0B63B /* FilterMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */; };
 		9BE5EC6D21DD0AF0009C5E1A /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */; };
 		9BE5EC6F21DE273C009C5E1A /* DemoSearchLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */; };
@@ -293,45 +252,7 @@
 		08716B3221F73D92003180D8 /* FilterMarketBap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBap.swift; sourceTree = "<group>"; };
 		08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBoat.swift; sourceTree = "<group>"; };
 		08716B3621F76424003180D8 /* FilterKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterKey.swift; sourceTree = "<group>"; };
-		08716B3E21F89C7C003180D8 /* boat-sale.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-sale.json"; sourceTree = "<group>"; };
-		08716B4021F89CD6003180D8 /* boat-used-wanted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-used-wanted.json"; sourceTree = "<group>"; };
-		08716B4221F89CE0003180D8 /* boat-rent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-rent.json"; sourceTree = "<group>"; };
-		08716B4621F89D4A003180D8 /* boat-parts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-parts.json"; sourceTree = "<group>"; };
-		08716B4821F89D83003180D8 /* boat-motor.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-motor.json"; sourceTree = "<group>"; };
-		08716B4A21F89DBB003180D8 /* boat-parts-motor-wanted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-parts-motor-wanted.json"; sourceTree = "<group>"; };
-		08716B4C21F89DDE003180D8 /* boat-dock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-dock.json"; sourceTree = "<group>"; };
-		08716B4E21F89DE5003180D8 /* boat-dock-wanted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-dock-wanted.json"; sourceTree = "<group>"; };
-		08716B5021FB108C003180D8 /* realestate-business-plot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-business-plot.json"; sourceTree = "<group>"; };
-		08716B5121FB108C003180D8 /* realestate-letting-wanted.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-letting-wanted.json"; sourceTree = "<group>"; };
-		08716B5221FB108C003180D8 /* realestate-homes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-homes.json"; sourceTree = "<group>"; };
-		08716B5321FB108C003180D8 /* realestate-letting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-letting.json"; sourceTree = "<group>"; };
-		08716B5521FB108C003180D8 /* realestate-leisure-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-leisure-sale.json"; sourceTree = "<group>"; };
-		08716B5621FB108C003180D8 /* realestate-development.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-development.json"; sourceTree = "<group>"; };
-		08716B5721FB108C003180D8 /* realestate-business-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-business-sale.json"; sourceTree = "<group>"; };
-		08716B5821FB108C003180D8 /* realestate-business-letting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-business-letting.json"; sourceTree = "<group>"; };
-		08716B5921FB108D003180D8 /* company-for-sale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "company-for-sale.json"; sourceTree = "<group>"; };
-		08716B5A21FB108D003180D8 /* realestate-leisure-sale-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-leisure-sale-abroad.json"; sourceTree = "<group>"; };
-		08716B5B21FB108D003180D8 /* realestate-plot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-plot.json"; sourceTree = "<group>"; };
-		08716B5C21FB108D003180D8 /* realestate-leisure-plot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "realestate-leisure-plot.json"; sourceTree = "<group>"; };
-		08716B8221FF2CCA003180D8 /* bus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bus.json; sourceTree = "<group>"; };
-		08716B8321FF2CCA003180D8 /* truck.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = truck.json; sourceTree = "<group>"; };
-		08716B8421FF2CCA003180D8 /* van-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "van-norway.json"; sourceTree = "<group>"; };
-		08716B8521FF2CCA003180D8 /* truck-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "truck-abroad.json"; sourceTree = "<group>"; };
-		08716B8621FF2CCA003180D8 /* agriculture-tractor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "agriculture-tractor.json"; sourceTree = "<group>"; };
-		08716B8721FF2CCA003180D8 /* agriculture-thresher.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "agriculture-thresher.json"; sourceTree = "<group>"; };
-		08716B8821FF2CCA003180D8 /* agriculture-tools.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "agriculture-tools.json"; sourceTree = "<group>"; };
-		08716B8921FF2CCA003180D8 /* van-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "van-abroad.json"; sourceTree = "<group>"; };
-		08716B8A21FF2CCA003180D8 /* construction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = construction.json; sourceTree = "<group>"; };
 		08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketB2B.swift; sourceTree = "<group>"; };
-		08716B9621FF40F6003180D8 /* mobile-home.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-home.json"; sourceTree = "<group>"; };
-		08716B9821FF4112003180D8 /* caravan.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = caravan.json; sourceTree = "<group>"; };
-		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
-		088C091021F5CE4200983132 /* job-part-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-part-time.json"; sourceTree = "<group>"; };
-		088C091221F5CE4C00983132 /* job-management.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-management.json"; sourceTree = "<group>"; };
-		088C091421F5E09900983132 /* mc.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mc.json; sourceTree = "<group>"; };
-		088C091621F5E5EE00983132 /* moped-scooter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "moped-scooter.json"; sourceTree = "<group>"; };
-		088C091821F5E63800983132 /* snowmobile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snowmobile.json; sourceTree = "<group>"; };
-		088C091A21F5E67900983132 /* atv.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = atv.json; sourceTree = "<group>"; };
 		44ECE65F208F7FA20017AC82 /* Charcoal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charcoal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44ECE661208F7FA20017AC82 /* Charcoal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Charcoal.h; sourceTree = "<group>"; };
 		44ECE662208F7FA20017AC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -362,7 +283,6 @@
 		4978F74824474C3900D9D6C2 /* MapPolygonFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPolygonFilterView.swift; sourceTree = "<group>"; };
 		4978F757244F263800D9D6C2 /* InitialAreaSelectionOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialAreaSelectionOverlayView.swift; sourceTree = "<group>"; };
 		49A6620A245AA662005AFE77 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
-		554D154F20C0782200FA3930 /* car-norway.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-norway.json"; sourceTree = "<group>"; };
 		55646DAF2091FE11006AA2DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55893225209B206000512FF8 /* AssetImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetImageNames.swift; sourceTree = "<group>"; };
 		5589322B209C3CD500512FF8 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
@@ -372,7 +292,6 @@
 		559C6CB120B6CA72009B734D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		559C6CB920B83178009B734D /* RangeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterView.swift; sourceTree = "<group>"; };
 		559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoViewController.swift; sourceTree = "<group>"; };
-		55ABF8AF20CFD8A100E31229 /* bap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bap.json; sourceTree = "<group>"; };
 		55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataDecoder.swift; sourceTree = "<group>"; };
 		55BDA76E20DBC46800331FFC /* FilterMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarket.swift; sourceTree = "<group>"; };
 		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
@@ -400,7 +319,6 @@
 		9BD6377D21244C0B00AB9DFE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9BE0A04E2091C2E90000632B /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		9BE0A06420934A4B0000632B /* FilterBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomButtonView.swift; sourceTree = "<group>"; };
-		9BE0D54021A4509F00F0B63B /* car-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "car-abroad.json"; sourceTree = "<group>"; };
 		9BE0D54221A4552300F0B63B /* FilterMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketTests.swift; sourceTree = "<group>"; };
 		9BE5EC6C21DD0AF0009C5E1A /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		9BE5EC6E21DE273C009C5E1A /* DemoSearchLocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSearchLocationDataSource.swift; sourceTree = "<group>"; };
@@ -580,96 +498,6 @@
 				08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */,
 			);
 			path = FilterMarkets;
-			sourceTree = "<group>";
-		};
-		08716B3821F89B80003180D8 /* boat */ = {
-			isa = PBXGroup;
-			children = (
-				08716B3E21F89C7C003180D8 /* boat-sale.json */,
-				08716B4021F89CD6003180D8 /* boat-used-wanted.json */,
-				08716B4221F89CE0003180D8 /* boat-rent.json */,
-				08716B4821F89D83003180D8 /* boat-motor.json */,
-				08716B4621F89D4A003180D8 /* boat-parts.json */,
-				08716B4A21F89DBB003180D8 /* boat-parts-motor-wanted.json */,
-				08716B4C21F89DDE003180D8 /* boat-dock.json */,
-				08716B4E21F89DE5003180D8 /* boat-dock-wanted.json */,
-			);
-			path = boat;
-			sourceTree = "<group>";
-		};
-		08716B3921F89B86003180D8 /* job */ = {
-			isa = PBXGroup;
-			children = (
-				088C090E21F5C3AA00983132 /* job-full-time.json */,
-				088C091021F5CE4200983132 /* job-part-time.json */,
-				088C091221F5CE4C00983132 /* job-management.json */,
-			);
-			path = job;
-			sourceTree = "<group>";
-		};
-		08716B3A21F89B8C003180D8 /* mc */ = {
-			isa = PBXGroup;
-			children = (
-				088C091421F5E09900983132 /* mc.json */,
-				088C091621F5E5EE00983132 /* moped-scooter.json */,
-				088C091821F5E63800983132 /* snowmobile.json */,
-				088C091A21F5E67900983132 /* atv.json */,
-			);
-			path = mc;
-			sourceTree = "<group>";
-		};
-		08716B3B21F89BA6003180D8 /* bap */ = {
-			isa = PBXGroup;
-			children = (
-				55ABF8AF20CFD8A100E31229 /* bap.json */,
-			);
-			path = bap;
-			sourceTree = "<group>";
-		};
-		08716B3C21F89BAE003180D8 /* realestate */ = {
-			isa = PBXGroup;
-			children = (
-				08716B5921FB108D003180D8 /* company-for-sale.json */,
-				08716B5221FB108C003180D8 /* realestate-homes.json */,
-				08716B5721FB108C003180D8 /* realestate-business-sale.json */,
-				08716B5821FB108C003180D8 /* realestate-business-letting.json */,
-				08716B5021FB108C003180D8 /* realestate-business-plot.json */,
-				08716B5621FB108C003180D8 /* realestate-development.json */,
-				08716B5521FB108C003180D8 /* realestate-leisure-sale.json */,
-				08716B5C21FB108D003180D8 /* realestate-leisure-plot.json */,
-				08716B5A21FB108D003180D8 /* realestate-leisure-sale-abroad.json */,
-				08716B5321FB108C003180D8 /* realestate-letting.json */,
-				08716B5121FB108C003180D8 /* realestate-letting-wanted.json */,
-				08716B5B21FB108D003180D8 /* realestate-plot.json */,
-			);
-			path = realestate;
-			sourceTree = "<group>";
-		};
-		08716B3D21F89BB4003180D8 /* car */ = {
-			isa = PBXGroup;
-			children = (
-				9BE0D54021A4509F00F0B63B /* car-abroad.json */,
-				554D154F20C0782200FA3930 /* car-norway.json */,
-				08716B9621FF40F6003180D8 /* mobile-home.json */,
-				08716B9821FF4112003180D8 /* caravan.json */,
-			);
-			path = car;
-			sourceTree = "<group>";
-		};
-		08716B8121FF2CBE003180D8 /* b2b */ = {
-			isa = PBXGroup;
-			children = (
-				08716B8721FF2CCA003180D8 /* agriculture-thresher.json */,
-				08716B8821FF2CCA003180D8 /* agriculture-tools.json */,
-				08716B8621FF2CCA003180D8 /* agriculture-tractor.json */,
-				08716B8221FF2CCA003180D8 /* bus.json */,
-				08716B8A21FF2CCA003180D8 /* construction.json */,
-				08716B8521FF2CCA003180D8 /* truck-abroad.json */,
-				08716B8321FF2CCA003180D8 /* truck.json */,
-				08716B8921FF2CCA003180D8 /* van-abroad.json */,
-				08716B8421FF2CCA003180D8 /* van-norway.json */,
-			);
-			path = b2b;
 			sourceTree = "<group>";
 		};
 		44ECE645208F7F7B0017AC82 = {
@@ -867,13 +695,6 @@
 				9B2931F623478420006469B5 /* AppCenterDistributeResources.bundle */,
 				44ECE676208F7FD20017AC82 /* LaunchScreen.storyboard */,
 				44ECE674208F7FD20017AC82 /* Assets.xcassets */,
-				08716B8121FF2CBE003180D8 /* b2b */,
-				08716B3B21F89BA6003180D8 /* bap */,
-				08716B3821F89B80003180D8 /* boat */,
-				08716B3D21F89BB4003180D8 /* car */,
-				08716B3921F89B86003180D8 /* job */,
-				08716B3A21F89B8C003180D8 /* mc */,
-				08716B3C21F89BAE003180D8 /* realestate */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1516,51 +1337,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				088C091321F5CE4C00983132 /* job-management.json in Resources */,
-				08716B8F21FF2CCA003180D8 /* agriculture-tractor.json in Resources */,
-				08716B8D21FF2CCA003180D8 /* van-norway.json in Resources */,
-				08716B4921F89D83003180D8 /* boat-motor.json in Resources */,
-				08716B4121F89CD6003180D8 /* boat-used-wanted.json in Resources */,
-				08716B9021FF2CCA003180D8 /* agriculture-thresher.json in Resources */,
-				08716B4321F89CE0003180D8 /* boat-rent.json in Resources */,
-				08716B6021FB108D003180D8 /* realestate-letting.json in Resources */,
-				088C090F21F5C3AA00983132 /* job-full-time.json in Resources */,
 				44ECE678208F7FD20017AC82 /* LaunchScreen.storyboard in Resources */,
-				08716B9321FF2CCA003180D8 /* construction.json in Resources */,
 				9B2931F723478420006469B5 /* AppCenterDistributeResources.bundle in Resources */,
-				08716B6721FB108D003180D8 /* realestate-leisure-sale-abroad.json in Resources */,
-				08716B4F21F89DE5003180D8 /* boat-dock-wanted.json in Resources */,
-				08716B6821FB108D003180D8 /* realestate-plot.json in Resources */,
-				08716B9221FF2CCA003180D8 /* van-abroad.json in Resources */,
-				08716B8C21FF2CCA003180D8 /* truck.json in Resources */,
-				088C091921F5E63800983132 /* snowmobile.json in Resources */,
-				088C091721F5E5EE00983132 /* moped-scooter.json in Resources */,
 				9B9C16FD209AF65E007BCBBC /* CHANGELOG.md in Resources */,
-				08716B6921FB108D003180D8 /* realestate-leisure-plot.json in Resources */,
-				55ABF8B020CFD8A100E31229 /* bap.json in Resources */,
-				08716B9121FF2CCA003180D8 /* agriculture-tools.json in Resources */,
-				08716B4B21F89DBB003180D8 /* boat-parts-motor-wanted.json in Resources */,
-				5521FB9520CEB0FF00F910D0 /* car-norway.json in Resources */,
-				08716B8E21FF2CCA003180D8 /* truck-abroad.json in Resources */,
-				08716B3F21F89C7C003180D8 /* boat-sale.json in Resources */,
-				08716B8B21FF2CCA003180D8 /* bus.json in Resources */,
-				9BE0D54121A4509F00F0B63B /* car-abroad.json in Resources */,
-				08716B4D21F89DDE003180D8 /* boat-dock.json in Resources */,
-				08716B6521FB108D003180D8 /* realestate-business-letting.json in Resources */,
-				08716B5D21FB108D003180D8 /* realestate-business-plot.json in Resources */,
-				08716B6321FB108D003180D8 /* realestate-development.json in Resources */,
-				08716B5F21FB108D003180D8 /* realestate-homes.json in Resources */,
-				08716B9721FF40F6003180D8 /* mobile-home.json in Resources */,
-				088C091B21F5E67900983132 /* atv.json in Resources */,
-				08716B6621FB108D003180D8 /* company-for-sale.json in Resources */,
-				08716B6221FB108D003180D8 /* realestate-leisure-sale.json in Resources */,
-				088C091121F5CE4200983132 /* job-part-time.json in Resources */,
-				08716B5E21FB108D003180D8 /* realestate-letting-wanted.json in Resources */,
-				08716B6421FB108D003180D8 /* realestate-business-sale.json in Resources */,
-				08716B9921FF4112003180D8 /* caravan.json in Resources */,
 				44ECE675208F7FD20017AC82 /* Assets.xcassets in Resources */,
-				08716B4721F89D4A003180D8 /* boat-parts.json in Resources */,
-				088C091521F5E09900983132 /* mc.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

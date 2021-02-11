@@ -2,8 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import Charcoal
 import FinniversKit
-import FINNSetup
 
 class DemoTableViewController: UIViewController {
     // MARK: - Private properties

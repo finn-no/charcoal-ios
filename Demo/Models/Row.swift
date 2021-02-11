@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import FINNSetup
+import Charcoal
 import UIKit
 
 struct Row {

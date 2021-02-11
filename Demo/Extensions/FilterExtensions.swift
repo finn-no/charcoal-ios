@@ -13,11 +13,11 @@ extension Filter {
         inline(title: "", key: "inline", subfilters: subfilters)
     }
 
-    static func list(name: String, count: Int = 10, isContextFilter: Bool = false) -> Filter {
+    static func list(name: String, key: String? = nil, count: Int = 10, isContextFilter: Bool = false) -> Filter {
         Filter(
             kind: .standard,
             title: name,
-            key: name,
+            key: key ?? name,
             value: nil,
             numberOfResults: 0,
             style: isContextFilter ? .context : .normal,
@@ -38,6 +38,27 @@ extension Filter {
             config: .priceConfiguration,
             style: isContextFilter ? .context : .normal
         )
+    }
+
+    static func map(includePolygonSearch: Bool = true) -> Filter {
+        let filter = map(
+            title: "Område i kart",
+            key: "map",
+            latitudeKey: "lat",
+            longitudeKey: "lon",
+            radiusKey: "radius",
+            locationKey: "locations",
+            bboxKey: includePolygonSearch ? "bbox" : nil,
+            polygonKey: includePolygonSearch ? "polygon" : nil
+        )
+        filter.mutuallyExclusiveFilterKeys = ["location"]
+        return filter
+    }
+
+    static func location() -> Filter {
+        let filter = Filter.list(name: "Område", key: "location")
+        filter.mutuallyExclusiveFilterKeys = ["map"]
+        return filter
     }
 }
 

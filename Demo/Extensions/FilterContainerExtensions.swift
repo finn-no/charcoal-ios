@@ -18,10 +18,12 @@ extension FilterContainer {
         return container
     }
 
-    static func defaultRootFilters(isContextFilters: Bool = false) -> [Filter] {
+    static func defaultRootFilters(isContextFilters: Bool = false, includePolygonSearch: Bool = true) -> [Filter] {
         [
-            .price(isContextFilter: isContextFilters),
             .list(name: "Kategorier", isContextFilter: isContextFilters),
+            .map(includePolygonSearch: includePolygonSearch),
+            .location(),
+            .price(isContextFilter: isContextFilters),
         ]
     }
 }

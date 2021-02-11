@@ -37,6 +37,7 @@ enum DemoSections: CaseIterable {
         case .misc:
             return [
                 Row(title: "Context filters", filterContainer: .contextFilter),
+                Row(title: "Polygon search disabled", filterContainer: .polygonSearchDisabled),
             ]
         }
     }
@@ -53,5 +54,9 @@ private extension FilterContainer {
 
     static var contextFilter: FilterContainer {
         create(rootFilters: FilterContainer.defaultRootFilters(isContextFilters: true))
+    }
+
+    static var polygonSearchDisabled: FilterContainer {
+        create(rootFilters: FilterContainer.defaultRootFilters(includePolygonSearch: false))
     }
 }

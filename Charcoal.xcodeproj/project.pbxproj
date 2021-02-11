@@ -91,7 +91,6 @@
 		9B2931E723477AF5006469B5 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931E523477AF5006469B5 /* AppCenterCrashes.framework */; };
 		9B2931F52347815B006469B5 /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2931F42347815B006469B5 /* AppCenter.framework */; };
 		9B2931F723478420006469B5 /* AppCenterDistributeResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9B2931F623478420006469B5 /* AppCenterDistributeResources.bundle */; };
-		9B56BDA223475E2600775F44 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
 		9B5A66F621A2E122005C9118 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A66F521A2E122005C9118 /* LoadingViewController.swift */; };
 		9B741D1821B6796D00D18097 /* ValueSliderWithLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1721B6796D00D18097 /* ValueSliderWithLabelView.swift */; };
 		9B741D1A21B6990800D18097 /* ValueSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B741D1921B6990800D18097 /* ValueSliderView.swift */; };
@@ -133,13 +132,9 @@
 		CF8FD7382254E5C400926A7B /* VerticalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FD7372254E5C300926A7B /* VerticalCell.swift */; };
 		CF903FFA2281950500AA1A39 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF903FF92281950500AA1A39 /* UIViewExtensions.swift */; };
 		CF9555DC225626B100BABC86 /* UItableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9555DB225626B100BABC86 /* UItableViewExtensions.swift */; };
-		CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
 		CFA4B77F2278890D00290FB5 /* CalloutOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA4B77D2278890900290FB5 /* CalloutOverlay.swift */; };
 		CFAB68EF2291856B00925025 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */; };
 		CFCB35F022366BE8004E6EB3 /* ContextFilterTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */; };
-		CFCB35F322367C3D004E6EB3 /* Charcoal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; };
-		CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44ECE65F208F7FA20017AC82 /* Charcoal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */; };
 		CFCB36012237DE06004E6EB3 /* SelectionChangeOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */; };
 		CFD7BBFB2209BCDF00746823 /* RangeToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */; };
 		CFD8B45622843DD400AA534A /* MapRadiusOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD8B45522843DD400AA534A /* MapRadiusOverlayView.swift */; };
@@ -152,23 +147,7 @@
 		CFE987E222576AF8008D6789 /* NumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E122576AF8008D6789 /* NumberInputView.swift */; };
 		CFE987E422579706008D6789 /* NumberInputFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE987E322579706008D6789 /* NumberInputFontSize.swift */; };
 		CFEDCD8C223274C7008FCDB1 /* ListFilterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */; };
-		CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; };
-		CFEDCE002232B756008FCDB1 /* FINNSetup.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CFEDCE052232B7A8008FCDB1 /* FilterKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3621F76424003180D8 /* FilterKey.swift */; };
-		CFEDCE062232B7A8008FCDB1 /* FilterMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDA76E20DBC46800331FFC /* FilterMarket.swift */; };
-		CFEDCE072232B7A8008FCDB1 /* FINNFilterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */; };
-		CFEDCE082232B7A8008FCDB1 /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465F616A219B7A1900CF568B /* FilterData.swift */; };
-		CFEDCE092232B7A8008FCDB1 /* FilterDataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465F616E219B7B8B00CF568B /* FilterDataQuery.swift */; };
-		CFEDCE0A2232B7A8008FCDB1 /* FilterSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */; };
-		CFEDCE0B2232B7A8008FCDB1 /* FilterMarketMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2821F73B0B003180D8 /* FilterMarketMC.swift */; };
-		CFEDCE0C2232B7A8008FCDB1 /* FilterMarketCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2A21F73B7A003180D8 /* FilterMarketCar.swift */; };
-		CFEDCE0D2232B7A8008FCDB1 /* FilterMarketJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B2E21F73C87003180D8 /* FilterMarketJob.swift */; };
-		CFEDCE0E2232B7A8008FCDB1 /* FilterMarketRealestate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3021F73D2D003180D8 /* FilterMarketRealestate.swift */; };
-		CFEDCE0F2232B7A8008FCDB1 /* FilterMarketBap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3221F73D92003180D8 /* FilterMarketBap.swift */; };
-		CFEDCE102232B7A8008FCDB1 /* FilterMarketBoat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */; };
-		CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */; };
 		CFEDCE152232BA5A008FCDB1 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */; };
-		CFEDCE1F2232CA89008FCDB1 /* FINNSetup.h in Headers */ = {isa = PBXBuildFile; fileRef = CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CFFD9F8D21F09F7500997D14 /* RangeFilterConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */; };
 		DA1C346E222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */; };
 		DA2EFF3B225B51CC00F5B849 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2EFF3A225B51CC00F5B849 /* DemoViewController.swift */; };
@@ -193,7 +172,6 @@
 		DA83CE5F22607DEA000CAD39 /* DemoVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA83CE5E22607DEA000CAD39 /* DemoVertical.swift */; };
 		DA8D683C220D874400D31941 /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683B220D874400D31941 /* FilterTests.swift */; };
 		DA8D683F220D88A300D31941 /* FilterSelectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D683E220D88A300D31941 /* FilterSelectionStoreTests.swift */; };
-		DAD45C10223A899600FE1EF5 /* FinniversKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD45BFD223A898C00FE1EF5 /* FinniversKit.framework */; };
 		DAEA93D8225F7228003B215D /* MapFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA93D7225F7228003B215D /* MapFilterDemoViewController.swift */; };
 		DAEB179721A6986500D9AAD6 /* FreeTextFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEB179621A6986500D9AAD6 /* FreeTextFilterViewController.swift */; };
 		DAF3CA7221830B1C007235B0 /* StepperFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF3CA7121830B1C007235B0 /* StepperFilterView.swift */; };
@@ -217,33 +195,12 @@
 			remoteGlobalIDString = 44ECE65E208F7FA20017AC82;
 			remoteInfo = FilterKit;
 		};
-		9B56BDA023475E1D00775F44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 44ECE646208F7F7B0017AC82 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CFEDCDF72232B756008FCDB1;
-			remoteInfo = FINNSetup;
-		};
 		CF33D9CC224A499C00A24DF0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 44ECE646208F7F7B0017AC82 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 44ECE66A208F7FD00017AC82;
 			remoteInfo = Demo;
-		};
-		CFCB35F122367C38004E6EB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 44ECE646208F7F7B0017AC82 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 44ECE65E208F7FA20017AC82;
-			remoteInfo = Charcoal;
-		};
-		CFEDCDFD2232B756008FCDB1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 44ECE646208F7F7B0017AC82 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CFEDCDF72232B756008FCDB1;
-			remoteInfo = FINNCharcoal;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -254,7 +211,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CFEDCE002232B756008FCDB1 /* FINNSetup.framework in Embed Frameworks */,
 				44ECE68F208F7FF90017AC82 /* Charcoal.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -269,27 +225,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFCB35F522367C88004E6EB3 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CFCB35F622367CC6004E6EB3 /* Charcoal.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08716B2821F73B0B003180D8 /* FilterMarketMC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketMC.swift; sourceTree = "<group>"; };
-		08716B2A21F73B7A003180D8 /* FilterMarketCar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketCar.swift; sourceTree = "<group>"; };
-		08716B2E21F73C87003180D8 /* FilterMarketJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketJob.swift; sourceTree = "<group>"; };
-		08716B3021F73D2D003180D8 /* FilterMarketRealestate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketRealestate.swift; sourceTree = "<group>"; };
-		08716B3221F73D92003180D8 /* FilterMarketBap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBap.swift; sourceTree = "<group>"; };
-		08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketBoat.swift; sourceTree = "<group>"; };
-		08716B3621F76424003180D8 /* FilterKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterKey.swift; sourceTree = "<group>"; };
 		08716B3E21F89C7C003180D8 /* boat-sale.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-sale.json"; sourceTree = "<group>"; };
 		08716B4021F89CD6003180D8 /* boat-used-wanted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-used-wanted.json"; sourceTree = "<group>"; };
 		08716B4221F89CE0003180D8 /* boat-rent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "boat-rent.json"; sourceTree = "<group>"; };
@@ -319,7 +257,6 @@
 		08716B8821FF2CCA003180D8 /* agriculture-tools.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "agriculture-tools.json"; sourceTree = "<group>"; };
 		08716B8921FF2CCA003180D8 /* van-abroad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "van-abroad.json"; sourceTree = "<group>"; };
 		08716B8A21FF2CCA003180D8 /* construction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = construction.json; sourceTree = "<group>"; };
-		08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarketB2B.swift; sourceTree = "<group>"; };
 		08716B9621FF40F6003180D8 /* mobile-home.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-home.json"; sourceTree = "<group>"; };
 		08716B9821FF4112003180D8 /* caravan.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = caravan.json; sourceTree = "<group>"; };
 		088C090E21F5C3AA00983132 /* job-full-time.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "job-full-time.json"; sourceTree = "<group>"; };
@@ -343,8 +280,6 @@
 		44ECE6A7208F816D0017AC82 /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 		44ECE6A8208F816D0017AC82 /* DemoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoTableViewController.swift; sourceTree = "<group>"; };
 		462EC166212D746900E6085C /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
-		465F616A219B7A1900CF568B /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
-		465F616E219B7B8B00CF568B /* FilterDataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataQuery.swift; sourceTree = "<group>"; };
 		4670268E2170DD3900B9C952 /* SliderReferenceValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderReferenceValueView.swift; sourceTree = "<group>"; };
 		46774F3A21BFF57F00ECFED8 /* MapDistanceValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDistanceValueFormatter.swift; sourceTree = "<group>"; };
 		46905239217F5CD000F8E7FD /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
@@ -371,8 +306,6 @@
 		559C6CBC20BBE709009B734D /* RangeFilterDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoViewController.swift; sourceTree = "<group>"; };
 		55ABF8AF20CFD8A100E31229 /* bap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bap.json; sourceTree = "<group>"; };
 		55BDA76520DB7FC000331FFC /* TestDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataDecoder.swift; sourceTree = "<group>"; };
-		55BDA76E20DBC46800331FFC /* FilterMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMarket.swift; sourceTree = "<group>"; };
-		55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSetup.swift; sourceTree = "<group>"; };
 		55F97D1120AC4FD5002BABC9 /* VerticalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListViewController.swift; sourceTree = "<group>"; };
 		55F97D1620B4432C002BABC9 /* RangeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderView.swift; sourceTree = "<group>"; };
 		8D6804481070D5F09B67CD50 /* PolygonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonData.swift; sourceTree = "<group>"; };
@@ -420,7 +353,6 @@
 		CF7C46102226F415001FB92C /* ListFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFilterCell.swift; sourceTree = "<group>"; };
 		CF81E105221BFFE600D00423 /* SelectionTagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagViewCell.swift; sourceTree = "<group>"; };
 		CF81E107221C001C00D00423 /* SelectionTagsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagsContainerView.swift; sourceTree = "<group>"; };
-		CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FINNFilterConfiguration.swift; sourceTree = "<group>"; };
 		CF8FD7352254E2CF00926A7B /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 		CF8FD7372254E5C300926A7B /* VerticalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalCell.swift; sourceTree = "<group>"; };
 		CF903FF92281950500AA1A39 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -428,7 +360,6 @@
 		CFA4B77D2278890900290FB5 /* CalloutOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutOverlay.swift; sourceTree = "<group>"; };
 		CFAB68EE2291856B00925025 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
 		CFCB35EF22366BE8004E6EB3 /* ContextFilterTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ContextFilterTestData.json; sourceTree = "<group>"; };
-		CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeFilterConfiguration+FINNSetup.swift"; sourceTree = "<group>"; };
 		CFCB35FA2236A299004E6EB3 /* FilterUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnit.swift; sourceTree = "<group>"; };
 		CFCB36002237DE06004E6EB3 /* SelectionChangeOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionChangeOrigin.swift; sourceTree = "<group>"; };
 		CFD7BBFA2209BCDF00746823 /* RangeToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeToolbarItem.swift; sourceTree = "<group>"; };
@@ -441,10 +372,7 @@
 		CFE987E122576AF8008D6789 /* NumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberInputView.swift; sourceTree = "<group>"; };
 		CFE987E322579706008D6789 /* NumberInputFontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberInputFontSize.swift; sourceTree = "<group>"; };
 		CFEDCD8B223274C7008FCDB1 /* ListFilterImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFilterImageView.swift; sourceTree = "<group>"; };
-		CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FINNSetup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FINNSetup.h; sourceTree = "<group>"; };
 		CFEDCE142232BA5A008FCDB1 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		CFEDCE172232BDF2008FCDB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFFD9F8C21F09F7500997D14 /* RangeFilterConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeFilterConfigurationTests.swift; sourceTree = "<group>"; };
 		DA1C346D222534C100FB22A5 /* FreeTextSuggestionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTextSuggestionCellViewModel.swift; sourceTree = "<group>"; };
 		DA2EFF3A225B51CC00F5B849 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
@@ -529,7 +457,6 @@
 				9B2931E323477A6B006469B5 /* AppCenterDistribute.framework in Frameworks */,
 				44ECE68E208F7FF90017AC82 /* Charcoal.framework in Frameworks */,
 				DA51040C21BE5F59004048BD /* FinniversKit.framework in Frameworks */,
-				CFEDCDFF2232B756008FCDB1 /* FINNSetup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +464,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B56BDA223475E2600775F44 /* FINNSetup.framework in Frameworks */,
 				DA51041D21BE6CE3004048BD /* FinniversKit.framework in Frameworks */,
 				44ECE686208F7FDE0017AC82 /* Charcoal.framework in Frameworks */,
 			);
@@ -550,32 +476,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFEDCDF52232B756008FCDB1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DAD45C10223A899600FE1EF5 /* FinniversKit.framework in Frameworks */,
-				CFCB35F322367C3D004E6EB3 /* Charcoal.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08716B2721F73AD2003180D8 /* FilterMarkets */ = {
-			isa = PBXGroup;
-			children = (
-				08716B2821F73B0B003180D8 /* FilterMarketMC.swift */,
-				08716B2A21F73B7A003180D8 /* FilterMarketCar.swift */,
-				08716B2E21F73C87003180D8 /* FilterMarketJob.swift */,
-				08716B3021F73D2D003180D8 /* FilterMarketRealestate.swift */,
-				08716B3221F73D92003180D8 /* FilterMarketBap.swift */,
-				08716B3421F73DDE003180D8 /* FilterMarketBoat.swift */,
-				08716B9421FF2CE4003180D8 /* FilterMarketB2B.swift */,
-			);
-			path = FilterMarkets;
-			sourceTree = "<group>";
-		};
 		08716B3821F89B80003180D8 /* boat */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,7 +587,6 @@
 				44ECE65F208F7FA20017AC82 /* Charcoal.framework */,
 				44ECE66B208F7FD00017AC82 /* Demo.app */,
 				44ECE681208F7FDE0017AC82 /* UnitTests.xctest */,
-				CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */,
 				CF33D9C7224A499C00A24DF0 /* UITests.xctest */,
 			);
 			name = Products;
@@ -694,7 +596,6 @@
 			isa = PBXGroup;
 			children = (
 				CF4C8702221ADF2700DFAF2A /* Charcoal */,
-				559C61F620DA4CAA0083A574 /* FINNSetup */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -748,16 +649,6 @@
 				559C6CB220B6CA72009B734D /* Localizable.strings */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		465F6167219B6ECF00CF568B /* BackendModel */ = {
-			isa = PBXGroup;
-			children = (
-				465F616A219B7A1900CF568B /* FilterData.swift */,
-				465F616E219B7B8B00CF568B /* FilterDataQuery.swift */,
-				55BDC0FD20BFFB8D0038C83A /* FilterSetup.swift */,
-			);
-			path = BackendModel;
 			sourceTree = "<group>";
 		};
 		46905238217F5CB500F8E7FD /* Vertical */ = {
@@ -870,21 +761,6 @@
 				08716B3C21F89BAE003180D8 /* realestate */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		559C61F620DA4CAA0083A574 /* FINNSetup */ = {
-			isa = PBXGroup;
-			children = (
-				CFEDCDFA2232B756008FCDB1 /* FINNSetup.h */,
-				CFEDCE172232BDF2008FCDB1 /* Info.plist */,
-				08716B3621F76424003180D8 /* FilterKey.swift */,
-				55BDA76E20DBC46800331FFC /* FilterMarket.swift */,
-				CF81E10C221C515800D00423 /* FINNFilterConfiguration.swift */,
-				465F6167219B6ECF00CF568B /* BackendModel */,
-				CFCB35F722368D01004E6EB3 /* Extensions */,
-				08716B2721F73AD2003180D8 /* FilterMarkets */,
-			);
-			path = FINNSetup;
 			sourceTree = "<group>";
 		};
 		559C620120DA88330083A574 /* Mocks */ = {
@@ -1134,14 +1010,6 @@
 			path = FilterMarkets;
 			sourceTree = "<group>";
 		};
-		CFCB35F722368D01004E6EB3 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				CFCB35F822368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		CFE987E52257A5EE008D6789 /* Slider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1326,14 +1194,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFEDCDF32232B756008FCDB1 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CFEDCE1F2232CA89008FCDB1 /* FINNSetup.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1373,7 +1233,6 @@
 			);
 			dependencies = (
 				44ECE691208F7FF90017AC82 /* PBXTargetDependency */,
-				CFEDCDFE2232B756008FCDB1 /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -1392,7 +1251,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9B56BDA123475E1D00775F44 /* PBXTargetDependency */,
 				44ECE688208F7FDE0017AC82 /* PBXTargetDependency */,
 			);
 			name = UnitTests;
@@ -1417,26 +1275,6 @@
 			productName = UITests;
 			productReference = CF33D9C7224A499C00A24DF0 /* UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
-		};
-		CFEDCDF72232B756008FCDB1 /* FINNSetup */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CFEDCE032232B757008FCDB1 /* Build configuration list for PBXNativeTarget "FINNSetup" */;
-			buildPhases = (
-				CFEDCDF32232B756008FCDB1 /* Headers */,
-				CFEDCDF42232B756008FCDB1 /* Sources */,
-				CFEDCDF52232B756008FCDB1 /* Frameworks */,
-				CFEDCDF62232B756008FCDB1 /* Resources */,
-				CFCB35F522367C88004E6EB3 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CFCB35F222367C38004E6EB3 /* PBXTargetDependency */,
-			);
-			name = FINNSetup;
-			productName = FINNCharcoal;
-			productReference = CFEDCDF82232B756008FCDB1 /* FINNSetup.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -1465,10 +1303,6 @@
 						LastSwiftMigration = 1020;
 						TestTargetID = 44ECE66A208F7FD00017AC82;
 					};
-					CFEDCDF72232B756008FCDB1 = {
-						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1020;
-					};
 				};
 			};
 			buildConfigurationList = 44ECE649208F7F7B0017AC82 /* Build configuration list for PBXProject "Charcoal" */;
@@ -1485,7 +1319,6 @@
 			projectRoot = "";
 			targets = (
 				44ECE65E208F7FA20017AC82 /* Charcoal */,
-				CFEDCDF72232B756008FCDB1 /* FINNSetup */,
 				44ECE66A208F7FD00017AC82 /* Demo */,
 				44ECE680208F7FDE0017AC82 /* UnitTests */,
 				CF33D9C6224A499C00A24DF0 /* UITests */,
@@ -1565,13 +1398,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CF33D9C5224A499C00A24DF0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CFEDCDF62232B756008FCDB1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1807,28 +1633,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CFEDCDF42232B756008FCDB1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CFEDCE0C2232B7A8008FCDB1 /* FilterMarketCar.swift in Sources */,
-				CFEDCE102232B7A8008FCDB1 /* FilterMarketBoat.swift in Sources */,
-				CFEDCE052232B7A8008FCDB1 /* FilterKey.swift in Sources */,
-				CFCB35F922368D18004E6EB3 /* RangeFilterConfiguration+FINNSetup.swift in Sources */,
-				CFEDCE072232B7A8008FCDB1 /* FINNFilterConfiguration.swift in Sources */,
-				CFEDCE0D2232B7A8008FCDB1 /* FilterMarketJob.swift in Sources */,
-				CFEDCE0B2232B7A8008FCDB1 /* FilterMarketMC.swift in Sources */,
-				CFA4B77922785F9F00290FB5 /* StringExtensions.swift in Sources */,
-				CFEDCE0E2232B7A8008FCDB1 /* FilterMarketRealestate.swift in Sources */,
-				CFEDCE112232B7A8008FCDB1 /* FilterMarketB2B.swift in Sources */,
-				CFEDCE062232B7A8008FCDB1 /* FilterMarket.swift in Sources */,
-				CFEDCE0A2232B7A8008FCDB1 /* FilterSetup.swift in Sources */,
-				CFEDCE082232B7A8008FCDB1 /* FilterData.swift in Sources */,
-				CFEDCE0F2232B7A8008FCDB1 /* FilterMarketBap.swift in Sources */,
-				CFEDCE092232B7A8008FCDB1 /* FilterDataQuery.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1842,25 +1646,10 @@
 			target = 44ECE65E208F7FA20017AC82 /* Charcoal */;
 			targetProxy = 44ECE690208F7FF90017AC82 /* PBXContainerItemProxy */;
 		};
-		9B56BDA123475E1D00775F44 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CFEDCDF72232B756008FCDB1 /* FINNSetup */;
-			targetProxy = 9B56BDA023475E1D00775F44 /* PBXContainerItemProxy */;
-		};
 		CF33D9CD224A499C00A24DF0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 44ECE66A208F7FD00017AC82 /* Demo */;
 			targetProxy = CF33D9CC224A499C00A24DF0 /* PBXContainerItemProxy */;
-		};
-		CFCB35F222367C38004E6EB3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 44ECE65E208F7FA20017AC82 /* Charcoal */;
-			targetProxy = CFCB35F122367C38004E6EB3 /* PBXContainerItemProxy */;
-		};
-		CFEDCDFE2232B756008FCDB1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CFEDCDF72232B756008FCDB1 /* FINNSetup */;
-			targetProxy = CFEDCDFD2232B756008FCDB1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2262,38 +2051,6 @@
 			};
 			name = DemoDistribution;
 		};
-		9B2931F023477F98006469B5 /* DemoDistribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 7KGFK8HSHU;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Sources/FINNSetup/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FINNCharcoal;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = DemoDistribution;
-		};
 		9B2931F123477F98006469B5 /* DemoDistribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2413,69 +2170,6 @@
 			};
 			name = Release;
 		};
-		CFEDCE012232B757008FCDB1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 7KGFK8HSHU;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Sources/FINNSetup/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FINNCharcoal;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		CFEDCE022232B757008FCDB1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 7KGFK8HSHU;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Sources/FINNSetup/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = no.finn.FINNCharcoal;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2525,16 +2219,6 @@
 				CF33D9CF224A499C00A24DF0 /* Debug */,
 				CF33D9D0224A499C00A24DF0 /* Release */,
 				9B2931F323477F98006469B5 /* DemoDistribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CFEDCE032232B757008FCDB1 /* Build configuration list for PBXNativeTarget "FINNSetup" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CFEDCE012232B757008FCDB1 /* Debug */,
-				CFEDCE022232B757008FCDB1 /* Release */,
-				9B2931F023477F98006469B5 /* DemoDistribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

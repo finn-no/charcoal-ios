@@ -95,7 +95,10 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
         }
     }
 
-    func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {}
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {
+        print("🔥 Did select external filter with key '\(key)' and value '\(value ?? "nil")'")
+    }
+
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem], origin: SelectionChangeOrigin) {}
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.MapSelection) {}
 }

@@ -65,12 +65,15 @@ extension Filter {
 // MARK: - Private extensions
 
 private extension Filter {
-    static func createListItems(count: Int, parentLevel: String? = nil) -> [Filter] {
+    static func createListItems(count: Int, parentLevel: String? = nil, lastItemIsExternal: Bool = true) -> [Filter] {
         guard count > 0 else { return [] }
-        return (1 ... count).map { Self.createListItem(id: $0, parentLevel: parentLevel) }
+        return (1 ... count).map {
+            let isExternal = lastItemIsExternal && $0 > 1 && $0 == count
+            return Self.createListItem(id: $0, parentLevel: parentLevel, isExternal: isExternal)
+        }
     }
 
-    static func createListItem(id: Int, parentLevel: String?) -> Filter {
+    static func createListItem(id: Int, parentLevel: String?, isExternal: Bool) -> Filter {
         let itemLevelString: String
         if let parentLevel = parentLevel {
             itemLevelString = "\(parentLevel)_\(id)"
@@ -79,7 +82,7 @@ private extension Filter {
         }
 
         return Filter(
-            kind: .standard,
+            kind: isExternal ? .external : .standard,
             title: "Sub Item \(itemLevelString)",
             key: "item_\(itemLevelString)",
             value: "\(id)",

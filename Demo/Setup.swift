@@ -26,29 +26,7 @@ class Setup {
     }
 
     static func filterContainer(name: String) -> FilterContainer {
-        let bundle = Bundle(for: Setup.self)
-
-        guard let path = bundle.path(forResource: name, ofType: "json") else {
-            fatalError("Resource error")
-        }
-
-        let url = URL(fileURLWithPath: path)
-
-        guard let data = try? Data(contentsOf: url) else {
-            fatalError("Data error")
-        }
-
-        let decoder = JSONDecoder()
-
-        guard let filterSetup = try? decoder.decode(FilterSetup.self, from: data) else {
-            fatalError("Decode filter error")
-        }
-
-        guard let config = FilterMarket(market: name) else {
-            fatalError("Filter config error")
-        }
-
-        return filterSetup.filterContainer(using: config)
+        return FilterContainer(rootFilters: [], freeTextFilter: nil, inlineFilter: nil, numberOfResults: 0)
     }
 
     private func updateMarket(old: DemoVertical?, new: DemoVertical?) {

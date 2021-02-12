@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "FinniversKit",
+        "repositoryURL": "https://github.com/finn-no/FinniversKit.git",
+        "state": {
+          "branch": null,
+          "revision": "5be61447b1e424e67ebaf1cfdd5779f069736a4a",
+          "version": "71.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

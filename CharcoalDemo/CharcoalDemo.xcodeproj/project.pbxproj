@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		79CC222125D67B8600E165BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CC221F25D67B8600E165BE /* Main.storyboard */; };
 		79CC222325D67B8700E165BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CC222225D67B8700E165BE /* Assets.xcassets */; };
 		79CC222625D67B8700E165BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CC222425D67B8700E165BE /* LaunchScreen.storyboard */; };
+		79CC223025D67CE000E165BE /* Charcoal in Frameworks */ = {isa = PBXBuildFile; productRef = 79CC222F25D67CE000E165BE /* Charcoal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79CC223025D67CE000E165BE /* Charcoal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +44,7 @@
 			children = (
 				79CC221825D67B8600E165BE /* CharcoalDemo */,
 				79CC221725D67B8600E165BE /* Products */,
+				79CC222E25D67CE000E165BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +70,13 @@
 			path = CharcoalDemo;
 			sourceTree = "<group>";
 		};
+		79CC222E25D67CE000E165BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -83,6 +93,9 @@
 			dependencies = (
 			);
 			name = CharcoalDemo;
+			packageProductDependencies = (
+				79CC222F25D67CE000E165BE /* Charcoal */,
+			);
 			productName = CharcoalDemo;
 			productReference = 79CC221625D67B8600E165BE /* CharcoalDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -341,6 +354,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		79CC222F25D67CE000E165BE /* Charcoal */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Charcoal;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 79CC220E25D67B8600E165BE /* Project object */;
 }

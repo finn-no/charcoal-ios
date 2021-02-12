@@ -50,12 +50,33 @@ extension XCTestCase {
         })
     }
 
-    func assertSnapshots(matching filterContainer: FilterContainer, includeIPad: Bool = true, delay: TimeInterval? = nil, record recording: Bool = false, testName: String = #function) {
+    func assertSnapshots(
+        matching filterContainer: FilterContainer,
+        includeIPad: Bool = true,
+        delay: TimeInterval? = nil,
+        record recording: Bool = false,
+        file: StaticString = #file,
+        testName: String = #function
+    ) {
         let viewController = getViewController(for: filterContainer)
-        assertSnapshots(matching: viewController, device: .iPhone, delay: delay, record: recording, testName: testName)
+        assertSnapshots(
+            matching: viewController,
+            device: .iPhone,
+            delay: delay,
+            record: recording,
+            file: file,
+            testName: testName
+        )
 
         if includeIPad {
-            assertSnapshots(matching: viewController, device: .iPad, delay: delay, record: recording, testName: testName)
+            assertSnapshots(
+                matching: viewController,
+                device: .iPad,
+                delay: delay,
+                record: recording,
+                file: file,
+                testName: testName
+            )
         }
     }
 

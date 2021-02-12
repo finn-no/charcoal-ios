@@ -13,14 +13,11 @@ extension XCTestCase {
         testName: String = #function,
         line: UInt = #line
     ) {
-        var snapshotting: Snapshotting = .image(on: device.testDevice)
-        if let delay = delay {
-            snapshotting = .wait(for: delay, on: snapshotting)
-        }
-
-        let userInterfaceStyles: [SnapshotUserInterfaceStyle] = [.lightMode, .darkMode]
-        for style in userInterfaceStyles {
-            viewController.setUserInterfaceStyle(style)
+        for style in SnapshotUserInterfaceStyle.allCases {
+            var snapshotting = Snapshotting.image(on: device.testDevice, interfaceStyle: style)
+            if let delay = delay {
+                snapshotting = .wait(for: delay, on: snapshotting)
+            }
 
             let name = "\(device.rawValue)_\(style.rawValue)"
             assertSnapshot(
@@ -66,5 +63,22 @@ extension XCTestCase {
         let viewController = CharcoalViewController()
         viewController.filterContainer = filterContainer
         return viewController
+    }
+}
+
+extension Snapshotting where Value == UIViewController, Format == UIImage {
+    static func image(
+        on config: ViewImageConfig,
+        interfaceStyle: SnapshotUserInterfaceStyle
+    ) -> Snapshotting {
+        let style: UIUserInterfaceStyle
+
+        switch interfaceStyle {
+        case .lightMode:
+            style = .light
+        case .darkMode:
+            style = .dark
+        }
+        return image(on: config, traits: UITraitCollection(userInterfaceStyle: style))
     }
 }

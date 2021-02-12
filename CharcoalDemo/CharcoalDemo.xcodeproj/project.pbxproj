@@ -31,9 +31,8 @@
 		79CC226225D6835E00E165BE /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC226025D6835E00E165BE /* DemoTableViewCell.swift */; };
 		79CC226525D686B200E165BE /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 79CC226425D686B200E165BE /* CHANGELOG.md */; };
 		79CC227A25D6A5F900E165BE /* FilterContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC227925D6A5F900E165BE /* FilterContainerTests.swift */; };
-		79CC22B425D6BCE800E165BE /* Charcoal in Frameworks */ = {isa = PBXBuildFile; productRef = 79CC222F25D67CE000E165BE /* Charcoal */; };
-		79CC22B525D6BCE800E165BE /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 79CC228425D6A63C00E165BE /* SnapshotTesting */; };
-		8D6803E01CB7E9FD88C2CFC6 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680F0EEF62950833565E8B /* UIViewControllerExtensions.swift */; };
+		79CC22C025D6C14200E165BE /* Charcoal in Frameworks */ = {isa = PBXBuildFile; productRef = 79CC222F25D67CE000E165BE /* Charcoal */; };
+		79CC22C125D6C14200E165BE /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 79CC228425D6A63C00E165BE /* SnapshotTesting */; };
 		8D680999461243F2ED2F92F5 /* SnapshotDeviceFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6801216233251A6F1F257B /* SnapshotDeviceFamily.swift */; };
 		8D680C70C6834D4CB2D1C2D9 /* SnapshotUserInterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D680E91A96F94DA61E5867D /* SnapshotUserInterfaceStyle.swift */; };
 		8D680EB2A2210248E6A81EC4 /* XCTestCaseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6809ADA20360FD9C909EB9 /* XCTestCaseExtensions.swift */; };
@@ -81,7 +80,6 @@
 		8D6801216233251A6F1F257B /* SnapshotDeviceFamily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotDeviceFamily.swift; sourceTree = "<group>"; };
 		8D6809ADA20360FD9C909EB9 /* XCTestCaseExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestCaseExtensions.swift; sourceTree = "<group>"; };
 		8D680E91A96F94DA61E5867D /* SnapshotUserInterfaceStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotUserInterfaceStyle.swift; sourceTree = "<group>"; };
-		8D680F0EEF62950833565E8B /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79CC22B425D6BCE800E165BE /* Charcoal in Frameworks */,
+				79CC22C025D6C14200E165BE /* Charcoal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79CC22B525D6BCE800E165BE /* SnapshotTesting in Frameworks */,
+				79CC22C125D6C14200E165BE /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,22 +202,21 @@
 		79CC227825D6A5F900E165BE /* SnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
+				8D6809ADA20360FD9C909EB9 /* XCTestCaseExtensions.swift */,
 				79CC227925D6A5F900E165BE /* FilterContainerTests.swift */,
 				79CC227B25D6A5F900E165BE /* Info.plist */,
-				8D6806FEF21C30C580D1883B /* Extensions */,
-				8D680E91A96F94DA61E5867D /* SnapshotUserInterfaceStyle.swift */,
-				8D6801216233251A6F1F257B /* SnapshotDeviceFamily.swift */,
+				8D6808E3F3C21A1AB7ABEF97 /* SnapshotUtils */,
 			);
 			path = SnapshotTests;
 			sourceTree = "<group>";
 		};
-		8D6806FEF21C30C580D1883B /* Extensions */ = {
+		8D6808E3F3C21A1AB7ABEF97 /* SnapshotUtils */ = {
 			isa = PBXGroup;
 			children = (
-				8D6809ADA20360FD9C909EB9 /* XCTestCaseExtensions.swift */,
-				8D680F0EEF62950833565E8B /* UIViewControllerExtensions.swift */,
+				8D680E91A96F94DA61E5867D /* SnapshotUserInterfaceStyle.swift */,
+				8D6801216233251A6F1F257B /* SnapshotDeviceFamily.swift */,
 			);
-			path = Extensions;
+			path = SnapshotUtils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,7 +417,6 @@
 			files = (
 				79CC227A25D6A5F900E165BE /* FilterContainerTests.swift in Sources */,
 				8D680EB2A2210248E6A81EC4 /* XCTestCaseExtensions.swift in Sources */,
-				8D6803E01CB7E9FD88C2CFC6 /* UIViewControllerExtensions.swift in Sources */,
 				8D680C70C6834D4CB2D1C2D9 /* SnapshotUserInterfaceStyle.swift in Sources */,
 				8D680999461243F2ED2F92F5 /* SnapshotDeviceFamily.swift in Sources */,
 			);

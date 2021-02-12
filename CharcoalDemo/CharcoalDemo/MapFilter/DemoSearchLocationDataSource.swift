@@ -42,7 +42,11 @@ class DemoSearchLocationDataSource: NSObject, SearchLocationDataSource {
         DemoLocation(name: "Grensen 5-7, Oslo", latitude: 59.913833, longitude: 10.743777),
     ]
 
-    func searchLocationViewController(_ searchLocationViewController: SearchLocationViewController, didRequestLocationsFor searchQuery: String, completion: @escaping ((SearchLocationDataSourceResult) -> Void)) {
+    func searchLocationViewController(
+        _ searchLocationViewController: SearchLocationViewController,
+        didRequestLocationsFor searchQuery: String,
+        completion: @escaping ((SearchLocationDataSourceResult) -> Void)
+    ) {
         searchCompletionHandler?(.cancelled)
         searchCompletionHandler = nil
         localSearchCompleter.cancel()
@@ -94,7 +98,8 @@ extension DemoSearchLocationDataSource: MKLocalSearchCompleterDelegate {
                 self?.searchCompletionHandler?(.failed(error: error))
                 self?.searchCompletionHandler = nil
             } else {
-                locationsResult.locations.append(contentsOf: response?.mapItems.map { DemoLocation(name: $0.name ?? "", latitude: $0.placemark.coordinate.latitude, longitude: $0.placemark.coordinate.longitude) } ?? [])
+                let locations = response?.mapItems.map { DemoLocation(name: $0.name ?? "", latitude: $0.placemark.coordinate.latitude, longitude: $0.placemark.coordinate.longitude) }
+                locationsResult.locations.append(contentsOf: locations ?? [])
             }
             dispatchGroup.leave()
         }

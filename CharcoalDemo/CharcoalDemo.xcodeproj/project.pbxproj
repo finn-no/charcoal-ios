@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		79CC221A25D67B8600E165BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC221925D67B8600E165BE /* AppDelegate.swift */; };
 		79CC221C25D67B8600E165BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC221B25D67B8600E165BE /* SceneDelegate.swift */; };
-		79CC221E25D67B8600E165BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC221D25D67B8600E165BE /* ViewController.swift */; };
 		79CC222325D67B8700E165BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CC222225D67B8700E165BE /* Assets.xcassets */; };
 		79CC222625D67B8700E165BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CC222425D67B8700E165BE /* LaunchScreen.storyboard */; };
 		79CC223025D67CE000E165BE /* Charcoal in Frameworks */ = {isa = PBXBuildFile; productRef = 79CC222F25D67CE000E165BE /* Charcoal */; };
@@ -38,7 +37,6 @@
 		79CC221625D67B8600E165BE /* CharcoalDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharcoalDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CC221925D67B8600E165BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79CC221B25D67B8600E165BE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		79CC221D25D67B8600E165BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		79CC222225D67B8700E165BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79CC222525D67B8700E165BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79CC222725D67B8700E165BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				79CC224625D682F000E165BE /* Setup.swift */,
 				79CC221925D67B8600E165BE /* AppDelegate.swift */,
 				79CC221B25D67B8600E165BE /* SceneDelegate.swift */,
-				79CC221D25D67B8600E165BE /* ViewController.swift */,
 				79CC222225D67B8700E165BE /* Assets.xcassets */,
 				79CC222425D67B8700E165BE /* LaunchScreen.storyboard */,
 				79CC222725D67B8700E165BE /* Info.plist */,
@@ -310,7 +307,6 @@
 				79CC224D25D682F100E165BE /* DemoSearchLocationDataSource.swift in Sources */,
 				79CC225325D682F100E165BE /* RangeFilterDemoViewController.swift in Sources */,
 				79CC225825D682F100E165BE /* DataSource.swift in Sources */,
-				79CC221E25D67B8600E165BE /* ViewController.swift in Sources */,
 				79CC224E25D682F100E165BE /* RangeFilterConfigurationExtensions.swift in Sources */,
 				79CC225725D682F100E165BE /* Setup.swift in Sources */,
 				79CC225225D682F100E165BE /* MapFilterDemoViewController.swift in Sources */,

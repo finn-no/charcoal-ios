@@ -7,7 +7,7 @@ enum SnapshotDeviceFamily: String {
     var testDevice: ViewImageConfig {
         switch self {
         case .iPhone:
-            return .iPhoneX
+            return .iPhone8
         case .iPad:
             return .iPadPro11(.portrait)
         }

@@ -43,7 +43,7 @@ enum DemoSections: CaseIterable {
     }
 }
 
-private extension FilterContainer {
+extension FilterContainer {
     static var singleVertical: FilterContainer {
         create(numberOfVerticals: 0)
     }

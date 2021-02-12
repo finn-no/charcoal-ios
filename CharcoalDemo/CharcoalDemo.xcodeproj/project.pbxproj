@@ -13,6 +13,24 @@
 		79CC222325D67B8700E165BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CC222225D67B8700E165BE /* Assets.xcassets */; };
 		79CC222625D67B8700E165BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CC222425D67B8700E165BE /* LaunchScreen.storyboard */; };
 		79CC223025D67CE000E165BE /* Charcoal in Frameworks */ = {isa = PBXBuildFile; productRef = 79CC222F25D67CE000E165BE /* Charcoal */; };
+		79CC224D25D682F100E165BE /* DemoSearchLocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC223A25D682F000E165BE /* DemoSearchLocationDataSource.swift */; };
+		79CC224E25D682F100E165BE /* RangeFilterConfigurationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC223C25D682F000E165BE /* RangeFilterConfigurationExtensions.swift */; };
+		79CC224F25D682F100E165BE /* FilterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC223D25D682F000E165BE /* FilterExtensions.swift */; };
+		79CC225025D682F100E165BE /* CommandLineExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC223E25D682F000E165BE /* CommandLineExtensions.swift */; };
+		79CC225125D682F100E165BE /* FilterContainerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC223F25D682F000E165BE /* FilterContainerExtensions.swift */; };
+		79CC225225D682F100E165BE /* MapFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224125D682F000E165BE /* MapFilterDemoViewController.swift */; };
+		79CC225325D682F100E165BE /* RangeFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224225D682F000E165BE /* RangeFilterDemoViewController.swift */; };
+		79CC225425D682F100E165BE /* DrawerPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224325D682F000E165BE /* DrawerPresentationViewController.swift */; };
+		79CC225525D682F100E165BE /* StepperFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224425D682F000E165BE /* StepperFilterDemoViewController.swift */; };
+		79CC225625D682F100E165BE /* InlineFilterDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224525D682F000E165BE /* InlineFilterDemoViewController.swift */; };
+		79CC225725D682F100E165BE /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224625D682F000E165BE /* Setup.swift */; };
+		79CC225825D682F100E165BE /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224725D682F000E165BE /* DataSource.swift */; };
+		79CC225925D682F100E165BE /* DemoVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224925D682F100E165BE /* DemoVertical.swift */; };
+		79CC225A25D682F100E165BE /* DemoSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224A25D682F100E165BE /* DemoSections.swift */; };
+		79CC225B25D682F100E165BE /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224B25D682F100E165BE /* Row.swift */; };
+		79CC225C25D682F100E165BE /* DemoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC224C25D682F100E165BE /* DemoTableViewController.swift */; };
+		79CC226125D6835E00E165BE /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC225F25D6835E00E165BE /* DemoViewController.swift */; };
+		79CC226225D6835E00E165BE /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC226025D6835E00E165BE /* DemoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +41,24 @@
 		79CC222225D67B8700E165BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79CC222525D67B8700E165BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79CC222725D67B8700E165BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79CC223A25D682F000E165BE /* DemoSearchLocationDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSearchLocationDataSource.swift; sourceTree = "<group>"; };
+		79CC223C25D682F000E165BE /* RangeFilterConfigurationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterConfigurationExtensions.swift; sourceTree = "<group>"; };
+		79CC223D25D682F000E165BE /* FilterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterExtensions.swift; sourceTree = "<group>"; };
+		79CC223E25D682F000E165BE /* CommandLineExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineExtensions.swift; sourceTree = "<group>"; };
+		79CC223F25D682F000E165BE /* FilterContainerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterContainerExtensions.swift; sourceTree = "<group>"; };
+		79CC224125D682F000E165BE /* MapFilterDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapFilterDemoViewController.swift; sourceTree = "<group>"; };
+		79CC224225D682F000E165BE /* RangeFilterDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeFilterDemoViewController.swift; sourceTree = "<group>"; };
+		79CC224325D682F000E165BE /* DrawerPresentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerPresentationViewController.swift; sourceTree = "<group>"; };
+		79CC224425D682F000E165BE /* StepperFilterDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperFilterDemoViewController.swift; sourceTree = "<group>"; };
+		79CC224525D682F000E165BE /* InlineFilterDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineFilterDemoViewController.swift; sourceTree = "<group>"; };
+		79CC224625D682F000E165BE /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
+		79CC224725D682F000E165BE /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		79CC224925D682F100E165BE /* DemoVertical.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoVertical.swift; sourceTree = "<group>"; };
+		79CC224A25D682F100E165BE /* DemoSections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSections.swift; sourceTree = "<group>"; };
+		79CC224B25D682F100E165BE /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
+		79CC224C25D682F100E165BE /* DemoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoTableViewController.swift; sourceTree = "<group>"; };
+		79CC225F25D6835E00E165BE /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		79CC226025D6835E00E165BE /* DemoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +93,14 @@
 		79CC221825D67B8600E165BE /* CharcoalDemo */ = {
 			isa = PBXGroup;
 			children = (
+				79CC225E25D6835E00E165BE /* Utils */,
+				79CC224025D682F000E165BE /* Components */,
+				79CC224725D682F000E165BE /* DataSource.swift */,
+				79CC224C25D682F100E165BE /* DemoTableViewController.swift */,
+				79CC223B25D682F000E165BE /* Extensions */,
+				79CC223925D682F000E165BE /* MapFilter */,
+				79CC224825D682F100E165BE /* Models */,
+				79CC224625D682F000E165BE /* Setup.swift */,
 				79CC221925D67B8600E165BE /* AppDelegate.swift */,
 				79CC221B25D67B8600E165BE /* SceneDelegate.swift */,
 				79CC221D25D67B8600E165BE /* ViewController.swift */,
@@ -72,6 +116,56 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		79CC223925D682F000E165BE /* MapFilter */ = {
+			isa = PBXGroup;
+			children = (
+				79CC223A25D682F000E165BE /* DemoSearchLocationDataSource.swift */,
+			);
+			path = MapFilter;
+			sourceTree = "<group>";
+		};
+		79CC223B25D682F000E165BE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				79CC223C25D682F000E165BE /* RangeFilterConfigurationExtensions.swift */,
+				79CC223D25D682F000E165BE /* FilterExtensions.swift */,
+				79CC223E25D682F000E165BE /* CommandLineExtensions.swift */,
+				79CC223F25D682F000E165BE /* FilterContainerExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		79CC224025D682F000E165BE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				79CC224125D682F000E165BE /* MapFilterDemoViewController.swift */,
+				79CC224225D682F000E165BE /* RangeFilterDemoViewController.swift */,
+				79CC224325D682F000E165BE /* DrawerPresentationViewController.swift */,
+				79CC224425D682F000E165BE /* StepperFilterDemoViewController.swift */,
+				79CC224525D682F000E165BE /* InlineFilterDemoViewController.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		79CC224825D682F100E165BE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				79CC224925D682F100E165BE /* DemoVertical.swift */,
+				79CC224A25D682F100E165BE /* DemoSections.swift */,
+				79CC224B25D682F100E165BE /* Row.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		79CC225E25D6835E00E165BE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				79CC225F25D6835E00E165BE /* DemoViewController.swift */,
+				79CC226025D6835E00E165BE /* DemoTableViewCell.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,9 +240,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79CC226225D6835E00E165BE /* DemoTableViewCell.swift in Sources */,
+				79CC225C25D682F100E165BE /* DemoTableViewController.swift in Sources */,
+				79CC225425D682F100E165BE /* DrawerPresentationViewController.swift in Sources */,
+				79CC224D25D682F100E165BE /* DemoSearchLocationDataSource.swift in Sources */,
+				79CC225325D682F100E165BE /* RangeFilterDemoViewController.swift in Sources */,
+				79CC225825D682F100E165BE /* DataSource.swift in Sources */,
 				79CC221E25D67B8600E165BE /* ViewController.swift in Sources */,
+				79CC224E25D682F100E165BE /* RangeFilterConfigurationExtensions.swift in Sources */,
+				79CC225725D682F100E165BE /* Setup.swift in Sources */,
+				79CC225225D682F100E165BE /* MapFilterDemoViewController.swift in Sources */,
+				79CC225125D682F100E165BE /* FilterContainerExtensions.swift in Sources */,
+				79CC224F25D682F100E165BE /* FilterExtensions.swift in Sources */,
+				79CC225B25D682F100E165BE /* Row.swift in Sources */,
 				79CC221A25D67B8600E165BE /* AppDelegate.swift in Sources */,
+				79CC225625D682F100E165BE /* InlineFilterDemoViewController.swift in Sources */,
+				79CC225925D682F100E165BE /* DemoVertical.swift in Sources */,
+				79CC225525D682F100E165BE /* StepperFilterDemoViewController.swift in Sources */,
+				79CC225025D682F100E165BE /* CommandLineExtensions.swift in Sources */,
 				79CC221C25D67B8600E165BE /* SceneDelegate.swift in Sources */,
+				79CC225A25D682F100E165BE /* DemoSections.swift in Sources */,
+				79CC226125D6835E00E165BE /* DemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

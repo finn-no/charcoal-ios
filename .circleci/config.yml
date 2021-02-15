@@ -6,7 +6,7 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run: xcodebuild -project Charcoal.xcodeproj -scheme "Demo" -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=14.2,name=iPhone 11 Pro' build test | xcpretty
+      - run: xcodebuild build test -workspace 'CharcoalDemo.xcworkspace' -scheme 'CharcoalDemo' -sdk iphonesimulator14.2 -destination 'platform=iOS Simulator,name=iPhone 8,OS=14.2' -scmProvider system | xcpretty
 
   swiftlint:
     docker:

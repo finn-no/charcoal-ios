@@ -2,8 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import Charcoal
 import FinniversKit
-import FINNSetup
 
 class DemoTableViewController: UIViewController {
     // MARK: - Private properties
@@ -74,7 +74,12 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect vertical: Vertical) {
         guard let vertical = vertical as? DemoVertical, let setup = currentRow?.setup else { return }
 
-        if let submarket = setup.markets.first(where: { $0.name == vertical.name }) {
+        guard !vertical.isExternal else {
+            print("🔥 Did select external vertical with title: \(vertical.title)")
+            return
+        }
+
+        if let submarket = setup.markets.first(where: { $0.id == vertical.id }) {
             setup.current = submarket
             viewController.isLoading = true
             viewController.filterContainer = setup.filterContainer
@@ -90,7 +95,10 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
         }
     }
 
-    func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {}
+    func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {
+        print("🔥 Did select external filter with key '\(key)' and value '\(value ?? "nil")'")
+    }
+
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem], origin: SelectionChangeOrigin) {}
     func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.MapSelection) {}
 }

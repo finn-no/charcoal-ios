@@ -5,7 +5,12 @@ import XCTest
 
 class ComponentTests: XCTestCase {
 
-    private func snapshot(_ viewController: UIViewController, delay: TimeInterval? = 1, record recording: Bool = false, testName: String = #function) {
+    private func snapshot(
+        _ viewController: UIViewController,
+        delay: TimeInterval? = nil,
+        record recording: Bool = false,
+        testName: String = #function
+    ) {
         assertSnapshots(
             matching: viewController,
             device: .iPhone,

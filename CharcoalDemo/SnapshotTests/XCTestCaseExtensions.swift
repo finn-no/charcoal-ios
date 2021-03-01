@@ -19,8 +19,6 @@ extension XCTestCase {
                 snapshotting = .wait(for: delay, on: snapshotting)
             }
 
-            viewController.view.setNeedsLayout()
-
             let name = "\(device.rawValue)_\(style.rawValue)"
             assertSnapshot(
                 matching: viewController, as: snapshotting, named: name,

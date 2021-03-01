@@ -2,6 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import Charcoal
 import FinniversKit
 
 class DataSource: NSObject, UITableViewDataSource {

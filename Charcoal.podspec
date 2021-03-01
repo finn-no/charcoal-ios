@@ -17,18 +17,12 @@ Pod::Spec.new do |s|
   s.default_subspec = "Core"
   s.cocoapods_version = '>= 1.4.0'
 
-  s.subspec "Core" do |ss|
-    ss.source_files  = 'Sources/Charcoal/**/*.swift'
-    ss.resources    = 'Sources/Charcoal/Resources/*.{xcassets,lproj}'
-    ss.resource_bundles = {
-        'Charcoal' => ['Sources/Charcoal/Resources/*.xcassets', 'Sources/Charcoal/Resources/*.lproj']
-    }
-    ss.dependency 'FinniversKit'
-    ss.frameworks = 'Foundation', 'UIKit', 'FinniversKit'
-  end
+  s.source_files  = 'Sources/Charcoal/**/*.swift'
+  s.resources    = 'Sources/Charcoal/Resources/*.{xcassets,lproj}'
+  s.resource_bundles = {
+      'Charcoal' => ['Sources/Charcoal/Resources/*.xcassets', 'Sources/Charcoal/Resources/*.lproj']
+  }
 
-  s.subspec "FINN" do |ss|
-    ss.source_files = 'Sources/FINNSetup/**/*.swift'
-    ss.dependency "Charcoal/Core"
-  end
+  s.dependency 'FinniversKit'
+  s.frameworks = 'Foundation', 'UIKit', 'FinniversKit'
 end

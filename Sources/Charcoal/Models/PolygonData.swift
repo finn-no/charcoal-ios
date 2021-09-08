@@ -62,7 +62,7 @@ public struct PolygonData {
     }
 
     static func createBBoxQuery(for coordinates: [CLLocationCoordinate2D]) -> String? {
-        let bboxCoordinates: [Double] = [
+        let bboxCoordinates: [CLLocationDegrees] = [
             coordinates.map { $0.longitude }.min() ?? 0,
             coordinates.map { $0.latitude }.min() ?? 0,
             coordinates.map { $0.longitude }.max() ?? 0,

@@ -2,7 +2,7 @@ version: 2
 jobs:
   build-and-test:
     macos:
-      xcode: "12.4.0"
+      xcode: "12.5.0"
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout

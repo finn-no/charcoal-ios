@@ -7,10 +7,10 @@ class ComponentTests: XCTestCase {
 
     private func snapshot(
         _ viewController: UIViewController,
-        delay: TimeInterval? = nil,
         record recording: Bool = false,
         testName: String = #function
     ) {
+        let delay: TimeInterval = 0.1
         assertSnapshots(
             matching: viewController,
             device: .iPhone,

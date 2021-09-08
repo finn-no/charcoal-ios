@@ -7,11 +7,10 @@ class FilterContainerTests: XCTestCase {
 
     private func snapshot(
         _ filterContainer: FilterContainer,
-        delay: TimeInterval? = nil,
         record recording: Bool = false,
         testName: String = #function
     ) {
-        assertSnapshots(matching: filterContainer, delay: delay, record: recording, testName: testName)
+        assertSnapshots(matching: filterContainer, delay: 0.1, record: recording, testName: testName)
     }
 
     override func setUp() {

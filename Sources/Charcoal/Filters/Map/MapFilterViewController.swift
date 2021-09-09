@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public protocol MapFilterViewControllerDelegate: AnyObject {
     func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,

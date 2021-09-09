@@ -2,8 +2,8 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
+import FinniversKit
 import MapKit
-import UIKit
 
 protocol MapRadiusFilterViewDelegate: MKMapViewDelegate {
     func mapRadiusFilterViewDidSelectLocationButton(_ mapRadiusFilterView: MapRadiusFilterView)

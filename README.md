@@ -2,7 +2,6 @@
 
 [![CI Status](https://circleci.com/gh/finn-no/charcoal-ios.png?style=shield)](https://circleci.com/gh/finn-no/charcoal-ios)
 [![Version](https://img.shields.io/cocoapods/v/Charcoal.svg?style=flat)](http://cocoadocs.org/docsets/Charcoal)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/Charcoal.svg?style=flat)](http://cocoadocs.org/docsets/Charcoal)
 [![Platform](https://img.shields.io/cocoapods/p/Charcoal.svg?style=flat)](http://cocoadocs.org/docsets/Charcoal)
 [![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/Charcoal.svg?style=flat)](http://cocoadocs.org/docsets/Charcoal)
@@ -61,17 +60,20 @@ For using FINN-specific configuration in addition to core functionality:
 pod 'Charcoal/FINN', git: "https://github.com/finn-no/charcoal-ios"
 ```
 
-### Carthage
+### Swift Package Manager
+#### Xcode
+Add **Charcoal** to your project through Xcode by navigating to `File > Swift Packages > Add Package Dependency` and
+specify `https://github.com/finn-no/charcoal-ios`.
 
-**Charcoal** is also available through [Carthage](https://github.com/Carthage/Carthage).
-To install it just write into your `Cartfile`:
+#### Manual – `Package.swift`
+Add this line to your `Package.swift`. We may not always update the version string below in this `README`, so make sure to
+check the list of [available tags](https://github.com/finn-no/charcoal-ios/tags) and select the newest one.
 
-```ruby
-github "finn-no/charcoal-ios"
+```swift
+.package(url: "https://github.com/finn-no/charcoal-ios.git", .from("10.0.0"))
 ```
 
-`FINNSetup.framework` contains FINN-specific configuration and `Charcoal.framework`
-is suitable for building your custom implementation of filters.
+Don't forget to add `Charcoal` as a dependency to your intended target!
 
 ## Usage
 

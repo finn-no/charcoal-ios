@@ -32,6 +32,9 @@ DerivedData
 *.gcda
 *.bcsymbolmap
 
+.build/
+.swiftpm/
+
 Carthage/Checkouts/*
 Carthage/Build/watchOS/*
 Carthage/Build/tvOS/*

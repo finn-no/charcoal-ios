@@ -2,7 +2,7 @@
 //  Copyright © FINN.no AS, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol SegmentDelegate: AnyObject {
     func segmentDidFocusOnAccessibilityElement(_ segment: Segment)

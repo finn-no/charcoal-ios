@@ -14,7 +14,6 @@ Pod::Spec.new do |s|
   s.swift_version    = '5.0'
 
   s.source           = { :git => 'https://github.com/finn-no/charcoal-ios.git', :tag => s.version }
-  s.default_subspec = "Core"
   s.cocoapods_version = '>= 1.4.0'
 
   s.source_files  = 'Sources/Charcoal/**/*.swift'

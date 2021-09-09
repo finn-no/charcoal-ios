@@ -19,7 +19,8 @@ end
 
 names  = []
 asset_folders.each do |folder|
-  names += Dir.glob(File.join(folder, "/**/*.imageset")).map { |f| File.basename(f, File.extname(f)) }
+  search_folder = File.join(File.dirname(__FILE__), "..", folder)
+  names += Dir.glob(File.join(search_folder, "/**/*.imageset")).map { |f| File.basename(f, File.extname(f)) }
 end
 
 names = names.sort

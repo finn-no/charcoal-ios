@@ -70,7 +70,7 @@ Add this line to your `Package.swift`. We may not always update the version stri
 check the list of [available tags](https://github.com/finn-no/charcoal-ios/tags) and select the newest one.
 
 ```swift
-.package(url: "https://github.com/finn-no/charcoal-ios.git", .from("10.0.0"))
+.package(name: "Charcoal", url: "https://github.com/finn-no/charcoal-ios.git", from: "10.0.0")
 ```
 
 Don't forget to add `Charcoal` as a dependency to your intended target!

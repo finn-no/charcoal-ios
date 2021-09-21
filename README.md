@@ -31,13 +31,6 @@ _Charcoal_ /ˈtʃɑːkəʊl/: _a porous black solid, consisting of an amorphous 
   <img src="/GitHub/demo.gif"/>
 </p>
 
-**Making a new Demo release**
-1. Update Demo/CHANGELOG.md
-2. Update version for Demo target in Xcode
-3. Install fastlane with bundler if it is not already there. Run `bundle install`.
-4. Run `sh Scripts/version.sh` to update build number
-5. Run `bundle exec fastlane` and follow instructions
-
 ## Installation
 
 ### CocoaPods
@@ -70,7 +63,7 @@ Add this line to your `Package.swift`. We may not always update the version stri
 check the list of [available tags](https://github.com/finn-no/charcoal-ios/tags) and select the newest one.
 
 ```swift
-.package(url: "https://github.com/finn-no/charcoal-ios.git", .from("10.0.0"))
+.package(name: "Charcoal", url: "https://github.com/finn-no/charcoal-ios.git", from: "10.0.0")
 ```
 
 Don't forget to add `Charcoal` as a dependency to your intended target!

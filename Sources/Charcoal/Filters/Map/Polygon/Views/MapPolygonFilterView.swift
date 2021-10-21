@@ -6,7 +6,7 @@ import FinniversKit
 import MapKit
 import UIKit
 
-protocol MapPolygonFilterViewDelegate: MKMapViewDelegate {//
+protocol MapPolygonFilterViewDelegate: MKMapViewDelegate {
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView)
     func mapPolygonFilterViewDidSelectInitialAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView, coordinates: [CLLocationCoordinate2D])
     func mapPolygonFilterViewDidSelectRedoAreaSelectionButton(_ mapPolygonFilterView: MapPolygonFilterView)
@@ -227,7 +227,7 @@ final class MapPolygonFilterView: UIView {
         mapContainerView.isHidden = true
         updateViewDispatchWorkItem = updateViewWorkItem
 
-        // Use a delay incase the view is being changed to new sizes by user
+        // Use a delay incase the view is being resized
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
     }
 

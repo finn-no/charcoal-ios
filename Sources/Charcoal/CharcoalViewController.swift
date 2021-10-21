@@ -22,7 +22,7 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
 }
 
 public protocol CharcoalViewControllerMapDelegate: AnyObject {
-    func charcoalViewControllerDidPresentMapSearch(_ viewController: CharcoalViewController)
+    func charcoalViewControllerWillPresentMapSearch(_ viewController: CharcoalViewController)
     func charcoalViewControllerDidDismissMapSearch(_ viewController: CharcoalViewController)
 }
 
@@ -305,7 +305,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperFilterViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
-            mapDelegate?.charcoalViewControllerDidPresentMapSearch(self)
+            mapDelegate?.charcoalViewControllerWillPresentMapSearch(self)
             let mapFilterViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,

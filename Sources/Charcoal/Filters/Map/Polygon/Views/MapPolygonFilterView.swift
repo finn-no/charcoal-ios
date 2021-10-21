@@ -35,11 +35,7 @@ final class MapPolygonFilterView: UIView {
 
     private var polygon: MKPolygon?
 
-    private var updateViewDispatchWorkItem: DispatchWorkItem? {
-        didSet {
-            oldValue?.cancel()
-        }
-    }
+    private var updateViewDispatchWorkItem: DispatchWorkItem?
 
     // MARK: - Internal properties
 
@@ -190,7 +186,7 @@ final class MapPolygonFilterView: UIView {
             redoAreaSelectionButton.widthAnchor.constraint(equalToConstant: CircleButton.width),
             redoAreaSelectionButton.heightAnchor.constraint(equalTo: redoAreaSelectionButton.widthAnchor),
 
-            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingM),
+            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 3 * -.spacingS),
             initialAreaSelectionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             infoView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingM),
@@ -219,6 +215,8 @@ final class MapPolygonFilterView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        guard updateViewDispatchWorkItem == nil else { return }
 
         let updateViewWorkItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }

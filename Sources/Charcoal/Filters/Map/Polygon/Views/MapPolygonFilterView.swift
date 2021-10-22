@@ -35,7 +35,11 @@ final class MapPolygonFilterView: UIView {
 
     private var polygon: MKPolygon?
 
-    private var updateViewDispatchWorkItem: DispatchWorkItem?
+    private var updateViewDispatchWorkItem: DispatchWorkItem? {
+        willSet {
+            updateViewDispatchWorkItem?.cancel()
+        }
+    }
 
     // MARK: - Internal properties
 
@@ -216,8 +220,6 @@ final class MapPolygonFilterView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard updateViewDispatchWorkItem == nil else { return }
-
         let updateViewWorkItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
             self.mapContainerView.isHidden = false
@@ -228,7 +230,7 @@ final class MapPolygonFilterView: UIView {
         updateViewDispatchWorkItem = updateViewWorkItem
 
         // Use a delay incase the view is being resized
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: updateViewWorkItem)
     }
 
     // MARK: - API

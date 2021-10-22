@@ -50,7 +50,16 @@ final class MapRadiusFilterView: UIView {
     private(set) var radius: Int
     private let initialCenterCoordinate: CLLocationCoordinate2D?
 
-    private var updateViewDispatchWorkItem: DispatchWorkItem?
+    private var updateMapDispatchWorkItem: DispatchWorkItem? {
+        willSet {
+            updateMapDispatchWorkItem?.cancel()
+        }
+    }
+    private var updateRegionDispatchWorkItem: DispatchWorkItem? {
+        willSet {
+            updateRegionDispatchWorkItem?.cancel()
+        }
+    }
 
     // MARK: - Subviews
 
@@ -133,21 +142,26 @@ final class MapRadiusFilterView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard updateViewDispatchWorkItem == nil else { return }
-
         // Update radius so it fits for new view sizes
-        let updateViewWorkItem = DispatchWorkItem { [weak self] in
+        let updateRegionWorkItem = DispatchWorkItem { [weak self] in
+            self?.updateRegion()
+        }
+        updateRegionDispatchWorkItem = updateRegionWorkItem
+
+        // Update map height
+        let updateMapWorkItem = DispatchWorkItem { [weak self, updateRegionWorkItem] in
             guard let self = self else { return }
             self.mapContainerView.isHidden = false
             self.mapContainerHeightConstraint.constant = max(self.distanceSlider.frame.minY - .spacingM - self.mapContainerView.frame.minY, 0)
-            self.updateRegion()
+            // Requires a delay to get the correct region set
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: updateRegionWorkItem)
         }
-
         mapContainerView.isHidden = true
-        updateViewDispatchWorkItem = updateViewWorkItem
+        updateMapDispatchWorkItem = updateMapWorkItem
 
         // Use a delay incase the view is being resized
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: updateMapWorkItem)
+
     }
 
     // MARK: - API

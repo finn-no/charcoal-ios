@@ -35,6 +35,12 @@ final class MapPolygonFilterView: UIView {
 
     private var polygon: MKPolygon?
 
+    private var updateViewDispatchWorkItem: DispatchWorkItem? {
+        willSet {
+            updateViewDispatchWorkItem?.cancel()
+        }
+    }
+
     // MARK: - Internal properties
 
     var searchBar: UISearchBar? {
@@ -131,6 +137,10 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var infoView = InfoView(withAutoLayout: true)
 
+    private lazy var mapContainerHeightConstraint: NSLayoutConstraint = {
+        mapContainerView.heightAnchor.constraint(equalToConstant: 0)
+    }()
+
     // MARK: - Init
 
     init() {
@@ -168,7 +178,7 @@ final class MapPolygonFilterView: UIView {
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
             mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
-            mapContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
+            mapContainerHeightConstraint,
 
             userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
             userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.spacingS),
@@ -180,10 +190,10 @@ final class MapPolygonFilterView: UIView {
             redoAreaSelectionButton.widthAnchor.constraint(equalToConstant: CircleButton.width),
             redoAreaSelectionButton.heightAnchor.constraint(equalTo: redoAreaSelectionButton.widthAnchor),
 
-            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingM),
+            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 3 * -.spacingS),
             initialAreaSelectionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            infoView.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -.spacingM),
+            infoView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingM),
             infoView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
@@ -203,6 +213,24 @@ final class MapPolygonFilterView: UIView {
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingS),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingS),
         ])
+    }
+
+    // MARK: - Overrides
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        let updateViewWorkItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            self.mapContainerView.isHidden = false
+            self.mapContainerHeightConstraint.constant = max(self.frame.maxY - .spacingS - self.mapContainerView.frame.minY, 0)
+        }
+
+        mapContainerView.isHidden = true
+        updateViewDispatchWorkItem = updateViewWorkItem
+
+        // Use a delay incase the view is being resized
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: updateViewWorkItem)
     }
 
     // MARK: - API

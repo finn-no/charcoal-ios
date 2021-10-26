@@ -21,6 +21,11 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
                                 didSelect selection: CharcoalViewController.MapSelection)
 }
 
+public protocol CharcoalViewControllerMapDelegate: AnyObject {
+    func charcoalViewControllerWillPresentMapSearch(_ viewController: CharcoalViewController)
+    func charcoalViewControllerDidDismissMapSearch(_ viewController: CharcoalViewController)
+}
+
 public final class CharcoalViewController: UINavigationController {
     // MARK: - Public properties
 
@@ -29,6 +34,7 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
+    public weak var mapDelegate: CharcoalViewControllerMapDelegate?
     public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
     public weak var searchLocationDataSource: SearchLocationDataSource?
 
@@ -299,6 +305,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
             )
             pushViewController(stepperFilterViewController)
         case let .map(latitudeFilter, longitudeFilter, radiusFilter, locationNameFilter, bboxFilter, polygonFilter):
+            mapDelegate?.charcoalViewControllerWillPresentMapSearch(self)
             let mapFilterViewController = MapFilterViewController(
                 title: filter.title,
                 latitudeFilter: latitudeFilter,
@@ -368,6 +375,10 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 // MARK: - MapFilterViewControllerDelegate
 
 extension CharcoalViewController: MapFilterViewControllerDelegate {
+    public func mapFilterViewControllerDidDismiss(_ mapFilterViewController: MapFilterViewController) {
+        mapDelegate?.charcoalViewControllerDidDismissMapSearch(self)
+    }
+
     public func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
                                         didSelect selection: CharcoalViewController.MapSelection) {
         selectionDelegate?.charcoalViewController(self, didSelect: selection)

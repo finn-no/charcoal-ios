@@ -7,6 +7,7 @@ import UIKit
 public protocol MapFilterViewControllerDelegate: AnyObject {
     func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
                                  didSelect selection: CharcoalViewController.MapSelection)
+    func mapFilterViewControllerDidDismiss(_ mapFilterViewController: MapFilterViewController)
 }
 
 protocol ToggleFilter: AnyObject {
@@ -114,6 +115,13 @@ public class MapFilterViewController: FilterViewController {
             selectedViewController.updateFilterValues()
         }
         super.filterBottomButtonView(filterBottomButtonView, didTapButton: button)
+    }
+
+    public override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        if parent == nil {
+            mapFilterDelegate?.mapFilterViewControllerDidDismiss(self)
+        }
     }
 
     // MARK: - Setup

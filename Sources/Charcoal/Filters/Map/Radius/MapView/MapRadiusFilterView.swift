@@ -50,9 +50,14 @@ final class MapRadiusFilterView: UIView {
     private(set) var radius: Int
     private let initialCenterCoordinate: CLLocationCoordinate2D?
 
-    private var updateViewDispatchWorkItem: DispatchWorkItem? {
-        didSet {
-            oldValue?.cancel()
+    private var updateMapDispatchWorkItem: DispatchWorkItem? {
+        willSet {
+            updateMapDispatchWorkItem?.cancel()
+        }
+    }
+    private var updateRegionDispatchWorkItem: DispatchWorkItem? {
+        willSet {
+            updateRegionDispatchWorkItem?.cancel()
         }
     }
 
@@ -108,6 +113,14 @@ final class MapRadiusFilterView: UIView {
         return slider
     }()
 
+    private lazy var bottomConstraint: NSLayoutConstraint = {
+        distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS)
+    }()
+
+    private lazy var mapContainerHeightConstraint: NSLayoutConstraint = {
+        mapContainerView.heightAnchor.constraint(equalToConstant: 0)
+    }()
+
     // MARK: - Init
 
     init(radius: Int?, centerCoordinate: CLLocationCoordinate2D?) {
@@ -130,14 +143,25 @@ final class MapRadiusFilterView: UIView {
         super.layoutSubviews()
 
         // Update radius so it fits for new view sizes
-        let updateViewWorkItem = DispatchWorkItem { [weak self] in
+        let updateRegionWorkItem = DispatchWorkItem { [weak self] in
             self?.updateRegion()
         }
+        updateRegionDispatchWorkItem = updateRegionWorkItem
 
-        updateViewDispatchWorkItem = updateViewWorkItem
+        // Update map height
+        let updateMapWorkItem = DispatchWorkItem { [weak self, updateRegionWorkItem] in
+            guard let self = self else { return }
+            self.mapContainerView.isHidden = false
+            self.mapContainerHeightConstraint.constant = max(self.distanceSlider.frame.minY - .spacingM - self.mapContainerView.frame.minY, 0)
+            // Requires a delay to get the correct region set
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: updateRegionWorkItem)
+        }
+        mapContainerView.isHidden = true
+        updateMapDispatchWorkItem = updateMapWorkItem
 
-        // Use a delay incase the view is being changed to new sizes by user
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: updateViewWorkItem)
+        // Use a delay incase the view is being resized
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: updateMapWorkItem)
+
     }
 
     // MARK: - API
@@ -196,8 +220,8 @@ final class MapRadiusFilterView: UIView {
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
             mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
             mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
+            mapContainerHeightConstraint,
 
-            distanceSlider.topAnchor.constraint(equalTo: mapContainerView.bottomAnchor, constant: .spacingM),
             distanceSlider.leadingAnchor.constraint(equalTo: mapContainerView.leadingAnchor),
             distanceSlider.trailingAnchor.constraint(equalTo: mapContainerView.trailingAnchor),
             distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),

@@ -61,11 +61,10 @@ public final class StepperFilterViewController: FilterViewController {
 
 private extension StepperFilterViewController {
     @objc func handleValueChange(sender: StepperFilterView) {
-        switch sender.value {
-        case filterConfig.minimumValue:
+        if let value = sender.value {
+            selectionStore.setValue(value, for: filter)
+        } else {
             selectionStore.removeValues(for: filter)
-        default:
-            selectionStore.setValue(sender.value, for: filter)
         }
 
         showBottomButton(true, animated: true)

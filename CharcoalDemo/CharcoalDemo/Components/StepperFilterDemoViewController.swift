@@ -10,7 +10,7 @@ final class StepperFilterDemoViewController: DemoViewController {
 
     private lazy var stepperFilterView: StepperFilterView = {
         let view = StepperFilterView(
-            minimumValue: 0,
+            minimumValue: 1,
             maximumValue: 6,
             unit: "stk"
         )

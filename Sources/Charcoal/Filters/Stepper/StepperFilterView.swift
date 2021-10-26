@@ -11,7 +11,7 @@ extension StepperFilterView {
 }
 
 final class StepperFilterView: UIControl {
-    var value: Int {
+    var value: Int? {
         didSet { updateUI(forValue: value) }
     }
 
@@ -59,7 +59,7 @@ final class StepperFilterView: UIControl {
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
         self.unit = unit
-        value = minimumValue
+        value = nil
         super.init(frame: .zero)
         setup()
         updateUI(forValue: value)
@@ -84,37 +84,45 @@ private extension StepperFilterView {
 
         switch type {
         case .minus:
-            let newValue = max(minimumValue, value - 1)
-            sendActionIfNeeded(forValue: newValue)
+            if let value = value {
+                if value == minimumValue {
+                    sendActionIfNeeded(forValue: nil)
+                } else {
+                    sendActionIfNeeded(forValue: value - 1)
+                }
+            }
         case .plus:
-            let newValue = min(maximumValue, value + 1)
-            sendActionIfNeeded(forValue: newValue)
+            if let value = value {
+                sendActionIfNeeded(forValue: value + 1)
+            } else {
+                sendActionIfNeeded(forValue: minimumValue)
+            }
         }
     }
 
-    func sendActionIfNeeded(forValue newValue: Int) {
+    func sendActionIfNeeded(forValue newValue: Int?) {
         guard newValue != value else { return }
         updateUI(forValue: newValue)
         value = newValue
         sendActions(for: .valueChanged)
     }
 
-    func updateUI(forValue value: Int) {
+    func updateUI(forValue value: Int?) {
         setText(withValue: value)
         updateButtons(forValue: value)
     }
 
-    func setText(withValue value: Int) {
-        if value > minimumValue {
+    func setText(withValue value: Int?) {
+        if let value = value {
             textLabel.text = "\(value)+ \(unit)"
         } else {
             textLabel.text = "all".localized()
         }
     }
 
-    func updateButtons(forValue value: Int) {
+    func updateButtons(forValue value: Int?) {
         switch value {
-        case minimumValue: deactivateButton(minusButton)
+        case nil: deactivateButton(minusButton)
         case maximumValue: deactivateButton(plusButton)
         default:
             activateButton(minusButton)

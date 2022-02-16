@@ -227,7 +227,7 @@ extension MapRadiusFilterViewController: SearchLocationViewControllerDelegate {
             locationName = location.name
             self.coordinate = coordinate
 
-            mapRadiusFilterView.centerOnCoordinate(coordinate, animated: true)
+            mapRadiusFilterView.centerOnCoordinate(coordinate, animated: false)
         }
     }
 }

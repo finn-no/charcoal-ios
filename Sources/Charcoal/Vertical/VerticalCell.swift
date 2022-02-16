@@ -19,6 +19,12 @@ final class VerticalCell: UITableViewCell {
         return imageView
     }()
 
+    private lazy var calloutView: DetailCalloutView = {
+        let calloutView = DetailCalloutView(direction: .left, numberOfLines: 1)
+        calloutView.translatesAutoresizingMaskIntoConstraints = false
+        return calloutView
+    }()
+
     // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -49,6 +55,11 @@ final class VerticalCell: UITableViewCell {
         radioButton.isHighlighted = isRadioButtonHighlighted
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        calloutView.removeFromSuperview()
+    }
+
     // MARK: - Setup
 
     func configure(for vertical: Vertical) {
@@ -62,6 +73,18 @@ final class VerticalCell: UITableViewCell {
         let accessibilitySuffix = vertical.isExternal ? ", " + "browserText".localized() + " " : ""
 
         accessibilityLabel = accessibilityPrefix + vertical.title + accessibilitySuffix
+
+        if let calloutText = vertical.calloutText, let textLabel = textLabel {
+            addSubview(calloutView)
+            NSLayoutConstraint.activate([
+                calloutView.leadingAnchor.constraint(equalTo: textLabel.trailingAnchor, constant: .spacingM),
+                calloutView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                calloutView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            ])
+            calloutView.configure(withText: calloutText)
+        } else {
+            calloutView.removeFromSuperview()
+        }
     }
 
     private func setup() {

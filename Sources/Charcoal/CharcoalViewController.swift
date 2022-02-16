@@ -88,9 +88,9 @@ public final class CharcoalViewController: UINavigationController {
 
         let userDefaults = UserDefaults.standard
 
-        if let nettbilCalloutText = filterContainer?.nettbilCalloutText, !userDefaults.nettbilCalloutShown {
-            showCalloutOverlay(withText: nettbilCalloutText, andDirection: .up, constrainedToTopAnchor: navigationBar.bottomAnchor)
-            userDefaults.nettbilCalloutShown = true
+        if let naeringsTorgetCalloutText = filterContainer?.naeringsTorgetCalloutText, !userDefaults.naeringsTorgetCalloutShown {
+            showCalloutOverlay(withText: naeringsTorgetCalloutText, andDirection: .up, constrainedToTopAnchor: navigationBar.bottomAnchor)
+            userDefaults.naeringsTorgetCalloutShown = true
         }
     }
 
@@ -434,7 +434,7 @@ private extension UserDefaults {
         set { set(newValue, forKey: #function) }
     }
 
-    var nettbilCalloutShown: Bool {
+    var naeringsTorgetCalloutShown: Bool {
         get { return bool(forKey: "Charcoal." + #function) }
         set { set(newValue, forKey: "Charcoal." + #function) }
     }

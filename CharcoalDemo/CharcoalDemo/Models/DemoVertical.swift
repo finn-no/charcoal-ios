@@ -10,6 +10,7 @@ class DemoVertical: Vertical {
     let title: String
     var isCurrent: Bool
     let isExternal: Bool
+    let calloutText: String? = nil
 
     init(title: String, isCurrent: Bool = false, isExternal: Bool = false) {
         self.title = title

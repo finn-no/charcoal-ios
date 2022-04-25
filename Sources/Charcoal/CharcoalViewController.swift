@@ -83,17 +83,6 @@ public final class CharcoalViewController: UINavigationController {
         delegate = self
     }
 
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        let userDefaults = UserDefaults.standard
-
-        if let naeringsTorgetCalloutText = filterContainer?.naeringsTorgetCalloutText, !userDefaults.naeringsTorgetCalloutShown {
-            showCalloutOverlay(withText: naeringsTorgetCalloutText, andDirection: .up, constrainedToTopAnchor: navigationBar.bottomAnchor)
-            userDefaults.naeringsTorgetCalloutShown = true
-        }
-    }
-
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         calloutOverlay?.removeFromSuperview()
@@ -432,10 +421,5 @@ private extension UserDefaults {
     var bottomButtomCalloutShown: Bool {
         get { return bool(forKey: #function) }
         set { set(newValue, forKey: #function) }
-    }
-
-    var naeringsTorgetCalloutShown: Bool {
-        get { return bool(forKey: "Charcoal." + #function) }
-        set { set(newValue, forKey: "Charcoal." + #function) }
     }
 }

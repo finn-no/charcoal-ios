@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Charcoal'
   s.summary          = 'A library that simplifies the creation of modern filtering experiences'
-  s.version          = '12.0.2'
+  s.version          = '12.0.3'
   s.author           = 'FINN.no'
   s.homepage         = 'https://github.com/finn-no/charcoal-ios'
   s.social_media_url = 'https://twitter.com/FINN_tech'

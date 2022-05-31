@@ -68,6 +68,8 @@ final class InlineFilterView: UIView {
     }
 
     func slideInWithFade() {
+        guard !segments.isEmpty else { return }
+
         collectionView.setContentOffset(CGPoint(x: -120, y: 0), animated: false)
         collectionView.alpha = 0
 

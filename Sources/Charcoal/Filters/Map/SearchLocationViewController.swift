@@ -352,6 +352,10 @@ private struct HomeAddressCellViewModel: IconTitleTableViewCellViewModel {
     var hasChevron: Bool {
         return false
     }
+    
+    var externalIcon: UIImage? {
+        return nil
+    }
 }
 
 private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
@@ -376,6 +380,10 @@ private struct CurrentLocationCellViewModel: IconTitleTableViewCellViewModel {
     var hasChevron: Bool {
         return false
     }
+    
+    var externalIcon: UIImage? {
+        return nil
+    }
 }
 
 private struct RecentLocationCellViewModel: IconTitleTableViewCellViewModel {
@@ -397,6 +405,10 @@ private struct RecentLocationCellViewModel: IconTitleTableViewCellViewModel {
     var hasChevron: Bool {
         return false
     }
+    
+    var externalIcon: UIImage? {
+        return nil
+    }
 }
 
 private struct LocationCellViewModel: IconTitleTableViewCellViewModel {
@@ -417,5 +429,9 @@ private struct LocationCellViewModel: IconTitleTableViewCellViewModel {
 
     var hasChevron: Bool {
         return false
+    }
+    
+    var externalIcon: UIImage? {
+        return nil
     }
 }

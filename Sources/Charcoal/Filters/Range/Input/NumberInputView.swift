@@ -79,13 +79,14 @@ open class NumberInputView: UIView {
 
     // MARK: - Init
 
-    public init(defaultValue: Int, unit: FilterUnit, fontSize: NumberInputFontSize = .large) {
+    public init(defaultValue: Int, unit: FilterUnit, fontSize: NumberInputFontSize = .large, isHintHidden: Bool = false) {
         self.defaultValue = defaultValue
         self.unit = unit
         self.fontSize = fontSize
         formatter = RangeFilterValueFormatter(unit: unit)
         super.init(frame: .zero)
         setup()
+        setHint(isHidden: isHintHidden)
     }
 
     required public init?(coder aDecoder: NSCoder) {

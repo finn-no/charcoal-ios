@@ -21,10 +21,15 @@ final class StringExtensionsTests: XCTestCase {
         let text = "1 000 000"
         let replacementRange = NSRange(location: 5, length: 1)
         let replacementString = ""
-        let stringRange = text.replacementRangeNotConsideringWhitespaces(
-            from: replacementRange,
-            replacementString: replacementString
-        )!
+        guard
+            let stringRange = text.replacementRangeNotConsideringWhitespaces(
+                from: replacementRange,
+                replacementString: replacementString
+            )
+        else {
+            XCTFail("Unexpected nil")
+            return
+        }
         let range = NSRange(stringRange, in: text)
 
         XCTAssertEqual(range.location, 4)
@@ -35,10 +40,15 @@ final class StringExtensionsTests: XCTestCase {
         let text = "100"
         let replacementRange = NSRange(location: 1, length: 1)
         let replacementString = ""
-        let stringRange = text.replacementRangeNotConsideringWhitespaces(
-            from: replacementRange,
-            replacementString: replacementString
-        )!
+        guard
+            let stringRange = text.replacementRangeNotConsideringWhitespaces(
+                from: replacementRange,
+                replacementString: replacementString
+            )
+        else {
+            XCTFail("Unexpected nil")
+            return
+        }
         let range = NSRange(stringRange, in: text)
 
         XCTAssertEqual(range.location, 1)
@@ -49,10 +59,15 @@ final class StringExtensionsTests: XCTestCase {
         let text = "100"
         let replacementRange = NSRange(location: 1, length: 1)
         let replacementString = "2"
-        let stringRange = text.replacementRangeNotConsideringWhitespaces(
-            from: replacementRange,
-            replacementString: replacementString
-        )!
+        guard
+            let stringRange = text.replacementRangeNotConsideringWhitespaces(
+                from: replacementRange,
+                replacementString: replacementString
+            )
+        else {
+            XCTFail("Unexpected nil")
+            return
+        }
         let range = NSRange(stringRange, in: text)
 
         XCTAssertEqual(range.location, 1)

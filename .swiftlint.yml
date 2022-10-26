@@ -16,7 +16,6 @@ identifier_name:
     - i
 cyclomatic_complexity:
   ignores_case_statements: true
-conditional_returns_on_newline: warning
 
 disabled_rules:
   - line_length
@@ -34,4 +33,4 @@ included:
 
 analyzer_rules:
   - unused_import
-  - unused_private_declaration
+  - force_unwrapping

@@ -469,44 +469,45 @@ private extension RootFilterViewController {
         guard let freeTextFilter = filterContainer.freeTextFilter else { return }
 
         if freeTextFilterViewController == nil {
-            freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
-            freeTextFilterViewController?.delegate = self
-            freeTextFilterViewController?.filterDelegate = freeTextFilterDelegate
-            freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource
+            let freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
+            self.freeTextFilterViewController = freeTextFilterViewController
+            freeTextFilterViewController.delegate = self
+            freeTextFilterViewController.filterDelegate = freeTextFilterDelegate
+            freeTextFilterViewController.filterDataSource = freeTextFilterDataSource
+
+            tableView.addSubview(freeTextFilterViewController.searchBar)
         }
 
-        let searchBar = freeTextFilterViewController!.searchBar
-        tableView.addSubview(searchBar)
-
         if searchBarTopConstraint == nil {
-            searchBarTopConstraint = searchBar.topAnchor.constraint(equalTo: tableView.topAnchor)
+            searchBarTopConstraint = freeTextFilterViewController?.searchBar.topAnchor.constraint(equalTo: tableView.topAnchor)
         }
 
         NSLayoutConstraint.activate([
-            searchBarTopConstraint!,
-            searchBar.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: .spacingS),
-            searchBar.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -.spacingM),
-        ])
+            searchBarTopConstraint,
+            freeTextFilterViewController?.searchBar.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: .spacingS),
+            freeTextFilterViewController?.searchBar.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -.spacingM),
+        ].compactMap({ $0 }))
     }
 
     func setupInlineFilter() {
         guard filterContainer.inlineFilter != nil else { return }
 
         if inlineFilterView == nil {
-            inlineFilterView = InlineFilterView(withAutoLayout: true)
-            inlineFilterView?.delegate = self
-            tableView.addSubview(inlineFilterView!)
+            let inlineFilterView = InlineFilterView(withAutoLayout: true)
+            self.inlineFilterView = inlineFilterView
+            inlineFilterView.delegate = self
+            tableView.addSubview(inlineFilterView)
         }
 
         if inlineFilterTopConstraint == nil {
-            inlineFilterTopConstraint = inlineFilterView!.topAnchor.constraint(equalTo: tableView.topAnchor)
+            inlineFilterTopConstraint = inlineFilterView?.topAnchor.constraint(equalTo: tableView.topAnchor)
         }
 
         NSLayoutConstraint.activate([
-            inlineFilterTopConstraint!,
-            inlineFilterView!.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-            inlineFilterView!.widthAnchor.constraint(equalTo: tableView.widthAnchor),
-        ])
+            inlineFilterTopConstraint,
+            inlineFilterView?.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            inlineFilterView?.widthAnchor.constraint(equalTo: tableView.widthAnchor),
+        ].compactMap({ $0 }))
     }
 
     func setup() {

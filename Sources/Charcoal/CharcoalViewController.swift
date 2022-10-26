@@ -150,7 +150,7 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.rootDelegate = self
             rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
-            setViewControllers([rootFilterViewController!], animated: false)
+            setViewControllers([rootFilterViewController].compactMap({ $0 }), animated: false)
         }
     }
 

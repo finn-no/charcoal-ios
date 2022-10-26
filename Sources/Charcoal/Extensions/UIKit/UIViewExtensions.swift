@@ -6,11 +6,7 @@ import UIKit
 
 extension UIView {
     var windowSafeAreaInsets: UIEdgeInsets {
-        if #available(iOS 11.0, *) {
-            return UIApplication.shared.firstKeyWindow?.safeAreaInsets ?? .zero
-        } else {
-            return .zero
-        }
+        return UIApplication.shared.firstKeyWindow?.safeAreaInsets ?? .zero
     }
 }
 

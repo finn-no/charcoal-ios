@@ -158,17 +158,13 @@ public final class CharcoalViewController: UINavigationController {
         navigationBar.isTranslucent = false
         navigationBar.backgroundColor = Theme.mainBackground
 
-        if #available(iOS 13.0, *) {
-            let appearance = UINavigationBar.appearance().standardAppearance.copy()
-            appearance.configureWithTransparentBackground()
-            appearance.backgroundColor = Theme.mainBackground
+        let appearance = UINavigationBar.appearance().standardAppearance.copy()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = Theme.mainBackground
 
-            navigationBar.standardAppearance = appearance
-            navigationBar.compactAppearance = appearance
-            navigationBar.scrollEdgeAppearance = appearance
-        } else {
-            navigationBar.shadowImage = UIImage()
-        }
+        navigationBar.standardAppearance = appearance
+        navigationBar.compactAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
     }
 
     private func selectedFilters(in filters: [Filter]?) -> [Filter] {

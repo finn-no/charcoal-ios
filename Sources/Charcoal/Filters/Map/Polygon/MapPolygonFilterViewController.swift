@@ -566,8 +566,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
 
             var validPolygonAlphaComponent: CGFloat = 0.15
             var invalidPolygonAlphaComponent: CGFloat = 0.2
-            if #available(iOS 13, *),
-                traitCollection.userInterfaceStyle == .dark {
+            if traitCollection.userInterfaceStyle == .dark {
                 validPolygonAlphaComponent = 0.05
                 invalidPolygonAlphaComponent = 0.1
             }
@@ -576,11 +575,10 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
                 UIColor.textCritical.withAlphaComponent(invalidPolygonAlphaComponent)
             polygon.lineWidth = 2
 
-            if #available(iOS 13.0, *) {
-                // MapKit renders overlays as vectors by default from iOS 13, but we are opting out of it.
-                // The polygon is a large and complex overlay, that performs better when rendered as a bitmap.
-                polygon.shouldRasterize = true
-            }
+            // MapKit renders overlays as vectors by default from iOS 13, but we are opting out of it.
+            // The polygon is a large and complex overlay, that performs better when rendered as a bitmap.
+            polygon.shouldRasterize = true
+
             return polygon
         }
         return MKOverlayRenderer(overlay: overlay)

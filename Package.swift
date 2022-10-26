@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Charcoal",
     defaultLocalization: "nb",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v14)],
     products: [
         .library(
             name: "Charcoal",

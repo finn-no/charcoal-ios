@@ -43,12 +43,7 @@ final class RootFilterViewController: FilterViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = Theme.mainBackground
 
-        if #available(iOS 11, *) {
-            tableView.estimatedRowHeight = UITableView.automaticDimension
-        } else {
-            // This is needed for autosizing to work on pre iOS 11 device
-            tableView.estimatedRowHeight = 54
-        }
+        tableView.estimatedRowHeight = UITableView.automaticDimension
         return tableView
     }()
 

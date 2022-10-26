@@ -193,7 +193,6 @@ final class NumberInputView: UIView {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
         style.headIndent = .spacingS
-        style.tailIndent = -.spacingS
         style.lineBreakMode = .byCharWrapping
 
         let attributes = [

@@ -231,7 +231,6 @@
 				79CC221225D67B8600E165BE /* Sources */,
 				79CC221325D67B8600E165BE /* Frameworks */,
 				79CC221425D67B8600E165BE /* Resources */,
-				79CC226A25D6882300E165BE /* Run SwiftFormat */,
 				79CC226725D687DB00E165BE /* Generate constants for assets names */,
 				79CC226925D6880900E165BE /* Run SwiftLint */,
 			);
@@ -362,25 +361,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or brew install swiftlint\"\nfi\n";
-		};
-		79CC226A25D6882300E165BE /* Run SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run SwiftFormat";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/../Scripts/format.sh\"\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ${SRCROOT}/../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or brew install swiftlint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -497,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -552,7 +533,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -677,8 +658,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.9.0;
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.10.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

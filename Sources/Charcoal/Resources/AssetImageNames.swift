@@ -9,6 +9,7 @@ import UIKit
 
 extension UIImage {
     convenience init(named imageAsset: CharcoalImageAsset, in bundle: Bundle? = .charcoal, compatibleWith traitCollection: UITraitCollection? = nil) {
+        // swiftlint:disable force_unwrapping
         self.init(named: imageAsset.rawValue, in: bundle, compatibleWith: traitCollection)!
     }
 }

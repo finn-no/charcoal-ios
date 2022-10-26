@@ -474,8 +474,10 @@ private extension RootFilterViewController {
             freeTextFilterViewController.delegate = self
             freeTextFilterViewController.filterDelegate = freeTextFilterDelegate
             freeTextFilterViewController.filterDataSource = freeTextFilterDataSource
+        }
 
-            tableView.addSubview(freeTextFilterViewController.searchBar)
+        if let searchBar = freeTextFilterViewController?.searchBar {
+            tableView.addSubview(searchBar)
         }
 
         if searchBarTopConstraint == nil {

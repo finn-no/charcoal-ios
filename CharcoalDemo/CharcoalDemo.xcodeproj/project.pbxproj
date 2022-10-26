@@ -231,7 +231,6 @@
 				79CC221225D67B8600E165BE /* Sources */,
 				79CC221325D67B8600E165BE /* Frameworks */,
 				79CC221425D67B8600E165BE /* Resources */,
-				79CC226A25D6882300E165BE /* Run SwiftFormat */,
 				79CC226725D687DB00E165BE /* Generate constants for assets names */,
 				79CC226925D6880900E165BE /* Run SwiftLint */,
 			);
@@ -363,24 +362,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ${SRCROOT}/../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or brew install swiftlint\"\nfi\n";
-		};
-		79CC226A25D6882300E165BE /* Run SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run SwiftFormat";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/../Scripts/format.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

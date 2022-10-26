@@ -362,7 +362,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or brew install swiftlint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ${SRCROOT}/../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or brew install swiftlint\"\nfi\n";
 		};
 		79CC226A25D6882300E165BE /* Run SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -122,7 +122,7 @@ extension Filter {
             let polygonKey = polygonKey {
             bboxFilter = Filter(title: "", key: bboxKey)
             polygonFilter = Filter(title: "", key: polygonKey)
-            subfilters.append(contentsOf: [bboxFilter!, polygonFilter!])
+            subfilters.append(contentsOf: [bboxFilter, polygonFilter].compactMap({ $0 }))
         }
 
         let kind = Kind.map(

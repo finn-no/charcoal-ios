@@ -67,6 +67,11 @@ extension XCTestCase {
 // MARK: - Private extension
 
 private extension Snapshotting where Value == UIViewController, Format == UIImage {
+    /// Setting `perceptualPrecision` to avoids failing tests due to imperceivable differences in anti-aliasing, shadows, and blurs
+    private static var defaultPerceptualPrecision: Float {
+        0.98
+    }
+
     static func image(
         on config: ViewImageConfig,
         interfaceStyle: SnapshotUserInterfaceStyle
@@ -79,6 +84,6 @@ private extension Snapshotting where Value == UIViewController, Format == UIImag
         case .darkMode:
             style = .dark
         }
-        return image(on: config, traits: UITraitCollection(userInterfaceStyle: style))
+        return image(on: config, perceptualPrecision: defaultPerceptualPrecision, traits: UITraitCollection(userInterfaceStyle: style))
     }
 }

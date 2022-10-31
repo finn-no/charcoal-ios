@@ -122,10 +122,8 @@ final class RootFilterCell: BasicTableViewCell {
         stackViewBottomAnchorConstraint.constant = -.spacingM
 
         var selectionTagsContainerTrailingConstant: CGFloat = .spacingXS
-        if #available(iOS 13, *) {
-            selectionTagsContainerTrailingConstant -= .spacingS
-        }
-
+        selectionTagsContainerTrailingConstant -= .spacingS
+        
         NSLayoutConstraint.activate([
             contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .spacingM + .spacingS),
             contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

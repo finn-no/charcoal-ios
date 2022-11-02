@@ -99,6 +99,7 @@ open class NumberInputView: UIView {
         return textField.isFirstResponder
     }
 
+    @discardableResult
     public override func resignFirstResponder() -> Bool {
         if textField.isFirstResponder {
             textField.resignFirstResponder()

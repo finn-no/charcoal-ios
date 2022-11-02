@@ -4,14 +4,14 @@
 
 import UIKit
 
-protocol NumberInputViewDelegate: AnyObject {
+public protocol NumberInputViewDelegate: AnyObject {
     func numberInputViewDidBeginEditing(_ view: NumberInputView)
     func numberInputViewDidTapInside(_ view: NumberInputView)
     func numberInputView(_ view: NumberInputView, didChangeValue value: Int?)
 }
 
-final class NumberInputView: UIView {
-    weak var delegate: NumberInputViewDelegate?
+open class NumberInputView: UIView {
+    public weak var delegate: NumberInputViewDelegate?
 
     private let defaultValue: Int
     private let unit: FilterUnit
@@ -79,26 +79,28 @@ final class NumberInputView: UIView {
 
     // MARK: - Init
 
-    init(defaultValue: Int, unit: FilterUnit, fontSize: NumberInputFontSize = .large) {
+    public init(defaultValue: Int, unit: FilterUnit, fontSize: NumberInputFontSize = .large, isHintHidden: Bool = false) {
         self.defaultValue = defaultValue
         self.unit = unit
         self.fontSize = fontSize
         formatter = RangeFilterValueFormatter(unit: unit)
         super.init(frame: .zero)
         setup()
+        setHint(isHidden: isHintHidden)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Overrides
 
-    override var isFirstResponder: Bool {
+    public override var isFirstResponder: Bool {
         return textField.isFirstResponder
     }
 
-    override func resignFirstResponder() -> Bool {
+    @discardableResult
+    public override func resignFirstResponder() -> Bool {
         if textField.isFirstResponder {
             textField.resignFirstResponder()
         }
@@ -108,7 +110,11 @@ final class NumberInputView: UIView {
 
     // MARK: - API
 
-    func setValue(_ value: Int) {
+    public func setHint(isHidden: Bool) {
+        self.hintLabel.isHidden = isHidden
+    }
+
+    public func setValue(_ value: Int) {
         textField.text = formatter.string(from: value)
         textField.accessibilityValue = formatter.accessibilityValue(for: value)
     }
@@ -123,7 +129,7 @@ final class NumberInputView: UIView {
         unitLabel.textColor = textColor
     }
 
-    func setActive(_ active: Bool) {
+    public func setActive(_ active: Bool) {
         let font: UIFont? = active ? Style.activeFont(size: fontSize) : Style.normalFont(size: fontSize)
         let outOfRangeBoundsFont = active ? Style.hintActiveFont : Style.hintNormalFont
         let decorationViewColor: UIColor = active ? Style.decorationViewActiveColor : Style.decorationViewColor
@@ -218,15 +224,15 @@ final class NumberInputView: UIView {
 // MARK: - UITextFieldDelegate
 
 extension NumberInputView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         delegate?.numberInputViewDidBeginEditing(self)
     }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         setActive(false)
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var text = textField.text ?? ""
 
         guard let stringRange = text.replacementRangeNotConsideringWhitespaces(from: range, replacementString: string) else {

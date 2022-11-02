@@ -275,6 +275,7 @@ GEM
     zeitwerk (2.6.1)
 
 PLATFORMS
+  universal-darwin-21
   x86_64-darwin-19
 
 DEPENDENCIES
@@ -283,4 +284,4 @@ DEPENDENCIES
   pr_changelog (~> 0.4.0)
 
 BUNDLED WITH
-   2.3.20
+   2.3.24

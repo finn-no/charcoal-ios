@@ -43,6 +43,7 @@ final class VerticalSelectorView: UIView {
         button.titleLabel?.font = UIFont.bodyStrong(withSize: 17, textStyle: .footnote)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
 
+        button.tintColor = .btnPrimary
         button.setTitleColor(.btnPrimary, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)

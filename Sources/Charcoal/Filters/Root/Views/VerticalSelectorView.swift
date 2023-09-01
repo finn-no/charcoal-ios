@@ -19,7 +19,7 @@ final class VerticalSelectorView: UIView {
     var arrowDirection: ArrowDirection = .down {
         didSet {
             let asset: CharcoalImageAsset = arrowDirection == .up ? .arrowUp : .arrowDown
-            button.setImage(UIImage(named: asset), for: .normal)
+            button.setImage(UIImage(named: asset).withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
 
@@ -33,7 +33,7 @@ final class VerticalSelectorView: UIView {
         let label = UILabel(withAutoLayout: true)
         label.font = UIFont.captionStrong.withSize(12).scaledFont(forTextStyle: .footnote)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .spaceGray
+        label.textColor = .textSecondary
         label.textAlignment = .center
         return label
     }()
@@ -43,6 +43,7 @@ final class VerticalSelectorView: UIView {
         button.titleLabel?.font = UIFont.bodyStrong(withSize: 17, textStyle: .footnote)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
 
+        button.tintColor = .btnPrimary
         button.setTitleColor(.btnPrimary, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)

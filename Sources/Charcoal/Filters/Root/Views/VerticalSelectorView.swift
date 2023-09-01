@@ -19,7 +19,7 @@ final class VerticalSelectorView: UIView {
     var arrowDirection: ArrowDirection = .down {
         didSet {
             let asset: CharcoalImageAsset = arrowDirection == .up ? .arrowUp : .arrowDown
-            button.setImage(UIImage(named: asset), for: .normal)
+            button.setImage(UIImage(named: asset).withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
 

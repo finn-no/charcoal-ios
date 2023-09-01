@@ -33,7 +33,7 @@ final class VerticalSelectorView: UIView {
         let label = UILabel(withAutoLayout: true)
         label.font = UIFont.captionStrong.withSize(12).scaledFont(forTextStyle: .footnote)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .spaceGray
+        label.textColor = .textSecondary
         label.textAlignment = .center
         return label
     }()

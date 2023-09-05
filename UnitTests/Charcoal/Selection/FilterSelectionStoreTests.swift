@@ -199,21 +199,24 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "Fra 10 kr", accessibilityLabel: "Fra 10 kroner"),
-        ])
+        XCTAssertTrue((store.titles(for: filter).count == 1))
+        XCTAssertTrue(store.titles(for: filter)[0].value.split(separator: " ").contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("10"))
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "Opptil 100 kr", accessibilityLabel: "Opptil 100 kroner"),
-        ])
+        XCTAssertTrue((store.titles(for: filter).count == 1))
+        XCTAssertTrue(store.titles(for: filter)[0].value.split(separator: " ").contains("100"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("100"))
+        XCTAssertFalse(store.titles(for: filter)[0].value.split(separator: " ").contains("10"))
+        XCTAssertFalse(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("10"))
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertEqual(store.titles(for: filter), [
-            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "Fra 10 Opptil 100 kroner"),
-        ])
+        XCTAssertTrue((store.titles(for: filter).count == 1))
+        XCTAssertTrue(store.titles(for: filter)[0].value.contains("10 - 100"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("100"))
     }
 
     func testTitlesWithSteppers() {

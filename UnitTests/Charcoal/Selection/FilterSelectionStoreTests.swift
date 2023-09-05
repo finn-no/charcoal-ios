@@ -200,32 +200,22 @@ final class FilterSelectionStoreTests: XCTestCase {
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
         XCTAssertTrue((store.titles(for: filter).count == 1))
-        XCTAssertFalse(store.titles(for: filter)[0].value.isEmpty)
-        XCTAssertFalse(store.titles(for: filter)[0].accessibilityLabel.isEmpty)
-
-//        XCTAssertEqual(store.titles(for: filter), [
-//            SelectionTitle(value: "Fra 10 kr", accessibilityLabel: "Fra 10 kroner"),
-//        ])
+        XCTAssertTrue(store.titles(for: filter)[0].value.contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("10"))
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertTrue((store.titles(for: filter).count == 1))
-        XCTAssertFalse(store.titles(for: filter)[0].value.isEmpty)
-        XCTAssertFalse(store.titles(for: filter)[0].accessibilityLabel.isEmpty)
-
-//        XCTAssertEqual(store.titles(for: filter), [
-//            SelectionTitle(value: "Opptil 100 kr", accessibilityLabel: "Opptil 100 kroner"),
-//        ])
+        XCTAssertTrue(store.titles(for: filter)[0].value.contains("100"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("100"))
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertTrue((store.titles(for: filter).count == 1))
-        XCTAssertFalse(store.titles(for: filter)[0].value.isEmpty)
-        XCTAssertFalse(store.titles(for: filter)[0].accessibilityLabel.isEmpty)
-
-//        XCTAssertEqual(store.titles(for: filter), [
-//            SelectionTitle(value: "10 - 100 kr", accessibilityLabel: "Fra 10 Opptil 100 kroner"),
-//        ])
+        XCTAssertTrue(store.titles(for: filter)[0].value.contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].value.contains("100"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("100"))
     }
 
     func testTitlesWithSteppers() {

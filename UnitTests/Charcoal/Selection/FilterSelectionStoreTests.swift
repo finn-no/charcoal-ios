@@ -200,22 +200,23 @@ final class FilterSelectionStoreTests: XCTestCase {
         store.setValue(10, for: lowValueFilter)
         store.removeValues(for: highValueFilter)
         XCTAssertTrue((store.titles(for: filter).count == 1))
-        XCTAssertTrue(store.titles(for: filter)[0].value.contains("10"))
-        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].value.split(separator: " ").contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("10"))
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertTrue((store.titles(for: filter).count == 1))
-        XCTAssertTrue(store.titles(for: filter)[0].value.contains("100"))
-        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("100"))
+        XCTAssertTrue(store.titles(for: filter)[0].value.split(separator: " ").contains("100"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("100"))
+        XCTAssertFalse(store.titles(for: filter)[0].value.split(separator: " ").contains("10"))
+        XCTAssertFalse(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("10"))
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
         XCTAssertTrue((store.titles(for: filter).count == 1))
-        XCTAssertTrue(store.titles(for: filter)[0].value.contains("10"))
-        XCTAssertTrue(store.titles(for: filter)[0].value.contains("100"))
-        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("10"))
-        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.contains("100"))
+        XCTAssertTrue(store.titles(for: filter)[0].value.contains("10 - 100"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("10"))
+        XCTAssertTrue(store.titles(for: filter)[0].accessibilityLabel.split(separator: " ").contains("100"))
     }
 
     func testTitlesWithSteppers() {

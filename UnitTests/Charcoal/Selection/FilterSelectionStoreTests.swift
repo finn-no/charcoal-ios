@@ -209,7 +209,7 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.removeValues(for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertFalse(store.titles(for: filter).first!.value.isEmpty)
+        XCTAssertTrue((store.titles(for: filter).count == 1))
         XCTAssertFalse(store.titles(for: filter).first!.value.isEmpty)
         XCTAssertFalse(store.titles(for: filter).first!.accessibilityLabel.isEmpty)
 
@@ -219,7 +219,7 @@ final class FilterSelectionStoreTests: XCTestCase {
 
         store.setValue(10, for: lowValueFilter)
         store.setValue(100, for: highValueFilter)
-        XCTAssertFalse(store.titles(for: filter).first!.value.isEmpty)
+        XCTAssertTrue((store.titles(for: filter).count == 1))
         XCTAssertFalse(store.titles(for: filter).first!.value.isEmpty)
         XCTAssertFalse(store.titles(for: filter).first!.accessibilityLabel.isEmpty)
 

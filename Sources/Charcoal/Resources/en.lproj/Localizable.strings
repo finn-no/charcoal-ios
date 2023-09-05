@@ -75,9 +75,9 @@
 "map.polygonSearch.locationChanged.alert.title" = "Do you want to keep the custom map section where it is?";
 "map.polygonSearch.locationChanged.alert.keepArea" = "Keep the section";
 "map.polygonSearch.locationChanged.alert.resetArea" = "Reset the section";
-"map.polygonSearch.doubleClick.callout.title" = "Did you know that you\ncan double tap to\n delete a point?";
+"map.polygonSearch.doubleClick.callout.title" = "Did you know that you\ncan double tap to\ndelete a point?";
 "map.polygonSearch.maxAnnotations.label.title" = "You have reached the maximum number of points";
-"map.polygonSearch.maxAnnotations.label.title.detailed" = "You have reached the maximum number of points.\Double tap on a point to delete it.";
+"map.polygonSearch.maxAnnotations.label.title.detailed" = "You have reached the maximum number of points.\nDouble tap on a point to delete it.";
 "map.polygonSearch.minAnnotations.label.title" = "You cannot remove more points";
 
 "callout.bottomButton" = "Press the Apply button to proceed.";

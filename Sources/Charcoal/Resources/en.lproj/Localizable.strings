@@ -82,5 +82,5 @@
 
 "callout.bottomButton" = "Press the Apply button to proceed.";
 
-"alert.reset.message" = "Are you sure you want to reset\and remove all your filter selections?";
+"alert.reset.message" = "Are you sure you want to reset\nand remove all your filter selections?";
 "alert.action.reset" = "Reset the filter";

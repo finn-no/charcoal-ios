@@ -1,10 +1,3 @@
-/*
-  Localizable.strings
-  FilterKit
-
-  Copyright © FINN.no. All rights reserved.
-*/
-
 "all" = "Alle";
 "cancel" = "Avbryt";
 "done" = "Ferdig";

@@ -73,6 +73,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         backgroundColor = Theme.mainBackground
         selectionStyle = .none
+        checkboxImageView.tintColor = .nmpBrandColorPrimary
 
         switch viewModel.accessoryStyle {
         case .external:
@@ -89,7 +90,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         switch viewModel.checkboxStyle {
         case .selectedBordered:
-            checkboxImageView.setImage(UIImage(named: .checkboxBordered), for: .normal)
+            checkboxImageView.setImage(UIImage(named: .checkboxBordered).withRenderingMode(.alwaysTemplate), for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxBorderedDisabled), for: .disabled)
         case .selectedFilled:
             checkboxImageView.setImage(nil, for: .normal)

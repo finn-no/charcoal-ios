@@ -1,12 +1,11 @@
-// swift-tools-version:5.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.8
 
 import PackageDescription
 
 let package = Package(
     name: "Charcoal",
     defaultLocalization: "nb",
-    platforms: [.iOS(.v14)],
+    platforms: [.iOS(.v15)],
     products: [
         .library(
             name: "Charcoal",
@@ -14,7 +13,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(name: "FinniversKit", url: "https://github.com/finn-no/FinniversKit.git", "117.0.0"..."999.0.0")
+        .package(url: "https://github.com/finn-no/FinniversKit.git", "118.0.0"..."999.0.0")
     ],
     targets: [
         .target(

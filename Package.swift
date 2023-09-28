@@ -13,7 +13,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/finn-no/FinniversKit.git", "118.0.0"..."999.0.0")
+        .package(url: "https://github.com/finn-no/FinniversKit.git", branch: "nmp-brand-assets")
     ],
     targets: [
         .target(

@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "FinniversKit",
-        "repositoryURL": "https://github.com/finn-no/FinniversKit.git",
-        "state": {
-          "branch": null,
-          "revision": "9063e5751c254634137ade013560ce7804625889",
-          "version": "117.0.0"
-        }
+  "pins" : [
+    {
+      "identity" : "finniverskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/finn-no/FinniversKit.git",
+      "state" : {
+        "branch" : "nmp-brand-assets",
+        "revision" : "430e936e4f0155407fdb8497adf34da40ddd1047"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

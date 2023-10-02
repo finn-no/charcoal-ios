@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/finn-no/FinniversKit.git",
       "state" : {
-        "branch" : "nmp-brand-assets",
-        "revision" : "430e936e4f0155407fdb8497adf34da40ddd1047"
+        "revision" : "ae037d661da2da43a81c3996649c8fbe7d079566",
+        "version" : "119.0.0"
       }
     }
   ],

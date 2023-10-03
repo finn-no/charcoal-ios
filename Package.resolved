@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "FinniversKit",
-        "repositoryURL": "https://github.com/finn-no/FinniversKit.git",
-        "state": {
-          "branch": null,
-          "revision": "9063e5751c254634137ade013560ce7804625889",
-          "version": "117.0.0"
-        }
+  "pins" : [
+    {
+      "identity" : "finniverskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/finn-no/FinniversKit.git",
+      "state" : {
+        "revision" : "ae037d661da2da43a81c3996649c8fbe7d079566",
+        "version" : "119.0.0"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

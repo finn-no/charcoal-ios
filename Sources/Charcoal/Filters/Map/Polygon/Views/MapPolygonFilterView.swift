@@ -95,6 +95,7 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var userLocationButton: UIButton = {
         let button = CircleButton()
+        button.imageView?.tintColor = .btnPrimary
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)

@@ -1,0 +1,86 @@
+"all" = "Kaikki";
+"cancel" = "Peruuta";
+"done" = "Valmis";
+"reset" = "Tyhjennä";
+"applyButton" = "Käytä";
+"yes" = "Kyllä";
+"no" = "Ei";
+"showResultsButton" = "Näytä %i tulosta";
+"searchPlaceholder" = "Sanoja ilmoituksessa";
+"browserText" = "Avaa selaimessa";
+"over" = "Yli";
+"under" = "Alle";
+"before" = "Ennen";
+"after" = "Jälkeen";
+"from" = "Alkaen";
+"upTo" = "Jopa";
+"remove" = "Poista";
+"selected" = "Valittu";
+"numberOfResults" = "Osumat";
+"vertical" = "Osasto";
+"back" = "Takaisin";
+"next" = "Seuraava";
+"skip" = "Ohita";
+"noValue" = "Ei arvoa";
+"filterAsYouType.placeholder" = "Tarkenna hakua";
+
+"root.title" = "Suodata hakua";
+"root.verticalSelector.title" = "Lisää osastoja";
+
+"range.slider.lowValueAccessibilityLabel" = "Liukusäädin pienelle arvolle";
+"range.slider.highValueAccessibilityLabel" = "Liukusäädin suurelle arvolle";
+"range.numberInput.lowValueAccessibilityLabel" = "Tekstikenttä pienelle arvolle";
+"range.numberInput.highValueAccessibilityLabel" = "Tekstikenttä suurelle arvolle";
+
+"unit.centimeters.value" = "cm";
+"unit.cubicCentimeters.value" = "cm³";
+"unit.currency.value" = "€";
+"unit.feet.value" = "jalkaa";
+"unit.horsePower.value" = "hv";
+"unit.items.value" = "kpl";
+"unit.kilograms.value" = "kg";
+"unit.kilometers.value" = "km";
+"unit.seats.value" = "paikkaa";
+"unit.squareMeters.value" = "m²";
+"unit.kiloWattHour.value" = "kWh";
+"unit.knots.value" = "solmua";
+
+"unit.centimeters.accessibilityValue" = "senttimetriä";
+"unit.cubicCentimeters.accessibilityValue" = "kuutiosenttimetriä";
+"unit.currency.accessibilityValue" = "euroa";
+"unit.feet.accessibilityValue" = "jalkaa";
+"unit.horsePower.accessibilityValue" = "hevosvoimaa";
+"unit.items.accessibilityValue" = "tuotetta";
+"unit.kilograms.accessibilityValue" = "kiloa";
+"unit.kilometers.accessibilityValue" = "kilometriä";
+"unit.seats.accessibilityValue" = "paikkaa";
+"unit.squareMeters.accessibilityValue" = "neliömetriä";
+"unit.years.accessibilityValue" = "vuotta";
+"unit.kiloWattHour.accessibilityValue" = "kilowattituntia";
+"unit.knots.accessibilityValue" = "solmua";
+
+"map.title" = "Sijainti kartalla";
+"map.radiusSearch.toggleButton.title" = "Etäisyys";
+"map.polygonSearch.toggleButton.title" = "Osio";
+"map.homeAddress" = "Kotiosoitteeni";
+"map.currentLocation" = "Nykyinen sijaintini";
+"map.valueSliderAccessibilityLabel" = "Arvon liukusäädin";
+"map.locationError.title" = "Tiedot";
+"map.locationError.message" = "Anna Torille pääsy sijaintitietohisi käyttääksesi tätä toimintoa. Voit muuttaa asetuksia laitteesi pääasetuksissa valitsemalla Tietosuoja ja suojaus ja sitten Sijaintipalvelut.";
+"map.search.placeholder" = "Hae paikan tai osoitteen perusteella";
+"map.polygonSearch.filter.title" = "Mukautettu osio";
+"map.polygonSearch.initialAreaSelection.button" = "Liitä karttaosio tähän";
+"map.polygonSearch.resetPolygon.alert.title" = "Oletko varma, että haluat tyhjentää tämän osion?";
+"map.polygonSearch.resetPolygon.alert.action" = "Tyhjennä osio";
+"map.polygonSearch.locationChanged.alert.title" = "Haluatko jättää mukautetun karttaosion paikalleen?";
+"map.polygonSearch.locationChanged.alert.keepArea" = "Säilytä osio";
+"map.polygonSearch.locationChanged.alert.resetArea" = "Tyhjennä osio";
+"map.polygonSearch.doubleClick.callout.title" = "Tiesitkö, että voit\npoistaa hakukriteerin\nkaksoisnapauttamalla sitä?";
+"map.polygonSearch.maxAnnotations.label.title" = "Hakukriteerien määrä on täynnä";
+"map.polygonSearch.maxAnnotations.label.title.detailed" = "Hakukriteerien määrä on täynnä.\nPoista hakukriteeri kaksoisnapauttamalla sitä.";
+"map.polygonSearch.minAnnotations.label.title" = "Et voi poistaa useampia hakukriteereitä";
+
+"callout.bottomButton" = "Jatka painamalla Käytä-painiketta.";
+
+"alert.reset.message" = "Oletko varma, että haluat tyhjentää\nja poistaa kaikki suodatinvalinnat?";
+"alert.action.reset" = "Nollaa suodatin";

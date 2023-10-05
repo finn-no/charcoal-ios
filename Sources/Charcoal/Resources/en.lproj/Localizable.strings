@@ -5,9 +5,9 @@
 "applyButton" = "Apply";
 "yes" = "Yes";
 "no" = "No";
-"showResultsButton" = "Show %i hits";
+"showResultsButton" = "Show results: %i";
 "searchPlaceholder" = "Words in the ad";
-"browserText" = "Opens in the browser";
+"browserText" = "Open in browser";
 "over" = "Over";
 "under" = "Under";
 "before" = "Before";
@@ -16,7 +16,7 @@
 "upTo" = "Up to";
 "remove" = "Remove";
 "selected" = "Selected";
-"numberOfResults" = "Hits";
+"numberOfResults" = "Results";
 "vertical" = "Marketplace";
 "back" = "Back";
 "next" = "Next";
@@ -24,7 +24,7 @@
 "noValue" = "No value";
 "filterAsYouType.placeholder" = "Refine your search";
 
-"root.title" = "Filter the search";
+"root.title" = "Filter search";
 "root.verticalSelector.title" = "More categories";
 
 "range.slider.lowValueAccessibilityLabel" = "Slider for low value";
@@ -33,7 +33,7 @@
 "range.numberInput.highValueAccessibilityLabel" = "High value text field";
 
 "unit.centimeters.value" = "cm";
-"unit.cubicCentimeters.value" = "ccm";
+"unit.cubicCentimeters.value" = "cm3";
 "unit.currency.value" = "kr";
 "unit.feet.value" = "feet";
 "unit.horsePower.value" = "hp";
@@ -45,25 +45,25 @@
 "unit.kiloWattHour.value" = "kWh";
 "unit.knots.value" = "knots";
 
-"unit.centimeters.accessibilityValue" = "centimeter";
-"unit.cubicCentimeters.accessibilityValue" = "cubic centimeter";
-"unit.currency.accessibilityValue" = "NOK";
+"unit.centimeters.accessibilityValue" = "centimetre";
+"unit.cubicCentimeters.accessibilityValue" = "cubic centimetre";
+"unit.currency.accessibilityValue" = "crowns";
 "unit.feet.accessibilityValue" = "feet";
-"unit.horsePower.accessibilityValue" = "horsepowers";
+"unit.horsePower.accessibilityValue" = "horsepower";
 "unit.items.accessibilityValue" = "items";
 "unit.kilograms.accessibilityValue" = "kilo";
 "unit.kilometers.accessibilityValue" = "kilometer";
 "unit.seats.accessibilityValue" = "seats";
-"unit.squareMeters.accessibilityValue" = "square meters";
+"unit.squareMeters.accessibilityValue" = "square metres";
 "unit.years.accessibilityValue" = "years";
 "unit.kiloWattHour.accessibilityValue" = "kilowatt hours";
 "unit.knots.accessibilityValue" = "knots";
 
-"map.title" = "Area in map";
+"map.title" = "Location in map";
 "map.radiusSearch.toggleButton.title" = "Distance";
 "map.polygonSearch.toggleButton.title" = "Section";
 "map.homeAddress" = "My home address";
-"map.currentLocation" = "My current position";
+"map.currentLocation" = "My current location";
 "map.valueSliderAccessibilityLabel" = "Slider for value";
 "map.locationError.title" = "Information";
 "map.locationError.message" = "To use this functionality, you must give us access to your location. This is done in the main settings of your device, under privacy and then location services.";
@@ -75,12 +75,12 @@
 "map.polygonSearch.locationChanged.alert.title" = "Do you want to keep the custom map section where it is?";
 "map.polygonSearch.locationChanged.alert.keepArea" = "Keep the section";
 "map.polygonSearch.locationChanged.alert.resetArea" = "Reset the section";
-"map.polygonSearch.doubleClick.callout.title" = "Did you know that you\ncan double tap to\ndelete a point?";
-"map.polygonSearch.maxAnnotations.label.title" = "You have reached the maximum number of points";
-"map.polygonSearch.maxAnnotations.label.title.detailed" = "You have reached the maximum number of points.\nDouble tap on a point to delete it.";
-"map.polygonSearch.minAnnotations.label.title" = "You cannot remove more points";
+"map.polygonSearch.doubleClick.callout.title" = "Did you know that you\ncan double tap to\ndelete a pin?";
+"map.polygonSearch.maxAnnotations.label.title" = "You have reached the maximum number of pins";
+"map.polygonSearch.maxAnnotations.label.title.detailed" = "You have reached the maximum number of pins.\nDouble tap on a pin to delete it.";
+"map.polygonSearch.minAnnotations.label.title" = "You cannot remove more pins";
 
-"callout.bottomButton" = "Press the Apply button to proceed.";
+"callout.bottomButton" = "Press the Apply button to continue.";
 
 "alert.reset.message" = "Are you sure you want to reset\nand remove all your filter selections?";
 "alert.action.reset" = "Reset the filter";

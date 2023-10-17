@@ -7,7 +7,7 @@ import Foundation
 public enum FilterUnit: Equatable {
     case centimeters
     case cubicCentimeters
-    case currency
+    case currency(unit: String)
     case feet
     case horsePower
     case items
@@ -30,8 +30,12 @@ public enum FilterUnit: Equatable {
             return "unit.centimeters.value".localized()
         case .cubicCentimeters:
             return "unit.cubicCentimeters.value".localized()
-        case .currency:
-            return "unit.currency.value".localized()
+        case .currency(let unit):
+            if let currencyConfig = Charcoal.currencyConfig {
+                return currencyConfig.localCurrencyLocalized
+            } else {
+                return unit
+            }
         case .feet:
             return "unit.feet.value".localized()
         case .horsePower:
@@ -63,8 +67,12 @@ public enum FilterUnit: Equatable {
             return "unit.centimeters.accessibilityValue".localized()
         case .cubicCentimeters:
             return "unit.cubicCentimeters.accessibilityValue".localized()
-        case .currency:
-            return "unit.currency.accessibilityValue".localized()
+        case .currency(let unit):
+            if let currencyConfig = Charcoal.currencyConfig {
+                return currencyConfig.localCurrencyAccessibleLocalized
+            } else {
+                return unit
+            }
         case .feet:
             return "unit.feet.accessibilityValue".localized()
         case .horsePower:

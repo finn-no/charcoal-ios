@@ -15,7 +15,6 @@ final class FilterUnitTests: XCTestCase {
     func testValue() {
         XCTAssertEqual(FilterUnit.centimeters.value, "unit.centimeters.value".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.value, "unit.cubicCentimeters.value".localized())
-        XCTAssertEqual(FilterUnit.currency.value, "unit.currency.value".localized())
         XCTAssertEqual(FilterUnit.feet.value, "unit.feet.value".localized())
         XCTAssertEqual(FilterUnit.horsePower.value, "unit.horsePower.value".localized())
         XCTAssertEqual(FilterUnit.items.value, "unit.items.value".localized())
@@ -30,7 +29,6 @@ final class FilterUnitTests: XCTestCase {
     func testAccessibilityValue() {
         XCTAssertEqual(FilterUnit.centimeters.accessibilityValue, "unit.centimeters.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.accessibilityValue, "unit.cubicCentimeters.accessibilityValue".localized())
-        XCTAssertEqual(FilterUnit.currency.accessibilityValue, "unit.currency.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.feet.accessibilityValue, "unit.feet.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.horsePower.accessibilityValue, "unit.horsePower.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.items.accessibilityValue, "unit.items.accessibilityValue".localized())

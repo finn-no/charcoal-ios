@@ -92,7 +92,7 @@ let container = FilterContainer(
                 valueKind: .incremented(1000),
                 hasLowerBoundOffset: false,
                 hasUpperBoundOffset: true,
-                unit: .currency,
+                unit: .currency(unit: "kr"),
                 usesSmallNumberInputFont: false
             )
         ),

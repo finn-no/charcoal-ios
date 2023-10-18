@@ -97,7 +97,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
             ),
             hasLowerBoundOffset: false,
             hasUpperBoundOffset: true,
-            unit: .currency,
+            unit: .currency(unit: "kr"),
             usesSmallNumberInputFont: false
         )
 
@@ -107,7 +107,7 @@ final class RangeFilterConfigurationTests: XCTestCase {
         XCTAssertTrue(config.hasUpperBoundOffset)
         XCTAssertEqual(config.values, [0, 50, 100, 150, 200, 300, 400, 500, 1000, 1500, 2000, 3000, 4000])
         XCTAssertEqual(config.referenceValues, [0, 400, 4000])
-        XCTAssertEqual(config.unit, .currency)
+        XCTAssertEqual(config.unit, .currency(unit: "kr"))
         XCTAssertFalse(config.usesSmallNumberInputFont)
     }
 

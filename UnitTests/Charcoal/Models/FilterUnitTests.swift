@@ -116,4 +116,20 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertEqual(FilterUnit.year.toValueText, "before".localized())
         XCTAssertEqual(customUnit.toValueText, "upTo".localized())
     }
+
+    func testCurrencyConfigurations() {
+        let unit = "NOK"
+        let currencyFilter = FilterUnit.currency(unit: unit)
+
+        // Fallback on unit given by backend when not configured with a local currency
+        XCTAssertEqual(currencyFilter.value, unit)
+        XCTAssertEqual(currencyFilter.accessibilityValue, unit)
+
+        let localCurrency = "kr"
+        let localCurrencyAccessible = "kroner"
+        Charcoal.configure(localCurrencyLocalized: localCurrency, localCurrencyAccessibleLocalized: localCurrencyAccessible)
+
+        XCTAssertEqual(currencyFilter.value, localCurrency)
+        XCTAssertEqual(currencyFilter.accessibilityValue, localCurrencyAccessible)
+    }
 }

@@ -13,7 +13,7 @@ extension RangeFilterConfiguration {
             (from: 6000, increment: 1000),
         ])
 
-        return create(minimumValue: 0, maximumValue: 30000, unit: .currency, increment: increment)
+        return create(minimumValue: 0, maximumValue: 30000, unit: .currency(unit: "kr"), increment: increment)
     }
 
     static func create(minimumValue: Int = 0, maximumValue: Int = 10, unit: FilterUnit, increment: ValueKind = .incremented(1)) -> RangeFilterConfiguration {

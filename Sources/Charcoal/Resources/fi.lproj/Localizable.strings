@@ -34,7 +34,6 @@
 
 "unit.centimeters.value" = "cm";
 "unit.cubicCentimeters.value" = "cm³";
-"unit.currency.value" = "€";
 "unit.feet.value" = "jalkaa";
 "unit.horsePower.value" = "hv";
 "unit.items.value" = "kpl";
@@ -47,7 +46,6 @@
 
 "unit.centimeters.accessibilityValue" = "senttimetriä";
 "unit.cubicCentimeters.accessibilityValue" = "kuutiosenttimetriä";
-"unit.currency.accessibilityValue" = "euroa";
 "unit.feet.accessibilityValue" = "jalkaa";
 "unit.horsePower.accessibilityValue" = "hevosvoimaa";
 "unit.items.accessibilityValue" = "tuotetta";

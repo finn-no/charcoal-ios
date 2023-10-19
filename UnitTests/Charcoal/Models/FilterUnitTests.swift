@@ -12,10 +12,11 @@ final class FilterUnitTests: XCTestCase {
         shouldFormatWithSeparator: false
     )
 
+    private let currencyUnit = FilterUnit.currency(unit: "kr")
+
     func testValue() {
         XCTAssertEqual(FilterUnit.centimeters.value, "unit.centimeters.value".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.value, "unit.cubicCentimeters.value".localized())
-        XCTAssertEqual(FilterUnit.currency.value, "unit.currency.value".localized())
         XCTAssertEqual(FilterUnit.feet.value, "unit.feet.value".localized())
         XCTAssertEqual(FilterUnit.horsePower.value, "unit.horsePower.value".localized())
         XCTAssertEqual(FilterUnit.items.value, "unit.items.value".localized())
@@ -30,7 +31,6 @@ final class FilterUnitTests: XCTestCase {
     func testAccessibilityValue() {
         XCTAssertEqual(FilterUnit.centimeters.accessibilityValue, "unit.centimeters.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.accessibilityValue, "unit.cubicCentimeters.accessibilityValue".localized())
-        XCTAssertEqual(FilterUnit.currency.accessibilityValue, "unit.currency.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.feet.accessibilityValue, "unit.feet.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.horsePower.accessibilityValue, "unit.horsePower.accessibilityValue".localized())
         XCTAssertEqual(FilterUnit.items.accessibilityValue, "unit.items.accessibilityValue".localized())
@@ -45,7 +45,7 @@ final class FilterUnitTests: XCTestCase {
     func testShouldFormatWithSeparator() {
         XCTAssertTrue(FilterUnit.centimeters.shouldFormatWithSeparator)
         XCTAssertTrue(FilterUnit.cubicCentimeters.shouldFormatWithSeparator)
-        XCTAssertTrue(FilterUnit.currency.shouldFormatWithSeparator)
+        XCTAssertTrue(currencyUnit.shouldFormatWithSeparator)
         XCTAssertTrue(FilterUnit.feet.shouldFormatWithSeparator)
         XCTAssertTrue(FilterUnit.horsePower.shouldFormatWithSeparator)
         XCTAssertTrue(FilterUnit.items.shouldFormatWithSeparator)
@@ -60,7 +60,7 @@ final class FilterUnitTests: XCTestCase {
     func testLowerBoundText() {
         XCTAssertEqual(FilterUnit.centimeters.lowerBoundText, "under".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.lowerBoundText, "under".localized())
-        XCTAssertEqual(FilterUnit.currency.lowerBoundText, "under".localized())
+        XCTAssertEqual(currencyUnit.lowerBoundText, "under".localized())
         XCTAssertEqual(FilterUnit.feet.lowerBoundText, "under".localized())
         XCTAssertEqual(FilterUnit.horsePower.lowerBoundText, "under".localized())
         XCTAssertEqual(FilterUnit.items.lowerBoundText, "under".localized())
@@ -75,7 +75,7 @@ final class FilterUnitTests: XCTestCase {
     func testUpperBoundText() {
         XCTAssertEqual(FilterUnit.centimeters.upperBoundText, "over".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.upperBoundText, "over".localized())
-        XCTAssertEqual(FilterUnit.currency.upperBoundText, "over".localized())
+        XCTAssertEqual(currencyUnit.upperBoundText, "over".localized())
         XCTAssertEqual(FilterUnit.feet.upperBoundText, "over".localized())
         XCTAssertEqual(FilterUnit.horsePower.upperBoundText, "over".localized())
         XCTAssertEqual(FilterUnit.items.upperBoundText, "over".localized())
@@ -90,7 +90,7 @@ final class FilterUnitTests: XCTestCase {
     func testFromValueText() {
         XCTAssertEqual(FilterUnit.centimeters.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.fromValueText, "from".localized())
-        XCTAssertEqual(FilterUnit.currency.fromValueText, "from".localized())
+        XCTAssertEqual(currencyUnit.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.feet.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.horsePower.fromValueText, "from".localized())
         XCTAssertEqual(FilterUnit.items.fromValueText, "from".localized())
@@ -105,7 +105,7 @@ final class FilterUnitTests: XCTestCase {
     func testToValueText() {
         XCTAssertEqual(FilterUnit.centimeters.toValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.cubicCentimeters.toValueText, "upTo".localized())
-        XCTAssertEqual(FilterUnit.currency.toValueText, "upTo".localized())
+        XCTAssertEqual(currencyUnit.toValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.feet.toValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.horsePower.toValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.items.toValueText, "upTo".localized())
@@ -115,5 +115,21 @@ final class FilterUnitTests: XCTestCase {
         XCTAssertEqual(FilterUnit.squareMeters.toValueText, "upTo".localized())
         XCTAssertEqual(FilterUnit.year.toValueText, "before".localized())
         XCTAssertEqual(customUnit.toValueText, "upTo".localized())
+    }
+
+    func testCurrencyConfigurations() {
+        let unit = "NOK"
+        let currencyFilter = FilterUnit.currency(unit: unit)
+
+        // Fallback on unit given by backend when not configured with a local currency
+        XCTAssertEqual(currencyFilter.value, unit)
+        XCTAssertEqual(currencyFilter.accessibilityValue, unit)
+
+        let localCurrency = "kr"
+        let localCurrencyAccessible = "kroner"
+        Charcoal.configure(localCurrencyLocalized: localCurrency, localCurrencyAccessibleLocalized: localCurrencyAccessible)
+
+        XCTAssertEqual(currencyFilter.value, localCurrency)
+        XCTAssertEqual(currencyFilter.accessibilityValue, localCurrencyAccessible)
     }
 }

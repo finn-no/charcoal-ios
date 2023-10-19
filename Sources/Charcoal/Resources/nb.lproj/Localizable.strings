@@ -34,7 +34,6 @@
 
 "unit.centimeters.value" = "cm";
 "unit.cubicCentimeters.value" = "ccm";
-"unit.currency.value" = "kr";
 "unit.feet.value" = "fot";
 "unit.horsePower.value" = "hk";
 "unit.items.value" = "stk.";
@@ -47,7 +46,6 @@
 
 "unit.centimeters.accessibilityValue" = "centimeter";
 "unit.cubicCentimeters.accessibilityValue" = "kubikkcentimeter";
-"unit.currency.accessibilityValue" = "kroner";
 "unit.feet.accessibilityValue" = "fot";
 "unit.horsePower.accessibilityValue" = "hestekrefter";
 "unit.items.accessibilityValue" = "stykk";

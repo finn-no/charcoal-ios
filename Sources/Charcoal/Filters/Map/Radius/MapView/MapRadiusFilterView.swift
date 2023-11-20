@@ -12,7 +12,7 @@ protocol MapRadiusFilterViewDelegate: MKMapViewDelegate {
 
 final class MapRadiusFilterView: UIView {
     private static let defaultRadius = 40000
-    private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
+    private static let defaultCenterCoordinate = Charcoal.configuration.mapConfig.defaultMapCenterCoordinate
     private static let userLocationButtonWidth: CGFloat = 46
 
     weak var delegate: MapRadiusFilterViewDelegate? {

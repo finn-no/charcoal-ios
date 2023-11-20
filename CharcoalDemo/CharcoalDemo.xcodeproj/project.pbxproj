@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27B2D3D52B0B867D009E2EC0 /* DemoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2D3D42B0B867D009E2EC0 /* DemoConfig.swift */; };
 		79CC221A25D67B8600E165BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC221925D67B8600E165BE /* AppDelegate.swift */; };
 		79CC221C25D67B8600E165BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CC221B25D67B8600E165BE /* SceneDelegate.swift */; };
 		79CC222325D67B8700E165BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CC222225D67B8700E165BE /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27B2D3D42B0B867D009E2EC0 /* DemoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoConfig.swift; sourceTree = "<group>"; };
 		793ACF2925EF9D7C00FC9F70 /* charcoal-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "charcoal-ios"; path = ..; sourceTree = "<group>"; };
 		79CC221625D67B8600E165BE /* CharcoalDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharcoalDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CC221925D67B8600E165BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				79CC222225D67B8700E165BE /* Assets.xcassets */,
 				79CC222425D67B8700E165BE /* LaunchScreen.storyboard */,
 				79CC222725D67B8700E165BE /* Info.plist */,
+				27B2D3D42B0B867D009E2EC0 /* DemoConfig.swift */,
 			);
 			path = CharcoalDemo;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				79CC225325D682F100E165BE /* RangeFilterDemoViewController.swift in Sources */,
 				79CC225825D682F100E165BE /* DataSource.swift in Sources */,
 				79CC224E25D682F100E165BE /* RangeFilterConfigurationExtensions.swift in Sources */,
+				27B2D3D52B0B867D009E2EC0 /* DemoConfig.swift in Sources */,
 				79CC225725D682F100E165BE /* Setup.swift in Sources */,
 				79CC225225D682F100E165BE /* MapFilterDemoViewController.swift in Sources */,
 				79CC225125D682F100E165BE /* FilterContainerExtensions.swift in Sources */,

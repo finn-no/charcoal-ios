@@ -4,6 +4,7 @@
 
 @testable import Charcoal
 import XCTest
+import MapKit
 
 final class FilterUnitTests: XCTestCase {
     private let customUnit = FilterUnit.custom(
@@ -118,16 +119,14 @@ final class FilterUnitTests: XCTestCase {
     }
 
     func testCurrencyConfigurations() {
-        let unit = "NOK"
-        let currencyFilter = FilterUnit.currency(unit: unit)
-
-        // Fallback on unit given by backend when not configured with a local currency
-        XCTAssertEqual(currencyFilter.value, unit)
-        XCTAssertEqual(currencyFilter.accessibilityValue, unit)
+        let currencyFilter = FilterUnit.currency(unit: "NOK")
 
         let localCurrency = "kr"
         let localCurrencyAccessible = "kroner"
-        Charcoal.configure(localCurrencyLocalized: localCurrency, localCurrencyAccessibleLocalized: localCurrencyAccessible)
+        Charcoal.setup(TestConfig(
+            localCurrencyLocalized: localCurrency,
+            localCurrencyAccessibleLocalized: localCurrencyAccessible
+        ))
 
         XCTAssertEqual(currencyFilter.value, localCurrency)
         XCTAssertEqual(currencyFilter.accessibilityValue, localCurrencyAccessible)

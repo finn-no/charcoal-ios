@@ -30,12 +30,8 @@ public enum FilterUnit: Equatable {
             return "unit.centimeters.value".localized()
         case .cubicCentimeters:
             return "unit.cubicCentimeters.value".localized()
-        case .currency(let unit):
-            if let currencyConfig = Charcoal.currencyConfig {
-                return currencyConfig.localCurrencyLocalized
-            } else {
-                return unit
-            }
+        case .currency:
+            return Charcoal.configuration.currencyConfig.localCurrencyLocalized
         case .feet:
             return "unit.feet.value".localized()
         case .horsePower:
@@ -67,12 +63,8 @@ public enum FilterUnit: Equatable {
             return "unit.centimeters.accessibilityValue".localized()
         case .cubicCentimeters:
             return "unit.cubicCentimeters.accessibilityValue".localized()
-        case .currency(let unit):
-            if let currencyConfig = Charcoal.currencyConfig {
-                return currencyConfig.localCurrencyAccessibleLocalized
-            } else {
-                return unit
-            }
+        case .currency:
+            return Charcoal.configuration.currencyConfig.localCurrencyAccessibleLocalized
         case .feet:
             return "unit.feet.accessibilityValue".localized()
         case .horsePower:

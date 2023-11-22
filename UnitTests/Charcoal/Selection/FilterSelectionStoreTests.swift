@@ -8,6 +8,11 @@ import XCTest
 final class FilterSelectionStoreTests: XCTestCase {
     private let store = FilterSelectionStore()
 
+    override func setUp() {
+        Charcoal.setup(TestConfig())
+        super.setUp()
+    }
+
     override func tearDown() {
         store.clear()
         super.tearDown()

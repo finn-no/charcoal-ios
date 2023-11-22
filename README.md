@@ -70,7 +70,16 @@ Don't forget to add `Charcoal` as a dependency to your intended target!
 
 ## Usage
 
-1. Create filter container with a list of filters, for example:
+1. Setup
+
+```swift
+import Charcoal
+
+let charcoalConfiguration = CustomImplementationOfCharcoalConfiguration()
+Charcoal.setup(charcoalConfiguration)
+```
+
+2. Create filter container with a list of filters, for example:
 
 ```swift
 let container = FilterContainer(

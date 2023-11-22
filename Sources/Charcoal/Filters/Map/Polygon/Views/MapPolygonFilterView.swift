@@ -29,7 +29,7 @@ final class MapPolygonFilterView: UIView {
     // MARK: - Private properties
 
     private static let defaultRadius = 40000
-    private static let defaultCenterCoordinate = CLLocationCoordinate2D(latitude: 59.9171, longitude: 10.7275)
+    private static let defaultCenterCoordinate = Charcoal.configuration.mapConfig.defaultMapCenterCoordinate
     private static let annotationFillColor: CGColor = UIColor.milk.cgColor
     private static let annotationBorderColor: CGColor = MapPolygonFilterView.overlayColor.cgColor
 

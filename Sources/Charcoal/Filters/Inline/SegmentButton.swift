@@ -29,7 +29,7 @@ final class SegmentButton: UIButton {
 
     private var borderLayer = CAShapeLayer()
     private var maskLayer = CAShapeLayer()
-    private var selectedBackgroundColor: UIColor = .btnPrimary
+    private var selectedBackgroundColor: UIColor = .btnAction
 
     init(title: String) {
         super.init(frame: .zero)

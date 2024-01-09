@@ -31,7 +31,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
         return button
     }()
 
-    private let defaultBackgroundColor: UIColor = .btnAction
+    private let defaultBackgroundColor: UIColor = .nmpBrandControlSelected
 
     // MARK: - Init
 

@@ -32,8 +32,8 @@ final class StepperFilterView: UIControl {
         return label
     }()
 
-    private let activeColor = UIColor.btnPrimary
-    private let deactiveColor = UIColor.btnPrimary.withAlphaComponent(0.2)
+    private let activeColor = UIColor.nmpBrandControlSelected
+    private let deactiveColor = UIColor.nmpBrandControlSelected.withAlphaComponent(0.2)
 
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)

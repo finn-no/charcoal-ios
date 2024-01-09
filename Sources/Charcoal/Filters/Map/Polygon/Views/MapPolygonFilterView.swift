@@ -95,7 +95,7 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var userLocationButton: UIButton = {
         let button = CircleButton()
-        button.imageView?.tintColor = .btnPrimary
+        button.imageView?.tintColor = .nmpBrandDecoration
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
@@ -419,7 +419,7 @@ private class CircleButton: UIButton {
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = Theme.mainBackground
-        tintColor = .btnPrimary
+        tintColor = .nmpBrandDecoration
         layer.cornerRadius = CircleButton.width / 2
 
         dropShadow(color: .black, opacity: 0.5, offset: CGSize(width: 0, height: 1), radius: 3)

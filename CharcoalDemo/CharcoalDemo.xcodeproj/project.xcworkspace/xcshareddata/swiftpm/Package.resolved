@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/finn-no/FinniversKit.git",
       "state" : {
-        "revision" : "d11846eca89cf6f50926d5bae7deccbef0a19b99",
-        "version" : "120.2.0"
+        "branch" : "tori-colors",
+        "revision" : "3ea5100eb8d3589b9540d6037e67e51f0a5ad589"
       }
     },
     {

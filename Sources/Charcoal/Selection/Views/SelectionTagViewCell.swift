@@ -31,6 +31,8 @@ final class SelectionTagViewCell: UICollectionViewCell {
         return button
     }()
 
+    private let defaultBackgroundColor: UIColor = .nmpBrandControlSelected
+
     // MARK: - Init
 
     override init(frame: CGRect) {
@@ -61,7 +63,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
     // MARK: - Setup
 
     func configure(withTitle title: SelectionTitle?, isValid: Bool) {
-        backgroundColor = isValid ? .btnPrimary : .btnCritical
+        backgroundColor = isValid ? defaultBackgroundColor : .btnCritical
 
         titleLabel.text = title?.value
         titleLabel.accessibilityLabel = title?.accessibilityLabel
@@ -72,7 +74,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
 
     private func setup() {
         layer.cornerRadius = 4
-        backgroundColor = .btnPrimary
+        backgroundColor = defaultBackgroundColor
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(removeButton)

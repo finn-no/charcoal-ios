@@ -269,7 +269,7 @@ private struct Style {
     static let hintNormalFont: UIFont = .body
     static let hintActiveFont: UIFont = .bodyStrong
     static let decorationViewColor: UIColor = .textSecondary
-    static let decorationViewActiveColor: UIColor = .btnPrimary
+    static let decorationViewActiveColor: UIColor = .nmpBrandControlSelected
     static let decorationViewHeight: CGFloat = 1.0
     static let decorationViewActiveHeight: CGFloat = 3.0
     static let decorationViewActiveCornerRadius = decorationViewActiveHeight / 2

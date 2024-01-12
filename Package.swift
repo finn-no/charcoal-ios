@@ -13,7 +13,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/finn-no/FinniversKit.git", branch: "tori-colors"), //119.0.0"..."999.0.0")
+        .package(url: "https://github.com/finn-no/FinniversKit.git", "128.0.0"..."999.0.0")
     ],
     targets: [
         .target(

@@ -229,7 +229,7 @@ extension ListFilterViewController: UITableViewDelegate {
 
     private func animateSelectionForRow(at indexPath: IndexPath, isSelected: Bool) {
         if let cell = tableView.cellForRow(at: indexPath) as? ListFilterCell {
-            cell.animateSelection(isSelected: isSelected)
+            cell.configure(isSelected: isSelected)
         }
     }
 }

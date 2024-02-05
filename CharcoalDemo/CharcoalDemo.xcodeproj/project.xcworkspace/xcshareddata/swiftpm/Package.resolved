@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/finn-no/FinniversKit.git",
       "state" : {
-        "branch" : "checkbox-radiobutton-update",
-        "revision" : "e291c055f335eb88614629334bb9064b04eac229"
+        "revision" : "da8cdc7975746e2b02675d3c396d653e2b17dfe0",
+        "version" : "131.0.0"
       }
     },
     {

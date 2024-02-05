@@ -51,8 +51,8 @@ final class ListFilterCell: CheckboxTableViewCell {
         showSelectedBackground(highlighted)
     }
 
-    override func animateSelection(isSelected: Bool) {
-        super.animateSelection(isSelected: isSelected)
+    override func configure(isSelected: Bool) {
+        super.configure(isSelected: isSelected)
         updateAccessibilityLabel(isSelected: isSelected)
         showSelectedBackground(!isSelected)
 

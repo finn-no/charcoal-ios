@@ -13,7 +13,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/finn-no/FinniversKit.git", "131.0.0"..."999.0.0")
+        .package(url: "https://github.com/finn-no/FinniversKit.git", branch: "map-overlay-colors") //131.0.0"..."999.0.0")
     ],
     targets: [
         .target(

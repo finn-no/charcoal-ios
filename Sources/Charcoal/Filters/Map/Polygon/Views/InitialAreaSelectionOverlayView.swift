@@ -9,8 +9,9 @@ final class InitialAreaSelectionOverlayView: UIView {
 
     private lazy var squareView: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = UIColor.accentSecondaryBlue.withAlphaComponent(0.15)
-        view.layer.borderColor = .accentSecondaryBlue
+        let color: UIColor = .borderSecondary
+        view.backgroundColor = color.withAlphaComponent(0.15)
+        view.layer.borderColor = color.cgColor
         view.layer.borderWidth = 2
         return view
     }()

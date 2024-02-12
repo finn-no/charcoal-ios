@@ -27,7 +27,7 @@ final class MapRadiusOverlayView: UIView {
 
     private lazy var widthConstraint = radiusView.widthAnchor.constraint(equalToConstant: radius * 2)
 
-    static let overlayColor: UIColor = .accentSecondaryBlue
+    static let overlayColor: UIColor = .borderSecondary
 
     // MARK: - Init
 

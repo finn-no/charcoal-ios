@@ -24,7 +24,7 @@ final class MapPolygonFilterView: UIView {
         case polygonSelection
     }
 
-    static let overlayColor: UIColor = .accentSecondaryBlue
+    static let overlayColor: UIColor = .borderSecondary
 
     // MARK: - Private properties
 

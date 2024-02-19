@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/finn-no/FinniversKit.git",
       "state" : {
-        "branch" : "map-overlay-colors",
-        "revision" : "24f2f366fc86c439fc98031e29a9595c0cd05958"
+        "revision" : "2021c0371174f91c8225e4a621be1f5e87617bd7",
+        "version" : "134.0.0"
       }
     },
     {

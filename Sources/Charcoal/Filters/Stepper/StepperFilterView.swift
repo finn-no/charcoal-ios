@@ -123,7 +123,9 @@ private extension StepperFilterView {
     func updateButtons(forValue value: Int?) {
         switch value {
         case nil: deactivateButton(minusButton)
-        case maximumValue: deactivateButton(plusButton)
+        case maximumValue:
+            deactivateButton(plusButton)
+            activateButton(minusButton)
         default:
             activateButton(minusButton)
             activateButton(plusButton)

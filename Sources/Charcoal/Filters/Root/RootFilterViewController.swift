@@ -29,6 +29,7 @@ final class RootFilterViewController: FilterViewController {
     }
 
     var focusOnFreeTextFilterOnNextAppearance: Bool = false
+    var isFreeTextOnlySelected: Bool = false
 
     // MARK: - Private properties
 
@@ -113,6 +114,11 @@ final class RootFilterViewController: FilterViewController {
         if focusOnFreeTextFilterOnNextAppearance {
             freeTextFilterViewController?.searchBar.becomeFirstResponder()
             focusOnFreeTextFilterOnNextAppearance = false
+        }
+        
+        if isFreeTextOnlySelected {
+            freeTextFilterViewController?.isFreeTextOnlySelected = true
+            isFreeTextOnlySelected = false
         }
     }
 
@@ -469,7 +475,7 @@ private extension RootFilterViewController {
         guard let freeTextFilter = filterContainer.freeTextFilter else { return }
 
         if freeTextFilterViewController == nil {
-            let freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore)
+            let freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore, isFreeTextOnlySelected: isFreeTextOnlySelected)
             self.freeTextFilterViewController = freeTextFilterViewController
             freeTextFilterViewController.delegate = self
             freeTextFilterViewController.filterDelegate = freeTextFilterDelegate

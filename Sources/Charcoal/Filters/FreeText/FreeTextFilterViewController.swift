@@ -31,6 +31,10 @@ public class FreeTextFilterViewController: ScrollViewController {
 
     weak var delegate: FreeTextFilterViewControllerDelegate?
 
+    // MARK: - Internal Properties
+    
+    var isFreeTextOnlySelected = false
+    
     // MARK: - Private Properties
 
     private var didClearText = false
@@ -61,10 +65,11 @@ public class FreeTextFilterViewController: ScrollViewController {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default) {
+    init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default, isFreeTextOnlySelected: Bool = false) {
         self.filter = filter
         self.selectionStore = selectionStore
         self.notificationCenter = notificationCenter
+        self.isFreeTextOnlySelected = isFreeTextOnlySelected
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -150,6 +155,12 @@ extension FreeTextFilterViewController: UITableViewDelegate {
         selectionStore.setValue(value, for: filter)
         delegate?.freeTextFilterViewController(self, didSelectSuggestion: value, at: indexPath.row, for: filter)
 
+        guard !isFreeTextOnlySelected else {
+            dismiss(animated: true)
+            isFreeTextOnlySelected = false
+            return
+        }
+        
         returnToSuperView()
     }
 }

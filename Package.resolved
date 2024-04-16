@@ -5,8 +5,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/finn-no/FinniversKit.git",
       "state" : {
-        "revision" : "ae037d661da2da43a81c3996649c8fbe7d079566",
-        "version" : "119.0.0"
+        "revision" : "cf78ea25f68a5a4f4da5617e53559874d03f27ff",
+        "version" : "137.0.1"
+      }
+    },
+    {
+      "identity" : "warp-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/warp-ds/warp-ios.git",
+      "state" : {
+        "revision" : "eff9401d45e51115e3902cee9a01466fcc9fb28c",
+        "version" : "0.0.7"
       }
     }
   ],

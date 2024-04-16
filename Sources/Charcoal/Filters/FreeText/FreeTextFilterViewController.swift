@@ -154,12 +154,6 @@ extension FreeTextFilterViewController: UITableViewDelegate {
 
         selectionStore.setValue(value, for: filter)
         delegate?.freeTextFilterViewController(self, didSelectSuggestion: value, at: indexPath.row, for: filter)
-
-        guard !isFreeTextOnlySelected else {
-            dismiss(animated: true)
-            isFreeTextOnlySelected = false
-            return
-        }
         
         returnToSuperView()
     }
@@ -234,11 +228,20 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
 
 private extension FreeTextFilterViewController {
     func returnToSuperView() {
+        guard !isFreeTextOnlySelected else {
+            dismissView()
+            return
+        }
         if view.superview != nil {
             searchBar.endEditing(false)
             searchBar.setShowsCancelButton(false, animated: false)
             delegate?.freeTextFilterViewControllerWillEndEditing(self)
         }
+    }
+    
+    func dismissView() {
+        dismiss(animated: true)
+        isFreeTextOnlySelected = false
     }
 
     func setup() {

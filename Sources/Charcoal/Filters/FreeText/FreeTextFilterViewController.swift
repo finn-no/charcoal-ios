@@ -228,9 +228,8 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
 
 private extension FreeTextFilterViewController {
     func returnToSuperView() {
-        guard !isFreeTextOnlySelected else {
+        if isFreeTextOnlySelected {
             dismissView()
-            return
         }
         
         if view.superview != nil {

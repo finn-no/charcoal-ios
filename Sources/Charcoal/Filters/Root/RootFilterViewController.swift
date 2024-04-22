@@ -28,7 +28,7 @@ final class RootFilterViewController: FilterViewController {
         didSet { freeTextFilterViewController?.filterDataSource = freeTextFilterDataSource }
     }
 
-    var isFreeTextOnlySelected: Bool = false
+    var dismissFiltersOnNextFreeTextSelection: Bool = false
     var focusOnFreeTextFilterOnNextAppearance: Bool = false
 
     // MARK: - Private properties
@@ -116,9 +116,9 @@ final class RootFilterViewController: FilterViewController {
             focusOnFreeTextFilterOnNextAppearance = false
         }
         
-        if isFreeTextOnlySelected {
-            freeTextFilterViewController?.isFreeTextOnlySelected = true
-            isFreeTextOnlySelected = false
+        if dismissFiltersOnNextFreeTextSelection {
+            freeTextFilterViewController?.dismissFiltersOnNextFreeTextSelection = true
+            dismissFiltersOnNextFreeTextSelection = false
         }
     }
 
@@ -475,7 +475,7 @@ private extension RootFilterViewController {
         guard let freeTextFilter = filterContainer.freeTextFilter else { return }
 
         if freeTextFilterViewController == nil {
-            let freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore, isFreeTextOnlySelected: isFreeTextOnlySelected)
+            let freeTextFilterViewController = FreeTextFilterViewController(filter: freeTextFilter, selectionStore: selectionStore, dismissFiltersOnNextFreeTextSelection: dismissFiltersOnNextFreeTextSelection)
             self.freeTextFilterViewController = freeTextFilterViewController
             freeTextFilterViewController.delegate = self
             freeTextFilterViewController.filterDelegate = freeTextFilterDelegate

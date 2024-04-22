@@ -116,7 +116,7 @@ public final class CharcoalViewController: UINavigationController {
 
         if filter.kind == .freeText || filter.kind == .freeTextOnly {
             rootFilterViewController.focusOnFreeTextFilterOnNextAppearance = true
-            rootFilterViewController.isFreeTextOnlySelected = filter.kind == .freeTextOnly
+            rootFilterViewController.dismissFiltersOnNextFreeTextSelection = filter.kind == .freeTextOnly
             return
         }
 

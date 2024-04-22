@@ -33,7 +33,7 @@ public class FreeTextFilterViewController: ScrollViewController {
 
     // MARK: - Internal Properties
     
-    var isFreeTextOnlySelected = false
+    var dismissFiltersOnNextFreeTextSelection = false
 
     // MARK: - Private Properties
 
@@ -65,11 +65,11 @@ public class FreeTextFilterViewController: ScrollViewController {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default, isFreeTextOnlySelected: Bool = false) {
+    init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default, dismissFiltersOnNextFreeTextSelection: Bool = false) {
         self.filter = filter
         self.selectionStore = selectionStore
         self.notificationCenter = notificationCenter
-        self.isFreeTextOnlySelected = isFreeTextOnlySelected
+        self.dismissFiltersOnNextFreeTextSelection = dismissFiltersOnNextFreeTextSelection
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -228,8 +228,9 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
 
 private extension FreeTextFilterViewController {
     func returnToSuperView() {
-        if isFreeTextOnlySelected {
+        if dismissFiltersOnNextFreeTextSelection {
             dismissView()
+            dismissFiltersOnNextFreeTextSelection = false
         }
         
         if view.superview != nil {
@@ -241,7 +242,6 @@ private extension FreeTextFilterViewController {
 
     func dismissView() {
         dismiss(animated: true)
-        isFreeTextOnlySelected = false
     }
 
     func setup() {

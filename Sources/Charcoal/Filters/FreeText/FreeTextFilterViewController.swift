@@ -31,6 +31,10 @@ public class FreeTextFilterViewController: ScrollViewController {
 
     weak var delegate: FreeTextFilterViewControllerDelegate?
 
+    // MARK: - Internal Properties
+    
+    var dismissFiltersOnNextFreeTextSelection = false
+
     // MARK: - Private Properties
 
     private var didClearText = false
@@ -61,10 +65,11 @@ public class FreeTextFilterViewController: ScrollViewController {
 
     // MARK: - Init
 
-    init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default) {
+    init(filter: Filter, selectionStore: FilterSelectionStore, notificationCenter: NotificationCenter = .default, dismissFiltersOnNextFreeTextSelection: Bool = false) {
         self.filter = filter
         self.selectionStore = selectionStore
         self.notificationCenter = notificationCenter
+        self.dismissFiltersOnNextFreeTextSelection = dismissFiltersOnNextFreeTextSelection
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -223,11 +228,20 @@ extension FreeTextFilterViewController: UISearchBarDelegate {
 
 private extension FreeTextFilterViewController {
     func returnToSuperView() {
+        if dismissFiltersOnNextFreeTextSelection {
+            dismissView()
+            dismissFiltersOnNextFreeTextSelection = false
+        }
+        
         if view.superview != nil {
             searchBar.endEditing(false)
             searchBar.setShowsCancelButton(false, animated: false)
             delegate?.freeTextFilterViewControllerWillEndEditing(self)
         }
+    }
+
+    func dismissView() {
+        dismiss(animated: true)
     }
 
     func setup() {

@@ -114,8 +114,9 @@ public final class CharcoalViewController: UINavigationController {
         guard let rootFilterViewController = rootFilterViewController else { return }
         popToRootViewController(animated: false)
 
-        if filter.kind == .freeText {
+        if filter.kind == .freeText || filter.kind == .freeTextOnly {
             rootFilterViewController.focusOnFreeTextFilterOnNextAppearance = true
+            rootFilterViewController.dismissFiltersOnNextFreeTextSelection = filter.kind == .freeTextOnly
             return
         }
 
@@ -260,7 +261,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     public func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
-        case .standard, .freeText:
+        case .standard, .freeText, .freeTextOnly:
             guard !filter.subfilters.isEmpty else { break }
 
             let listViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)

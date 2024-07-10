@@ -5,10 +5,6 @@
 import Foundation
 
 public class FilterContainer {
-    // MARK: - Public properties
-
-    public var verticals: [Vertical]?
-
     // MARK: - Internal properties
 
     public private(set) var rootFilters: [Filter]

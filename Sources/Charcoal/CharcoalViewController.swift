@@ -72,8 +72,8 @@ public final class CharcoalViewController: UINavigationController {
     }()
 
     private var rootFilterViewController: RootFilterViewController?
-
     private var calloutOverlay: CalloutOverlay?
+    private var verticals: [Vertical]?
 
     // MARK: - Lifecycle
 
@@ -134,6 +134,11 @@ public final class CharcoalViewController: UINavigationController {
         }
     }
 
+    public func configure(with verticals: [Vertical]) {
+        self.verticals = verticals
+        rootFilterViewController?.configure(with: verticals)
+    }
+
     // MARK: - Private
 
     private func configure(with filterContainer: FilterContainer?) {
@@ -151,6 +156,9 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.rootDelegate = self
             rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
+            if let verticals {
+                rootFilterViewController?.configure(with: verticals)
+            }
             setViewControllers([rootFilterViewController].compactMap({ $0 }), animated: false)
         }
     }

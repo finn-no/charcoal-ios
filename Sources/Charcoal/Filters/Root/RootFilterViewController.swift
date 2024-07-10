@@ -75,6 +75,7 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Filter
 
     private var filterContainer: FilterContainer
+    private var verticals: [Vertical]?
 
     // MARK: - Init
 
@@ -147,6 +148,11 @@ final class RootFilterViewController: FilterViewController {
         reloadFilters()
     }
 
+    func configure(with verticals: [Vertical]) {
+        self.verticals = verticals
+        updateNavigationTitleView()
+    }
+
     func showLoadingIndicator(_ show: Bool) {
         resetButton.isEnabled = !show
         verticalSelectorView.isEnabled = !show
@@ -190,7 +196,7 @@ final class RootFilterViewController: FilterViewController {
     }
 
     private func updateNavigationTitleView() {
-        if let vertical = filterContainer.verticals?.first(where: { $0.isCurrent }) {
+        if let vertical = verticals?.first(where: { $0.isCurrent }) {
             verticalSelectorView.delegate = self
             verticalSelectorView.configure(
                 withTitle: "root.verticalSelector.title".localized(),
@@ -377,7 +383,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
     }
 
     private func showVerticalViewController() {
-        guard let verticals = filterContainer.verticals else { return }
+        guard let verticals else { return }
 
         showResetButton(false)
         verticalSelectorView.arrowDirection = .up
@@ -426,7 +432,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        if let vertical = filterContainer.verticals?[safe: index], !vertical.isCurrent {
+        if let vertical = verticals?[safe: index], !vertical.isCurrent {
             freeTextFilterViewController?.searchBar.text = nil
             hideVerticalViewController()
             rootDelegate?.rootFilterViewController(self, didSelectVertical: vertical)

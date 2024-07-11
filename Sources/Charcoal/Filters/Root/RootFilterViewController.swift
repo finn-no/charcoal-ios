@@ -12,6 +12,7 @@ protocol RootFilterViewControllerDelegate: AnyObject {
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectFreeTextFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectSuggestionAt index: Int, filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical)
+    func rootFilterViewControllerDidSelectReloadVerticals(_ viewController: RootFilterViewController)
 }
 
 final class RootFilterViewController: FilterViewController {
@@ -56,6 +57,12 @@ final class RootFilterViewController: FilterViewController {
         let textColor = UIColor.textLink
         button.setTitleTextAttributes([.font: font, .foregroundColor: textColor])
         button.setTitleTextAttributes([.font: font, .foregroundColor: textColor.withAlphaComponent(0.3)], for: .disabled)
+        return button
+    }()
+
+    private lazy var reloadButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "root.loadVerticals".localized(), style: .plain, target: self, action: #selector(reloadTapped))
+        button.setTitleTextAttributes([.font: UIFont.bodyStrong, .foregroundColor: UIColor.textAction])
         return button
     }()
 
@@ -152,6 +159,14 @@ final class RootFilterViewController: FilterViewController {
     func configure(with verticals: [Vertical]) {
         self.verticals = verticals
         updateNavigationTitleView()
+    }
+
+    func updateReloadVerticalsButton(isVisible: Bool) {
+        if isVisible {
+            navigationItem.leftBarButtonItem = reloadButton
+        } else {
+            navigationItem.leftBarButtonItem = nil
+        }
     }
 
     func showLoadingIndicator(_ show: Bool) {
@@ -266,6 +281,10 @@ final class RootFilterViewController: FilterViewController {
         }
 
         present(alertController, animated: true)
+    }
+
+    @objc private func reloadTapped() {
+        rootDelegate?.rootFilterViewControllerDidSelectReloadVerticals(self)
     }
 }
 

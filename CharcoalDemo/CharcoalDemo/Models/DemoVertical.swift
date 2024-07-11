@@ -20,7 +20,7 @@ class DemoVertical: Vertical {
 }
 
 extension Array where Element == DemoVertical {
-    static var single: [DemoVertical] {
+    static var none: [DemoVertical] {
         create(0)
     }
 

@@ -26,6 +26,7 @@
 
 "root.title" = "Filtrer søket";
 "root.verticalSelector.title" = "Flere kategorier";
+"root.loadVerticals" = "Hent kategorier";
 
 "range.slider.lowValueAccessibilityLabel" = "Slider for lav verdi";
 "range.slider.highValueAccessibilityLabel" = "Slider for høy verdi";

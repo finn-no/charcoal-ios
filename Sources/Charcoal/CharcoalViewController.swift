@@ -19,6 +19,7 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
                                 origin: SelectionChangeOrigin)
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didSelect selection: CharcoalViewController.MapSelection)
+    func charcoalViewControllerDidSelectReloadVerticals(_ viewController: CharcoalViewController)
 }
 
 public protocol CharcoalViewControllerMapDelegate: AnyObject {
@@ -139,6 +140,11 @@ public final class CharcoalViewController: UINavigationController {
         rootFilterViewController?.configure(with: verticals)
     }
 
+    public func updateReloadVerticalsButton(isVisible: Bool) {
+        // TODO: setup root filter earlier, so we dont have to inject this later if its nil atm?
+        rootFilterViewController?.updateReloadVerticalsButton(isVisible: isVisible)
+    }
+
     // MARK: - Private
 
     private func configure(with filterContainer: FilterContainer?) {
@@ -225,6 +231,10 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical) {
         selectionDelegate?.charcoalViewController(self, didSelect: vertical)
+    }
+
+    func rootFilterViewControllerDidSelectReloadVerticals(_ viewController: RootFilterViewController) {
+        selectionDelegate?.charcoalViewControllerDidSelectReloadVerticals(self)
     }
 
     private func handleFilterSelectionChange(from origin: SelectionChangeOrigin) {

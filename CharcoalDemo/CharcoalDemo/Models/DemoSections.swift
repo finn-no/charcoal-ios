@@ -31,8 +31,9 @@ enum DemoSections: CaseIterable {
             ]
         case .verticals:
             return [
-                Row(title: "Single vertical", filterContainer: .standard, verticals: .single),
+                Row(title: "Single vertical", filterContainer: .standard, verticals: .none),
                 Row(title: "Multiple verticals", filterContainer: .standard, verticals: .multiple),
+                Row(title: "Failed to load verticals", filterContainer: .standard, verticals: .none, showVerticalsReloadButton: true)
             ]
         case .misc:
             return [

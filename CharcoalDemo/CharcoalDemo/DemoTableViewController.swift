@@ -44,9 +44,10 @@ extension DemoTableViewController: UITableViewDelegate {
             charcoalViewController.freeTextFilterDataSource = self
             charcoalViewController.freeTextFilterDelegate = self
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
-            charcoalViewController.filterContainer = row.setup?.filterContainer
-            if let verticals = row.setup?.verticals {
-                charcoalViewController.configure(with: verticals)
+            if let setup = row.setup {
+                charcoalViewController.filterContainer = setup.filterContainer
+                charcoalViewController.configure(with: setup.verticals)
+                charcoalViewController.updateReloadVerticalsButton(isVisible: setup.showVerticalsReloadButton)
             }
             charcoalViewController.selectionDelegate = self
         } else if let viewController = viewController as? DrawerPresentationViewController {
@@ -55,9 +56,10 @@ extension DemoTableViewController: UITableViewDelegate {
             charcoalViewController.freeTextFilterDataSource = self
             charcoalViewController.freeTextFilterDelegate = self
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
-            charcoalViewController.filterContainer = row.setup?.filterContainer
-            if let verticals = row.setup?.verticals {
-                charcoalViewController.configure(with: verticals)
+            if let setup = row.setup {
+                charcoalViewController.filterContainer = setup.filterContainer
+                charcoalViewController.configure(with: setup.verticals)
+                charcoalViewController.updateReloadVerticalsButton(isVisible: setup.showVerticalsReloadButton)
             }
             charcoalViewController.selectionDelegate = self
 
@@ -103,6 +105,16 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
 
     func charcoalViewController(_ viewController: CharcoalViewController, didSelectExternalFilterWithKey key: String, value: String?) {
         print("🔥 Did select external filter with key '\(key)' and value '\(value ?? "nil")'")
+    }
+
+    func charcoalViewControllerDidSelectReloadVerticals(_ viewController: CharcoalViewController) {
+        let verticals: [DemoVertical] = .multiple
+        if let setup = currentRow?.setup {
+            setup.verticals = verticals
+            setup.current = verticals.first
+        }
+        viewController.updateReloadVerticalsButton(isVisible: false)
+        viewController.configure(with: verticals)
     }
 
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem], origin: SelectionChangeOrigin) {}

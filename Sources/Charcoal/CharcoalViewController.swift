@@ -17,8 +17,6 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin)
-    func charcoalViewController(_ viewController: CharcoalViewController,
-                                didSelect selection: CharcoalViewController.MapSelection)
     func charcoalViewControllerDidSelectReloadVerticals(_ viewController: CharcoalViewController)
 }
 
@@ -53,12 +51,6 @@ public final class CharcoalViewController: UINavigationController {
 
     public var selectedFilters: [Filter] {
         selectedFilters(in: filterContainer?.allFilters)
-    }
-
-    public enum MapSelection {
-        case openPolygonSearch
-        case openRadiusSearch
-        case initialArea
     }
 
     // MARK: - Private properties
@@ -382,11 +374,6 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 extension CharcoalViewController: MapFilterViewControllerDelegate {
     public func mapFilterViewControllerDidDismiss(_ mapFilterViewController: MapFilterViewController) {
         mapDelegate?.charcoalViewControllerDidDismissMapSearch(self)
-    }
-
-    public func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
-                                        didSelect selection: CharcoalViewController.MapSelection) {
-        selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }
 

@@ -8,7 +8,6 @@ import UIKit
 
 protocol MapPolygonFilterViewControllerDelegate: AnyObject {
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
-    func mapPolygonFilterViewControllerDidSelectInitialArea(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
     func mapPolygonFilterViewController(_ mapPolygonFilterViewController: MapPolygonFilterViewController, searchIsEnabled: Bool)
     func mapPolygonFilterViewControllerWillBeginTextEditing(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
     func mapPolygonFilterViewControllerWillEndTextEditing(_ mapPolygonFilterViewController: MapPolygonFilterViewController)
@@ -546,7 +545,6 @@ extension MapPolygonFilterViewController: MapPolygonFilterViewDelegate {
         mapPolygonFilterView.drawPolygon(with: annotations)
         mapPolygonFilterView.configure(for: .polygonSelection)
         updateFilterValues()
-        delegate?.mapPolygonFilterViewControllerDidSelectInitialArea(self)
     }
 
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView) {

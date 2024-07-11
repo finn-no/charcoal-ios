@@ -5,8 +5,6 @@
 import UIKit
 
 public protocol MapFilterViewControllerDelegate: AnyObject {
-    func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
-                                 didSelect selection: CharcoalViewController.MapSelection)
     func mapFilterViewControllerDidDismiss(_ mapFilterViewController: MapFilterViewController)
 }
 
@@ -177,10 +175,6 @@ public class MapFilterViewController: FilterViewController {
             mapPolygonFilterViewController : mapRadiusFilterViewController
         display(selectedViewController)
         updateToggleButtonLabel()
-
-        let openedSearch: CharcoalViewController.MapSelection =
-            selectedViewController == mapRadiusFilterViewController ? .openRadiusSearch : .openPolygonSearch
-        mapFilterDelegate?.mapFilterViewController(self, didSelect: openedSearch)
     }
 
     private func updateToggleButtonLabel() {
@@ -220,10 +214,6 @@ extension MapFilterViewController: MapPolygonFilterViewControllerDelegate {
 
     func mapPolygonFilterViewControllerWillEndTextEditing(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
         delegate?.filterViewControllerWillEndTextEditing(self)
-    }
-
-    func mapPolygonFilterViewControllerDidSelectInitialArea(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {
-        mapFilterDelegate?.mapFilterViewController(self, didSelect: .initialArea)
     }
 
     func mapPolygonFilterViewControllerDidSelectFilter(_ mapPolygonFilterViewController: MapPolygonFilterViewController) {

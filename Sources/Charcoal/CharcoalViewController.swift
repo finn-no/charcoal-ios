@@ -137,6 +137,7 @@ public final class CharcoalViewController: UINavigationController {
 
     public func configure(with verticals: [Vertical]) {
         self.verticals = verticals
+        updateReloadVerticalsButton(isVisible: false)
         rootFilterViewController?.configure(with: verticals)
     }
 

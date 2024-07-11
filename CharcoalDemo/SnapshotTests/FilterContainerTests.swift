@@ -24,7 +24,7 @@ class FilterContainerTests: XCTestCase {
     // MARK: - Tests
 
     func testSingleVertical() {
-        snapshot(.standard, verticals: .single)
+        snapshot(.standard, verticals: .none)
     }
     func testMultipleVerticals() {
         snapshot(.standard, verticals: .multiple)

@@ -7,7 +7,7 @@ import UIKit
 
 class Setup {
     var filterContainer: FilterContainer
-    let markets: [DemoVertical]
+    let verticals: [DemoVertical]
 
     var current: DemoVertical? {
         didSet {
@@ -16,9 +16,9 @@ class Setup {
         }
     }
 
-    init(filterContainer: FilterContainer) {
-        defer { current = markets.first }
+    init(filterContainer: FilterContainer, verticals: [DemoVertical]) {
+        defer { current = verticals.first }
         self.filterContainer = filterContainer
-        markets = (filterContainer.verticals as? [DemoVertical]) ?? []
+        self.verticals = verticals
     }
 }

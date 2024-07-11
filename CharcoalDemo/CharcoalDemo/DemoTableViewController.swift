@@ -45,6 +45,9 @@ extension DemoTableViewController: UITableViewDelegate {
             charcoalViewController.freeTextFilterDelegate = self
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
             charcoalViewController.filterContainer = row.setup?.filterContainer
+            if let verticals = row.setup?.verticals {
+                charcoalViewController.configure(with: verticals)
+            }
             charcoalViewController.selectionDelegate = self
         } else if let viewController = viewController as? DrawerPresentationViewController {
             let charcoalViewController = viewController.charcoalViewController
@@ -53,6 +56,9 @@ extension DemoTableViewController: UITableViewDelegate {
             charcoalViewController.freeTextFilterDelegate = self
             charcoalViewController.searchLocationDataSource = searchLocationDataSource
             charcoalViewController.filterContainer = row.setup?.filterContainer
+            if let verticals = row.setup?.verticals {
+                charcoalViewController.configure(with: verticals)
+            }
             charcoalViewController.selectionDelegate = self
 
             viewController.transitioningDelegate = viewController.transition
@@ -79,8 +85,8 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
             return
         }
 
-        if let submarket = setup.markets.first(where: { $0.id == vertical.id }) {
-            setup.current = submarket
+        if let subVertical = setup.verticals.first(where: { $0.id == vertical.id }) {
+            setup.current = subVertical
             viewController.isLoading = true
             viewController.filterContainer = setup.filterContainer
             viewController.isLoading = false

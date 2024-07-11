@@ -7,6 +7,7 @@ class FilterContainerTests: XCTestCase {
 
     private func snapshot(
         _ filterContainer: FilterContainer,
+        verticals: [DemoVertical] = .multiple,
         record recording: Bool = false,
         testName: String = #function
     ) {
@@ -23,10 +24,10 @@ class FilterContainerTests: XCTestCase {
     // MARK: - Tests
 
     func testSingleVertical() {
-        snapshot(.singleVertical)
+        snapshot(.standard, verticals: .single)
     }
     func testMultipleVerticals() {
-        snapshot(.multipleVerticals)
+        snapshot(.standard, verticals: .multiple)
     }
     func testContextFilter() {
         snapshot(.contextFilter)

@@ -118,7 +118,6 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
     }
 
     func charcoalViewController(_ viewController: CharcoalViewController, didChangeSelection selection: [URLQueryItem], origin: SelectionChangeOrigin) {}
-    func charcoalViewController(_ viewController: CharcoalViewController, didSelect selection: CharcoalViewController.MapSelection) {}
 }
 
 extension DemoTableViewController: CharcoalViewControllerTextEditingDelegate {

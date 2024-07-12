@@ -67,6 +67,7 @@ public final class CharcoalViewController: UINavigationController {
     private var rootFilterViewController: RootFilterViewController?
     private var calloutOverlay: CalloutOverlay?
     private var verticals: [Vertical]?
+    private var isReloadVerticalsButtonVisible: Bool?
 
     // MARK: - Lifecycle
 
@@ -134,7 +135,7 @@ public final class CharcoalViewController: UINavigationController {
     }
 
     public func updateReloadVerticalsButton(isVisible: Bool) {
-        // TODO: setup root filter earlier, so we dont have to inject this later if its nil atm?
+        isReloadVerticalsButtonVisible = isVisible
         rootFilterViewController?.updateReloadVerticalsButton(isVisible: isVisible)
     }
 
@@ -157,6 +158,9 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
             if let verticals {
                 rootFilterViewController?.configure(with: verticals)
+            }
+            if let isReloadVerticalsButtonVisible {
+                rootFilterViewController?.updateReloadVerticalsButton(isVisible: isReloadVerticalsButtonVisible)
             }
             setViewControllers([rootFilterViewController].compactMap({ $0 }), animated: false)
         }

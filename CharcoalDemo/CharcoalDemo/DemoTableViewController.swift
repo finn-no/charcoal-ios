@@ -91,6 +91,7 @@ extension DemoTableViewController: CharcoalViewControllerSelectionDelegate {
             setup.current = subVertical
             viewController.isLoading = true
             viewController.filterContainer = setup.filterContainer
+            viewController.configure(with: setup.verticals)
             viewController.isLoading = false
         }
     }

@@ -60,7 +60,12 @@ final class RootFilterViewController: FilterViewController {
     }()
 
     private lazy var reloadButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "root.loadVerticals".localized(), style: .plain, target: self, action: #selector(reloadTapped))
+        let button = UIBarButtonItem(
+            title: "root.loadVerticals".localized(),
+            style: .plain,
+            target: self,
+            action: #selector(reloadTapped)
+        )
         button.setTitleTextAttributes([.font: UIFont.bodyStrong, .foregroundColor: UIColor.textAction])
         return button
     }()

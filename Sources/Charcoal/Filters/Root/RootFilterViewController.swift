@@ -156,7 +156,6 @@ final class RootFilterViewController: FilterViewController {
 
     func set(filterContainer: FilterContainer) {
         self.filterContainer = filterContainer
-        updateNavigationTitleView()
         updateBottomButtonTitle()
         reloadFilters()
     }

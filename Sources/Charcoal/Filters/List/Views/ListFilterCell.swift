@@ -3,6 +3,7 @@
 //
 
 import FinniversKit
+import Warp
 
 final class ListFilterCell: CheckboxTableViewCell {
     private lazy var checkboxImageView = ListFilterImageView(withAutoLayout: true)
@@ -89,7 +90,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
         switch viewModel.checkboxStyle {
         case .selectedBordered:
-            checkboxImageView.tintColor = .nmpBrandControlSelected
+            checkboxImageView.tintColor = .backgroundPrimary
             checkboxImageView.setImage(UIImage(named: .checkboxBordered).withRenderingMode(.alwaysTemplate), for: .normal)
             checkboxImageView.setImage(UIImage(named: .checkboxBorderedDisabled), for: .disabled)
         case .selectedFilled:
@@ -151,7 +152,7 @@ final class ListFilterCell: CheckboxTableViewCell {
 
     private func detailLabelConstraint(constantFor accessoryStyle: ListFilterCellViewModel.AccessoryStyle) -> CGFloat {
         guard accessoryStyle == .chevron else { return 0 }
-        return -.spacingS
+        return -Warp.Spacing.spacing100
     }
 
     private func showSelectedBackground(_ show: Bool) {

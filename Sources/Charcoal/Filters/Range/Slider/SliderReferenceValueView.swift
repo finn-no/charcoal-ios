@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 final class SliderReferenceValueView: UIView {
     weak var leadingConstraint: NSLayoutConstraint?
@@ -25,7 +26,7 @@ final class SliderReferenceValueView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.caption.withSize(12).scaledFont(forTextStyle: .footnote)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .textPrimary
+        label.textColor = .text
         label.textAlignment = .center
         label.text = displayText
         label.isAccessibilityElement = false
@@ -59,7 +60,7 @@ final class SliderReferenceValueView: UIView {
             indicatorView.widthAnchor.constraint(equalToConstant: 4),
             indicatorView.heightAnchor.constraint(equalToConstant: 4),
 
-            referenceLabel.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: .spacingS),
+            referenceLabel.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: Warp.Spacing.spacing100),
             referenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             referenceLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             referenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor),

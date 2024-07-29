@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 protocol RootFilterViewControllerDelegate: AnyObject {
     func rootFilterViewControllerDidResetAllFilters(_ viewController: RootFilterViewController)
@@ -53,7 +54,7 @@ final class RootFilterViewController: FilterViewController {
         let action = #selector(handleResetButtonTap)
         let button = UIBarButtonItem(title: "reset".localized(), style: .plain, target: self, action: action)
         let font = UIFont.bodyStrong
-        let textColor = UIColor.textPrimary
+        let textColor = UIColor.text
         button.setTitleTextAttributes([.font: font, .foregroundColor: textColor])
         button.setTitleTextAttributes([.font: font, .foregroundColor: textColor.withAlphaComponent(0.3)], for: .disabled)
         return button
@@ -414,7 +415,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         add(verticalViewController)
         verticalViewController.verticals = verticals
         verticalViewController.view.alpha = 0.6
-        verticalViewController.view.frame.origin.y = -.spacingXL
+        verticalViewController.view.frame.origin.y = -Warp.Spacing.spacing400
 
         UIView.animate(withDuration: 0.1, animations: { [weak self] in
             self?.verticalViewController.view.alpha = 1
@@ -438,7 +439,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
         bottomButton.alpha = 0
 
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: ({ [weak self] in
-            self?.verticalViewController.view.frame.origin.y = -.spacingXXL
+            self?.verticalViewController.view.frame.origin.y = -Warp.Spacing.spacing800
             self?.verticalViewController.view.alpha = 0
         }), completion: ({ [weak self] _ in
             self?.verticalViewController.remove()
@@ -521,8 +522,8 @@ private extension RootFilterViewController {
 
         NSLayoutConstraint.activate([
             searchBarTopConstraint,
-            freeTextFilterViewController?.searchBar.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: .spacingS),
-            freeTextFilterViewController?.searchBar.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -.spacingM),
+            freeTextFilterViewController?.searchBar.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: Warp.Spacing.spacing100),
+            freeTextFilterViewController?.searchBar.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -Warp.Spacing.spacing200),
         ].compactMap({ $0 }))
     }
 

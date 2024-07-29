@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 protocol SelectionTagViewCellDelegate: AnyObject {
     func selectionTagViewCellDidSelectRemove(_ cell: SelectionTagViewCell)
@@ -17,7 +18,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
         let label = UILabel(withAutoLayout: true)
         label.font = SelectionTagViewCell.titleFont
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .textTertiary
+        label.textColor = .textInverted
         label.textAlignment = .center
         return label
     }()
@@ -31,7 +32,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
         return button
     }()
 
-    private let defaultBackgroundColor: UIColor = .nmpBrandControlSelected
+    private let defaultBackgroundColor: UIColor = .backgroundPrimary
 
     // MARK: - Init
 
@@ -63,7 +64,7 @@ final class SelectionTagViewCell: UICollectionViewCell {
     // MARK: - Setup
 
     func configure(withTitle title: SelectionTitle?, isValid: Bool) {
-        backgroundColor = isValid ? defaultBackgroundColor : .btnCritical
+        backgroundColor = isValid ? defaultBackgroundColor : .backgroundNegative
 
         titleLabel.text = title?.value
         titleLabel.accessibilityLabel = title?.accessibilityLabel
@@ -119,8 +120,8 @@ extension SelectionTagViewCell {
     }
 
     private static let titleFont = UIFont.detailStrong
-    private static let titleLeading: CGFloat = .spacingS
-    private static let removeButtonEdgeInsets = UIEdgeInsets(leading: .spacingS, trailing: .spacingS)
+    private static let titleLeading: CGFloat = Warp.Spacing.spacing100
+    private static let removeButtonEdgeInsets = UIEdgeInsets(leading: Warp.Spacing.spacing100, trailing: Warp.Spacing.spacing100)
 
     private static var removeButtonWidth: CGFloat {
         return 14 + removeButtonEdgeInsets.leading + removeButtonEdgeInsets.trailing

@@ -3,6 +3,7 @@
 //
 
 import FinniversKit
+import Warp
 
 protocol RootFilterCellDelegate: AnyObject {
     func rootFilterCell(_ cell: RootFilterCell, didRemoveTagAt index: Int)
@@ -48,13 +49,13 @@ final class RootFilterCell: BasicTableViewCell {
 
     private lazy var hairLine: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .tableViewSeparator
+        view.backgroundColor = .border
         return view
     }()
 
     private lazy var stackViewToContextMarkConstraint = stackView.leadingAnchor.constraint(
         equalTo: contextMark.trailingAnchor,
-        constant: .spacingS
+        constant: Warp.Spacing.spacing100
     )
 
     // MARK: - Init
@@ -109,7 +110,7 @@ final class RootFilterCell: BasicTableViewCell {
 
         titleLabel.font = .bodyRegular
         titleLabel.adjustsFontForContentSizeCategory = true
-        titleLabel.textColor = .textPrimary
+        titleLabel.textColor = .text
 
         setContextMarkBackground()
 
@@ -117,26 +118,26 @@ final class RootFilterCell: BasicTableViewCell {
         contentView.addSubview(selectionTagsContainerView)
         contentView.addSubview(hairLine)
 
-        stackViewLeadingAnchorConstraint.constant = .spacingM + .spacingS
-        stackViewTopAnchorConstraint.constant = .spacingM
-        stackViewBottomAnchorConstraint.constant = -.spacingM
+        stackViewLeadingAnchorConstraint.constant = Warp.Spacing.spacing200 + Warp.Spacing.spacing100
+        stackViewTopAnchorConstraint.constant = Warp.Spacing.spacing200
+        stackViewBottomAnchorConstraint.constant = -Warp.Spacing.spacing200
 
-        var selectionTagsContainerTrailingConstant: CGFloat = .spacingXS
-        selectionTagsContainerTrailingConstant -= .spacingS
+        var selectionTagsContainerTrailingConstant: CGFloat = Warp.Spacing.spacing50
+        selectionTagsContainerTrailingConstant -= Warp.Spacing.spacing100
         
         NSLayoutConstraint.activate([
-            contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .spacingM + .spacingS),
+            contextMark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Warp.Spacing.spacing200 + Warp.Spacing.spacing100),
             contextMark.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             contextMark.widthAnchor.constraint(equalToConstant: 10),
             contextMark.heightAnchor.constraint(equalToConstant: 10),
 
             selectionTagsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: .spacingM),
+            selectionTagsContainerView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: Warp.Spacing.spacing200),
             selectionTagsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: selectionTagsContainerTrailingConstant),
 
             hairLine.heightAnchor.constraint(equalToConstant: 1.0 / UIScreen.main.scale),
             hairLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            hairLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .spacingM + .spacingS),
+            hairLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Warp.Spacing.spacing200 + Warp.Spacing.spacing100),
             hairLine.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }

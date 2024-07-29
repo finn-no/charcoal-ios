@@ -8,13 +8,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.isTranslucent = false
-        navigationBarAppearance.tintColor = .textAction
+        navigationBarAppearance.tintColor = .textLink
 
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = Theme.mainBackground
 
         appearance.titleTextAttributes = [
-            .foregroundColor: UIColor.textPrimary,
+            .foregroundColor: UIColor.text,
             .font: UIFont.bodyStrong
         ]
 

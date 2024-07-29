@@ -4,6 +4,7 @@
 
 import FinniversKit
 import UIKit
+import Warp
 
 protocol RangeSliderViewDelegate: AnyObject {
     func rangeSliderView(_ rangeSliderView: RangeSliderView, didChangeLowStep: Step)
@@ -173,8 +174,8 @@ extension RangeSliderView {
             highValueSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sliderOffset),
             highValueSlider.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            trackView.leadingAnchor.constraint(equalTo: lowValueSlider.leadingAnchor, constant: .spacingXXS),
-            trackView.trailingAnchor.constraint(equalTo: highValueSlider.trailingAnchor, constant: -.spacingXXS),
+            trackView.leadingAnchor.constraint(equalTo: lowValueSlider.leadingAnchor, constant: Warp.Spacing.spacing25),
+            trackView.trailingAnchor.constraint(equalTo: highValueSlider.trailingAnchor, constant: -Warp.Spacing.spacing25),
             trackView.centerYAnchor.constraint(equalTo: lowValueSlider.centerYAnchor),
             trackView.heightAnchor.constraint(equalToConstant: Style.trackHeight),
             activeRangeTrackViewLeadingAnchor,
@@ -268,8 +269,8 @@ extension RangeSliderView: StepSliderDelegate {
 
 extension RangeSliderView {
     struct Style {
-        static let trackColor: UIColor = .btnDisabled
-        static let activeRangeTrackColor: UIColor = .nmpBrandControlSelected
+        static let trackColor: UIColor = .backgroundDisabled
+        static let activeRangeTrackColor: UIColor = .backgroundPrimary
         static let trackHeight: CGFloat = 3.0
         static let activeRangeTrackHeight: CGFloat = 6.0
     }

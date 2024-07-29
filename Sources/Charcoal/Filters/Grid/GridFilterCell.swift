@@ -49,15 +49,15 @@ final class GridFilterCell: UICollectionViewCell {
 
     private func setupStyles() {
         if isSelected {
-            backgroundColor = .nmpBrandControlSelected
-            layer.borderColor = UIColor.nmpBrandControlSelected.cgColor
+            backgroundColor = .backgroundPrimary
+            layer.borderColor = UIColor.backgroundPrimary.cgColor
             titleLabel.font = UIFont.bodyStrong(withSize: 20)
-            titleLabel.textColor = .textTertiary
+            titleLabel.textColor = .textInverted
         } else {
             backgroundColor = Theme.mainBackground
-            layer.borderColor = UIColor.btnDisabled.cgColor
+            layer.borderColor = UIColor.backgroundDisabled.cgColor
             titleLabel.font = UIFont.bodyRegular(withSize: 20)
-            titleLabel.textColor = .textPrimary
+            titleLabel.textColor = .text
         }
     }
 }

@@ -4,14 +4,15 @@
 
 import FinniversKit
 import Foundation
+import Warp
 
 class InfoView: UIView {
     // MARK: - Subviews
 
     private lazy var boxView: UIView = {
         let view = UIView(withAutoLayout: true)
-        view.backgroundColor = .bgPrimary
-        view.layer.cornerRadius = .spacingM
+        view.backgroundColor = .background
+        view.layer.cornerRadius = Warp.Spacing.spacing200
 
         view.dropShadow(color: .black, opacity: 0.2, offset: CGSize(width: 0, height: 1), radius: 5)
         return view
@@ -46,10 +47,10 @@ class InfoView: UIView {
         boxView.fillInSuperview()
 
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: boxView.topAnchor, constant: .spacingS),
-            label.leadingAnchor.constraint(equalTo: boxView.leadingAnchor, constant: .spacingXL),
-            label.trailingAnchor.constraint(equalTo: boxView.trailingAnchor, constant: -.spacingXL),
-            label.bottomAnchor.constraint(equalTo: boxView.bottomAnchor, constant: -.spacingS),
+            label.topAnchor.constraint(equalTo: boxView.topAnchor, constant: Warp.Spacing.spacing100),
+            label.leadingAnchor.constraint(equalTo: boxView.leadingAnchor, constant: Warp.Spacing.spacing400),
+            label.trailingAnchor.constraint(equalTo: boxView.trailingAnchor, constant: -Warp.Spacing.spacing400),
+            label.bottomAnchor.constraint(equalTo: boxView.bottomAnchor, constant: -Warp.Spacing.spacing100),
         ])
     }
 

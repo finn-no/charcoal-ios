@@ -3,6 +3,7 @@
 //
 
 import FinniversKit
+import Warp
 
 final class LoadingViewController: UIViewController {
     private let backgroundColor: UIColor
@@ -17,7 +18,7 @@ final class LoadingViewController: UIViewController {
 
     // MARK: - Init
 
-    init(backgroundColor: UIColor = UIColor.bgPrimary.withAlphaComponent(0.8), presentationDelay: Double = 0.5) {
+    init(backgroundColor: UIColor = UIColor.background.withAlphaComponent(0.8), presentationDelay: Double = 0.5) {
         self.backgroundColor = backgroundColor
         self.presentationDelay = presentationDelay
         super.init(nibName: nil, bundle: nil)
@@ -39,7 +40,7 @@ final class LoadingViewController: UIViewController {
             loadingIndicatorView.widthAnchor.constraint(equalToConstant: loadingIndicatorSize),
             loadingIndicatorView.heightAnchor.constraint(equalToConstant: loadingIndicatorSize),
             loadingIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadingIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -.spacingS),
+            loadingIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -Warp.Spacing.spacing100),
         ])
     }
 

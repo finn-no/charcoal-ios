@@ -4,6 +4,7 @@
 
 import FinniversKit
 import UIKit
+import Warp
 
 public protocol FreeTextFilterDataSource: AnyObject {
     func numberOfSuggestions(in freeTextFilterViewController: FreeTextFilterViewController) -> Int
@@ -250,9 +251,9 @@ private extension FreeTextFilterViewController {
         view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingS),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Warp.Spacing.spacing100),
             searchBar.topAnchor.constraint(equalTo: view.topAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingS),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Warp.Spacing.spacing100),
 
             topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
 

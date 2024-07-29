@@ -4,6 +4,7 @@
 
 import FinniversKit
 import MapKit
+import Warp
 
 protocol MapRadiusFilterViewDelegate: MKMapViewDelegate {
     func mapRadiusFilterViewDidSelectLocationButton(_ mapRadiusFilterView: MapRadiusFilterView)
@@ -84,7 +85,7 @@ final class MapRadiusFilterView: UIView {
     private lazy var userLocationButton: UIButton = {
         let button = UIButton(withAutoLayout: true)
         button.backgroundColor = Theme.mainBackground
-        button.imageView?.tintColor = .nmpBrandDecoration
+        button.imageView?.tintColor = .backgroundPrimary
 
         button.layer.cornerRadius = MapRadiusFilterView.userLocationButtonWidth / 2
         button.layer.shadowColor = UIColor.black.cgColor
@@ -114,7 +115,7 @@ final class MapRadiusFilterView: UIView {
     }()
 
     private lazy var bottomConstraint: NSLayoutConstraint = {
-        distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS)
+        distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Warp.Spacing.spacing100)
     }()
 
     private lazy var mapContainerHeightConstraint: NSLayoutConstraint = {
@@ -152,7 +153,7 @@ final class MapRadiusFilterView: UIView {
         let updateMapWorkItem = DispatchWorkItem { [weak self, updateRegionWorkItem] in
             guard let self = self else { return }
             self.mapContainerView.isHidden = false
-            self.mapContainerHeightConstraint.constant = max(self.distanceSlider.frame.minY - .spacingM - self.mapContainerView.frame.minY, 0)
+            self.mapContainerHeightConstraint.constant = max(self.distanceSlider.frame.minY - Warp.Spacing.spacing200 - self.mapContainerView.frame.minY, 0)
             // Requires a delay to get the correct region set
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: updateRegionWorkItem)
         }
@@ -218,16 +219,16 @@ final class MapRadiusFilterView: UIView {
 
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
-            mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
+            mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing200),
+            mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Warp.Spacing.spacing200),
             mapContainerHeightConstraint,
 
             distanceSlider.leadingAnchor.constraint(equalTo: mapContainerView.leadingAnchor),
             distanceSlider.trailingAnchor.constraint(equalTo: mapContainerView.trailingAnchor),
-            distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
+            distanceSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Warp.Spacing.spacing100),
 
-            userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
-            userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.spacingS),
+            userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: Warp.Spacing.spacing100),
+            userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -Warp.Spacing.spacing100),
             userLocationButton.widthAnchor.constraint(equalToConstant: 46),
             userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),
         ])
@@ -245,8 +246,8 @@ final class MapRadiusFilterView: UIView {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: mapContainerView.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingS),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingS),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing100),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Warp.Spacing.spacing100),
         ])
     }
 }

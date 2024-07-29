@@ -16,7 +16,7 @@ class DemoTableViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .bgPrimary
+        tableView.backgroundColor = .background
         tableView.dataSource = dataSource
         tableView.delegate = self
         tableView.register(DemoTableViewCell.self)

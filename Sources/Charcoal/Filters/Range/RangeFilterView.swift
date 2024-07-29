@@ -4,6 +4,7 @@
 
 import FinniversKit
 import UIKit
+import Warp
 
 protocol RangeFilterViewDelegate: AnyObject {
     func rangeFilterView(_ rangeFilterView: RangeFilterView, didSetLowValue lowValue: Int?)
@@ -146,15 +147,15 @@ extension RangeFilterView {
 
         NSLayoutConstraint.activate([
             numberInputView.topAnchor.constraint(equalTo: topAnchor),
-            numberInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .spacingS),
-            numberInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.spacingS),
+            numberInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: Warp.Spacing.spacing100),
+            numberInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Warp.Spacing.spacing100),
             numberInputView.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             sliderInputView.topAnchor.constraint(equalTo: numberInputView.bottomAnchor, constant: 50),
-            sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
-            sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
+            sliderInputView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing200),
+            sliderInputView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Warp.Spacing.spacing200),
 
-            referenceValuesContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: .spacingXS),
+            referenceValuesContainer.topAnchor.constraint(equalTo: sliderInputView.bottomAnchor, constant: Warp.Spacing.spacing50),
             referenceValuesContainer.leadingAnchor.constraint(equalTo: sliderInputView.leadingAnchor),
             referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
             referenceValuesContainer.trailingAnchor.constraint(equalTo: sliderInputView.trailingAnchor),

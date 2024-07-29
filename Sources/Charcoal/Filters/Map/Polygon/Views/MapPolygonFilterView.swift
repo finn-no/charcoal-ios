@@ -5,6 +5,7 @@
 import FinniversKit
 import MapKit
 import UIKit
+import Warp
 
 protocol MapPolygonFilterViewDelegate: MKMapViewDelegate {
     func mapPolygonFilterViewDidSelectLocationButton(_ mapPolygonFilterView: MapPolygonFilterView)
@@ -95,7 +96,7 @@ final class MapPolygonFilterView: UIView {
 
     private lazy var userLocationButton: UIButton = {
         let button = CircleButton()
-        button.imageView?.tintColor = .nmpBrandDecoration
+        button.imageView?.tintColor = .backgroundPrimary
         button.setImage(UIImage(named: .locateUserOutlined), for: .normal)
         button.setImage(UIImage(named: .locateUserFilled), for: .highlighted)
         button.addTarget(self, action: #selector(didTapLocateUserButton), for: .touchUpInside)
@@ -123,7 +124,7 @@ final class MapPolygonFilterView: UIView {
             .withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.tintColor = .ice
         button.adjustsImageWhenHighlighted = false
-        button.imageEdgeInsets = UIEdgeInsets(leading: -.spacingS)
+        button.imageEdgeInsets = UIEdgeInsets(leading: -Warp.Spacing.spacing100)
 
         return button
     }()
@@ -177,24 +178,24 @@ final class MapPolygonFilterView: UIView {
 
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
-            mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM),
+            mapContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing200),
+            mapContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Warp.Spacing.spacing200),
             mapContainerHeightConstraint,
 
-            userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
-            userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -.spacingS),
+            userLocationButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: Warp.Spacing.spacing100),
+            userLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -Warp.Spacing.spacing100),
             userLocationButton.widthAnchor.constraint(equalToConstant: CircleButton.width),
             userLocationButton.heightAnchor.constraint(equalTo: userLocationButton.widthAnchor),
 
-            redoAreaSelectionButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: .spacingS),
-            redoAreaSelectionButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: .spacingS),
+            redoAreaSelectionButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: Warp.Spacing.spacing100),
+            redoAreaSelectionButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: Warp.Spacing.spacing100),
             redoAreaSelectionButton.widthAnchor.constraint(equalToConstant: CircleButton.width),
             redoAreaSelectionButton.heightAnchor.constraint(equalTo: redoAreaSelectionButton.widthAnchor),
 
-            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 3 * -.spacingS),
+            initialAreaSelectionButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 3 * -Warp.Spacing.spacing100),
             initialAreaSelectionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            infoView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingM),
+            infoView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Warp.Spacing.spacing200),
             infoView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
@@ -211,8 +212,8 @@ final class MapPolygonFilterView: UIView {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: mapContainerView.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingS),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingS),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing100),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Warp.Spacing.spacing100),
         ])
     }
 
@@ -224,7 +225,7 @@ final class MapPolygonFilterView: UIView {
         let updateViewWorkItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
             self.mapContainerView.isHidden = false
-            self.mapContainerHeightConstraint.constant = max(self.frame.maxY - .spacingS - self.mapContainerView.frame.minY, 0)
+            self.mapContainerHeightConstraint.constant = max(self.frame.maxY - Warp.Spacing.spacing100 - self.mapContainerView.frame.minY, 0)
         }
 
         mapContainerView.isHidden = true
@@ -419,7 +420,7 @@ private class CircleButton: UIButton {
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = Theme.mainBackground
-        tintColor = .nmpBrandDecoration
+        tintColor = .backgroundPrimary
         layer.cornerRadius = CircleButton.width / 2
 
         dropShadow(color: .black, opacity: 0.5, offset: CGSize(width: 0, height: 1), radius: 3)

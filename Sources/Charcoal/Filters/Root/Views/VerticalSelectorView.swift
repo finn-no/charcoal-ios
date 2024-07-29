@@ -3,6 +3,7 @@
 //
 
 import FinniversKit
+import Warp
 
 protocol VerticalSelectorViewDelegate: AnyObject {
     func verticalSelectorViewDidSelectButton(_ view: VerticalSelectorView)
@@ -33,7 +34,7 @@ final class VerticalSelectorView: UIView {
         let label = UILabel(withAutoLayout: true)
         label.font = UIFont.captionStrong.withSize(12).scaledFont(forTextStyle: .footnote)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .textSecondary
+        label.textColor = .textSubtle
         label.textAlignment = .center
         return label
     }()
@@ -43,22 +44,22 @@ final class VerticalSelectorView: UIView {
         button.titleLabel?.font = UIFont.bodyStrong(withSize: 17, textStyle: .footnote)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
 
-        button.tintColor = .textAction
-        button.setTitleColor(.textAction, for: .normal)
+        button.tintColor = .textLink
+        button.setTitleColor(.textLink, for: .normal)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
         button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)
-        button.setTitleColor(UIColor.textAction.withAlphaComponent(0.5), for: .disabled)
+        button.setTitleColor(UIColor.textLink.withAlphaComponent(0.5), for: .disabled)
 
-        let spacing = .spacingXS / 2
+        let spacing = Warp.Spacing.spacing50 / 2
 
         button.semanticContentAttribute = .forceRightToLeft
         button.imageEdgeInsets = UIEdgeInsets(top: spacing, leading: spacing, bottom: 0, trailing: -spacing)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, leading: -spacing, bottom: 0, trailing: spacing)
         button.contentEdgeInsets = UIEdgeInsets(
             top: titleLabel.font.pointSize,
-            leading: .spacingM + spacing,
+            leading: Warp.Spacing.spacing200 + spacing,
             bottom: 0,
-            trailing: .spacingM + spacing
+            trailing: Warp.Spacing.spacing200 + spacing
         )
 
         button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)

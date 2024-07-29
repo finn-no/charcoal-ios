@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 extension StepperFilterView {
     enum ButtonType: Int {
@@ -26,14 +27,14 @@ final class StepperFilterView: UIControl {
         label.text = "\(value)+ \(unit)"
         label.font = .title2
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .textPrimary
+        label.textColor = .text
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let activeColor = UIColor.nmpBrandControlSelected
-    private let deactiveColor = UIColor.nmpBrandControlSelected.withAlphaComponent(0.2)
+    private let activeColor = UIColor.backgroundPrimary
+    private let deactiveColor = UIColor.backgroundPrimary.withAlphaComponent(0.2)
 
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)
@@ -150,14 +151,14 @@ private extension StepperFilterView {
         NSLayoutConstraint.activate([
             textLabel.centerYAnchor.constraint(equalTo: minusButton.centerYAnchor),
             textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textLabel.leadingAnchor.constraint(greaterThanOrEqualTo: minusButton.trailingAnchor, constant: .spacingXS),
-            textLabel.trailingAnchor.constraint(lessThanOrEqualTo: plusButton.leadingAnchor, constant: -.spacingXS),
+            textLabel.leadingAnchor.constraint(greaterThanOrEqualTo: minusButton.trailingAnchor, constant: Warp.Spacing.spacing50),
+            textLabel.trailingAnchor.constraint(lessThanOrEqualTo: plusButton.leadingAnchor, constant: -Warp.Spacing.spacing50),
 
-            minusButton.topAnchor.constraint(equalTo: topAnchor, constant: .spacingS),
+            minusButton.topAnchor.constraint(equalTo: topAnchor, constant: Warp.Spacing.spacing100),
             minusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             minusButton.widthAnchor.constraint(equalToConstant: 58),
             minusButton.heightAnchor.constraint(equalToConstant: 58),
-            minusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
+            minusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Warp.Spacing.spacing100),
 
             plusButton.topAnchor.constraint(equalTo: minusButton.topAnchor),
             plusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),

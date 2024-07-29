@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 enum RangeToolbarItem {
     case arrow(imageAsset: CharcoalImageAsset, target: UITextField?)
@@ -15,7 +16,7 @@ enum RangeToolbarItem {
         case let .arrow(imageAsset, target):
             let image = UIImage(named: imageAsset)
             let button = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-            button.width = .spacingXL
+            button.width = Warp.Spacing.spacing400
 
             if let target = target {
                 button.target = target

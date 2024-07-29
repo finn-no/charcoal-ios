@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 extension SegmentButton {
     enum BorderStyle {
@@ -15,7 +16,7 @@ protocol SegmentButtonDelegate: AnyObject {
 }
 
 final class SegmentButton: UIButton {
-    static let borderColor: UIColor = .btnDisabled
+    static let borderColor: UIColor = .backgroundDisabled
     static let borderWidth: CGFloat = 1.5
 
     weak var delegate: SegmentButtonDelegate?
@@ -29,7 +30,7 @@ final class SegmentButton: UIButton {
 
     private var borderLayer = CAShapeLayer()
     private var maskLayer = CAShapeLayer()
-    private var selectedBackgroundColor: UIColor = .nmpBrandControlSelected
+    private var selectedBackgroundColor: UIColor = .backgroundPrimary
 
     init(title: String) {
         super.init(frame: .zero)
@@ -57,10 +58,10 @@ private extension SegmentButton {
         titleLabel?.adjustsFontForContentSizeCategory = true
 
         setTitle(title, for: .normal)
-        setTitleColor(.textPrimary, for: .normal)
-        setTitleColor(.textTertiary, for: .selected)
+        setTitleColor(.text, for: .normal)
+        setTitleColor(.textInverted, for: .selected)
         backgroundColor = Theme.mainBackground
-        contentEdgeInsets = UIEdgeInsets(top: 0, leading: .spacingM, bottom: 0, trailing: .spacingM)
+        contentEdgeInsets = UIEdgeInsets(top: 0, leading: Warp.Spacing.spacing200, bottom: 0, trailing: Warp.Spacing.spacing200)
 
         borderLayer.lineWidth = SegmentButton.borderWidth
         borderLayer.fillColor = UIColor.clear.cgColor

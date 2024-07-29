@@ -4,6 +4,7 @@
 
 @testable import Charcoal
 import MapKit
+import Warp
 
 class MapFilterDemoViewController: DemoViewController {
     // MARK: - Private properties
@@ -33,8 +34,8 @@ class MapFilterDemoViewController: DemoViewController {
         NSLayoutConstraint.activate([
             mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             mapView.heightAnchor.constraint(equalToConstant: 568),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingM),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingM),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Warp.Spacing.spacing200),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Warp.Spacing.spacing200),
         ])
     }
 }

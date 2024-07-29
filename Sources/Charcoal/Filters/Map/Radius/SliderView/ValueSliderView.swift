@@ -4,6 +4,7 @@
 
 import FinniversKit
 import UIKit
+import Warp
 
 protocol ValueSliderViewDelegate: AnyObject {
     func valueViewControl(_ valueSliderView: ValueSliderView, didChangeValue: Int, didFinishSlideInteraction: Bool)
@@ -136,8 +137,8 @@ extension ValueSliderView {
 }
 
 struct ValueSliderViewStyle {
-    static let trackColor: UIColor = .btnDisabled
-    static let activeRangeTrackColor: UIColor = .nmpBrandControlSelected
+    static let trackColor: UIColor = .backgroundDisabled
+    static let activeRangeTrackColor: UIColor = .backgroundPrimary
     static let trackHeight: CGFloat = 3.0
     static let activeRangeTrackHeight: CGFloat = 6.0
 }
@@ -162,8 +163,8 @@ private extension ValueSliderView {
             valueSlider.leadingAnchor.constraint(equalTo: leadingAnchor),
             valueSlider.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            trackView.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor, constant: .spacingXXS),
-            trackView.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor, constant: -.spacingXXS),
+            trackView.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor, constant: Warp.Spacing.spacing25),
+            trackView.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor, constant: -Warp.Spacing.spacing25),
             trackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
             trackView.heightAnchor.constraint(equalToConstant: ValueSliderViewStyle.trackHeight),
             activeRangeTrackViewLeadingAnchor,
@@ -171,7 +172,7 @@ private extension ValueSliderView {
             activeRangeTrackView.centerYAnchor.constraint(equalTo: valueSlider.centerYAnchor),
             activeRangeTrackView.heightAnchor.constraint(equalToConstant: ValueSliderViewStyle.activeRangeTrackHeight),
 
-            referenceValuesContainer.topAnchor.constraint(equalTo: valueSlider.bottomAnchor, constant: .spacingXS),
+            referenceValuesContainer.topAnchor.constraint(equalTo: valueSlider.bottomAnchor, constant: Warp.Spacing.spacing50),
             referenceValuesContainer.leadingAnchor.constraint(equalTo: valueSlider.leadingAnchor),
             referenceValuesContainer.trailingAnchor.constraint(equalTo: valueSlider.trailingAnchor),
             referenceValuesContainer.bottomAnchor.constraint(equalTo: bottomAnchor),

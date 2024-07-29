@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 protocol RangeNumberInputViewDelegate: AnyObject {
     func rangeNumberInputView(_ view: RangeNumberInputView, didChangeLowValue value: Int?)
@@ -46,7 +47,7 @@ final class RangeNumberInputView: UIView {
     private lazy var inputSeparatorView: UILabel = {
         let label = UILabel(withAutoLayout: true)
         label.text = "-"
-        label.textColor = .textPrimary
+        label.textColor = .text
         label.font = UIFont.body(withSize: fontSize.rawValue)
         label.adjustsFontForContentSizeCategory = true
         label.isAccessibilityElement = false
@@ -149,15 +150,15 @@ final class RangeNumberInputView: UIView {
         addSubview(inputSeparatorView)
 
         NSLayoutConstraint.activate([
-            lowValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .spacingXL),
-            lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
+            lowValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: Warp.Spacing.spacing400),
+            lowValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Warp.Spacing.spacing100),
             lowValueInputView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -.spacingS),
+            lowValueInputView.trailingAnchor.constraint(equalTo: inputSeparatorView.leadingAnchor, constant: -Warp.Spacing.spacing100),
             lowValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.6),
 
-            highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: .spacingXL),
-            highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
-            highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: .spacingS),
+            highValueInputView.topAnchor.constraint(equalTo: topAnchor, constant: Warp.Spacing.spacing400),
+            highValueInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Warp.Spacing.spacing100),
+            highValueInputView.leadingAnchor.constraint(equalTo: inputSeparatorView.trailingAnchor, constant: Warp.Spacing.spacing100),
             highValueInputView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
             highValueInputView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.6),
 

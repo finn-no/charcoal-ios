@@ -572,7 +572,7 @@ extension MapPolygonFilterViewController: MKMapViewDelegate {
             }
             polygon.fillColor = state != .invalidPolygon ?
                 MapPolygonFilterView.overlayColor.withAlphaComponent(validPolygonAlphaComponent) :
-                UIColor.textCritical.withAlphaComponent(invalidPolygonAlphaComponent)
+                UIColor.textNegative.withAlphaComponent(invalidPolygonAlphaComponent)
             polygon.lineWidth = 2
 
             // MapKit renders overlays as vectors by default from iOS 13, but we are opting out of it.

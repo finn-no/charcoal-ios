@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 public protocol NumberInputViewDelegate: AnyObject {
     func numberInputViewDidBeginEditing(_ view: NumberInputView)
@@ -176,10 +177,10 @@ open class NumberInputView: UIView {
 
             textField.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             textField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.spacingS),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Warp.Spacing.spacing100),
 
             unitLabel.topAnchor.constraint(equalTo: textField.topAnchor),
-            unitLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: .spacingS),
+            unitLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: Warp.Spacing.spacing100),
             unitLabel.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             unitLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
 
@@ -198,7 +199,7 @@ open class NumberInputView: UIView {
     private func attributedUnitText(withFont font: UIFont?, from unit: FilterUnit) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
-        style.headIndent = .spacingS
+        style.headIndent = Warp.Spacing.spacing100
         style.lineBreakMode = .byCharWrapping
 
         let attributes = [
@@ -264,12 +265,12 @@ extension NumberInputView: UITextFieldDelegate {
 // MARK: - Styles
 
 private struct Style {
-    static let textColor: UIColor = .textPrimary
-    static let errorTextColor: UIColor = .textCritical
+    static let textColor: UIColor = .text
+    static let errorTextColor: UIColor = .textNegative
     static let hintNormalFont: UIFont = .body
     static let hintActiveFont: UIFont = .bodyStrong
-    static let decorationViewColor: UIColor = .textSecondary
-    static let decorationViewActiveColor: UIColor = .nmpBrandControlSelected
+    static let decorationViewColor: UIColor = .textSubtle
+    static let decorationViewActiveColor: UIColor = .backgroundPrimary
     static let decorationViewHeight: CGFloat = 1.0
     static let decorationViewActiveHeight: CGFloat = 3.0
     static let decorationViewActiveCornerRadius = decorationViewActiveHeight / 2
@@ -315,7 +316,7 @@ private extension UIToolbar {
 
         let items: [RangeToolbarItem] = [
             .arrow(imageAsset: .arrowLeft, target: previousTextField),
-            .fixedSpace(width: .spacingM),
+            .fixedSpace(width: Warp.Spacing.spacing200),
             .arrow(imageAsset: .arrowRight, target: nextTextField),
             .flexibleSpace,
             .done(target: target),

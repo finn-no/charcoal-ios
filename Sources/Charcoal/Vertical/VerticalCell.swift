@@ -4,6 +4,7 @@
 
 import FinniversKit
 import UIKit
+import Warp
 
 final class VerticalCell: UITableViewCell {
     private lazy var radioButton: RadioButtonView = {
@@ -77,7 +78,7 @@ final class VerticalCell: UITableViewCell {
         if let calloutText = vertical.calloutText, let textLabel = textLabel {
             addSubview(calloutView)
             NSLayoutConstraint.activate([
-                calloutView.leadingAnchor.constraint(equalTo: textLabel.trailingAnchor, constant: .spacingM),
+                calloutView.leadingAnchor.constraint(equalTo: textLabel.trailingAnchor, constant: Warp.Spacing.spacing200),
                 calloutView.centerYAnchor.constraint(equalTo: centerYAnchor),
                 calloutView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
             ])
@@ -96,7 +97,7 @@ final class VerticalCell: UITableViewCell {
         separatorInset = .leadingInset(56)
 
         textLabel?.font = .bodyRegular
-        textLabel?.textColor = .textPrimary
+        textLabel?.textColor = .text
         textLabel?.adjustsFontForContentSizeCategory = true
 
         addSubview(radioButton)
@@ -104,10 +105,10 @@ final class VerticalCell: UITableViewCell {
         externalVerticalIcon.isHidden = true
 
         NSLayoutConstraint.activate([
-            radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM),
+            radioButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing200),
             radioButton.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            externalVerticalIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM + .spacingXS),
+            externalVerticalIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing200 + Warp.Spacing.spacing50),
             externalVerticalIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }

@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 protocol SliderValueFormatter: AnyObject {
     func title(for value: Int) -> String
@@ -18,7 +19,7 @@ class ValueSliderWithLabelView: UIView {
         let label = UILabel(frame: .zero)
         label.font = .title2
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .textPrimary
+        label.textColor = .text
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.numberOfLines = 1
@@ -99,12 +100,12 @@ private extension ValueSliderWithLabelView {
 
         NSLayoutConstraint.activate([
             valueLabel.topAnchor.constraint(equalTo: topAnchor),
-            valueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: .spacingS),
-            valueLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -.spacingS),
+            valueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: Warp.Spacing.spacing100),
+            valueLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Warp.Spacing.spacing100),
             valueLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             valueLabel.heightAnchor.constraint(equalToConstant: labelHeight),
 
-            sliderView.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: .spacingS),
+            sliderView.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: Warp.Spacing.spacing100),
             sliderView.leadingAnchor.constraint(equalTo: leadingAnchor),
             sliderView.trailingAnchor.constraint(equalTo: trailingAnchor),
             sliderView.bottomAnchor.constraint(equalTo: bottomAnchor),

@@ -3,6 +3,7 @@
 //
 
 import FinniversKit
+import Warp
 
 protocol CalloutOverlayDelegate: AnyObject {
     func calloutOverlayDidTapInside(_ view: CalloutOverlay)
@@ -97,9 +98,9 @@ final class CalloutOverlay: UIView {
         case .center:
             constraints.append(calloutView.centerXAnchor.constraint(equalTo: centerXAnchor))
         case .left:
-            constraints.append(calloutView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingM))
+            constraints.append(calloutView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Warp.Spacing.spacing200))
         case .right:
-            constraints.append(calloutView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingM))
+            constraints.append(calloutView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Warp.Spacing.spacing200))
         }
 
         if let directionalConstraints = directionalConstraints {

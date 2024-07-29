@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 protocol SelectionTagsContainerViewDelegate: AnyObject {
     func selectionTagsContainerView(_ view: SelectionTagsContainerView, didRemoveTagAt index: Int)
@@ -19,7 +20,7 @@ final class SelectionTagsContainerView: UIView {
     private lazy var collectionViewLayout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = .spacingS
+        layout.minimumLineSpacing = Warp.Spacing.spacing100
         return layout
     }()
 

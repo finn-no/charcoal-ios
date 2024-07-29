@@ -3,6 +3,7 @@
 //
 
 import FinniversKit
+import Warp
 
 public final class GridFilterViewController: FilterViewController {
     private lazy var collectionView: UICollectionView = {
@@ -12,7 +13,7 @@ public final class GridFilterViewController: FilterViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: .spacingM, left: edgeInset, bottom: 0, right: edgeInset)
+        collectionView.contentInset = UIEdgeInsets(top: Warp.Spacing.spacing200, left: edgeInset, bottom: 0, right: edgeInset)
         collectionView.register(GridFilterCell.self)
         return collectionView
     }()
@@ -98,7 +99,7 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
                                layout collectionViewLayout: UICollectionViewLayout,
                                sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfItemsPerRow: CGFloat = 5
-        let side = ((collectionView.frame.width - edgeInset * 2) / numberOfItemsPerRow) - .spacingS
+        let side = ((collectionView.frame.width - edgeInset * 2) / numberOfItemsPerRow) - Warp.Spacing.spacing100
 
         return CGSize(width: side, height: side)
     }
@@ -106,7 +107,7 @@ extension GridFilterViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView,
                                layout collectionViewLayout: UICollectionViewLayout,
                                minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return .spacingS
+        return Warp.Spacing.spacing100
     }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Warp
 
 protocol InlineFilterViewDelegate: AnyObject {
     func inlineFilterView(_ inlineFilteView: InlineFilterView, didChange segment: Segment, at index: Int)
@@ -14,7 +15,7 @@ final class InlineFilterView: UIView {
     weak var delegate: InlineFilterViewDelegate?
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: collectionView.bounds.width, height: InlineSegmentCell.cellHeight + .spacingM)
+        return CGSize(width: collectionView.bounds.width, height: InlineSegmentCell.cellHeight + Warp.Spacing.spacing200)
     }
 
     // MARK: - Private properties
@@ -29,7 +30,7 @@ final class InlineFilterView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, leading: .spacingM, bottom: 0, trailing: .spacingM)
+        collectionView.contentInset = UIEdgeInsets(top: 0, leading: Warp.Spacing.spacing200, bottom: 0, trailing: Warp.Spacing.spacing200)
         collectionView.register(InlineSegmentCell.self)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -118,13 +119,13 @@ extension InlineFilterView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return .spacingS
+        return Warp.Spacing.spacing100
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return .spacingS
+        return Warp.Spacing.spacing100
     }
 }
 
@@ -133,7 +134,7 @@ extension InlineFilterView: UICollectionViewDelegateFlowLayout {
 private extension InlineFilterView {
     func setup() {
         addSubview(collectionView)
-        collectionView.fillInSuperview(insets: UIEdgeInsets(top: .spacingS, leading: 0, bottom: -.spacingS, trailing: 0))
+        collectionView.fillInSuperview(insets: UIEdgeInsets(top: Warp.Spacing.spacing100, leading: 0, bottom: -Warp.Spacing.spacing100, trailing: 0))
         collectionView.heightAnchor.constraint(equalToConstant: InlineSegmentCell.cellHeight).isActive = true
     }
 

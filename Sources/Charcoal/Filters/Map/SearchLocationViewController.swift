@@ -5,6 +5,7 @@
 import CoreLocation
 import FinniversKit
 import UIKit
+import Warp
 
 public protocol LocationInfo {
     var name: String { get }
@@ -278,16 +279,16 @@ private extension SearchLocationViewController {
     }
 
     func setup() {
-        view.backgroundColor = UIColor.bgPrimary.withAlphaComponent(0.9)
+        view.backgroundColor = UIColor.background.withAlphaComponent(0.9)
         tableView.backgroundColor = UIColor.clear
         searchBar.removeFromSuperview()
         view.insertSubview(tableView, belowSubview: topShadowView)
         view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .spacingS),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Warp.Spacing.spacing100),
             searchBar.topAnchor.constraint(equalTo: view.topAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.spacingS),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Warp.Spacing.spacing100),
 
             topShadowView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
 
@@ -306,7 +307,7 @@ private class SearchLocationSearchBar: UISearchBar {
     private static let setupSearchBarAppereanceOnce: () = {
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [SearchLocationSearchBar.self])
         textFieldAppearanceInSearch.defaultTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.textPrimary,
+            NSAttributedString.Key.foregroundColor: UIColor.text,
             NSAttributedString.Key.font: UIFont.bodyRegular,
         ]
 

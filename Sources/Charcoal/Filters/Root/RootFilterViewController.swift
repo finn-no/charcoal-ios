@@ -11,6 +11,7 @@ protocol RootFilterViewControllerDelegate: AnyObject {
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectFreeTextFilter filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectSuggestionAt index: Int, filter: Filter)
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical)
+    func rootFilterViewControllerDidSelectReloadVerticals(_ viewController: RootFilterViewController)
 }
 
 final class RootFilterViewController: FilterViewController {
@@ -58,6 +59,17 @@ final class RootFilterViewController: FilterViewController {
         return button
     }()
 
+    private lazy var reloadButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(
+            title: "root.loadVerticals".localized(),
+            style: .plain,
+            target: self,
+            action: #selector(reloadTapped)
+        )
+        button.setTitleTextAttributes([.font: UIFont.bodyStrong, .foregroundColor: UIColor.textAction])
+        return button
+    }()
+
     private lazy var verticalViewController: VerticalListViewController = {
         let viewController = VerticalListViewController()
         viewController.delegate = self
@@ -75,6 +87,7 @@ final class RootFilterViewController: FilterViewController {
     // MARK: - Filter
 
     private var filterContainer: FilterContainer
+    private var verticals: [Vertical]?
 
     // MARK: - Init
 
@@ -142,9 +155,21 @@ final class RootFilterViewController: FilterViewController {
 
     func set(filterContainer: FilterContainer) {
         self.filterContainer = filterContainer
-        updateNavigationTitleView()
         updateBottomButtonTitle()
         reloadFilters()
+    }
+
+    func configure(with verticals: [Vertical]) {
+        self.verticals = verticals
+        updateNavigationTitleView()
+    }
+
+    func updateReloadVerticalsButton(isVisible: Bool) {
+        if isVisible {
+            navigationItem.leftBarButtonItem = reloadButton
+        } else {
+            navigationItem.leftBarButtonItem = nil
+        }
     }
 
     func showLoadingIndicator(_ show: Bool) {
@@ -190,7 +215,7 @@ final class RootFilterViewController: FilterViewController {
     }
 
     private func updateNavigationTitleView() {
-        if let vertical = filterContainer.verticals?.first(where: { $0.isCurrent }) {
+        if let vertical = verticals?.first(where: { $0.isCurrent }) {
             verticalSelectorView.delegate = self
             verticalSelectorView.configure(
                 withTitle: "root.verticalSelector.title".localized(),
@@ -259,6 +284,10 @@ final class RootFilterViewController: FilterViewController {
         }
 
         present(alertController, animated: true)
+    }
+
+    @objc private func reloadTapped() {
+        rootDelegate?.rootFilterViewControllerDidSelectReloadVerticals(self)
     }
 }
 
@@ -377,7 +406,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
     }
 
     private func showVerticalViewController() {
-        guard let verticals = filterContainer.verticals else { return }
+        guard let verticals else { return }
 
         showResetButton(false)
         verticalSelectorView.arrowDirection = .up
@@ -426,7 +455,7 @@ extension RootFilterViewController: VerticalSelectorViewDelegate {
 
 extension RootFilterViewController: VerticalListViewControllerDelegate {
     func verticalListViewController(_ verticalViewController: VerticalListViewController, didSelectVerticalAtIndex index: Int) {
-        if let vertical = filterContainer.verticals?[safe: index], !vertical.isCurrent {
+        if let vertical = verticals?[safe: index], !vertical.isCurrent {
             freeTextFilterViewController?.searchBar.text = nil
             hideVerticalViewController()
             rootDelegate?.rootFilterViewController(self, didSelectVertical: vertical)

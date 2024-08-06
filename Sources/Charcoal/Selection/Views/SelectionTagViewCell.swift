@@ -27,7 +27,8 @@ final class SelectionTagViewCell: UICollectionViewCell {
         let button = RemoveButton(withAutoLayout: true)
         button.adjustsImageWhenHighlighted = false
         button.imageEdgeInsets = SelectionTagViewCell.removeButtonEdgeInsets
-        button.setImage(UIImage(named: .removeFilterValue), for: .normal)
+        button.tintColor = .iconInverted
+        button.setImage(UIImage(named: .removeFilterValue).withRenderingMode(.alwaysTemplate), for: .normal)
         button.addTarget(self, action: #selector(handleRemoveButtonTap), for: .touchUpInside)
         return button
     }()

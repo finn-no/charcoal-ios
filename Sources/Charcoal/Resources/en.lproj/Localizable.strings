@@ -26,7 +26,6 @@
 
 "root.title" = "Filter search";
 "root.verticalSelector.title" = "More categories";
-"root.loadVerticals" = "Load categories";
 
 "range.slider.lowValueAccessibilityLabel" = "Slider for low value";
 "range.slider.highValueAccessibilityLabel" = "Slider for high value";

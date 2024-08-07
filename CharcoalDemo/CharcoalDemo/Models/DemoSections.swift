@@ -31,9 +31,8 @@ enum DemoSections: CaseIterable {
             ]
         case .verticals:
             return [
-                Row(title: "Single vertical", filterContainer: .standard, verticals: .none),
-                Row(title: "Multiple verticals", filterContainer: .standard, verticals: .multiple),
-                Row(title: "Failed to load verticals", filterContainer: .standard, verticals: .none, showVerticalsReloadButton: true)
+                Row(title: "Single vertical", filterContainer: .singleVertical),
+                Row(title: "Multiple verticals", filterContainer: .multipleVerticals),
             ]
         case .misc:
             return [
@@ -45,7 +44,11 @@ enum DemoSections: CaseIterable {
 }
 
 extension FilterContainer {
-    static var standard: FilterContainer {
+    static var singleVertical: FilterContainer {
+        create(numberOfVerticals: 0)
+    }
+
+    static var multipleVerticals: FilterContainer {
         create()
     }
 

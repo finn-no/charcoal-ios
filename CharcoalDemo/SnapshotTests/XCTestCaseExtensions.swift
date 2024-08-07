@@ -29,15 +29,13 @@ extension XCTestCase {
 
     func assertSnapshots(
         matching filterContainer: FilterContainer,
-        verticals: [DemoVertical],
-        showReloadVerticalsButton: Bool = false,
         includeIPad: Bool = true,
         delay: TimeInterval? = nil,
         record recording: Bool = false,
         file: StaticString = #file,
         testName: String = #function
     ) {
-        let viewController = getViewController(for: filterContainer, verticals: verticals, showReloadVerticalsButton: showReloadVerticalsButton)
+        let viewController = getViewController(for: filterContainer)
         assertSnapshots(
             matching: viewController,
             device: .iPhone,
@@ -59,15 +57,9 @@ extension XCTestCase {
         }
     }
 
-    private func getViewController(
-        for filterContainer: FilterContainer,
-        verticals: [DemoVertical],
-        showReloadVerticalsButton: Bool
-    ) -> UIViewController {
+    private func getViewController(for filterContainer: FilterContainer) -> UIViewController {
         let viewController = CharcoalViewController()
         viewController.filterContainer = filterContainer
-        viewController.configure(with: verticals)
-        viewController.updateReloadVerticalsButton(isVisible: showReloadVerticalsButton)
         return viewController
     }
 }

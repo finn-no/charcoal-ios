@@ -4,10 +4,11 @@
 
 import FinniversKit
 import UIKit
+import Warp
 
 public class Theme {
     /// The background used for charcoal will be different in dark mode than the standard FinniversKit as charcoal
     /// components are presented on top of other elements, then in order to achieve more contrast and a sense of levels
     /// we need to override the value for the main background color for dark mode.
-    public static var mainBackground: UIColor = .background
+    public static var mainBackground: UIColor = Warp.UIToken.surfaceElevated100
 }

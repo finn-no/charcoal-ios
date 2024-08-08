@@ -7,7 +7,8 @@ import UIKit
 
 class Setup {
     var filterContainer: FilterContainer
-    let markets: [DemoVertical]
+    var verticals: [DemoVertical]
+    let showVerticalsReloadButton: Bool
 
     var current: DemoVertical? {
         didSet {
@@ -16,9 +17,10 @@ class Setup {
         }
     }
 
-    init(filterContainer: FilterContainer) {
-        defer { current = markets.first }
+    init(filterContainer: FilterContainer, verticals: [DemoVertical], showVerticalsReloadButton: Bool = false) {
+        defer { current = verticals.first }
         self.filterContainer = filterContainer
-        markets = (filterContainer.verticals as? [DemoVertical]) ?? []
+        self.verticals = verticals
+        self.showVerticalsReloadButton = showVerticalsReloadButton
     }
 }

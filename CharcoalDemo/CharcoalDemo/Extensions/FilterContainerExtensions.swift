@@ -9,13 +9,9 @@ extension FilterContainer {
         rootFilters: [Filter] = defaultRootFilters(),
         freeTextFilter: Filter? = .freeText,
         inlineFilter: Filter? = defaultInlineFilter(),
-        numberOfResults: Int = 123,
-        numberOfVerticals: Int = 4,
-        lastVerticalIsExternal: Bool = true
+        numberOfResults: Int = 123
     ) -> FilterContainer {
-        let container = FilterContainer(rootFilters: rootFilters, freeTextFilter: freeTextFilter, inlineFilter: inlineFilter, numberOfResults: numberOfResults)
-        container.verticals = DemoVertical.create(numberOfVerticals, lastVerticalIsExternal: lastVerticalIsExternal)
-        return container
+        FilterContainer(rootFilters: rootFilters, freeTextFilter: freeTextFilter, inlineFilter: inlineFilter, numberOfResults: numberOfResults)
     }
 
     static func defaultRootFilters(isContextFilters: Bool = false, includePolygonSearch: Bool = true) -> [Filter] {

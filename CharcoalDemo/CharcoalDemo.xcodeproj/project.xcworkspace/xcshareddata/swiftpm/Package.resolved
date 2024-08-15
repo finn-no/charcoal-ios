@@ -6,7 +6,7 @@
       "location" : "https://github.com/finn-no/FinniversKit.git",
       "state" : {
         "branch" : "remove-color-provider",
-        "revision" : "deb1daa080d6f5c8563f3972c843b0cbf7513474"
+        "revision" : "8713ec0d435fe462874b7f28487595f7a49df1fc"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/warp-ds/warp-ios.git",
       "state" : {
         "branch" : "remove-warp-config",
-        "revision" : "b58550b4ed9dcddc04c01f220edfbb58198afba7"
+        "revision" : "4207c0ffe171e143e448f24e2a138c734dbaa888"
       }
     }
   ],

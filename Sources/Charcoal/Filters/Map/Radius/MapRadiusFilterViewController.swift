@@ -31,6 +31,8 @@ final class MapRadiusFilterViewController: UIViewController {
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
+    private var isAwaitingLocationAuthorizationStatus = true
+    private var isAwaitingCenterOnUserLocation = false
 
     private lazy var mapRadiusFilterView: MapRadiusFilterView = {
         let mapRadiusFilterView = MapRadiusFilterView(radius: radius, centerCoordinate: coordinate)
@@ -47,24 +49,18 @@ final class MapRadiusFilterViewController: UIViewController {
         return searchLocationViewController
     }()
 
-    private var canUpdateLocation: Bool {
-        guard CLLocationManager.locationServicesEnabled() else {
-            return false
-        }
+    private let selectionStore: FilterSelectionStore
 
-        let status = CLLocationManager.authorizationStatus()
-
-        switch status {
-        case .authorizedWhenInUse, .authorizedAlways:
+    private var isLocationAuthorized: Bool {
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
             return true
-        case .denied, .notDetermined, .restricted:
+        case .notDetermined, .restricted, .denied:
             return false
-        @unknown default:
+        default:
             return false
         }
     }
-
-    private let selectionStore: FilterSelectionStore
 
     // MARK: - Init
 
@@ -86,6 +82,8 @@ final class MapRadiusFilterViewController: UIViewController {
     // MARK: - Setup
 
     private func setup() {
+        locationManager.delegate = self
+
         view.addSubview(mapRadiusFilterView)
         mapRadiusFilterView.fillInSuperview()
     }
@@ -100,7 +98,11 @@ final class MapRadiusFilterViewController: UIViewController {
     }
 
     private func centerOnUserLocation() {
-        guard canUpdateLocation else {
+        guard !isAwaitingLocationAuthorizationStatus else {
+            isAwaitingCenterOnUserLocation = true
+            return
+        }
+        guard isLocationAuthorized else {
             attemptToActivateUserLocationSupport()
             return
         }
@@ -109,7 +111,7 @@ final class MapRadiusFilterViewController: UIViewController {
     }
 
     private func attemptToActivateUserLocationSupport() {
-        if CLLocationManager.locationServicesEnabled(), CLLocationManager.authorizationStatus() == .notDetermined {
+        if locationManager.authorizationStatus == .notDetermined {
             hasRequestedLocationAuthorization = true
             locationManager.requestWhenInUseAuthorization()
         } else {
@@ -241,6 +243,19 @@ extension MapRadiusFilterViewController: ToggleFilter {
         radius = mapRadiusFilterView.radius
         coordinate = mapRadiusFilterView.centerCoordinate
         locationName = mapRadiusFilterView.locationName
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+
+extension MapRadiusFilterViewController: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        isAwaitingLocationAuthorizationStatus = false
+
+        if isAwaitingCenterOnUserLocation {
+            isAwaitingCenterOnUserLocation = false
+            centerOnUserLocation()
+        }
     }
 }
 

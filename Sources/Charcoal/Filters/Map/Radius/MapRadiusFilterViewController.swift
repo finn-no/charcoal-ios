@@ -31,8 +31,7 @@ final class MapRadiusFilterViewController: UIViewController {
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
-    private var isAwaitingLocationAuthorizationStatus = true
-    private var isAwaitingCenterOnUserLocation = false
+    private var authorizationContinuation: CheckedContinuation<CLAuthorizationStatus, Never>?
 
     private lazy var mapRadiusFilterView: MapRadiusFilterView = {
         let mapRadiusFilterView = MapRadiusFilterView(radius: radius, centerCoordinate: coordinate)
@@ -50,17 +49,6 @@ final class MapRadiusFilterViewController: UIViewController {
     }()
 
     private let selectionStore: FilterSelectionStore
-
-    private var isLocationAuthorized: Bool {
-        switch locationManager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            return true
-        case .notDetermined, .restricted, .denied:
-            return false
-        default:
-            return false
-        }
-    }
 
     // MARK: - Init
 
@@ -98,16 +86,31 @@ final class MapRadiusFilterViewController: UIViewController {
     }
 
     private func centerOnUserLocation() {
-        guard !isAwaitingLocationAuthorizationStatus else {
-            isAwaitingCenterOnUserLocation = true
-            return
-        }
-        guard isLocationAuthorized else {
-            attemptToActivateUserLocationSupport()
-            return
-        }
+        Task { @MainActor in
+            guard await isLocationAuthorized() else {
+                attemptToActivateUserLocationSupport()
+                return
+            }
 
-        mapRadiusFilterView.centerOnUserLocation()
+            mapRadiusFilterView.centerOnUserLocation()
+        }
+    }
+
+    private func isLocationAuthorized() async -> Bool {
+        switch await getAuthorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse:
+            return true
+        case .notDetermined, .restricted, .denied:
+            return false
+        default:
+            return false
+        }
+    }
+
+    private func getAuthorizationStatus() async -> CLAuthorizationStatus {
+        return await withCheckedContinuation { continuation in
+            self.authorizationContinuation = continuation
+        }
     }
 
     private func attemptToActivateUserLocationSupport() {
@@ -250,11 +253,9 @@ extension MapRadiusFilterViewController: ToggleFilter {
 
 extension MapRadiusFilterViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        isAwaitingLocationAuthorizationStatus = false
-
-        if isAwaitingCenterOnUserLocation {
-            isAwaitingCenterOnUserLocation = false
-            centerOnUserLocation()
+        if let continuation = authorizationContinuation {
+            continuation.resume(returning: manager.authorizationStatus)
+            authorizationContinuation = nil
         }
     }
 }

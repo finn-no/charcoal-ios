@@ -3,13 +3,14 @@
 //
 
 import UIKit
+import Warp
 
 final class InitialAreaSelectionOverlayView: UIView {
     var width: CGFloat = 180
 
     private lazy var squareView: UIView = {
         let view = UIView(withAutoLayout: true)
-        let color: UIColor = .borderSecondary
+        let color: UIColor = Warp.UIToken.borderSecondary
         view.backgroundColor = color.withAlphaComponent(0.15)
         view.layer.borderColor = color.cgColor
         view.layer.borderWidth = 2

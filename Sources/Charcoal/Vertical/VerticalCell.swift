@@ -90,7 +90,7 @@ final class VerticalCell: UITableViewCell {
 
     private func setup() {
         let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = .defaultCellSelectedBackgroundColor
+        selectedBackgroundView.backgroundColor = .backgroundSubtle
         self.selectedBackgroundView = selectedBackgroundView
         backgroundColor = .clear
 

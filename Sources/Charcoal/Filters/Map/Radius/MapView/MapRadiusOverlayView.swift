@@ -3,6 +3,7 @@
 //
 
 import FinniversKit
+import Warp
 
 final class MapRadiusOverlayView: UIView {
     var radius: CGFloat = 5 {
@@ -27,7 +28,7 @@ final class MapRadiusOverlayView: UIView {
 
     private lazy var widthConstraint = radiusView.widthAnchor.constraint(equalToConstant: radius * 2)
 
-    static let overlayColor: UIColor = .borderSecondary
+    static let overlayColor: UIColor = Warp.UIToken.borderSecondary
 
     // MARK: - Init
 

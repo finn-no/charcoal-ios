@@ -132,12 +132,12 @@ extension SearchLocationViewController: UITableViewDataSource {
         case .homeAddress:
             let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
             cell.configure(with: HomeAddressCellViewModel())
-            cell.iconImageView.tintColor = .watermelon
+            cell.iconImageView.tintColor = Warp.UIToken.iconNegative
             return cell
         case .currentLocation:
             let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
             cell.configure(with: CurrentLocationCellViewModel())
-            cell.iconImageView.tintColor = .watermelon
+            cell.iconImageView.tintColor = Warp.UIToken.iconNegative
             return cell
         case .recentLocations:
             let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)

@@ -13,7 +13,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/finn-no/FinniversKit.git", branch: "remove-color-provider")
+        .package(url: "https://github.com/finn-no/FinniversKit.git", "144.0.1"..."999.0.0")
     ],
     targets: [
         .target(

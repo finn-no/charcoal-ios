@@ -35,15 +35,13 @@ final class MapPolygonFilterViewController: UIViewController {
     private let locationNameFilter: Filter
     private let bboxFilter: Filter
     private let polygonFilter: Filter
-    private let locationManager = CLLocationManager()
+    private let locationService = LocationService()
     private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
     private var didSelectLocationButton = false
     private var dragStartPosition: CGPoint = .zero
     private var annotations = [PolygonSearchAnnotation]()
     private static let maxNumberOfVertices = 10
-    private var isAwaitingLocationAuthorizationStatus = true
-    private var isAwaitingCenterOnUserLocation = false
 
     private var state: State = .bbox {
         didSet {
@@ -69,17 +67,6 @@ final class MapPolygonFilterViewController: UIViewController {
     }()
 
     private let selectionStore: FilterSelectionStore
-
-    private var isLocationAuthorized: Bool {
-        switch locationManager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            return true
-        case .notDetermined, .restricted, .denied:
-            return false
-        default:
-            return false
-        }
-    }
 
     // MARK: - Init
 
@@ -107,8 +94,6 @@ final class MapPolygonFilterViewController: UIViewController {
     // MARK: - Setup
 
     private func setup() {
-        locationManager.delegate = self
-
         view.addSubview(mapPolygonFilterView)
         mapPolygonFilterView.fillInSuperview()
 
@@ -186,22 +171,22 @@ final class MapPolygonFilterViewController: UIViewController {
     }
 
     private func centerOnUserLocation() {
-        guard !isAwaitingLocationAuthorizationStatus else {
-            isAwaitingCenterOnUserLocation = true
-            return
-        }
-        guard isLocationAuthorized else {
-            attemptToActivateUserLocationSupport()
-            return
-        }
+        Task { @MainActor in
+            let authorizationStatus = await locationService.authorizationStatus()
 
-        mapPolygonFilterView.centerOnUserLocation()
+            guard authorizationStatus.isLocationAuthorized else {
+                attemptToActivateUserLocationSupport(authorizationStatus: authorizationStatus)
+                return
+            }
+
+            mapPolygonFilterView.centerOnUserLocation()
+        }
     }
 
-    private func attemptToActivateUserLocationSupport() {
-        if locationManager.authorizationStatus == .notDetermined {
+    private func attemptToActivateUserLocationSupport(authorizationStatus: CLAuthorizationStatus) {
+        if authorizationStatus == .notDetermined {
             hasRequestedLocationAuthorization = true
-            locationManager.requestWhenInUseAuthorization()
+            locationService.requestWhenInUseAuthorization()
         } else {
             // Not authorized
             let title = "map.locationError.title".localized()
@@ -744,19 +729,6 @@ extension MapPolygonFilterViewController: ToggleFilter {
 
         default:
             break
-        }
-    }
-}
-
-// MARK: - CLLocationManagerDelegate
-
-extension MapPolygonFilterViewController: CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        isAwaitingLocationAuthorizationStatus = false
-
-        if isAwaitingCenterOnUserLocation {
-            isAwaitingCenterOnUserLocation = false
-            centerOnUserLocation()
         }
     }
 }

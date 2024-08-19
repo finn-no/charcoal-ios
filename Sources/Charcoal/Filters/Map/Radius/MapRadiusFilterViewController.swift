@@ -26,7 +26,7 @@ final class MapRadiusFilterViewController: UIViewController {
     private let longitudeFilter: Filter
     private let radiusFilter: Filter
     private let locationNameFilter: Filter
-    private let locationManager = CLLocationManager()
+    private let locationService = LocationService()
     private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
@@ -70,8 +70,6 @@ final class MapRadiusFilterViewController: UIViewController {
     // MARK: - Setup
 
     private func setup() {
-        locationManager.delegate = self
-
         view.addSubview(mapRadiusFilterView)
         mapRadiusFilterView.fillInSuperview()
     }
@@ -87,8 +85,10 @@ final class MapRadiusFilterViewController: UIViewController {
 
     private func centerOnUserLocation() {
         Task { @MainActor in
-            guard await isLocationAuthorized() else {
-                attemptToActivateUserLocationSupport()
+            let authorizationStatus = await locationService.authorizationStatus()
+
+            guard authorizationStatus.isLocationAuthorized else {
+                attemptToActivateUserLocationSupport(authorizationStatus: authorizationStatus)
                 return
             }
 
@@ -113,10 +113,10 @@ final class MapRadiusFilterViewController: UIViewController {
         }
     }
 
-    private func attemptToActivateUserLocationSupport() {
-        if locationManager.authorizationStatus == .notDetermined {
+    private func attemptToActivateUserLocationSupport(authorizationStatus: CLAuthorizationStatus) {
+        if authorizationStatus == .notDetermined {
             hasRequestedLocationAuthorization = true
-            locationManager.requestWhenInUseAuthorization()
+            locationService.requestWhenInUseAuthorization()
         } else {
             // Not authorized
             let title = "map.locationError.title".localized()
@@ -246,17 +246,6 @@ extension MapRadiusFilterViewController: ToggleFilter {
         radius = mapRadiusFilterView.radius
         coordinate = mapRadiusFilterView.centerCoordinate
         locationName = mapRadiusFilterView.locationName
-    }
-}
-
-// MARK: - CLLocationManagerDelegate
-
-extension MapRadiusFilterViewController: CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if let continuation = authorizationContinuation {
-            continuation.resume(returning: manager.authorizationStatus)
-            authorizationContinuation = nil
-        }
     }
 }
 

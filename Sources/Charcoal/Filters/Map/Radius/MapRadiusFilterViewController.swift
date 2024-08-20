@@ -31,7 +31,6 @@ final class MapRadiusFilterViewController: UIViewController {
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
     private var isMapLoaded = false
-    private var authorizationContinuation: CheckedContinuation<CLAuthorizationStatus, Never>?
 
     private lazy var mapRadiusFilterView: MapRadiusFilterView = {
         let mapRadiusFilterView = MapRadiusFilterView(radius: radius, centerCoordinate: coordinate)
@@ -93,23 +92,6 @@ final class MapRadiusFilterViewController: UIViewController {
             }
 
             mapRadiusFilterView.centerOnUserLocation()
-        }
-    }
-
-    private func isLocationAuthorized() async -> Bool {
-        switch await getAuthorizationStatus() {
-        case .authorizedAlways, .authorizedWhenInUse:
-            return true
-        case .notDetermined, .restricted, .denied:
-            return false
-        default:
-            return false
-        }
-    }
-
-    private func getAuthorizationStatus() async -> CLAuthorizationStatus {
-        return await withCheckedContinuation { continuation in
-            self.authorizationContinuation = continuation
         }
     }
 

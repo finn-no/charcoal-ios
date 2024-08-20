@@ -63,8 +63,9 @@
 "map.homeAddress" = "Kotiosoitteeni";
 "map.currentLocation" = "Nykyinen sijaintini";
 "map.valueSliderAccessibilityLabel" = "Arvon liukusäädin";
-"map.locationError.title" = "Tiedot";
-"map.locationError.message" = "Anna Torille pääsy sijaintitietohisi käyttääksesi tätä toimintoa. Voit muuttaa asetuksia laitteesi pääasetuksissa valitsemalla Tietosuoja ja suojaus ja sitten Sijaintipalvelut.";
+"map.locationError.title" = "Salli sijainnin käyttö käyttääksesi tätä toimintoa";
+"map.locationError.message" = "Sijaintiasi käytetään näyttämään lähistöllä sijaitsevia ilmoituksia. Paikannus on aktiivinen vain silloin, kun käytät Toria.";
+"map.locationError.settings" = "Asetukset";
 "map.search.placeholder" = "Hae paikan tai osoitteen perusteella";
 "map.polygonSearch.filter.title" = "Mukautettu osio";
 "map.polygonSearch.initialAreaSelection.button" = "Liitä karttaosio tähän";

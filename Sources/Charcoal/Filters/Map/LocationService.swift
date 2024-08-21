@@ -43,7 +43,7 @@ extension CLAuthorizationStatus {
             return true
         case .notDetermined, .restricted, .denied:
             return false
-        default:
+        @unknown default:
             return false
         }
     }

@@ -139,7 +139,7 @@ extension FreeTextFilterViewController: UITableViewDataSource {
         let title = filterDataSource?.freeTextFilterViewController(self, suggestionAt: indexPath)
         cell.titleLabel.font = .bodyRegular
         cell.titleLabel.adjustsFontForContentSizeCategory = true
-        cell.configure(with: FreeTextSuggestionCellViewModel(title: title ?? ""))
+        cell.configure(with: FreeTextSuggestionCellViewModel(title: title ?? "", iconTintColor: .iconSubtle))
         cell.separatorInset = .leadingInset(48)
         return cell
     }

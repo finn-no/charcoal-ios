@@ -46,9 +46,9 @@ final class VerticalSelectorView: UIView {
 
         button.tintColor = .textLink
         button.setTitleColor(.textLink, for: .normal)
-        button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .highlighted)
-        button.setTitleColor(.callToActionButtonHighlightedBodyColor, for: .selected)
-        button.setTitleColor(UIColor.textLink.withAlphaComponent(0.5), for: .disabled)
+        button.setTitleColor(.textLink.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(.textLink.withAlphaComponent(0.8), for: .selected)
+        button.setTitleColor(.textLink.withAlphaComponent(0.5), for: .disabled)
 
         let spacing = Warp.Spacing.spacing50 / 2
 

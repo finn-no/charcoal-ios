@@ -25,13 +25,13 @@ final class MapPolygonFilterView: UIView {
         case polygonSelection
     }
 
-    static let overlayColor: UIColor = .borderSecondary
+    static let overlayColor: UIColor = Warp.UIToken.borderSecondary
 
     // MARK: - Private properties
 
     private static let defaultRadius = 40000
     private static let defaultCenterCoordinate = Charcoal.configuration.mapConfig.defaultMapCenterCoordinate
-    private static let annotationFillColor: CGColor = UIColor.milk.cgColor
+    private static let annotationFillColor: CGColor = CGColor.iconInvertedStatic
     private static let annotationBorderColor: CGColor = MapPolygonFilterView.overlayColor.cgColor
 
     private var polygon: MKPolygon?
@@ -122,7 +122,7 @@ final class MapPolygonFilterView: UIView {
 
         button.setImage(UIImage(named: .areaSelectionPin)
             .withRenderingMode(.alwaysTemplate), for: .normal)
-        button.imageView?.tintColor = .ice
+        button.imageView?.tintColor = .backgroundInfoSubtle
         button.adjustsImageWhenHighlighted = false
         button.imageEdgeInsets = UIEdgeInsets(leading: -Warp.Spacing.spacing100)
 

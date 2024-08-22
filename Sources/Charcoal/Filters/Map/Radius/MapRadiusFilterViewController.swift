@@ -26,7 +26,7 @@ final class MapRadiusFilterViewController: UIViewController {
     private let longitudeFilter: Filter
     private let radiusFilter: Filter
     private let locationNameFilter: Filter
-    private let locationManager = CLLocationManager()
+    private let locationService = LocationService()
     private var hasRequestedLocationAuthorization = false
     private var nextRegionChangeIsFromUserInteraction = false
     private var hasChanges = false
@@ -46,23 +46,6 @@ final class MapRadiusFilterViewController: UIViewController {
         searchLocationViewController.delegate = self
         return searchLocationViewController
     }()
-
-    private var canUpdateLocation: Bool {
-        guard CLLocationManager.locationServicesEnabled() else {
-            return false
-        }
-
-        let status = CLLocationManager.authorizationStatus()
-
-        switch status {
-        case .authorizedWhenInUse, .authorizedAlways:
-            return true
-        case .denied, .notDetermined, .restricted:
-            return false
-        @unknown default:
-            return false
-        }
-    }
 
     private let selectionStore: FilterSelectionStore
 
@@ -100,18 +83,22 @@ final class MapRadiusFilterViewController: UIViewController {
     }
 
     private func centerOnUserLocation() {
-        guard canUpdateLocation else {
-            attemptToActivateUserLocationSupport()
-            return
-        }
+        Task { @MainActor in
+            let authorizationStatus = await locationService.authorizationStatus()
 
-        mapRadiusFilterView.centerOnUserLocation()
+            guard authorizationStatus.isLocationAuthorized else {
+                attemptToActivateUserLocationSupport(authorizationStatus: authorizationStatus)
+                return
+            }
+
+            mapRadiusFilterView.centerOnUserLocation()
+        }
     }
 
-    private func attemptToActivateUserLocationSupport() {
-        if CLLocationManager.locationServicesEnabled(), CLLocationManager.authorizationStatus() == .notDetermined {
+    private func attemptToActivateUserLocationSupport(authorizationStatus: CLAuthorizationStatus) {
+        if authorizationStatus == .notDetermined {
             hasRequestedLocationAuthorization = true
-            locationManager.requestWhenInUseAuthorization()
+            locationService.requestWhenInUseAuthorization()
         } else {
             // Not authorized
             let title = "map.locationError.title".localized()

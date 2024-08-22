@@ -63,8 +63,9 @@
 "map.homeAddress" = "Min hjemmeadresse";
 "map.currentLocation" = "Min nåværende posisjon";
 "map.valueSliderAccessibilityLabel" = "Slider for verdi";
-"map.locationError.title" = "Informasjon";
-"map.locationError.message" = "For å bruke denne funksjonaliteten må du gi oss tilgang til din posisjon. Dette gjøres i hovedinnstillingene på enheten din, under personvern og deretter stedtjenester.";
+"map.locationError.title" = "For å bruke denne funksjonen trenger vi å vite din posisjon";
+"map.locationError.message" = "Din posisjon benyttes til å vise annonser i nærheten, samt din posisjon i kartet og er kun aktiv mens du bruker FINN-appen.";
+"map.locationError.settings" = "Innstillinger";
 "map.search.placeholder" = "Søk etter sted eller adresse";
 "map.polygonSearch.filter.title" = "Egendefinert utsnitt";
 "map.polygonSearch.initialAreaSelection.button" = "Fest kartutsnittet her";

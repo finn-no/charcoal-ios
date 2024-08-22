@@ -189,11 +189,7 @@ final class MapPolygonFilterViewController: UIViewController {
             locationService.requestWhenInUseAuthorization()
         } else {
             // Not authorized
-            let title = "map.locationError.title".localized()
-            let message = "map.locationError.message".localized()
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-            alert.addAction(UIAlertAction(title: "cancel".localized(), style: .default, handler: nil))
+            let alert = UIAlertController.locationSharingAlert
             present(alert, animated: true, completion: nil)
         }
     }

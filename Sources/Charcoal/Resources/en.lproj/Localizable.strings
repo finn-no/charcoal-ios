@@ -63,8 +63,9 @@
 "map.homeAddress" = "My home address";
 "map.currentLocation" = "My current location";
 "map.valueSliderAccessibilityLabel" = "Slider for value";
-"map.locationError.title" = "Information";
-"map.locationError.message" = "To use this functionality, you must give us access to your location. This is done in the main settings of your device, under privacy and then location services.";
+"map.locationError.title" = "To use this feature, we need to know your location";
+"map.locationError.message" = "Your location is used to display nearby ads. Your location on the map is only active while you are using the {brand} app.";
+"map.locationError.settings" = "Settings";
 "map.search.placeholder" = "Search by place or address";
 "map.polygonSearch.filter.title" = "Custom section";
 "map.polygonSearch.initialAreaSelection.button" = "Attach the map section here";

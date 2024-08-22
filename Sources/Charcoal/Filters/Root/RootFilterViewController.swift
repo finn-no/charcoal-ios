@@ -67,7 +67,7 @@ final class RootFilterViewController: FilterViewController {
             target: self,
             action: #selector(reloadTapped)
         )
-        button.setTitleTextAttributes([.font: UIFont.bodyStrong, .foregroundColor: UIColor.textAction])
+        button.setTitleTextAttributes([.font: UIFont.bodyStrong, .foregroundColor: UIColor.textLink])
         return button
     }()
 

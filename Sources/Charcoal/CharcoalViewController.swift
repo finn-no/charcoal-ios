@@ -74,6 +74,7 @@ public final class CharcoalViewController: UINavigationController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        view.backgroundColor = Theme.mainBackground
         delegate = self
     }
 

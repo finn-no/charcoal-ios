@@ -51,12 +51,12 @@ final class GridFilterCell: UICollectionViewCell {
         if isSelected {
             backgroundColor = .backgroundPrimary
             layer.borderColor = UIColor.backgroundPrimary.cgColor
-            titleLabel.font = UIFont.bodyStrong(withSize: 20)
+            titleLabel.font = UIFont.bodyStrong
             titleLabel.textColor = .textInverted
         } else {
             backgroundColor = Theme.mainBackground
             layer.borderColor = UIColor.backgroundDisabled.cgColor
-            titleLabel.font = UIFont.bodyRegular(withSize: 20)
+            titleLabel.font = UIFont.bodyRegular
             titleLabel.textColor = .text
         }
     }

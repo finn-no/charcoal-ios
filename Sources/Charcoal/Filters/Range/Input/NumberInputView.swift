@@ -276,11 +276,25 @@ private struct Style {
     static let decorationViewActiveCornerRadius = decorationViewActiveHeight / 2
 
     static func normalFont(size: NumberInputFontSize) -> UIFont? {
-        return UIFont.body(withSize: size.rawValue)
+        switch size {
+        case .large:
+            return UIFont.title2
+        case .small:
+            return UIFont.title3
+        case .smallest:
+            return UIFont.body
+        }
     }
 
     static func activeFont(size: NumberInputFontSize) -> UIFont? {
-        return UIFont.bodyStrong(withSize: size.rawValue)
+        switch size {
+        case .large:
+            return UIFont.title2
+        case .small:
+            return UIFont.title3
+        case .smallest:
+            return UIFont.bodyStrong
+        }
     }
 }
 

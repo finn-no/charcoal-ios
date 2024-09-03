@@ -308,11 +308,11 @@ private class SearchLocationSearchBar: UISearchBar {
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [SearchLocationSearchBar.self])
         textFieldAppearanceInSearch.defaultTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.text,
-            NSAttributedString.Key.font: UIFont.bodyRegular,
+            NSAttributedString.Key.font: UIFont.body,
         ]
 
         let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [SearchLocationSearchBar.self])
-        barButtondAppearance.setTitleTextAttributes([.font: UIFont.bodyRegular])
+        barButtondAppearance.setTitleTextAttributes([.font: UIFont.body])
         barButtondAppearance.title = "cancel".localized()
     }()
 

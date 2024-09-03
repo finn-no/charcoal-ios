@@ -137,7 +137,7 @@ extension FreeTextFilterViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(IconTitleTableViewCell.self, for: indexPath)
         let title = filterDataSource?.freeTextFilterViewController(self, suggestionAt: indexPath)
-        cell.titleLabel.font = .bodyRegular
+        cell.titleLabel.font = .body
         cell.titleLabel.adjustsFontForContentSizeCategory = true
         cell.configure(with: FreeTextSuggestionCellViewModel(title: title ?? "", iconTintColor: .iconSubtle))
         cell.separatorInset = .leadingInset(48)

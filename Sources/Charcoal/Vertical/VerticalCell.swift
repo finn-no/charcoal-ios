@@ -96,7 +96,7 @@ final class VerticalCell: UITableViewCell {
 
         separatorInset = .leadingInset(56)
 
-        textLabel?.font = .bodyRegular
+        textLabel?.font = .body
         textLabel?.textColor = .text
         textLabel?.adjustsFontForContentSizeCategory = true
 

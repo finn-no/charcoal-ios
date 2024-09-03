@@ -26,6 +26,7 @@
 
 "root.title" = "Suodata hakua";
 "root.verticalSelector.title" = "Lisää osastoja";
+"root.loadVerticals" = "Lataa osastoja";
 
 "range.slider.lowValueAccessibilityLabel" = "Liukusäädin pienelle arvolle";
 "range.slider.highValueAccessibilityLabel" = "Liukusäädin suurelle arvolle";

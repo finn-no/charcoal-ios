@@ -17,8 +17,7 @@ public protocol CharcoalViewControllerSelectionDelegate: AnyObject {
     func charcoalViewController(_ viewController: CharcoalViewController,
                                 didChangeSelection selection: [URLQueryItem],
                                 origin: SelectionChangeOrigin)
-    func charcoalViewController(_ viewController: CharcoalViewController,
-                                didSelect selection: CharcoalViewController.MapSelection)
+    func charcoalViewControllerDidSelectReloadVerticals(_ viewController: CharcoalViewController)
 }
 
 public protocol CharcoalViewControllerMapDelegate: AnyObject {
@@ -54,12 +53,6 @@ public final class CharcoalViewController: UINavigationController {
         selectedFilters(in: filterContainer?.allFilters)
     }
 
-    public enum MapSelection {
-        case openPolygonSearch
-        case openRadiusSearch
-        case initialArea
-    }
-
     // MARK: - Private properties
 
     private var selectionHasChanged = false
@@ -72,8 +65,9 @@ public final class CharcoalViewController: UINavigationController {
     }()
 
     private var rootFilterViewController: RootFilterViewController?
-
     private var calloutOverlay: CalloutOverlay?
+    private var verticals: [Vertical]?
+    private var isReloadVerticalsButtonVisible: Bool?
 
     // MARK: - Lifecycle
 
@@ -135,6 +129,17 @@ public final class CharcoalViewController: UINavigationController {
         }
     }
 
+    public func configure(with verticals: [Vertical]) {
+        self.verticals = verticals
+        updateReloadVerticalsButton(isVisible: false)
+        rootFilterViewController?.configure(with: verticals)
+    }
+
+    public func updateReloadVerticalsButton(isVisible: Bool) {
+        isReloadVerticalsButtonVisible = isVisible
+        rootFilterViewController?.updateReloadVerticalsButton(isVisible: isVisible)
+    }
+
     // MARK: - Private
 
     private func configure(with filterContainer: FilterContainer?) {
@@ -152,6 +157,12 @@ public final class CharcoalViewController: UINavigationController {
             rootFilterViewController?.rootDelegate = self
             rootFilterViewController?.freeTextFilterDataSource = freeTextFilterDataSource
             rootFilterViewController?.freeTextFilterDelegate = freeTextFilterDelegate
+            if let verticals {
+                rootFilterViewController?.configure(with: verticals)
+            }
+            if let isReloadVerticalsButtonVisible {
+                rootFilterViewController?.updateReloadVerticalsButton(isVisible: isReloadVerticalsButtonVisible)
+            }
             setViewControllers([rootFilterViewController].compactMap({ $0 }), animated: false)
         }
     }
@@ -218,6 +229,10 @@ extension CharcoalViewController: RootFilterViewControllerDelegate {
 
     func rootFilterViewController(_ viewController: RootFilterViewController, didSelectVertical vertical: Vertical) {
         selectionDelegate?.charcoalViewController(self, didSelect: vertical)
+    }
+
+    func rootFilterViewControllerDidSelectReloadVerticals(_ viewController: RootFilterViewController) {
+        selectionDelegate?.charcoalViewControllerDidSelectReloadVerticals(self)
     }
 
     private func handleFilterSelectionChange(from origin: SelectionChangeOrigin) {
@@ -364,11 +379,6 @@ extension CharcoalViewController: UINavigationControllerDelegate {
 extension CharcoalViewController: MapFilterViewControllerDelegate {
     public func mapFilterViewControllerDidDismiss(_ mapFilterViewController: MapFilterViewController) {
         mapDelegate?.charcoalViewControllerDidDismissMapSearch(self)
-    }
-
-    public func mapFilterViewController(_ mapFilterViewController: MapFilterViewController,
-                                        didSelect selection: CharcoalViewController.MapSelection) {
-        selectionDelegate?.charcoalViewController(self, didSelect: selection)
     }
 }
 

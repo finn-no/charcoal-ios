@@ -11,18 +11,18 @@ class FreeTextFilterSearchBar: UISearchBar {
         textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInRoot.defaultTextAttributes = [
             .foregroundColor: UIColor.textLink,
-            .font: UIFont.bodyRegular,
+            .font: UIFont.body,
         ]
 
         let textFieldAppearanceInSearch = UITextField.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
         textFieldAppearanceInRoot.adjustsFontForContentSizeCategory = true
         textFieldAppearanceInSearch.defaultTextAttributes = [
             .foregroundColor: UIColor.text,
-            .font: UIFont.bodyRegular,
+            .font: UIFont.body,
         ]
 
         let barButtondAppearance = UIBarButtonItem.appearance(whenContainedInInstancesOf: [FreeTextFilterSearchBar.self])
-        barButtondAppearance.setTitleTextAttributes([.font: UIFont.bodyRegular])
+        barButtondAppearance.setTitleTextAttributes([.font: UIFont.body])
         barButtondAppearance.title = "cancel".localized()
     }()
 

@@ -1,11 +1,13 @@
 import Charcoal
 import FinniversKit
+import Warp
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Charcoal.setup(DemoConfig())
-
+        
+        Warp.Theme = .finn
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.isTranslucent = false
         navigationBarAppearance.tintColor = .textLink

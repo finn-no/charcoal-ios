@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/finn-no/FinniversKit.git",
       "state" : {
-        "branch" : "remove-font-provider",
-        "revision" : "ba6a8ee61a2838a00267cd3bf767140cba9deb19"
+        "revision" : "9233c787b97328c8f7aee455b7d3bbf180bb5643",
+        "version" : "147.0.0"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/warp-ds/warp-ios.git",
       "state" : {
-        "revision" : "aeb72c43f2918a290d00d9fe93035723accb876b",
-        "version" : "0.0.25"
+        "revision" : "debbf05cf26bc89f7d0f1755f4f817a398a06865",
+        "version" : "0.0.27"
       }
     }
   ],

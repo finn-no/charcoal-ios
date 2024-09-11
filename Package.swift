@@ -13,7 +13,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/finn-no/FinniversKit.git", branch: "remove-font-provider")
+        .package(url: "https://github.com/finn-no/FinniversKit.git", "147.0.0"..."999.0.0")
     ],
     targets: [
         .target(

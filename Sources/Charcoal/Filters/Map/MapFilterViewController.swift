@@ -53,7 +53,7 @@ public class MapFilterViewController: FilterViewController {
     private let polygonFilter: Filter?
 
     public init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
-                locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, defaultMode: MapFilterMode = .radius, selectionStore: FilterSelectionStore) {
+                locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, defaultMode: MapFilterMode, selectionStore: FilterSelectionStore) {
         mapRadiusFilterViewController =
             MapRadiusFilterViewController(
                 latitudeFilter: latitudeFilter,

@@ -32,6 +32,8 @@ public final class CharcoalViewController: UINavigationController {
         didSet { configure(with: filterContainer) }
     }
 
+    public var defaultMapMode: MapFilterMode = .radius
+
     public weak var textEditingDelegate: CharcoalViewControllerTextEditingDelegate?
     public weak var mapDelegate: CharcoalViewControllerMapDelegate?
     public weak var selectionDelegate: CharcoalViewControllerSelectionDelegate?
@@ -316,6 +318,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
                 locationNameFilter: locationNameFilter,
                 bboxFilter: bboxFilter,
                 polygonFilter: polygonFilter,
+                defaultMode: defaultMapMode,
                 selectionStore: selectionStore
             )
             mapFilterViewController.searchLocationDataSource = searchLocationDataSource

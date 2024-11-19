@@ -13,6 +13,11 @@ protocol ToggleFilter: AnyObject {
     func updateFilterValues()
 }
 
+public enum MapFilterMode {
+    case polygon
+    case radius
+}
+
 public class MapFilterViewController: FilterViewController {
     private let mapRadiusFilterViewController: MapRadiusFilterViewController
     private let mapPolygonFilterViewController: MapPolygonFilterViewController?
@@ -48,7 +53,7 @@ public class MapFilterViewController: FilterViewController {
     private let polygonFilter: Filter?
 
     public init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
-                locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, selectionStore: FilterSelectionStore) {
+                locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, defaultMode: MapFilterMode = .radius, selectionStore: FilterSelectionStore) {
         mapRadiusFilterViewController =
             MapRadiusFilterViewController(
                 latitudeFilter: latitudeFilter,
@@ -57,7 +62,6 @@ public class MapFilterViewController: FilterViewController {
                 locationNameFilter: locationNameFilter,
                 selectionStore: selectionStore
             )
-        selectedViewController = mapRadiusFilterViewController
 
         if let bboxFilter = bboxFilter,
             let polygonFilter = polygonFilter {
@@ -70,6 +74,13 @@ public class MapFilterViewController: FilterViewController {
                 )
         } else {
             mapPolygonFilterViewController = nil
+        }
+
+        switch defaultMode {
+        case .polygon:
+            selectedViewController = mapPolygonFilterViewController ?? mapRadiusFilterViewController
+        case .radius:
+            selectedViewController = mapRadiusFilterViewController
         }
 
         self.bboxFilter = bboxFilter
@@ -140,14 +151,6 @@ public class MapFilterViewController: FilterViewController {
         }
 
         navigationItem.rightBarButtonItem = toggleButton
-
-        if let bboxFilter = bboxFilter,
-            let polygonFilter = polygonFilter,
-            selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
-            selectedViewController = mapPolygonFilterViewController
-        } else {
-            selectedViewController = mapRadiusFilterViewController
-        }
 
         display(selectedViewController)
         updateToggleButtonLabel()

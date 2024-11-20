@@ -277,7 +277,7 @@ extension CharcoalViewController: FilterViewControllerDelegate {
 
     public func filterViewController(_ viewController: FilterViewController, didSelectFilter filter: Filter) {
         switch filter.kind {
-        case .standard, .freeText, .freeTextOnly:
+        case .standard, .freeText, .freeTextOnly, .inline:
             guard !filter.subfilters.isEmpty else { break }
 
             let listViewController = ListFilterViewController(filter: filter, selectionStore: selectionStore)

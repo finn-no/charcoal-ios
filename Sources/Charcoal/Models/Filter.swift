@@ -13,6 +13,7 @@ public final class Filter {
     public enum Kind: Equatable {
         case freeText
         case freeTextOnly
+        case inline
         case standard
         case grid
         case stepper(config: StepperFilterConfiguration)
@@ -44,6 +45,12 @@ public final class Filter {
         self.kind = kind
         self.style = style
         self.subfilters.append(contentsOf: subfilters)
+
+        if kind == .inline {
+            subfilters.forEach({
+                $0.flattenSubfilters()
+            })
+        }
     }
 
     // MARK: - Public methods
@@ -55,6 +62,14 @@ public final class Filter {
 
     public func mergeSubfilters(with other: Filter) {
         subfilters.merge(with: other.subfilters)
+    }
+
+    // MARK: - Fileprivate methods
+
+    fileprivate func flattenSubfilters() {
+        let flattenedSubfilters = subfilters.flatten()
+        flattenedSubfilters.forEach({ $0.subfilters.removeAll() })
+        subfilters = flattenedSubfilters
     }
 }
 
@@ -80,7 +95,7 @@ extension Filter {
     }
     
     public static func inline(title: String, key: String, subfilters: [Filter]) -> Filter {
-        return Filter(title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
+        return Filter(kind: .inline, title: title, key: key, value: nil, numberOfResults: 0, subfilters: subfilters)
     }
 
     public static func stepper(title: String, key: String,
@@ -159,6 +174,14 @@ extension Array where Element == Filter {
                     append(filter)
                 }
             }
+        }
+    }
+}
+
+fileprivate extension Array where Element == Filter {
+    func flatten() -> [Filter] {
+        return flatMap { filterItem in
+            [filterItem] + filterItem.subfilters.flatten()
         }
     }
 }

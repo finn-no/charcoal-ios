@@ -32,6 +32,17 @@ public class MapFilterViewController: FilterViewController {
         }
     }
 
+    public var defaultMapMode: MapFilterMode {
+            didSet {
+                switch defaultMapMode {
+                    case .polygon:
+                        selectedViewController = mapPolygonFilterViewController ?? mapRadiusFilterViewController
+                    case .radius:
+                        selectedViewController = mapRadiusFilterViewController
+             }
+        }
+    }
+
     private lazy var toggleButton: UIBarButtonItem = {
         let buttonItem = UIBarButtonItem(
             title: nil,
@@ -53,7 +64,7 @@ public class MapFilterViewController: FilterViewController {
     private let polygonFilter: Filter?
 
     public init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
-                locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, defaultMode: MapFilterMode, selectionStore: FilterSelectionStore) {
+                locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, defaultMode: MapFilterMode = .radius, selectionStore: FilterSelectionStore) {
         mapRadiusFilterViewController =
             MapRadiusFilterViewController(
                 latitudeFilter: latitudeFilter,
@@ -76,7 +87,8 @@ public class MapFilterViewController: FilterViewController {
             mapPolygonFilterViewController = nil
         }
 
-        switch defaultMode {
+        defaultMapMode = defaultMode
+        switch defaultMapMode {
         case .polygon:
             selectedViewController = mapPolygonFilterViewController ?? mapRadiusFilterViewController
         case .radius:

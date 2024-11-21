@@ -33,13 +33,17 @@ public class MapFilterViewController: FilterViewController {
     }
 
     public var defaultMapMode: MapFilterMode {
-            didSet {
-                switch defaultMapMode {
-                    case .polygon:
-                        selectedViewController = mapPolygonFilterViewController ?? mapRadiusFilterViewController
-                    case .radius:
-                        selectedViewController = mapRadiusFilterViewController
-             }
+        didSet {
+            setMapViewToDefaultMode()
+        }
+    }
+
+    private func setMapViewToDefaultMode() {
+        switch defaultMapMode {
+        case .polygon:
+            selectedViewController = mapPolygonFilterViewController ?? mapRadiusFilterViewController
+        case .radius:
+            selectedViewController = mapRadiusFilterViewController
         }
     }
 
@@ -62,6 +66,7 @@ public class MapFilterViewController: FilterViewController {
 
     private let bboxFilter: Filter?
     private let polygonFilter: Filter?
+    private let radiusFilter: Filter?
 
     public init(title: String, latitudeFilter: Filter, longitudeFilter: Filter, radiusFilter: Filter,
                 locationNameFilter: Filter, bboxFilter: Filter?, polygonFilter: Filter?, defaultMode: MapFilterMode = .radius, selectionStore: FilterSelectionStore) {
@@ -97,6 +102,7 @@ public class MapFilterViewController: FilterViewController {
 
         self.bboxFilter = bboxFilter
         self.polygonFilter = polygonFilter
+        self.radiusFilter = radiusFilter
         super.init(title: title, selectionStore: selectionStore)
         self.title = title
 
@@ -156,6 +162,16 @@ public class MapFilterViewController: FilterViewController {
             mapContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapContainerView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor),
         ])
+
+        if let bboxFilter = bboxFilter,
+           let polygonFilter = polygonFilter,
+           selectionStore.isSelected(polygonFilter) || selectionStore.isSelected(bboxFilter) {
+            selectedViewController = mapPolygonFilterViewController ?? mapRadiusFilterViewController
+        } else if let radiusFilter = radiusFilter, selectionStore.isSelected(radiusFilter) {
+            selectedViewController = mapRadiusFilterViewController
+        } else {
+            setMapViewToDefaultMode()
+        }
 
         guard let mapPolygonFilterViewController = mapPolygonFilterViewController else {
             display(mapRadiusFilterViewController)

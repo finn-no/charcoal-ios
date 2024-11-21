@@ -1,3 +1,8 @@
+# **Deprecated! This repository is no longer maintained**
+
+Old README for reference:
+
+
 <p align="center"><img src="https://github.com/finn-no/FilterKit/blob/master/GitHub/Charcoal.png" width="100%" /></p>
 
 [![CI Status](https://circleci.com/gh/finn-no/charcoal-ios.png?style=shield)](https://circleci.com/gh/finn-no/charcoal-ios)

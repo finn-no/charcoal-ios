@@ -54,7 +54,47 @@ final class FilterTests: XCTestCase {
         XCTAssertEqual(filter.numberOfResults, 0)
         XCTAssertEqual(filter.style, .normal)
         XCTAssertEqual(filter.subfilters.count, 2)
-        XCTAssertEqual(filter.kind, .standard)
+        XCTAssertEqual(filter.kind, .inline)
+    }
+
+    func testNestedInlineFilters() {
+        let filter = Filter.inline(
+            title: "Inline",
+            key: "inline",
+            subfilters: [
+                Filter(title: "Group 1", key: "shipping_types", subfilters: [
+                    Filter(title: "Subfilter A", key: "shipping_types", subfilters: [
+                        Filter(title: "Nested subfilter A.1", key: "shipping_types", subfilters: [
+                            Filter(title: "Nested nested subfilter A.1", key: "shipping_types")
+                        ]),
+                        Filter(title: "Nested subfilter A.2", key: "shipping_types")
+                    ])
+                ]),
+                Filter(title: "Group 2", key: "published", subfilters: [
+                    Filter(title: "Subfilter B", key: "published"),
+                    Filter(title: "Subfilter C", key: "published")
+                ])
+            ]
+        )
+
+        XCTAssertEqual(filter.subfilters.count, 2)
+        XCTAssertEqual(filter.kind, .inline)
+
+        let subfilterTitles = filter.subfilters.map { $0.subfilters.map { $0.title} }
+
+        // Expect nested subfilters to be flattened
+        let expectedFilters = [
+            [
+                "Subfilter A",
+                "Nested subfilter A.1",
+                "Nested nested subfilter A.1",
+                "Nested subfilter A.2"
+            ], [
+                "Subfilter B",
+                "Subfilter C"
+            ]
+        ]
+        XCTAssertEqual(subfilterTitles, expectedFilters)
     }
 
     func testStepperFilter() {
